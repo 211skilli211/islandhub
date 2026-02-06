@@ -1,0 +1,19 @@
+﻿ store_id |             name             | vendor_id | category 
+----------+------------------------------+-----------+----------
+        4 | 211 Island Apparel           |         2 | Retail
+        3 | Caribbean Heights Apartment  |         2 | Rental
+        1 | Ital Vegan Kitchen           |         2 | food
+        9 | Island Creative Studio       |         2 | Service
+       11 | Azure Watersports            |         2 | rental
+        2 | Reef Runner Boat Rentals     |         2 | Rental
+       10 | Palm Ridge Estates & Rentals |         2 | rental
+        5 | Soup Kitchen                 |         2 | food
+        6 | Island Wellness Hub          |         2 | Services
+       13 | Signature Island Tours       |         2 | Service
+       12 | Island Wheels Auto Rentals   |         2 | rental
+        8 | Nevis Trade Pro              |         2 | Service
+       14 | Sea Rentals Hub              |         2 | Rental
+       15 | Apartments Hub               |         2 | Stay
+       16 | Land Rentals Hub             |         2 | Rental
+(15 rows)
+

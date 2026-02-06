@@ -1,0 +1,13 @@
+ id |        title         | store_id 
+----+----------------------+----------
+  4 | Island Pulse Tee     |        4
+ 32 | Pulse Fitness Band   |        4
+ 26 | Pulse Hoodie         |        4
+ 27 | Island Dress         |        4
+ 25 | Island Pulse T-Shirt |        4
+ 28 | Pulse Cap            |        4
+ 29 | Pulse Smartwatch     |        4
+ 30 | Wireless Earbuds     |        4
+ 31 | Smart Glasses        |        4
+(9 rows)
+

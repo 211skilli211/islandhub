@@ -1,0 +1,21 @@
+﻿ item_id |        item_name         | listing_id | listing_host_store | section_parent_store 
+---------+--------------------------+------------+--------------------+----------------------
+      42 | Leak Repair              |         34 |                  8 |                   34
+      43 | Clogged Drain Clearing   |         34 |                  8 |                   34
+      44 | Circuit Fault Finding    |         34 |                  8 |                   34
+      45 | AC Unit Maintenance      |         34 |                  8 |                   34
+      47 | Portrait Session         |         35 |                  9 |                   35
+      48 | Logo Design Package      |         35 |                  9 |                   35
+      49 | Social Media Kit         |         35 |                  9 |                   35
+      50 | Cozy Studio Apartment    |         10 |                  1 |                   10
+      46 | Professional Shoot       |         35 |                  9 |                   35
+      36 | Professional Service Hub |         33 |                  6 |                   33
+      37 | Professional Service Hub |         33 |                  6 |                   33
+      51 | Oceanview Villa          |         10 |                  1 |                   10
+      55 | Urban Scooter            |         10 |                  1 |                   10
+      56 | Turbo Jet Ski            |         11 |                  1 |                   11
+      57 | Family Cruiser Jet Ski   |         11 |                  1 |                   11
+      58 | Fishing Boat (15ft)      |         11 |                  1 |                   11
+      59 | Luxury Speedboat         |         11 |                  1 |                   11
+(17 rows)
+

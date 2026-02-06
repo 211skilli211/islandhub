@@ -1,0 +1,5 @@
+ store_id |         name         | vendor_id 
+----------+----------------------+-----------
+       20 | Pulse Island Apparel |         6
+(1 row)
+
