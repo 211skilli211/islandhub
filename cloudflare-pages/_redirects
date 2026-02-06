@@ -1,0 +1,12 @@
+# Cloudflare Pages Redirects
+# This file configures URL redirects for your Cloudflare Pages site
+
+# API calls should be proxied to the backend
+/api/*  https://api.yourdomain.com/:splat  200
+
+# SPA fallback - serve index.html for all non-file routes
+/*  /index.html  200
+
+# Cache static assets
+/assets/*  /assets/:splat  3600
+/uploads/*  /uploads/:splat  31536000
