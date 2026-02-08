@@ -6,9 +6,21 @@ import { UserModel } from '../models/User';
 import { EmailService } from '../services/emailService';
 import { getNumberSetting } from './adminSettingsController';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2025-12-15.clover',
-});
+// Lazy Stripe initialization - only create when webhook is called
+let stripe: Stripe | null = null;
+
+function getStripe(): Stripe {
+    if (!stripe) {
+        const secretKey = process.env.STRIPE_SECRET_KEY;
+        if (!secretKey) {
+            throw new Error('STRIPE_SECRET_KEY is not configured');
+        }
+        stripe = new Stripe(secretKey, {
+            apiVersion: '2025-12-15.clover',
+        });
+    }
+    return stripe;
+}
 
 export const handleStripeWebhook = async (req: Request, res: Response) => {
     const sig = req.headers['stripe-signature'] as string;
@@ -23,7 +35,7 @@ export const handleStripeWebhook = async (req: Request, res: Response) => {
 
     try {
         // Verify webhook signature
-        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
+        event = getStripe().webhooks.constructEvent(req.body, sig, webhookSecret);
     } catch (err: any) {
         console.error('Webhook signature verification failed:', err.message);
         return res.status(400).send(`Webhook Error: ${err.message}`);
