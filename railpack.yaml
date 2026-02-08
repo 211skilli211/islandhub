@@ -1,0 +1,13 @@
+app:
+  name: islandhub-api
+  region: us-west1
+
+build:
+  workingDir: ./server
+  install: npm install
+  build: npm run build
+  start: npm start
+
+env:
+  - name: PORT
+    value: "8080"
