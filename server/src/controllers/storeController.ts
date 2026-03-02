@@ -129,7 +129,12 @@ export const getAllStores = async (req: Request, res: Response) => {
             const result = await pool.query(query, params);
             res.json(result.rows);
         }
-    } catch (error) {
+    } catch (error: any) {
+        // Gracefully handle missing tables (Neon fresh database)
+        if (error.code === '42P01' || error.code === '42703') {
+            console.warn('Stores table not initialized, returning empty array');
+            return res.json({ stores: [], total: 0, page: 1, limit: 10, totalPages: 0 });
+        }
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }

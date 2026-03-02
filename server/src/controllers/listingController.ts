@@ -272,14 +272,16 @@ export const getListings = async (req: Request, res: Response) => {
             params.push(req.query.store_id);
         }
         if (req.query.sub_category) {
-            query += ` AND l.sub_category = $${params.length + 1}`;
-            countQuery += ` AND l.sub_category = $${params.length + 1}`;
-            params.push(req.query.sub_category);
+            const subCategories = (req.query.sub_category as string).split(',').map(s => s.trim().toLowerCase());
+            query += ` AND LOWER(l.sub_category) = ANY($${params.length + 1})`;
+            countQuery += ` AND LOWER(l.sub_category) = ANY($${params.length + 1})`;
+            params.push(subCategories);
         }
         if (req.query.tour_category) {
-            query += ` AND l.tour_category = $${params.length + 1}`;
-            countQuery += ` AND l.tour_category = $${params.length + 1}`;
-            params.push(req.query.tour_category);
+            const tourCategories = (req.query.tour_category as string).split(',').map(s => s.trim().toLowerCase());
+            query += ` AND LOWER(l.tour_category) = ANY($${params.length + 1})`;
+            countQuery += ` AND LOWER(l.tour_category) = ANY($${params.length + 1})`;
+            params.push(tourCategories);
         }
         if (search) {
             query += ` AND (l.title ILIKE $${params.length + 1} OR l.description ILIKE $${params.length + 1})`;
@@ -353,7 +355,12 @@ export const getListings = async (req: Request, res: Response) => {
             const result = await pool.query(query, params);
             return res.json(result.rows);
         }
-    } catch (error) {
+    } catch (error: any) {
+        // Gracefully handle missing tables (Neon fresh database)
+        if (error.code === '42P01' || error.code === '42703') {
+            console.warn('Listings table not initialized, returning empty array');
+            return res.json({ listings: [], total: 0, page: 1, limit: 10, totalPages: 0 });
+        }
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }

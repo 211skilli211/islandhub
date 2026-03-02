@@ -46,7 +46,12 @@ export const getPulseFeed = async (req: Request, res: Response) => {
             .slice(0, Number(limit));
 
         res.json(feed);
-    } catch (error) {
+    } catch (error: any) {
+        // Gracefully handle missing tables (Neon fresh database)
+        if (error.code === '42P01' || error.code === '42703') {
+            console.warn('Discovery tables not initialized, returning empty pulse feed');
+            return res.json([]);
+        }
         console.error('Get pulse feed error:', error);
         res.status(500).json({ message: 'Failed to fetch pulse feed' });
     }

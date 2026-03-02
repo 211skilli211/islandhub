@@ -7,11 +7,11 @@ import { UserModel } from '../models/User';
 import { EmailService } from '../services/emailService';
 
 // Crypto gateway configuration
-// Updated to use Kyrrex for St. Kitts compliance
+// Updated to use Coinbase Commerce for crypto payments
 
-const GATEWAY_API_URL = process.env.KYRREX_API_URL;
-const GATEWAY_API_KEY = process.env.KYRREX_API_KEY;
-const GATEWAY_WEBHOOK_SECRET = process.env.KYRREX_WEBHOOK_SECRET;
+const GATEWAY_API_URL = process.env.COINBASE_API_URL || 'https://api.commerce.coinbase.com';
+const GATEWAY_API_KEY = process.env.COINBASE_API_KEY;
+const GATEWAY_WEBHOOK_SECRET = process.env.COINBASE_WEBHOOK_SECRET;
 
 export const createCryptoCharge = async (req: Request, res: Response) => {
     try {
@@ -19,25 +19,37 @@ export const createCryptoCharge = async (req: Request, res: Response) => {
         const user_id = (req as any).user?.id || null;
 
         if (!GATEWAY_API_URL || !GATEWAY_API_KEY) {
-            return res.status(500).json({ message: 'Kyrrex gateway not configured' });
+            return res.status(500).json({ message: 'Coinbase gateway not configured' });
         }
 
-        // Generate unique order ID (Reference for Kyrrex)
+        // Generate unique order ID (Reference for Coinbase)
         const gatewayOrderId = `crypto_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-        // Kyrrex API call
+        // Coinbase Commerce API call - create a charge
         const response = await axios.post(
-            `${GATEWAY_API_URL}/deposits`,
+            `${GATEWAY_API_URL}/charges`,
             {
-                amount,
-                currency,
-                redirect_url: `${process.env.BASE_URL || 'http://localhost:5000'}/crypto-payment/${gatewayOrderId}`, // For QR display
-                callback_url: `${process.env.BASE_URL || 'http://localhost:5000'}/api/webhooks/crypto`
+                name: 'Island Fund Payment',
+                description: `Payment for ${campaign_id ? 'campaign' : 'order'}`,
+                pricing_type: 'fixed_price',
+                local_price: {
+                    amount: amount.toString(),
+                    currency: currency
+                },
+                metadata: {
+                    gatewayOrderId,
+                    campaign_id: campaign_id || null,
+                    order_id: order_id || null,
+                    user_id: user_id || null
+                },
+                redirect_url: `${process.env.BASE_URL || 'http://localhost:5000'}/crypto-payment/${gatewayOrderId}`,
+                cancel_url: `${process.env.BASE_URL || 'http://localhost:5000'}/crypto-payment/cancel`
             },
             {
                 headers: {
-                    'Authorization': `Bearer ${GATEWAY_API_KEY}`,
-                    'Content-Type': 'application/json'
+                    'X-CC-Api-Key': GATEWAY_API_KEY,
+                    'Content-Type': 'application/json',
+                    'X-CC-Version': '2018-03-22'
                 }
             }
         );
@@ -70,7 +82,8 @@ export const createCryptoCharge = async (req: Request, res: Response) => {
 
 export const handleCryptoWebhook = async (req: Request, res: Response) => {
     try {
-        const signature = req.headers['x-crypto-signature'] as string;
+        // Coinbase Commerce webhook signature header
+        const signature = req.headers['x-cc-webhook-signature'] as string;
 
         if (!GATEWAY_WEBHOOK_SECRET) {
             return res.status(500).send('Webhook secret not configured');
@@ -88,13 +101,18 @@ export const handleCryptoWebhook = async (req: Request, res: Response) => {
             return res.status(400).send('Invalid signature');
         }
 
-        const { transaction_id, status, currency } = req.body;
+        // Coinbase event structure
+        const event = req.body;
+        const { type, data } = event;
 
-        // Handle Kyrrex events
-        if (status === 'confirmed' || status === 'completed') {
-            await handleCryptoPaymentSuccess(transaction_id, currency);
-        } else if (status === 'failed' || status === 'expired') {
-            await handleCryptoPaymentFailure(transaction_id);
+        // Handle Coinbase events
+        if (type === 'charge:confirmed') {
+            const chargeId = data?.id;
+            const metadata = data?.metadata;
+            await handleCryptoPaymentSuccess(chargeId, metadata?.currency || 'USD');
+        } else if (type === 'charge:failed' || type === 'charge:expired') {
+            const chargeId = data?.id;
+            await handleCryptoPaymentFailure(chargeId);
         }
 
         res.json({ received: true });

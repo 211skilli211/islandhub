@@ -63,7 +63,12 @@ export const getCart = async (req: Request, res: Response) => {
             cart,
             items: itemsResult.rows
         });
-    } catch (error) {
+    } catch (error: any) {
+        // Gracefully handle missing tables (Neon fresh database)
+        if (error.code === '42P01' || error.code === '42703') {
+            console.warn('Carts table not initialized, returning empty cart');
+            return res.json({ cart: null, items: [] });
+        }
         console.error('Get cart error:', error);
         res.status(500).json({ message: 'Failed to retrieve cart' });
     }

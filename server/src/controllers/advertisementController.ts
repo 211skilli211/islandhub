@@ -34,6 +34,35 @@ export const getAdSpaces = async (req: Request, res: Response) => {
     }
 };
 
+// Update ad space (admin)
+export const updateAdSpace = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { display_name, location, position, style_config, is_active } = req.body;
+
+        const result = await pool.query(
+            `UPDATE ad_spaces 
+             SET display_name = COALESCE($1, display_name),
+                 location = COALESCE($2, location),
+                 position = COALESCE($3, position),
+                 style_config = COALESCE($4, style_config),
+                 is_active = COALESCE($5, is_active),
+                 updated_at = CURRENT_TIMESTAMP
+             WHERE space_id = $6 RETURNING *`,
+            [display_name, location, position, style_config, is_active, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Ad space not found' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Update ad space error:', error);
+        res.status(500).json({ message: 'Failed to update ad space' });
+    }
+};
+
 // ==================== ADVERTISEMENTS ====================
 
 // Get active ads for a specific location/page
@@ -75,8 +104,25 @@ export const getActiveAds = async (req: Request, res: Response) => {
         query += ' ORDER BY a.placement_priority DESC, a.created_at DESC';
 
         const result = await pool.query(query, params);
-        res.json(result.rows);
-    } catch (error) {
+
+        // If space_name was provided, fetch the space config as well
+        let spaceConfig = null;
+        if (space_name) {
+            const spaceRes = await pool.query('SELECT * FROM ad_spaces WHERE name = $1', [space_name]);
+            if (spaceRes.rows.length > 0) {
+                spaceConfig = spaceRes.rows[0];
+            }
+        }
+
+        res.json({
+            ads: result.rows,
+            space_config: spaceConfig
+        });
+    } catch (error: any) {
+        // ... handled in migration if table missing
+        if (error.code === '42P01' || error.code === '42703') {
+            return res.json({ ads: [], space_config: null });
+        }
         console.error('Get active ads error:', error);
         res.status(500).json({ message: 'Failed to fetch active ads' });
     }

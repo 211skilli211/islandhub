@@ -9,20 +9,31 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'islandfund',
-  password: process.env.DB_PASSWORD || '135246Rob',
-  port: parseInt(process.env.DB_PORT || '5433'),
-});
+// Support both DATABASE_URL (Neon/Cloud) and individual DB_* variables
+const poolConfig: any = {
+  connectionTimeoutMillis: 30000,
+};
+
+if (process.env.DATABASE_URL) {
+  poolConfig.connectionString = process.env.DATABASE_URL;
+  poolConfig.ssl = { rejectUnauthorized: true };
+} else {
+  poolConfig.user = process.env.DB_USER || 'postgres';
+  poolConfig.host = process.env.DB_HOST || 'localhost';
+  poolConfig.database = process.env.DB_NAME || 'islandfund';
+  poolConfig.password = process.env.DB_PASSWORD || '135246Rob';
+  poolConfig.port = parseInt(process.env.DB_PORT || '5432');
+  poolConfig.ssl = false;
+}
+
+const pool = new Pool(poolConfig);
 
 async function runMigrations() {
   const client = await pool.connect();
-  
+
   try {
     console.log('🚀 Starting database migrations...\n');
-    
+
     // Create migrations tracking table
     await client.query(`
       CREATE TABLE IF NOT EXISTS migrations (
@@ -31,34 +42,34 @@ async function runMigrations() {
         executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
-    
+
     // Get list of executed migrations
     const executedResult = await client.query('SELECT filename FROM migrations');
     const executedMigrations = new Set(executedResult.rows.map((r: { filename: string }) => r.filename));
-    
+
     // Read all migration files
     const migrationsDir = path.join(__dirname);
     const migrationFiles = fs.readdirSync(migrationsDir)
       .filter((f: string) => f.endsWith('.sql'))
       .sort();
-    
+
     console.log(`Found ${migrationFiles.length} migration files`);
-    
+
     let executedCount = 0;
-    
+
     for (const filename of migrationFiles) {
       if (executedMigrations.has(filename)) {
         console.log(`⏭️  Skipping ${filename} (already executed)`);
         continue;
       }
-      
+
       console.log(`🔄 Executing ${filename}...`);
-      
+
       const filePath = path.join(migrationsDir, filename);
       const sql = fs.readFileSync(filePath, 'utf8');
-      
+
       await client.query('BEGIN');
-      
+
       try {
         await client.query(sql);
         await client.query(
@@ -66,7 +77,7 @@ async function runMigrations() {
           [filename]
         );
         await client.query('COMMIT');
-        
+
         console.log(`✅ ${filename} executed successfully`);
         executedCount++;
       } catch (error) {
@@ -75,9 +86,9 @@ async function runMigrations() {
         throw error;
       }
     }
-    
+
     console.log(`\n🎉 Migrations complete! Executed ${executedCount} new migrations.`);
-    
+
   } catch (error) {
     console.error('\n💥 Migration failed:', (error as Error).message);
     process.exit(1);

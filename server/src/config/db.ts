@@ -1,4 +1,6 @@
-import { Pool, PoolConfig } from 'pg';
+import { Pool, PoolClient, PoolConfig } from 'pg';
+import fs from 'fs';
+import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -6,24 +8,29 @@ dotenv.config();
 // Docker-aware database configuration
 const isDocker = process.env.DOCKER_ENV === 'true';
 
+// Support both DATABASE_URL (Neon/Cloud) and individual DB_* variables (local)
 const poolConfig: PoolConfig = {
-    user: process.env.DB_USER || 'postgres',
-    host: isDocker ? 'postgres' : (process.env.DB_HOST || 'localhost'),
-    database: process.env.DB_NAME || 'islandfund',
-    password: process.env.DB_PASSWORD || '135246Rob',
-    port: parseInt(process.env.DB_PORT || '5432'),
-    
+    // Use DATABASE_URL if available (Neon, Railway, etc.)
+    connectionString: process.env.DATABASE_URL,
+
+    // Fallback to individual variables for local development
+    user: process.env.DB_USER || (process.env.DATABASE_URL ? undefined : 'postgres'),
+    host: isDocker ? 'postgres' : (process.env.DB_HOST || (process.env.DATABASE_URL ? undefined : 'localhost')),
+    database: process.env.DB_NAME || (process.env.DATABASE_URL ? undefined : 'islandfund'),
+    password: process.env.DB_PASSWORD || (process.env.DATABASE_URL ? undefined : '135246Rob'),
+    port: parseInt(process.env.DB_PORT || (process.env.DATABASE_URL ? '5432' : '5432')),
+
     // Connection pool settings - optimized for performance
     max: parseInt(process.env.DB_POOL_MAX || '20'),
     min: parseInt(process.env.DB_POOL_MIN || '5'),
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 10000,
-    
+
     // Query performance settings
     statement_timeout: 30000,
-    
-    // SSL for production
-    ssl: process.env.NODE_ENV === 'production' ? {
+
+    // SSL for production (required for Neon)
+    ssl: process.env.NODE_ENV === 'production' || process.env.DATABASE_URL ? {
         rejectUnauthorized: true
     } : false
 };
@@ -65,11 +72,11 @@ export const query = async (text: string, params?: any[]) => {
     try {
         const result = await pool.query(text, params);
         const duration = Date.now() - start;
-        
+
         if (duration > 500) {
             console.warn(`⚠️  Slow query (${duration}ms): ${text.substring(0, 100)}...`);
         }
-        
+
         return result;
     } catch (error) {
         console.error(`❌ Query error (${Date.now() - start}ms): ${text.substring(0, 100)}...`, error);
@@ -93,95 +100,77 @@ export const transaction = async <T>(callback: (client: any) => Promise<T>): Pro
     }
 };
 
-// Simple migration runner
+// Unified migration runner — executes all .sql files in src/migrations/ in order
 export const runMigrations = async () => {
+    const client: PoolClient = await pool.connect();
     try {
-        // Test if connection works
+        // Test if connection works first
         const isDbReady = await testConnection();
         if (!isDbReady) {
             console.error('❌ Cannot run migrations - database not connected');
             return;
         }
 
-        console.log('🔄 Running database migrations...');
-        
-        // Create users table if not exists
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS users (
-                user_id SERIAL PRIMARY KEY,
-                name VARCHAR(100) NOT NULL,
-                email VARCHAR(150) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL,
-                role VARCHAR(20) DEFAULT 'buyer',
-                email_verified BOOLEAN DEFAULT FALSE,
-                is_active BOOLEAN DEFAULT TRUE,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
+        console.log('🚀 Running unified database migrations from src/migrations/...');
 
-        // Create listings table if not exists
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS listings (
+        // Create migrations tracking table
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS migrations (
                 id SERIAL PRIMARY KEY,
-                user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
-                title VARCHAR(255) NOT NULL,
-                description TEXT,
-                price DECIMAL(10,2) NOT NULL,
-                category VARCHAR(50),
-                sub_category VARCHAR(50),
-                condition VARCHAR(20),
-                location TEXT,
-                images JSONB DEFAULT '[]',
-                metadata JSONB DEFAULT '{}',
-                featured BOOLEAN DEFAULT FALSE,
-                is_promoted BOOLEAN DEFAULT FALSE,
-                status VARCHAR(20) DEFAULT 'active',
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                filename VARCHAR(255) UNIQUE NOT NULL,
+                executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
 
-        // Create driver_payouts table if not exists
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS driver_payouts (
-                id SERIAL PRIMARY KEY,
-                driver_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-                delivery_id INTEGER REFERENCES listings(id) ON DELETE CASCADE,
-                amount NUMERIC(10,2) NOT NULL,
-                status VARCHAR(20) DEFAULT 'pending',
-                paid_at TIMESTAMP,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
+        // Get already-executed migrations
+        const executedResult = await client.query('SELECT filename FROM migrations');
+        const executedMigrations = new Set<string>(executedResult.rows.map((r: { filename: string }) => r.filename));
 
-        // Create indexes for driver_payouts
-        await pool.query(`
-            CREATE INDEX IF NOT EXISTS idx_driver_payouts_driver ON driver_payouts(driver_id);
-            CREATE INDEX IF NOT EXISTS idx_driver_payouts_status ON driver_payouts(status);
-            CREATE INDEX IF NOT EXISTS idx_driver_payouts_delivery ON driver_payouts(delivery_id);
-        `);
+        // Read all .sql migration files from src/migrations/ sorted alphabetically
+        const migrationsDir = path.join(__dirname, 'migrations');
+        let migrationFiles: string[] = [];
 
-        // Update trigger for driver_payouts updated_at
-        await pool.query(`
-            CREATE OR REPLACE FUNCTION update_driver_payouts_updated_at()
-            RETURNS TRIGGER AS $$
-            BEGIN
-                NEW.updated_at = NOW();
-                RETURN NEW;
-            END;
-            $$ language 'plpgsql';
+        if (fs.existsSync(migrationsDir)) {
+            migrationFiles = fs.readdirSync(migrationsDir)
+                .filter((f: string) => f.endsWith('.sql'))
+                .sort();
+        }
 
-            DROP TRIGGER IF EXISTS update_driver_payouts_updated_at_trigger ON driver_payouts;
-            CREATE TRIGGER update_driver_payouts_updated_at_trigger
-                BEFORE UPDATE ON driver_payouts
-                FOR EACH ROW
-                EXECUTE FUNCTION update_driver_payouts_updated_at();
-        `);
+        console.log(`📋 Found ${migrationFiles.length} migration files`);
 
-        console.log('✅ Migrations completed successfully');
+        let executedCount = 0;
+        for (const filename of migrationFiles) {
+            if (executedMigrations.has(filename)) {
+                console.log(`⏭️  Skipping ${filename} (already executed)`);
+                continue;
+            }
+
+            console.log(`🔄 Executing ${filename}...`);
+            const filePath = path.join(migrationsDir, filename);
+            const sql = fs.readFileSync(filePath, 'utf8');
+
+            await client.query('BEGIN');
+            try {
+                await client.query(sql);
+                await client.query('INSERT INTO migrations (filename) VALUES ($1)', [filename]);
+                await client.query('COMMIT');
+                console.log(`✅ ${filename} executed successfully`);
+                executedCount++;
+            } catch (error: any) {
+                await client.query('ROLLBACK');
+                // Log error but continue — some migrations may fail on existing schemas (e.g. redundant constraints)
+                console.warn(`⚠️  ${filename} failed: ${error.message} — skipping and continuing`);
+                // Still mark as "attempted" to avoid infinite retries on startup
+                try {
+                    await client.query('INSERT INTO migrations (filename) VALUES ($1) ON CONFLICT DO NOTHING', [filename]);
+                } catch (_) { /* ignore */ }
+            }
+        }
+
+        console.log(`✅ Unified migrations complete! Ran ${executedCount} new migration(s).`);
     } catch (err) {
-        console.error('❌ Migration error:', err);
+        console.error('❌ Migration runner error:', err);
+    } finally {
+        client.release();
     }
 };

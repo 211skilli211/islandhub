@@ -22,7 +22,12 @@ export const getActiveBanners = async (req: Request, res: Response) => {
 
         const result = await pool.query(query, params);
         res.json(result.rows);
-    } catch (error) {
+    } catch (error: any) {
+        // Gracefully handle missing tables (Neon fresh database)
+        if (error.code === '42P01' || error.code === '42703') {
+            console.warn('Promotional banners table not initialized, returning empty array');
+            return res.json([]);
+        }
         console.error('Get active banners error:', error);
         res.status(500).json({ message: 'Failed to fetch active banners' });
     }

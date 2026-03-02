@@ -12,15 +12,14 @@ let globalSettings = {
 // @access  Private
 export const createMarquee = async (req: Request, res: Response) => {
     try {
-        const userId = (req.user as any)?.id;
-        const { message, start_date, end_date, priority } = req.body;
-        console.log(`[DEBUG] Create Marquee: User ${userId}, Message: "${message}", Priority: ${priority}`);
+        const { content, background_color, text_color, speed } = req.body;
+        console.log(`[DEBUG] Create Marquee: Content: "${content}"`);
 
         const result = await pool.query(
-            `INSERT INTO text_marquee (user_id, message, start_date, end_date, priority, is_active)
-             VALUES ($1, $2, $3, $4, $5, true)
+            `INSERT INTO text_marquee (content, background_color, text_color, speed, is_active)
+             VALUES ($1, $2, $3, $4, true)
              RETURNING *`,
-            [userId, message, start_date || new Date(), end_date, priority || 1]
+            [content, background_color || '#000000', text_color || '#FFFFFF', speed || 50]
         );
 
         res.status(201).json(result.rows[0]);
@@ -35,13 +34,10 @@ export const createMarquee = async (req: Request, res: Response) => {
 export const getActiveMarquees = async (req: Request, res: Response) => {
     try {
         const result = await pool.query(`
-            SELECT m.*, u.name as user_name 
-            FROM text_marquee m
-            LEFT JOIN users u ON m.user_id = u.user_id
-            WHERE m.is_active = TRUE 
-            AND (m.start_date IS NULL OR m.start_date <= NOW())
-            AND (m.end_date IS NULL OR m.end_date >= NOW())
-            ORDER BY m.priority DESC, m.created_at DESC
+            SELECT * 
+            FROM text_marquee 
+            WHERE is_active = TRUE 
+            ORDER BY created_at DESC
         `);
         // Return structured response
         res.json({
@@ -49,7 +45,16 @@ export const getActiveMarquees = async (req: Request, res: Response) => {
             settings: globalSettings
         });
     } catch (error) {
-        console.error('Get marquees error:', error);
+        const err = error as Error;
+        console.error('Get marquees error:', err);
+        // Handle missing table gracefully
+        if (err.message.includes('relation') && err.message.includes('does not exist')) {
+            return res.json({
+                items: [],
+                settings: globalSettings,
+                message: 'Marquee table not initialized'
+            });
+        }
         res.status(500).json({ message: 'Failed to fetch marquee messages' });
     }
 };

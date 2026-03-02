@@ -19,7 +19,8 @@ import {
     trackPromotionClick,
     approveVendorPromotion,
     rejectVendorPromotion,
-    getPendingPromotions
+    getPendingPromotions,
+    updateAdSpace
 } from '../controllers/advertisementController';
 import { authenticateJWT, isAdmin, isVendor } from '../middleware/authMiddleware';
 
@@ -66,6 +67,7 @@ router.get('/admin/advertisements/:ad_id/analytics', authenticateJWT, isAdmin, g
 
 // Ad space management
 router.get('/admin/spaces', authenticateJWT, isAdmin, getAdSpaces);
+router.patch('/admin/spaces/:id', authenticateJWT, isAdmin, updateAdSpace);
 
 // Vendor promotion approval (admin)
 router.get('/admin/promotions/pending', authenticateJWT, isAdmin, getPendingPromotions);

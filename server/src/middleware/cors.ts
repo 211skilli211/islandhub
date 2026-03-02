@@ -2,6 +2,7 @@ import cors from 'cors';
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3000',
+  'http://localhost:3001',
   'http://localhost:5001',
   'https://islandfund.com',
   'https://www.islandfund.com'

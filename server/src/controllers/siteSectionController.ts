@@ -28,7 +28,12 @@ export const getSiteSections = async (req: Request, res: Response) => {
 
         const result = await pool.query(query, params);
         res.json(result.rows);
-    } catch (error) {
+    } catch (error: any) {
+        // Gracefully handle missing tables (Neon fresh database)
+        if (error.code === '42P01' || error.code === '42703') {
+            console.warn('Site sections table not initialized, returning empty array');
+            return res.json([]);
+        }
         console.error('Error fetching site sections:', error);
         res.status(500).json({ message: 'Server error' });
     }

@@ -86,12 +86,19 @@ export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
 
+        console.log('[Login] Attempting login for:', email);
+
         const user = await UserModel.findByEmail(email);
+        console.log('[Login] User found:', user ? 'yes' : 'no');
+
         if (!user) {
+            console.log('[Login] User not found, returning 400');
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password_hash);
+        const isMatch = await bcrypt.compare(password, user.password);
+        console.log('[Login] Password match:', isMatch ? 'yes' : 'no');
+
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
@@ -118,7 +125,7 @@ export const login = async (req: Request, res: Response) => {
                 avatar_url: (user as any).profile_photo_url || null
             }
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error('[Login] Error:', error);
         res.status(500).json({ message: 'Server error during login' });
     }

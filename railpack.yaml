@@ -4,9 +4,9 @@ app:
 
 build:
   workingDir: ./server
-  install: npm install
+  install: npm ci
   build: npm run build
-  start: npm start
+  start: node dist/index.js
 
 env:
   - name: PORT
