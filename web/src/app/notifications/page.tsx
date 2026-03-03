@@ -127,7 +127,7 @@ export default function NotificationsPage() {
                                     key={notif.id}
                                     className={`flex items-start gap-4 px-6 py-4 transition-colors ${!notif.is_read ? 'bg-teal-50/30' : ''}`}
                                 >
-                                    <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center flex-shrink-0 text-xl">
+                                    <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center shrink-0 text-xl">
                                         {typeIcon[notif.type] || '🔔'}
                                     </div>
                                     <div className="flex-1 min-w-0">
@@ -136,7 +136,7 @@ export default function NotificationsPage() {
                                                 {notif.title}
                                             </p>
                                             {!notif.is_read && (
-                                                <span className="w-2.5 h-2.5 rounded-full bg-teal-500 flex-shrink-0 mt-1" />
+                                                <span className="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0 mt-1" />
                                             )}
                                         </div>
                                         {notif.message && (

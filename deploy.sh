@@ -52,6 +52,26 @@ git pull origin main
 echo -e "${YELLOW}Building Docker images...${NC}"
 docker-compose -f "$COMPOSE_FILE" build
 
+# Backup Database (Requires PostgreSQL client in Docker)
+echo -e "${YELLOW}Backing up database...${NC}"
+# Load env variables for DB backup
+set -a
+[ -f "$REPO_DIR/server/$ENV_FILE" ] && source "$REPO_DIR/server/$ENV_FILE"
+set +a
+
+BACKUP_DIR="$REPO_DIR/backups"
+mkdir -p "$BACKUP_DIR"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+
+if [ -n "$DB_HOST" ] && [ -n "$DB_USER" ] && [ -n "$DB_NAME" ]; then
+    echo "Running pg_dump via docker..."
+    docker run --rm -e PGPASSWORD="$DB_PASSWORD" postgres:15-alpine \
+        pg_dump -h "$DB_HOST" -p "${DB_PORT:-5432}" -U "$DB_USER" -d "$DB_NAME" \
+        > "$BACKUP_DIR/db_backup_$TIMESTAMP.sql" || echo -e "${RED}Warning: DB backup failed!${NC}"
+else
+    echo -e "${YELLOW}Skipping DB backup (missing DB config in $ENV_FILE)${NC}"
+fi
+
 # Stop existing containers
 echo -e "${YELLOW}Stopping existing containers...${NC}"
 docker-compose -f "$COMPOSE_FILE" down

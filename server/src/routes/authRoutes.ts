@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { register, login, updateUserRole, verifyEmail } from '../controllers/authController';
+import passport from 'passport';
+import { register, login, updateUserRole, verifyEmail, generateToken } from '../controllers/authController';
 import { authenticateJWT } from '../middleware/authMiddleware';
 import { validate } from '../middleware/validation';
 import { authSchemas } from '../validation/schemas';
@@ -26,7 +27,27 @@ router.post('/verify-email', validate(authSchemas.verifyEmail), verifyEmail);
 // @access  Private
 router.post('/role', authenticateJWT, validate(authSchemas.updateRole), updateUserRole);
 
-// Google Auth routes temporarily disabled until type conflicts resolved
-// Will be re-enabled once passport types are properly configured
+// @route   GET /api/auth/google
+// @desc    Redirect to Google OAuth
+// @access  Public
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// @route   GET /api/auth/google/callback
+// @desc    Google OAuth callback
+// @access  Public
+router.get(
+    '/google/callback',
+    passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+    (req, res) => {
+        // Successful authentication
+        const user = req.user as any;
+        const token = generateToken(user.user_id, user.role);
+
+        // Redirect to frontend with token
+        // Use the FRONTEND_URL environment variable if available, otherwise default to local frontend
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+        res.redirect(`${frontendUrl}/auth/callback?token=${token}`);
+    }
+);
 
 export default router;

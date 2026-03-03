@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../context/auth';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
 

@@ -126,7 +126,7 @@ export default function NotificationCenter() {
         <>
             {/* Toast */}
             {toast && (
-                <div className="fixed bottom-6 right-4 z-[9999] animate-in fade-in slide-in-from-bottom-4 duration-300 max-w-[calc(100vw-32px)]">
+                <div className="fixed bottom-6 right-4 z-9999 animate-in fade-in slide-in-from-bottom-4 duration-300 max-w-[calc(100vw-32px)]">
                     <div className="flex items-start gap-3 bg-white border border-slate-200 rounded-2xl shadow-2xl px-4 py-3 min-w-[260px] max-w-[340px]">
                         <span className="text-2xl mt-0.5">{typeIcon[toast.type] || '🔔'}</span>
                         <div className="flex-1 min-w-0">
@@ -176,7 +176,7 @@ export default function NotificationCenter() {
                   - top-[68px]: just below the navbar (adjust if navbar height changes)
                 */}
                 {isOpen && (
-                    <div className="fixed left-1/2 -translate-x-1/2 top-[68px] w-[calc(100vw-32px)] max-w-sm sm:absolute sm:left-auto sm:translate-x-0 sm:right-0 sm:top-[52px] sm:w-80 sm:transform-none bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 z-[1100] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed left-1/2 -translate-x-1/2 top-[68px] w-[calc(100vw-32px)] max-w-sm sm:absolute sm:left-auto sm:translate-x-0 sm:right-0 sm:top-[52px] sm:w-80 sm:transform-none bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 z-1100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                         {/* Header */}
                         <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
                             <h3 className="font-black text-slate-900 text-sm">Notifications</h3>

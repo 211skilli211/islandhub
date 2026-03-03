@@ -378,28 +378,28 @@ export default function Navbar() {
                                                     <Link
                                                         href={`/users/${user?.id}`}
                                                         onClick={() => setIsOpen(false)}
-                                                        className="block px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
+                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
                                                         <span>👤</span> My Profile
                                                     </Link>
                                                     <Link
                                                         href="/settings"
                                                         onClick={() => setIsOpen(false)}
-                                                        className="block px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
+                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
                                                         <span>⚙️</span> Settings
                                                     </Link>
                                                     <Link
                                                         href="/dashboard"
                                                         onClick={() => setIsOpen(false)}
-                                                        className="block px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
+                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
                                                         <span>📊</span> Dashboard
                                                     </Link>
                                                     <Link
                                                         href="/dashboard/messages"
                                                         onClick={() => setIsOpen(false)}
-                                                        className="block px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
+                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
                                                         <span>💬</span> Messages
                                                     </Link>
@@ -407,7 +407,7 @@ export default function Navbar() {
                                                         <Link
                                                             href="/admin"
                                                             onClick={() => setIsOpen(false)}
-                                                            className="block px-6 py-3 rounded-xl text-sm font-bold text-teal-600 bg-teal-50/50 hover:bg-teal-50 transition-all flex items-center gap-3"
+                                                            className="px-6 py-3 rounded-xl text-sm font-bold text-teal-600 bg-teal-50/50 hover:bg-teal-50 transition-all flex items-center gap-3"
                                                         >
                                                             <span>🛡️</span> Admin Panel
                                                         </Link>
@@ -416,7 +416,7 @@ export default function Navbar() {
                                                         <Link
                                                             href="/become-vendor"
                                                             onClick={() => setIsOpen(false)}
-                                                            className="block px-6 py-3 rounded-xl text-sm font-bold text-orange-600 bg-orange-50/50 hover:bg-orange-50 transition-all flex items-center gap-3"
+                                                            className="px-6 py-3 rounded-xl text-sm font-bold text-orange-600 bg-orange-50/50 hover:bg-orange-50 transition-all flex items-center gap-3"
                                                         >
                                                             <span>🚀</span> Become a Vendor/Host
                                                         </Link>

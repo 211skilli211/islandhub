@@ -14,8 +14,8 @@ import { cacheMiddleware } from './middleware/cache';
 dotenv.config();
 
 // Temporarily disabled until type conflicts resolved
-// import passport from 'passport';
-// import './config/passport'; // Ensure config is loaded
+import passport from 'passport';
+import './config/passport'; // Ensure config is loaded
 import authRoutes from './routes/authRoutes';
 import campaignRoutes from './routes/campaignRoutes';
 import donationRoutes from './routes/donationRoutes';
@@ -92,7 +92,7 @@ configureSanitization(app);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
-// app.use(passport.initialize()); // Temporarily disabled
+app.use(passport.initialize());
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/campaigns', campaignRoutes);
 app.use('/api/donations', donationRoutes);

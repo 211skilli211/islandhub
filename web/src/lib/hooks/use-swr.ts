@@ -196,7 +196,8 @@ export function useCart() {
   return { cart: value, addToCart, removeFromCart: removeItem, updateCart };
 }
 
-// --- Recommendations Hook ---
+const EMPTY_ARRAY: any[] = [];
+
 export function useRecommendations(type?: 'personalized' | 'trending', limit: number = 10) {
   const endpoint = type === 'trending'
     ? `/recommendations/trending?limit=${limit}`
@@ -214,7 +215,7 @@ export function useRecommendations(type?: 'personalized' | 'trending', limit: nu
   );
 
   return {
-    recommendations: data?.recommendations || data || [],
+    recommendations: data?.recommendations || data || EMPTY_ARRAY,
     isLoading,
     isError: error,
     refresh: mutate,

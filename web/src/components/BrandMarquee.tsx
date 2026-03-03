@@ -48,15 +48,18 @@ export default function BrandMarquee({
     const [displayItems, setDisplayItems] = useState<BrandMarqueeItem[]>(items || []);
 
     useEffect(() => {
+        let newItems: BrandMarqueeItem[] = [];
         if (items) {
-            setDisplayItems(items);
+            newItems = items;
         } else if (type === 'brand') {
-            const stores = Array.isArray(storesData) ? storesData : (storesData as any)?.stores || [];
-            setDisplayItems(stores);
+            newItems = Array.isArray(storesData) ? storesData : (storesData as any)?.stores || [];
         } else {
-            const products = Array.isArray(trendingProducts) ? trendingProducts : (trendingProducts as any)?.recommendations || [];
-            setDisplayItems(products);
+            newItems = Array.isArray(trendingProducts) ? trendingProducts : (trendingProducts as any)?.recommendations || [];
         }
+
+        // Deep compare or simple length check is sometimes enough, but stringify is safer for small arrays
+        setDisplayItems(prev => JSON.stringify(prev) === JSON.stringify(newItems) ? prev : newItems);
+
         // Reset position on data change to prevent glitches
         positionRef.current = 0;
     }, [items, storesData, trendingProducts, type]);
@@ -89,7 +92,7 @@ export default function BrandMarquee({
     const BrandCard = ({ item }: { item: BrandMarqueeItem }) => (
         <Link
             href={item.slug ? `/store/${item.slug}` : `/store/${item.id}`}
-            className="shrink-0 w-44 md:w-56 bg-white dark:bg-slate-800 rounded-[2rem] p-5 md:p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm flex flex-col items-center text-center overflow-hidden"
+            className="shrink-0 w-44 md:w-56 bg-white dark:bg-slate-800 rounded-4xl p-5 md:p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm flex flex-col items-center text-center overflow-hidden"
         >
             <div className="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-slate-50 dark:bg-slate-700/50 mb-6 overflow-hidden flex items-center justify-center border border-slate-50 dark:border-slate-600 shadow-inner shrink-0">
                 {item.logo_url ? (
@@ -121,7 +124,7 @@ export default function BrandMarquee({
     const ProductCard = ({ item, index }: { item: BrandMarqueeItem; index: number }) => (
         <Link
             href={item.slug ? `/listings/${item.slug}` : `/listings/${item.id}`}
-            className="shrink-0 w-40 md:w-48 bg-white dark:bg-slate-800 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm"
+            className="shrink-0 w-40 md:w-48 bg-white dark:bg-slate-800 rounded-4xl overflow-hidden border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm"
         >
             <div className="aspect-square bg-slate-50 dark:bg-slate-700/50 relative overflow-hidden">
                 {item.image_url || item.logo_url ? (
@@ -136,7 +139,7 @@ export default function BrandMarquee({
                     </div>
                 )}
                 {item.category && (
-                    <div className="absolute top-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-900 dark:text-white text-[8px] font-black uppercase tracking-[0.1em] px-3 py-1.5 rounded-xl border border-white/20 shadow-sm">
+                    <div className="absolute top-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-900 dark:text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl border border-white/20 shadow-sm">
                         {item.category}
                     </div>
                 )}
@@ -168,7 +171,7 @@ export default function BrandMarquee({
             <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 mb-16">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div className="flex items-center gap-6">
-                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-[2rem] bg-teal-500/10 flex items-center justify-center text-4xl shadow-inner border border-teal-500/20">
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-4xl bg-teal-500/10 flex items-center justify-center text-4xl shadow-inner border border-teal-500/20">
                             {emoji || (type === 'brand' ? '🏙️' : '✨')}
                         </div>
                         <div>

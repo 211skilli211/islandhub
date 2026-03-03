@@ -181,7 +181,7 @@ export default function VendorPayoutsPage() {
 
             {/* Wallet Card */}
             {wallet ? (
-                <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-teal-200">
+                <div className="bg-linear-to-br from-teal-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-teal-200">
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <p className="text-teal-200 text-xs font-black uppercase tracking-widest">Total Balance</p>

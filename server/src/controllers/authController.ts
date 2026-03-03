@@ -96,6 +96,11 @@ export const login = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
+        if (!user.password) {
+            console.log('[Login] User has no password (perhaps uses social login), returning 400');
+            return res.status(400).json({ message: 'Invalid credentials or please login with social account' });
+        }
+
         const isMatch = await bcrypt.compare(password, user.password);
         console.log('[Login] Password match:', isMatch ? 'yes' : 'no');
 

@@ -37,84 +37,95 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
 
         const items = cartItemsResult.rows;
 
-        // Calculate totals
-        const subtotal = items.reduce((sum, item) => sum + (item.price_snapshot * item.quantity), 0);
-        const serviceFee = subtotal * 0.05; // 5% platform fee
-        const tax = subtotal * 0.10; // 10% tax
-        const total = subtotal + serviceFee + tax;
-
-        // Generate unique order number
-        const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-
-        // Create order
-        const orderResult = await pool.query(`
-            INSERT INTO orders (
-                user_id, order_number, status, 
-                subtotal, tax, service_fee, total,
-                payment_method, payment_status
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-            RETURNING *
-        `, [userId, orderNumber, 'pending', subtotal, tax, serviceFee, total, 'dodopayments', 'pending']);
-
-        const order = orderResult.rows[0];
-
-        // Create order items
+        // Group items by store_id
+        const itemsByStore: Record<number, typeof items> = {};
         for (const item of items) {
-            await pool.query(`
-                INSERT INTO order_items (
-                    order_id, listing_id, vendor_id, item_type,
-                    quantity, unit_price, total_price,
-                    rental_dates, service_details, product_variant
+            if (!itemsByStore[item.store_id]) {
+                itemsByStore[item.store_id] = [];
+            }
+            itemsByStore[item.store_id].push(item);
+        }
+
+        let overallTotal = 0;
+        const createdOrders: any[] = [];
+        const orderIds: number[] = [];
+
+        // Generate unique group identifier
+        const orderGroupNumber = `GRP-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+
+        for (const [storeIdStr, storeItems] of Object.entries(itemsByStore)) {
+            const storeId = parseInt(storeIdStr);
+
+            // Calculate totals for this store
+            const storeSubtotal = storeItems.reduce((sum: number, item: any) => sum + (item.price_snapshot * item.quantity), 0);
+            const storeServiceFee = storeSubtotal * 0.05; // 5% platform fee
+            const storeTax = storeSubtotal * 0.10; // 10% tax
+            const storeTotal = storeSubtotal + storeServiceFee + storeTax;
+
+            overallTotal += storeTotal;
+
+            // Generate unique order number for this store
+            const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+
+            // Create order
+            const orderResult = await pool.query(`
+                INSERT INTO orders (
+                    user_id, store_id, order_number, status, 
+                    subtotal, tax_amount, service_fee, total_amount,
+                    payment_method, payment_status
                 ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-            `, [
-                order.order_id,
-                item.listing_id,
-                item.vendor_id,
-                item.type,
-                item.quantity,
-                item.price_snapshot,
-                item.price_snapshot * item.quantity,
-                item.rental_start_date ? JSON.stringify({
-                    start: item.rental_start_date,
-                    end: item.rental_end_date,
-                    duration: item.rental_duration_days
-                }) : null,
-                item.service_package ? JSON.stringify({
-                    package: item.service_package,
-                    appointment: item.appointment_slot
-                }) : null,
-                item.selected_variant
-            ]);
+                RETURNING *
+            `, [userId, storeId, orderNumber, 'pending', storeSubtotal, storeTax, storeServiceFee, storeTotal, 'dodopayments', 'pending']);
+
+            const order = orderResult.rows[0];
+            createdOrders.push(order);
+            orderIds.push(order.order_id);
+
+            // Create order items
+            for (const item of storeItems) {
+                await pool.query(`
+                    INSERT INTO order_items (
+                        order_id, listing_id, item_type,
+                        quantity, price
+                    ) VALUES ($1, $2, $3, $4, $5)
+                `, [
+                    order.order_id,
+                    item.listing_id,
+                    item.type,
+                    item.quantity,
+                    item.price_snapshot
+                ]);
+                // Note: vendor_id, price_snapshot/unit_price vs price difference depending on schema. We are using standard order_items schema here.
+            }
         }
 
         // Create payment intent with DodoPayments
         const paymentIntent = await dodoPayments.createPaymentIntent(
-            total,
+            overallTotal,
             'XCD',
             {
-                order_id: order.order_id,
-                order_number: orderNumber,
+                order_ids: orderIds.join(','), // comma-separated for multi-store checkout
+                group_number: orderGroupNumber,
                 user_id: userId,
-                category: items[0].category, // Primary category
-                vendor_id: items[0].vendor_id,
-                store_id: items[0].store_id,
-                listing_id: items[0].listing_id
+                cart_id: cartId
             },
             productType as 'one_time' | 'subscription' | 'usage_based'
         );
 
-        // Update order with payment intent ID
+        // Update orders with payment intent ID
         await pool.query(
-            'UPDATE orders SET payment_intent_id = $1 WHERE order_id = $2',
-            [paymentIntent.id, order.order_id]
+            'UPDATE orders SET payment_intent_id = $1 WHERE order_id = ANY($2::int[])',
+            [paymentIntent.id, orderIds]
         );
 
+        // We return the first order's ID for the frontend success redirect, 
+        // or a new generic success page might be needed. For now, returning first orderId.
         res.json({
-            orderId: order.order_id,
-            orderNumber: orderNumber,
+            orderId: orderIds[0],
+            orderNumber: orderGroupNumber,
             clientSecret: paymentIntent.client_secret,
             paymentIntentId: paymentIntent.id,
-            total: total
+            total: overallTotal
         });
     } catch (error) {
         console.error('Create payment intent error:', error);
@@ -171,20 +182,28 @@ export const handleWebhook = async (req: Request, res: Response) => {
  * Handle successful payment
  */
 async function handlePaymentSuccess(paymentIntent: any) {
-    const orderId = paymentIntent.metadata.order_id;
+    let orderIds: number[] = [];
 
-    // Update order status
+    // Parse order_ids if it's a multi-store checkout, otherwise fallback to single order_id
+    if (paymentIntent.metadata.order_ids) {
+        orderIds = paymentIntent.metadata.order_ids.split(',').map((id: string) => parseInt(id, 10));
+    } else if (paymentIntent.metadata.order_id) {
+        orderIds = [parseInt(paymentIntent.metadata.order_id, 10)];
+    }
+
+    if (orderIds.length === 0) return;
+
+    // Update orders status
     await pool.query(
-        'UPDATE orders SET payment_status = $1, status = $2, updated_at = CURRENT_TIMESTAMP WHERE order_id = $3',
-        ['paid', 'processing', orderId]
+        'UPDATE orders SET payment_status = $1, status = $2, updated_at = CURRENT_TIMESTAMP WHERE order_id = ANY($3::int[])',
+        ['paid', 'processing', orderIds]
     );
 
-    // Fetch user email for confirmation
-    const userRes = await pool.query('SELECT u.email, u.name FROM users u JOIN orders o ON u.user_id = o.user_id WHERE o.order_id = $1', [orderId]);
+    // Fetch user email for confirmation (just from the first order to avoid duplicates)
+    const userRes = await pool.query('SELECT u.email, u.name FROM users u JOIN orders o ON u.user_id = o.user_id WHERE o.order_id = $1', [orderIds[0]]);
     if (userRes.rows.length > 0) {
         const { email, name } = userRes.rows[0];
-        // For one-time payments, we could use a generic receipt. 
-        // But for subscriptions, we use sendSubscriptionConfirmation further down.
+        // Send email here if needed
     }
 
     // Create transaction record
@@ -192,7 +211,7 @@ async function handlePaymentSuccess(paymentIntent: any) {
         INSERT INTO transactions (order_id, type, amount, currency, gateway, gateway_transaction_id, status, metadata)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `, [
-        orderId,
+        orderIds[0], // Record primary order id for trans
         'payment',
         paymentIntent.amount / 100,
         paymentIntent.currency,
@@ -204,11 +223,20 @@ async function handlePaymentSuccess(paymentIntent: any) {
 
     // Update vendor balances with tier-aware commission
     const orderItems = await pool.query(
-        'SELECT vendor_id, total_price FROM order_items WHERE order_id = $1',
-        [orderId]
+        'SELECT item_type as vendor_id, price as total_price FROM order_items WHERE order_id = ANY($1::int[])',
+        [orderIds]
     );
+    // Note: If you need to map vendor_id correctly, join with listings table.
+    const itemsWithVendors = await pool.query(`
+        SELECT l.vendor_id, oi.price * oi.quantity as total_price
+        FROM order_items oi
+        JOIN listings l ON oi.listing_id = l.id
+        WHERE oi.order_id = ANY($1::int[])
+    `, [orderIds]);
 
-    for (const item of orderItems.rows) {
+    for (const item of itemsWithVendors.rows) {
+        if (!item.vendor_id) continue;
+
         // Fetch vendor's commission rate from their active subscription
         const subResult = await pool.query(
             "SELECT commission_rate FROM vendor_subscriptions WHERE vendor_id = $1 AND status = 'active' LIMIT 1",
@@ -229,36 +257,47 @@ async function handlePaymentSuccess(paymentIntent: any) {
     }
 
     // Clear cart items
-    const cartResult = await pool.query(
-        'SELECT ci.cart_id FROM cart_items ci JOIN order_items oi ON ci.listing_id = oi.listing_id WHERE oi.order_id = $1 LIMIT 1',
-        [orderId]
-    );
+    if (paymentIntent.metadata.cart_id) {
+        await pool.query('DELETE FROM cart_items WHERE cart_id = $1', [paymentIntent.metadata.cart_id]);
+    } else {
+        const cartResult = await pool.query(
+            'SELECT ci.cart_id FROM cart_items ci JOIN order_items oi ON ci.listing_id = oi.listing_id WHERE oi.order_id = $1 LIMIT 1',
+            [orderIds[0]]
+        );
 
-    if (cartResult.rows.length > 0) {
-        await pool.query('DELETE FROM cart_items WHERE cart_id = $1', [cartResult.rows[0].cart_id]);
+        if (cartResult.rows.length > 0) {
+            await pool.query('DELETE FROM cart_items WHERE cart_id = $1', [cartResult.rows[0].cart_id]);
+        }
     }
 
-    // TODO: Send confirmation email
-    console.log(`Payment successful for order ${orderId}`);
+    console.log(`Payment successful for orders: ${orderIds.join(', ')}`);
 }
 
 /**
  * Handle failed payment
  */
 async function handlePaymentFailure(paymentIntent: any) {
-    const orderId = paymentIntent.metadata.order_id;
+    let orderIds: number[] = [];
+
+    if (paymentIntent.metadata.order_ids) {
+        orderIds = paymentIntent.metadata.order_ids.split(',').map((id: string) => parseInt(id, 10));
+    } else if (paymentIntent.metadata.order_id) {
+        orderIds = [parseInt(paymentIntent.metadata.order_id, 10)];
+    }
+
+    if (orderIds.length === 0) return;
 
     await pool.query(
-        'UPDATE orders SET payment_status = $1, status = $2, updated_at = CURRENT_TIMESTAMP WHERE order_id = $3',
-        ['failed', 'cancelled', orderId]
+        'UPDATE orders SET payment_status = $1, status = $2, updated_at = CURRENT_TIMESTAMP WHERE order_id = ANY($3::int[])',
+        ['failed', 'cancelled', orderIds]
     );
 
     // Send failure notification email
-    const userRes = await pool.query('SELECT u.email FROM users u JOIN orders o ON u.user_id = o.user_id WHERE o.order_id = $1', [orderId]);
+    const userRes = await pool.query('SELECT u.email FROM users u JOIN orders o ON u.user_id = o.user_id WHERE o.order_id = $1', [orderIds[0]]);
     if (userRes.rows.length > 0) {
         await EmailService.sendPaymentFailed(userRes.rows[0].email, 'Order Payment');
     }
-    console.log(`Payment failed for order ${orderId}`);
+    console.log(`Payment failed for orders: ${orderIds.join(', ')}`);
 }
 
 /**

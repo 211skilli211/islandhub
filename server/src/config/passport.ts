@@ -37,14 +37,14 @@ passport.use(new GoogleStrategy({
     }
 }));
 
-// Serialize user for session (if using sessions, but we use JWT, we might just use this for the initial callback handling)
+// Serialize user for session
 passport.serializeUser((user: any, done) => {
-    done(null, user.id);
+    done(null, user.user_id);
 });
 
 passport.deserializeUser(async (id: number, done) => {
     try {
-        const userRes = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+        const userRes = await pool.query('SELECT * FROM users WHERE user_id = $1', [id]);
         done(null, userRes.rows[0]);
     } catch (error) {
         done(error, null);

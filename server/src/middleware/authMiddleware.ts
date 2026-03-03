@@ -8,9 +8,7 @@ interface UserPayload {
 
 declare global {
     namespace Express {
-        interface Request {
-            user?: UserPayload;
-        }
+        interface User extends UserPayload { }
     }
 }
 

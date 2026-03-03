@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, Stack, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../context/auth';
 
 // Using the same LAN IP as Browse Screen
 const API_BASE = 'http://192.168.1.122:5000/api';

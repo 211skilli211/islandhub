@@ -262,9 +262,16 @@ export const getListings = async (req: Request, res: Response) => {
             params.push(req.query.max_price);
         }
         if (req.query.creator_id) {
+            let cid: any = req.query.creator_id;
+            if (cid === 'me') {
+                if (!req.user?.id) {
+                    return res.status(401).json({ message: 'Authentication required for creator_id=me' });
+                }
+                cid = req.user.id;
+            }
             query += ` AND l.creator_id = $${params.length + 1}`;
             countQuery += ` AND l.creator_id = $${params.length + 1}`;
-            params.push(req.query.creator_id);
+            params.push(cid);
         }
         if (req.query.store_id) {
             query += ` AND l.store_id = $${params.length + 1}`;

@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TouchableOpacity, Alert, Share } from 'react-native';
 import { useLocalSearchParams, Stack, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../context/auth';
 import { Ionicons } from '@expo/vector-icons';
 
 // Hardcoded IP - same as others

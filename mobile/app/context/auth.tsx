@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, PropsWithChildren } from 'react';
+import { createContext, useContext, useState, PropsWithChildren, useEffect } from 'react';
 import { useRouter, useSegments } from 'expo-router';
 import api from '../../lib/api';
+import * as SecureStore from 'expo-secure-store';
 
 // Define the shape of the context
 interface AuthContextType {
@@ -26,8 +27,31 @@ export const useAuth = () => useContext(AuthContext);
 export function AuthProvider({ children }: PropsWithChildren) {
     const [user, setUser] = useState<any | null>(null);
     const [token, setToken] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
+    const segments = useSegments();
+
+    useEffect(() => {
+        // Load token on boot
+        const loadToken = async () => {
+            try {
+                const storedToken = await SecureStore.getItemAsync('user_token');
+                const storedUser = await SecureStore.getItemAsync('user_data');
+
+                if (storedToken && storedUser) {
+                    setToken(storedToken);
+                    setUser(JSON.parse(storedUser));
+                    api.setToken(storedToken);
+                }
+            } catch (error) {
+                console.error('Failed to load auth data', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadToken();
+    }, []);
 
     const signIn = async (email: string, password: string) => {
         setIsLoading(true);
@@ -35,13 +59,19 @@ export function AuthProvider({ children }: PropsWithChildren) {
             const response = await api.post('/auth/login', { email, password });
 
             if (response.ok) {
-                setUser(response.data.user);
-                setToken(response.data.token);
-                api.setToken(response.data.token);
+                const { user: userData, token: userToken } = response.data;
+                setUser(userData);
+                setToken(userToken);
+                api.setToken(userToken);
+
+                // Persist
+                await SecureStore.setItemAsync('user_token', userToken);
+                await SecureStore.setItemAsync('user_data', JSON.stringify(userData));
+
                 // Navigate to tabs after successful login
                 router.replace('/(tabs)/browse');
             } else {
-                alert(response.message || 'Login failed');
+                alert(response.data?.message || 'Login failed');
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -51,9 +81,15 @@ export function AuthProvider({ children }: PropsWithChildren) {
         }
     };
 
-    const signOut = () => {
+    const signOut = async () => {
         setUser(null);
         setToken(null);
+        api.setToken(null);
+
+        // Remove persist
+        await SecureStore.deleteItemAsync('user_token');
+        await SecureStore.deleteItemAsync('user_data');
+
         router.replace('/(auth)/login');
     };
 
