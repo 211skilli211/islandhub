@@ -1,18 +1,18 @@
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, TextInput, Image } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, TextInput, Image, Dimensions } from 'react-native';
+import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 import api from '../../lib/api';
-const CACHE_KEY = 'islandhub_browse_cache';
+
+const { width } = Dimensions.get('window');
 
 const CATEGORIES = [
-    { id: 'all', label: 'All', icon: 'grid' },
-    { id: 'rental', label: 'Rentals', icon: 'car' },
-    { id: 'service', label: 'Services', icon: 'briefcase' },
-    { id: 'product', label: 'Products', icon: 'cart' },
-    { id: 'campaign', label: 'Causes', icon: 'heart' },
+    { id: 'all', label: 'All', icon: 'grid-outline' },
+    { id: 'rental', label: 'Rentals', icon: 'home-outline' },
+    { id: 'service', label: 'Services', icon: 'construct-outline' },
+    { id: 'product', label: 'Products', icon: 'cart-outline' },
+    { id: 'campaign', label: 'Causes', icon: 'heart-outline' },
 ];
 
 export default function BrowseScreen() {
@@ -20,315 +20,175 @@ export default function BrowseScreen() {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
-    useEffect(() => {
-        loadCache();
-    }, []);
-
-    const loadCache = async () => {
-        try {
-            const cached = await AsyncStorage.getItem(CACHE_KEY);
-            if (cached) {
-                setListings(JSON.parse(cached));
-                setLoading(false);
-            }
-        } catch (e) {
-            console.error('Failed to load cache', e);
-        }
-    };
-
-    const fetchListings = async () => {
-        if (!searchTerm) setLoading(listings.length === 0);
+    const fetchListings = useCallback(async (isRefreshing = false) => {
+        if (!isRefreshing && listings.length === 0) setLoading(true);
         try {
             let path = `/listings?admin=true`;
-            if (activeTab !== 'all') {
-                path += `&type=${activeTab}`;
-            }
-            if (searchTerm) {
-                path += `&search=${encodeURIComponent(searchTerm)}`;
-            }
+            if (activeTab !== 'all') path += `&type=${activeTab}`;
+            if (searchTerm) path += `&search=${encodeURIComponent(searchTerm)}`;
 
             const response = await api.get(path);
-
             if (response.ok) {
                 setListings(response.data);
-
-                // Save to cache for 'all' tab and no search
-                if (activeTab === 'all' && !searchTerm) {
-                    await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(response.data));
-                }
             }
         } catch (error) {
             console.error('Error fetching listings:', error);
         } finally {
             setLoading(false);
+            setRefreshing(false);
         }
-    };
+    }, [searchTerm, activeTab]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchListings();
         }, 400);
         return () => clearTimeout(timer);
-    }, [searchTerm, activeTab]);
+    }, [searchTerm, activeTab, fetchListings]);
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.header}>Discovery Hub</Text>
-                <Text style={styles.subHeader}>St. Kitts & Nevis Marketplace</Text>
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchListings(true);
+    };
+
+    const renderHeader = () => (
+        <View className="px-6 py-4 bg-white">
+            <View className="flex-row justify-between items-center mb-6">
+                <View>
+                    <Text className="text-3xl font-black text-slate-900 tracking-tighter">Island Hub</Text>
+                    <Text className="text-slate-500 font-medium tracking-tight">St. Kitts & Nevis Marketplace</Text>
+                </View>
+                <TouchableOpacity className="w-12 h-12 bg-slate-100 rounded-full items-center justify-center">
+                    <Ionicons name="notifications-outline" size={24} color="#1e293b" />
+                    <View className="absolute top-3 right-3 w-3 h-3 bg-teal-500 rounded-full border-2 border-white" />
+                </TouchableOpacity>
             </View>
 
-            <View style={styles.searchContainer}>
-                <Ionicons name="search" size={20} color="#94a3b8" />
+            {/* Search Bar */}
+            <View className="flex-row items-center bg-slate-100 rounded-2xl px-4 py-3 border border-slate-200">
+                <Ionicons name="search" size={20} color="#64748b" />
                 <TextInput
-                    style={styles.searchInput}
+                    className="flex-1 ml-3 text-slate-900 font-semibold"
                     placeholder="Search anything..."
                     placeholderTextColor="#94a3b8"
                     value={searchTerm}
                     onChangeText={setSearchTerm}
                 />
+                {searchTerm.length > 0 && (
+                    <TouchableOpacity onPress={() => setSearchTerm('')}>
+                        <Ionicons name="close-circle" size={20} color="#94a3b8" />
+                    </TouchableOpacity>
+                )}
             </View>
 
-            <View style={styles.tabContainer}>
-                <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={CATEGORIES}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-                            onPress={() => setActiveTab(item.id)}
-                            style={[styles.tab, activeTab === item.id && styles.activeTab]}
-                        >
-                            <Ionicons
-                                name={item.icon as any}
-                                size={18}
-                                color={activeTab === item.id ? '#fff' : '#64748b'}
-                                style={{ marginRight: 6 }}
-                            />
-                            <Text style={[styles.tabText, activeTab === item.id && styles.activeTabText]}>
-                                {item.label}
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-                    contentContainerStyle={{ paddingHorizontal: 20 }}
-                />
-            </View>
-
-            {loading && listings.length === 0 ? (
-                <View style={styles.center}>
-                    <ActivityIndicator size="large" color="#0d9488" />
-                </View>
-            ) : (
-                <FlatList
-                    data={listings}
-                    keyExtractor={(item: any) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <Link href={`/listings/${item.id}`} asChild>
-                            <TouchableOpacity style={styles.card}>
-                                <View style={styles.imagePlaceholder}>
-                                    <Text style={styles.emoji}>
-                                        {item.type === 'campaign' ? '❤️' : item.type === 'rental' ? '🏠' : '🛠️'}
-                                    </Text>
-                                    {item.is_promoted && (
-                                        <View style={styles.promotedBadge}>
-                                            <Text style={styles.promotedText}>Featured</Text>
-                                        </View>
-                                    )}
-                                </View>
-                                <View style={styles.content}>
-                                    <Text style={styles.category}>{item.category || item.type}</Text>
-                                    <Text style={styles.title}>{item.title}</Text>
-                                    <View style={styles.footer}>
-                                        <Text style={styles.price}>
-                                            {item.type === 'campaign'
-                                                ? `Goal: $${Number(item.goal_amount).toLocaleString()}`
-                                                : `$${Number(item.price).toLocaleString()}`}
-                                        </Text>
-                                        <Ionicons name="chevron-forward" size={16} color="#cbd5e1" />
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        </Link>
-                    )}
-                    ListEmptyComponent={
-                        <View style={styles.emptyContainer}>
-                            <Text style={styles.emptyIcon}>🏝️</Text>
-                            <Text style={styles.emptyText}>No matches found.</Text>
-                            <Text style={styles.emptySubText}>Try adjusting your filters or search terms.</Text>
-                        </View>
-                    }
-                    contentContainerStyle={styles.listContent}
-                />
-            )}
+            {/* Category Tabs */}
+            <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={CATEGORIES}
+                keyExtractor={(item) => item.id}
+                className="mt-6 -mx-6"
+                contentContainerStyle={{ paddingHorizontal: 24 }}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        onPress={() => setActiveTab(item.id)}
+                        className={`mr-3 px-6 py-3 rounded-2xl flex-row items-center border ${activeTab === item.id
+                                ? 'bg-teal-600 border-teal-600 shadow-md shadow-teal-600/30'
+                                : 'bg-white border-slate-200'
+                            }`}
+                    >
+                        <Ionicons
+                            name={item.icon as any}
+                            size={18}
+                            color={activeTab === item.id ? 'white' : '#64748b'}
+                        />
+                        <Text className={`ml-2 font-bold ${activeTab === item.id ? 'text-white' : 'text-slate-600'}`}>
+                            {item.label}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+            />
         </View>
     );
-}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f8fafc',
-    },
-    headerContainer: {
-        paddingTop: 60,
-        paddingHorizontal: 20,
-        backgroundColor: 'white',
-        paddingBottom: 20,
-    },
-    header: {
-        fontSize: 32,
-        fontWeight: '900',
-        color: '#0f172a',
-        letterSpacing: -1,
-    },
-    subHeader: {
-        fontSize: 14,
-        color: '#64748b',
-        fontWeight: '600',
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        marginHorizontal: 20,
-        marginTop: -15,
-        borderRadius: 20,
-        paddingHorizontal: 16,
-        height: 56,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 10,
-        elevation: 5,
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-    },
-    searchInput: {
-        flex: 1,
-        fontSize: 16,
-        color: '#0f172a',
-        marginLeft: 10,
-        fontWeight: '600',
-    },
-    tabContainer: {
-        marginTop: 20,
-        marginBottom: 10,
-    },
-    tab: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        paddingVertical: 10,
-        borderRadius: 14,
-        marginRight: 8,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-    },
-    activeTab: {
-        backgroundColor: '#0f172a',
-        borderColor: '#0f172a',
-    },
-    tabText: {
-        fontSize: 14,
-        fontWeight: '800',
-        color: '#64748b',
-    },
-    activeTabText: {
-        color: 'white',
-    },
-    listContent: {
-        padding: 20,
-    },
-    card: {
-        backgroundColor: 'white',
-        borderRadius: 24,
-        marginBottom: 16,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 15,
-        elevation: 2,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-    },
-    imagePlaceholder: {
-        height: 160,
-        backgroundColor: '#f1f5f9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-    },
-    emoji: {
-        fontSize: 48,
-    },
-    promotedBadge: {
-        position: 'absolute',
-        top: 12,
-        right: 12,
-        backgroundColor: '#fbbf24',
-        paddingHorizontal: 10,
-        paddingVertical: 4,
-        borderRadius: 10,
-    },
-    promotedText: {
-        fontSize: 10,
-        fontWeight: '900',
-        color: '#78350f',
-        textTransform: 'uppercase',
-    },
-    content: {
-        padding: 16,
-    },
-    category: {
-        fontSize: 10,
-        fontWeight: '900',
-        color: '#0d9488',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-        marginBottom: 4,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: '800',
-        color: '#0f172a',
-        marginBottom: 8,
-    } as any, // Temporary fix for h3 style object
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 4,
-    },
-    price: {
-        fontSize: 16,
-        fontWeight: '900',
-        color: '#0f172a',
-    },
-    emptyContainer: {
-        padding: 60,
-        alignItems: 'center',
-    },
-    emptyIcon: {
-        fontSize: 64,
-        marginBottom: 16,
-    },
-    emptyText: {
-        fontSize: 18,
-        fontWeight: '900',
-        color: '#0f172a',
-        marginBottom: 4,
-    },
-    emptySubText: {
-        fontSize: 14,
-        color: '#94a3b8',
-        textAlign: 'center',
-    },
-});
+    const renderListingItem = ({ item }: { item: any }) => (
+        <Link href={`/listings/${item.id}`} asChild>
+            <TouchableOpacity className="bg-white rounded-[32px] mb-6 shadow-sm border border-slate-100 overflow-hidden mx-6">
+                <View className="relative h-48 bg-slate-100 items-center justify-center">
+                    <Text className="text-6xl opacity-20">
+                        {item.type === 'campaign' ? '❤️' : item.type === 'rental' ? '🏠' : '🛠️'}
+                    </Text>
+
+                    {item.is_promoted && (
+                        <View className="absolute top-4 left-4 bg-amber-400 px-3 py-1 rounded-full flex-row items-center shadow-sm">
+                            <Ionicons name="sparkles" size={12} color="#92400e" className="mr-1" />
+                            <Text className="text-[10px] font-black text-amber-900 uppercase">Featured</Text>
+                        </View>
+                    )}
+
+                    <View className="absolute bottom-4 right-4 bg-white/90 px-3 py-1.5 rounded-2xl shadow-sm backdrop-blur-md">
+                        <Text className="text-teal-700 font-bold">
+                            {item.type === 'campaign' ? 'CAUSE' : item.type.toUpperCase()}
+                        </Text>
+                    </View>
+                </View>
+
+                <View className="p-5">
+                    <Text className="text-slate-900 text-xl font-bold tracking-tight mb-1" numberOfLines={1}>
+                        {item.title}
+                    </Text>
+                    <View className="flex-row justify-between items-center mt-2">
+                        <View>
+                            <Text className="text-teal-600 text-xs font-black uppercase tracking-widest">
+                                {item.category || 'General'}
+                            </Text>
+                            <Text className="text-slate-900 text-lg font-black mt-0.5">
+                                {item.type === 'campaign'
+                                    ? `$${Number(item.goal_amount).toLocaleString()} Goal`
+                                    : `$${Number(item.price).toLocaleString()}`}
+                            </Text>
+                        </View>
+                        <View className="w-10 h-10 bg-slate-50 rounded-full items-center justify-center">
+                            <Ionicons name="chevron-forward" size={20} color="#cbd5e1" />
+                        </View>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </Link>
+    );
+
+    return (
+        <SafeAreaView className="flex-1 bg-white">
+            <FlatList
+                data={listings}
+                keyExtractor={(item) => item.id.toString()}
+                ListHeaderComponent={renderHeader}
+                renderItem={renderListingItem}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
+                contentContainerStyle={{ paddingBottom: 100 }}
+                ListEmptyComponent={
+                    !loading ? (
+                        <View className="items-center justify-center py-20 px-10">
+                            <View className="w-24 h-24 bg-slate-50 rounded-full items-center justify-center mb-6">
+                                <Ionicons name="search-outline" size={48} color="#cbd5e1" />
+                            </View>
+                            <Text className="text-2xl font-black text-slate-900 text-center mb-2">No results found</Text>
+                            <Text className="text-slate-500 text-center text-lg px-6 leading-6">
+                                We couldn't find anything matching "{searchTerm}". Try another search!
+                            </Text>
+                        </View>
+                    ) : null
+                }
+            />
+            {loading && listings.length === 0 && (
+                <View className="absolute inset-0 bg-white/50 items-center justify-center">
+                    <ActivityIndicator size="large" color="#0d9488" />
+                </View>
+            )}
+        </SafeAreaView>
+    );
+}
 

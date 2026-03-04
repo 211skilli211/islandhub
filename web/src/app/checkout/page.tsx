@@ -9,10 +9,10 @@ import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 
 interface PaymentIntent {
-  client_secret: string;
-  payment_intent_id: string;
-  order_id: number;
-  order_number: string;
+    client_secret: string;
+    payment_intent_id: string;
+    order_id: number;
+    order_number: string;
 }
 
 export default function CheckoutPage() {
@@ -102,7 +102,7 @@ export default function CheckoutPage() {
             // Clear cart after successful payment
             await api.delete('/cart/clear');
             await refreshCart();
-            
+
             // Redirect to success page
             if (paymentIntent?.order_id) {
                 router.push(`/orders/${paymentIntent.order_id}/confirmation`);
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
                             <div className="space-y-4">
                                 {cart.items.map((item) => (
                                     <div key={item.item_id} className="flex gap-4 p-4 bg-slate-50 rounded-xl">
-                                        <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-white">
+                                        <div className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-white">
                                             <Image
                                                 src={getImageUrl(item.image_url)}
                                                 alt={item.title}
@@ -280,7 +280,7 @@ export default function CheckoutPage() {
                                 />
                                 <span className="text-sm text-slate-600">
                                     I agree to the <a href="/terms" className="text-teal-600 hover:underline">Terms of Service</a> and{' '}
-                                    <a href="/privacy" className="text-teal-600 hover:underline">Privacy Policy</a>. I understand that 
+                                    <a href="/privacy" className="text-teal-600 hover:underline">Privacy Policy</a>. I understand that
                                     my order will be processed once payment is confirmed.
                                 </span>
                             </label>
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
                             <button
                                 onClick={handleCheckout}
                                 disabled={loadingPayment || processing || !agreedToTerms}
-                                className="w-full py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-4 bg-linear-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loadingPayment ? (
                                     <span className="flex items-center justify-center gap-2">
@@ -345,7 +345,7 @@ export default function CheckoutPage() {
                                 <div className="mt-4 pt-4 border-t border-slate-200">
                                     <p className="text-sm text-slate-600 text-center">
                                         Already have an account?{' '}
-                                        <button 
+                                        <button
                                             onClick={() => router.push(`/login?redirect=${encodeURIComponent('/checkout')}`)}
                                             className="text-teal-600 font-bold hover:underline"
                                         >

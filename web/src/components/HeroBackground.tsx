@@ -193,7 +193,7 @@ export default function HeroBackground({
                 {showOverlay && (
                     <>
                         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: overlayColor, opacity: overlayOpacity }} />
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
+                        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
                     </>
                 )}
             </div>
@@ -229,7 +229,7 @@ export default function HeroBackground({
                                         (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
                                         }`}
                                 >
-                                    <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-[2rem] md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
+                                    <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
                                         {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads') || iconUrl.includes('.')) ? (
                                             <img
                                                 src={getImageUrl(iconUrl)}

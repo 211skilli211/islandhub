@@ -8,6 +8,7 @@ interface AuthContextType {
     user: any | null;
     token: string | null;
     signIn: (email: string, password: string) => Promise<void>;
+    signUp: (name: string, email: string, password: string, role: string) => Promise<boolean>;
     signOut: () => void;
     isLoading: boolean;
 }
@@ -16,6 +17,7 @@ const AuthContext = createContext<AuthContextType>({
     user: null,
     token: null,
     signIn: async () => { },
+    signUp: async () => false,
     signOut: () => { },
     isLoading: false,
 });
@@ -29,7 +31,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
-    const segments = useSegments();
 
     useEffect(() => {
         // Load token on boot
@@ -71,11 +72,37 @@ export function AuthProvider({ children }: PropsWithChildren) {
                 // Navigate to tabs after successful login
                 router.replace('/(tabs)/browse');
             } else {
-                alert(response.data?.message || 'Login failed');
+                throw new Error(response.data?.message || 'Login failed');
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Login error:', error);
-            alert('An error occurred during login. Check server connection.');
+            alert(error.message || 'An error occurred during login.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const signUp = async (name: string, email: string, password: string, role: string) => {
+        setIsLoading(true);
+        try {
+            const response = await api.post('/auth/register', { name, email, password, role });
+
+            if (response.ok) {
+                const { user: userData, token: userToken } = response.data;
+                setUser(userData);
+                setToken(userToken);
+                api.setToken(userToken);
+
+                // Persist
+                await SecureStore.setItemAsync('user_token', userToken);
+                await SecureStore.setItemAsync('user_data', JSON.stringify(userData));
+
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Registration error:', error);
+            return false;
         } finally {
             setIsLoading(false);
         }
@@ -94,7 +121,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, signIn, signOut, isLoading }}>
+        <AuthContext.Provider value={{ user, token, signIn, signUp, signOut, isLoading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -30,6 +30,11 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Agent Browser Configuration
+.env.agent-browser.local
+agent-browser-sessions/
+audit-screenshots/
+
 # Server env files
 server/.env
 server/.env.local

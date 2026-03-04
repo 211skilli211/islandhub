@@ -79,7 +79,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] lg:hidden"
+                        className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-100 lg:hidden"
                     />
 
                     {/* Sidebar Content */}
@@ -88,7 +88,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 h-full w-[350px] bg-white shadow-2xl z-[101] flex flex-col border-l border-slate-100"
+                        className="fixed right-0 top-0 h-full w-[350px] bg-white shadow-2xl z-101 flex flex-col border-l border-slate-100"
                     >
                         {/* Header */}
                         <div className="p-8 border-b border-slate-50 flex justify-between items-center">
@@ -176,7 +176,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="p-6 bg-slate-900 rounded-[2rem] text-white">
+                                                <div className="p-6 bg-slate-900 rounded-4xl text-white">
                                                     <div className="flex justify-between items-end mb-4">
                                                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Add-ons</span>
                                                         <span className="text-2xl font-black italic">${cartTotal.toFixed(2)}</span>

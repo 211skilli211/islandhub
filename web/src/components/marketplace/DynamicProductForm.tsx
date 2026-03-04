@@ -251,7 +251,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {fields.map((field) => (
                     <div key={field.id} className={`space-y-2 ${field.field_type === 'textarea' || field.field_type === 'multiselect' ? 'md:col-span-2' : ''}`}>
-                        <label className="text-xs font-black uppercase tracking-[0.1em] text-slate-400 ml-2">
+                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">
                             {field.field_label} {field.required && <span className="text-rose-400">*</span>}
                         </label>
                         {renderField(field)}

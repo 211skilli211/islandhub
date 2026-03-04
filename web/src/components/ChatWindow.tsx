@@ -145,7 +145,7 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             placeholder="Type your message..."
-                            className="w-full pl-6 pr-20 py-5 bg-slate-50 border-transparent rounded-[2rem] text-slate-900 font-medium focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all"
+                            className="w-full pl-6 pr-20 py-5 bg-slate-50 border-transparent rounded-4xl text-slate-900 font-medium focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all"
                         />
                         <button
                             type="submit"

@@ -74,7 +74,7 @@ export default function CategoryHero({
     const displayDescription = heroAsset?.description || banner?.description || description;
 
     return (
-        <div className={`bg-gradient-to-br ${gradient} text-white py-12 md:py-20 px-4 relative overflow-hidden group`}>
+        <div className={`bg-linear-to-br ${gradient} text-white py-12 md:py-20 px-4 relative overflow-hidden group`}>
             {/* Dynamic Background Asset Layer */}
             {assetUrl && (
                 <div className="absolute inset-0 z-0">
@@ -102,7 +102,7 @@ export default function CategoryHero({
             {!assetUrl && banner?.image_url && (
                 <div className="absolute inset-0 opacity-20 z-0">
                     <img src={getImageUrl(banner.image_url)} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s]" alt="" />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${gradient} mix-blend-multiply opacity-80`}></div>
+                    <div className={`absolute inset-0 bg-linear-to-br ${gradient} mix-blend-multiply opacity-80`}></div>
                 </div>
             )}
 

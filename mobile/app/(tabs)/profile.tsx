@@ -1,16 +1,16 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, Image } from 'react-native';
 import { useAuth } from '../context/auth';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 import api from '../../lib/api';
 
 const TIER_STYLES: Record<string, any> = {
-    vip: { color: '#8b5cf6', bg: '#f5f3ff', icon: '💎' },
-    premium: { color: '#0ea5e9', bg: '#f0f9ff', icon: '✨' },
-    enterprise: { color: '#f59e0b', bg: '#fffbeb', icon: '🏢' },
-    basic: { color: '#64748b', bg: '#f1f5f9', icon: '📦' }
+    vip: { color: '#8b5cf6', bg: '#f5f3ff', icon: 'diamond-outline' },
+    premium: { color: '#0ea5e9', bg: '#f0f9ff', icon: 'sparkles-outline' },
+    enterprise: { color: '#f59e0b', bg: '#fffbeb', icon: 'business-outline' },
+    basic: { color: '#64748b', bg: '#f1f5f9', icon: 'cube-outline' }
 };
 
 export default function ProfileScreen() {
@@ -30,15 +30,12 @@ export default function ProfileScreen() {
     const fetchVendorData = async () => {
         setLoading(true);
         try {
-            // Fetch vendor's listings
             const listingsRes = await api.get(`/listings/vendor/${user.id}`);
             if (listingsRes.ok) setListings(listingsRes.data);
 
-            // Fetch vendor stats (ROI Analytics)
             const statsRes = await api.get(`/analytics/vendor/${user.id}`);
             if (statsRes.ok) setStats(statsRes.data);
 
-            // Fetch user subscription tier (new)
             const endpoint = user.role === 'vendor' ? '/vendor-subscriptions/my'
                 : user.role === 'buyer' ? '/customer-subscriptions/my'
                     : '/campaign-creator-subscriptions/my';
@@ -55,404 +52,166 @@ export default function ProfileScreen() {
 
     if (!user) {
         return (
-            <View style={styles.container}>
-                <View style={styles.center}>
-                    <Text style={styles.title}>Welcome back 🏝️</Text>
-                    <Text style={styles.subtitle}>Log in to manage your Hub presence and view analytics.</Text>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => router.push('/(auth)/login')}
-                    >
-                        <Text style={styles.buttonText}>Log In</Text>
-                    </TouchableOpacity>
+            <SafeAreaView className="flex-1 bg-white items-center justify-center px-10">
+                <View className="w-20 h-20 bg-teal-50 rounded-3xl items-center justify-center mb-6">
+                    <Ionicons name="person-outline" size={40} color="#0d9488" />
                 </View>
-            </View>
+                <Text className="text-3xl font-black text-slate-900 text-center mb-2">Join the Hub</Text>
+                <Text className="text-slate-500 text-center text-lg mb-10 leading-6">
+                    Log in to manage your presence, view analytics, and connect with the island.
+                </Text>
+                <TouchableOpacity
+                    className="w-full bg-teal-600 h-16 rounded-2xl items-center justify-center shadow-lg shadow-teal-600/30"
+                    onPress={() => router.push('/(auth)/login')}
+                >
+                    <Text className="text-white text-lg font-bold">Sign In to Continue</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
         );
     }
 
+    const tierStyle = subscription?.tier ? TIER_STYLES[subscription.tier.toLowerCase()] : TIER_STYLES.basic;
+
     return (
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
-                <View style={styles.avatar}>
-                    <Text style={styles.avatarText}>{user.name?.charAt(0)}</Text>
-                </View>
-                <View style={styles.headerInfo}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Text style={styles.greeting}>{user.name}</Text>
-                        {subscription?.tier && (
-                            <View style={[styles.tierBadge, { backgroundColor: TIER_STYLES[subscription.tier.toLowerCase()]?.bg || '#f1f5f9' }]}>
-                                <Text style={[styles.tierText, { color: TIER_STYLES[subscription.tier.toLowerCase()]?.color || '#64748b' }]}>
-                                    {TIER_STYLES[subscription.tier.toLowerCase()]?.icon} {subscription.tier.toUpperCase()}
+        <SafeAreaView className="flex-1 bg-slate-50">
+            <ScrollView showsVerticalScrollIndicator={false}>
+                {/* Profile Header */}
+                <View className="bg-white px-6 pt-8 pb-10 rounded-b-[40px] shadow-sm border-b border-slate-100">
+                    <View className="flex-row justify-between items-start mb-6">
+                        <View className="w-20 h-20 bg-teal-600 rounded-[28px] items-center justify-center shadow-lg shadow-teal-600/40">
+                            <Text className="text-white text-3xl font-black">{user.name?.charAt(0)}</Text>
+                        </View>
+                        <TouchableOpacity
+                            className="p-3 bg-red-50 rounded-2xl"
+                            onPress={signOut}
+                        >
+                            <Ionicons name="log-out-outline" size={24} color="#ef4444" />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
+                        <View className="flex-row items-center space-x-2">
+                            <Text className="text-3xl font-black text-slate-900 tracking-tight">{user.name}</Text>
+                        </View>
+                        <Text className="text-slate-500 text-base font-medium mb-4">{user.email}</Text>
+
+                        <View className="flex-row items-center space-x-2">
+                            <View className="bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+                                <Text className="text-slate-600 text-[10px] font-black uppercase tracking-widest">
+                                    {user.role || 'Member'}
                                 </Text>
                             </View>
-                        )}
-                    </View>
-                    <Text style={styles.email}>{user.email}</Text>
-                    <View style={styles.roleBadge}>
-                        <Text style={styles.roleText}>{user.role || 'Member'}</Text>
-                    </View>
-                </View>
-                <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
-                    <Ionicons name="log-out-outline" size={24} color="#ef4444" />
-                </TouchableOpacity>
-            </View>
-
-            {subscription && (
-                <View style={styles.subscriptionBanner}>
-                    <View style={styles.subInfo}>
-                        <Text style={styles.subTitle}>Active Subscription</Text>
-                        <Text style={styles.subStatus}>
-                            {subscription.status === 'active' ? '✅ Active' : '⏳ Processing'} • Ends {new Date(subscription.current_period_end).toLocaleDateString()}
-                        </Text>
-                    </View>
-                    <TouchableOpacity style={styles.manageButton}>
-                        <Text style={styles.manageButtonText}>Manage</Text>
-                    </TouchableOpacity>
-                </View>
-            )}
-
-            {user.role === 'vendor' && (
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Performance Overview</Text>
-                    <View style={styles.statsGrid}>
-                        <View style={styles.statCard}>
-                            <Text style={styles.statLabel}>Views</Text>
-                            <Text style={styles.statValue}>{stats?.total_views || 0}</Text>
-                        </View>
-                        <View style={styles.statCard}>
-                            <Text style={styles.statLabel}>Revenue</Text>
-                            <Text style={styles.statValue}>${stats?.total_revenue || 0}</Text>
-                        </View>
-                        <View style={styles.statCard}>
-                            <Text style={styles.statLabel}>Credits</Text>
-                            <Text style={styles.statValue}>{stats?.promotion_credits || 0}</Text>
-                        </View>
-                    </View>
-                </View>
-            )}
-
-            <View style={styles.section}>
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>
-                        {user.role === 'vendor' ? 'My Active Hub Listings' : 'Recent Bookings'}
-                    </Text>
-                    <TouchableOpacity onPress={() => fetchVendorData()}>
-                        <Ionicons name="refresh" size={20} color="#0d9488" />
-                    </TouchableOpacity>
-                </View>
-
-                {loading ? (
-                    <ActivityIndicator color="#0d9488" size="large" style={{ marginTop: 20 }} />
-                ) : (
-                    listings.length > 0 ? (
-                        listings.map((item) => (
-                            <TouchableOpacity key={item.id} style={styles.card}>
-                                <View style={styles.cardHeader}>
-                                    <View>
-                                        <Text style={styles.cardTitle}>{item.title}</Text>
-                                        <Text style={styles.cardCategory}>{item.category || item.type}</Text>
-                                    </View>
-                                    <Text style={styles.cardPrice}>${Number(item.price).toLocaleString()}</Text>
+                            {subscription?.tier && (
+                                <View
+                                    className="px-3 py-1.5 rounded-full flex-row items-center border"
+                                    style={{ backgroundColor: tierStyle.bg, borderColor: tierStyle.color + '20' }}
+                                >
+                                    <Ionicons name={tierStyle.icon} size={12} color={tierStyle.color} />
+                                    <Text
+                                        className="ml-1 text-[10px] font-black uppercase tracking-widest"
+                                        style={{ color: tierStyle.color }}
+                                    >
+                                        {subscription.tier}
+                                    </Text>
                                 </View>
-                                <View style={styles.cardFooter}>
-                                    <View style={styles.statusBadge}>
-                                        <Text style={styles.statusText}>{item.status || 'Active'}</Text>
-                                    </View>
-                                    <View style={styles.cardStats}>
-                                        <Ionicons name="eye-outline" size={14} color="#64748b" />
-                                        <Text style={styles.cardStatsText}>{item.views || 0} views</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        ))
-                    ) : (
-                        <View style={styles.emptyContainer}>
-                            <Text style={styles.emptyIcon}>📦</Text>
-                            <Text style={styles.emptyText}>No listings yet.</Text>
-                            <TouchableOpacity style={styles.createButton}>
-                                <Text style={styles.createButtonText}>List Something New</Text>
-                            </TouchableOpacity>
+                            )}
                         </View>
-                    )
+                    </View>
+                </View>
+
+                {/* Subscription Card */}
+                {subscription && (
+                    <View className="mx-6 -mt-6 bg-teal-900 p-6 rounded-[32px] shadow-xl shadow-teal-900/30 flex-row items-center justify-between">
+                        <View>
+                            <Text className="text-teal-400 text-xs font-black uppercase tracking-widest mb-1">Active Plan</Text>
+                            <Text className="text-white text-lg font-bold">
+                                {subscription.status === 'active' ? 'Full Access Active' : 'Pending Verification'}
+                            </Text>
+                            <Text className="text-teal-200/60 text-xs mt-1">
+                                Ends {new Date(subscription.current_period_end).toLocaleDateString()}
+                            </Text>
+                        </View>
+                        <TouchableOpacity className="bg-white/10 px-4 py-2 rounded-xl border border-white/20">
+                            <Text className="text-white font-bold text-xs uppercase">Manage</Text>
+                        </TouchableOpacity>
+                    </View>
                 )}
-            </View>
-            <View style={{ height: 100 }} />
-        </ScrollView>
+
+                {/* Stats Section */}
+                {user.role === 'vendor' && (
+                    <View className="px-6 mt-8">
+                        <Text className="text-slate-900 text-xl font-black tracking-tight mb-4">Channel Performance</Text>
+                        <View className="flex-row space-x-3">
+                            <View className="flex-1 bg-white p-5 rounded-3xl border border-slate-100 shadow-sm">
+                                <View className="w-10 h-10 bg-indigo-50 rounded-2xl items-center justify-center mb-3">
+                                    <Ionicons name="eye-outline" size={20} color="#6366f1" />
+                                </View>
+                                <Text className="text-slate-500 text-xs font-bold uppercase mb-0.5">Views</Text>
+                                <Text className="text-slate-900 text-2xl font-black">{stats?.total_views || 0}</Text>
+                            </View>
+                            <View className="flex-1 bg-white p-5 rounded-3xl border border-slate-100 shadow-sm">
+                                <View className="w-10 h-10 bg-emerald-50 rounded-2xl items-center justify-center mb-3">
+                                    <Ionicons name="card-outline" size={20} color="#10b981" />
+                                </View>
+                                <Text className="text-slate-500 text-xs font-bold uppercase mb-0.5">Earnings</Text>
+                                <Text className="text-slate-900 text-2xl font-black">${stats?.total_revenue || 0}</Text>
+                            </View>
+                        </View>
+                    </View>
+                )}
+
+                {/* Listings Section */}
+                <View className="px-6 mt-8">
+                    <View className="flex-row justify-between items-center mb-6">
+                        <Text className="text-slate-900 text-xl font-black tracking-tight">
+                            {user.role === 'vendor' ? 'My Hub Listings' : 'Recent Experience'}
+                        </Text>
+                        <TouchableOpacity
+                            onPress={fetchVendorData}
+                            className="bg-slate-100 p-2 rounded-xl"
+                        >
+                            <Ionicons name="refresh" size={18} color="#64748b" />
+                        </TouchableOpacity>
+                    </View>
+
+                    {loading ? (
+                        <ActivityIndicator color="#0d9488" size="large" className="mt-4" />
+                    ) : (
+                        listings.length > 0 ? (
+                            listings.map((item) => (
+                                <TouchableOpacity key={item.id} className="bg-white p-4 rounded-3xl mb-4 border border-slate-100 shadow-sm flex-row items-center">
+                                    <View className="w-14 h-14 bg-slate-50 rounded-2xl items-center justify-center mr-4">
+                                        <Text className="text-2xl">
+                                            {item.type === 'campaign' ? '❤️' : item.type === 'rental' ? '🏠' : '🛠️'}
+                                        </Text>
+                                    </View>
+                                    <View className="flex-1">
+                                        <Text className="text-slate-900 font-bold text-base" numberOfLines={1}>{item.title}</Text>
+                                        <View className="flex-row items-center mt-1">
+                                            <Text className="text-teal-600 text-[10px] font-black uppercase tracking-widest">{item.category || item.type}</Text>
+                                            <View className="w-1 h-1 bg-slate-300 rounded-full mx-2" />
+                                            <Text className="text-slate-500 text-xs font-bold">${Number(item.price).toLocaleString()}</Text>
+                                        </View>
+                                    </View>
+                                    <View className="bg-slate-50 px-3 py-1.5 rounded-xl flex-row items-center">
+                                        <Ionicons name="stats-chart-outline" size={12} color="#64748b" />
+                                        <Text className="ml-1 text-slate-500 text-[10px] font-black">{item.views || 0}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            ))
+                        ) : (
+                            <View className="bg-white border-2 border-dashed border-slate-200 p-10 rounded-[32px] items-center">
+                                <Ionicons name="cloud-upload-outline" size={48} color="#cbd5e1" />
+                                <Text className="text-slate-400 font-bold text-center mt-4 mb-6">You haven't listed anything on the hub yet.</Text>
+                                <TouchableOpacity className="bg-teal-600 px-8 py-3 rounded-2xl shadow-md shadow-teal-600/20">
+                                    <Text className="text-white font-bold">Start Listing</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    )}
+                </View>
+                <View className="h-24" />
+            </ScrollView>
+        </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f8fafc',
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 40,
-        backgroundColor: 'white',
-        minHeight: 600,
-    },
-    header: {
-        backgroundColor: 'white',
-        padding: 24,
-        paddingTop: 80,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#f1f5f9',
-    },
-    avatar: {
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        backgroundColor: '#0d9488',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 16,
-    },
-    avatarText: {
-        color: 'white',
-        fontSize: 28,
-        fontWeight: '900',
-    },
-    headerInfo: {
-        flex: 1,
-    },
-    greeting: {
-        fontSize: 22,
-        fontWeight: '900',
-        color: '#0f172a',
-        letterSpacing: -0.5,
-    },
-    email: {
-        fontSize: 14,
-        color: '#64748b',
-        marginBottom: 6,
-    },
-    roleBadge: {
-        alignSelf: 'flex-start',
-        backgroundColor: '#f1f5f9',
-        paddingHorizontal: 10,
-        paddingVertical: 2,
-        borderRadius: 20,
-    },
-    roleText: {
-        fontSize: 10,
-        fontWeight: '900',
-        color: '#64748b',
-        textTransform: 'uppercase',
-    },
-    logoutButton: {
-        padding: 8,
-    },
-    section: {
-        padding: 24,
-    },
-    sectionHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: '900',
-        color: '#0f172a',
-        letterSpacing: -0.5,
-    },
-    statsGrid: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        gap: 12,
-    },
-    statCard: {
-        flex: 1,
-        backgroundColor: 'white',
-        padding: 16,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-        shadowColor: '#000',
-        shadowOpacity: 0.02,
-        shadowRadius: 10,
-        elevation: 1,
-    },
-    statLabel: {
-        fontSize: 12,
-        color: '#64748b',
-        fontWeight: '700',
-        marginBottom: 4,
-    },
-    statValue: {
-        fontSize: 20,
-        fontWeight: '900',
-        color: '#0f172a',
-    },
-    card: {
-        backgroundColor: 'white',
-        padding: 16,
-        borderRadius: 20,
-        marginBottom: 12,
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-        shadowColor: '#000',
-        shadowOpacity: 0.03,
-        shadowRadius: 10,
-        elevation: 2,
-    },
-    cardHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 12,
-    },
-    cardTitle: {
-        fontSize: 16,
-        fontWeight: '800',
-        color: '#0f172a',
-    },
-    cardCategory: {
-        fontSize: 12,
-        color: '#0d9488',
-        fontWeight: '600',
-        textTransform: 'uppercase',
-    },
-    cardPrice: {
-        fontSize: 16,
-        fontWeight: '900',
-        color: '#0f172a',
-    },
-    cardFooter: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingTop: 12,
-        borderTopWidth: 1,
-        borderTopColor: '#f1f5f9',
-    },
-    statusBadge: {
-        backgroundColor: '#f0fdfa',
-        paddingHorizontal: 8,
-        paddingVertical: 2,
-        borderRadius: 4,
-    },
-    statusText: {
-        color: '#0f766e',
-        fontSize: 10,
-        fontWeight: '900',
-        textTransform: 'uppercase',
-    },
-    cardStats: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    cardStatsText: {
-        fontSize: 12,
-        color: '#64748b',
-        marginLeft: 4,
-    },
-    emptyContainer: {
-        alignItems: 'center',
-        padding: 40,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        borderStyle: 'dashed',
-        borderWidth: 2,
-        borderColor: '#f1f5f9',
-    },
-    emptyIcon: {
-        fontSize: 48,
-        marginBottom: 16,
-    },
-    emptyText: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: '#64748b',
-        marginBottom: 16,
-    },
-    createButton: {
-        backgroundColor: '#0d9488',
-        paddingHorizontal: 20,
-        paddingVertical: 12,
-        borderRadius: 12,
-    },
-    createButtonText: {
-        color: 'white',
-        fontWeight: '800',
-    },
-    title: {
-        fontSize: 28,
-        fontWeight: '900',
-        color: '#0f172a',
-        marginBottom: 8,
-    },
-    subtitle: {
-        fontSize: 16,
-        color: '#64748b',
-        textAlign: 'center',
-        marginBottom: 32,
-    },
-    button: {
-        backgroundColor: '#0d9488',
-        width: '100%',
-        paddingVertical: 16,
-        borderRadius: 16,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: '800',
-    },
-    tierBadge: {
-        paddingHorizontal: 8,
-        paddingVertical: 2,
-        borderRadius: 8,
-    },
-    tierText: {
-        fontSize: 10,
-        fontWeight: '900',
-    },
-    subscriptionBanner: {
-        backgroundColor: 'white',
-        marginHorizontal: 24,
-        marginTop: -20,
-        padding: 20,
-        borderRadius: 24,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderWidth: 1,
-        borderColor: '#f1f5f9',
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 15,
-        elevation: 5,
-    },
-    subInfo: {
-        flex: 1,
-    },
-    subTitle: {
-        fontSize: 14,
-        fontWeight: '900',
-        color: '#0f172a',
-        marginBottom: 2,
-    },
-    subStatus: {
-        fontSize: 11,
-        color: '#64748b',
-        fontWeight: '600',
-    },
-    manageButton: {
-        backgroundColor: '#f1f5f9',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        borderRadius: 12,
-    },
-    manageButtonText: {
-        fontSize: 12,
-        fontWeight: '800',
-        color: '#0f172a',
-    }
-});

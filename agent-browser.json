@@ -1,0 +1,1162 @@
+{
+    "name": "Island Fund Audit Configuration",
+    "version": "1.0.0",
+    "description": "Agent-browser configuration for auditing Island Fund application",
+    "browser": {
+        "headed": false,
+        "viewport": {
+            "width": 1920,
+            "height": 1080
+        },
+        "userAgent": "IslandFund-Audit-Agent/1.0",
+        "ignoreHTTPSErrors": true,
+        "colorScheme": "light"
+    },
+    "security": {
+        "allowedDomains": [
+            "localhost",
+            "*.localhost",
+            "islandfund.com",
+            "*.islandfund.com",
+            "api.islandfund.com"
+        ],
+        "contentBoundaries": true,
+        "maxOutput": 50000,
+        "actionPolicy": "./audit-action-policy.json"
+    },
+    "sessions": {
+        "path": "./agent-browser-sessions",
+        "persist": true
+    },
+    "screenshots": {
+        "path": "./audit-screenshots",
+        "fullPage": true,
+        "annotate": true
+    },
+    "environments": {
+        "local": {
+            "baseUrl": "http://localhost:3000",
+            "apiUrl": "http://localhost:5001",
+            "sessionName": "islandfund-local"
+        },
+        "staging": {
+            "baseUrl": "https://staging.islandfund.com",
+            "apiUrl": "https://api-staging.islandfund.com",
+            "sessionName": "islandfund-staging"
+        },
+        "production": {
+            "baseUrl": "https://islandfund.com",
+            "apiUrl": "https://api.islandfund.com",
+            "sessionName": "islandfund-prod"
+        }
+    },
+    "tasks": [
+        {
+            "id": "public-pages",
+            "name": "Public Pages Audit",
+            "description": "Audit all publicly accessible pages",
+            "priority": "high",
+            "flows": [
+                {
+                    "name": "Homepage Load",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/"
+                        },
+                        {
+                            "action": "snapshot",
+                            "selector": "main"
+                        },
+                        {
+                            "action": "screenshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Marketplace Browse",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/browse"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Search Functionality",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/search"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='search']",
+                            "value": "jamaica tours"
+                        },
+                        {
+                            "action": "press",
+                            "key": "Enter"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Products Page",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/products"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tours Marketplace",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/tours"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Stores Directory",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/stores"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Community Page",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/community"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "authentication",
+            "name": "Authentication Flows",
+            "description": "Test login, registration, and password flows",
+            "priority": "critical",
+            "credentials": {
+                "customer": {
+                    "email": "{{CUSTOMER_EMAIL}}",
+                    "password": "{{CUSTOMER_PASSWORD}}"
+                },
+                "vendor": {
+                    "email": "{{VENDOR_EMAIL}}",
+                    "password": "{{VENDOR_PASSWORD}}"
+                },
+                "admin": {
+                    "email": "{{ADMIN_EMAIL}}",
+                    "password": "{{ADMIN_PASSWORD}}"
+                },
+                "driver": {
+                    "email": "{{DRIVER_EMAIL}}",
+                    "password": "{{DRIVER_PASSWORD}}"
+                }
+            },
+            "flows": [
+                {
+                    "name": "Customer Login",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/login"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='email']",
+                            "value": "{{customer.email}}"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='password']",
+                            "value": "{{customer.password}}"
+                        },
+                        {
+                            "action": "click",
+                            "selector": "button[type='submit']"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        },
+                        {
+                            "action": "saveSession",
+                            "name": "customer-session"
+                        }
+                    ]
+                },
+                {
+                    "name": "Vendor Login",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/login"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='email']",
+                            "value": "{{vendor.email}}"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='password']",
+                            "value": "{{vendor.password}}"
+                        },
+                        {
+                            "action": "click",
+                            "selector": "button[type='submit']"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        },
+                        {
+                            "action": "saveSession",
+                            "name": "vendor-session"
+                        }
+                    ]
+                },
+                {
+                    "name": "Admin Login",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/login"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='email']",
+                            "value": "{{admin.email}}"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='password']",
+                            "value": "{{admin.password}}"
+                        },
+                        {
+                            "action": "click",
+                            "selector": "button[type='submit']"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        },
+                        {
+                            "action": "saveSession",
+                            "name": "admin-session"
+                        }
+                    ]
+                },
+                {
+                    "name": "Driver Login",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/login"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='email']",
+                            "value": "{{driver.email}}"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='password']",
+                            "value": "{{driver.password}}"
+                        },
+                        {
+                            "action": "click",
+                            "selector": "button[type='submit']"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        },
+                        {
+                            "action": "saveSession",
+                            "name": "driver-session"
+                        }
+                    ]
+                },
+                {
+                    "name": "Registration Flow",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/register"
+                        },
+                        {
+                            "action": "snapshot"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[name='firstName']",
+                            "value": "Test"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[name='lastName']",
+                            "value": "User"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='email']",
+                            "value": "test-audit@example.com"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='password']",
+                            "value": "TestPassword123!"
+                        },
+                        {
+                            "action": "snapshot",
+                            "name": "registration-filled"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ecommerce",
+            "name": "E-Commerce Flows",
+            "description": "Test shopping, cart, and checkout functionality",
+            "priority": "high",
+            "requires": [
+                "customer-session"
+            ],
+            "flows": [
+                {
+                    "name": "Browse Products",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/products"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "View Cart",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/cart"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Checkout Flow",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/cart"
+                        },
+                        {
+                            "action": "click",
+                            "selector": "button:has-text('Checkout'), a:has-text('Checkout')"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Order History",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard/orders"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "user-dashboard",
+            "name": "User Dashboard",
+            "description": "Test user dashboard features",
+            "priority": "high",
+            "requires": [
+                "customer-session"
+            ],
+            "flows": [
+                {
+                    "name": "Main Dashboard",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "User Settings",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/settings"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Notifications",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/notifications"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "User Analytics",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard/analytics"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "rentals",
+            "name": "Rental Hub Flows",
+            "description": "Test rental search and booking functionality",
+            "priority": "medium",
+            "flows": [
+                {
+                    "name": "Rental Hub Main",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rental-hub"
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Stays Category",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rental-hub/stays"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Equipment Rentals",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rental-hub/equipment-tools"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Land Rentals",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rental-hub/land-rentals"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sea Rentals",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rental-hub/sea-rentals"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Rental Providers",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rentals/providers"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "vendor-features",
+            "name": "Vendor Features",
+            "description": "Test vendor dashboard and listing management",
+            "priority": "medium",
+            "requires": [
+                "vendor-session"
+            ],
+            "flows": [
+                {
+                    "name": "Vendor Dashboard",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "vendor-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Listing",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "vendor-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/create"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[name='title'], input[placeholder*='title' i]",
+                            "value": "Test Listing Audit"
+                        },
+                        {
+                            "action": "snapshot",
+                            "name": "create-listing-filled"
+                        }
+                    ]
+                },
+                {
+                    "name": "Manage Listings",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "vendor-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/listings"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Vendor Analytics",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "vendor-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard/analytics"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Vendor Messages",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "vendor-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard/messages"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "tours-campaigns",
+            "name": "Tours and Campaigns",
+            "description": "Test tour booking and campaign features",
+            "priority": "medium",
+            "flows": [
+                {
+                    "name": "Tours Marketplace",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/tours"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tour Categories",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/tours/adventure"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Campaigns Listing",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/campaigns"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Campaign",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/campaigns/new"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "admin-features",
+            "name": "Admin Features",
+            "description": "Test admin dashboard and management features",
+            "priority": "high",
+            "requires": [
+                "admin-session"
+            ],
+            "flows": [
+                {
+                    "name": "Admin Main Dashboard",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Admin Analytics",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin/analytics"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "User Management",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin/users/1"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Listing Management",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin/listings/1"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "KYB Verification",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin/kyb-verification"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Pending Campaigns",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin/campaigns/pending"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Dispatch Management",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/admin/dispatch"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "driver-logistics",
+            "name": "Driver and Logistics",
+            "description": "Test driver portal and logistics features",
+            "priority": "low",
+            "requires": [
+                "driver-session"
+            ],
+            "flows": [
+                {
+                    "name": "Driver Dashboard",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "driver-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/driver/dashboard"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Driver Hub",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/driver-hub"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Request Ride",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/request-ride"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Dispatch View",
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "admin-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dispatch"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "responsive-design",
+            "name": "Responsive Design Check",
+            "description": "Test application on different viewport sizes",
+            "priority": "medium",
+            "flows": [
+                {
+                    "name": "Mobile Homepage",
+                    "viewport": {
+                        "width": 375,
+                        "height": 812
+                    },
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/"
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Mobile Browse",
+                    "viewport": {
+                        "width": 375,
+                        "height": 812
+                    },
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/browse"
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Tablet Dashboard",
+                    "viewport": {
+                        "width": 768,
+                        "height": 1024
+                    },
+                    "steps": [
+                        {
+                            "action": "loadSession",
+                            "name": "customer-session"
+                        },
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/dashboard"
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

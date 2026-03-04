@@ -192,7 +192,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                 <button
                     type="submit"
                     disabled={!stripe || processing}
-                    className="w-full py-5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-emerald-200 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full py-5 bg-linear-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-emerald-200 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                     {processing ? (
                         <div className="flex items-center justify-center gap-2">

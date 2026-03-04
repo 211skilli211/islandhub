@@ -131,7 +131,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                 .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
                 .map(extractUrl)
                 .filter(Boolean) as string[];
-            
+
             if (photoUrls.length > 0) {
                 console.log('Using photos:', photoUrls);
                 return photoUrls;
@@ -143,7 +143,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
             const imageUrls = listing.images
                 .map(extractUrl)
                 .filter(Boolean) as string[];
-            
+
             if (imageUrls.length > 0) {
                 console.log('Using images:', imageUrls);
                 return imageUrls;
@@ -272,7 +272,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                     {/* Main Content */}
                     <div className="lg:col-span-7 space-y-8">
                         {/* Image Gallery */}
-                        <div className="relative aspect-[4/3] bg-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                        <div className="relative aspect-4/3 bg-slate-200 rounded-2xl overflow-hidden shadow-sm">
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={activeImage}
@@ -280,8 +280,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.3 }}
-                                    src={displayImages.length > 0 && displayImages[activeImage] 
-                                        ? getImageUrl(displayImages[activeImage]) 
+                                    src={displayImages.length > 0 && displayImages[activeImage]
+                                        ? getImageUrl(displayImages[activeImage])
                                         : (getImageUrl(listing.image_url) || '/assets/placeholder-listing.png')}
                                     alt={listing.title}
                                     className="w-full h-full object-cover"
@@ -294,7 +294,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                             {/* Category Badge */}
                             <div className="absolute top-4 left-4">
-                                <span 
+                                <span
                                     className="px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-sm"
                                     style={{ backgroundColor: accentColor }}
                                 >
@@ -317,9 +317,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <button
                                         key={idx}
                                         onClick={() => setActiveImage(idx)}
-                                        className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
-                                            activeImage === idx ? 'border-slate-900 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
-                                        }`}
+                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-slate-900 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
+                                            }`}
                                     >
                                         <img src={getImageUrl(img)} className="w-full h-full object-cover" alt="" />
                                     </button>
@@ -395,7 +394,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                         className="p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors cursor-pointer flex gap-4"
                                                     >
                                                         {item.image_url && (
-                                                            <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                                                            <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
                                                                 <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.item_name || item.name} />
                                                             </div>
                                                         )}
@@ -432,7 +431,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                 {section.items?.map((item: any, iIdx: number) => (
                                                     <div key={iIdx} className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex gap-4">
                                                         {item.image_url && (
-                                                            <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                                                            <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
                                                                 <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.name} />
                                                             </div>
                                                         )}
@@ -627,11 +626,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             <button
                                                                 key={v}
                                                                 onClick={() => setSelectedVariants(prev => ({ ...prev, [groupName]: v }))}
-                                                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${
-                                                                    isSelected 
-                                                                        ? 'border-slate-900 bg-slate-900 text-white' 
+                                                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${isSelected
+                                                                        ? 'border-slate-900 bg-slate-900 text-white'
                                                                         : 'border-slate-200 text-slate-600 hover:border-slate-300'
-                                                                }`}
+                                                                    }`}
                                                             >
                                                                 {v}
                                                             </button>
@@ -658,11 +656,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             <button
                                                                 key={v}
                                                                 onClick={() => setSelectedVariants(prev => ({ ...prev, [variant.name]: v }))}
-                                                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${
-                                                                    isSelected 
-                                                                        ? 'border-slate-900 bg-slate-900 text-white' 
+                                                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${isSelected
+                                                                        ? 'border-slate-900 bg-slate-900 text-white'
                                                                         : 'border-slate-200 text-slate-600 hover:border-slate-300'
-                                                                }`}
+                                                                    }`}
                                                             >
                                                                 {v}
                                                             </button>
@@ -691,11 +688,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                                 setSelectedAddons(prev => [...prev, { name: addon.name, price: addon.price }]);
                                                             }
                                                         }}
-                                                        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all border ${
-                                                            isSelected 
-                                                                ? 'bg-slate-900 border-slate-900 text-white' 
+                                                        className={`w-full flex items-center justify-between p-3 rounded-xl transition-all border ${isSelected
+                                                                ? 'bg-slate-900 border-slate-900 text-white'
                                                                 : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
-                                                        }`}
+                                                            }`}
                                                     >
                                                         <div className="flex items-center gap-3">
                                                             <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-slate-900 border-white' : 'border-slate-300'}`}>
@@ -914,11 +910,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             <button
                                                 key={slot}
                                                 onClick={() => setSelectedSlot(slot)}
-                                                className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all border ${
-                                                    selectedSlot === slot 
-                                                        ? 'bg-slate-900 border-slate-900 text-white' 
+                                                className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all border ${selectedSlot === slot
+                                                        ? 'bg-slate-900 border-slate-900 text-white'
                                                         : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
-                                                }`}
+                                                    }`}
                                             >
                                                 {slot}
                                             </button>
@@ -986,11 +981,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                     <button
                                                         key={idx}
                                                         onClick={() => isSelected ? setSelectedAddons(prev => prev.filter((a: any) => a.name !== addon.name)) : setSelectedAddons(prev => [...prev, { name: addon.name, price: addon.price }])}
-                                                        className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all ${
-                                                            isSelected 
-                                                                ? 'border-rose-500 bg-rose-50' 
+                                                        className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all ${isSelected
+                                                                ? 'border-rose-500 bg-rose-50'
                                                                 : 'border-slate-200 hover:border-slate-300'
-                                                        }`}
+                                                            }`}
                                                     >
                                                         <div className="flex items-center gap-3">
                                                             <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-rose-500 border-rose-500' : 'border-slate-300'}`}>

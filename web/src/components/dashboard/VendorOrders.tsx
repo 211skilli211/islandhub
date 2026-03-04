@@ -120,7 +120,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[600px]">
                 {/* Column 1 */}
-                <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col border border-slate-100">
+                <div className="bg-slate-50 rounded-4xl p-6 flex flex-col border border-slate-100">
                     <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 px-2 flex justify-between items-center">
                         <span>{left.label}</span>
                         <span className="bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full">{left.items.length}</span>
@@ -140,7 +140,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
 
                 {/* Column 2 */}
                 {!isCampaign && (
-                    <div className="bg-rose-50/50 rounded-[2rem] p-6 flex flex-col border border-rose-100/50">
+                    <div className="bg-rose-50/50 rounded-4xl p-6 flex flex-col border border-rose-100/50">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-rose-500 mb-6 px-2 flex justify-between items-center">
                             <span>{middle.label}</span>
                             <span className="bg-rose-500 text-white px-2 py-0.5 rounded-full">{middle.items.length}</span>
@@ -160,7 +160,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
 
                 {/* Column 3 */}
                 {!isCampaign && (
-                    <div className="bg-emerald-50/50 rounded-[2rem] p-6 flex flex-col border border-emerald-100/50">
+                    <div className="bg-emerald-50/50 rounded-4xl p-6 flex flex-col border border-emerald-100/50">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-6 px-2 flex justify-between items-center">
                             <span>{right.label}</span>
                             <span className="bg-emerald-600 text-white px-2 py-0.5 rounded-full">{right.items.length}</span>

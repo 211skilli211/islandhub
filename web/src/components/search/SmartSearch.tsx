@@ -103,7 +103,7 @@ export default function SmartSearch() {
                     onFocus={() => query.length >= 2 && setShowDropdown(true)}
                     onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
                     placeholder="Search for restaurants, items, services, or rentals..."
-                    className="w-full px-6 py-4 bg-white/90 backdrop-blur-md border border-slate-200 rounded-[2rem] text-slate-800 text-lg placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
+                    className="w-full px-6 py-4 bg-white/90 backdrop-blur-md border border-slate-200 rounded-4xl text-slate-800 text-lg placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
                 />
 
                 <button
@@ -156,7 +156,7 @@ export default function SmartSearch() {
                                                 }`}
                                         >
                                             {suggestion.image ? (
-                                                <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-200 flex-shrink-0">
+                                                <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-200 shrink-0">
                                                     <img
                                                         src={suggestion.image}
                                                         alt=""
