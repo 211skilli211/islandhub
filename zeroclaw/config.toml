@@ -1,0 +1,295 @@
+# =============================================================================
+# ZeroClaw Configuration for IslandHub
+# Caribbean Marketplace Agent Operating System
+# Based on: github.com/zeroclaw-labs/zeroclaw
+# =============================================================================
+
+# ── Core Settings ────────────────────────────────────────────────
+api_key = "${OPENROUTER_API_KEY:-}"  # OpenRouter for multi-model access
+default_provider = "openrouter"
+default_model = "anthropic/claude-sonnet-4"
+default_temperature = 0.7
+
+# ── Security ─────────────────────────────────────────────────────
+[secrets]
+encrypt = true
+
+[autonomy]
+level = "supervised"  # supervised | semi | full
+workspace_only = true
+forbidden_paths = ["/etc", "/sys", "/proc", "/boot", "/root"]
+allowed_commands = [
+    "./tools/islandhub-api.sh",
+    "./tools/audit-marketplace.sh",
+    "./tools/check-vendor-compliance.sh"
+]
+
+[gateway]
+port = 3001
+host = "127.0.0.1"
+require_pairing = true
+allow_public_bind = false
+pair_rate_limit_per_minute = 10
+webhook_rate_limit_per_minute = 60
+
+# ── Agent Configuration ──────────────────────────────────────────
+[agent]
+compact_context = true
+max_tool_iterations = 15
+max_history_messages = 100
+parallel_tools = false
+tool_dispatcher = "auto"
+
+# ── Memory ───────────────────────────────────────────────────────
+[memory]
+backend = "sqlite"
+auto_save = true
+hygiene_enabled = true
+archive_after_days = 7
+purge_after_days = 30
+embedding_provider = "openai"
+embedding_model = "text-embedding-3-small"
+embedding_dimensions = 1536
+vector_weight = 0.7
+keyword_weight = 0.3
+min_relevance_score = 0.4
+
+# ── Specialized Sub-Agents for IslandHub ────────────────────────
+
+[agents.directory_manager]
+name = "Directory Manager"
+provider = "openrouter"
+model = "anthropic/claude-sonnet-4"
+system_prompt = """You are the Directory Manager for IslandHub, a Caribbean marketplace platform. 
+Your role is to review vendor submissions, ensure compliance with marketplace standards, 
+and maintain directory quality. You have access to vendor verification tools and can 
+approve or reject vendor applications based on compliance criteria.
+
+Key responsibilities:
+- Review pending vendor applications
+- Check KYB (Know Your Business) document completeness
+- Validate business registrations
+- Flag suspicious vendor activity
+- Ensure product category compliance
+
+Always verify information before making approval decisions."""
+temperature = 0.3
+agentic = true
+max_iterations = 10
+allowed_tools = ["http_request", "file_read", "shell"]
+
+[agents.admin_console]
+name = "Admin Override Console"
+provider = "openrouter"
+model = "anthropic/claude-opus-4"
+system_prompt = """You are the Admin Override Console for IslandHub. You provide secure 
+administrative capabilities for emergency operations. ALL actions require pairing code 
+verification for security.
+
+Sensitive operations you can perform:
+- Suspend vendor accounts
+- Process emergency refunds
+- Manage user accounts
+- View audit logs
+- Export platform data
+
+Always require pairing confirmation before executing sensitive operations. 
+Log all actions for audit purposes."""
+temperature = 0.2
+agentic = true
+max_iterations = 8
+allowed_tools = ["http_request", "file_read", "shell"]
+require_confirmation = true
+
+[agents.vendor_helper]
+name = "Vendor Integration Helper"
+provider = "openrouter"
+model = "anthropic/claude-sonnet-4"
+system_prompt = """You are the Vendor Integration Helper for IslandHub. You guide vendors 
+through the onboarding process, help configure webhooks, validate integrations, and 
+troubleshoot technical issues.
+
+Onboarding flow you guide vendors through:
+1. Business Verification - Submit KYB documents
+2. Store Profile - Create store presence
+3. Payment Setup - Connect Stripe/PayPal
+4. Inventory Sync - Set up product management
+5. Webhook Configuration - Order notifications
+6. Go Live Checklist - Final review
+
+Be helpful, patient, and provide clear technical guidance."""
+temperature = 0.5
+agentic = true
+max_iterations = 12
+allowed_tools = ["http_request", "file_read", "shell"]
+
+[agents.marketplace_auditor]
+name = "Marketplace Auditor"
+provider = "openrouter"
+model = "anthropic/claude-sonnet-4"
+system_prompt = """You are the Marketplace Auditor for IslandHub. You perform continuous 
+monitoring to detect price anomalies, fraudulent listings, compliance violations, and 
+data quality issues.
+
+Audit responsibilities:
+- Daily scans of marketplace listings
+- Price anomaly detection (>300% of category average)
+- Fraud pattern identification
+- Duplicate listing detection
+- Vendor compliance monitoring
+- Generate audit reports
+
+Be thorough and flag any suspicious activity immediately."""
+temperature = 0.2
+agentic = true
+max_iterations = 20
+allowed_tools = ["http_request", "file_read", "shell", "web_search"]
+
+[agents.customer_service]
+name = "IslandHub Assistant"
+provider = "openrouter"
+model = "anthropic/claude-sonnet-4"
+system_prompt = """You are the IslandHub Assistant, a friendly AI helper for the Caribbean's 
+premier marketplace. You help customers find products, track orders, discover local 
+vendors, and answer questions about the platform.
+
+Your capabilities:
+- Search products by name, category, or island
+- Track order status and delivery
+- Check product availability
+- Find stores by location
+- Answer shipping questions for Caribbean islands
+- Help with returns and refunds
+- Recommend products based on preferences
+
+Be warm, helpful, and knowledgeable about Caribbean commerce."""
+temperature = 0.7
+agentic = true
+max_iterations = 8
+allowed_tools = ["http_request", "file_read"]
+
+# ── Provider Reliability ─────────────────────────────────────────
+[reliability]
+max_retries = 3
+initial_retry_delay_ms = 1000
+max_retry_delay_ms = 60000
+retry_multiplier = 2.0
+retry_on_rate_limit = true
+fallback_models = [
+    "openai/gpt-4o",
+    "google/gemini-pro",
+    "meta-llama/llama-3.3-70b"
+]
+
+# ── Tools ────────────────────────────────────────────────────────
+[browser]
+enabled = true
+allowed_domains = [
+    "localhost",
+    "*.localhost",
+    "islandfund.com",
+    "*.islandfund.com"
+]
+backend = "agent_browser"
+
+[http_request]
+enabled = true
+allowed_domains = [
+    "localhost",
+    "*.localhost",
+    "islandfund.com",
+    "*.islandfund.com",
+    "api.islandfund.com"
+]
+max_response_size = 10000000  # 10MB
+timeout_secs = 30
+
+[web_search]
+enabled = true
+provider = "duckduckgo"
+max_results = 5
+timeout_secs = 15
+
+[shell]
+enabled = true
+allowed_commands = [
+    "./tools/islandhub-api.sh",
+    "./tools/audit-marketplace.sh",
+    "./tools/check-vendor-compliance.sh"
+]
+require_confirmation = true
+
+[file_read]
+enabled = true
+allowed_paths = [
+    "./logs/",
+    "./agents/",
+    "./tools/",
+    "./audit-results/"
+]
+
+[file_write]
+enabled = true
+allowed_paths = [
+    "./logs/",
+    "./audit-results/"
+]
+
+# ── Scheduling ───────────────────────────────────────────────────
+[cron]
+enabled = true
+storage_file = "./logs/cron_jobs.json"
+
+# Scheduled audit jobs
+[[cron.jobs]]
+name = "daily_listings_audit"
+schedule = "0 2 * * *"  # 2 AM daily
+agent = "marketplace_auditor"
+prompt = "Run a comprehensive audit of all marketplace listings. Check for quality issues, missing information, and compliance violations. Generate a report."
+
+[[cron.jobs]]
+name = "fraud_check"
+schedule = "0 */6 * * *"  # Every 6 hours
+agent = "marketplace_auditor"
+prompt = "Check for fraudulent patterns in recent transactions and vendor activities. Flag any suspicious behavior."
+
+[[cron.jobs]]
+name = "price_monitor"
+schedule = "0 */4 * * *"  # Every 4 hours
+agent = "marketplace_auditor"
+prompt = "Monitor product prices for anomalies. Compare against category averages and flag deviations >300%."
+
+[[cron.jobs]]
+name = "vendor_compliance"
+schedule = "0 1 * * *"  # 1 AM daily
+agent = "directory_manager"
+prompt = "Review pending vendor applications and run compliance checks on recent approvals."
+
+# ── Cost Tracking ────────────────────────────────────────────────
+[cost]
+enabled = true
+daily_limit_usd = 50.0
+monthly_limit_usd = 500.0
+warn_at_percent = 80
+
+# ── Heartbeat ───────────────────────────────────────────────────
+[heartbeat]
+enabled = false
+interval_secs = 3600
+channels = []
+message = "IslandHub ZeroClaw system operational"
+
+# ── Advanced ─────────────────────────────────────────────────────
+[proxy]
+enabled = false
+scope = "zeroclaw"
+
+[identity]
+format = "openclaw"
+
+[hardware]
+enabled = false
+transport = "none"
+
+[peripherals]
+enabled = false

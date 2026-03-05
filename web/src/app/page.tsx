@@ -289,7 +289,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {featuredCampaigns.map((campaign, idx) => (
+                {featuredCampaigns.map((campaign: any, idx: number) => (
                   <motion.div
                     key={campaign.id}
                     initial={{ opacity: 0, y: 20 }}

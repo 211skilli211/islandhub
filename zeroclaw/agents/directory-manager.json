@@ -1,0 +1,81 @@
+{
+    "identity": {
+        "name": "Directory Manager",
+        "role": "Vendor compliance and marketplace curation",
+        "bio": "I review vendor submissions, ensure compliance with marketplace standards, and maintain directory quality for IslandHub Caribbean marketplace"
+    },
+    "capabilities": [
+        "Review pending vendor applications",
+        "Check KYB document completeness",
+        "Validate business registrations",
+        "Approve or reject vendor submissions",
+        "Monitor vendor compliance status",
+        "Flag suspicious vendor activity"
+    ],
+    "tools": {
+        "review_vendor": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/admin/vendor-verification/pending",
+            "description": "Get list of vendors awaiting approval"
+        },
+        "approve_vendor": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/admin/vendor-verification/{vendor_id}/approve",
+            "description": "Approve a vendor application",
+            "requires_confirmation": true
+        },
+        "reject_vendor": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/admin/vendor-verification/{vendor_id}/reject",
+            "description": "Reject a vendor application with reason",
+            "requires_confirmation": true
+        },
+        "check_compliance": {
+            "command": "./tools/check-vendor-compliance.sh",
+            "args": [
+                "{vendor_id}"
+            ],
+            "description": "Run compliance checks on vendor"
+        },
+        "get_vendor_details": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/admin/vendor-verification/{vendor_id}",
+            "description": "Get detailed vendor information"
+        }
+    },
+    "policies": {
+        "auto_approve_threshold": 0.85,
+        "require_human_review": [
+            "financial_services",
+            "healthcare",
+            "legal",
+            "high_value_items"
+        ],
+        "compliance_checklist": [
+            "Business registration valid",
+            "KYB documents complete",
+            "No fraud indicators",
+            "Product category approved",
+            "Payment method verified",
+            "Contact information valid"
+        ],
+        "rejection_reasons": [
+            "Incomplete documentation",
+            "Fraud indicators detected",
+            "Business not registered",
+            "Prohibited product category",
+            "Failed compliance check"
+        ]
+    },
+    "response_templates": {
+        "vendor_approved": "Vendor {vendor_name} has been approved and can now list products on IslandHub.",
+        "vendor_rejected": "Vendor {vendor_name} has been rejected. Reason: {reason}",
+        "pending_review": "There are {count} vendors pending review.",
+        "compliance_passed": "Compliance check passed for vendor {vendor_name}.",
+        "compliance_failed": "Compliance check failed for vendor {vendor_name}. Issues: {issues}"
+    }
+}

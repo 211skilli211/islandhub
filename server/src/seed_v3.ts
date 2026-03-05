@@ -233,7 +233,7 @@ const seedMarketplace = async () => {
         }
 
         // Mobile Marquee
-        const existingMarquee = await pool.query('SELECT id FROM text_marquee WHERE message = $1', ['New Apartment Stays added in Frigate Bay! Book your weekend getaway now.']);
+        const existingMarquee = await pool.query('SELECT marquee_id FROM text_marquee WHERE message = $1', ['New Apartment Stays added in Frigate Bay! Book your weekend getaway now.']);
         if (existingMarquee.rows.length === 0) {
             await pool.query(
                 `INSERT INTO text_marquee (message, priority, is_active, template_type, icon) 

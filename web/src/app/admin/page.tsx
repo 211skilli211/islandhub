@@ -39,6 +39,7 @@ import AdManagementTab from '@/components/admin/AdManagementTab';
 import InlineEdit from '@/components/admin/shared/InlineEdit';
 import PayoutsTab from '@/components/admin/PayoutsTab';
 import KybVerificationTab from '@/app/admin/kyb-verification/page';
+import AgentCommandCenter from '@/components/admin/AgentCommandCenter';
 
 // Interfaces for Data Types
 interface User {
@@ -125,7 +126,7 @@ export default function AdminPage() {
     const router = useRouter();
     const { user, isAuthenticated } = useAuthStore();
     const { theme } = useTheme();
-    const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'listings' | 'orders' | 'campaigns' | 'stores' | 'subscriptions' | 'assets' | 'assets-hero' | 'kyc' | 'kyb-verification' | 'settings' | 'logs' | 'revenue' | 'broadcasts' | 'drivers' | 'logistics-rates' | 'ads' | 'payouts'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'listings' | 'orders' | 'campaigns' | 'stores' | 'subscriptions' | 'assets' | 'assets-hero' | 'kyc' | 'kyb-verification' | 'settings' | 'logs' | 'revenue' | 'broadcasts' | 'drivers' | 'logistics-rates' | 'ads' | 'payouts' | 'agent-center'>('overview');
 
     // Modals
     const [showCreateUser, setShowCreateUser] = useState(false);
@@ -651,6 +652,7 @@ export default function AdminPage() {
                         { id: 'kyc', label: `KYC ${kycList.length > 0 ? `(${kycList.length})` : ''}` },
                         { id: 'kyb-verification', label: 'KYB Verification 🔒' },
                         { id: 'ads', label: 'Advertisements 📺' },
+                        { id: 'agent-center', label: 'Agent Center 🤖' },
                         { id: 'logs', label: 'Audit Logs 📜' },
                         { id: 'settings', label: 'Settings ⚙️' }
                     ].map(tab => (
@@ -851,6 +853,7 @@ export default function AdminPage() {
                                         </div>
                                     );
                                 case 'ads': return <AdManagementTab />;
+                                case 'agent-center': return <AgentCommandCenter />;
                                 default: return <div className="p-20 text-center text-slate-400 dark:text-slate-400">Select a tab</div>;
                             }
                         })()}

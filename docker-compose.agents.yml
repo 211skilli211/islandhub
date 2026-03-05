@@ -1,0 +1,201 @@
+# =============================================================================
+# IslandHub Agent Infrastructure
+# ZeroClaw + LibreChat + WebSocket Proxy
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ── ZeroClaw Gateway ─────────────────────────────────────────────
+  zeroclaw:
+    image: ghcr.io/zeroclaw-labs/zeroclaw:latest
+    container_name: islandfund_zeroclaw
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      # Core
+      ZEROCLAW_CONFIG: /app/config/config.toml
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+
+      # IslandHub API Integration
+      ISLANDHUB_API_URL: ${API_URL:-http://host.docker.internal:5001}
+      ISLANDHUB_ADMIN_TOKEN: ${ADMIN_TOKEN}
+
+      # Security
+      ZEROCLAW_ENCRYPTION_KEY: ${ZEROCLAW_ENCRYPTION_KEY}
+
+    volumes:
+      - ./zeroclaw/config.toml:/app/config/config.toml:ro
+      - ./zeroclaw/logs:/app/logs
+      - ./zeroclaw/agents:/app/agents:ro
+      - ./zeroclaw/tools:/app/tools:ro
+      - zeroclaw_memory:/app/memory
+
+    networks:
+      - islandfund_network
+
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:3001/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits (ZeroClaw is lightweight!)
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 32M
+
+  # ── LibreChat (Customer-Facing Chat) ─────────────────────────────
+  librechat:
+    image: ghcr.io/danny-avila/librechat:latest
+    container_name: islandfund_librechat
+    restart: always
+    ports:
+      - "3080:3080"
+    environment:
+      # Core
+      HOST: "0.0.0.0"
+      PORT: "3080"
+
+      # MongoDB (LibreChat state)
+      MONGO_URI: "mongodb://librechat-mongo:27017/LibreChat"
+
+      # Redis (shared cache)
+      REDIS_URI: "redis://redis:6379"
+
+      # ZeroClaw Integration
+      ZEROCLAW_URL: "http://zeroclaw:3001"
+      ZEROCLAW_API_KEY: ${ZEROCLAW_API_KEY}
+
+      # LLM Provider (using same as ZeroClaw)
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+
+      # IslandHub Branding
+      APP_TITLE: "IslandHub Support"
+      CUSTOM_FOOTER: "Powered by IslandHub Caribbean Marketplace"
+
+      # Security
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+
+    volumes:
+      - ./librechat/chat.yml:/app/librechat.yaml:ro
+      - librechat_uploads:/app/uploads
+      - librechat_logs:/app/logs
+
+    depends_on:
+      librechat-mongo:
+        condition: service_healthy
+      zeroclaw:
+        condition: service_healthy
+
+    networks:
+      - islandfund_network
+
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:3080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── LibreChat MongoDB ────────────────────────────────────────────
+  librechat-mongo:
+    image: mongo:6
+    container_name: islandfund_librechat_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - librechat_mongo_data:/data/db
+    networks:
+      - islandfund_network
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── FastAPI WebSocket Proxy ──────────────────────────────────────
+  websocket-proxy:
+    build:
+      context: ./server/src/zeroclaw-proxy
+      dockerfile: Dockerfile
+    container_name: islandfund_websocket_proxy
+    restart: always
+    ports:
+      - "5002:5002"
+    environment:
+      # ZeroClaw Connection
+      ZEROCLAW_URL: "http://zeroclaw:3001"
+      ZEROCLAW_API_KEY: ${ZEROCLAW_API_KEY}
+
+      # IslandHub API
+      API_URL: ${API_URL:-http://host.docker.internal:5001}
+      JWT_SECRET: ${JWT_SECRET}
+
+      # CORS
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:5001}
+
+    depends_on:
+      zeroclaw:
+        condition: service_healthy
+
+    networks:
+      - islandfund_network
+
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:5002/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Agent Browser Service (for automated audits) ────────────────
+  agent-browser:
+    image: mcr.microsoft.com/playwright:v1.40.0-jammy
+    container_name: islandfund_agent_browser
+    restart: "no" # Run on-demand via cron
+    environment:
+      # Browser settings
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+
+      # IslandHub targets
+      WEB_URL: ${WEB_URL:-http://host.docker.internal:3000}
+      API_URL: ${API_URL:-http://host.docker.internal:5001}
+
+    volumes:
+      - ./agent-browser.json:/app/config.json:ro
+      - ./audit-screenshots:/app/screenshots
+      - ./audit-results:/app/results
+      - ./zeroclaw/tools:/app/tools:ro
+
+    networks:
+      - islandfund_network
+
+    command: >
+      bash -c "
+        npm install -g agent-browser &&
+        agent-browser install &&
+        tail -f /dev/null
+      "
+
+# ── Volumes ──────────────────────────────────────────────────────
+volumes:
+  zeroclaw_memory:
+    driver: local
+  librechat_uploads:
+    driver: local
+  librechat_logs:
+    driver: local
+  librechat_mongo_data:
+    driver: local
+
+# ── Networks ─────────────────────────────────────────────────────
+networks:
+  islandfund_network:
+    driver: bridge

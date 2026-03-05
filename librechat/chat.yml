@@ -1,0 +1,181 @@
+# LibreChat Configuration for IslandHub
+# Customer-facing and admin chat interface
+
+version: 1.0.0
+
+# ── Endpoints Configuration ──────────────────────────────────────
+endpoints:
+  # ZeroClaw Agent Integration
+  custom:
+    - name: "IslandHub Agents"
+      apiKey: "${ZEROCLAW_API_KEY}"
+      baseURL: "http://zeroclaw:3001/v1"
+      models:
+        default: ["customer_service", "vendor_helper"]
+        fetch: false
+      titleConvo: true
+      titleModel: "customer_service"
+      summarize: false
+      
+    - name: "Admin Console"
+      apiKey: "${ZEROCLAW_ADMIN_KEY}"
+      baseURL: "http://zeroclaw:3001/v1"
+      models:
+        default: ["admin_console", "directory_manager", "marketplace_auditor"]
+      titleConvo: true
+      titleModel: "admin_console"
+      requireApproval: true
+
+# ── Interface Customization ──────────────────────────────────────
+interface:
+  branding:
+    appName: "IslandHub Support"
+    appDescription: "Your Caribbean Marketplace Assistant"
+    logo: "/assets/islandhub-logo.svg"
+    
+  welcomeMessage: |
+    👋 Welcome to IslandHub!
+    
+    I'm your AI assistant for the Caribbean's premier marketplace. 
+    I can help you:
+    • Find products and services across islands
+    • Track your orders in real-time
+    • Discover local vendors and stores
+    • Answer questions about shipping
+    • Get recommendations
+    
+    What would you like to explore today?
+    
+  promptLibrary:
+    # Customer prompts
+    - title: "🔍 Find Products"
+      prompt: "Show me products under $50 in St. Kitts"
+      category: "Shopping"
+      
+    - title: "📦 Track Order"
+      prompt: "Where is my order #12345?"
+      category: "Orders"
+      
+    - title: "🏝️ Browse Tours"
+      prompt: "What tours are available in Nevis this weekend?"
+      category: "Experiences"
+      
+    - title: "🍽️ Local Restaurants"
+      prompt: "Find vegan restaurants near me in Basseterre"
+      category: "Dining"
+      
+    - title: "🚚 Shipping Info"
+      prompt: "How long does shipping take from St. Kitts to Nevis?"
+      category: "Shipping"
+      
+    # Vendor prompts
+    - title: "🏪 Store Setup"
+      prompt: "Help me set up my vendor store profile"
+      category: "Vendor"
+      
+    - title: "💳 Payment Setup"
+      prompt: "How do I connect Stripe to receive payments?"
+      category: "Vendor"
+      
+    - title: "📦 Order Management"
+      prompt: "How do I process and fulfill orders?"
+      category: "Vendor"
+      
+    # Admin prompts  
+    - title: "📊 Platform Stats"
+      prompt: "Show me today's platform statistics"
+      category: "Admin"
+      
+    - title: "⚠️ Pending Vendors"
+      prompt: "List all vendors awaiting approval"
+      category: "Admin"
+      
+    - title: "🔍 Run Audit"
+      prompt: "Run a marketplace audit and generate a report"
+      category: "Admin"
+
+# ── Security Settings ────────────────────────────────────────────
+registration:
+  enabled: true
+  socialLogin: true
+  
+# File uploads
+fileConfig:
+  endpoints:
+    default: 10
+  
+# Rate limiting
+rateLimits:
+  fileUploads: 10
+  conversations: 50
+  
+# Plugins
+plugins:
+  enabled: true
+  available:
+    - "web-search"
+    - "islandhub-api"
+
+# ── Model Specifications ─────────────────────────────────────────
+modelSpecs:
+  list:
+    - name: "customer_service"
+      label: "IslandHub Assistant"
+      description: "Customer support for shopping, orders, and marketplace questions"
+      preset:
+        endpoint: "IslandHub Agents"
+        model: "customer_service"
+        temperature: 0.7
+        
+    - name: "vendor_helper"
+      label: "Vendor Support"
+      description: "Help with vendor onboarding, store setup, and integration"
+      preset:
+        endpoint: "IslandHub Agents"
+        model: "vendor_helper"
+        temperature: 0.5
+        
+    - name: "admin_console"
+      label: "Admin Console"
+      description: "Administrative operations and platform management (requires pairing)"
+      preset:
+        endpoint: "Admin Console"
+        model: "admin_console"
+        temperature: 0.2
+        
+    - name: "directory_manager"
+      label: "Directory Manager"
+      description: "Vendor compliance and marketplace curation"
+      preset:
+        endpoint: "Admin Console"
+        model: "directory_manager"
+        temperature: 0.3
+        
+    - name: "marketplace_auditor"
+      label: "Marketplace Auditor"
+      description: "Automated auditing and fraud detection"
+      preset:
+        endpoint: "Admin Console"
+        model: "marketplace_auditor"
+        temperature: 0.2
+
+# ── UI Customization ─────────────────────────────────────────────
+ui:
+  # Theme
+  theme:
+    primary: "#0ea5e9"  # IslandHub blue
+    secondary: "#64748b"
+    background: "#ffffff"
+    surface: "#f8fafc"
+    
+  # Components
+  showAgentSettings: true
+  showPopover: true
+  showSidePanel: true
+  showPromptLibrary: true
+  
+  # Avatar
+  customAvatar:
+    customer_service: "/avatars/islandhub-assistant.png"
+    vendor_helper: "/avatars/vendor-support.png"
+    admin_console: "/avatars/admin-console.png"

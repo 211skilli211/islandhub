@@ -61,6 +61,7 @@ import ratingRoutes from './routes/ratingRoutes';
 import financialRoutes from './routes/financialRoutes';
 import discoveryRoutes from './routes/discoveryRoutes';
 import recommendationRoutes from './routes/recommendationRoutes';
+import agentRoutes from './routes/agentRoutes';
 import path from 'path';
 import { initScheduler } from './services/subscriptionScheduler';
 
@@ -135,6 +136,7 @@ app.use('/api/ratings', ratingRoutes);
 app.use('/api/financials', financialRoutes);
 app.use('/api/discovery', discoveryRoutes);
 app.use('/api/recommendations', recommendationRoutes);
+app.use('/api/agent', agentRoutes);
 app.use('/api', advancedRoutes);
 
 // Basic Route

@@ -1,0 +1,758 @@
+import { Router, Request, Response } from 'express';
+import { pool } from '../config/db';
+import { authenticateJWT, isAdmin } from '../middleware/authMiddleware';
+import { chatWithAgent, getAgentFromDB, saveConversationMessage, getAgentSetting, updateAgentSetting } from '../services/llmService';
+import { v4 as uuidv4 } from 'uuid';
+
+const router = Router();
+
+/**
+ * Agent Gateway Routes — LIVE
+ * All chat goes through the LLM service (OpenRouter → DB-backed agents).
+ * Follows Context7 best practices: RBAC, audit-all, least privilege.
+ */
+
+const ZEROCLAW_GATEWAY = process.env.ZEROCLAW_GATEWAY_URL || 'http://localhost:3001';
+
+// ────────────────────────────────────────────────────────
+// Helper: Log all agent interactions to audit_logs
+// ────────────────────────────────────────────────────────
+async function logAgentInteraction(
+    userId: number | null,
+    action: string,
+    details: Record<string, any>
+) {
+    try {
+        await pool.query(
+            `INSERT INTO audit_logs (user_id, action, table_name, new_values, created_at)
+             VALUES ($1, $2, 'agent_interactions', $3, NOW())`,
+            [userId, action, JSON.stringify(details)]
+        );
+    } catch (err) {
+        console.error('Failed to log agent interaction:', err);
+    }
+}
+
+// ────────────────────────────────────────────────────────
+// POST /api/agent/chat — Customer chat (public, optional auth)
+// ────────────────────────────────────────────────────────
+router.post('/chat', async (req: Request, res: Response) => {
+    const { message, agent, conversationId, context } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const agentId = agent || 'customer_service';
+    const convId = conversationId || uuidv4();
+    const userId = context?.userId || null;
+
+    const result = await chatWithAgent(agentId, message, convId, userId, {
+        role: 'customer',
+        source: 'floating_chat',
+    });
+
+    await logAgentInteraction(userId, 'agent_chat', {
+        agent: agentId,
+        message_length: message.length,
+        role: 'customer',
+        conversationId: convId,
+        tokensUsed: result.tokensUsed,
+        costUsd: result.costUsd,
+    });
+
+    res.json({ ...result, conversationId: convId });
+});
+
+// ────────────────────────────────────────────────────────
+// POST /api/agent/chat/vendor — Vendor chat (auth required)
+// ────────────────────────────────────────────────────────
+router.post('/chat/vendor', authenticateJWT, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (!user || !['vendor', 'admin', 'super-admin'].includes(user.role)) {
+        return res.status(403).json({ error: 'Vendor role required' });
+    }
+
+    const { message, conversationId, context } = req.body;
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const convId = conversationId || uuidv4();
+    const result = await chatWithAgent('vendor_helper', message, convId, user.id, {
+        role: user.role,
+        source: 'vendor_panel',
+    });
+
+    await logAgentInteraction(user.id, 'agent_chat_vendor', {
+        agent: 'vendor_helper',
+        message_length: message.length,
+        role: user.role,
+        conversationId: convId,
+        tokensUsed: result.tokensUsed,
+    });
+
+    res.json({ ...result, conversationId: convId });
+});
+
+// ────────────────────────────────────────────────────────
+// POST /api/agent/chat/admin — Admin chat (admin role required)
+// ────────────────────────────────────────────────────────
+router.post('/chat/admin', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const { message, agent, conversationId } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const agentId = agent || 'admin_console';
+    const convId = conversationId || uuidv4();
+
+    const result = await chatWithAgent(agentId, message, convId, user.id, {
+        role: user.role,
+        source: 'admin_command_center',
+    });
+
+    await logAgentInteraction(user.id, 'agent_chat_admin', {
+        agent: agentId,
+        message_length: message.length,
+        role: user.role,
+        conversationId: convId,
+        tokensUsed: result.tokensUsed,
+        costUsd: result.costUsd,
+    });
+
+    res.json({ ...result, conversationId: convId });
+});
+
+// ────────────────────────────────────────────────────────
+// POST /api/agent/chat/moderator — Moderator chat
+// ────────────────────────────────────────────────────────
+router.post('/chat/moderator', authenticateJWT, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (!user || !['moderator', 'admin', 'super-admin'].includes(user.role)) {
+        return res.status(403).json({ error: 'Moderator role required' });
+    }
+
+    const { message, conversationId } = req.body;
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const convId = conversationId || uuidv4();
+    const result = await chatWithAgent('directory_manager', message, convId, user.id, {
+        role: user.role,
+        source: 'moderator_panel',
+    });
+
+    await logAgentInteraction(user.id, 'agent_chat_moderator', {
+        agent: 'directory_manager',
+        message_length: message.length,
+        role: user.role,
+        conversationId: convId,
+    });
+
+    res.json({ ...result, conversationId: convId });
+});
+
+// ════════════════════════════════════════════════════════
+// AGENT MANAGEMENT ENDPOINTS (Admin only)
+// ════════════════════════════════════════════════════════
+
+// ────────────────────────────────────────────────────────
+// GET /api/agent/configs — List all agent configurations
+// ────────────────────────────────────────────────────────
+router.get('/configs', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            `SELECT id, agent_id, display_name, description, model, system_prompt, 
+                    temperature, max_tokens, tools, allowed_roles, is_system, is_active, 
+                    autonomy_level, icon, color, created_at, updated_at
+             FROM agent_configs 
+             ORDER BY is_system DESC, display_name ASC`
+        );
+        res.json({ agents: result.rows });
+    } catch (error) {
+        console.error('Failed to list agents:', error);
+        res.status(500).json({ error: 'Failed to list agents' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// GET /api/agent/configs/:agentId — Get single agent config
+// ────────────────────────────────────────────────────────
+router.get('/configs/:agentId', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM agent_configs WHERE agent_id = $1',
+            [req.params.agentId]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Agent not found' });
+        }
+        res.json({ agent: result.rows[0] });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get agent' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// POST /api/agent/configs — Create a new agent
+// ────────────────────────────────────────────────────────
+router.post('/configs', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (user.role !== 'super-admin' && user.role !== 'admin') {
+        return res.status(403).json({ error: 'Admin role required to create agents' });
+    }
+
+    const { agent_id, display_name, description, model, system_prompt, temperature, max_tokens, tools, allowed_roles, icon, color, autonomy_level } = req.body;
+
+    if (!agent_id || !display_name || !system_prompt) {
+        return res.status(400).json({ error: 'agent_id, display_name, and system_prompt are required' });
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO agent_configs (agent_id, display_name, description, model, system_prompt, temperature, max_tokens, tools, allowed_roles, is_system, icon, color, autonomy_level, created_by)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, FALSE, $10, $11, $12, $13)
+             RETURNING *`,
+            [
+                agent_id, display_name, description || '',
+                model || 'anthropic/claude-sonnet-4', system_prompt,
+                temperature || 0.5, max_tokens || 4096,
+                tools || [], allowed_roles || ['customer'],
+                icon || '🤖', color || '#0ea5e9',
+                autonomy_level || 'supervised',
+                user.id,
+            ]
+        );
+
+        await logAgentInteraction(user.id, 'agent_created', {
+            agent_id,
+            display_name,
+            model: model || 'anthropic/claude-sonnet-4',
+            createdBy: user.email,
+        });
+
+        res.status(201).json({ agent: result.rows[0] });
+    } catch (error: any) {
+        if (error.code === '23505') {
+            return res.status(409).json({ error: `Agent "${agent_id}" already exists` });
+        }
+        console.error('Failed to create agent:', error);
+        res.status(500).json({ error: 'Failed to create agent' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// PUT /api/agent/configs/:agentId — Update agent config (including prompt)
+// ────────────────────────────────────────────────────────
+router.put('/configs/:agentId', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const { agentId } = req.params;
+    const { display_name, description, model, system_prompt, temperature, max_tokens, tools, allowed_roles, is_active, icon, color, autonomy_level } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE agent_configs SET
+                display_name = COALESCE($1, display_name),
+                description = COALESCE($2, description),
+                model = COALESCE($3, model),
+                system_prompt = COALESCE($4, system_prompt),
+                temperature = COALESCE($5, temperature),
+                max_tokens = COALESCE($6, max_tokens),
+                tools = COALESCE($7, tools),
+                allowed_roles = COALESCE($8, allowed_roles),
+                is_active = COALESCE($9, is_active),
+                icon = COALESCE($10, icon),
+                color = COALESCE($11, color),
+                autonomy_level = COALESCE($12, autonomy_level),
+                updated_at = NOW()
+             WHERE agent_id = $13
+             RETURNING *`,
+            [display_name, description, model, system_prompt, temperature, max_tokens, tools, allowed_roles, is_active, icon, color, autonomy_level, agentId]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Agent not found' });
+        }
+
+        await logAgentInteraction(user.id, 'agent_updated', {
+            agent_id: agentId,
+            changes: req.body,
+            updatedBy: user.email,
+        });
+
+        res.json({ agent: result.rows[0] });
+    } catch (error) {
+        console.error('Failed to update agent:', error);
+        res.status(500).json({ error: 'Failed to update agent' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// DELETE /api/agent/configs/:agentId — Delete a custom agent (not system)
+// ────────────────────────────────────────────────────────
+router.delete('/configs/:agentId', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (user.role !== 'super-admin') {
+        return res.status(403).json({ error: 'Super-admin required to delete agents' });
+    }
+
+    try {
+        const agent = await pool.query('SELECT is_system FROM agent_configs WHERE agent_id = $1', [req.params.agentId]);
+        if (agent.rows.length === 0) return res.status(404).json({ error: 'Agent not found' });
+        if (agent.rows[0].is_system) return res.status(403).json({ error: 'Cannot delete system agents' });
+
+        await pool.query('DELETE FROM agent_configs WHERE agent_id = $1', [req.params.agentId]);
+
+        await logAgentInteraction(user.id, 'agent_deleted', {
+            agent_id: req.params.agentId,
+            deletedBy: user.email,
+        });
+
+        res.json({ success: true, message: `Agent "${req.params.agentId}" deleted.` });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete agent' });
+    }
+});
+
+// ════════════════════════════════════════════════════════
+// PROVIDER CREDENTIAL ENDPOINTS (Super-admin only)
+// ════════════════════════════════════════════════════════
+
+// ────────────────────────────────────────────────────────
+// GET /api/agent/providers — List all providers
+// ────────────────────────────────────────────────────────
+router.get('/providers', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            `SELECT id, provider_name, display_name, api_base_url, is_active, 
+                    models_available, rate_limit_rpm, monthly_budget_usd, current_month_spend,
+                    LENGTH(api_key_encrypted) > 0 as has_api_key,
+                    created_at, updated_at
+             FROM agent_provider_credentials
+             ORDER BY display_name ASC`
+        );
+        res.json({ providers: result.rows });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to list providers' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// POST /api/agent/providers — Add a new provider
+// ────────────────────────────────────────────────────────
+router.post('/providers', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (user.role !== 'super-admin') {
+        return res.status(403).json({ error: 'Super-admin required' });
+    }
+
+    const { provider_name, display_name, api_key, api_base_url, models_available, rate_limit_rpm, monthly_budget_usd } = req.body;
+
+    if (!provider_name || !display_name || !api_key) {
+        return res.status(400).json({ error: 'provider_name, display_name, and api_key are required' });
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO agent_provider_credentials (provider_name, display_name, api_key_encrypted, api_base_url, models_available, rate_limit_rpm, monthly_budget_usd, is_active)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, TRUE)
+             RETURNING id, provider_name, display_name, api_base_url, is_active, models_available`,
+            [provider_name, display_name, api_key, api_base_url || '', models_available || [], rate_limit_rpm || 60, monthly_budget_usd || 100]
+        );
+
+        await logAgentInteraction(user.id, 'provider_added', {
+            provider: provider_name,
+            addedBy: user.email,
+        });
+
+        res.status(201).json({ provider: result.rows[0] });
+    } catch (error: any) {
+        if (error.code === '23505') {
+            return res.status(409).json({ error: `Provider "${provider_name}" already exists` });
+        }
+        res.status(500).json({ error: 'Failed to add provider' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// PUT /api/agent/providers/:providerName — Update provider (incl. API key)
+// ────────────────────────────────────────────────────────
+router.put('/providers/:providerName', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (user.role !== 'super-admin') {
+        return res.status(403).json({ error: 'Super-admin required' });
+    }
+
+    const { api_key, api_base_url, is_active, models_available, rate_limit_rpm, monthly_budget_usd } = req.body;
+
+    try {
+        // Build dynamic update — only change fields that are provided
+        const updates: string[] = [];
+        const params: any[] = [];
+        let idx = 1;
+
+        if (api_key !== undefined) { updates.push(`api_key_encrypted = $${idx++}`); params.push(api_key); }
+        if (api_base_url !== undefined) { updates.push(`api_base_url = $${idx++}`); params.push(api_base_url); }
+        if (is_active !== undefined) { updates.push(`is_active = $${idx++}`); params.push(is_active); }
+        if (models_available !== undefined) { updates.push(`models_available = $${idx++}`); params.push(models_available); }
+        if (rate_limit_rpm !== undefined) { updates.push(`rate_limit_rpm = $${idx++}`); params.push(rate_limit_rpm); }
+        if (monthly_budget_usd !== undefined) { updates.push(`monthly_budget_usd = $${idx++}`); params.push(monthly_budget_usd); }
+
+        if (updates.length === 0) {
+            return res.status(400).json({ error: 'No fields to update' });
+        }
+
+        updates.push(`updated_at = NOW()`);
+        params.push(req.params.providerName);
+
+        const result = await pool.query(
+            `UPDATE agent_provider_credentials SET ${updates.join(', ')} WHERE provider_name = $${idx}
+             RETURNING id, provider_name, display_name, api_base_url, is_active, models_available, LENGTH(api_key_encrypted) > 0 as has_api_key`,
+            params
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Provider not found' });
+        }
+
+        await logAgentInteraction(user.id, 'provider_updated', {
+            provider: req.params.providerName,
+            updatedFields: Object.keys(req.body).filter(k => k !== 'api_key'),
+            updatedBy: user.email,
+        });
+
+        res.json({ provider: result.rows[0] });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update provider' });
+    }
+});
+
+// ════════════════════════════════════════════════════════
+// WORKFLOW ENDPOINTS
+// ════════════════════════════════════════════════════════
+
+// GET /api/agent/workflows — List workflows
+router.get('/workflows', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            `SELECT * FROM agent_workflows ORDER BY created_at DESC`
+        );
+        res.json({ workflows: result.rows });
+    } catch {
+        res.status(500).json({ error: 'Failed to list workflows' });
+    }
+});
+
+// POST /api/agent/workflows — Create workflow
+router.post('/workflows', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const { workflow_id, name, description, steps } = req.body;
+
+    if (!workflow_id || !name || !steps) {
+        return res.status(400).json({ error: 'workflow_id, name, and steps are required' });
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO agent_workflows (workflow_id, name, description, steps, created_by)
+             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+            [workflow_id, name, description || '', JSON.stringify(steps), user.id]
+        );
+
+        await logAgentInteraction(user.id, 'workflow_created', { workflow_id, name });
+        res.status(201).json({ workflow: result.rows[0] });
+    } catch (error: any) {
+        if (error.code === '23505') {
+            return res.status(409).json({ error: `Workflow "${workflow_id}" already exists` });
+        }
+        res.status(500).json({ error: 'Failed to create workflow' });
+    }
+});
+
+// ════════════════════════════════════════════════════════
+// SETTINGS ENDPOINTS
+// ════════════════════════════════════════════════════════
+
+// GET /api/agent/settings — Get all agent settings
+router.get('/settings', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query('SELECT * FROM agent_settings ORDER BY key');
+        const settings: Record<string, string> = {};
+        result.rows.forEach((r: any) => { settings[r.key] = r.value; });
+        res.json({ settings });
+    } catch {
+        res.status(500).json({ error: 'Failed to get settings' });
+    }
+});
+
+// PUT /api/agent/settings — Update settings (super-admin only)
+router.put('/settings', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    if (user.role !== 'super-admin') {
+        return res.status(403).json({ error: 'Super-admin required to modify settings' });
+    }
+
+    const { settings } = req.body;
+    if (!settings || typeof settings !== 'object') {
+        return res.status(400).json({ error: 'settings object is required' });
+    }
+
+    try {
+        for (const [key, value] of Object.entries(settings)) {
+            await updateAgentSetting(key, String(value), user.id);
+        }
+
+        await logAgentInteraction(user.id, 'settings_updated', {
+            keys: Object.keys(settings),
+            updatedBy: user.email,
+        });
+
+        res.json({ success: true, message: 'Settings updated' });
+    } catch {
+        res.status(500).json({ error: 'Failed to update settings' });
+    }
+});
+
+// ════════════════════════════════════════════════════════
+// STATUS & AUDIT ENDPOINTS
+// ════════════════════════════════════════════════════════
+
+// GET /api/agent/status — Agent health & status dashboard
+router.get('/status', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        // Get agents from DB
+        const agentsResult = await pool.query(
+            `SELECT agent_id, display_name, model, is_active, icon, autonomy_level
+             FROM agent_configs WHERE is_active = TRUE ORDER BY is_system DESC, display_name`
+        );
+
+        // Check ZeroClaw gateway
+        const healthCheck = await fetch(`${ZEROCLAW_GATEWAY}/health`).catch(() => null);
+        const gatewayOnline = healthCheck?.ok || false;
+
+        // Check if provider has API key
+        const providerResult = await pool.query(
+            `SELECT provider_name, LENGTH(api_key_encrypted) > 0 as has_key, is_active
+             FROM agent_provider_credentials WHERE is_active = TRUE LIMIT 1`
+        );
+        const providerReady = providerResult.rows.length > 0 && providerResult.rows[0].has_key;
+
+        // Get 24h interaction counts
+        const activityResult = await pool.query(
+            `SELECT agent_id,
+                    COUNT(*) as interaction_count,
+                    MAX(created_at) as last_active,
+                    SUM(tokens_used) as total_tokens,
+                    SUM(cost_usd) as total_cost
+             FROM agent_conversations
+             WHERE created_at > NOW() - INTERVAL '24 hours'
+             GROUP BY agent_id`
+        );
+        const activityMap: Record<string, any> = {};
+        activityResult.rows.forEach((r: any) => {
+            activityMap[r.agent_id] = {
+                interactions24h: parseInt(r.interaction_count),
+                lastActive: r.last_active,
+                tokens24h: parseInt(r.total_tokens || '0'),
+                cost24h: parseFloat(r.total_cost || '0'),
+            };
+        });
+
+        // Get settings
+        const settingsResult = await pool.query('SELECT key, value FROM agent_settings');
+        const settings: Record<string, string> = {};
+        settingsResult.rows.forEach((r: any) => { settings[r.key] = r.value; });
+
+        // Get total spend this month
+        const spendResult = await pool.query(
+            `SELECT COALESCE(SUM(cost_usd), 0) as monthly_spend
+             FROM agent_conversations
+             WHERE role = 'agent' AND created_at > date_trunc('month', NOW())`
+        );
+
+        const agents = agentsResult.rows.map((agent: any) => ({
+            name: agent.agent_id,
+            displayName: agent.display_name,
+            model: agent.model,
+            icon: agent.icon,
+            autonomyLevel: agent.autonomy_level,
+            status: providerReady ? 'online' : (gatewayOnline ? 'online' : 'offline'),
+            interactions24h: activityMap[agent.agent_id]?.interactions24h || 0,
+            lastActive: activityMap[agent.agent_id]?.lastActive || null,
+            tokens24h: activityMap[agent.agent_id]?.tokens24h || 0,
+            cost24h: activityMap[agent.agent_id]?.cost24h || 0,
+        }));
+
+        res.json({
+            gateway: { url: ZEROCLAW_GATEWAY, online: gatewayOnline },
+            provider: {
+                ready: providerReady,
+                name: providerResult.rows[0]?.provider_name || 'none',
+            },
+            agents,
+            config: {
+                autonomyLevel: settings['autonomy_level'] || 'supervised',
+                dailyLimitUsd: parseFloat(settings['daily_budget_usd'] || '50'),
+                monthlyLimitUsd: parseFloat(settings['monthly_budget_usd'] || '500'),
+                monthlySpend: parseFloat(spendResult.rows[0]?.monthly_spend || '0'),
+            },
+        });
+    } catch (error) {
+        console.error('Agent status check failed:', error);
+        res.json({
+            gateway: { url: ZEROCLAW_GATEWAY, online: false },
+            provider: { ready: false, name: 'none' },
+            agents: [],
+            config: { autonomyLevel: 'supervised', dailyLimitUsd: 50, monthlyLimitUsd: 500, monthlySpend: 0 },
+        });
+    }
+});
+
+// GET /api/agent/audit — Agent audit log
+router.get('/audit', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const limit = parseInt(req.query.limit as string) || 50;
+    const offset = parseInt(req.query.offset as string) || 0;
+
+    try {
+        const result = await pool.query(
+            `SELECT al.*, u.name as admin_name, u.email as admin_email
+             FROM audit_logs al
+             LEFT JOIN users u ON al.user_id = u.user_id
+             WHERE al.action LIKE 'agent_%'
+             ORDER BY al.created_at DESC
+             LIMIT $1 OFFSET $2`,
+            [limit, offset]
+        );
+
+        const countResult = await pool.query(
+            `SELECT COUNT(*) FROM audit_logs WHERE action LIKE 'agent_%'`
+        );
+
+        res.json({
+            logs: result.rows,
+            total: parseInt(countResult.rows[0].count),
+            limit,
+            offset,
+        });
+    } catch (error) {
+        console.error('Agent audit query failed:', error);
+        res.status(500).json({ error: 'Failed to fetch agent audit logs' });
+    }
+});
+
+// GET /api/agent/spend — Spend summary
+router.get('/spend', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            `SELECT 
+                date_trunc('day', created_at) as day,
+                agent_id,
+                COUNT(*) as messages,
+                SUM(tokens_used) as tokens,
+                SUM(cost_usd) as cost
+             FROM agent_conversations
+             WHERE created_at > NOW() - INTERVAL '30 days'
+             GROUP BY day, agent_id
+             ORDER BY day DESC`
+        );
+        res.json({ spend: result.rows });
+    } catch {
+        res.status(500).json({ error: 'Failed to get spend data' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// ReMeLight Hybrid Memory System API (Admin Only)
+// ────────────────────────────────────────────────────────
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
+import util from 'util';
+const execPromise = util.promisify(exec);
+
+const MEMORY_ROOT = path.join(__dirname, '../../..', 'memory');
+const MAIN_CONTEXT_PATH = path.join(MEMORY_ROOT, 'projects', 'main_context.md');
+const SCRIPTS_DIR = path.join(MEMORY_ROOT, 'scripts');
+
+// GET /api/agent/memory/status — ReMeLight metrics
+router.get('/memory/status', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        let contextSize = 0;
+        let lastUpdated = null;
+        if (fs.existsSync(MAIN_CONTEXT_PATH)) {
+            const stats = fs.statSync(MAIN_CONTEXT_PATH);
+            contextSize = stats.size;
+            lastUpdated = stats.mtime;
+        }
+
+        // Query SQLite for counts
+        const sqlite3 = require('sqlite3');
+        const dbPath = path.join(MEMORY_ROOT, 'technical_data.db');
+        const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY);
+
+        const getCount = (table: string) => new Promise((resolve) => {
+            db.get(`SELECT COUNT(*) as count FROM ${table}`, (err, row: any) => {
+                resolve(err ? 0 : row?.count || 0);
+            });
+        });
+
+        const endpointsCount = await getCount('api_endpoints');
+        const schemasCount = await getCount('db_schemas');
+        db.close();
+
+        res.json({
+            contextSizeInBytes: contextSize,
+            lastUpdated,
+            sqliteRecords: {
+                api_endpoints: endpointsCount,
+                db_schemas: schemasCount
+            }
+        });
+    } catch (error) {
+        console.error('Memory status check failed:', error);
+        res.status(500).json({ error: 'Failed to get memory status' });
+    }
+});
+
+// GET /api/agent/memory/context — Read main_context.md
+router.get('/memory/context', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        if (!fs.existsSync(MAIN_CONTEXT_PATH)) {
+            return res.json({ content: '# Context File Not Found\nRun the start routine or ReMeLight initialization.' });
+        }
+        const content = fs.readFileSync(MAIN_CONTEXT_PATH, 'utf-8');
+        res.json({ content });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to read context' });
+    }
+});
+
+// POST /api/agent/memory/compact — Trigger compact_memory.js
+router.post('/memory/compact', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        await logAgentInteraction(req.user?.userId || null, 'memory_compaction_triggered', {});
+        const { stdout, stderr } = await execPromise(`node compact_memory.js`, { cwd: SCRIPTS_DIR });
+        res.json({ success: true, log: stdout || stderr });
+    } catch (error: any) {
+        console.error('Compaction failed:', error);
+        res.status(500).json({ error: 'Compaction script failed', log: error.message });
+    }
+});
+
+// POST /api/agent/memory/sync — Trigger zeroclaw_sync.js
+router.post('/memory/sync', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        await logAgentInteraction(req.user?.userId || null, 'zeroclaw_sync_triggered', {});
+        const { stdout, stderr } = await execPromise(`node zeroclaw_sync.js`, { cwd: SCRIPTS_DIR });
+        res.json({ success: true, log: stdout || stderr });
+    } catch (error: any) {
+        console.error('Sync failed:', error);
+        res.status(500).json({ error: 'Sync script failed', log: error.message });
+    }
+});
+
+export default router;

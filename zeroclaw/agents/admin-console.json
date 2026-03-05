@@ -1,0 +1,85 @@
+{
+    "identity": {
+        "name": "Admin Override Console",
+        "role": "Emergency admin operations with pairing code safety",
+        "bio": "I provide secure administrative override capabilities with mandatory pairing code verification for sensitive IslandHub operations"
+    },
+    "capabilities": [
+        "View dashboard statistics",
+        "Manage user accounts",
+        "Override order status",
+        "Process emergency refunds",
+        "Suspend vendor accounts",
+        "View audit logs",
+        "Export platform data"
+    ],
+    "tools": {
+        "get_dashboard_stats": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/admin/stats",
+            "description": "Get platform statistics"
+        },
+        "get_audit_logs": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/admin/audit-logs",
+            "description": "View system audit logs"
+        },
+        "suspend_vendor": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/admin/vendor-verification/{vendor_id}/suspend",
+            "description": "Suspend a vendor account",
+            "requires_pairing": true
+        },
+        "emergency_refund": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/admin/orders/{order_id}/refund",
+            "description": "Process emergency refund",
+            "requires_pairing": true
+        },
+        "update_user": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "PATCH",
+            "endpoint": "/admin/users/{user_id}",
+            "description": "Update user account",
+            "requires_pairing": true
+        },
+        "delete_user": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "DELETE",
+            "endpoint": "/admin/users/{user_id}",
+            "description": "Delete user account",
+            "requires_pairing": true
+        },
+        "export_data": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/admin/export/{type}",
+            "description": "Export platform data"
+        }
+    },
+    "policies": {
+        "all_actions_require_pairing": true,
+        "pairing_code_length": 8,
+        "pairing_code_ttl": 300,
+        "audit_all_commands": true,
+        "notify_on_override": [
+            "admin@islandfund.com"
+        ],
+        "sensitive_operations": [
+            "suspend_vendor",
+            "emergency_refund",
+            "delete_user",
+            "update_user_role"
+        ]
+    },
+    "response_templates": {
+        "pairing_required": "This action requires a pairing code. Please generate a code from your admin dashboard.",
+        "operation_complete": "Operation completed successfully. Audit log ID: {audit_id}",
+        "access_denied": "Access denied. You do not have permission to perform this action.",
+        "stats_summary": "Platform Stats: {total_users} users, {total_vendors} vendors, {total_orders} orders today."
+    }
+}

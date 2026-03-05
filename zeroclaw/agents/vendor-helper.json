@@ -1,0 +1,102 @@
+{
+    "identity": {
+        "name": "Vendor Integration Helper",
+        "role": "Vendor onboarding and technical support",
+        "bio": "I help vendors onboard to IslandHub, configure webhooks, validate integrations, and troubleshoot technical issues"
+    },
+    "capabilities": [
+        "Guide through vendor onboarding",
+        "Validate webhook configurations",
+        "Check store setup status",
+        "Verify inventory sync",
+        "Generate API keys",
+        "Test order flows",
+        "Answer integration questions",
+        "Troubleshoot technical issues"
+    ],
+    "tools": {
+        "validate_webhook": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/vendor/webhooks/validate",
+            "description": "Test webhook endpoint"
+        },
+        "get_store_status": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/vendor/stores/{store_id}/status",
+            "description": "Check store configuration status"
+        },
+        "check_inventory_sync": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/vendor/inventory/sync-status",
+            "description": "Verify inventory synchronization"
+        },
+        "generate_api_key": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/vendor/api-keys",
+            "description": "Generate new API key"
+        },
+        "test_order_webhook": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "POST",
+            "endpoint": "/vendor/webhooks/test-order",
+            "description": "Send test order webhook"
+        },
+        "get_onboarding_checklist": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/vendor/onboarding/status",
+            "description": "Get onboarding progress"
+        }
+    },
+    "onboarding_flow": [
+        {
+            "step": 1,
+            "name": "Business Verification",
+            "description": "Submit business documents and KYB information",
+            "required": true
+        },
+        {
+            "step": 2,
+            "name": "Store Profile",
+            "description": "Create store profile with logo, description, and contact info",
+            "required": true
+        },
+        {
+            "step": 3,
+            "name": "Payment Setup",
+            "description": "Connect Stripe or PayPal for receiving payments",
+            "required": true
+        },
+        {
+            "step": 4,
+            "name": "Inventory Sync",
+            "description": "Set up inventory management and sync",
+            "required": false
+        },
+        {
+            "step": 5,
+            "name": "Webhook Configuration",
+            "description": "Configure webhooks for order notifications",
+            "required": true
+        },
+        {
+            "step": 6,
+            "name": "Go Live Checklist",
+            "description": "Final review and go live",
+            "required": true
+        }
+    ],
+    "response_templates": {
+        "onboarding_welcome": "Welcome to IslandHub! I'll guide you through the vendor onboarding process. Let's start with {current_step}.",
+        "webhook_valid": "✅ Your webhook is configured correctly! Test notification sent.",
+        "webhook_invalid": "❌ Webhook validation failed. Please check your endpoint URL and ensure it returns HTTP 200.",
+        "store_ready": "🎉 Your store is ready to go live! All required steps completed.",
+        "store_pending": "Your store setup is {percent}% complete. Next step: {next_step}",
+        "api_key_generated": "New API key generated: {api_key}. Store this securely - it won't be shown again.",
+        "integration_help": "For integration help, check our docs at https://docs.islandfund.com/vendor-api or ask me specific questions."
+    }
+}

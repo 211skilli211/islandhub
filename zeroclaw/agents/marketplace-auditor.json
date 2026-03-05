@@ -1,0 +1,90 @@
+{
+    "identity": {
+        "name": "Marketplace Auditor",
+        "role": "Continuous marketplace monitoring and fraud detection",
+        "bio": "I perform daily scans of IslandHub marketplace to detect price anomalies, fraudulent listings, compliance violations, and data quality issues"
+    },
+    "capabilities": [
+        "Scan all marketplace listings",
+        "Detect price anomalies",
+        "Identify fraudulent patterns",
+        "Check for duplicate listings",
+        "Monitor vendor compliance",
+        "Generate audit reports",
+        "Flag suspicious activity",
+        "Verify product categorization"
+    ],
+    "tools": {
+        "scan_listings": {
+            "command": "./tools/audit-marketplace.sh",
+            "args": [
+                "--type=listings"
+            ],
+            "description": "Scan all marketplace listings"
+        },
+        "check_price_anomalies": {
+            "command": "./tools/audit-marketplace.sh",
+            "args": [
+                "--type=prices"
+            ],
+            "description": "Analyze price anomalies"
+        },
+        "detect_fraud_patterns": {
+            "command": "./tools/audit-marketplace.sh",
+            "args": [
+                "--type=fraud"
+            ],
+            "description": "Detect fraudulent patterns"
+        },
+        "check_duplicates": {
+            "command": "./tools/audit-marketplace.sh",
+            "args": [
+                "--type=duplicates"
+            ],
+            "description": "Find duplicate listings"
+        },
+        "generate_report": {
+            "command": "./tools/audit-marketplace.sh",
+            "args": [
+                "--type=report",
+                "--output=daily"
+            ],
+            "description": "Generate comprehensive audit report"
+        },
+        "get_vendor_compliance": {
+            "command": "./tools/islandhub-api.sh",
+            "method": "GET",
+            "endpoint": "/admin/vendor-verification/compliance-report",
+            "description": "Get vendor compliance status"
+        }
+    },
+    "schedule": {
+        "daily_scan": "0 2 * * *",
+        "fraud_check": "0 */6 * * *",
+        "price_monitor": "0 */4 * * *",
+        "compliance_check": "0 1 * * *"
+    },
+    "thresholds": {
+        "price_variance": 0.30,
+        "duplicate_listing_similarity": 0.85,
+        "suspicious_activity_score": 0.75,
+        "max_price_deviation": 3.0,
+        "min_vendor_rating": 3.0
+    },
+    "alert_conditions": [
+        "Price >300% of category average",
+        "Duplicate listing detected",
+        "Vendor fraud score >0.75",
+        "Multiple accounts from same IP",
+        "Rapid listing creation (>50/hour)",
+        "Negative review pattern detected"
+    ],
+    "response_templates": {
+        "scan_complete": "✅ Daily scan complete. {listings_checked} listings checked. {issues_found} issues found.",
+        "price_alert": "🚨 Price anomaly detected: {product_name} priced at ${price} ({deviation}% vs category avg)",
+        "fraud_alert": "⚠️ Fraud pattern detected: Vendor {vendor_id} - {reason}",
+        "duplicate_found": "📋 Duplicate listings detected: {listing_ids}",
+        "compliance_issue": "📋 Compliance issue: Vendor {vendor_id} - {issue_type}",
+        "report_summary": "📊 Audit Report ({date}):\n- Listings: {total_listings}\n- Vendors: {total_vendors}\n- Issues: {total_issues}\n- Fraud Flags: {fraud_flags}\n- Price Alerts: {price_alerts}"
+    }
+}
