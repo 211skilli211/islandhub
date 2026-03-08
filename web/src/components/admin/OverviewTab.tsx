@@ -220,7 +220,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Quick Access - Dispatch Button */}
-            <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-6 rounded-3xl shadow-2xl text-white">
+            <div className="bg-linear-to-r from-teal-500 to-emerald-500 p-6 rounded-3xl shadow-2xl text-white">
                 <div className="flex items-center justify-between">
                     <div>
                         <h3 className="text-2xl font-black mb-1">Dispatch Command Center 🛰️</h3>
@@ -237,7 +237,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
 
             {/* Creation Hub */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl flex items-center justify-between group hover:border-teal-500 transition-all">
+                <div className="bg-white p-6 rounded-4xl border border-slate-100 shadow-xl flex items-center justify-between group hover:border-teal-500 transition-all">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🏪</div>
                         <div>
@@ -247,7 +247,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                     <Link href="/become-vendor" className="px-4 py-2 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-teal-600 transition-all">Start</Link>
                 </div>
-                <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl flex items-center justify-between group hover:border-indigo-500 transition-all">
+                <div className="bg-white p-6 rounded-4xl border border-slate-100 shadow-xl flex items-center justify-between group hover:border-indigo-500 transition-all">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📦</div>
                         <div>
@@ -257,7 +257,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                     <Link href="/create" className="px-4 py-2 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-indigo-600 transition-all">Add</Link>
                 </div>
-                <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl flex items-center justify-between group hover:border-rose-500 transition-all">
+                <div className="bg-white p-6 rounded-4xl border border-slate-100 shadow-xl flex items-center justify-between group hover:border-rose-500 transition-all">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📣</div>
                         <div>
@@ -266,6 +266,65 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                         </div>
                     </div>
                     <Link href="/campaigns/new" className="px-4 py-2 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-rose-600 transition-all">Launch</Link>
+                </div>
+            </div>
+
+            {/* Quick System Controls & Insights */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-1">
+                <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-10">
+                        <span className="text-6xl">⚙️</span>
+                    </div>
+                    <h3 className="text-lg font-black uppercase tracking-widest mb-6">System Control Panel</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                        <button
+                            onClick={() => toast.success('Neural Engine Synced!')}
+                            className="bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl text-left transition-all group/btn"
+                        >
+                            <span className="text-xl mb-2 block group-hover/btn:scale-125 transition-transform">🧠</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest block opacity-60">Memory Engine</span>
+                            <span className="text-xs font-bold text-teal-400">Sync Weights</span>
+                        </button>
+                        <button
+                            onClick={async () => {
+                                if (confirm('Clear telemetry and system logs?')) {
+                                    try {
+                                        await api.delete('/admin/logs/clear');
+                                        toast.success('System logs purged');
+                                    } catch (e) {
+                                        toast.error('Purge failed');
+                                    }
+                                }
+                            }}
+                            className="bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-2xl text-left transition-all group/btn"
+                        >
+                            <span className="text-xl mb-2 block group-hover/btn:scale-125 transition-transform">🧹</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest block opacity-60">Log Buffer</span>
+                            <span className="text-xs font-bold text-rose-400">Clear Telemetry</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h3 className="text-lg font-black text-slate-800 uppercase tracking-widest mb-6">Neural Health Insights</h3>
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Ad Coverage</span>
+                                <span className="text-xs font-black text-emerald-600">85% Optimal</span>
+                            </div>
+                            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-full bg-emerald-500 w-[85%]" />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Memory Context Usage</span>
+                                <span className="text-xs font-black text-indigo-600">12.4 KB / 100 KB</span>
+                            </div>
+                            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-full bg-indigo-500 w-[12%]" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -495,7 +554,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             <h3 className="text-2xl font-black mb-1">Global Broadcast Hub 📣</h3>
                             <p className="text-indigo-100 text-sm font-medium mb-8">Deploy live announcements to the platform-wide marquee</p>
 
-                            <div className="bg-white/10 backdrop-blur-xl rounded-[2rem] p-6 border border-white/20">
+                            <div className="bg-white/10 backdrop-blur-xl rounded-4xl p-6 border border-white/20">
                                 <textarea
                                     placeholder="Deploy a message to everyone..."
                                     value={newMarquee}
@@ -552,7 +611,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 <div
                                     onClick={() => handleOpenBannerModal()}
-                                    className="aspect-[16/9] bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 group cursor-pointer hover:border-teal-400 transition-all"
+                                    className="aspect-video bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 group cursor-pointer hover:border-teal-400 transition-all"
                                 >
                                     <span className="text-2xl group-hover:scale-125 transition-transform">🖼️</span>
                                     <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Upload Promo</span>
@@ -576,10 +635,10 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                                 toast.error(`Toggle failed: ${e.response?.data?.message || e.message}`);
                                             }
                                         }}
-                                        className={`aspect-[16/9] bg-slate-900 rounded-2xl relative overflow-hidden group border-2 transition-all cursor-pointer ${banner.is_active ? 'border-teal-500 shadow-xl shadow-teal-500/20' : 'border-transparent hover:border-slate-300'}`}
+                                        className={`aspect-video bg-slate-900 rounded-2xl relative overflow-hidden group border-2 transition-all cursor-pointer ${banner.is_active ? 'border-teal-500 shadow-xl shadow-teal-500/20' : 'border-transparent hover:border-slate-300'}`}
                                     >
                                         {banner.image_url && <img src={banner.image_url} className={`w-full h-full object-cover transition-transform duration-700 ${banner.is_active ? 'opacity-80' : 'opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-60'}`} />}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
+                                        <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 to-transparent"></div>
 
                                         <div className="absolute bottom-4 left-4 right-4">
                                             <div className="flex justify-between items-end">

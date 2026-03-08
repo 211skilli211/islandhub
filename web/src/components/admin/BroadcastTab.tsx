@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { AdminTable, Column } from './shared/AdminTable';
+import { ChevronRight, Plus } from 'lucide-react';
 
 interface Marquee {
     marquee_id: number;
@@ -42,7 +43,8 @@ export default function BroadcastTab() {
     const [controls, setControls] = useState({
         isPlaying: true,
         direction: 'normal',
-        speed: 1 // 1 = normal, 2 = fast, 0.5 = slow
+        speed: 1, // 1 = normal, 2 = fast, 0.5 = slow
+        preset: 'island_orange'
     });
 
     const updateControls = async (updates: any) => {
@@ -56,6 +58,17 @@ export default function BroadcastTab() {
             toast.error('Failed to save settings');
         }
     };
+
+    const PRESETS = [
+        { id: 'island_orange', label: 'Island Orange', icon: '🟠' },
+        { id: 'highland_dark', label: 'Highland Dark', icon: '⚫' },
+        { id: 'ocean_breeze', label: 'Ocean Breeze', icon: '🌊' },
+        { id: 'sunset_glow', label: 'Sunset Glow', icon: '🌅' },
+        { id: 'neon_green', label: 'Neon Green', icon: '🟢' },
+        { id: 'sky_blue', label: 'Sky Blue', icon: '🔵' },
+        { id: 'white_black', label: 'White / Black', icon: '⚪' },
+        { id: 'black_white', label: 'Black / White', icon: '⚫' },
+    ];
 
     useEffect(() => {
         fetchCurrentMarquee();
@@ -124,14 +137,31 @@ export default function BroadcastTab() {
                         <p className="text-sm text-slate-400 font-medium">Manage global scrolling behavior</p>
                     </div>
                 </div>
-                <div className="flex bg-slate-800 p-1.5 rounded-2xl gap-2">
+                <div className="flex bg-slate-800 p-1.5 rounded-2xl gap-2 items-center">
+                    <div className="relative">
+                        <select
+                            value={controls.preset}
+                            onChange={(e) => updateControls({ preset: e.target.value })}
+                            className="bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-slate-700 outline-none appearance-none pr-10 hover:bg-slate-700 transition-all cursor-pointer shadow-lg"
+                        >
+                            {PRESETS.map(p => (
+                                <option key={p.id} value={p.id}>
+                                    {p.icon} {p.label}
+                                </option>
+                            ))}
+                        </select>
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                            <ChevronRight size={14} className="rotate-90" />
+                        </div>
+                    </div>
+                    <div className="w-px bg-slate-700 h-6 mx-1" />
                     <button
                         onClick={() => updateControls({ direction: controls.direction === 'normal' ? 'reverse' : 'normal' })}
                         className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${controls.direction === 'reverse' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:bg-slate-700'}`}
                     >
                         {controls.direction === 'normal' ? '⬅️ Left' : '➡️ Right'}
                     </button>
-                    <div className="w-px bg-slate-700 my-1" />
+                    <div className="w-px bg-slate-700 h-6 mx-1" />
                     <button
                         onClick={() => updateControls({ isPlaying: !controls.isPlaying })}
                         className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${!controls.isPlaying ? 'bg-amber-500 text-white shadow-lg' : 'text-slate-400 hover:bg-slate-700'}`}
@@ -199,7 +229,7 @@ export default function BroadcastTab() {
                             </div>
 
                             {/* Color and Emoji Picker */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
                                 {/* Emoji Picker */}
                                 <div className="flex items-center gap-1 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
                                     <span className="text-xs font-black text-slate-400 uppercase tracking-widest mr-2">Icon</span>
@@ -241,37 +271,80 @@ export default function BroadcastTab() {
                                 </div>
 
                                 {/* Color Picker */}
-                                <div className="flex items-center gap-1 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-                                    <span className="text-xs font-black text-slate-400 uppercase tracking-widest mr-2">Color</span>
+                                <div className="flex flex-wrap items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 max-w-full">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mr-1">Text Color</span>
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeTextColor('#0f766e')}
-                                        className={`w-8 h-8 rounded-full transition-all ${marqueeTextColor === '#0f766e' ? 'ring-2 ring-offset-2 ring-teal-500' : ''}`}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#0f766e' ? 'ring-2 ring-offset-2 ring-teal-500' : ''}`}
                                         style={{ backgroundColor: '#0f766e' }}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeTextColor('#6366f1')}
-                                        className={`w-8 h-8 rounded-full transition-all ${marqueeTextColor === '#6366f1' ? 'ring-2 ring-offset-2 ring-indigo-500' : ''}`}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#6366f1' ? 'ring-2 ring-offset-2 ring-indigo-500' : ''}`}
                                         style={{ backgroundColor: '#6366f1' }}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeTextColor('#f59e0b')}
-                                        className={`w-8 h-8 rounded-full transition-all ${marqueeTextColor === '#f59e0b' ? 'ring-2 ring-offset-2 ring-amber-500' : ''}`}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#f59e0b' ? 'ring-2 ring-offset-2 ring-amber-500' : ''}`}
                                         style={{ backgroundColor: '#f59e0b' }}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeTextColor('#ef4444')}
-                                        className={`w-8 h-8 rounded-full transition-all ${marqueeTextColor === '#ef4444' ? 'ring-2 ring-offset-2 ring-red-500' : ''}`}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ef4444' ? 'ring-2 ring-offset-2 ring-red-500' : ''}`}
                                         style={{ backgroundColor: '#ef4444' }}
                                     />
                                     <button
                                         type="button"
-                                        onClick={() => setMarqueeTextColor('#1e293b')}
-                                        className={`w-8 h-8 rounded-full transition-all ${marqueeTextColor === '#1e293b' ? 'ring-2 ring-offset-2 ring-slate-500' : ''}`}
-                                        style={{ backgroundColor: '#1e293b' }}
+                                        onClick={() => setMarqueeTextColor('#39ff14')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#39ff14' ? 'ring-2 ring-offset-2 ring-green-400' : ''}`}
+                                        style={{ backgroundColor: '#39ff14' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setMarqueeTextColor('#7dd3fc')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#7dd3fc' ? 'ring-2 ring-offset-2 ring-sky-300' : ''}`}
+                                        style={{ backgroundColor: '#7dd3fc' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setMarqueeTextColor('#ffffff')}
+                                        className={`w-6 h-6 rounded-full transition-all border border-slate-200 ${marqueeTextColor === '#ffffff' ? 'ring-2 ring-offset-2 ring-slate-300' : ''}`}
+                                        style={{ backgroundColor: '#ffffff' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setMarqueeTextColor('#a855f7')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#a855f7' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+                                        style={{ backgroundColor: '#a855f7' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setMarqueeTextColor('#ec4899')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ec4899' ? 'ring-2 ring-offset-2 ring-pink-500' : ''}`}
+                                        style={{ backgroundColor: '#ec4899' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setMarqueeTextColor('#0ea5e9')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#0ea5e9' ? 'ring-2 ring-offset-2 ring-sky-500' : ''}`}
+                                        style={{ backgroundColor: '#0ea5e9' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setMarqueeTextColor('#ff0033')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ff0033' ? 'ring-2 ring-offset-2 ring-red-600' : ''}`}
+                                        style={{ backgroundColor: '#ff0033' }}
+                                    />
+                                    <input
+                                        type="color"
+                                        value={marqueeTextColor}
+                                        onChange={(e) => setMarqueeTextColor(e.target.value)}
+                                        className="w-8 h-8 rounded-lg cursor-pointer border-none bg-transparent"
+                                        title="Custom Color"
                                     />
                                 </div>
                             </div>

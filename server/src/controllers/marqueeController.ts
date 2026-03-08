@@ -5,21 +5,22 @@ import { pool } from '../config/db';
 let globalSettings = {
     isPlaying: true,
     direction: 'normal',
-    speed: 1
+    speed: 1,
+    preset: 'island_orange' // Defaulting to the new style
 };
 
 // @desc    Create a marquee message
 // @access  Private
 export const createMarquee = async (req: Request, res: Response) => {
     try {
-        const { content, background_color, text_color, speed } = req.body;
-        console.log(`[DEBUG] Create Marquee: Content: "${content}"`);
+        const { message, priority, template_type, icon } = req.body;
+        console.log(`[DEBUG] Create Marquee: Message: "${message}"`);
 
         const result = await pool.query(
-            `INSERT INTO text_marquee (content, background_color, text_color, speed, is_active)
-             VALUES ($1, $2, $3, $4, true)
+            `INSERT INTO text_marquee (message, priority, is_active, template_type, icon)
+             VALUES ($1, $2, true, $3, $4)
              RETURNING *`,
-            [content, background_color || '#000000', text_color || '#FFFFFF', speed || 50]
+            [message, priority || 1, template_type || 'standard', icon || null]
         );
 
         res.status(201).json(result.rows[0]);
@@ -63,10 +64,11 @@ export const getActiveMarquees = async (req: Request, res: Response) => {
 // @access  Private (Admin)
 export const updateMarqueeSettings = async (req: Request, res: Response) => {
     try {
-        const { isPlaying, direction, speed } = req.body;
+        const { isPlaying, direction, speed, preset } = req.body;
         if (isPlaying !== undefined) globalSettings.isPlaying = isPlaying;
         if (direction !== undefined) globalSettings.direction = direction;
         if (speed !== undefined) globalSettings.speed = speed;
+        if (preset !== undefined) globalSettings.preset = preset;
 
         res.json(globalSettings);
     } catch (error) {

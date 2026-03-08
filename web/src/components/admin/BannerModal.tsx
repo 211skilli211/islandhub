@@ -25,7 +25,7 @@ export interface BannerFormData {
     template_type: 'standard' | 'urgency' | 'community' | 'promotion';
     alignment: 'left' | 'center' | 'right';
     icon?: string;
-    layout_preset: 'standard' | 'hero' | 'floating' | 'minimal' | 'overlay' | 'split';
+    layout_preset: 'standard' | 'hero' | 'floating' | 'minimal' | 'overlay' | 'split' | 'glass' | 'glow' | 'neon';
     // Enhanced controls
     background_opacity?: number;
     texture_pattern?: 'none' | 'dots' | 'lines' | 'waves' | 'noise' | 'gradient';
@@ -120,7 +120,26 @@ const LAYOUT_PRESETS = [
         description: '50/50 split with image and text side by side',
         icon: '⚡'
     },
+    {
+        id: 'glass',
+        name: 'Glassmorphism',
+        description: 'Frosted glass effect with vibrant accents',
+        icon: '💎'
+    },
+    {
+        id: 'glow',
+        name: 'Floating Glow',
+        description: 'Soft outer glow and floating animation',
+        icon: '🌟'
+    },
+    {
+        id: 'neon',
+        name: 'Neon Pulse',
+        description: 'Vibrant neon borders and pulsing effects',
+        icon: '🌈'
+    },
 ];
+
 
 // Texture patterns for banner backgrounds
 const TEXTURE_PATTERNS = [
@@ -479,9 +498,103 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
             case 'minimal': return renderMinimalPreview();
             case 'overlay': return renderOverlayPreview();
             case 'split': return renderSplitPreview();
+            case 'glass': return renderGlassPreview();
+            case 'glow': return renderGlowPreview();
+            case 'neon': return renderNeonPreview();
             default: return renderStandardPreview();
         }
     };
+
+    const renderGlassPreview = () => (
+        <div className={`relative overflow-hidden rounded-3xl border border-white/40 shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
+            <div className={`absolute inset-0 bg-linear-to-br ${selectedTheme.gradient} opacity-20`} />
+            <div className="absolute inset-0 backdrop-blur-2xl" />
+            <div className={`relative p-8 flex flex-col md:flex-row gap-6 items-center ${getAlignmentClasses()}`}>
+                {formData.image_url && (
+                    <div className="relative group">
+                        <div className={`absolute -inset-2 bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity`} />
+                        <img
+                            src={formData.image_url}
+                            alt="Banner"
+                            className="relative w-32 h-32 object-cover rounded-2xl border border-white/20 shadow-xl"
+                        />
+                    </div>
+                )}
+                <div className={`flex-1 flex flex-col gap-3 ${getAlignmentClasses()}`}>
+                    <div className="flex items-center gap-2">
+                        <div className={`w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-inner`}>
+                            <IconComponent className={`w-5 h-5 text-white`} />
+                        </div>
+                        {templateStyles.badge && (
+                            <span className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${templateStyles.badgeColor} shadow-lg`}>
+                                {templateStyles.badge}
+                            </span>
+                        )}
+                    </div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tighter drop-shadow-md">
+                        {formData.title || 'Premium Glass'}
+                    </h3>
+                    <p className="text-sm text-white/80 font-bold leading-relaxed max-w-lg drop-shadow-sm">
+                        {formData.subtitle || 'Sophisticated design with deep blur and vibrant accents.'}
+                    </p>
+                    {formData.target_url && (
+                        <button className="mt-2 px-8 py-3 bg-white text-slate-900 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl hover:bg-slate-50 transition-all active:scale-95">
+                            {formData.button_text || 'Experience'} →
+                        </button>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderGlowPreview = () => (
+        <div className={`relative group`}>
+            <div className={`absolute -inset-1 bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000 animate-pulse`} />
+            <div className={`relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-8 flex flex-col items-center text-center gap-4`}>
+                <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${selectedTheme.from} ${selectedTheme.to} flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.3)] border border-white/10 mb-2`}>
+                    <IconComponent className="w-8 h-8 text-white" />
+                </div>
+                <h3 className={`text-3xl font-black text-transparent bg-clip-text bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} uppercase tracking-tight`}>
+                    {formData.title || 'Floating Glow'}
+                </h3>
+                <p className="text-slate-400 font-medium max-w-md">
+                    {formData.subtitle || 'A dark-mode optimized design with vibrant pulsing glows.'}
+                </p>
+                {formData.target_url && (
+                    <button className={`mt-2 px-10 py-4 bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all`}>
+                        {formData.button_text || 'Get Glowing'}
+                    </button>
+                )}
+            </div>
+        </div>
+    );
+
+    const renderNeonPreview = () => (
+        <div className="relative overflow-hidden rounded-2xl bg-black border-2 border-white/5 p-8">
+            <div className={`absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
+            <div className={`flex flex-col md:flex-row gap-8 items-center ${getAlignmentClasses()}`}>
+                <div className={`w-24 h-24 rounded-full border-2 border-${selectedTheme.value}-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5),inset_0_0_10px_rgba(0,0,0,0.5)] bg-slate-900/50`}>
+                    <IconComponent className={`w-10 h-10 text-${selectedTheme.value}-400 drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]`} />
+                </div>
+                <div className={`flex-1 ${getAlignmentClasses()}`}>
+                    <h3 className={`text-4xl font-black text-white uppercase italic tracking-tighter mb-1`}>
+                        {formData.title || 'Neon Pulse'}
+                    </h3>
+                    <div className={`h-0.5 w-24 bg-${selectedTheme.value}-500 mb-4 shadow-[0_0_10px_#currentColor]`} />
+                    <p className={`text-${selectedTheme.value}-400/80 font-black uppercase text-[10px] tracking-widest`}>
+                        {formData.subtitle || 'Cyber-themed energetic design.'}
+                    </p>
+                    {formData.target_url && (
+                        <button className={`mt-6 px-6 py-3 border-2 border-${selectedTheme.value}-500 text-${selectedTheme.value}-400 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-${selectedTheme.value}-500 hover:text-white transition-all shadow-[0_0_15px_rgba(0,0,0,0.1)] hover:shadow-[0_0_25px_rgba(0,0,0,0.3)]`}>
+                            {formData.button_text || 'Connect'}
+                        </button>
+                    )}
+                </div>
+            </div>
+            <div className={`absolute bottom-0 right-0 w-full h-1 bg-linear-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
+        </div>
+    );
+
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">

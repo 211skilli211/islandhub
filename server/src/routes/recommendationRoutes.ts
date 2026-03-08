@@ -8,7 +8,7 @@ router.get('/trending', async (req, res) => {
     try {
         const limit = parseInt(req.query.limit as string) || 10;
         const result = await pool.query(
-            "SELECT l.*, s.name as shop_name, s.slug as shop_slug FROM listings l LEFT JOIN stores s ON l.store_id = s.store_id WHERE l.status = 'active' AND l.featured = true ORDER BY l.created_at DESC LIMIT $1",
+            "SELECT l.*, s.name as shop_name, s.slug as shop_slug, s.logo_url as shop_logo, s.banner_url as shop_banner FROM listings l LEFT JOIN stores s ON l.store_id = s.store_id WHERE l.status = 'active' AND l.featured = true AND l.type IN ('product', 'service') ORDER BY l.created_at DESC LIMIT $1",
             [limit]
         );
         res.json({ recommendations: result.rows });
@@ -22,9 +22,9 @@ router.get('/trending', async (req, res) => {
 router.get('/personalized', async (req, res) => {
     try {
         const limit = parseInt(req.query.limit as string) || 10;
-        // For now, just return random active listings
+        // For now, just return random active products/services
         const result = await pool.query(
-            "SELECT l.*, s.name as shop_name, s.slug as shop_slug FROM listings l LEFT JOIN stores s ON l.store_id = s.store_id WHERE l.status = 'active' ORDER BY RANDOM() LIMIT $1",
+            "SELECT l.*, s.name as shop_name, s.slug as shop_slug FROM listings l LEFT JOIN stores s ON l.store_id = s.store_id WHERE l.status = 'active' AND l.type IN ('product', 'service') ORDER BY RANDOM() LIMIT $1",
             [limit]
         );
         res.json({ recommendations: result.rows });

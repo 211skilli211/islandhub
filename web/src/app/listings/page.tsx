@@ -11,6 +11,7 @@ import ListingFilters from '@/components/ListingFilters';
 import GuestWelcomeModal from '@/components/marketplace/GuestWelcomeModal';
 import FloatingBanner from '@/components/FloatingBanner';
 import BrandMarquee from '@/components/BrandMarquee';
+import AdSpace from '@/components/advertising/AdSpace';
 import { filterConfigs } from '@/lib/filterConfig';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -217,6 +218,11 @@ export default function MarketplaceDiscoveryPage() {
                                     >
                                         ← Back to Discovery
                                     </button>
+                                </div>
+
+                                {/* Sidebar Advertisements */}
+                                <div className="mt-8">
+                                    <AdSpace spaceName="marketplace_sidebar" className="h-[500px]" />
                                 </div>
                             </aside>
 

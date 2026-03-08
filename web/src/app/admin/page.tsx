@@ -16,6 +16,7 @@ import {
 } from '@/lib/theme-helpers';
 import { useTheme } from '@/components/ThemeContext';
 import api, { getImageUrl, BASE_URL } from '@/lib/api';
+import AdminSettingsTab from '@/components/admin/AdminSettingsTab';
 import OverviewTab from '@/components/admin/OverviewTab';
 import EditListingModal from '@/components/admin/EditListingModal';
 import CreateUserModal from '@/components/admin/CreateUserModal';
@@ -808,49 +809,15 @@ export default function AdminPage() {
                                     return <AuditLogsTab />;
                                 case 'settings':
                                     return (
-                                        <div className="bg-white rounded-4xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-xl">
-                                            <div className="flex border-b border-slate-100 dark:border-slate-700">
-                                                {['general', 'vendor', 'moderation', 'export'].map(sTab => (
-                                                    <button
-                                                        key={sTab}
-                                                        onClick={() => setSettingsTab(sTab as any)}
-                                                        className={`px-8 py-5 text-[10px] font-black uppercase tracking-widest ${settingsTab === sTab ? 'bg-slate-50 dark:bg-slate-800 border-b-2 border-teal-500' : 'text-slate-400 dark:text-slate-400'}`}
-                                                    >
-                                                        {sTab}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                            <div className="p-8">
-                                                {settingsTab === 'export' ? (
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <button onClick={() => handleExport('users')} className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-bold">Export Users</button>
-                                                        <button onClick={() => handleExport('listings')} className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-bold">Export Listings</button>
-                                                    </div>
-                                                ) : (
-                                                    <div className="space-y-6">
-                                                        {Object.entries(settings).filter(([k]) => {
-                                                            if (settingsTab === 'general') return k.startsWith('site_') || k.startsWith('contact_') || k.startsWith('maintenance');
-                                                            if (settingsTab === 'vendor') return k.startsWith('vendor_') || k.startsWith('fee_') || k.startsWith('force_kyc');
-                                                            if (settingsTab === 'moderation') return k.startsWith('mod_') || k.startsWith('detailed_audit');
-                                                            return false;
-                                                        }).map(([key, value]) => (
-                                                            <div key={key} className="flex flex-col gap-2">
-                                                                <label className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-400">{key.replace(/_/g, ' ')}</label>
-                                                                <input
-                                                                    type="text"
-                                                                    value={value as string}
-                                                                    onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}
-                                                                    className="w-full p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl focus:border-teal-500 border-2 border-transparent outline-none transition-all"
-                                                                />
-                                                            </div>
-                                                        ))}
-                                                        <button onClick={saveSettings} disabled={savingSettings} className="px-10 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-[11px]">
-                                                            {savingSettings ? 'Saving...' : 'Save Settings'}
-                                                        </button>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
+                                        <AdminSettingsTab
+                                            settings={settings}
+                                            setSettings={setSettings}
+                                            saveSettings={saveSettings}
+                                            savingSettings={savingSettings}
+                                            settingsTab={settingsTab}
+                                            setSettingsTab={setSettingsTab}
+                                            handleExport={handleExport}
+                                        />
                                     );
                                 case 'ads': return <AdManagementTab />;
                                 case 'agent-center': return <AgentCommandCenter />;

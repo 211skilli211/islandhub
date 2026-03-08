@@ -190,7 +190,7 @@ export const getListings = async (req: Request, res: Response) => {
                    EXISTS(SELECT 1 FROM delivery_ratings dr WHERE dr.delivery_id = l.id) as is_rated,
                    (
                        SELECT url 
-                       FROM jsonb_to_recordset(l.photos) AS x(url text, is_primary boolean) 
+                       FROM jsonb_to_recordset(COALESCE(l.photos, '[]'::jsonb)) AS x(url text, is_primary boolean) 
                        WHERE is_primary = true 
                        LIMIT 1
                    ) as image_url

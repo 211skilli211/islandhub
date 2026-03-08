@@ -56,6 +56,15 @@ import categoryRoutes from './routes/categoryRoutes';
 import advertisementRoutes from './routes/advertisementRoutes';
 import homepageRoutes from './routes/homepageRoutes';
 import notificationRoutes from './routes/notificationRoutes';
+import commentRoutes from './routes/commentRoutes';
+import likeRoutes from './routes/likeRoutes';
+import followerRoutes from './routes/followerRoutes';
+import bookmarkRoutes from './routes/bookmarkRoutes';
+import conversationRoutes from './routes/conversationRoutes';
+import groupRoutes from './routes/groupRoutes';
+import communityEventRoutes from './routes/communityEventRoutes';
+import storyRoutes from './routes/storyRoutes';
+import moderationRoutes from './routes/moderationRoutes';
 import driverApplicationRoutes from './routes/driverApplicationRoutes';
 import ratingRoutes from './routes/ratingRoutes';
 import financialRoutes from './routes/financialRoutes';
@@ -131,6 +140,15 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/advertisements', advertisementRoutes);
 app.use('/api/homepage', homepageRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/likes', likeRoutes);
+app.use('/api/followers', followerRoutes);
+app.use('/api/bookmarks', bookmarkRoutes);
+app.use('/api/conversations', conversationRoutes);
+app.use('/api/groups', groupRoutes);
+app.use('/api/community-events', communityEventRoutes);
+app.use('/api/stories', storyRoutes);
+app.use('/api/moderation', moderationRoutes);
 app.use('/api/driver-applications', driverApplicationRoutes);
 app.use('/api/ratings', ratingRoutes);
 app.use('/api/financials', financialRoutes);
@@ -186,9 +204,8 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   });
 });
 
-const HOST = '0.0.0.0';
-app.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Also accessible via LAN IP (e.g., http://192.168.1.122:${PORT})`);
   runMigrations();
   initScheduler();

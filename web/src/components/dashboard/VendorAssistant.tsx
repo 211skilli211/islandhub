@@ -20,10 +20,15 @@ const QUICK_ACTIONS = [
     { label: '📢 Promotions', prompt: 'How can I promote my listings and get more visibility?' },
 ];
 
-export default function VendorAssistant() {
+interface VendorAssistantProps {
+    hubMode?: boolean;
+    onHubClose?: () => void;
+}
+
+export default function VendorAssistant({ hubMode = false, onHubClose }: VendorAssistantProps = {}) {
     const { user } = useAuthStore();
     const profile = getAgentProfile('vendor');
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(hubMode);
 
     const [messages, setMessages] = useState<ChatMessage[]>([
         { role: 'agent', content: profile.greeting }
@@ -39,6 +44,7 @@ export default function VendorAssistant() {
         }
     }, [messages, isTyping]);
 
+    // Don't render if user is not a vendor
     if (user?.role !== 'vendor') return null;
 
     const sendMessage = async (msg: string) => {
@@ -71,20 +77,22 @@ export default function VendorAssistant() {
 
     return (
         <>
-            {/* Toggle button */}
-            <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setIsOpen(!isOpen)}
-                className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-2xl shadow-xl border-2 transition-all ${isOpen
-                    ? 'bg-indigo-700 text-white border-indigo-500'
-                    : 'bg-indigo-600 text-white border-white/20 hover:bg-indigo-700'
-                    }`}
-            >
-                <span className="text-lg">{profile.icon}</span>
-                <span className="font-black text-xs uppercase tracking-widest">{isOpen ? 'Close' : 'Assistant'}</span>
-                {!isOpen && <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse" />}
-            </motion.button>
+            {/* Toggle button - only show if NOT in hubMode */}
+            {!hubMode && (
+                <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setIsOpen(!isOpen)}
+                    className={`fixed bottom-24 lg:bottom-6 right-6 z-9999 flex items-center gap-2 px-5 py-3 rounded-2xl shadow-xl border-2 transition-all ${isOpen
+                        ? 'bg-indigo-700 text-white border-indigo-500'
+                        : 'bg-indigo-600 text-white border-white/20 hover:bg-indigo-700'
+                        }`}
+                >
+                    <span className="text-lg">{profile.icon}</span>
+                    <span className="font-black text-xs uppercase tracking-widest">{isOpen ? 'Close' : 'Assistant'}</span>
+                    {!isOpen && <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse" />}
+                </motion.button>
+            )}
 
             {/* Panel */}
             <AnimatePresence>
@@ -94,18 +102,28 @@ export default function VendorAssistant() {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: 400, opacity: 0 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed top-0 right-0 bottom-0 w-96 z-40 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col"
+                        className={`fixed top-0 right-0 bottom-0 w-96 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col ${hubMode ? 'z-10002' : 'z-40'}`}
                     >
                         {/* Header */}
                         <div className="p-5 bg-indigo-600 text-white">
-                            <div className="flex items-center gap-3 mb-3">
-                                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl border border-white/30">
-                                    {profile.icon}
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl border border-white/30">
+                                        {profile.icon}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-black text-sm uppercase tracking-wider">{profile.displayName}</h3>
+                                        <p className="text-[10px] opacity-80 font-bold">Your AI-powered business assistant</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-black text-sm uppercase tracking-wider">{profile.displayName}</h3>
-                                    <p className="text-[10px] opacity-80 font-bold">Your AI-powered business assistant</p>
-                                </div>
+                                <button
+                                    onClick={() => hubMode && onHubClose ? onHubClose() : setIsOpen(false)}
+                                    className="p-2 hover:bg-white/10 rounded-xl transition-colors"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
 
                             {/* Quick Actions */}

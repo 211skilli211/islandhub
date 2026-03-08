@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import MemoryDashboard from './MemoryDashboard';
+import toast from 'react-hot-toast';
 
 // ─── Types ──────────────────────────────────────────────────
 interface AgentConfig {
@@ -68,17 +70,28 @@ interface SystemConfig {
 
 function StatusBadge({ status }: { status: string }) {
     const colors: Record<string, string> = {
-        online: 'bg-emerald-500',
-        offline: 'bg-red-500',
-        unknown: 'bg-amber-500',
+        online: 'bg-teal-500 shadow-teal-500/20',
+        offline: 'bg-rose-500 shadow-rose-500/20',
+        unknown: 'bg-amber-500 shadow-amber-500/20',
     };
     return (
-        <span className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${colors[status] || colors.unknown} ${status === 'online' ? 'animate-pulse' : ''}`} />
-            <span className="text-[10px] font-black uppercase tracking-widest">{status}</span>
+        <span className="flex items-center gap-2 px-2 py-1 bg-slate-50 dark:bg-slate-900/50 rounded-full border border-slate-100 dark:border-white/5">
+            <span className={`w-1.5 h-1.5 rounded-full ${colors[status] || colors.unknown} ${status === 'online' ? 'animate-pulse' : ''} shadow-lg`} />
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">{status}</span>
         </span>
     );
 }
+
+const sectionIcons: Record<string, string> = {
+    status: '📡',
+    chat: '💬',
+    agents: '🤖',
+    teams: '👥',
+    providers: '🔑',
+    memory: '🧠',
+    audit: '📜',
+    settings: '⚙️',
+};
 
 // ─── Main Component ─────────────────────────────────────────
 
@@ -96,7 +109,7 @@ export default function AgentCommandCenter() {
     // Chat
     const [chatAgent, setChatAgent] = useState('admin_console');
     const [chatMessages, setChatMessages] = useState<{ role: string; content: string }[]>([
-        { role: 'agent', content: 'Admin Console active. What would you like to do?' }
+        { role: 'agent', content: 'Neural Bridge established. Admin permissions verified. How shall we proceed?' }
     ]);
     const [chatInput, setChatInput] = useState('');
     const [chatTyping, setChatTyping] = useState(false);
@@ -138,7 +151,7 @@ export default function AgentCommandCenter() {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [sysConfig]);
 
     const fetchAgentConfigs = useCallback(async () => {
         try {
@@ -168,13 +181,46 @@ export default function AgentCommandCenter() {
         } catch { }
     }, []);
 
+    // Chat history fetcher
+    const loadChatHistory = useCallback(async (agentId: string) => {
+        try {
+            const res = await api.get(`/agent/chat/history/${agentId}`);
+            if (res.data.messages && res.data.messages.length > 0) {
+                setChatMessages(res.data.messages.map((m: any) => ({
+                    role: m.role,
+                    content: m.content
+                })));
+            } else {
+                setChatMessages([{ role: 'agent', content: `Neural Bridge established with ${agentId}. Admin permissions verified.` }]);
+            }
+        } catch {
+            setChatMessages([{ role: 'agent', content: 'Neural Bridge established. History retrieval failed.' }]);
+        }
+    }, []);
+
+    // Workflows (Swarms)
+    const [workflows, setWorkflows] = useState<any[]>([]);
+    const fetchWorkflows = useCallback(async () => {
+        try {
+            const res = await api.get('/agent/workflows');
+            setWorkflows(res.data.workflows || []);
+        } catch { }
+    }, []);
+
     useEffect(() => {
         fetchStatus();
         fetchAgentConfigs();
         fetchProviders();
         fetchAudit();
         fetchSettings();
+        fetchWorkflows();
     }, []);
+
+    useEffect(() => {
+        if (chatAgent) {
+            loadChatHistory(chatAgent);
+        }
+    }, [chatAgent, loadChatHistory]);
 
     useEffect(() => {
         if (chatScrollRef.current) {
@@ -203,10 +249,11 @@ export default function AgentCommandCenter() {
             }
             setChatMessages(prev => [...prev, {
                 role: 'agent',
-                content: res.data.reply || 'Processed.',
+                content: res.data.reply || 'Request processed. Neural weights synchronized.',
             }]);
         } catch {
-            setChatMessages(prev => [...prev, { role: 'agent', content: 'Connection issue. Check provider credentials in Settings.' }]);
+            setChatMessages(prev => [...prev, { role: 'agent', content: 'Connection timeout. Verify engine status and provider credentials.' }]);
+            toast.error('AI Bridge Interrupted');
         } finally {
             setChatTyping(false);
         }
@@ -217,19 +264,22 @@ export default function AgentCommandCenter() {
         try {
             if (agentConfigs.find(a => a.agent_id === agent.agent_id)) {
                 await api.put(`/agent/configs/${agent.agent_id}`, agent);
+                toast.success('Neural prompt updated.');
             } else {
                 await api.post('/agent/configs', agent);
+                toast.success('Agent initialized.');
             }
             fetchAgentConfigs();
             setEditingAgent(null);
             setShowNewAgent(false);
         } catch (err: any) {
-            alert(err?.response?.data?.error || 'Failed to save agent');
+            toast.error(err?.response?.data?.error || 'Initialization failed');
         }
     };
 
     const toggleAgent = async (agentId: string, isActive: boolean) => {
         await api.put(`/agent/configs/${agentId}`, { is_active: !isActive });
+        toast.success(isActive ? 'Agent suspended' : 'Agent resumed');
         fetchAgentConfigs();
     };
 
@@ -238,28 +288,30 @@ export default function AgentCommandCenter() {
         if (!newApiKey) return;
         try {
             await api.put(`/agent/providers/${providerName}`, { api_key: newApiKey });
+            toast.success('Credentials encrypted.');
             setNewApiKey('');
             setEditingProvider(null);
             fetchProviders();
             fetchStatus();
         } catch (err: any) {
-            alert(err?.response?.data?.error || 'Failed to update');
+            toast.error(err?.response?.data?.error || 'Encryption failed');
         }
     };
 
     const addProvider = async () => {
         if (!newProviderData.provider_name || !newProviderData.display_name || !newProviderData.api_key) {
-            alert('Provider ID, Display Name, and API Key are required');
+            toast.error('Partial metadata detected. Complete all fields.');
             return;
         }
         try {
             await api.post('/agent/providers', newProviderData);
             setNewProviderData({ provider_name: '', display_name: '', api_key: '', api_base_url: '', models_available: [], rate_limit_rpm: 60, monthly_budget_usd: 100 });
             setShowNewProvider(false);
+            toast.success('New provider bridged.');
             fetchProviders();
             fetchStatus();
         } catch (err: any) {
-            alert(err?.response?.data?.error || 'Failed to add provider');
+            toast.error(err?.response?.data?.error || 'Bridging failed');
         }
     };
 
@@ -267,514 +319,559 @@ export default function AgentCommandCenter() {
     const saveSettings = async () => {
         try {
             await api.put('/agent/settings', { settings });
+            toast.success('Global parameters updated.');
             fetchSettings();
-        } catch { }
+        } catch {
+            toast.error('Sync failed.');
+        }
     };
 
     // ─── Sections Config ────────────────────────────────────
     const sections = [
-        { id: 'status', label: '📡 Status' },
-        { id: 'chat', label: '💬 Chat' },
-        { id: 'agents', label: '🤖 Agents & Prompts' },
-        { id: 'teams', label: '👥 Teams' },
-        { id: 'providers', label: '🔑 Providers' },
-        { id: 'memory', label: '🧠 Memory' },
-        { id: 'audit', label: '📜 Audit' },
-        { id: 'settings', label: '⚙️ Settings' },
+        { id: 'status', label: 'Monitor' },
+        { id: 'chat', label: 'Console' },
+        { id: 'agents', label: 'Neurons' },
+        { id: 'teams', label: 'Swarms' },
+        { id: 'providers', label: 'Bridges' },
+        { id: 'memory', label: 'ReMeLight' },
+        { id: 'audit', label: 'Ledger' },
+        { id: 'settings', label: 'Core' },
     ];
 
-    // ═══════════════════════════════════════════════════════
-    // RENDER
-    // ═══════════════════════════════════════════════════════
-
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100">Agent Command Center</h2>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium flex items-center gap-3">
-                        Provider: <StatusBadge status={providerReady ? 'online' : 'offline'} />
-                        <span className="mx-1">•</span>
-                        ZeroClaw: <StatusBadge status={gatewayOnline ? 'online' : 'offline'} />
-                    </p>
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
+            {/* High-Tech Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-800 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/5 blur-[100px] rounded-full -mr-20 -mt-20 group-hover:bg-teal-500/10 transition-colors" />
+
+                <div className="relative z-10">
+                    <h2 className="text-3xl font-black text-white tracking-tight mb-2">Neural Control Center</h2>
+                    <div className="flex flex-wrap items-center gap-4">
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5 backdrop-blur-md">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Provider</span>
+                            <StatusBadge status={providerReady ? 'online' : 'offline'} />
+                        </div>
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5 backdrop-blur-md">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Gateway</span>
+                            <StatusBadge status={gatewayOnline ? 'online' : 'offline'} />
+                        </div>
+                    </div>
                 </div>
-                <button onClick={() => { fetchStatus(); fetchAgentConfigs(); fetchProviders(); }} className="px-4 py-2 bg-slate-100 dark:bg-slate-700 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-teal-50 hover:text-teal-600 transition-colors">
-                    ↻ Refresh
-                </button>
+
+                <div className="relative z-10 flex gap-3">
+                    <button
+                        onClick={() => { fetchStatus(); fetchAgentConfigs(); fetchProviders(); toast.success('Telemetry synchronized.'); }}
+                        className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border border-white/10 active:scale-95"
+                    >
+                        Sync Telemetry
+                    </button>
+                    <button
+                        onClick={() => setActiveSection('chat')}
+                        className="px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-teal-600/20 transition-all active:scale-95"
+                    >
+                        Access Console
+                    </button>
+                </div>
             </div>
 
-            {/* Tabs */}
-            <div className="flex gap-1 bg-white dark:bg-slate-800 rounded-2xl p-1 border border-slate-100 dark:border-slate-700 overflow-x-auto">
+            {/* Premium Navigation */}
+            <div className="flex p-2 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl overflow-x-auto custom-scrollbar no-scrollbar">
                 {sections.map(s => (
-                    <button key={s.id} onClick={() => setActiveSection(s.id as any)}
-                        className={`flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap px-3 ${activeSection === s.id ? 'bg-slate-900 dark:bg-teal-600 text-white shadow-lg' : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
+                    <button
+                        key={s.id}
+                        onClick={() => setActiveSection(s.id as any)}
+                        className={`flex-1 py-4 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 min-w-[120px] ${activeSection === s.id
+                            ? 'bg-slate-900 dark:bg-slate-800 text-white shadow-lg'
+                            : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                            }`}
+                    >
+                        <span className="text-sm">{(sectionIcons as any)[s.id]}</span>
                         {s.label}
                     </button>
                 ))}
             </div>
 
-            {/* ─── STATUS ───────────────────────────────────── */}
-            {activeSection === 'status' && (
-                <div className="space-y-6">
-                    {!providerReady && (
-                        <div className="p-4 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-2xl text-sm font-bold text-amber-800 dark:text-amber-200">
-                            ⚠️ No AI provider configured. Go to <button onClick={() => setActiveSection('providers')} className="underline">Providers</button> to add an API key.
-                        </div>
-                    )}
-
-                    <div className="grid grid-cols-4 gap-4">
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Autonomy</p>
-                            <p className="text-xl font-black text-slate-800 dark:text-white capitalize">{sysConfig.autonomyLevel}</p>
-                        </div>
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Daily Budget</p>
-                            <p className="text-xl font-black text-teal-600">${sysConfig.dailyLimitUsd}</p>
-                        </div>
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Monthly Budget</p>
-                            <p className="text-xl font-black text-indigo-600">${sysConfig.monthlyLimitUsd}</p>
-                        </div>
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Month Spend</p>
-                            <p className="text-xl font-black text-rose-600">${sysConfig.monthlySpend?.toFixed(4) || '0.00'}</p>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {agents.map(agent => (
-                            <div key={agent.name} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5 shadow-sm hover:shadow-md transition-all">
-                                <div className="flex items-center justify-between mb-3">
-                                    <h4 className="font-black text-sm text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                        <span>{agent.icon}</span> {agent.displayName}
-                                    </h4>
-                                    <StatusBadge status={agent.status} />
-                                </div>
-                                <div className="space-y-1 text-xs text-slate-500 dark:text-slate-400 mb-4">
-                                    <p>Model: <span className="font-bold text-slate-700 dark:text-slate-300">{agent.model}</span></p>
-                                    <p>24h: <span className="font-bold text-teal-600">{agent.interactions24h}</span> msgs, <span className="font-bold text-indigo-600">{agent.tokens24h?.toLocaleString() || 0}</span> tokens</p>
-                                    <p>Cost 24h: <span className="font-bold text-rose-600">${(agent.cost24h || 0).toFixed(4)}</span></p>
-                                </div>
-                                <button onClick={() => { setChatAgent(agent.name); setActiveSection('chat'); setConversationId(''); setChatMessages([{ role: 'agent', content: `Connected to ${agent.displayName}. How can I help?` }]); }}
-                                    className="w-full py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-teal-50 hover:text-teal-600 transition-colors">
-                                    Open Chat →
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            {/* ─── CHAT ─────────────────────────────────────── */}
-            {activeSection === 'chat' && (
-                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden" style={{ height: '500px' }}>
-                    <div className="p-3 bg-slate-900 text-white flex items-center gap-3 border-b border-slate-700">
-                        <span className="text-lg">🛡️</span>
-                        <select value={chatAgent} onChange={(e) => { setChatAgent(e.target.value); setConversationId(''); setChatMessages([{ role: 'agent', content: `Switched to ${e.target.value}. How can I help?` }]); }}
-                            className="bg-slate-800 text-white text-xs font-black uppercase tracking-widest rounded-lg px-3 py-1.5 border border-slate-600">
-                            {agentConfigs.filter(a => a.is_active).map(a => (
-                                <option key={a.agent_id} value={a.agent_id}>{a.icon} {a.display_name}</option>
-                            ))}
-                        </select>
-                        <span className="text-[10px] opacity-50 flex-1 text-right">Live • All interactions audited</span>
-                    </div>
-
-                    <div ref={chatScrollRef} className="p-4 space-y-3 overflow-y-auto bg-slate-50 dark:bg-slate-900/50" style={{ height: 'calc(100% - 120px)' }}>
-                        {chatMessages.map((m, i) => (
-                            <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] p-3 rounded-2xl text-sm font-medium whitespace-pre-wrap ${m.role === 'user'
-                                    ? 'bg-slate-800 text-white rounded-tr-none'
-                                    : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-100 dark:border-slate-600 rounded-tl-none'
-                                    }`}>
-                                    {m.content}
-                                </div>
-                            </div>
-                        ))}
-                        {chatTyping && (
-                            <div className="flex justify-start">
-                                <div className="bg-white dark:bg-slate-700 p-3 rounded-2xl rounded-tl-none border border-slate-100 dark:border-slate-600 flex gap-1">
-                                    <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" />
-                                    <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                                    <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <form onSubmit={handleChat} className="p-3 border-t border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 flex gap-2">
-                        <input type="text" value={chatInput} onChange={(e) => setChatInput(e.target.value)}
-                            placeholder="Enter command or question..."
-                            className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm font-medium border-transparent focus:ring-2 focus:ring-slate-200 transition-all dark:text-white" />
-                        <button type="submit" disabled={!chatInput.trim()} className="px-5 py-2.5 bg-slate-900 dark:bg-teal-600 text-white rounded-xl text-xs font-black uppercase tracking-widest disabled:opacity-50 hover:bg-slate-700 transition-colors">
-                            Send
-                        </button>
-                    </form>
-                </div>
-            )}
-
-            {/* ─── AGENTS & PROMPTS ─────────────────────────── */}
-            {activeSection === 'agents' && (
-                <div className="space-y-6">
-                    <div className="flex justify-between items-center">
-                        <h3 className="font-black text-sm uppercase tracking-widest text-slate-400">All Agents ({agentConfigs.length})</h3>
-                        <button onClick={() => { setShowNewAgent(true); setEditingAgent({ id: 0, agent_id: '', display_name: '', description: '', model: 'anthropic/claude-sonnet-4', system_prompt: '', temperature: 0.5, max_tokens: 4096, tools: [], allowed_roles: ['customer'], is_system: false, is_active: true, autonomy_level: 'supervised', icon: '🤖', color: '#0ea5e9' }); }}
-                            className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700">
-                            + New Agent
-                        </button>
-                    </div>
-
-                    {/* Agent List */}
-                    <div className="space-y-3">
-                        {agentConfigs.map(agent => (
-                            <div key={agent.agent_id} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                                <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-2xl">{agent.icon}</span>
+            {/* Section Content with Animation */}
+            <div className="min-h-[600px]">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeSection}
+                        initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        {/* ─── STATUS ───────────────────────────────────── */}
+                        {activeSection === 'status' && (
+                            <div className="space-y-8">
+                                {!providerReady && (
+                                    <div className="p-6 bg-rose-50 dark:bg-rose-500/10 border border-rose-100 dark:border-rose-500/20 rounded-3xl text-xs font-bold text-rose-600 flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-xl">⚠️</div>
                                         <div>
-                                            <h4 className="font-black text-sm text-slate-800 dark:text-white flex items-center gap-2">
-                                                {agent.display_name}
-                                                {agent.is_system && <span className="text-[9px] bg-slate-200 dark:bg-slate-600 rounded px-1.5 py-0.5 font-bold text-slate-500 dark:text-slate-300">SYSTEM</span>}
-                                            </h4>
-                                            <p className="text-[10px] font-mono text-slate-400">{agent.agent_id} • {agent.model} • temp: {agent.temperature}</p>
+                                            <p className="uppercase tracking-widest font-black">Bridge Disconnected</p>
+                                            <p className="text-rose-500/70">No AI provider keys detected. Platform intelligence is currently offline.</p>
                                         </div>
+                                        <button onClick={() => setActiveSection('providers')} className="ml-auto px-4 py-2 bg-rose-600 text-white rounded-xl uppercase tracking-tighter shadow-lg shadow-rose-600/20">Configure Bridge</button>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${agent.is_active ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700'}`}>
-                                            {agent.is_active ? 'Active' : 'Paused'}
-                                        </span>
-                                        <button onClick={() => toggleAgent(agent.agent_id, agent.is_active)} className="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-lg text-[9px] font-black uppercase text-slate-500">
-                                            {agent.is_active ? 'Pause' : 'Resume'}
-                                        </button>
-                                        <button onClick={() => setEditingAgent(agent)} className="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-[9px] font-black uppercase">
-                                            Edit Prompt & Config
-                                        </button>
-                                    </div>
-                                </div>
-                                <p className="text-xs text-slate-500 mb-1">{agent.description}</p>
-                                <p className="text-[10px] text-slate-400 line-clamp-2 font-mono bg-slate-50 dark:bg-slate-900 p-2 rounded-lg">{agent.system_prompt.substring(0, 200)}...</p>
-                            </div>
-                        ))}
-                    </div>
+                                )}
 
-                    {/* Edit/Create Agent Modal */}
-                    {editingAgent && (
-                        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}>
-                            <div className="bg-white dark:bg-slate-800 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-2xl" onClick={e => e.stopPropagation()}>
-                                <h3 className="font-black text-xl text-slate-800 dark:text-white mb-1">
-                                    {showNewAgent ? 'Create New Agent' : `Edit: ${editingAgent.display_name}`}
-                                </h3>
-                                <p className="text-xs text-slate-400 mb-6">Configure the agent's identity, skills (prompt), and model.</p>
-
-                                <div className="grid grid-cols-2 gap-4 mb-4">
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Agent ID</label>
-                                        <input value={editingAgent.agent_id} disabled={!showNewAgent} onChange={e => setEditingAgent({ ...editingAgent, agent_id: e.target.value.toLowerCase().replace(/\s/g, '_') })}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white disabled:opacity-50" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Display Name</label>
-                                        <input value={editingAgent.display_name} onChange={e => setEditingAgent({ ...editingAgent, display_name: e.target.value })}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Model</label>
-                                        <select value={editingAgent.model} onChange={e => setEditingAgent({ ...editingAgent, model: e.target.value })}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white">
-                                            <optgroup label="🆓 Free Language Models">
-                                                <option value="google/gemma-3-12b-it:free">Gemma 3 12B (Google) — Free</option>
-                                                <option value="qwen/qwen3-4b:free">Qwen 3 4B — Free</option>
-                                                <option value="nvidia/nemotron-3-nano-30b-a3b:free">Nemotron Nano 30B (NVIDIA) — Free</option>
-                                                <option value="z-ai/glm-4.5-air:free">GLM 4.5 Air — Free</option>
-                                                <option value="arcee-ai/trinity-large-preview:free">Trinity Large (Arcee) — Free</option>
-                                                <option value="deepseek/deepseek-r1:free">DeepSeek R1 — Free</option>
-                                                <option value="meta-llama/llama-4-maverick:free">Llama 4 Maverick (Meta) — Free</option>
-                                                <option value="microsoft/phi-4-reasoning-plus:free">Phi-4 Reasoning+ (MS) — Free</option>
-                                            </optgroup>
-                                            <optgroup label="🧠 Reasoning & Research">
-                                                <option value="qwen/qwen3-vl-235b-a22b-thinking">Qwen 3 VL 235B Thinking — Paid</option>
-                                                <option value="openai/o3-mini">O3 Mini (OpenAI) — Paid</option>
-                                                <option value="google/gemini-2.5-pro-preview">Gemini 2.5 Pro — Paid</option>
-                                                <option value="google/gemini-2.5-flash-preview">Gemini 2.5 Flash — Paid</option>
-                                            </optgroup>
-                                            <optgroup label="💎 Premium Language">
-                                                <option value="anthropic/claude-sonnet-4">Claude Sonnet 4 — Paid</option>
-                                                <option value="anthropic/claude-opus-4">Claude Opus 4 — Paid</option>
-                                                <option value="openai/gpt-4o">GPT-4o — Paid</option>
-                                            </optgroup>
-                                            <optgroup label="🎨 Specialty: Image / Voice">
-                                                <option value="bytedance-seed/seedream-4.5">SeeDream 4.5 (Image Gen) — Paid</option>
-                                                <option value="openai/gpt-image-1">GPT Image 1 (Image Gen) — Paid</option>
-                                                <option value="openai/gpt-4o-mini-tts">GPT-4o Mini TTS (Voice) — Paid</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Temperature ({editingAgent.temperature})</label>
-                                        <input type="range" min="0" max="1" step="0.1" value={editingAgent.temperature} onChange={e => setEditingAgent({ ...editingAgent, temperature: parseFloat(e.target.value) })} className="w-full" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Icon</label>
-                                        <input value={editingAgent.icon} onChange={e => setEditingAgent({ ...editingAgent, icon: e.target.value })} maxLength={4}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-600 dark:text-white text-center text-2xl" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Max Tokens</label>
-                                        <input type="number" value={editingAgent.max_tokens} onChange={e => setEditingAgent({ ...editingAgent, max_tokens: parseInt(e.target.value) })}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                    </div>
-                                </div>
-
-                                <div className="mb-4">
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Description</label>
-                                    <input value={editingAgent.description} onChange={e => setEditingAgent({ ...editingAgent, description: e.target.value })}
-                                        className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                </div>
-
-                                {/* System Prompt — The Core Skill */}
-                                <div className="mb-4">
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
-                                        System Prompt <span className="text-indigo-500">(Agent Skill / Personality)</span>
-                                    </label>
-                                    <textarea value={editingAgent.system_prompt} onChange={e => setEditingAgent({ ...editingAgent, system_prompt: e.target.value })}
-                                        rows={12}
-                                        className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white resize-y font-mono leading-relaxed" />
-                                    <p className="text-[10px] text-slate-400 mt-1">This is the agent's core skill definition. Include: personality, capabilities, constraints, and response style.</p>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4 mb-6">
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Allowed Tools (comma-separated)</label>
-                                        <input value={editingAgent.tools.join(', ')} onChange={e => setEditingAgent({ ...editingAgent, tools: e.target.value.split(',').map(t => t.trim()).filter(Boolean) })}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Allowed Roles (comma-separated)</label>
-                                        <input value={editingAgent.allowed_roles.join(', ')} onChange={e => setEditingAgent({ ...editingAgent, allowed_roles: e.target.value.split(',').map(t => t.trim()).filter(Boolean) })}
-                                            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-3">
-                                    <button onClick={() => saveAgent(editingAgent)}
-                                        className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-indigo-700 transition-colors">
-                                        {showNewAgent ? '+ Create Agent' : 'Save Changes'}
-                                    </button>
-                                    <button onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}
-                                        className="px-6 py-3 bg-slate-100 dark:bg-slate-700 rounded-xl font-black uppercase text-xs tracking-widest text-slate-500 hover:bg-slate-200">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            )}
-
-            {/* ─── TEAMS (placeholder) ──────────────────────── */}
-            {activeSection === 'teams' && (
-                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-8 text-center">
-                    <p className="text-4xl mb-4">👥</p>
-                    <h3 className="font-black text-lg text-slate-800 dark:text-white mb-2">Team Workflows</h3>
-                    <p className="text-sm text-slate-400">Multi-agent team coordination coming with ZeroClaw integration. Agents can be coordinated through chat for now.</p>
-                </div>
-            )}
-
-            {/* ─── PROVIDERS ────────────────────────────────── */}
-            {activeSection === 'providers' && (
-                <div className="space-y-6">
-                    <div className="flex justify-between items-center">
-                        <h3 className="font-black text-sm uppercase tracking-widest text-slate-400">AI Providers</h3>
-                        <button onClick={() => setShowNewProvider(!showNewProvider)}
-                            className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700">
-                            {showNewProvider ? '✕ Cancel' : '+ Add Provider'}
-                        </button>
-                    </div>
-
-                    {/* Add New Provider Form */}
-                    {showNewProvider && (
-                        <div className="bg-indigo-50 dark:bg-indigo-950/30 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 space-y-4">
-                            <h4 className="font-black text-sm text-indigo-800 dark:text-indigo-200">New Provider</h4>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Provider ID</label>
-                                    <input value={newProviderData.provider_name} onChange={e => setNewProviderData({ ...newProviderData, provider_name: e.target.value.toLowerCase().replace(/\s/g, '_') })}
-                                        placeholder="e.g. anthropic_direct"
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Display Name</label>
-                                    <input value={newProviderData.display_name} onChange={e => setNewProviderData({ ...newProviderData, display_name: e.target.value })}
-                                        placeholder="e.g. Anthropic Direct"
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">API Base URL</label>
-                                    <input value={newProviderData.api_base_url} onChange={e => setNewProviderData({ ...newProviderData, api_base_url: e.target.value })}
-                                        placeholder="https://api.anthropic.com/v1"
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white font-mono" />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">API Key</label>
-                                    <input type="password" value={newProviderData.api_key} onChange={e => setNewProviderData({ ...newProviderData, api_key: e.target.value })}
-                                        placeholder="sk-..."
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white font-mono" />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Monthly Budget (USD)</label>
-                                    <input type="number" value={newProviderData.monthly_budget_usd} onChange={e => setNewProviderData({ ...newProviderData, monthly_budget_usd: parseFloat(e.target.value) })}
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Rate Limit (RPM)</label>
-                                    <input type="number" value={newProviderData.rate_limit_rpm} onChange={e => setNewProviderData({ ...newProviderData, rate_limit_rpm: parseInt(e.target.value) })}
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white" />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Available Models (comma-separated)</label>
-                                <input value={newProviderData.models_available.join(', ')} onChange={e => setNewProviderData({ ...newProviderData, models_available: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
-                                    placeholder="anthropic/claude-sonnet-4, anthropic/claude-opus-4"
-                                    className="w-full px-3 py-2 bg-white dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white font-mono" />
-                            </div>
-                            <button onClick={addProvider}
-                                className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-indigo-700 transition-colors">
-                                + Create Provider
-                            </button>
-                        </div>
-                    )}
-
-                    {providers.map(p => (
-                        <div key={p.provider_name} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <div>
-                                    <h4 className="font-black text-base text-slate-800 dark:text-white">{p.display_name}</h4>
-                                    <p className="text-[10px] font-mono text-slate-400">{p.api_base_url || 'No URL set'}</p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${p.has_api_key ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700'}`}>
-                                        {p.has_api_key ? 'Key Set ✓' : 'No Key'}
-                                    </span>
-                                    <StatusBadge status={p.is_active && p.has_api_key ? 'online' : 'offline'} />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 gap-4 mb-4">
-                                <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Rate Limit</p>
-                                    <p className="text-sm font-bold text-slate-700 dark:text-slate-300">{p.rate_limit_rpm} RPM</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Monthly Budget</p>
-                                    <p className="text-sm font-bold text-teal-600">${p.monthly_budget_usd}</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Available Models</p>
-                                    <p className="text-[10px] font-mono text-slate-500">{(p.models_available || []).length} models</p>
-                                </div>
-                            </div>
-
-                            {/* Models list */}
-                            {(p.models_available || []).length > 0 && (
-                                <div className="mb-4 flex flex-wrap gap-1">
-                                    {(p.models_available || []).map((m: string) => (
-                                        <span key={m} className="px-2 py-0.5 bg-slate-50 dark:bg-slate-900 rounded text-[9px] font-mono text-slate-500 dark:text-slate-400">
-                                            {m}
-                                        </span>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {[
+                                        { label: 'Intelligence Level', value: sysConfig.autonomyLevel, icon: '🛡️', color: 'text-slate-800 dark:text-white' },
+                                        { label: 'Daily Cap', value: `$${sysConfig.dailyLimitUsd}`, icon: '☀️', color: 'text-teal-600' },
+                                        { label: 'Monthly Cap', value: `$${sysConfig.monthlyLimitUsd}`, icon: '🌙', color: 'text-indigo-600' },
+                                        { label: 'Utilized (MTD)', value: `$${sysConfig.monthlySpend?.toFixed(4) || '0.00'}`, icon: '📊', color: 'text-rose-600' },
+                                    ].map((stat, i) => (
+                                        <div key={i} className="bg-white dark:bg-slate-900 rounded-4xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all group">
+                                            <div className="text-2xl mb-4 group-hover:scale-110 transition-transform">{stat.icon}</div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">{stat.label}</p>
+                                            <p className={`text-2xl font-black capitalize ${stat.color}`}>{stat.value}</p>
+                                        </div>
                                     ))}
                                 </div>
-                            )}
 
-                            {/* API Key Editor */}
-                            {editingProvider === p.provider_name ? (
-                                <div className="flex gap-2">
-                                    <input type="password" value={newApiKey} onChange={e => setNewApiKey(e.target.value)} placeholder="sk-or-v1-..." autoFocus
-                                        className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 dark:text-white font-mono" />
-                                    <button onClick={() => updateProviderKey(p.provider_name)} className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase">Save</button>
-                                    <button onClick={() => { setEditingProvider(null); setNewApiKey(''); }} className="px-4 py-2 bg-slate-100 dark:bg-slate-700 rounded-xl text-xs font-black uppercase text-slate-500">Cancel</button>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {agents.map(agent => (
+                                        <div key={agent.name} className="group bg-white dark:bg-slate-900 rounded-[2.5rem] p-1 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all relative overflow-hidden">
+                                            <div className="p-7">
+                                                <div className="flex items-center justify-between mb-8">
+                                                    <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-3xl shadow-inner group-hover:rotate-6 transition-transform">
+                                                        {agent.icon}
+                                                    </div>
+                                                    <StatusBadge status={agent.status} />
+                                                </div>
+
+                                                <h4 className="text-lg font-black text-slate-900 dark:text-white mb-1">{agent.displayName}</h4>
+                                                <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-6">{agent.model}</p>
+
+                                                <div className="grid grid-cols-2 gap-4 mb-8">
+                                                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+                                                        <p className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Messages</p>
+                                                        <p className="text-sm font-black text-teal-600">{agent.interactions24h}</p>
+                                                    </div>
+                                                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+                                                        <p className="text-[8px] font-black uppercase tracking-widest text-slate-400 mb-1">Utilization</p>
+                                                        <p className="text-sm font-black text-indigo-600">${(agent.cost24h || 0).toFixed(4)}</p>
+                                                    </div>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => { setChatAgent(agent.name); setActiveSection('chat'); setConversationId(''); setChatMessages([{ role: 'agent', content: `Secure tunnel to ${agent.displayName} initialized. Access level: Root.` }]); }}
+                                                    className="w-full py-4 bg-slate-900 dark:bg-slate-800 hover:bg-teal-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all active:scale-95"
+                                                >
+                                                    Open Uplink
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ) : (
-                                <button onClick={() => setEditingProvider(p.provider_name)}
-                                    className="px-4 py-2 bg-slate-100 dark:bg-slate-700 rounded-xl text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                                    {p.has_api_key ? '🔑 Update API Key' : '🔑 Add API Key'}
-                                </button>
-                            )}
-                        </div>
-                    ))}
-
-                    {providers.length === 0 && (
-                        <div className="text-center p-8 text-slate-400">
-                            <p>No providers configured. Click "Add Provider" to get started.</p>
-                        </div>
-                    )}
-                </div>
-            )}
-
-            {/* ─── MEMORY DASHBOARD ─────────────────────────── */}
-            {activeSection === 'memory' && (
-                <MemoryDashboard />
-            )}
-
-            {/* ─── AUDIT ────────────────────────────────────── */}
-            {activeSection === 'audit' && (
-                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
-                    <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
-                        <h3 className="font-black text-sm text-slate-800 dark:text-white">Agent Audit Log</h3>
-                        <button onClick={fetchAudit} className="text-xs text-teal-600 font-black uppercase tracking-widest">↻ Refresh</button>
-                    </div>
-                    <div className="divide-y divide-slate-50 dark:divide-slate-700 max-h-96 overflow-y-auto">
-                        {auditLogs.length === 0 ? (
-                            <p className="p-8 text-center text-sm text-slate-400">No agent interactions recorded yet.</p>
-                        ) : (
-                            auditLogs.map(log => (
-                                <div key={log.id} className="p-3 flex items-center gap-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                                    <span className="text-xs font-mono text-slate-400">#{log.id}</span>
-                                    <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">
-                                        {log.action?.replace(/_/g, ' ')}
-                                    </span>
-                                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{log.admin_name || 'System'}</span>
-                                    <span className="text-xs text-slate-400 ml-auto font-mono">{new Date(log.created_at).toLocaleString()}</span>
-                                </div>
-                            ))
+                            </div>
                         )}
-                    </div>
-                </div>
-            )}
 
-            {/* ─── SETTINGS ─────────────────────────────────── */}
-            {activeSection === 'settings' && (
-                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 space-y-6">
-                    <div>
-                        <h3 className="font-black text-lg text-slate-800 dark:text-white mb-1">Agent System Settings</h3>
-                        <p className="text-xs text-slate-400">
-                            {user?.role === 'super-admin' ? 'Full control enabled. Changes are saved to database.' : '⚠️ Read-only. Super-admin role required.'}
-                        </p>
-                    </div>
+                        {/* ─── CHAT ─────────────────────────────────────── */}
+                        {activeSection === 'chat' && (
+                            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-2xl flex flex-col md:flex-row h-[700px]">
+                                {/* Sidebar for Agents */}
+                                <div className="w-full md:w-64 bg-slate-50/50 dark:bg-slate-800/30 border-r border-slate-100 dark:border-slate-800 p-6 space-y-4">
+                                    <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 px-2">Active Channels</h4>
+                                    <div className="space-y-1">
+                                        {agentConfigs.filter(a => a.is_active).map(a => (
+                                            <button
+                                                key={a.agent_id}
+                                                onClick={() => { setChatAgent(a.agent_id); setConversationId(''); }}
+                                                className={`w-full p-3 rounded-2xl flex items-center gap-3 transition-all ${chatAgent === a.agent_id ? 'bg-white dark:bg-slate-800 shadow-sm ring-1 ring-slate-100 dark:ring-white/5' : 'opacity-60 grayscale hover:opacity-100 hover:grayscale-0'}`}
+                                            >
+                                                <span className="text-xl">{a.icon}</span>
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-slate-200 truncate">{a.display_name}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
 
-                    <div className="grid grid-cols-2 gap-6">
-                        {Object.entries(settings).map(([key, value]) => (
-                            <div key={key}>
-                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{key.replace(/_/g, ' ')}</label>
-                                {key === 'autonomy_level' ? (
-                                    <select disabled={user?.role !== 'super-admin'} value={value} onChange={e => setSettings({ ...settings, [key]: e.target.value })}
-                                        className="w-full px-3 py-3 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 font-bold dark:text-white disabled:opacity-50">
-                                        <option value="supervised">Supervised — Requires approval</option>
-                                        <option value="semi">Semi-Autonomous — Routine actions auto-approved</option>
-                                        <option value="full">Full Autonomous — Decides independently</option>
-                                    </select>
-                                ) : (
-                                    <input disabled={user?.role !== 'super-admin'} value={value} onChange={e => setSettings({ ...settings, [key]: e.target.value })}
-                                        className="w-full px-3 py-3 bg-slate-50 dark:bg-slate-900 rounded-xl text-sm border border-slate-200 dark:border-slate-600 font-bold dark:text-white disabled:opacity-50" />
+                                {/* Main Conversation */}
+                                <div className="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950/20">
+                                    {/* Sub-header */}
+                                    <div className="px-8 py-5 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse shadow-lg shadow-teal-500/50" />
+                                            <span className="text-[11px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">Encypted Session: {chatAgent}</span>
+                                        </div>
+                                        <button onClick={() => { setConversationId(''); setChatMessages([{ role: 'agent', content: 'Session history purged. Neural bridge reset.' }]); }} className="text-[9px] font-black text-rose-500 uppercase tracking-widest">Purge History</button>
+                                    </div>
+
+                                    <div ref={chatScrollRef} className="flex-1 p-8 space-y-6 overflow-y-auto custom-scrollbar">
+                                        {chatMessages.map((m, i) => (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                key={i}
+                                                className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                                            >
+                                                <div className={`max-w-[85%] px-6 py-4 rounded-3xl shadow-sm text-sm font-medium leading-relaxed ${m.role === 'user'
+                                                    ? 'bg-slate-900 text-white rounded-tr-none shadow-xl shadow-slate-900/20'
+                                                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-100 dark:border-slate-800 rounded-tl-none'
+                                                    }`}>
+                                                    {m.content}
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                        {chatTyping && (
+                                            <div className="flex justify-start">
+                                                <div className="bg-white dark:bg-slate-800 px-6 py-4 rounded-3xl rounded-tl-none border border-slate-100 dark:border-slate-800 flex gap-2">
+                                                    <span className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" />
+                                                    <span className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                                                    <span className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="p-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+                                        <form onSubmit={handleChat} className="flex gap-4 max-w-5xl mx-auto">
+                                            <input
+                                                type="text"
+                                                value={chatInput}
+                                                onChange={(e) => setChatInput(e.target.value)}
+                                                placeholder="Inject command instruction packet..."
+                                                className="flex-1 px-8 py-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl text-sm font-medium border-2 border-transparent focus:border-indigo-500 outline-none transition-all dark:text-white"
+                                            />
+                                            <button
+                                                type="submit"
+                                                disabled={!chatInput.trim() || chatTyping}
+                                                className="px-10 py-5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest disabled:opacity-50 shadow-xl shadow-indigo-600/20 transition-all active:scale-95"
+                                            >
+                                                Inject
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* ─── AGENTS & PROMPTS ─────────────────────────── */}
+                        {activeSection === 'agents' && (
+                            <div className="space-y-8">
+                                <div className="flex justify-between items-center bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl">
+                                    <div>
+                                        <h3 className="text-white font-black text-lg">Neural Registry</h3>
+                                        <p className="text-[10px] text-slate-500 tracking-widest uppercase">Manage {agentConfigs.length} initialized entities</p>
+                                    </div>
+                                    <button
+                                        onClick={() => { setShowNewAgent(true); setEditingAgent({ id: 0, agent_id: '', display_name: '', description: '', model: 'anthropic/claude-sonnet-4', system_prompt: '', temperature: 0.5, max_tokens: 4096, tools: [], allowed_roles: ['customer'], is_system: false, is_active: true, autonomy_level: 'supervised', icon: '🤖', color: '#0ea5e9' }); }}
+                                        className="px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all"
+                                    >
+                                        + Initialize New Neuron
+                                    </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-6">
+                                    {agentConfigs.map(agent => (
+                                        <div key={agent.agent_id} className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all">
+                                            <div className="flex items-center justify-between mb-10">
+                                                <div className="flex items-center gap-6">
+                                                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-4xl shadow-inner">
+                                                        {agent.icon}
+                                                    </div>
+                                                    <div>
+                                                        <div className="flex items-center gap-3 mb-1">
+                                                            <h4 className="font-black text-xl text-slate-900 dark:text-white leading-none">{agent.display_name}</h4>
+                                                            {agent.is_system && <span className="text-[9px] bg-slate-100 dark:bg-white/5 rounded-full px-3 py-1 font-black text-slate-500 tracking-widest uppercase">System Core</span>}
+                                                        </div>
+                                                        <p className="text-[10px] font-mono text-slate-400 leading-none tracking-widest uppercase">{agent.agent_id} / {agent.model}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-center gap-2">
+                                                    <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${agent.is_active ? 'bg-teal-50 text-teal-600 dark:bg-teal-500/10 dark:text-teal-400' : 'bg-rose-50 text-rose-600'}`}>
+                                                        {agent.is_active ? 'Online' : 'Suspended'}
+                                                    </div>
+                                                    <button onClick={() => toggleAgent(agent.agent_id, agent.is_active)} className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all">
+                                                        {agent.is_active ? 'Suspend' : 'Resume'}
+                                                    </button>
+                                                    <button onClick={() => setEditingAgent(agent)} className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-indigo-600/20">
+                                                        Modify
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                                                <div>
+                                                    <h5 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Capabilities Descriptor</h5>
+                                                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{agent.description}</p>
+                                                </div>
+                                                <div className="bg-slate-50 dark:bg-black/20 rounded-2xl p-4 overflow-hidden group">
+                                                    <h5 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 flex justify-between">
+                                                        <span>System Prompt</span>
+                                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">Neural Code</span>
+                                                    </h5>
+                                                    <p className="text-[10px] text-slate-500 font-mono line-clamp-3 leading-relaxed">{agent.system_prompt}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* ─── MEMORY DASHBOARD ─────────────────────────── */}
+                        {activeSection === 'memory' && (
+                            <MemoryDashboard />
+                        )}
+
+                        {/* ─── AUDIT & OTHER SECTIONS (Retained legacy or upgraded) ─── */}
+                        {['audit', 'settings', 'providers', 'teams'].includes(activeSection) && (
+                            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 p-10 shadow-xl">
+                                {activeSection === 'audit' && (
+                                    <div className="space-y-8">
+                                        <div className="flex justify-between items-center">
+                                            <h3 className="font-black text-2xl text-slate-900 dark:text-white">Neural Ledger</h3>
+                                            <button onClick={fetchAudit} className="text-[10px] text-teal-600 font-black uppercase tracking-widest bg-teal-50 dark:bg-teal-500/10 px-4 py-2 rounded-xl">Sync Ledger</button>
+                                        </div>
+                                        <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                                            {auditLogs.length === 0 ? (
+                                                <div className="p-20 text-center text-slate-400 opacity-50">No ledger entries detected in this epoch.</div>
+                                            ) : (
+                                                auditLogs.map(log => (
+                                                    <div key={log.id} className="py-5 flex items-center gap-6 group hover:bg-slate-50 dark:hover:bg-white/5 px-4 rounded-2xl transition-all">
+                                                        <span className="text-[10px] font-mono text-slate-300">#{log.id}</span>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-xs font-black uppercase tracking-widest text-slate-800 dark:text-slate-200">{log.action?.replace(/_/g, ' ')}</span>
+                                                            <span className="text-[10px] font-bold text-slate-400 italic">By {log.admin_name || 'System Core'}</span>
+                                                        </div>
+                                                        <span className="text-[10px] text-slate-300 ml-auto font-mono">{new Date(log.created_at).toLocaleString()}</span>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {activeSection === 'settings' && (
+                                    <div className="space-y-10 max-w-4xl">
+                                        <div>
+                                            <h3 className="font-black text-2xl text-slate-900 dark:text-white mb-2">Core Parameters</h3>
+                                            <p className="text-sm text-slate-500">Global weights and governance protocols for all intelligence entities.</p>
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            {Object.entries(settings).map(([key, value]) => (
+                                                <div key={key} className="space-y-3">
+                                                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{key.replace(/_/g, ' ')}</label>
+                                                    {key === 'autonomy_level' ? (
+                                                        <select disabled={user?.role !== 'super-admin'} value={value} onChange={e => setSettings({ ...settings, [key]: e.target.value })}
+                                                            className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl text-sm border-2 border-transparent focus:border-teal-500 font-bold dark:text-white outline-none transition-all">
+                                                            <option value="supervised">Human-in-the-Loop</option>
+                                                            <option value="semi">Hybrid-Autonomous</option>
+                                                            <option value="full">Full Convergence</option>
+                                                        </select>
+                                                    ) : (
+                                                        <input disabled={user?.role !== 'super-admin'} value={value} onChange={e => setSettings({ ...settings, [key]: e.target.value })}
+                                                            className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl text-sm border-2 border-transparent focus:border-teal-500 font-bold dark:text-white outline-none transition-all" />
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <button onClick={saveSettings} className="px-12 py-5 bg-slate-900 dark:bg-indigo-600 text-white rounded-2xl font-black uppercase text-[11px] tracking-widest shadow-xl shadow-slate-900/20 active:scale-95 transition-all">
+                                            Update System Core
+                                        </button>
+                                    </div>
+                                )}
+
+                                {activeSection === 'providers' && (
+                                    <div className="space-y-8">
+                                        <div className="flex justify-between items-center">
+                                            <h3 className="text-2xl font-black text-slate-900 dark:text-white">Neural Bridges</h3>
+                                            <button onClick={() => setShowNewProvider(!showNewProvider)} className="px-6 py-3 bg-indigo-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-600/20">{showNewProvider ? 'Close Terminal' : 'Open Connection'}</button>
+                                        </div>
+
+                                        {showNewProvider && (
+                                            <div className="bg-slate-50 dark:bg-white/5 p-8 rounded-4xl border border-indigo-500/30 animate-in slide-in-from-top-4 duration-500">
+                                                <h4 className="text-sm font-black text-indigo-500 uppercase tracking-widest mb-6">Initialize New Bridge Tunnel</h4>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                                    <input placeholder="Provider ID (e.g. openrouter)" className="bg-white dark:bg-slate-900 p-4 rounded-2xl text-xs font-mono dark:text-white" value={newProviderData.provider_name} onChange={e => setNewProviderData({ ...newProviderData, provider_name: e.target.value })} />
+                                                    <input placeholder="Display Name (e.g. OpenRouter Core)" className="bg-white dark:bg-slate-900 p-4 rounded-2xl text-xs font-bold dark:text-white" value={newProviderData.display_name} onChange={e => setNewProviderData({ ...newProviderData, display_name: e.target.value })} />
+                                                    <input placeholder="API Base URL (optional)" className="bg-white dark:bg-slate-900 p-4 rounded-2xl text-xs font-mono dark:text-white" value={newProviderData.api_base_url} onChange={e => setNewProviderData({ ...newProviderData, api_base_url: e.target.value })} />
+                                                    <input placeholder="API Secret Key" type="password" className="bg-white dark:bg-slate-900 p-4 rounded-2xl text-xs font-mono dark:text-white" value={newProviderData.api_key} onChange={e => setNewProviderData({ ...newProviderData, api_key: e.target.value })} />
+                                                </div>
+                                                <button onClick={addProvider} className="w-full py-4 bg-indigo-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em]">Authorize and Bind Bridge</button>
+                                            </div>
+                                        )}
+
+                                        <div className="grid grid-cols-1 gap-6">
+                                            {providers.map(p => (
+                                                <div key={p.provider_name} className="p-8 bg-slate-50 dark:bg-white/5 rounded-[2.5rem] border border-slate-100 dark:border-white/5 hover:ring-2 hover:ring-teal-500/20 transition-all">
+                                                    <div className="flex items-center justify-between mb-8">
+                                                        <div>
+                                                            <h4 className="text-xl font-black dark:text-white mb-1">{p.display_name}</h4>
+                                                            <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase italic">{p.api_base_url || 'Internal Mesh'}</span>
+                                                        </div>
+                                                        <StatusBadge status={p.is_active && p.has_api_key ? 'online' : 'offline'} />
+                                                    </div>
+
+                                                    <div className="grid grid-cols-3 gap-8 mb-8">
+                                                        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl">
+                                                            <p className="text-[8px] font-black uppercase text-slate-400 mb-1">Throughput</p>
+                                                            <p className="text-lg font-black dark:text-white">{p.rate_limit_rpm} <span className="text-[10px] font-bold text-slate-500 opacity-50">RPM</span></p>
+                                                        </div>
+                                                        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl">
+                                                            <p className="text-[8px] font-black uppercase text-slate-400 mb-1">Budget Allocation</p>
+                                                            <p className="text-lg font-black text-teal-600">${p.monthly_budget_usd}</p>
+                                                        </div>
+                                                        <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl">
+                                                            <p className="text-[8px] font-black uppercase text-slate-400 mb-1">Neural Models</p>
+                                                            <p className="text-lg font-black text-indigo-500">{(p.models_available || []).length}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {editingProvider === p.provider_name ? (
+                                                        <div className="flex gap-3 bg-white dark:bg-slate-900 p-2 rounded-2xl ring-2 ring-teal-500/30 animate-in zoom-in duration-300">
+                                                            <input type="password" value={newApiKey} onChange={e => setNewApiKey(e.target.value)} placeholder="Enter encrypted key..." autoFocus className="flex-1 bg-transparent px-4 py-3 text-sm font-mono outline-none dark:text-white" />
+                                                            <button onClick={() => updateProviderKey(p.provider_name)} className="px-6 py-2 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase">Encrypt</button>
+                                                            <button onClick={() => { setEditingProvider(null); setNewApiKey(''); }} className="px-4 py-2 text-[10px] font-black uppercase text-slate-400">Abort</button>
+                                                        </div>
+                                                    ) : (
+                                                        <button onClick={() => setEditingProvider(p.provider_name)} className="px-8 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-slate-900/10 active:scale-95 transition-all">
+                                                            {p.has_api_key ? 'Update Encryption Key' : 'Inject API Key'}
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* ─── SWARMS (WORKFLOWS) ────────────────────────── */}
+                                {activeSection === 'teams' && (
+                                    <div className="space-y-8">
+                                        <div className="flex justify-between items-center bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-xl">
+                                            <div>
+                                                <h3 className="text-2xl font-black text-white">Neural Swarm Matrix</h3>
+                                                <p className="text-[10px] text-slate-500 tracking-widest uppercase mt-1">Coordination layer for multi-agent procedures</p>
+                                            </div>
+                                            <button className="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all active:scale-95 shadow-lg shadow-teal-600/20">
+                                                + Initialize New Procedure
+                                            </button>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            {workflows.length === 0 ? (
+                                                <div className="col-span-full py-20 bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 text-center opacity-50">
+                                                    <div className="text-4xl mb-4">🕸️</div>
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">No active procedures detected in the matrix</p>
+                                                </div>
+                                            ) : (
+                                                workflows.map(wf => (
+                                                    <div key={wf.workflow_id} className="bg-white dark:bg-slate-900 rounded-4xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all">
+                                                        <div className="flex justify-between items-start mb-6">
+                                                            <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-2xl">🔗</div>
+                                                            <span className="px-3 py-1 bg-teal-500/10 text-teal-400 text-[8px] font-black uppercase tracking-widest rounded-full">Operational</span>
+                                                        </div>
+                                                        <h4 className="text-lg font-black dark:text-white mb-2">{wf.name}</h4>
+                                                        <p className="text-xs text-slate-500 mb-6 line-clamp-2">{wf.description}</p>
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="flex -space-x-3">
+                                                                {[1, 2, 3].map(i => <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200 dark:bg-slate-700 shadow-sm" />)}
+                                                            </div>
+                                                            <span className="text-[9px] font-bold text-slate-400 uppercase ml-2">{JSON.parse(wf.steps || '[]').length} Stages</span>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+                                    </div>
                                 )}
                             </div>
-                        ))}
-                    </div>
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
 
-                    {user?.role === 'super-admin' && (
-                        <button onClick={saveSettings} className="px-6 py-3 bg-slate-900 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-slate-700 transition-colors">
-                            Save Settings
-                        </button>
-                    )}
+            {/* Editing Agent Modal (Persistent across tabs if needed, but usually tied to Agents tab) */}
+            {editingAgent && activeSection === 'agents' && (
+                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-xl z-100 flex items-center justify-center p-8 overflow-y-auto" onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        className="bg-white dark:bg-slate-900 rounded-[3rem] max-w-5xl w-full p-10 shadow-2xl relative border border-slate-100 dark:border-white/5"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        {/* Modal content ... (Similar to before but with improved inputs) */}
+                        <div className="flex justify-between items-start mb-10">
+                            <div>
+                                <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-1">
+                                    {showNewAgent ? 'Initialize Entity' : `Modify Neural Pattern: ${editingAgent.display_name}`}
+                                </h3>
+                                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black">Entity configuration and personality architecture</p>
+                            </div>
+                            <button onClick={() => { setEditingAgent(null); setShowNewAgent(false); }} className="p-4 bg-slate-50 dark:bg-slate-800 rounded-full hover:rotate-90 transition-transform">✕</button>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                            {/* Left: Metadata */}
+                            <div className="space-y-8">
+                                <div className="p-6 bg-slate-50 dark:bg-white/5 rounded-3xl space-y-6">
+                                    <div>
+                                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Icon Representation</label>
+                                        <input value={editingAgent.icon} onChange={e => setEditingAgent({ ...editingAgent, icon: e.target.value })} maxLength={4}
+                                            className="w-full h-24 bg-white dark:bg-slate-900 rounded-2xl text-center text-5xl outline-none focus:ring-4 ring-indigo-500/10 transition-all border border-slate-100 dark:border-white/5 shadow-inner" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Display name</label>
+                                        <input value={editingAgent.display_name} onChange={e => setEditingAgent({ ...editingAgent, display_name: e.target.value })}
+                                            className="w-full px-4 py-3 bg-white dark:bg-slate-900 rounded-xl text-sm font-bold dark:text-white border border-slate-100 dark:border-white/5" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Unified Identifier</label>
+                                        <input value={editingAgent.agent_id} disabled={!showNewAgent} onChange={e => setEditingAgent({ ...editingAgent, agent_id: e.target.value.toLowerCase().replace(/\s/g, '_') })}
+                                            className="w-full px-4 py-3 bg-white dark:bg-slate-900 rounded-xl text-xs font-mono dark:text-slate-400 border border-slate-100 dark:border-white/5 disabled:opacity-50" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Language Model Base</label>
+                                        <input value={editingAgent.model} onChange={e => setEditingAgent({ ...editingAgent, model: e.target.value })}
+                                            className="w-full px-4 py-3 bg-white dark:bg-slate-900 rounded-xl text-xs font-mono dark:text-slate-200 border border-slate-100 dark:border-white/5" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Center/Right: Prompts & Skills */}
+                            <div className="lg:col-span-2 space-y-8">
+                                <div className="space-y-3">
+                                    <div className="flex justify-between items-center px-2">
+                                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400">Neural Directive (System Prompt)</label>
+                                        <span className="text-[9px] font-mono text-indigo-500">Character & Skill Protocol</span>
+                                    </div>
+                                    <textarea
+                                        value={editingAgent.system_prompt}
+                                        onChange={e => setEditingAgent({ ...editingAgent, system_prompt: e.target.value })}
+                                        rows={18}
+                                        className="w-full p-8 bg-slate-50 dark:bg-black/20 rounded-4xl text-[11px] font-mono leading-relaxed outline-none focus:ring-4 ring-indigo-500/5 transition-all dark:text-slate-300 border border-slate-100 dark:border-white/5 custom-scrollbar"
+                                        placeholder="Define the core logic, personality, and behavioral constraints..."
+                                    />
+                                    <div className="flex gap-4">
+                                        <div className="flex-1">
+                                            <label className="block text-[8px] font-black uppercase tracking-widest text-slate-400 mb-2">Temperature: {editingAgent.temperature}</label>
+                                            <input type="range" min="0" max="1" step="0.1" value={editingAgent.temperature} onChange={e => setEditingAgent({ ...editingAgent, temperature: parseFloat(e.target.value) })} className="w-full accent-indigo-500" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <label className="block text-[8px] font-black uppercase tracking-widest text-slate-400 mb-2 px-1">Response Token Limit</label>
+                                            <input type="number" value={editingAgent.max_tokens} onChange={e => setEditingAgent({ ...editingAgent, max_tokens: parseInt(e.target.value) })}
+                                                className="w-full px-4 py-2 bg-slate-50 dark:bg-black/20 rounded-xl text-xs font-mono dark:text-white border border-slate-100 dark:border-white/5" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4 pt-6 border-t border-slate-50 dark:border-slate-800">
+                                    <button onClick={() => saveAgent(editingAgent)}
+                                        className="flex-1 py-5 bg-slate-900 dark:bg-indigo-600 text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-2xl shadow-indigo-600/20 active:scale-95 transition-all">
+                                        Initialize Entity Logic
+                                    </button>
+                                    <button onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}
+                                        className="px-10 py-5 bg-slate-50 dark:bg-slate-800 text-slate-400 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-slate-100 transition-all">
+                                        Discard Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             )}
         </div>

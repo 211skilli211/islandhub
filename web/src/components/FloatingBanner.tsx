@@ -105,8 +105,9 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                     className="fixed bottom-4 left-4 right-4 z-50 lg:hidden"
                 >
-                    <div className={`bg-gradient-to-r ${colors.gradient} rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl overflow-hidden`}>
+                    <div className={`bg-linear-to-r ${colors.gradient} rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/30 backdrop-blur-2xl overflow-hidden`}>
                         {/* Close Button */}
+
                         <button
                             onClick={handleDismiss}
                             className="absolute top-2 right-2 p-1.5 bg-white/20 hover:bg-white/30 rounded-full transition-colors z-10"
@@ -118,7 +119,7 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                         <div className={`p-5 flex items-center gap-4 ${alignment === 'center' ? 'flex-col text-center' : alignment === 'right' ? 'flex-row-reverse text-right' : ''}`}>
                             {/* Icon or Image */}
                             {banner.image_url ? (
-                                <div className={`${alignment === 'center' ? 'w-24 h-24' : 'w-16 h-16'} rounded-2xl overflow-hidden flex-shrink-0 shadow-lg border-2 border-white/20`}>
+                                <div className={`${alignment === 'center' ? 'w-24 h-24' : 'w-16 h-16'} rounded-2xl overflow-hidden shrink-0 shadow-lg border-2 border-white/20`}>
                                     <img
                                         src={banner.image_url}
                                         alt={banner.title}
@@ -126,7 +127,7 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                                     />
                                 </div>
                             ) : (
-                                <div className={`${alignment === 'center' ? 'w-16 h-16 text-4xl' : 'w-12 h-12 text-2xl'} ${colors.iconBg} rounded-2xl flex items-center justify-center flex-shrink-0 animate-pulse`}>
+                                <div className={`${alignment === 'center' ? 'w-16 h-16 text-4xl' : 'w-12 h-12 text-2xl'} ${colors.iconBg} rounded-2xl flex items-center justify-center shrink-0 animate-pulse`}>
                                     {banner.icon || '✨'}
                                 </div>
                             )}
@@ -148,7 +149,7 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                                 <Link
                                     href={banner.target_url}
                                     onClick={handleDismiss}
-                                    className={`px-6 py-3 ${colors.button} ${alignment === 'center' ? 'w-full' : ''} text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-xl hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0`}
+                                    className={`px-6 py-3 ${colors.button} ${alignment === 'center' ? 'w-full' : ''} text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-xl hover:scale-105 active:scale-95 whitespace-nowrap shrink-0`}
                                 >
                                     {banner.template_type === 'urgency' ? 'Act Now →' : 'Explore →'}
                                 </Link>
@@ -159,4 +160,10 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
             )}
         </AnimatePresence>
     );
+
+    // Optimized premium renderers would go here... for now I'll stick to the core layout
+    // but I'll add the premium conditional logic in the main return if needed.
+    // The current FloatingBanner already has a backdrop-blur-xl which is quite premium.
+    // I'll enhance the shadow and border to make it POP more.
+
 }

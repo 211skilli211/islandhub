@@ -12,9 +12,7 @@ import FloatingBanner from "@/components/FloatingBanner";
 import UserSync from "@/components/UserSync";
 import { Providers } from './providers';
 import AdSpace from "@/components/advertising/AdSpace";
-import AgentChat from "@/components/AgentChat";
-import FloatingActionMenu from "@/components/FloatingActionMenu";
-import VendorAssistant from "@/components/dashboard/VendorAssistant";
+import FloatingHub from "@/components/FloatingHub";
 
 // Memoize static components that don't frequently re-render
 const MemoizedNavbar = memo(Navbar);
@@ -22,9 +20,6 @@ const MemoizedTextMarquee = memo(TextMarquee);
 const MemoizedFooter = memo(Footer);
 const MemoizedFloatingBanner = memo(FloatingBanner);
 const MemoizedUserSync = memo(UserSync);
-const MemoizedAgentChat = memo(AgentChat);
-const MemoizedFloatingActionMenu = memo(FloatingActionMenu);
-const MemoizedVendorAssistant = memo(VendorAssistant);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,10 +57,9 @@ export default function RootLayout({
           {children}
           <Toaster position="bottom-right" />
           <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
-          <MemoizedAgentChat />
-          <MemoizedFloatingActionMenu />
-          <MemoizedVendorAssistant />
+          <FloatingHub />
           <MemoizedFooter />
+
         </Providers>
       </body>
     </html>

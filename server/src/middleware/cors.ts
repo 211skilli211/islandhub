@@ -24,6 +24,18 @@ export const corsOptions = {
       return;
     }
 
+    // Allow ANY localhost port (e.g. localhost:3000, 3001, 3002, 3003...)
+    if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    // Allow ANY 127.0.0.1 port
+    if (/^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) {
+      callback(null, true);
+      return;
+    }
+
     // Allow local network IPs for development/mobile testing
     // Matches: http://192.168.x.x:port, http://10.x.x.x:port, http://172.16-31.x.x:port
     const localNetworkPattern = /^https?:\/\/(192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(:\d+)?$/;

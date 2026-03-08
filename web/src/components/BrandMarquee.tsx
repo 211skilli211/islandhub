@@ -52,9 +52,26 @@ export default function BrandMarquee({
         if (items) {
             newItems = items;
         } else if (type === 'brand') {
-            newItems = Array.isArray(storesData) ? storesData : (storesData as any)?.stores || [];
+            const raw = Array.isArray(storesData) ? storesData : (storesData as any)?.stores || [];
+            newItems = raw.map((store: any) => ({
+                id: store.store_id || store.id,
+                name: store.name,
+                logo_url: store.logo_url || store.image_url,
+                image_url: store.image_url || store.logo_url,
+                slug: store.slug,
+                category: store.category
+            }));
         } else {
-            newItems = Array.isArray(trendingProducts) ? trendingProducts : (trendingProducts as any)?.recommendations || [];
+            const raw = Array.isArray(trendingProducts) ? trendingProducts : (trendingProducts as any)?.recommendations || [];
+            newItems = raw.map((item: any) => ({
+                id: item.id,
+                name: item.title || item.name,
+                logo_url: (item.images && item.images.length > 0) ? item.images[0] : ((item.photos && item.photos.length > 0) ? item.photos[0] : (item.shop_logo || item.logo_url)),
+                image_url: (item.images && item.images.length > 0) ? item.images[0] : ((item.photos && item.photos.length > 0) ? item.photos[0] : (item.shop_logo || item.image_url)),
+                slug: item.slug,
+                category: item.category || item.sub_category,
+                price: item.price
+            }));
         }
 
         // Deep compare or simple length check is sometimes enough, but stringify is safer for small arrays

@@ -5,6 +5,8 @@
  */
 
 import { pool } from '../config/db';
+import fs from 'fs';
+import path from 'path';
 
 // ─── Types ──────────────────────────────────────────────────
 interface LLMMessage {
@@ -205,6 +207,8 @@ async function isWithinBudget(): Promise<{ ok: boolean; dailySpend: number; mont
     }
 }
 
+const MEMORY_ROOT = path.join(__dirname, '../../..', 'memory');
+
 /**
  * Main function: Chat with an agent via the LLM provider.
  */
@@ -215,6 +219,31 @@ export async function chatWithAgent(
     userId: number | null = null,
     extraContext: Record<string, any> = {}
 ): Promise<LLMResponse> {
+    // 0. Try ZeroClaw Gateway first if online
+    const zeroclawUrl = process.env.ZEROCLAW_GATEWAY_URL || 'http://localhost:3001';
+    try {
+        const healthCheck = await fetch(`${zeroclawUrl}/health`).catch(() => null);
+        if (healthCheck?.ok) {
+            const zcResponse = await fetch(`${zeroclawUrl}/agents/${agentId}/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMessage, conversationId, userId, ...extraContext }),
+            });
+            if (zcResponse.ok) {
+                const zcData = await zcResponse.json();
+                return {
+                    reply: zcData.reply,
+                    model: zcData.model || agentId,
+                    tokensUsed: zcData.tokensUsed || 0,
+                    costUsd: zcData.costUsd || 0,
+                    metadata: { ...zcData.metadata, source: 'zeroclaw' },
+                };
+            }
+        }
+    } catch (err) {
+        console.warn('ZeroClaw gateway check failed, falling back to direct LLM:', err);
+    }
+
     // 1. Load agent profile from DB
     const agent = await getAgentFromDB(agentId);
     if (!agent) {
@@ -277,6 +306,24 @@ export async function chatWithAgent(
                 messages,
                 temperature: Number(agent.temperature) || 0.5,
                 max_tokens: Number(agent.max_tokens) || 4096,
+                tools: [
+                    {
+                        type: 'function',
+                        function: {
+                            name: 'memory_messenger',
+                            description: 'Persist a note or broadcast to the neural memory system.',
+                            parameters: {
+                                type: 'object',
+                                properties: {
+                                    content: { type: 'string', description: 'The content of the note/broadcast.' },
+                                    filename: { type: 'string', description: 'Optional: Specific file to write to (default: notes/broadcast.md).' }
+                                },
+                                required: ['content']
+                            }
+                        }
+                    }
+                ],
+                tool_choice: 'auto'
             }),
         });
 
@@ -293,14 +340,35 @@ export async function chatWithAgent(
         }
 
         const data = await response.json();
-        const replyContent = data.choices?.[0]?.message?.content || 'I processed your request but have no response to share.';
-        const usage = data.usage || {};
-        const inputTokens = usage.prompt_tokens || 0;
-        const outputTokens = usage.completion_tokens || 0;
-        const totalTokens = inputTokens + outputTokens;
+        const replyContent = data.choices?.[0]?.message?.content || '';
+        const inputTokens = data.usage?.prompt_tokens || 0;
+        const outputTokens = data.usage?.completion_tokens || 0;
+        const totalTokens = data.usage?.total_tokens || 0;
         const costUsd = estimateCost(agent.model, inputTokens, outputTokens);
 
-        // 7. Save assistant reply to history
+        // 7. Handle Tool Calling (Simple implementation for memory_messenger)
+        const toolCalls = data.choices?.[0]?.message?.tool_calls;
+        if (toolCalls && toolCalls.length > 0) {
+            for (const toolCall of toolCalls) {
+                if (toolCall.function.name === 'memory_messenger') {
+                    const args = JSON.parse(toolCall.function.arguments);
+                    const noteContent = args.content || '';
+                    const filename = args.filename || `notes/broadcast_${Date.now()}.md`;
+                    const fullPath = path.join(MEMORY_ROOT, filename);
+
+                    try {
+                        const dir = path.dirname(fullPath);
+                        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                        fs.appendFileSync(fullPath, `\n\n### Broadcast [${new Date().toISOString()}]\n${noteContent}`);
+                        console.log(`Memory Messenger: Persisted note to ${filename}`);
+                    } catch (err) {
+                        console.error('Memory Messenger failed:', err);
+                    }
+                }
+            }
+        }
+
+        // 8. Save assistant reply to history
         await saveConversationMessage(
             conversationId, userId, agentId, 'agent', replyContent,
             totalTokens, agent.model, costUsd,
@@ -317,6 +385,7 @@ export async function chatWithAgent(
                 outputTokens,
                 provider: creds.provider,
                 conversationId,
+                toolCalls: toolCalls ? toolCalls.map((t: any) => t.function.name) : [],
             },
         };
     } catch (error) {

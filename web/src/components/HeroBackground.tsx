@@ -153,6 +153,32 @@ export default function HeroBackground({
         };
     };
 
+    // Patterns for richer aesthetics - reused from AdSpace or moved to utils/theme
+    const BackgroundPatterns = ({ type, color = 'white' }: { type?: string, color?: string }) => {
+        if (!type) return null;
+        switch (type) {
+            case 'dots':
+                return (
+                    <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ backgroundImage: `radial-gradient(${color} 1px, transparent 1px)`, backgroundSize: '20px 20px' }} />
+                );
+            case 'grid':
+                return (
+                    <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: `linear-gradient(${color} 1px, transparent 1px), linear-gradient(90deg, ${color} 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
+                );
+            case 'mesh':
+                return (
+                    <div className="absolute inset-0 z-0 opacity-30 pointer-events-none" style={{
+                        background: `radial-gradient(at 0% 0%, ${color}22 0, transparent 50%), 
+                                    radial-gradient(at 100% 0%, ${color}22 0, transparent 50%),
+                                    radial-gradient(at 100% 100%, ${color}22 0, transparent 50%),
+                                    radial-gradient(at 0% 100%, ${color}22 0, transparent 50%)`
+                    }} />
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <div className={`relative w-full overflow-hidden ${className}`} style={{ minHeight: '600px', backgroundColor: bgColor }}>
             <style jsx global>{`
@@ -194,6 +220,7 @@ export default function HeroBackground({
                     <>
                         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: overlayColor, opacity: overlayOpacity }} />
                         <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
+                        <BackgroundPatterns type={styleConfig.pattern} color={styleConfig.patternColor} />
                     </>
                 )}
             </div>
@@ -219,91 +246,94 @@ export default function HeroBackground({
                                 textAlign: overlayAlign as any
                             } : {}}
                         >
-                            {/* Icon / Graphic */}
-                            {iconUrl && iconUrl.trim() !== '' && (
-                                <motion.div
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ delay: 0.1 }}
-                                    className={`mb-8 md:mb-12 relative flex w-full ${((layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'center') ? 'justify-center' :
+                            {/* IF children are provided, we skip the automatic title/subtitle/ctas to avoid duplication */}
+                            {!children ? (
+                                <>
+                                    {/* Icon / Graphic */}
+                                    {iconUrl && iconUrl.trim() !== '' && (
+                                        <motion.div
+                                            initial={{ scale: 0.8, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            transition={{ delay: 0.1 }}
+                                            className={`mb-8 md:mb-12 relative flex w-full ${((layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'center') ? 'justify-center' :
+                                                (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
+                                                }`}
+                                        >
+                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
+                                                {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads') || iconUrl.includes('.')) ? (
+                                                    <img
+                                                        src={getImageUrl(iconUrl)}
+                                                        className="w-full h-full object-contain drop-shadow-2xl translate-y-1 md:translate-y-2 group-hover:translate-y-0 transition-transform duration-700"
+                                                        alt=""
+                                                        onError={(e) => { (e.target as any).style.display = 'none'; }}
+                                                    />
+                                                ) : (
+                                                    <span className="text-4xl md:text-8xl drop-shadow-2xl select-none leading-none">{iconUrl}</span>
+                                                )}
+                                            </div>
+                                            <div className="absolute inset-0 bg-teal-500/20 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none" />
+                                        </motion.div>
+                                    )}
+
+                                    {/* Title */}
+                                    {title && (
+                                        <h1
+                                            className={`text-3xl md:text-7xl lg:text-8xl font-black leading-[1.1] md:leading-[1.05] mb-6 md:mb-8 drop-shadow-md ${getEffectClass(titleStyle.effect)}`}
+                                            style={{
+                                                fontFamily: getFontFamily(titleStyle.model || typography.model, titleStyle.custom_font),
+                                                color: titleStyle.color || 'white',
+                                                fontSize: titleStyle.size ? `${Math.max(32, titleStyle.size)}px` : undefined,
+                                                textTransform: titleStyle.model === 'display' ? 'uppercase' : 'none',
+                                                letterSpacing: titleStyle.model === 'display' ? '0.05em' : 'normal',
+                                                ...getGradientStyle(titleStyle)
+                                            }}
+                                        >
+                                            {title}
+                                        </h1>
+                                    )}
+
+                                    {/* Subtitle */}
+                                    {subtitle && (
+                                        <p
+                                            className={`text-base md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl drop-shadow-md ${getEffectClass(subtitleStyle.effect)}`}
+                                            style={{
+                                                fontFamily: getFontFamily(subtitleStyle.model || typography.model, subtitleStyle.custom_font),
+                                                color: subtitleStyle.color || 'rgba(255,255,255,0.95)',
+                                                fontSize: subtitleStyle.size ? `${Math.max(16, subtitleStyle.size)}px` : undefined,
+                                                ...getGradientStyle(subtitleStyle)
+                                            }}
+                                        >
+                                            {subtitle}
+                                        </p>
+                                    )}
+
+                                    {/* CTAs */}
+                                    <div className={`flex flex-wrap gap-4 md:gap-6 mb-12 ${((layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'center') ? 'justify-center' :
                                         (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
-                                        }`}
-                                >
-                                    <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
-                                        {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads') || iconUrl.includes('.')) ? (
-                                            <img
-                                                src={getImageUrl(iconUrl)}
-                                                className="w-full h-full object-contain drop-shadow-2xl translate-y-1 md:translate-y-2 group-hover:translate-y-0 transition-transform duration-700"
-                                                alt=""
-                                                onError={(e) => { (e.target as any).style.display = 'none'; }}
-                                            />
-                                        ) : (
-                                            <span className="text-4xl md:text-8xl drop-shadow-2xl select-none leading-none">{iconUrl}</span>
+                                        }`}>
+                                        {ctaText && ctaLink && (
+                                            <a
+                                                href={ctaLink}
+                                                className="inline-block px-8 md:px-12 py-4 md:py-5 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
+                                                style={{
+                                                    backgroundColor: overrideData?.branding_color || '#14b8a6',
+                                                    boxShadow: `0 20px 40px -10px ${(overrideData?.branding_color || '#14b8a6')}40`
+                                                }}
+                                            >
+                                                {ctaText}
+                                            </a>
+                                        )}
+                                        {cta2Text && cta2Link && (
+                                            <a
+                                                href={cta2Link}
+                                                className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl shadow-black/20 transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
+                                            >
+                                                {cta2Text}
+                                            </a>
                                         )}
                                     </div>
-                                    <div className="absolute inset-0 bg-teal-500/20 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none" />
-                                </motion.div>
-                            )}
-
-                            {/* Title */}
-                            {title && (
-                                <h1
-                                    className={`text-3xl md:text-7xl lg:text-8xl font-black leading-[1.1] md:leading-[1.05] mb-6 md:mb-8 drop-shadow-md ${getEffectClass(titleStyle.effect)}`}
-                                    style={{
-                                        fontFamily: getFontFamily(titleStyle.model || typography.model, titleStyle.custom_font),
-                                        color: titleStyle.color || 'white',
-                                        fontSize: titleStyle.size ? `${Math.max(32, titleStyle.size)}px` : undefined,
-                                        textTransform: titleStyle.model === 'display' ? 'uppercase' : 'none',
-                                        letterSpacing: titleStyle.model === 'display' ? '0.05em' : 'normal',
-                                        ...getGradientStyle(titleStyle)
-                                    }}
-                                >
-                                    {title}
-                                </h1>
-                            )}
-
-                            {/* Subtitle */}
-                            {subtitle && (
-                                <p
-                                    className={`text-base md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl drop-shadow-md ${getEffectClass(subtitleStyle.effect)}`}
-                                    style={{
-                                        fontFamily: getFontFamily(subtitleStyle.model || typography.model, subtitleStyle.custom_font),
-                                        color: subtitleStyle.color || 'rgba(255,255,255,0.95)',
-                                        fontSize: subtitleStyle.size ? `${Math.max(16, subtitleStyle.size)}px` : undefined,
-                                        ...getGradientStyle(subtitleStyle)
-                                    }}
-                                >
-                                    {subtitle}
-                                </p>
-                            )}
-
-                            {/* CTAs */}
-                            <div className={`flex flex-wrap gap-4 md:gap-6 mb-12 ${((layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'center') ? 'justify-center' :
-                                (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
-                                }`}>
-                                {ctaText && ctaLink && (
-                                    <a
-                                        href={ctaLink}
-                                        className="inline-block px-8 md:px-12 py-4 md:py-5 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
-                                        style={{
-                                            backgroundColor: overrideData?.branding_color || '#14b8a6',
-                                            boxShadow: `0 20px 40px -10px ${(overrideData?.branding_color || '#14b8a6')}40`
-                                        }}
-                                    >
-                                        {ctaText}
-                                    </a>
-                                )}
-                                {cta2Text && cta2Link && (
-                                    <a
-                                        href={cta2Link}
-                                        className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl shadow-black/20 transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
-                                    >
-                                        {cta2Text}
-                                    </a>
-                                )}
-                            </div>
-
-                            {children}
+                                </>
+                            ) : children}
                         </motion.div>
                     </div>
                 </div>

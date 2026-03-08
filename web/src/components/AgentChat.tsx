@@ -13,12 +13,17 @@ interface ChatMessage {
     agentName?: string;
 }
 
-export default function AgentChat() {
+interface AgentChatProps {
+    hubMode?: boolean;
+    onHubClose?: () => void;
+}
+
+export default function AgentChat({ hubMode = false, onHubClose }: AgentChatProps) {
     const { user } = useAuthStore();
     const profile = getAgentProfile(user?.role);
     const showFloating = shouldShowFloatingChat(user?.role);
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(hubMode); // Open by default in hub mode
     const [messages, setMessages] = useState<ChatMessage[]>([
         { role: 'agent', content: profile.greeting, timestamp: new Date(), agentName: profile.displayName }
     ]);
@@ -26,6 +31,15 @@ export default function AgentChat() {
     const [isTyping, setIsTyping] = useState(false);
     const [conversationId, setConversationId] = useState('');
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    // Close handler that accounts for hub mode
+    const handleClose = () => {
+        if (hubMode && onHubClose) {
+            onHubClose();
+        } else {
+            setIsOpen(false);
+        }
+    };
 
     // Update greeting when role changes
     useEffect(() => {
@@ -45,7 +59,7 @@ export default function AgentChat() {
     }, [messages, isTyping]);
 
     // Don't render if user is not logged in, or should have a dedicated panel instead
-    if (!user || !showFloating) return null;
+    if (!user || (!showFloating && !hubMode)) return null;
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -111,14 +125,14 @@ export default function AgentChat() {
     const colors = accentClasses[profile.accentColor as keyof typeof accentClasses] || accentClasses.teal;
 
     return (
-        <div className="fixed bottom-6 right-6 z-9999">
+        <div className={hubMode ? "" : "fixed bottom-24 lg:bottom-6 right-6 z-10000"}>
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="mb-4 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 flex flex-col overflow-hidden"
+                        className={`mb-4 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 flex flex-col overflow-hidden ${hubMode ? "absolute bottom-0 right-0 z-10002" : ""}`}
                         style={{ height: '500px' }}
                     >
                         {/* Header */}
@@ -135,7 +149,7 @@ export default function AgentChat() {
                                 </div>
                             </div>
                             <button
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleClose}
                                 className="p-2 hover:bg-white/10 rounded-xl transition-colors"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,26 +214,28 @@ export default function AgentChat() {
                 )}
             </AnimatePresence>
 
-            {/* Toggle Button */}
-            <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsOpen(!isOpen)}
-                className={`w-16 h-16 ${colors.toggle} rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative`}
-            >
-                {isOpen ? (
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                ) : (
-                    <div className="relative">
-                        <span className="text-2xl">{profile.icon}</span>
-                        {!isOpen && (
-                            <span className={`absolute -top-1 -right-1 w-4 h-4 ${colors.pulse} border-2 border-white rounded-full animate-pulse`} />
-                        )}
-                    </div>
-                )}
-            </motion.button>
+            {/* Toggle Button - only show if NOT in hubMode */}
+            {!hubMode && (
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setIsOpen(!isOpen)}
+                    className={`w-16 h-16 ${colors.toggle} rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative`}
+                >
+                    {isOpen ? (
+                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                        </svg>
+                    ) : (
+                        <div className="relative">
+                            <span className="text-2xl">{profile.icon}</span>
+                            {!isOpen && (
+                                <span className={`absolute -top-1 -right-1 w-4 h-4 ${colors.pulse} border-2 border-white rounded-full animate-pulse`} />
+                            )}
+                        </div>
+                    )}
+                </motion.button>
+            )}
         </div>
     );
 }

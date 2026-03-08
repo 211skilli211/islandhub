@@ -74,7 +74,7 @@ export default function StartHubPage() {
                                         </div>
                                     )}
 
-                                    <div className={`w-16 h-16 rounded-[1.5rem] bg-gradient-to-br ${option.color} flex items-center justify-center text-3xl mb-8 shadow-lg shadow-inherit group-hover:scale-110 transition-transform`}>
+                                    <div className={`w-16 h-16 rounded-3xl bg-linear-to-br ${option.color} flex items-center justify-center text-3xl mb-8 shadow-lg shadow-inherit group-hover:scale-110 transition-transform`}>
                                         {option.icon}
                                     </div>
 

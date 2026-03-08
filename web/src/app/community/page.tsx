@@ -5,42 +5,86 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
+import AdSpace from '@/components/advertising/AdSpace';
+import PostComposer from '@/components/social/PostComposer';
+import PostCard from '@/components/social/PostCard';
+import FollowButton from '@/components/social/FollowButton';
+
+interface Post {
+    post_id: number;
+    user_id: number;
+    title: string;
+    content: string;
+    media_url: string | null;
+    media_type: string | null;
+    category: string | null;
+    visibility?: string;
+    created_at: string;
+    user_name: string;
+    user_photo: string | null;
+    profile_photo_url?: string;
+    likes_count: number;
+    comments_count: number;
+    shares_count: number;
+    is_liked?: boolean;
+    is_bookmarked?: boolean;
+    user_liked?: boolean;
+    user_bookmarked?: boolean;
+    media?: string[];
+}
 
 export default function CommunityPage() {
-    const [activeTab, setActiveTab] = useState<'feed' | 'events' | 'stories'>('feed');
+    const [activeTab, setActiveTab] = useState<'feed' | 'events' | 'stories' | 'groups'>('feed');
     const [banners, setBanners] = useState<any[]>([]);
     const [trendingServices, setTrendingServices] = useState<any[]>([]);
     const [activeCampaigns, setActiveCampaigns] = useState<any[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [events, setEvents] = useState<any[]>([]);
+    const [stories, setStories] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [bannerRes, serviceRes, campaignRes] = await Promise.all([
+                const [bannerRes, serviceRes, campaignRes, postsRes, eventsRes, storiesRes] = await Promise.all([
                     api.get('/promotions/active?location=community_hero'),
                     api.get('/listings?type=service&limit=3'),
-                    api.get('/listings?type=campaign&limit=3')
+                    api.get('/listings?type=campaign&limit=3'),
+                    api.get('/posts?limit=20'),
+                    api.get('/community-events?upcoming=true&limit=5'),
+                    api.get('/stories/feed')
                 ]);
-                setBanners(bannerRes.data);
-                setTrendingServices(serviceRes.data);
-                setActiveCampaigns(campaignRes.data);
+                setBanners(bannerRes.data || []);
+                setTrendingServices(serviceRes.data || []);
+                setActiveCampaigns(campaignRes.data || []);
+                setPosts(postsRes.data || postsRes || []);
+                setEvents(eventsRes.data || eventsRes || []);
+                setStories(storiesRes.data || storiesRes || []);
             } catch (e) {
-                console.error("Community fetch error", e);
+                console.error('Community fetch error', e);
+                // Set sample data if API fails
+                setSampleData();
+            } finally {
+                setIsLoading(false);
             }
         }
         fetchData();
     }, []);
 
-    // Social posts will be fetched from API
+    const setSampleData = () => {
+        setEvents([
+            { id: 1, title: 'Island Food Festival', date: '2026-02-15', location: 'Downtown Market', attendees: 234 },
+            { id: 2, title: 'Beach Cleanup Day', date: '2026-02-20', location: 'South Beach', attendees: 89 },
+        ]);
+        setStories([
+            { id: 1, author: 'Maria Santos', story: 'IslandHub helped me grow my catering business from 5 to 50 clients in just 3 months!', avatar: '👩‍🍳' },
+            { id: 2, author: 'James Wilson', story: 'Found the perfect vacation rental for my family through this platform. Amazing experience!', avatar: '🏖️' },
+        ]);
+    };
 
-    const sampleEvents = [
-        { id: 1, title: 'Island Food Festival', date: '2026-02-15', location: 'Downtown Market', attendees: 234 },
-        { id: 2, title: 'Beach Cleanup Day', date: '2026-02-20', location: 'South Beach', attendees: 89 },
-    ];
-
-    const sampleStories = [
-        { id: 1, author: 'Maria Santos', story: 'IslandHub helped me grow my catering business from 5 to 50 clients in just 3 months!', avatar: '👩‍🍳' },
-        { id: 2, author: 'James Wilson', story: 'Found the perfect vacation rental for my family through this platform. Amazing experience!', avatar: '🏖️' },
-    ];
+    const handlePostCreated = (newPost: Post) => {
+        setPosts(prev => [newPost, ...prev]);
+    };
 
     return (
         <main className="min-h-screen bg-slate-50">
@@ -75,6 +119,7 @@ export default function CommunityPage() {
                             { id: 'feed', label: 'Feed', icon: '💬' },
                             { id: 'events', label: 'Events', icon: '📅' },
                             { id: 'stories', label: 'Stories', icon: '⭐' },
+                            { id: 'groups', label: 'Groups', icon: '👥' },
                         ].map(tab => (
                             <button
                                 key={tab.id}
@@ -102,12 +147,31 @@ export default function CommunityPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
-                                    className="space-y-8"
+                                    className="space-y-6"
                                 >
-                                    {/* Social feed will be populated with real posts from API */}
-                                    <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-12 text-center">
-                                        <p className="text-slate-400 font-medium">Community feed will be populated with real posts</p>
-                                    </div>
+                                    {/* Post Composer */}
+                                    <PostComposer onPostCreated={handlePostCreated} />
+
+                                    {/* Posts Feed */}
+                                    {isLoading ? (
+                                        <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-12 text-center">
+                                            <div className="animate-pulse">
+                                                <div className="h-4 bg-slate-200 rounded w-1/4 mx-auto mb-4"></div>
+                                                <div className="h-20 bg-slate-100 rounded-xl"></div>
+                                            </div>
+                                        </div>
+                                    ) : posts.length > 0 ? (
+                                        posts.map((post: Post) => (
+                                            <PostCard key={post.post_id} post={post} />
+                                        ))
+                                    ) : (
+                                        <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-12 text-center">
+                                            <p className="text-slate-400 font-medium mb-4">No posts yet. Be the first to share!</p>
+                                            <Link href="/community/feed" className="text-teal-600 font-black text-sm uppercase tracking-widest hover:underline">
+                                                View All Posts →
+                                            </Link>
+                                        </div>
+                                    )}
                                 </motion.div>
                             )}
 
@@ -119,7 +183,7 @@ export default function CommunityPage() {
                                     exit={{ opacity: 0, x: 20 }}
                                     className="space-y-6"
                                 >
-                                    {sampleEvents.map(event => (
+                                    {events.length > 0 ? events.map((event: any) => (
                                         <div key={event.id} className="bg-white p-10 rounded-[3rem] border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 group hover:shadow-xl transition-all">
                                             <div>
                                                 <span className="px-4 py-1 bg-teal-50 text-teal-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Upcoming Event</span>
@@ -127,13 +191,21 @@ export default function CommunityPage() {
                                                 <div className="flex gap-6 text-sm font-bold text-slate-400">
                                                     <span>📅 {event.date}</span>
                                                     <span>📍 {event.location}</span>
+                                                    <span>👥 {event.attendees || 0} attending</span>
                                                 </div>
                                             </div>
                                             <button className="px-10 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-teal-100 hover:bg-teal-700 active:scale-95 transition-all">
                                                 RSVP NOW
                                             </button>
                                         </div>
-                                    ))}
+                                    )) : (
+                                        <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-12 text-center">
+                                            <p className="text-slate-400 font-medium">No upcoming events</p>
+                                        </div>
+                                    )}
+                                    <Link href="/community/events" className="block text-center text-teal-600 font-black text-sm uppercase tracking-widest hover:underline mt-4">
+                                        View All Events →
+                                    </Link>
                                 </motion.div>
                             )}
 
@@ -145,18 +217,55 @@ export default function CommunityPage() {
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     className="space-y-8"
                                 >
-                                    {sampleStories.map(story => (
+                                    {stories.length > 0 ? stories.map((story: any) => (
                                         <div key={story.id} className="p-12 bg-white rounded-[4rem] border border-slate-100 relative group">
                                             <div className="absolute top-10 right-10 text-8xl text-slate-50 font-black opacity-50 italic">"</div>
                                             <div className="flex items-center gap-8">
-                                                <div className="w-24 h-24 bg-teal-50 rounded-3xl flex items-center justify-center text-5xl shadow-inner">{story.avatar}</div>
+                                                <div className="w-24 h-24 bg-teal-50 rounded-3xl flex items-center justify-center text-5xl shadow-inner">
+                                                    {story.avatar || '👤'}
+                                                </div>
                                                 <div>
-                                                    <p className="text-2xl text-slate-700 font-medium italic mb-6 leading-relaxed">"{story.story}"</p>
-                                                    <p className="font-black text-teal-900 uppercase tracking-widest">— {story.author}</p>
+                                                    <p className="text-2xl text-slate-700 font-medium italic mb-6 leading-relaxed">"{story.story || story.content}"</p>
+                                                    <p className="font-black text-teal-900 uppercase tracking-widest">— {story.author || story.user_name}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                    )) : (
+                                        <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-12 text-center">
+                                            <p className="text-slate-400 font-medium">No stories yet</p>
+                                        </div>
+                                    )}
+                                    <Link href="/community/stories" className="block text-center text-teal-600 font-black text-sm uppercase tracking-widest hover:underline mt-4">
+                                        View All Stories →
+                                    </Link>
+                                </motion.div>
+                            )}
+
+                            {activeTab === 'groups' && (
+                                <motion.div
+                                    key="groups"
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    className="space-y-6"
+                                >
+                                    <div className="bg-linear-to-r from-teal-500 to-teal-600 p-10 rounded-[3rem] text-white">
+                                        <h3 className="text-3xl font-black mb-4">Join Island Communities</h3>
+                                        <p className="text-teal-100 mb-6">Connect with people who share your interests</p>
+                                        <Link href="/community/groups" className="inline-block px-8 py-4 bg-white text-teal-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:shadow-lg transition-all">
+                                            Browse Groups
+                                        </Link>
+                                    </div>
+                                    <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 p-12 text-center">
+                                        <p className="text-slate-400 font-medium">Explore groups for:</p>
+                                        <div className="flex flex-wrap justify-center gap-3 mt-4">
+                                            {['Food & Dining', 'Beach Activities', 'Local Events', 'Business', 'Sports', 'Arts'].map(tag => (
+                                                <span key={tag} className="px-4 py-2 bg-slate-50 rounded-full text-xs font-black text-slate-500 uppercase tracking-widest">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -172,6 +281,11 @@ export default function CommunityPage() {
                                 <Link href="/stores" className="block p-5 bg-slate-50 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-400 hover:bg-teal-50 hover:text-teal-600 transition-all">🛍️ Marketplace</Link>
                                 <Link href="/rentals" className="block p-5 bg-slate-50 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-400 hover:bg-teal-50 hover:text-teal-600 transition-all">🏖️ Rentals</Link>
                             </div>
+                        </div>
+
+                        {/* Sidebar Advertisement */}
+                        <div className="rounded-[4rem] overflow-hidden">
+                            <AdSpace spaceName="community_sidebar" className="h-[600px]" />
                         </div>
 
                         {/* Active Campaigns Sidebar */}

@@ -127,6 +127,30 @@ router.post('/chat/admin', authenticateJWT, isAdmin, async (req: Request, res: R
 });
 
 // ────────────────────────────────────────────────────────
+// GET /api/agent/chat/history/:agentId — Get chat history
+// ────────────────────────────────────────────────────────
+router.get('/chat/history/:agentId', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const { agentId } = req.params;
+        const limit = parseInt(req.query.limit as string) || 50;
+
+        const result = await pool.query(
+            `SELECT role, content, created_at, tokens_used, cost_usd
+             FROM agent_conversations
+             WHERE agent_id = $1
+             ORDER BY created_at DESC
+             LIMIT $2`,
+            [agentId, limit]
+        );
+
+        res.json({ messages: result.rows.reverse() });
+    } catch (error) {
+        console.error('Failed to fetch chat history:', error);
+        res.status(500).json({ error: 'Failed to fetch chat history' });
+    }
+});
+
+// ────────────────────────────────────────────────────────
 // POST /api/agent/chat/moderator — Moderator chat
 // ────────────────────────────────────────────────────────
 router.post('/chat/moderator', authenticateJWT, async (req: Request, res: Response) => {
@@ -674,9 +698,34 @@ import { exec } from 'child_process';
 import util from 'util';
 const execPromise = util.promisify(exec);
 
+// Move require to a safer place or use dynamic import with check
+let sqlite3: any = null;
+try {
+    sqlite3 = require('sqlite3');
+} catch (e) {
+    console.warn('sqlite3 module not found. SQLite features will be disabled.');
+}
+
 const MEMORY_ROOT = path.join(__dirname, '../../..', 'memory');
 const MAIN_CONTEXT_PATH = path.join(MEMORY_ROOT, 'projects', 'main_context.md');
 const SCRIPTS_DIR = path.join(MEMORY_ROOT, 'scripts');
+const DB_PATH = path.join(MEMORY_ROOT, 'technical_data.db');
+
+// Recursive helper to list all .md and .txt files in memory root
+function getAllMemoryFiles(dir: string, baseDir: string = MEMORY_ROOT): string[] {
+    let results: string[] = [];
+    const list = fs.readdirSync(dir);
+    list.forEach((file) => {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat && stat.isDirectory()) {
+            results = results.concat(getAllMemoryFiles(filePath, baseDir));
+        } else if (file.endsWith('.md') || file.endsWith('.txt') || file.endsWith('.json')) {
+            results.push(path.relative(baseDir, filePath));
+        }
+    });
+    return results;
+}
 
 // GET /api/agent/memory/status — ReMeLight metrics
 router.get('/memory/status', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
@@ -689,20 +738,24 @@ router.get('/memory/status', authenticateJWT, isAdmin, async (req: Request, res:
             lastUpdated = stats.mtime;
         }
 
-        // Query SQLite for counts
-        const sqlite3 = require('sqlite3');
-        const dbPath = path.join(MEMORY_ROOT, 'technical_data.db');
-        const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY);
+        let endpointsCount = 0;
+        let schemasCount = 0;
 
-        const getCount = (table: string) => new Promise((resolve) => {
-            db.get(`SELECT COUNT(*) as count FROM ${table}`, (err, row: any) => {
-                resolve(err ? 0 : row?.count || 0);
+        if (sqlite3 && fs.existsSync(DB_PATH)) {
+            const db = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READONLY);
+
+            const getCount = (table: string): Promise<number> => new Promise((resolve) => {
+                db.get(`SELECT COUNT(*) as count FROM ${table}`, (err: any, row: any) => {
+                    resolve(err ? 0 : row?.count || 0);
+                });
             });
-        });
 
-        const endpointsCount = await getCount('api_endpoints');
-        const schemasCount = await getCount('db_schemas');
-        db.close();
+            endpointsCount = await getCount('api_endpoints');
+            schemasCount = await getCount('db_schemas');
+            db.close();
+        } else {
+            console.warn('SQLite DB not found or sqlite3 not loaded:', { exists: fs.existsSync(DB_PATH), loaded: !!sqlite3 });
+        }
 
         res.json({
             contextSizeInBytes: contextSize,
@@ -710,11 +763,12 @@ router.get('/memory/status', authenticateJWT, isAdmin, async (req: Request, res:
             sqliteRecords: {
                 api_endpoints: endpointsCount,
                 db_schemas: schemasCount
-            }
+            },
+            systemReady: !!sqlite3 && fs.existsSync(DB_PATH)
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Memory status check failed:', error);
-        res.status(500).json({ error: 'Failed to get memory status' });
+        res.status(500).json({ error: 'Failed to get memory status', details: error.message });
     }
 });
 
@@ -734,7 +788,7 @@ router.get('/memory/context', authenticateJWT, isAdmin, async (req: Request, res
 // POST /api/agent/memory/compact — Trigger compact_memory.js
 router.post('/memory/compact', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
     try {
-        await logAgentInteraction(req.user?.userId || null, 'memory_compaction_triggered', {});
+        await logAgentInteraction((req as any).user?.id || null, 'memory_compaction_triggered', {});
         const { stdout, stderr } = await execPromise(`node compact_memory.js`, { cwd: SCRIPTS_DIR });
         res.json({ success: true, log: stdout || stderr });
     } catch (error: any) {
@@ -743,15 +797,68 @@ router.post('/memory/compact', authenticateJWT, isAdmin, async (req: Request, re
     }
 });
 
-// POST /api/agent/memory/sync — Trigger zeroclaw_sync.js
+// GET /api/agent/memory/sync — Trigger zeroclaw_sync.js
 router.post('/memory/sync', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
     try {
-        await logAgentInteraction(req.user?.userId || null, 'zeroclaw_sync_triggered', {});
+        await logAgentInteraction((req as any).user?.id || null, 'zeroclaw_sync_triggered', {});
         const { stdout, stderr } = await execPromise(`node zeroclaw_sync.js`, { cwd: SCRIPTS_DIR });
         res.json({ success: true, log: stdout || stderr });
     } catch (error: any) {
         console.error('Sync failed:', error);
         res.status(500).json({ error: 'Sync script failed', log: error.message });
+    }
+});
+
+// ────────────────────────────────────────────────────────
+// Memory File Management (New in Phase 6)
+// ────────────────────────────────────────────────────────
+
+// GET /api/agent/memory/files — List all memory files
+router.get('/memory/files', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const files = getAllMemoryFiles(MEMORY_ROOT);
+        res.json({ files });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to list memory files' });
+    }
+});
+
+// GET /api/agent/memory/file/:filename(*) — Read memory file
+router.get('/memory/file/:filename(*)', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const filePath = path.join(MEMORY_ROOT, req.params.filename);
+        if (!filePath.startsWith(MEMORY_ROOT)) {
+            return res.status(403).json({ error: 'Access denied' });
+        }
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+        const content = fs.readFileSync(filePath, 'utf-8');
+        res.json({ content });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to read file' });
+    }
+});
+
+// POST /api/agent/memory/file/:filename(*) — Update memory file
+router.post('/memory/file/:filename(*)', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const { content } = req.body;
+        const filePath = path.join(MEMORY_ROOT, req.params.filename);
+        if (!filePath.startsWith(MEMORY_ROOT)) {
+            return res.status(403).json({ error: 'Access denied' });
+        }
+
+        fs.writeFileSync(filePath, content, 'utf-8');
+
+        await logAgentInteraction((req as any).user?.id || null, 'memory_file_updated', {
+            file: req.params.filename,
+            size: content.length
+        });
+
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update file' });
     }
 });
 

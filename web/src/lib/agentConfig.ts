@@ -61,7 +61,7 @@ export const AGENT_PROFILES: Record<string, AgentProfile> = {
     admin: {
         agent: 'admin_console',
         endpoint: '/chat/admin',
-        displayName: 'Admin Command Console',
+        displayName: 'Admin AI',
         greeting: 'Admin Console active. All operations are logged and audited.',
         placeholder: 'Enter admin command or question...',
         headerColor: 'bg-slate-800',
@@ -77,7 +77,7 @@ export const AGENT_PROFILES: Record<string, AgentProfile> = {
     'super-admin': {
         agent: 'admin_console',
         endpoint: '/chat/admin',
-        displayName: 'Super Admin Console',
+        displayName: 'Super Admin AI',
         greeting: 'Super Admin Console active. Full platform control enabled.',
         placeholder: 'Full access — enter any command...',
         headerColor: 'bg-rose-700',
@@ -127,7 +127,7 @@ export function getAgentProfile(role?: string | null): AgentProfile {
 /** Check if a role should see the floating chat (vs. a dedicated panel) */
 export function shouldShowFloatingChat(role?: string | null): boolean {
     if (!role) return true; // guests see floating chat
-    return ['customer', 'driver', 'buyer', 'rider'].includes(role) || !AGENT_PROFILES[role];
+    return ['customer', 'driver', 'buyer', 'rider', 'admin', 'super-admin'].includes(role) || !AGENT_PROFILES[role];
 }
 
 /** Check if a role has admin-level agent access */
