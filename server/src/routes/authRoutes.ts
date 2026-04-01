@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { register, login, updateUserRole, verifyEmail, generateToken } from '../controllers/authController';
+import { register, login, updateUserRole, verifyEmail, generateToken, generateRefreshToken, verifyRefreshToken } from '../controllers/authController';
 import { authenticateJWT } from '../middleware/authMiddleware';
 import { validate } from '../middleware/validation';
 import { authSchemas } from '../validation/schemas';
@@ -16,6 +16,46 @@ router.post('/register', validate(authSchemas.register), register);
 // @desc    Authenticate user & get token
 // @access  Public
 router.post('/login', validate(authSchemas.login), login);
+
+// @route   POST /api/auth/refresh
+// @desc    Refresh access token
+// @access  Public
+router.post('/refresh', (req, res) => {
+    try {
+        const { refreshToken } = req.body;
+        
+        if (!refreshToken) {
+            return res.status(400).json({ message: 'Refresh token is required' });
+        }
+        
+        const decoded = verifyRefreshToken(refreshToken);
+        
+        if (!decoded) {
+            return res.status(401).json({ message: 'Invalid or expired refresh token' });
+        }
+        
+        // Generate new access token
+        const accessToken = generateToken(decoded.id);
+        const newRefreshToken = generateRefreshToken(decoded.id);
+        
+        res.json({
+            accessToken,
+            refreshToken: newRefreshToken
+        });
+    } catch (error) {
+        console.error('Refresh token error:', error);
+        res.status(500).json({ message: 'Server error during token refresh' });
+    }
+});
+
+// @route   POST /api/auth/logout
+// @desc    Logout user (client should discard tokens)
+// @access  Private
+router.post('/logout', authenticateJWT, (req, res) => {
+    // In a full implementation, you'd blacklist the refresh token in Redis
+    // For now, client-side logout is sufficient
+    res.json({ message: 'Logged out successfully' });
+});
 
 // @route   POST /api/auth/verify-email
 // @desc    Verify user email

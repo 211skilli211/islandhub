@@ -9,8 +9,26 @@ export const generateToken = (id: number, role: string = 'donor') => {
     return jwt.sign(
         { id, role },
         process.env.JWT_SECRET as string,
-        { expiresIn: '1d' }
+        { expiresIn: '15m' } // Reduced from 1d to 15 minutes for security
     );
+};
+
+export const generateRefreshToken = (id: number) => {
+    return jwt.sign(
+        { id, type: 'refresh' },
+        process.env.JWT_SECRET as string,
+        { expiresIn: '7d' } // 7-day refresh token
+    );
+};
+
+export const verifyRefreshToken = (token: string) => {
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
+        if (decoded.type !== 'refresh') return null;
+        return decoded;
+    } catch {
+        return null;
+    }
 };
 
 export const register = async (req: Request, res: Response) => {
@@ -28,7 +46,7 @@ export const register = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(12); // Increased from 10 to 12 for stronger hashing
         const password_hash = await bcrypt.hash(password, salt);
 
         const newUser = await UserModel.create({
@@ -41,6 +59,7 @@ export const register = async (req: Request, res: Response) => {
         });
 
         const token = generateToken(newUser.user_id!, newUser.role);
+        const refreshToken = generateRefreshToken(newUser.user_id!);
 
         // Send welcome and verification emails
         await EmailService.sendWelcomeEmail(newUser.email, newUser.name);
@@ -48,6 +67,7 @@ export const register = async (req: Request, res: Response) => {
 
         res.status(201).json({
             token,
+            refreshToken,
             user: {
                 id: newUser.user_id,
                 name: newUser.name,
@@ -109,6 +129,7 @@ export const login = async (req: Request, res: Response) => {
         }
 
         const token = generateToken(user.user_id!, user.role);
+        const refreshToken = generateRefreshToken(user.user_id!);
 
         console.log('[Login] User data:', {
             id: user.user_id,
@@ -121,6 +142,7 @@ export const login = async (req: Request, res: Response) => {
 
         res.json({
             token,
+            refreshToken,
             user: {
                 id: user.user_id,
                 name: user.name,
