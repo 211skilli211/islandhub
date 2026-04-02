@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   images: {
     remotePatterns: [
       {
@@ -19,7 +18,6 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@heroicons/react', 'framer-motion'],
     optimizeCss: true,
-    scrollRestoration: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
