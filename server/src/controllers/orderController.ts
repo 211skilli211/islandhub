@@ -26,6 +26,23 @@ export const createOrder = async (req: Request, res: Response) => {
             items
         });
 
+        if (user_id) {
+            try {
+                const userResult = await pool.query('SELECT email, name FROM users WHERE id = $1', [user_id]);
+                if (userResult.rows[0]) {
+                    await EmailService.sendOrderConfirmation(
+                        userResult.rows[0].email,
+                        `ORD-${order.id}`,
+                        total_amount,
+                        currency || 'USD',
+                        items.length
+                    );
+                }
+            } catch (emailErr) {
+                console.error('Failed to send order confirmation email:', emailErr);
+            }
+        }
+
         res.status(201).json(order);
     } catch (error) {
         console.error('Error creating order:', error);
