@@ -3,14 +3,14 @@
 export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 
 // Dynamic import for ChatWindow with loading skeleton
-const ChatWindow = dynamic(
+const ChatWindow = dynamicImport(
     () => import('@/components/ChatWindow'),
     {
         loading: () => (
