@@ -6,7 +6,8 @@ import {
     getStoreOrders, 
     updateOrderStatus,
     cancelOrder,
-    getOrderStatusHistory 
+    getOrderStatusHistory,
+    retryPayment 
 } from '../controllers/orderController';
 import { authenticateJWT } from '../middleware/authMiddleware';
 import { applyCustomerVipBenefits } from '../middleware/subscriptionMiddleware';
@@ -47,5 +48,10 @@ router.patch('/:id/cancel', authenticateJWT, cancelOrder);
 // @desc    Get order status history
 // @access  Private (Order Owner or Admin)
 router.get('/:id/history', authenticateJWT, getOrderStatusHistory);
+
+// @route   POST /api/orders/:id/retry
+// @desc    Retry payment for a pending order
+// @access  Private (Order Owner)
+router.post('/:id/retry', authenticateJWT, retryPayment);
 
 export default router;

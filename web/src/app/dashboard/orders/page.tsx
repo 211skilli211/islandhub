@@ -81,6 +81,27 @@ export default function MyOrdersPage() {
     return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   };
 
+  const handlePaymentRetry = async (order: Order) => {
+    try {
+      const { data } = await api.post(`/orders/${order.order_id}/retry`);
+      
+      if (data.order_id) {
+        // Store the order in localStorage to complete payment on checkout
+        localStorage.setItem('pendingOrderRetry', JSON.stringify({
+          orderId: order.order_id,
+          amount: order.total_amount,
+          currency: order.currency
+        }));
+        
+        // Navigate to listings where they can complete purchase
+        router.push('/checkout?retry=' + order.order_id);
+      }
+    } catch (error: any) {
+      console.error('Payment retry error:', error);
+      toast.error(error.response?.data?.message || 'Failed to initiate payment retry');
+    }
+  };
+
   const filteredOrders = filter === 'all' 
     ? orders 
     : orders.filter(order => order.status === filter);
@@ -221,10 +242,7 @@ export default function MyOrdersPage() {
                     </Link>
                     {order.status === 'pending' && (
                       <button
-                        onClick={() => {
-                          // TODO: Implement payment retry
-                          toast('Payment retry coming soon');
-                        }}
+                        onClick={() => handlePaymentRetry(order)}
                         className="px-4 py-2 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
                       >
                         Complete Payment

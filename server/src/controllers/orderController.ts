@@ -284,3 +284,58 @@ export const getOrderStatusHistory = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Server error fetching order history' });
     }
 };
+
+// @desc    Retry payment for a pending order
+// @access  Private (Order Owner)
+export const retryPayment = async (req: Request, res: Response) => {
+    const client = await pool.connect();
+    try {
+        const { id } = req.params;
+        const user_id = (req as any).user?.id;
+
+        // Get the order
+        const orderResult = await client.query(
+            'SELECT * FROM orders WHERE order_id = $1',
+            [parseInt(id as string)]
+        );
+
+        if (orderResult.rows.length === 0) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        const order = orderResult.rows[0];
+
+        // Verify ownership
+        if (order.user_id !== user_id) {
+            return res.status(403).json({ message: 'Not authorized' });
+        }
+
+        // Only pending orders can be retried
+        if (order.status !== 'pending') {
+            return res.status(400).json({ 
+                message: 'Order cannot be retried. Status: ' + order.status 
+            });
+        }
+
+        // Create a payment intent for the order amount
+        const amount = Math.round(order.total_amount * 100); // Convert to cents
+        const currency = order.currency || 'USD';
+
+        // Use PayPal or other payment method
+        // For now, return order details so frontend can handle payment
+        res.json({
+            success: true,
+            message: 'Payment retry initiated',
+            order_id: order.order_id,
+            order_number: order.order_number,
+            total_amount: order.total_amount,
+            currency: currency,
+            items: typeof order.items === 'string' ? JSON.parse(order.items) : order.items
+        });
+    } catch (error) {
+        console.error('retryPayment error:', error);
+        res.status(500).json({ message: 'Server error processing payment retry' });
+    } finally {
+        client.release();
+    }
+};
