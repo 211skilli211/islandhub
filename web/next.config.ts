@@ -38,6 +38,14 @@ const nextConfig: NextConfig = {
       return config;
     },
   }),
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://islandhub.onrender.com/api/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

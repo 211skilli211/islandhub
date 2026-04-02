@@ -1,13 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
+  "buildCommand": "cd web && npm install && npm run build",
+  "outputDirectory": "web/.next",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "projectDir": "web",
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://islandhub.onrender.com/api/$1"
-    }
-  ]
+  "framework": "nextjs"
 }
