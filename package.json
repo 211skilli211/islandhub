@@ -1,0 +1,13 @@
+{
+  "name": "islandhub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd web && npm run dev",
+    "build": "cd web && npm run build",
+    "start": "cd web && npm start"
+  },
+  "dependencies": {
+    "next": "^14.0.0"
+  }
+}
