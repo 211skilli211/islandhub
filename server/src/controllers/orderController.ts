@@ -32,7 +32,7 @@ export const createOrder = async (req: Request, res: Response) => {
                 if (userResult.rows[0]) {
                     await EmailService.sendOrderConfirmation(
                         userResult.rows[0].email,
-                        `ORD-${order.id}`,
+                        `ORD-${order.order_id}`,
                         total_amount,
                         currency || 'USD',
                         items.length
