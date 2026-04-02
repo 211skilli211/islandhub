@@ -3,6 +3,7 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
+  "projectDir": "web",
   "rewrites": [
     {
       "source": "/api/(.*)",
