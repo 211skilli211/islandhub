@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useAuthStore } from '@/lib/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api, { getImageUrl } from '@/lib/api';
@@ -75,6 +75,21 @@ const PER_KM_RATES: any = {
 };
 
 export default function RequestRidePage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <p className="font-black text-slate-400 uppercase tracking-widest text-xs">Loading Taxi Hub...</p>
+                </div>
+            </div>
+        }>
+            <RequestRideContent />
+        </Suspense>
+    );
+}
+
+function RequestRideContent() {
     const { user } = useAuthStore();
     const router = useRouter();
     const searchParams = useSearchParams();
