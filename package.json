@@ -6,5 +6,8 @@
     "dev": "cd web && npm run dev",
     "build": "cd web && npm install --include=dev && npm run build",
     "start": "cd web && npm start"
+  },
+  "dependencies": {
+    "next": "^16.0.0"
   }
 }
