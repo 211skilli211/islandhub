@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -31,6 +31,18 @@ const CATEGORY_CONFIG: Record<string, any> = {
 };
 
 export default function StoresPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="animate-spin h-12 w-12 border-4 border-slate-100 border-t-indigo-600 rounded-full"></div>
+            </div>
+        }>
+            <StoresContent />
+        </Suspense>
+    );
+}
+
+function StoresContent() {
     const searchParams = useSearchParams();
     const categoryParam = searchParams.get('category');
 
