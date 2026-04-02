@@ -8,6 +8,6 @@
     "start": "cd web && npm start"
   },
   "dependencies": {
-    "next": "^14.0.0"
+    "next": "^16.0.0"
   }
 }
