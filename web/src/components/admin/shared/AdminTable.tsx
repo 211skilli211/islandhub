@@ -83,7 +83,6 @@ function SortableColumnHeader<T>({
     return (
         <th
             ref={setNodeRef}
-            style={style}
             {...attributes}
             {...listeners}
             className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none relative group select-none cursor-grab active:cursor-grabbing`}
