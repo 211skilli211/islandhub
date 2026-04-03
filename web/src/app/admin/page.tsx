@@ -716,9 +716,8 @@ export default function AdminPage() {
                                                             if (e.target.value) url.searchParams.set('role', e.target.value);
                                                             else url.searchParams.delete('role');
                                                             // Trigger refresh - in a real impl this would be state
-                                                        }}
+                                                            }}
                                                         className="px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold"
-                                                        placeholder="Filter by role"
                                                     >
                                                         <option value="">All Roles</option>
                                                         <option value="buyer">Buyer</option>
@@ -729,7 +728,6 @@ export default function AdminPage() {
                                                     </select>
                                                     <select 
                                                         className="px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold"
-                                                        placeholder="Filter by status"
                                                     >
                                                         <option value="">All Status</option>
                                                         <option value="active">Active</option>
