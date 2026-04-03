@@ -38,16 +38,31 @@ export const commonValidators = {
   }),
 };
 
+// Role categories for registration
+const roleCategories = {
+    buyer: 'buyer',
+    vendor: z.enum(['vendor_product', 'vendor_food', 'vendor_service', 'vendor_other']),
+    driver: z.enum(['driver_taxi', 'driver_delivery', 'driver_tour']),
+    creator: 'creator',
+    sponsor: 'sponsor',
+    donor: 'donor',
+    rider: 'rider',
+};
+
 // Auth schemas
 export const authSchemas = {
-  register: z.object({
-    name: commonValidators.name,
-    email: commonValidators.email,
-    password: commonValidators.password,
-    role: z.enum(['buyer', 'vendor', 'sponsor', 'creator', 'driver', 'rider'])
-      .optional()
-      .default('buyer'),
-  }),
+    register: z.object({
+        name: commonValidators.name,
+        email: commonValidators.email,
+        password: commonValidators.password,
+        role: z.enum(['buyer', 'vendor_product', 'vendor_food', 'vendor_service', 'vendor_other', 'creator', 'sponsor', 'donor', 'driver_taxi', 'driver_delivery', 'driver_tour', 'driver_service', 'rider'])
+            .optional()
+            .default('buyer'),
+        role_category: z.enum(['buyer', 'vendor', 'driver', 'creator', 'sponsor', 'donor']).optional(),
+        vendor_category: z.enum(['product', 'food', 'service', 'other']).optional(),
+        driver_category: z.enum(['taxi', 'delivery', 'tour', 'service']).optional(),
+        custom_category: z.string().max(100).optional(),
+    }),
 
   login: z.object({
     email: commonValidators.email,

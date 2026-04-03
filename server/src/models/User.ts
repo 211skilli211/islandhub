@@ -1,11 +1,18 @@
 import { pool } from '../config/db';
 
+export type UserRole = 
+  | 'buyer' 
+  | 'vendor' | 'vendor_product' | 'vendor_food' | 'vendor_service'
+  | 'driver' | 'driver_taxi' | 'driver_delivery' | 'driver_tour'
+  | 'creator' | 'sponsor' | 'donor' | 'admin' | 'super-admin' | 'rider' | 'moderator'
+  | `vendor_${string}` | `driver_${string}`;
+
 export interface User {
   user_id?: number;
   name: string;
   email: string;
   password_hash: string;
-  role: 'buyer' | 'vendor' | 'sponsor' | 'admin' | 'creator' | 'donor' | 'driver' | 'rider';
+  role: UserRole;
   country?: string;
   is_active?: boolean;
   email_verified?: boolean;

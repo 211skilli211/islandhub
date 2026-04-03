@@ -1,6 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
+import {
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+    DragEndEvent,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    horizontalListSortingStrategy,
+    useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { usePaginatedFetch } from '@/hooks/usePaginatedFetch';
 import PaginationControls from './PaginationControls';
 import SortControls from './SortControls';
@@ -31,6 +48,8 @@ interface AdminTableProps<T> {
     initialFilters?: Record<string, any>;
     getRowLink?: (item: T) => string;
     idKey?: keyof T;
+    searchable?: boolean;
+    searchPlaceholder?: string;
 }
 
 export function AdminTable<T extends Record<string, any>>({
@@ -44,7 +63,9 @@ export function AdminTable<T extends Record<string, any>>({
     defaultSort,
     initialFilters,
     getRowLink,
-    idKey = 'id' as keyof T
+    idKey = 'id' as keyof T,
+    searchable = false,
+    searchPlaceholder = 'Search records...'
 }: AdminTableProps<T>) {
     const router = useRouter();
     const {
@@ -82,20 +103,52 @@ export function AdminTable<T extends Record<string, any>>({
 
     // Resizable Columns State
     const [columnWidths, setColumnWidths] = useState<Record<number, number>>({});
+    const [columnOrder, setColumnOrder] = useState<number[]>([]);
+    const [hiddenColumns, setHiddenColumns] = useState<number[]>([]);
+    const [showColumnSettings, setShowColumnSettings] = useState(false);
     const resizingCol = useRef<number | null>(null);
     const startX = useRef<number>(0);
     const startWidth = useRef<number>(0);
+
+    // DnD Sensors
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 8,
+            },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    // Initialize column order
+    useEffect(() => {
+        setColumnOrder(columns.map((_, idx) => idx));
+    }, [columns]);
 
     const startResize = (index: number, e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         resizingCol.current = index;
         startX.current = e.pageX;
-        startWidth.current = columnWidths[index] || 150; // Default width
+        startWidth.current = columnWidths[index] || 150;
 
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
         document.body.style.cursor = 'col-resize';
+    };
+
+    // DnD Handlers
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+        if (over && active.id !== over.id) {
+            setColumnOrder((items) => {
+                const oldIndex = items.indexOf(active.id as number);
+                const newIndex = items.indexOf(over.id as number);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -192,20 +245,22 @@ export function AdminTable<T extends Record<string, any>>({
             <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                 <div className="flex flex-wrap gap-4 items-center w-full md:w-auto">
                     {/* Search */}
-                    <div className="relative flex-1 md:flex-none md:w-64">
-                        <input
-                            type="text"
-                            placeholder="Search records..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
-                        />
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                    {searchable && (
+                        <div className="relative flex-1 md:flex-none md:w-64">
+                            <input
+                                type="text"
+                                placeholder={searchPlaceholder}
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
+                            />
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Sort */}
                     <SortControls
@@ -264,25 +319,76 @@ export function AdminTable<T extends Record<string, any>>({
                 <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">
                     {/* View Toggles */}
                     <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+                    <button
+                        onClick={() => setIsCompact(!isCompact)}
+                        className={`p-2 rounded-lg border transition-all ${isCompact ? 'bg-teal-50 border-teal-300 text-teal-600' : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'}`}
+                        title={isCompact ? 'Expanded View' : 'Compact View'}
+                    >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+
+                    {/* Column Settings */}
+                    <div className="relative">
                         <button
-                            onClick={() => setViewType('table')}
-                            className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${viewType === 'table' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-                            title="Table View"
+                            onClick={() => setShowColumnSettings(!showColumnSettings)}
+                            className={`p-2 rounded-lg border transition-all ${showColumnSettings ? 'bg-teal-50 border-teal-300 text-teal-600' : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'}`}
+                            title="Column Settings"
                         >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                             </svg>
                         </button>
-                        <button
-                            onClick={() => setViewType('card')}
-                            className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${viewType === 'card' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-                            title="Card View"
-                        >
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                            </svg>
-                        </button>
+                        
+                        {showColumnSettings && isMounted && createPortal(
+                            <div className="fixed inset-0 z-9999" onClick={() => setShowColumnSettings(false)}>
+                                <div 
+                                    className="absolute bg-white rounded-xl shadow-2xl border border-slate-100 py-3 animate-in fade-in slide-in-from-top-2 duration-200 w-64"
+                                    style={{ top: '180px', right: '20px' }}
+                                    onClick={e => e.stopPropagation()}
+                                >
+                                    <div className="px-3 py-2 border-b border-slate-100 mb-2">
+                                        <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Columns</p>
+                                    </div>
+                                    <div className="max-h-64 overflow-y-auto">
+                                        {columns.map((col, idx) => (
+                                            <label
+                                                key={idx}
+                                                className="flex items-center gap-3 px-3 py-2 hover:bg-slate-50 cursor-pointer"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={!hiddenColumns.includes(idx)}
+                                                    onChange={() => {
+                                                        if (hiddenColumns.includes(idx)) {
+                                                            setHiddenColumns(prev => prev.filter(i => i !== idx));
+                                                        } else {
+                                                            setHiddenColumns(prev => [...prev, idx]);
+                                                        }
+                                                    }}
+                                                    className="w-4 h-4 rounded border-slate-300 text-teal-600"
+                                                />
+                                                <span className="text-sm font-medium text-slate-700">{col.header}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                    <div className="px-3 py-2 border-t border-slate-100 mt-2 flex gap-2">
+                                        <button 
+                                            onClick={() => {
+                                                setHiddenColumns([]);
+                                                setColumnOrder(columns.map((_, idx) => idx));
+                                            }}
+                                            className="text-xs text-slate-500 hover:text-teal-600"
+                                        >
+                                            Reset All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
+                </div>
 
                     <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
 
@@ -329,9 +435,10 @@ export function AdminTable<T extends Record<string, any>>({
                                             />
                                         </th>
                                     )}
-                                    {columns.map((col, idx) => (
-                                        <th
-                                            key={`head-${col.header}-${idx}`}
+                                    {columns.map((col, idx) => {
+                                        if (hiddenColumns.includes(idx)) return null;
+                                        // Use columnOrder for display order
+                                        return (
                                             className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none relative group select-none`}
                                             style={{ width: columnWidths[idx], minWidth: columnWidths[idx], maxWidth: columnWidths[idx] }}
                                         >
@@ -347,7 +454,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                 <div className="w-0.5 h-3 bg-slate-300 rounded-full"></div>
                                             </div>
                                         </th>
-                                    ))}
+                                    );})}
                                     {(rowActions || onRowAction) && <th className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none text-right`}>Actions</th>}
                                 </tr>
                             </thead>
@@ -392,7 +499,9 @@ export function AdminTable<T extends Record<string, any>>({
                                                     />
                                                 </td>
                                             )}
-                                            {columns.map((col, idx) => (
+                                            {columns.map((col, idx) => {
+                                                if (hiddenColumns.includes(idx)) return null;
+                                                return (
                                                 <td key={`cell-${item[idKey] as any}-${idx}`} className={`${isCompact ? 'px-4 py-2 text-xs' : 'px-6 py-4 text-sm'} text-slate-600 font-medium ${col.className || ''}`}>
                                                     {col.editable && col.onEdit && typeof col.accessor !== 'function' ? (
                                                         <InlineEdit
@@ -409,7 +518,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                         </span>
                                                     )}
                                                 </td>
-                                            ))}
+                                            );})}
                                             {(rowActions || onRowAction) && (
                                                 <td className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-right relative`} onClick={(e) => e.stopPropagation()}>
                                                     <div className="flex justify-end">

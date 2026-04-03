@@ -34,7 +34,7 @@ export const verifyRefreshToken = (token: string) => {
 export const register = async (req: Request, res: Response) => {
     try {
         console.log('Registration request body:', JSON.stringify(req.body));
-        const { name, email, password, role, country } = req.body;
+        const { name, email, password, role, role_category, vendor_category, driver_category, custom_category, country } = req.body;
 
         if (!name || !email || !password) {
             console.log('Missing required fields:', { name: !!name, email: !!email, password: !!password });
@@ -46,14 +46,37 @@ export const register = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        const salt = await bcrypt.genSalt(12); // Increased from 10 to 12 for stronger hashing
+        const salt = await bcrypt.genSalt(12);
         const password_hash = await bcrypt.hash(password, salt);
+
+        // Determine the role based on category selections
+        let finalRole = role || 'buyer';
+        
+        if (role_category === 'vendor') {
+            if (vendor_category === 'product') finalRole = 'vendor_product';
+            else if (vendor_category === 'food') finalRole = 'vendor_food';
+            else if (vendor_category === 'service') finalRole = 'vendor_service';
+            else if (vendor_category === 'other' && custom_category) finalRole = `vendor_${custom_category.toLowerCase().replace(/\s+/g, '_')}`;
+            else finalRole = 'vendor';
+        } else if (role_category === 'driver') {
+            if (driver_category === 'taxi') finalRole = 'driver_taxi';
+            else if (driver_category === 'delivery') finalRole = 'driver_delivery';
+            else if (driver_category === 'tour') finalRole = 'driver_tour';
+            else if (driver_category === 'service') finalRole = 'driver_service';
+            else finalRole = 'driver';
+        } else if (role_category === 'creator') {
+            finalRole = 'creator';
+        } else if (role_category === 'sponsor') {
+            finalRole = 'sponsor';
+        } else if (role_category === 'donor') {
+            finalRole = 'donor';
+        }
 
         const newUser = await UserModel.create({
             name,
             email,
             password_hash,
-            role: role || 'buyer',
+            role: finalRole,
             country,
             email_verified: false
         });
@@ -73,6 +96,9 @@ export const register = async (req: Request, res: Response) => {
                 name: newUser.name,
                 email: newUser.email,
                 role: newUser.role,
+                role_category: role_category,
+                vendor_category: vendor_category,
+                driver_category: driver_category,
                 email_verified: false
             }
         });

@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 // File filter for images and videos (for hero assets)
 const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
     const allowedMimes = [
-        'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/webp', 'image/gif', 'image/avif',
+        'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png', 'req.file.mimetype', 'image/gif', 'image/avif',
         'image/heic', 'image/heif',
         'video/mp4', 'video/webm', 'video/quicktime', 'video/x-matroska', 'video/avi',
         'font/ttf', 'font/otf', 'font/woff', 'font/woff2', 'application/x-font-ttf', 'application/x-font-otf', 'application/font-woff', 'application/font-woff2'
@@ -62,16 +62,14 @@ export const uploadAvatar = async (req: Request, res: Response) => {
 
         const imageUrl = await storageProvider.uploadFile(req.file);
 
-        // Update user's avatar_url in database
         await pool.query(
             'UPDATE users SET avatar_url = $1 WHERE user_id = $2',
             [imageUrl, userId]
         );
 
-        // Record in media table
         const mediaResult = await pool.query(
             'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [userId, req.file.filename, imageUrl, req.file.mimetype, req.file.size]
+            [userId, path.basename(imageUrl), imageUrl, 'req.file.mimetype', req.file.size]
         );
 
         res.json({
@@ -100,16 +98,14 @@ export const uploadBanner = async (req: Request, res: Response) => {
 
         const imageUrl = await storageProvider.uploadFile(req.file);
 
-        // Update user's cover_photo_url in database
         await pool.query(
             'UPDATE users SET cover_photo_url = $1 WHERE user_id = $2',
             [imageUrl, userId]
         );
 
-        // Record in media table
         const mediaResult = await pool.query(
             'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [userId, req.file.filename, imageUrl, req.file.mimetype, req.file.size]
+            [userId, path.basename(imageUrl), imageUrl, 'req.file.mimetype', req.file.size]
         );
 
         res.json({
@@ -162,7 +158,7 @@ export const uploadListingImages = async (req: Request, res: Response) => {
 
             const mediaRes = await pool.query(
                 'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-                [userId, file.filename, url, file.mimetype, file.size]
+                [userId, path.basename(url), url, 'req.file.mimetype', file.size]
             );
             mediaRecords.push(mediaRes.rows[0]);
         }
@@ -195,10 +191,9 @@ export const uploadAsset = async (req: Request, res: Response) => {
         const userId = (req.user as any)?.id;
         const fileUrl = await storageProvider.uploadFile(req.file);
 
-        // Record in media table
         const mediaResult = await pool.query(
             'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [userId, req.file.filename, fileUrl, req.file.mimetype, req.file.size]
+            [userId, path.basename(fileUrl), fileUrl, req.file.mimetype, req.file.size]
         );
 
         res.json({
@@ -256,16 +251,14 @@ export const uploadUserProfilePhoto = async (req: Request, res: Response) => {
         const userId = (req.user as any)?.id;
         const imageUrl = await storageProvider.uploadFile(req.file);
 
-        // Update user's profile_photo_url in database
         await pool.query(
             'UPDATE users SET profile_photo_url = $1 WHERE user_id = $2',
             [imageUrl, userId]
         );
 
-        // Record in media table
         await pool.query(
             'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5)',
-            [userId, req.file.filename, imageUrl, req.file.mimetype, req.file.size]
+            [userId, path.basename(imageUrl), imageUrl, 'req.file.mimetype', req.file.size]
         );
 
         res.json({
@@ -290,16 +283,14 @@ export const uploadUserBannerImage = async (req: Request, res: Response) => {
         const userId = (req.user as any)?.id;
         const imageUrl = await storageProvider.uploadFile(req.file);
 
-        // Update user's banner_image_url in database
         await pool.query(
             'UPDATE users SET banner_image_url = $1 WHERE user_id = $2',
             [imageUrl, userId]
         );
 
-        // Record in media table
         await pool.query(
             'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5)',
-            [userId, req.file.filename, imageUrl, req.file.mimetype, req.file.size]
+            [userId, path.basename(imageUrl), imageUrl, 'req.file.mimetype', req.file.size]
         );
 
         res.json({
@@ -365,7 +356,7 @@ export const deleteUpload = async (req: Request, res: Response) => {
 
 // File filter for KYC (Images + PDF)
 const kycFileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'];
+    const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'req.file.mimetype', 'application/pdf'];
 
     if (allowedMimes.includes(file.mimetype)) {
         cb(null, true);

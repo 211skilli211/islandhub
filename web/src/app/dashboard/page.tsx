@@ -29,6 +29,7 @@ import DeliveryDispatch from '@/components/dashboard/DeliveryDispatch';
 import ShippingTracking from '@/components/dashboard/ShippingTracking';
 import BecomeDriver from '@/components/dashboard/BecomeDriver';
 import DriverVerification from '@/components/dashboard/DriverVerification';
+import VendorComplianceStatus from '@/components/dashboard/VendorComplianceStatus';
 
 // Dynamic imports for heavy components
 const CreateListingModal = dynamic(
@@ -491,6 +492,7 @@ export default function DashboardPage() {
                                 activeStore={activeStore}
                                 listingCount={myListings.length}
                                 requestCount={myRequests.length}
+                                vendorId={activeStore?.id}
                             />
                         )}
                         {activeTab === 'activity' && (

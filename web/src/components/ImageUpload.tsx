@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import ImageCropper from '@/components/ui/ImageCropper';
+import { IMAGE_PRESETS, CATEGORY_PRESET_MAP, getPresetForCategory, getPresetDimensions, ImagePreset } from '@/lib/imagePresets';
 
 interface ImageUploadProps {
     currentImage?: string;
@@ -13,6 +14,7 @@ interface ImageUploadProps {
     type: 'avatar' | 'banner' | 'listing';
     className?: string;
     baseUrl?: string;
+    preset?: ImagePreset;
 }
 
 export default function ImageUpload({
@@ -23,13 +25,19 @@ export default function ImageUpload({
     label,
     type,
     className = '',
-    baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || ''
+    baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || '',
+    preset
 }: ImageUploadProps) {
     const [preview, setPreview] = useState<string | null>(currentImage || null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [cropImage, setCropImage] = useState<string | null>(null); // Replaces tempFileUrl and showCropper
+    const [cropImage, setCropImage] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const resolvedPreset = preset || (type in CATEGORY_PRESET_MAP ? getPresetForCategory(type) : 'listing');
+    const presetConfig = getPresetDimensions(resolvedPreset);
+    const effectiveMaxSize = presetConfig?.maxSizeMB || maxSizeMB;
+    const effectiveAspectRatio = presetConfig?.aspectRatio || (aspectRatio === '1:1' ? 1 : aspectRatio === '16:9' ? 16 / 9 : 0);
 
     const numericAspect = aspectRatio === '1:1' ? 1 : aspectRatio === '16:9' ? 16 / 9 : 0;
 
@@ -37,8 +45,8 @@ export default function ImageUpload({
         const file = e.target.files?.[0];
         if (!file) return;
 
-        if (file.size > maxSizeMB * 1024 * 1024) {
-            setError(`File size exceeds ${maxSizeMB}MB`);
+        if (file.size > effectiveMaxSize * 1024 * 1024) {
+            setError(`File size exceeds ${effectiveMaxSize}MB`);
             return;
         }
 
@@ -51,7 +59,7 @@ export default function ImageUpload({
 
         // Reset input
         e.target.value = '';
-        setError(null); // Clear previous errors
+        setError(null);
     };
 
     const handleCropComplete = async (croppedBlob: Blob) => {
@@ -140,11 +148,12 @@ export default function ImageUpload({
                         setCropImage(null);
                         if (fileInputRef.current) fileInputRef.current.value = '';
                     }}
+                    category={resolvedPreset}
                 />
             )}
 
             <p className="text-[10px] text-slate-400 text-center font-bold tracking-tighter">
-                Optimized Upload • Max {maxSizeMB}MB
+                {presetConfig ? `${presetConfig.label} • ` : ''}Optimized Upload • Max {effectiveMaxSize}MB
             </p>
         </div>
     );

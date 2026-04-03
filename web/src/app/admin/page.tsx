@@ -41,6 +41,8 @@ import InlineEdit from '@/components/admin/shared/InlineEdit';
 import PayoutsTab from '@/components/admin/PayoutsTab';
 import KybVerificationTab from '@/app/admin/kyb-verification/page';
 import AgentCommandCenter from '@/components/admin/AgentCommandCenter';
+import AssetLibrary from '@/components/admin/AssetLibrary';
+import KYCReviewModal from '@/components/admin/KYCReviewModal';
 
 // Interfaces for Data Types
 interface User {
@@ -150,6 +152,7 @@ export default function AdminPage() {
 
     // KYC
     const [kycList, setKycList] = useState<any[]>([]);
+    const [selectedKYC, setSelectedKYC] = useState<any>(null);
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [isMounted, setIsMounted] = useState(false);
@@ -551,9 +554,13 @@ export default function AdminPage() {
         toast.success(`Exporting ${type}...`);
     };
 
-    const handleKycAction = async (id: number, action: 'approve' | 'reject') => {
+    const handleKycAction = async (id: number, action: 'approve' | 'reject', reason?: string) => {
         try {
-            await api.post(`/kyc/admin/${id}/${action}`);
+            if (action === 'reject' && reason) {
+                await api.post(`/kyc/admin/${id}/reject`, { reason });
+            } else {
+                await api.post(`/kyc/admin/${id}/${action}`);
+            }
             toast.success(`KYC ${action}d`);
             fetchGlobalData();
         } catch (error) {
@@ -596,6 +603,14 @@ export default function AdminPage() {
             {showCreateUser && <CreateUserModal onClose={() => setShowCreateUser(false)} onSuccess={fetchGlobalData} />}
             {showCreateCampaign && <CreateCampaignModal onClose={() => setShowCreateCampaign(false)} onSuccess={fetchGlobalData} />}
             {showAddAsset && <AddAssetModal onClose={() => setShowAddAsset(false)} onSuccess={fetchGlobalData} />}
+
+            {selectedKYC && (
+                <KYCReviewModal 
+                    submission={selectedKYC} 
+                    onClose={() => setSelectedKYC(null)} 
+                    onAction={handleKycAction}
+                />
+            )}
 
             {badgeStore && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -692,20 +707,49 @@ export default function AdminPage() {
                                 case 'users':
                                     return (
                                         <div>
-                                            <div className="mb-4 flex justify-between items-center">
+                                            <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                                 <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">User Accounts</h2>
-                                                <button onClick={() => setShowCreateUser(true)} className="px-5 py-2.5 bg-slate-900 dark:bg-slate-950 text-white rounded-xl">+ New User</button>
+                                                <div className="flex flex-wrap gap-3">
+                                                    <select 
+                                                        onChange={(e) => {
+                                                            const url = new URL(window.location.href);
+                                                            if (e.target.value) url.searchParams.set('role', e.target.value);
+                                                            else url.searchParams.delete('role');
+                                                            // Trigger refresh - in a real impl this would be state
+                                                        }}
+                                                        className="px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold"
+                                                        placeholder="Filter by role"
+                                                    >
+                                                        <option value="">All Roles</option>
+                                                        <option value="buyer">Buyer</option>
+                                                        <option value="vendor">Vendor</option>
+                                                        <option value="driver">Driver</option>
+                                                        <option value="moderator">Moderator</option>
+                                                        <option value="admin">Admin</option>
+                                                    </select>
+                                                    <select 
+                                                        className="px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold"
+                                                        placeholder="Filter by status"
+                                                    >
+                                                        <option value="">All Status</option>
+                                                        <option value="active">Active</option>
+                                                        <option value="suspended">Suspended</option>
+                                                    </select>
+                                                    <button onClick={() => setShowCreateUser(true)} className="px-5 py-2.5 bg-slate-900 dark:bg-slate-950 text-white rounded-xl">+ New User</button>
+                                                </div>
                                             </div>
                                             <AdminTable<User>
                                                 endpoint="/admin/users"
                                                 keyName="users"
                                                 columns={userColumns}
+                                                searchable={true}
+                                                searchPlaceholder="Search by name or email..."
                                                 rowActions={[
                                                     { label: 'Edit Profile', action: 'edit_profile' },
                                                     { label: 'Verify Email', action: 'verify', condition: (u) => !u.email_verified },
                                                     { label: 'Unverify Email', action: 'unverify', condition: (u) => u.email_verified },
-                                                    { label: 'Verify Driver', action: 'verify_driver', condition: (u) => (u.role === 'driver' || u.role === 'rider') && !u.is_verified_driver },
-                                                    { label: 'Unverify', action: 'unverify_driver', condition: (u) => (u.role === 'driver' || u.role === 'rider') && u.is_verified_driver },
+                                                    { label: 'Verify Driver', action: 'verify_driver', condition: (u) => (u.role?.startsWith('driver') || u.role === 'rider') && !u.is_verified_driver },
+                                                    { label: 'Unverify', action: 'unverify_driver', condition: (u) => (u.role?.startsWith('driver') || u.role === 'rider') && u.is_verified_driver },
                                                     { label: 'Toggle Status', action: 'toggle_status' },
                                                     { label: 'Delete User', action: 'delete', className: 'text-red-500' }
                                                 ]}
@@ -777,30 +821,29 @@ export default function AdminPage() {
                                     );
                                 case 'subscriptions': return <SubscriptionsTab />;
                                 case 'assets':
-                                    return (
-                                        <div>
-                                            <div className="mb-4 flex justify-between items-center">
-                                                <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">Media Library</h2>
-                                                <button onClick={() => setShowAddAsset(true)} className="px-5 py-2.5 bg-slate-900 dark:bg-slate-950 text-white rounded-xl">+ Add Asset</button>
-                                            </div>
-                                            <AdminTable<Media> endpoint="/admin/assets" keyName="assets" columns={mediaColumns} onRowAction={(a, i) => handleAction('assets', a, i)} />
-                                        </div>
-                                    );
+                                    return <AssetLibrary />;
                                 case 'assets-hero': return <HeroAssetTab />;
                                 case 'kyc':
                                     return (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                            {kycList.map((kyc) => (
-                                                <div key={kyc.kyc_id} className="bg-white p-6 rounded-4xl border border-slate-100 dark:border-slate-700 shadow-xl">
-                                                    <h3 className="font-bold text-slate-900 dark:text-slate-50">{kyc.business_name || kyc.owner_name}</h3>
-                                                    <p className="text-xs text-slate-400 dark:text-slate-400 mb-4">{kyc.email}</p>
-                                                    <div className="flex gap-2">
-                                                        <button onClick={() => handleKycAction(kyc.kyc_id, 'approve')} className="flex-1 py-3 bg-teal-600 text-white rounded-xl">Approve</button>
-                                                        <button onClick={() => handleKycAction(kyc.kyc_id, 'reject')} className="flex-1 py-3 bg-rose-50 text-rose-500 rounded-xl">Reject</button>
+                                        <div>
+                                            <div className="mb-6">
+                                                <h2 className="text-xl font-black text-slate-800 dark:text-slate-100">KYC Requests</h2>
+                                                <p className="text-sm text-slate-500">{kycList.length} pending</p>
+                                            </div>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                                {kycList.map((kyc) => (
+                                                    <div key={kyc.kyc_id} className="bg-white p-6 rounded-4xl border border-slate-100 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer"
+                                                        onClick={() => setSelectedKYC(kyc)}
+                                                    >
+                                                        <h3 className="font-bold text-slate-900 dark:text-slate-50">{kyc.business_name || kyc.owner_name}</h3>
+                                                        <p className="text-xs text-slate-400 dark:text-slate-400 mb-4">{kyc.email}</p>
+                                                        <div className="flex gap-2 mt-4">
+                                                            <span className="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full">Pending Review</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
-                                            {kycList.length === 0 && <p className="col-span-full text-center text-slate-400 dark:text-slate-400">No pending KYC</p>}
+                                                ))}
+                                                {kycList.length === 0 && <p className="col-span-full text-center text-slate-400 dark:text-slate-400">No pending KYC</p>}
+                                            </div>
                                         </div>
                                     );
                                 case 'kyb-verification':

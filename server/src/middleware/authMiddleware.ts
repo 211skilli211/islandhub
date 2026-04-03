@@ -55,8 +55,37 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
         res.status(403).json({ message: 'Access denied: Requires admin role' });
     }
 };
+
+export const isSuperAdmin = (req: Request, res: Response, next: NextFunction) => {
+    if (req.user && req.user.role === 'super-admin') {
+        next();
+    } else {
+        res.status(403).json({ message: 'Access denied: Requires super-admin role' });
+    }
+};
+
+export const isModerator = (req: Request, res: Response, next: NextFunction) => {
+    if (req.user && (req.user.role === 'moderator' || req.user.role === 'admin' || req.user.role === 'super-admin')) {
+        next();
+    } else {
+        res.status(403).json({ message: 'Access denied: Requires moderator role' });
+    }
+};
+
+export const isModeratorOrAdmin = (req: Request, res: Response, next: NextFunction) => {
+    if (req.user && (
+        req.user.role === 'moderator' || 
+        req.user.role === 'admin' || 
+        req.user.role === 'super-admin'
+    )) {
+        next();
+    } else {
+        res.status(403).json({ message: 'Access denied: Requires admin or moderator role' });
+    }
+};
+
 export const isVendor = (req: Request, res: Response, next: NextFunction) => {
-    if (req.user && (req.user.role === 'vendor' || req.user.role === 'admin')) {
+    if (req.user && (req.user.role.startsWith('vendor') || req.user.role === 'admin')) {
         next();
     } else {
         res.status(403).json({ message: 'Access denied: Requires vendor role' });
@@ -64,7 +93,7 @@ export const isVendor = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const isDriver = (req: Request, res: Response, next: NextFunction) => {
-    if (req.user && (req.user.role === 'driver' || req.user.role === 'admin')) {
+    if (req.user && (req.user.role.startsWith('driver') || req.user.role === 'admin')) {
         next();
     } else {
         res.status(403).json({ message: 'Access denied: Requires driver role' });

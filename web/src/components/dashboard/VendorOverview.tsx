@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { getImageUrl } from '@/lib/api';
+import VendorComplianceStatus from './VendorComplianceStatus';
 
 interface VendorOverviewProps {
     subscription: any;
@@ -11,9 +12,10 @@ interface VendorOverviewProps {
     activeStore: any;
     listingCount: number;
     requestCount: number;
+    vendorId?: number;
 }
 
-export default function VendorOverview({ subscription, stores, activeStore, listingCount, requestCount }: VendorOverviewProps) {
+export default function VendorOverview({ subscription, stores, activeStore, listingCount, requestCount, vendorId }: VendorOverviewProps) {
     // Check if user can have multiple stores based on subscription tier
     const canHaveMultipleStores = subscription?.tier_name === 'premium' || subscription?.tier_name === 'vip' || subscription?.tier_name === 'enterprise';
     const storeCount = stores.length;
@@ -70,6 +72,11 @@ export default function VendorOverview({ subscription, stores, activeStore, list
 
     return (
         <div className="space-y-8">
+            {/* Compliance Status */}
+            {vendorId && (
+                <VendorComplianceStatus vendorId={vendorId} compact />
+            )}
+
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>

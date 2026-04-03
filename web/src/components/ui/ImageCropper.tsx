@@ -1,16 +1,27 @@
 'use client';
 import { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
-import { getCroppedImg } from '@/lib/canvasUtils'; // Need to create this utility
+import { getCroppedImg } from '@/lib/canvasUtils';
+import { IMAGE_PRESETS, getPresetForCategory, type ImagePreset } from '@/lib/imagePresets';
 import type { Point, Area } from 'react-easy-crop';
 
 interface ImageCropperProps {
     imageSrc: string;
     onCropComplete: (croppedImage: Blob) => void;
     onCancel: () => void;
+    category?: string;
 }
 
-export default function ImageCropper({ imageSrc, onCropComplete, onCancel }: ImageCropperProps) {
+export default function ImageCropper({ 
+    imageSrc, 
+    onCropComplete, 
+    onCancel,
+    category = 'listing' 
+}: ImageCropperProps) {
+    const preset: ImagePreset = getPresetForCategory(category);
+    const presetConfig = IMAGE_PRESETS[preset];
+    const aspectRatio = presetConfig.aspectRatio;
+    
     const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -36,12 +47,18 @@ export default function ImageCropper({ imageSrc, onCropComplete, onCancel }: Ima
 
     return (
         <div className="fixed inset-0 z-[200] bg-black/80 flex flex-col items-center justify-center p-6">
+            <div className="mb-4 text-center">
+                <h3 className="text-white font-bold text-lg">{presetConfig.label}</h3>
+                <p className="text-slate-400 text-sm">
+                    {presetConfig.width} x {presetConfig.height}px • Max {presetConfig.maxSizeMB}MB
+                </p>
+            </div>
             <div className="relative w-full max-w-2xl h-[400px] bg-slate-900 rounded-2xl overflow-hidden mb-6">
                 <Cropper
                     image={imageSrc}
                     crop={crop}
                     zoom={zoom}
-                    aspect={4 / 3}
+                    aspect={aspectRatio}
                     onCropChange={onCropChange}
                     onCropComplete={onCropCompleteHandler}
                     onZoomChange={onZoomChange}

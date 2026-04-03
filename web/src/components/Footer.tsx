@@ -8,14 +8,23 @@ export default function Footer() {
                     <Link href="/about" className="text-slate-400 hover:text-slate-500">
                         About
                     </Link>
-                    <Link href="/compliance" className="text-slate-400 hover:text-slate-500">
-                        Compliance
+                    <Link href="/how-it-works" className="text-slate-400 hover:text-slate-500">
+                        How It Works
+                    </Link>
+                    <Link href="/faq" className="text-slate-400 hover:text-slate-500">
+                        FAQ
+                    </Link>
+                    <Link href="/pricing" className="text-slate-400 hover:text-slate-500">
+                        Pricing
                     </Link>
                     <Link href="/contact" className="text-slate-400 hover:text-slate-500">
                         Contact
                     </Link>
                     <Link href="/privacy" className="text-slate-400 hover:text-slate-500">
                         Privacy
+                    </Link>
+                    <Link href="/terms" className="text-slate-400 hover:text-slate-500">
+                        Terms
                     </Link>
                 </div>
                 <div className="mt-8 md:mt-0 md:order-1">
