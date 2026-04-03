@@ -393,8 +393,8 @@ export const updateSubscriptionManual = async (req: Request, res: Response) => {
             return res.status(403).json({ message: 'Access denied' });
         }
 
-        const { id, type, tier, status } = req.body;
-        console.log('Admin Manual Update:', { id, type, tier, status });
+        const { id, type, tier, status, overrideEndDate, overrideReason } = req.body;
+        console.log('Admin Manual Update:', { id, type, tier, status, overrideEndDate, overrideReason });
 
         let table = '';
         if (type === 'vendor') table = 'vendor_subscriptions';
@@ -404,19 +404,52 @@ export const updateSubscriptionManual = async (req: Request, res: Response) => {
 
         console.log('Target Table:', table);
 
+        // Build dynamic update query for override fields
+        let updateFields = 'tier = $1, status = $2, updated_at = NOW()';
+        let queryParams = [tier, status, parseInt(id as string)];
+        let paramIndex = 4;
+
+        // Add override end date if provided
+        if (overrideEndDate) {
+            updateFields += `, subscription_override_end_date = $${paramIndex}`;
+            queryParams.push(overrideEndDate);
+            paramIndex++;
+        }
+
+        // Add override reason if provided
+        if (overrideReason) {
+            updateFields += `, override_reason = $${paramIndex}`;
+            queryParams.push(overrideReason);
+            paramIndex++;
+        }
+
+        // Add override by admin user ID if override fields are being set
+        if (overrideEndDate || overrideReason) {
+            updateFields += `, override_by_user_id = $${paramIndex}`;
+            queryParams.push((req as any).user.id);
+        }
+
         const result = await pool.query(
-            `UPDATE ${table} SET tier = $1, status = $2, updated_at = NOW() WHERE id = $3 RETURNING *`,
-            [tier, status, parseInt(id as string)]
+            `UPDATE ${table} SET ${updateFields} WHERE id = $${paramIndex - 1} RETURNING *`,
+            queryParams
         );
 
         if (result.rows.length === 0) {
             return res.status(404).json({ message: 'Subscription not found' });
         }
 
-        // Log admin action
-        await logAdminAction((req as any).user.id, `manual_subscription_update_${type}`, id, { tier, status });
+        // Log admin action with override details
+        await logAdminAction(
+            (req as any).user.id, 
+            `manual_subscription_update_${type}`, 
+            id, 
+            { tier, status, overrideEndDate, overrideReason }
+        );
 
-        res.json(result.rows[0]);
+        res.json({
+            ...result.rows[0],
+            overrideApplied: !!(overrideEndDate || overrideReason)
+        });
     } catch (error) {
         console.error('Error updating subscription:', error);
         res.status(500).json({ message: 'Server error' });

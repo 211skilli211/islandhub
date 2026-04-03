@@ -199,13 +199,60 @@ export const checkSubscription = async (req: Request, res: Response, next: NextF
         }
 
         const userId = req.user.id;
+        const userRole = req.user.role;
 
-        // Skip for admins if they need to create system listings
-        if (req.user.role === 'admin') {
+        // Skip for admins and moderators - they are exempt from subscription checks
+        // Admin and moderator roles handle content moderation and platform management
+        // They should not be blocked by subscription requirements
+        if (userRole === 'admin' || userRole === 'super-admin' || userRole === 'moderator') {
+            console.log(`[Subscription] Exempting ${userRole} from subscription check for user ${userId}`);
             return next();
         }
 
-        const query = `
+        // Check for vendor subscriptions with override
+        const vendorQuery = `
+            SELECT * FROM vendor_subscriptions 
+            WHERE user_id = $1 
+            AND status = 'active'
+            LIMIT 1
+        `;
+        const vendorResult = await pool.query(vendorQuery, [userId]);
+
+        // Check if vendor has an active override
+        if (vendorResult.rows.length > 0) {
+            const sub = vendorResult.rows[0];
+            const overrideEndDate = sub.subscription_override_end_date;
+            
+            // If override is active (not expired), allow access
+            if (overrideEndDate && new Date(overrideEndDate) > new Date()) {
+                console.log(`[Subscription] Allowing access via override until ${overrideEndDate} for user ${userId}`);
+                return next();
+            }
+        }
+
+        // Also check customer subscriptions
+        const customerQuery = `
+            SELECT * FROM customer_subscriptions 
+            WHERE user_id = $1 
+            AND status = 'active' 
+            AND (expires_at IS NULL OR expires_at > NOW())
+            LIMIT 1
+        `;
+        const customerResult = await pool.query(customerQuery, [userId]);
+
+        // Check for customer subscription override
+        if (customerResult.rows.length > 0) {
+            const sub = customerResult.rows[0];
+            const overrideEndDate = sub.subscription_override_end_date;
+            
+            if (overrideEndDate && new Date(overrideEndDate) > new Date()) {
+                console.log(`[Subscription] Allowing customer access via override until ${overrideEndDate} for user ${userId}`);
+                return next();
+            }
+        }
+
+        // If no active subscription or override, check general subscriptions table
+        const generalQuery = `
             SELECT * FROM subscriptions 
             WHERE user_id = $1 
             AND status = 'active' 
@@ -213,7 +260,7 @@ export const checkSubscription = async (req: Request, res: Response, next: NextF
             LIMIT 1
         `;
 
-        const result = await pool.query(query, [userId]);
+        const result = await pool.query(generalQuery, [userId]);
 
         if (result.rows.length === 0) {
             return res.status(403).json({
