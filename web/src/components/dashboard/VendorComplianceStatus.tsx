@@ -42,7 +42,7 @@ interface VendorComplianceStatusProps {
 
 export default function VendorComplianceStatus({ vendorId, compact = false }: VendorComplianceStatusProps) {
     const [summary, setSummary] = useState<ComplianceSummary | null>(null);
-    const [items, setItems] = useStateComplianceItem[]>([]);
+    const [items, setItems] = useState<ComplianceItem[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

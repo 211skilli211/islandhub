@@ -437,8 +437,9 @@ export function AdminTable<T extends Record<string, any>>({
                                     )}
                                     {columns.map((col, idx) => {
                                         if (hiddenColumns.includes(idx)) return null;
-                                        // Use columnOrder for display order
                                         return (
+                                        <th
+                                            key={`head-${col.header}-${idx}`}
                                             className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none relative group select-none`}
                                             style={{ width: columnWidths[idx], minWidth: columnWidths[idx], maxWidth: columnWidths[idx] }}
                                         >
