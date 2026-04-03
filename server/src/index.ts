@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import { pool, runMigrations } from './config/db';
 import { configureSecurityHeaders } from './middleware/security';
 import { corsMiddleware } from './middleware/cors';
@@ -10,11 +11,77 @@ import { setupSwagger } from './docs/swagger';
 import './otel';
 import { ExpressRequestMetricMiddleware } from './monitoring/metrics';
 import { cacheMiddleware } from './middleware/cache';
+import passport from 'passport';
+import './config/passport';
+
+import authRoutes from './routes/authRoutes';
+import campaignRoutes from './routes/campaignRoutes';
+import donationRoutes from './routes/donationRoutes';
+import eventRoutes from './routes/eventRoutes';
+import webhookRoutes from './routes/webhookRoutes';
+import paypalRoutes from './routes/paypalRoutes';
+import cryptoRoutes from './routes/cryptoRoutes';
+import listingRoutes from './routes/listingRoutes';
+import campaignUpdateRoutes from './routes/campaignUpdateRoutes';
+import userRoutes from './routes/userRoutes';
+import adminRoutes from './routes/adminRoutes';
+import uploadRoutes from './routes/uploadRoutes';
+import vendorRoutes from './routes/vendorRoutes';
+import orderRoutes from './routes/orderRoutes';
+import reviewRoutes from './routes/reviewRoutes';
+import messageRoutes from './routes/messageRoutes';
+import rentalRoutes from './routes/rentalRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
+import subscriptionRoutes from './routes/subscriptionRoutes';
+import vendorSubscriptionRoutes from './routes/vendorSubscriptionRoutes';
+import customerSubscriptionRoutes from './routes/customerSubscriptionRoutes';
+import campaignCreatorSubscriptionRoutes from './routes/campaignCreatorSubscriptionRoutes';
+import searchRoutes from './routes/searchRoutes';
+import kycRoutes from './routes/kycRoutes';
+import storeRoutes from './routes/storeRoutes';
+import cartRoutes from './routes/cartRoutes';
+import paymentRoutes from './routes/payments';
+import postRoutes from './routes/postRoutes';
+import marqueeRoutes from './routes/marqueeRoutes';
+import promotionRoutes from './routes/promotionRoutes';
+import revenueRoutes from './routes/revenueRoutes';
+import menuRoutes from './routes/menuRoutes';
+import serviceRoutes from './routes/serviceRoutes';
+import logisticsRoutes from './routes/logisticsRoutes';
+import categoryRoutes from './routes/categoryRoutes';
+import advertisementRoutes from './routes/advertisementRoutes';
+import homepageRoutes from './routes/homepageRoutes';
+import notificationRoutes from './routes/notificationRoutes';
+import commentRoutes from './routes/commentRoutes';
+import likeRoutes from './routes/likeRoutes';
+import followerRoutes from './routes/followerRoutes';
+import bookmarkRoutes from './routes/bookmarkRoutes';
+import conversationRoutes from './routes/conversationRoutes';
+import groupRoutes from './routes/groupRoutes';
+import communityEventRoutes from './routes/communityEventRoutes';
+import storyRoutes from './routes/storyRoutes';
+import moderationRoutes from './routes/moderationRoutes';
+import driverApplicationRoutes from './routes/driverApplicationRoutes';
+import ratingRoutes from './routes/ratingRoutes';
+import financialRoutes from './routes/financialRoutes';
+import discoveryRoutes from './routes/discoveryRoutes';
+import recommendationRoutes from './routes/recommendationRoutes';
+import agentRoutes from './routes/agentRoutes';
+import advancedRoutes from './routes/advancedRoutes';
+import { initScheduler } from './services/subscriptionScheduler';
+
+const PORT = process.env.PORT || 5001;
+
+const app = express();
 
 dotenv.config();
 
 // Trust proxy for proper IP detection behind load balancers (Render, Vercel, etc.)
 app.set('trust proxy', 1);
+
+configureSecurityHeaders(app);
+app.use(corsMiddleware);
+app.use(generalLimiter);
 
 configureSanitization(app);
 
