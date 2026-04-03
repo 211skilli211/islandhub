@@ -104,7 +104,13 @@ export const verifyEmail = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const { email, password } = req.body;
+        const email = req.body?.email;
+        const password = req.body?.password;
+        
+        if (!email || !password) {
+            console.log('[Login] Missing email or password. req.body:', req.body);
+            return res.status(400).json({ message: 'Email and password are required' });
+        }
 
         console.log('[Login] Attempting login for:', email);
 
