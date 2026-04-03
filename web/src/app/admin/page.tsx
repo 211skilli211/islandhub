@@ -742,6 +742,7 @@ export default function AdminPage() {
                                                 columns={userColumns}
                                                 searchable={true}
                                                 searchPlaceholder="Search by name or email..."
+                                                hoverType="user"
                                                 rowActions={[
                                                     { label: 'Edit Profile', action: 'edit_profile' },
                                                     { label: 'Verify Email', action: 'verify', condition: (u) => !u.email_verified },
@@ -766,6 +767,7 @@ export default function AdminPage() {
                                                 endpoint="/listings"
                                                 keyName="listings"
                                                 columns={listingColumns}
+                                                hoverType="listing"
                                                 rowActions={[
                                                     { label: 'Edit Listing', action: 'edit' },
                                                     { label: 'Promote', action: 'promote' },
@@ -786,6 +788,7 @@ export default function AdminPage() {
                                                 endpoint="/admin/campaigns"
                                                 keyName="campaigns"
                                                 columns={campaignColumns}
+                                                hoverType="media"
                                                 rowActions={[
                                                     { label: 'Edit', action: 'edit' },
                                                     { label: 'Verify', action: 'verify' },
@@ -807,6 +810,7 @@ export default function AdminPage() {
                                                 endpoint="/admin/stores"
                                                 keyName="stores"
                                                 columns={storeColumns}
+                                                hoverType="store"
                                                 rowActions={[
                                                     { label: 'Edit', action: 'edit' },
                                                     { label: 'Badges', action: 'badges' },

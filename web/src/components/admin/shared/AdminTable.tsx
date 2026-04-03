@@ -24,6 +24,7 @@ import SortControls from './SortControls';
 import FilterControls from './FilterControls';
 import ConfirmationModal from './ConfirmationModal';
 import InlineEdit from './InlineEdit';
+import HoverPreview from './HoverPreview';
 import toast from 'react-hot-toast';
 
 export interface Column<T> {
@@ -34,6 +35,7 @@ export interface Column<T> {
     editable?: boolean;
     onEdit?: (item: T, newValue: string) => Promise<void>;
     renderView?: (item: T) => React.ReactNode;
+    previewField?: keyof T; // Field to show in hover preview
 }
 
 interface AdminTableProps<T> {
@@ -50,6 +52,62 @@ interface AdminTableProps<T> {
     idKey?: keyof T;
     searchable?: boolean;
     searchPlaceholder?: string;
+    hoverType?: 'user' | 'listing' | 'store' | 'order' | 'media';
+}
+
+function SortableColumnHeader<T>({ 
+    id, col, idx, isCompact, columnWidths, startResize 
+}: { 
+    id: number; 
+    col: Column<T>; 
+    idx: number; 
+    isCompact: boolean; 
+    columnWidths: Record<number, number>;
+    startResize: (index: number, e: React.MouseEvent) => void;
+}) {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging
+    } = useSortable({ id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+    };
+
+    return (
+        <th
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+            className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none relative group select-none cursor-grab active:cursor-grabbing`}
+            style={{ 
+                ...style,
+                width: columnWidths[idx], 
+                minWidth: columnWidths[idx], 
+                maxWidth: columnWidths[idx] 
+            }}
+        >
+            <div className="flex items-center gap-2 overflow-hidden">
+                <span className="truncate">{col.header}</span>
+                {isDragging && <span className="text-[10px]">✋</span>}
+            </div>
+            {/* Resizer Handle */}
+            <div
+                className="absolute right-0 top-0 bottom-0 w-4 cursor-col-resize hover:bg-teal-500/10 group-hover:bg-slate-300/20 transition-colors z-10 flex flex-col justify-center items-center gap-0.5"
+                onMouseDown={(e) => startResize(idx, e)}
+                onClick={e => e.stopPropagation()}
+            >
+                <div className="w-0.5 h-3 bg-slate-300 rounded-full"></div>
+            </div>
+        </th>
+    );
 }
 
 export function AdminTable<T extends Record<string, any>>({
@@ -65,7 +123,8 @@ export function AdminTable<T extends Record<string, any>>({
     getRowLink,
     idKey = 'id' as keyof T,
     searchable = false,
-    searchPlaceholder = 'Search records...'
+    searchPlaceholder = 'Search records...',
+    hoverType
 }: AdminTableProps<T>) {
     const router = useRouter();
     const {
@@ -423,6 +482,11 @@ export function AdminTable<T extends Record<string, any>>({
                 {/* Desktop Table View */}
                 {viewType === 'table' && (
                     <div className="hidden md:block overflow-x-auto">
+                        <DndContext 
+                            sensors={sensors}
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
+                        >
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50 border-b border-slate-200">
@@ -436,27 +500,24 @@ export function AdminTable<T extends Record<string, any>>({
                                             />
                                         </th>
                                     )}
-                                    {columns.map((col, idx) => {
-                                        if (hiddenColumns.includes(idx)) return null;
-                                        return (
-                                        <th
-                                            key={`head-${col.header}-${idx}`}
-                                            className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none relative group select-none`}
-                                            style={{ width: columnWidths[idx], minWidth: columnWidths[idx], maxWidth: columnWidths[idx] }}
-                                        >
-                                            <div className="flex items-center gap-2 overflow-hidden">
-                                                <span className="truncate">{col.header}</span>
-                                            </div>
-                                            {/* Resizer Handle */}
-                                            <div
-                                                className="absolute right-0 top-0 bottom-0 w-4 cursor-col-resize hover:bg-teal-500/10 group-hover:bg-slate-300/20 transition-colors z-10 flex flex-col justify-center items-center gap-0.5"
-                                                onMouseDown={(e) => startResize(idx, e)}
-                                                onClick={e => e.stopPropagation()}
-                                            >
-                                                <div className="w-0.5 h-3 bg-slate-300 rounded-full"></div>
-                                            </div>
-                                        </th>
-                                    );})}
+                                    <SortableContext 
+                                        items={columnOrder} 
+                                        strategy={horizontalListSortingStrategy}
+                                    >
+                                        {columns.map((col, idx) => {
+                                            if (hiddenColumns.includes(idx)) return null;
+                                            return (
+                                                <SortableColumnHeader 
+                                                    key={`head-${col.header}-${idx}`}
+                                                    id={idx}
+                                                    col={col}
+                                                    idx={idx}
+                                                    isCompact={isCompact}
+                                                    columnWidths={columnWidths}
+                                                    startResize={startResize}
+                                                />
+                                            );})}
+                                    </SortableContext>
                                     {(rowActions || onRowAction) && <th className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none text-right`}>Actions</th>}
                                 </tr>
                             </thead>
@@ -503,22 +564,31 @@ export function AdminTable<T extends Record<string, any>>({
                                             )}
                                             {columns.map((col, idx) => {
                                                 if (hiddenColumns.includes(idx)) return null;
+                                                const cellContent = (
+                                                    <>
+                                                        {col.editable && col.onEdit && typeof col.accessor !== 'function' ? (
+                                                            <InlineEdit
+                                                                value={String(item[col.accessor] ?? '')}
+                                                                onSave={async (val) => col.onEdit!(item, val)}
+                                                                renderView={col.renderView ? () => col.renderView!(item) : undefined}
+                                                            />
+                                                        ) : (
+                                                            typeof col.accessor === 'function' ? col.accessor(item) : (item[col.accessor] as React.ReactNode)
+                                                        )}
+                                                        {loadingRows.includes(item[idKey] as any) && idx === 0 && (
+                                                            <span className="inline-flex items-center ml-2 px-2 py-0.5 rounded text-[10px] bg-indigo-50 text-indigo-600 animate-pulse">
+                                                                Wait...
+                                                            </span>
+                                                        )}
+                                                    </>
+                                                );
                                                 return (
                                                 <td key={`cell-${item[idKey] as any}-${idx}`} className={`${isCompact ? 'px-4 py-2 text-xs' : 'px-6 py-4 text-sm'} text-slate-600 font-medium ${col.className || ''}`}>
-                                                    {col.editable && col.onEdit && typeof col.accessor !== 'function' ? (
-                                                        <InlineEdit
-                                                            value={String(item[col.accessor] ?? '')}
-                                                            onSave={async (val) => col.onEdit!(item, val)}
-                                                            renderView={col.renderView ? () => col.renderView!(item) : undefined}
-                                                        />
-                                                    ) : (
-                                                        typeof col.accessor === 'function' ? col.accessor(item) : (item[col.accessor] as React.ReactNode)
-                                                    )}
-                                                    {loadingRows.includes(item[idKey] as any) && idx === 0 && (
-                                                        <span className="inline-flex items-center ml-2 px-2 py-0.5 rounded text-[10px] bg-indigo-50 text-indigo-600 animate-pulse">
-                                                            Wait...
-                                                        </span>
-                                                    )}
+                                                    {hoverType && idx === 0 ? (
+                                                        <HoverPreview data={item} type={hoverType}>
+                                                            {cellContent}
+                                                        </HoverPreview>
+                                                    ) : cellContent}
                                                 </td>
                                             );})}
                                             {(rowActions || onRowAction) && (
@@ -583,7 +653,9 @@ export function AdminTable<T extends Record<string, any>>({
                                 )}
                             </tbody>
                         </table>
+                    </DndContext>
                     </div>
+                )}
                 )}
 
                 {/* Grid View (Desktop & Tablet) */}
