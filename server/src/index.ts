@@ -13,89 +13,9 @@ import { cacheMiddleware } from './middleware/cache';
 
 dotenv.config();
 
-// Temporarily disabled until type conflicts resolved
-import passport from 'passport';
-import './config/passport'; // Ensure config is loaded
-import authRoutes from './routes/authRoutes';
-import campaignRoutes from './routes/campaignRoutes';
-import donationRoutes from './routes/donationRoutes';
-import eventRoutes from './routes/eventRoutes';
-import webhookRoutes from './routes/webhookRoutes';
-import paypalRoutes from './routes/paypalRoutes';
-import cryptoRoutes from './routes/cryptoRoutes';
-import listingRoutes from './routes/listingRoutes';
-import campaignUpdateRoutes from './routes/campaignUpdateRoutes';
-import userRoutes from './routes/userRoutes';
-import adminRoutes from './routes/adminRoutes';
-import uploadRoutes from './routes/uploadRoutes';
-import vendorRoutes from './routes/vendorRoutes';
-import orderRoutes from './routes/orderRoutes';
-import reviewRoutes from './routes/reviewRoutes';
-import messageRoutes from './routes/messageRoutes';
-import rentalRoutes from './routes/rentalRoutes';
-import advancedRoutes from './routes/advancedRoutes';
-import searchRoutes from './routes/searchRoutes';
-import kycRoutes from './routes/kycRoutes';
-import storeRoutes from './routes/storeRoutes';
-import cartRoutes from './routes/cart';
-import paymentRoutes from './routes/payments';
-import postRoutes from './routes/postRoutes';
-import marqueeRoutes from './routes/marqueeRoutes';
-import revenueRoutes from './routes/revenueRoutes';
-// Roadmap Routes
-import analyticsRoutes from './routes/analyticsRoutes';
-import subscriptionRoutes from './routes/subscriptionRoutes';
-import vendorSubscriptionRoutes from './routes/vendorSubscriptionRoutes';
-import customerSubscriptionRoutes from './routes/customerSubscriptionRoutes';
-import campaignCreatorSubscriptionRoutes from './routes/campaignCreatorSubscriptionRoutes';
-import promotionRoutes from './routes/promotionRoutes';
-import menuRoutes from './routes/menuRoutes';
-import serviceRoutes from './routes/serviceRoutes';
-import logisticsRoutes from './routes/logisticsRoutes';
-import categoryRoutes from './routes/categoryRoutes';
-import advertisementRoutes from './routes/advertisementRoutes';
-import homepageRoutes from './routes/homepageRoutes';
-import notificationRoutes from './routes/notificationRoutes';
-import commentRoutes from './routes/commentRoutes';
-import likeRoutes from './routes/likeRoutes';
-import followerRoutes from './routes/followerRoutes';
-import bookmarkRoutes from './routes/bookmarkRoutes';
-import conversationRoutes from './routes/conversationRoutes';
-import groupRoutes from './routes/groupRoutes';
-import communityEventRoutes from './routes/communityEventRoutes';
-import storyRoutes from './routes/storyRoutes';
-import moderationRoutes from './routes/moderationRoutes';
-import driverApplicationRoutes from './routes/driverApplicationRoutes';
-import ratingRoutes from './routes/ratingRoutes';
-import financialRoutes from './routes/financialRoutes';
-import discoveryRoutes from './routes/discoveryRoutes';
-import recommendationRoutes from './routes/recommendationRoutes';
-import agentRoutes from './routes/agentRoutes';
-import path from 'path';
-import { initScheduler } from './services/subscriptionScheduler';
+// Trust proxy for proper IP detection behind load balancers (Render, Vercel, etc.)
+app.set('trust proxy', 1);
 
-const app = express();
-const PORT = parseInt(process.env.PORT || '5001', 10);
-
-// Security middleware
-configureSecurityHeaders(app);
-app.use(corsMiddleware);
-app.use(generalLimiter);
-
-// Request Logger
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  next();
-});
-
-// Webhook routes need raw body for signature verification
-app.use('/api/webhooks', express.raw({ type: 'application/json' }), webhookRoutes);
-
-// All other routes use JSON parser
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Input sanitization
 configureSanitization(app);
 
 // Serve static uploads directory

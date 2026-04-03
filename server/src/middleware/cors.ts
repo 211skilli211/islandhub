@@ -46,6 +46,23 @@ export const corsOptions = {
       return;
     }
 
+    // Allow ALL Vercel deployments (vercel.app and vercel.sh)
+    // This covers: production, preview, and dev deployments
+    const vercelPattern = /^https:\/\/[a-zA-Z0-9-]+\.vercel\.(app|sh)$/;
+    if (vercelPattern.test(origin)) {
+      console.log(`[CORS] Allowing Vercel deployment: ${origin}`);
+      callback(null, true);
+      return;
+    }
+
+    // Allow all islandhub-related Vercel projects (flexible pattern)
+    const islandhubVercelPattern = /^https:\/\/islandhub(-[a-zA-Z0-9]+)?-[\w-]+\.vercel\.(app|sh)$/;
+    if (islandhubVercelPattern.test(origin)) {
+      console.log(`[CORS] Allowing IslandHub Vercel: ${origin}`);
+      callback(null, true);
+      return;
+    }
+
     console.warn(`[CORS] Blocked Origin: ${origin}`);
     callback(new Error('Not allowed by CORS'));
   },
