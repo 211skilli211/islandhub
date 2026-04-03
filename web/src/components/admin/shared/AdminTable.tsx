@@ -656,7 +656,6 @@ export function AdminTable<T extends Record<string, any>>({
                     </DndContext>
                     </div>
                 )}
-                )}
 
                 {/* Grid View (Desktop & Tablet) */}
                 {viewType === 'card' && !loading && items.length > 0 && (

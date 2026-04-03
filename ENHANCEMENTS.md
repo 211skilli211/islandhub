@@ -91,6 +91,17 @@ A complete compliance tracking system for vendors with 7 default requirements.
 
 ## 4. Admin Panel Enhancements
 
+### Hover Preview Cards
+- Hover over first column cell to see detailed preview
+- Supports: User, Listing, Store, Order, Media types
+- Shows relevant info: avatar, name, email, status, etc.
+
+### Column Drag-and-Drop
+- Drag column headers to reorder
+- Resize columns by dragging edges
+- Show/hide columns via settings icon
+- Reset to default layout
+
 ### Asset Library
 New unified media management system with:
 - Grid/List view toggle
