@@ -39,7 +39,7 @@ import campaignCreatorSubscriptionRoutes from './routes/campaignCreatorSubscript
 import searchRoutes from './routes/searchRoutes';
 import kycRoutes from './routes/kycRoutes';
 import storeRoutes from './routes/storeRoutes';
-import cartRoutes from './routes/cartRoutes';
+import cartRoutes from './routes/cart';
 import paymentRoutes from './routes/payments';
 import postRoutes from './routes/postRoutes';
 import marqueeRoutes from './routes/marqueeRoutes';
