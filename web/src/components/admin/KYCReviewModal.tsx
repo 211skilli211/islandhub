@@ -27,7 +27,10 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
     const [rejectReason, setRejectReason] = useState('');
     const [showRejectForm, setShowRejectForm] = useState(false);
 
-    const documents = submission.documents ? JSON.parse(submission.documents) : {};
+    // documents can be already parsed object or string
+    const documents = typeof submission.documents === 'string' 
+        ? JSON.parse(submission.documents) 
+        : (submission.documents || {});
 
     const handleApprove = async () => {
         setLoading(true);
