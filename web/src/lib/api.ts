@@ -151,5 +151,5 @@ api.interceptors.response.use(
     }
 );
 
-export { api, getImageUrl };
+export { api };
 export default api;
