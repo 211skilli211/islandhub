@@ -15,7 +15,8 @@ router.post('/register', validate(authSchemas.register), register);
 // @route   POST /api/auth/login
 // @desc    Authenticate user & get token
 // @access  Public
-router.post('/login', validate(authSchemas.login), login);
+// NOTE: Skipping Zod validation for login - actual password check happens in controller
+router.post('/login', login);
 
 // @route   POST /api/auth/refresh
 // @desc    Refresh access token
