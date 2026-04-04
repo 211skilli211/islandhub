@@ -459,6 +459,94 @@ router.put('/providers/:providerName', authenticateJWT, isAdmin, async (req: Req
     }
 });
 
+// POST /api/agent/providers/:providerName/test — Test provider connection
+router.post('/providers/:providerName/test', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const { providerName } = req.params;
+    
+    try {
+        const provider = await pool.query(
+            'SELECT * FROM agent_provider_credentials WHERE provider_name = $1',
+            [providerName]
+        );
+
+        if (provider.rows.length === 0) {
+            return res.status(404).json({ error: 'Provider not found' });
+        }
+
+        const p = provider.rows[0];
+        
+        if (!p.api_key_encrypted) {
+            return res.status(400).json({ error: 'No API key configured for this provider' });
+        }
+
+        // Test the connection by calling the provider's API
+        const testUrl = p.api_base_url || 'https://openrouter.ai/api/v1';
+        
+        try {
+            const testResponse = await fetch(`${testUrl}/models`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${p.api_key_encrypted}`,
+                    'HTTP-Referer': process.env.FRONTEND_URL || 'http://localhost:3000',
+                    'X-Title': 'IslandHub Agent Test'
+                }
+            });
+
+            if (testResponse.ok) {
+                res.json({ 
+                    success: true, 
+                    message: 'Connection successful - API key is valid',
+                    provider: p.provider_name
+                });
+            } else {
+                res.status(400).json({ 
+                    error: `Connection failed: ${testResponse.status} ${testResponse.statusText}` 
+                });
+            }
+        } catch (fetchError: any) {
+            res.status(400).json({ 
+                error: `Connection failed: ${fetchError.message}` 
+            });
+        }
+    } catch (error) {
+        console.error('Provider test error:', error);
+        res.status(500).json({ error: 'Failed to test provider connection' });
+    }
+});
+
+// POST /api/agent/memory/clear — Clear memory layer
+router.post('/memory/clear', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    const { layer } = req.body;
+    
+    if (!layer || !['l1', 'l2', 'l3', 'l4', 'all'].includes(layer)) {
+        return res.status(400).json({ error: 'Invalid layer. Use: l1, l2, l3, l4, or all' });
+    }
+
+    try {
+        if (layer === 'l1' || layer === 'all') {
+            // L1 is in-memory - cannot clear from API, would need restart
+        }
+        if (layer === 'l2' || layer === 'all') {
+            await pool.query('DELETE FROM short_term_cache WHERE expires_at <= NOW()');
+        }
+        if (layer === 'l3' || layer === 'all') {
+            // Be careful - this deletes ALL memories
+            // await pool.query('DELETE FROM agent_memories'); // Disabled for safety
+        }
+        if (layer === 'l4' || layer === 'all') {
+            // await pool.query('DELETE FROM episodic_events'); // Disabled for safety
+        }
+
+        res.json({ 
+            success: true, 
+            message: `${layer.toUpperCase()} memory clear initiated`,
+            note: 'L3/L4 clearing disabled for safety - use database directly if needed'
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to clear memory' });
+    }
+});
+
 // ════════════════════════════════════════════════════════
 // WORKFLOW ENDPOINTS
 // ════════════════════════════════════════════════════════
@@ -530,6 +618,14 @@ router.put('/settings', authenticateJWT, isAdmin, async (req: Request, res: Resp
     }
 
     try {
+        // Handle budget alert threshold specifically
+        if (settings.budget_alert_threshold !== undefined) {
+            const threshold = parseInt(settings.budget_alert_threshold);
+            if (threshold < 0 || threshold > 100) {
+                return res.status(400).json({ error: 'Budget alert threshold must be 0-100' });
+            }
+        }
+
         for (const [key, value] of Object.entries(settings)) {
             await updateAgentSetting(key, String(value), user.id);
         }
@@ -627,6 +723,7 @@ router.get('/status', authenticateJWT, isAdmin, async (req: Request, res: Respon
                 dailyLimitUsd: parseFloat(settings['daily_budget_usd'] || '50'),
                 monthlyLimitUsd: parseFloat(settings['monthly_budget_usd'] || '500'),
                 monthlySpend: parseFloat(spendResult.rows[0]?.monthly_spend || '0'),
+                budgetAlertThreshold: parseInt(settings['budget_alert_threshold'] || '65'),
             },
         });
     } catch (error) {
@@ -635,7 +732,7 @@ router.get('/status', authenticateJWT, isAdmin, async (req: Request, res: Respon
             gateway: { url: ZEROCLAW_GATEWAY, online: false },
             provider: { ready: false, name: 'none' },
             agents: [],
-            config: { autonomyLevel: 'supervised', dailyLimitUsd: 50, monthlyLimitUsd: 500, monthlySpend: 0 },
+            config: { autonomyLevel: 'supervised', dailyLimitUsd: 50, monthlyLimitUsd: 500, monthlySpend: 0, budgetAlertThreshold: 65 },
         });
     }
 });

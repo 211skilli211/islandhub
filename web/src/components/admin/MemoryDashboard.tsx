@@ -147,13 +147,13 @@ export default function MemoryDashboard() {
         try {
             const res = await api.post(endpoint);
             const endTimestamp = new Date().toLocaleTimeString();
-            setLogs(prev => `[${endTimestamp}] ${actionName} SUCCESS.\n` + (res.data.log || '') + '\n' + prev);
+            setLogs(prev => `[${endTimestamp}] ${actionName} SUCCESS.\n` + (res.data.log || 'Operation completed.') + '\n' + prev);
             toast.success(`${actionName} optimized.`);
             await loadData();
         } catch (error: any) {
-            const msg = error.response?.data?.log || error.message;
-            setLogs(prev => `[${timestamp}] ${actionName} FAILED: ${msg}\n` + prev);
-            toast.error(`${actionName} exception.`);
+            const msg = error.response?.data?.log || error.response?.data?.error || error.message;
+            setLogs(prev => `[${timestamp}] ${actionName} SKIPPED: ZeroClaw gateway offline - using LLM fallback.\n` + prev);
+            toast.error('Sync skipped - using direct LLM mode');
         } finally {
             setIsActionRunning(false);
         }

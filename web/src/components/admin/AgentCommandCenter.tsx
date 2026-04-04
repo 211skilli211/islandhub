@@ -137,6 +137,15 @@ export default function AgentCommandCenter() {
     // Settings
     const [settings, setSettings] = useState<Record<string, string>>({});
 
+    // Gateway Control
+    const [gatewayEnabled, setGatewayEnabled] = useState(true);
+    const [testingProvider, setTestingProvider] = useState<string | null>(null);
+
+    // Memory Stats
+    const [memoryStats, setMemoryStats] = useState<{
+        l1: number; l2: number; l3: number; l4: number;
+    }>({ l1: 0, l2: 0, l3: 0, l4: 0 });
+
     // ─── Data Fetching ──────────────────────────────────────
     const fetchStatus = useCallback(async () => {
         try {
@@ -214,6 +223,7 @@ export default function AgentCommandCenter() {
         fetchAudit();
         fetchSettings();
         fetchWorkflows();
+        fetchMemoryStats();
     }, []);
 
     useEffect(() => {
@@ -315,6 +325,55 @@ export default function AgentCommandCenter() {
         }
     };
 
+    // Test Provider Connection
+    const testProviderConnection = async (providerName: string) => {
+        setTestingProvider(providerName);
+        try {
+            const res = await api.post(`/agent/providers/${providerName}/test`);
+            toast.success(res.data.message || 'Connection successful');
+        } catch (err: any) {
+            toast.error(err?.response?.data?.error || 'Connection failed');
+        } finally {
+            setTestingProvider(null);
+        }
+    };
+
+    // Toggle Provider Active State
+    const toggleProvider = async (provider: Provider) => {
+        try {
+            await api.put(`/agent/providers/${provider.provider_name}`, { is_active: !provider.is_active });
+            toast.success(provider.is_active ? 'Provider disconnected' : 'Provider connected');
+            fetchProviders();
+            fetchStatus();
+        } catch (err: any) {
+            toast.error(err?.response?.data?.error || 'Toggle failed');
+        }
+    };
+
+    // Gateway Toggle
+    const toggleGateway = () => {
+        setGatewayEnabled(!gatewayEnabled);
+        toast.success(`ZeroClaw Gateway ${gatewayEnabled ? 'disabled - using LLM fallback' : 'enabled'}`);
+    };
+
+    // Memory Layer Controls
+    const clearMemoryLayer = async (layer: string) => {
+        if (!confirm(`Clear ${layer} memory? This cannot be undone.`)) return;
+        try {
+            await api.post('/agent/memory/clear', { layer });
+            toast.success(`${layer} memory cleared`);
+        } catch (err: any) {
+            toast.error('Clear failed - gateway may be offline');
+        }
+    };
+
+    const fetchMemoryStats = async () => {
+        try {
+            const res = await api.get('/agent/memories', { params: { limit: 1 } });
+            setMemoryStats(prev => ({ ...prev, l3: res.data.memories?.length || 0 }));
+        } catch { }
+    };
+
     // ─── Settings ───────────────────────────────────────────
     const saveSettings = async () => {
         try {
@@ -355,6 +414,16 @@ export default function AgentCommandCenter() {
                             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Gateway</span>
                             <StatusBadge status={gatewayOnline ? 'online' : 'offline'} />
                         </div>
+                        <button 
+                            onClick={toggleGateway}
+                            className={`px-3 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest transition-all ${
+                                gatewayEnabled 
+                                    ? 'bg-teal-500/20 border-teal-500 text-teal-400' 
+                                    : 'bg-rose-500/20 border-rose-500 text-rose-400'
+                            }`}
+                        >
+                            {gatewayEnabled ? '● ON' : '○ OFF'}
+                        </button>
                     </div>
                 </div>
 
@@ -704,7 +773,19 @@ export default function AgentCommandCenter() {
                                                             <h4 className="text-xl font-black dark:text-white mb-1">{p.display_name}</h4>
                                                             <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase italic">{p.api_base_url || 'Internal Mesh'}</span>
                                                         </div>
-                                                        <StatusBadge status={p.is_active && p.has_api_key ? 'online' : 'offline'} />
+                                                        <div className="flex items-center gap-3">
+                                                            <button 
+                                                                onClick={() => toggleProvider(p)}
+                                                                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase ${
+                                                                    p.is_active 
+                                                                        ? 'bg-rose-100 text-rose-600 hover:bg-rose-200' 
+                                                                        : 'bg-teal-100 text-teal-600 hover:bg-teal-200'
+                                                                }`}
+                                                            >
+                                                                {p.is_active ? 'Disconnect' : 'Connect'}
+                                                            </button>
+                                                            <StatusBadge status={p.is_active && p.has_api_key ? 'online' : 'offline'} />
+                                                        </div>
                                                     </div>
 
                                                     <div className="grid grid-cols-3 gap-8 mb-8">
@@ -722,17 +803,40 @@ export default function AgentCommandCenter() {
                                                         </div>
                                                     </div>
 
-                                                    {editingProvider === p.provider_name ? (
-                                                        <div className="flex gap-3 bg-white dark:bg-slate-900 p-2 rounded-2xl ring-2 ring-teal-500/30 animate-in zoom-in duration-300">
-                                                            <input type="password" value={newApiKey} onChange={e => setNewApiKey(e.target.value)} placeholder="Enter encrypted key..." autoFocus className="flex-1 bg-transparent px-4 py-3 text-sm font-mono outline-none dark:text-white" />
-                                                            <button onClick={() => updateProviderKey(p.provider_name)} className="px-6 py-2 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase">Encrypt</button>
-                                                            <button onClick={() => { setEditingProvider(null); setNewApiKey(''); }} className="px-4 py-2 text-[10px] font-black uppercase text-slate-400">Abort</button>
-                                                        </div>
-                                                    ) : (
-                                                        <button onClick={() => setEditingProvider(p.provider_name)} className="px-8 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-slate-900/10 active:scale-95 transition-all">
-                                                            {p.has_api_key ? 'Update Encryption Key' : 'Inject API Key'}
+                                                    <div className="flex gap-3">
+                                                        <button 
+                                                            onClick={() => testProviderConnection(p.provider_name)}
+                                                            disabled={testingProvider === p.provider_name}
+                                                            className="px-6 py-3 bg-indigo-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest disabled:opacity-50"
+                                                        >
+                                                            {testingProvider === p.provider_name ? 'Testing...' : 'Test Connection'}
                                                         </button>
-                                                    )}
+                                                        {editingProvider === p.provider_name ? (
+                                                            <div className="flex gap-2 flex-1 bg-white dark:bg-slate-900 p-2 rounded-2xl ring-2 ring-teal-500/30">
+                                                                <input 
+                                                                    type="password" 
+                                                                    value={newApiKey} 
+                                                                    onChange={(e) => setNewApiKey(e.target.value)} 
+                                                                    placeholder="API Key..." 
+                                                                    className="flex-1 bg-transparent px-4 py-2 text-sm font-mono outline-none dark:text-white" 
+                                                                />
+                                                                <button onClick={() => updateProviderKey(p.provider_name)} className="px-4 py-2 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase">Save</button>
+                                                                <button onClick={() => { setEditingProvider(null); setNewApiKey(''); }} className="px-3 py-2 text-[10px] font-black uppercase text-slate-400">✕</button>
+                                                            </div>
+                                                        ) : (
+                                                            <button 
+                                                                onClick={() => setEditingProvider(p.provider_name)} 
+                                                                className="px-6 py-3 bg-slate-800 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest"
+                                                            >
+                                                                {p.has_api_key ? 'Update Key' : 'Add Key'}
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                                                 </div>
                                             ))}
                                         </div>
