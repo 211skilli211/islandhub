@@ -1,16 +1,16 @@
 import { Router } from 'express';
-// refresh
-// refresh
-// refresh
 import {
     reportContent,
     blockUser,
     unblockUser,
     getBlockedUsers,
     getReports,
-    reviewReport
+    reviewReport,
+    checkTextContent,
+    moderateListing,
+    autoModerateListings
 } from '../controllers/moderationController';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { authenticateJWT, isAdmin } from '../middleware/authMiddleware';
 
 const router = Router();
 
@@ -43,6 +43,21 @@ router.get('/reports', authenticateJWT, getReports);
 // @desc    Review a report
 // @access  Private (admin)
 router.patch('/reports/:id', authenticateJWT, reviewReport);
+
+// @route   POST /api/moderation/check-text
+// @desc    Check text content for moderation
+// @access  Private
+router.post('/check-text', authenticateJWT, checkTextContent);
+
+// @route   POST /api/moderation/listing/:listingId/moderate
+// @desc    Moderate a specific listing
+// @access  Admin
+router.post('/listing/:listingId/moderate', authenticateJWT, isAdmin, moderateListing);
+
+// @route   POST /api/moderation/auto-moderate
+// @desc    Auto-moderate pending listings
+// @access  Admin
+router.post('/auto-moderate', authenticateJWT, isAdmin, autoModerateListings);
 
 export default router;
 

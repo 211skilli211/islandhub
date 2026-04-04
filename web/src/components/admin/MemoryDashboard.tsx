@@ -15,6 +15,14 @@ interface MemoryStatus {
     systemReady: boolean;
 }
 
+interface AgentMemory {
+    id: number;
+    memory_type: string;
+    content: string;
+    similarity?: number;
+    created_at: string;
+}
+
 export default function MemoryDashboard() {
     const [status, setStatus] = useState<MemoryStatus | null>(null);
     const [files, setFiles] = useState<string[]>([]);
@@ -25,17 +33,30 @@ export default function MemoryDashboard() {
     const [logs, setLogs] = useState<string>('System initialized. Awaiting commands...');
     const [isActionRunning, setIsActionRunning] = useState(false);
     const [gatewayStatus, setGatewayStatus] = useState<{ online: boolean; url: string }>({ online: false, url: '' });
+    
+    const [activeTab, setActiveTab] = useState<'files' | 'vector' | 'skills'>('files');
+    const [vectorMemories, setVectorMemories] = useState<AgentMemory[]>([]);
+    const [vectorQuery, setVectorQuery] = useState('');
+    const [skills, setSkills] = useState<any[]>([]);
 
     const loadData = async () => {
         try {
-            const [statusRes, filesRes, gatewayRes] = await Promise.all([
+            const [statusRes, filesRes, gatewayRes, skillsRes] = await Promise.all([
                 api.get('/agent/memory/status'),
                 api.get('/agent/memory/files'),
-                api.get('/agent/status')
+                api.get('/agent/status'),
+                api.get('/agent/skills')
             ]);
             setStatus(statusRes.data);
             setFiles(filesRes.data.files || []);
             setGatewayStatus(gatewayRes.data.gateway);
+            setSkills(skillsRes.data.skills || []);
+
+            // Load user's vector memories
+            try {
+                const memoriesRes = await api.get('/agent/memories');
+                setVectorMemories(memoriesRes.data.memories || []);
+            } catch { }
 
             // Initial file load
             loadFile('projects/main_context.md');
@@ -44,6 +65,50 @@ export default function MemoryDashboard() {
             toast.error('Connection interrupted: ReMeLight fallback active');
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const searchVectorMemory = async () => {
+        if (!vectorQuery.trim()) return;
+        try {
+            const res = await api.get('/agent/memories', {
+                params: {
+                    query: vectorQuery,
+                    limit: 10,
+                    threshold: 0.7
+                }
+            });
+            setVectorMemories(res.data.memories || []);
+        } catch (error) {
+            toast.error('Search failed');
+        }
+    };
+
+    const storeMemory = async (type: string, content: string) => {
+        try {
+            await api.post('/agent/memories', {
+                memory_type: type,
+                content,
+                metadata: { source: 'admin_dashboard' }
+            });
+            toast.success('Memory stored');
+            loadData();
+        } catch (error) {
+            toast.error('Failed to store memory');
+        }
+    };
+
+    const executeSkill = async (skillName: string, input: any) => {
+        try {
+            const res = await api.post('/agent/execute', {
+                skill: skillName,
+                input
+            });
+            toast.success(`${skillName} executed`);
+            return res.data;
+        } catch (error: any) {
+            toast.error(error?.response?.data?.error || 'Execution failed');
+            return null;
         }
     };
 
@@ -108,7 +173,91 @@ export default function MemoryDashboard() {
 
     return (
         <div className="p-1 space-y-8 animate-in fade-in duration-700">
-            {/* Upper Grid: Metrics & Engine Config */}
+            {/* Tab Navigation for Memory Types */}
+            <div className="flex p-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
+                {[
+                    { id: 'files', label: 'Neural Files', icon: '📁' },
+                    { id: 'vector', label: 'Vector Memory', icon: '🔍' },
+                    { id: 'skills', label: 'Agent Skills', icon: '⚡' }
+                ].map(tab => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id as any)}
+                        className={`flex-1 py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${activeTab === tab.id ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                    >
+                        <span>{tab.icon}</span>
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+
+            {/* Tab Content */}
+            {activeTab === 'vector' && (
+                <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800">
+                    <div className="flex gap-4 mb-6">
+                        <input
+                            type="text"
+                            value={vectorQuery}
+                            onChange={(e) => setVectorQuery(e.target.value)}
+                            placeholder="Search vector memories (semantic search)..."
+                            className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm"
+                        />
+                        <button onClick={searchVectorMemory} className="px-6 py-3 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase">
+                            Search
+                        </button>
+                    </div>
+                    
+                    {vectorMemories.length > 0 ? (
+                        <div className="space-y-3">
+                            {vectorMemories.map((mem, i) => (
+                                <div key={i} className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <span className="text-[10px] font-black uppercase text-teal-600">{mem.memory_type}</span>
+                                        {mem.similarity && (
+                                            <span className="text-[10px] text-slate-400">{Math.round(mem.similarity * 100)}% match</span>
+                                        )}
+                                    </div>
+                                    <p className="text-sm text-slate-700 dark:text-slate-300">{mem.content.substring(0, 200)}...</p>
+                                    <p className="text-[8px] text-slate-400 mt-2">{new Date(mem.created_at).toLocaleString()}</p>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-10 text-slate-400">
+                            <span className="text-4xl mb-4 block">🔍</span>
+                            <p className="text-sm">No vector memories found. Use the search or store memories.</p>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'skills' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {skills.map((skill: any, i: number) => (
+                        <div key={i} className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:border-teal-500/30 transition-all">
+                            <div className="flex items-center justify-between mb-4">
+                                <h4 className="font-black text-slate-800 dark:text-white">{skill.skill_name}</h4>
+                                <span className="text-[10px] px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full uppercase font-bold text-slate-500">{skill.category}</span>
+                            </div>
+                            <p className="text-sm text-slate-500 mb-4">{skill.description}</p>
+                            <button 
+                                onClick={() => executeSkill(skill.skill_name, { test: true })}
+                                className="w-full py-2 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase"
+                            >
+                                Test Skill
+                            </button>
+                        </div>
+                    ))}
+                    {skills.length === 0 && (
+                        <div className="col-span-2 text-center py-10 text-slate-400">
+                            <span className="text-4xl mb-4 block">⚡</span>
+                            <p className="text-sm">No skills available. Skills load from the agent_skills table.</p>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'files' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
                 {/* Metrics Panel */}
@@ -275,6 +424,7 @@ export default function MemoryDashboard() {
                     </div>
                 </div>
             </div>
+            )}
         </div>
     );
 }

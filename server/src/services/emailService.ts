@@ -293,4 +293,108 @@ export class EmailService {
         `;
         return this.sendEmail(to, subject, html);
     }
+
+    static async sendComplianceApprovedEmail(to: string, name: string, requirementName: string) {
+        const subject = '✅ Compliance Approved - IslandHub';
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #0d9488; margin: 0;">🌴 IslandHub</h1>
+                </div>
+                <div style="background: #f0fdfa; padding: 30px; border-radius: 12px; border-left: 4px solid #22c55e;">
+                    <h2 style="color: #166534; margin-top: 0;">🎉 Compliance Approved!</h2>
+                    <p style="color: #334155;">Hi ${name},</p>
+                    <p style="color: #334155;">Great news! Your compliance requirement has been <strong>approved</strong>.</p>
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Requirement:</strong> ${requirementName}</p>
+                        <p style="color: #22c55e;"><strong>Status: Approved</strong></p>
+                    </div>
+                    <p style="color: #64748b;">Keep up the great work completing your vendor profile!</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${BASE_URL}/dashboard?tab=compliance" style="display: inline-block; background: #0d9488; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                            View Compliance Status
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        return this.sendEmail(to, subject, html);
+    }
+
+    static async sendComplianceRejectedEmail(to: string, name: string, requirementName: string, reason: string) {
+        const subject = '⚠️ Compliance Update Required - IslandHub';
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #0d9488; margin: 0;">🌴 IslandHub</h1>
+                </div>
+                <div style="background: #fef2f2; padding: 30px; border-radius: 12px; border-left: 4px solid #dc2626;">
+                    <h2 style="color: #dc2626; margin-top: 0;">Action Required</h2>
+                    <p style="color: #334155;">Hi ${name},</p>
+                    <p style="color: #334155;">Your compliance submission needs revision.</p>
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Requirement:</strong> ${requirementName}</p>
+                        <p><strong>Status:</strong> <span style="color: #dc2626;">Rejected</span></p>
+                        <p><strong>Reason:</strong></p>
+                        <p style="color: #64748b;">${reason || 'Please contact support for details.'}</p>
+                    </div>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${BASE_URL}/dashboard?tab=compliance" style="display: inline-block; background: #dc2626; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                            Update Compliance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        return this.sendEmail(to, subject, html);
+    }
+
+    static async sendKYCApprovedEmail(to: string, name: string) {
+        const subject = '✅ KYC Verified - IslandHub';
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #0d9488; margin: 0;">🌴 IslandHub</h1>
+                </div>
+                <div style="background: #f0fdfa; padding: 30px; border-radius: 12px; border-left: 4px solid #22c55e;">
+                    <h2 style="color: #166534; margin-top: 0;">🎉 KYC Verified!</h2>
+                    <p style="color: #334155;">Hi ${name},</p>
+                    <p style="color: #334155;">Your identity verification has been <strong>approved</strong>. You now have full access to all vendor features.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${BASE_URL}/dashboard" style="display: inline-block; background: #0d9488; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                            Go to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        return this.sendEmail(to, subject, html);
+    }
+
+    static async sendKYCRejectedEmail(to: string, name: string, reason: string) {
+        const subject = '⚠️ KYC Verification Failed - IslandHub';
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #0d9488; margin: 0;">🌴 IslandHub</h1>
+                </div>
+                <div style="background: #fef2f2; padding: 30px; border-radius: 12px; border-left: 4px solid #dc2626;">
+                    <h2 style="color: #dc2626; margin-top: 0;">KYC Verification Failed</h2>
+                    <p style="color: #334155;">Hi ${name},</p>
+                    <p style="color: #334155;">Unfortunately, your identity verification could not be approved.</p>
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Reason:</strong></p>
+                        <p style="color: #64748b;">${reason || 'Please resubmit your documents with clearer images.'}</p>
+                    </div>
+                    <p style="color: #334155;">Please update your documents and try again.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${BASE_URL}/dashboard?tab=kyc" style="display: inline-block; background: #dc2626; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                            Resubmit Documents
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        return this.sendEmail(to, subject, html);
+    }
 }

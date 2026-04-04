@@ -1,6 +1,174 @@
 import { Request, Response } from 'express';
-// sync ts server
 import { pool } from '../config/db';
+
+interface ModerationResult {
+    flagged: boolean;
+    categories: {
+        hate: boolean;
+        harassment: boolean;
+        violence: boolean;
+        sexual: boolean;
+        selfHarm: boolean;
+        spam: boolean;
+        misinformation: boolean;
+    };
+    categoryScores: {
+        hate: number;
+        harassment: number;
+        violence: number;
+        sexual: number;
+        selfHarm: number;
+        spam: number;
+        misinformation: number;
+    };
+}
+
+export const moderateContent = async (content: string): Promise<ModerationResult> => {
+    const lowerContent = content.toLowerCase();
+    
+    const spamKeywords = ['buy now', 'click here', 'free money', 'winner', 'congratulations', 'act now'];
+    const violenceKeywords = ['kill', 'attack', 'bomb', 'weapon', 'gun'];
+    const hateKeywords = ['hate', 'stupid', 'idiot', 'die'];
+    
+    const flaggedCategories = {
+        hate: hateKeywords.some(k => lowerContent.includes(k)),
+        harassment: false,
+        violence: violenceKeywords.some(k => lowerContent.includes(k)),
+        sexual: false,
+        selfHarm: false,
+        spam: spamKeywords.some(k => lowerContent.includes(k)),
+        misinformation: false
+    };
+
+    return {
+        flagged: Object.values(flaggedCategories).some(v => v),
+        categories: flaggedCategories,
+        categoryScores: {
+            hate: flaggedCategories.hate ? 0.9 : 0.1,
+            harassment: 0.1,
+            violence: flaggedCategories.violence ? 0.9 : 0.1,
+            sexual: 0.1,
+            selfHarm: 0.1,
+            spam: flaggedCategories.spam ? 0.8 : 0.1,
+            misinformation: 0.1
+        }
+    };
+};
+
+export const checkTextContent = async (req: Request, res: Response) => {
+    try {
+        const { content, type, referenceId } = req.body;
+        const userId = req.user?.id;
+
+        if (!content) {
+            return res.status(400).json({ message: 'Content is required' });
+        }
+
+        const result = await moderateContent(content);
+
+        await pool.query(
+            `INSERT INTO content_moderation_logs (user_id, content_type, reference_id, content, is_flagged, categories, scores)
+             VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+            [userId, type || 'text', referenceId || null, content.substring(0, 500), 
+             result.flagged, JSON.stringify(result.categories), JSON.stringify(result.categoryScores)]
+        );
+
+        res.json({
+            success: true,
+            flagged: result.flagged,
+            categories: result.categories,
+            scores: result.categoryScores,
+            action: result.flagged ? 'review' : 'approved'
+        });
+    } catch (error) {
+        console.error('Content moderation error:', error);
+        res.status(500).json({ message: 'Moderation check failed' });
+    }
+};
+
+export const moderateListing = async (req: Request, res: Response) => {
+    try {
+        const { listingId } = req.params;
+        
+        const listingResult = await pool.query(
+            'SELECT title, description, images FROM listings WHERE id = $1',
+            [listingId]
+        );
+
+        if (listingResult.rows.length === 0) {
+            return res.status(404).json({ message: 'Listing not found' });
+        }
+
+        const listing = listingResult.rows[0];
+        
+        const titleResult = await moderateContent(listing.title);
+        const descResult = await moderateContent(listing.description || '');
+
+        const isFlagged = titleResult.flagged || descResult.flagged;
+
+        await pool.query(
+            `UPDATE listings 
+             SET moderation_status = $1, 
+                 moderation_notes = $2,
+                 moderated_at = NOW()
+             WHERE id = $3`,
+            [isFlagged ? 'flagged' : 'approved', 
+             isFlagged ? `Title: ${titleResult.flagged ? 'flagged' : 'ok'}, Description: ${descResult.flagged ? 'flagged' : 'ok'}` : null,
+             listingId]
+        );
+
+        res.json({
+            success: true,
+            listingId: parseInt(listingId),
+            flagged: isFlagged,
+            issues: [
+                ...(titleResult.flagged ? [{ field: 'title', categories: titleResult.categories }] : []),
+                ...(descResult.flagged ? [{ field: 'description', categories: descResult.categories }] : [])
+            ]
+        });
+    } catch (error) {
+        console.error('Listing moderation error:', error);
+        res.status(500).json({ message: 'Failed to moderate listing' });
+    }
+};
+
+export const autoModerateListings = async (req: Request, res: Response) => {
+    try {
+        const limit = parseInt(req.query.limit as string) || 50;
+        
+        const listings = await pool.query(
+            `SELECT id, title, description FROM listings 
+             WHERE moderation_status IS NULL OR moderation_status = 'pending'
+             LIMIT $1`,
+            [limit]
+        );
+
+        const results = [];
+        
+        for (const listing of listings.rows) {
+            const result = await moderateContent(`${listing.title} ${listing.description || ''}`);
+            
+            await pool.query(
+                `UPDATE listings 
+                 SET moderation_status = $1, moderated_at = NOW()
+                 WHERE id = $2`,
+                [result.flagged ? 'flagged' : 'approved', listing.id]
+            );
+
+            results.push({ listingId: listing.id, flagged: result.flagged });
+        }
+
+        res.json({
+            success: true,
+            processed: results.length,
+            flagged: results.filter(r => r.flagged).length,
+            results
+        });
+    } catch (error) {
+        console.error('Auto-moderation error:', error);
+        res.status(500).json({ message: 'Auto-moderation failed' });
+    }
+};
 
 // @desc    Report content
 // @access  Private

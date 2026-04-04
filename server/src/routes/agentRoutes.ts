@@ -3,6 +3,10 @@ import { pool } from '../config/db';
 import { authenticateJWT, isAdmin } from '../middleware/authMiddleware';
 import { chatWithAgent, getAgentFromDB, saveConversationMessage, getAgentSetting, updateAgentSetting } from '../services/llmService';
 import { v4 as uuidv4 } from 'uuid';
+import MemoryService from '../services/memoryService';
+import { generateEmbedding } from '../services/embeddingService';
+import { moderateContent } from '../controllers/moderationController';
+import { getVendorCompliance } from '../controllers/complianceController';
 
 const router = Router();
 
@@ -859,6 +863,336 @@ router.post('/memory/file/:filename(*)', authenticateJWT, isAdmin, async (req: R
         res.json({ success: true });
     } catch (error) {
         res.status(500).json({ error: 'Failed to update file' });
+    }
+});
+
+// ════════════════════════════════════════════════════════
+// NEW: Memory Service Endpoints (L1-L4)
+// ════════════════════════════════════════════════════════
+
+// POST /api/agent/memories - Store new memory
+router.post('/memories', authenticateJWT, async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const { memory_type, content, metadata } = req.body;
+
+        if (!memory_type || !content) {
+            return res.status(400).json({ error: 'memory_type and content are required' });
+        }
+
+        const memoryId = await MemoryService.remember(user.id, memory_type, content, metadata);
+
+        // Record as episodic event for learning
+        await MemoryService.recordEvent(
+            'memory_stored',
+            'user',
+            user.id,
+            `Stored ${memory_type}: ${content.substring(0, 100)}...`,
+            'resolved',
+            { memory_id: memoryId }
+        );
+
+        res.json({ success: true, memory_id: memoryId });
+    } catch (error) {
+        console.error('Failed to store memory:', error);
+        res.status(500).json({ error: 'Failed to store memory' });
+    }
+});
+
+// GET /api/agent/memories - Recall similar memories
+router.get('/memories', authenticateJWT, async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const { query, memory_types, threshold, limit } = req.query;
+
+        if (!query) {
+            // Return user's recent memories
+            const memories = await MemoryService.getUserMemories(user.id);
+            return res.json({ memories });
+        }
+
+        // Semantic search
+        const memories = await MemoryService.recall(String(query), {
+            user_id: user.id,
+            memory_types: memory_types ? String(memory_types).split(',') : undefined,
+            threshold: threshold ? parseFloat(String(threshold)) : 0.7,
+            limit: limit ? parseInt(String(limit)) : 5,
+        });
+
+        res.json({ memories });
+    } catch (error) {
+        console.error('Failed to recall memories:', error);
+        res.status(500).json({ error: 'Failed to recall memories' });
+    }
+});
+
+// POST /api/agent/recall - Semantic search across all memories
+router.post('/recall', authenticateJWT, async (req: Request, res: Response) => {
+    try {
+        const { query, entity_type, limit } = req.body;
+
+        const events = await MemoryService.getSimilarEvents(query, entity_type);
+        
+        res.json({ events: events.slice(0, limit || 10) });
+    } catch (error) {
+        console.error('Failed to recall events:', error);
+        res.status(500).json({ error: 'Failed to recall events' });
+    }
+});
+
+// POST /api/agent/learn - Record decision outcome for learning
+router.post('/learn', authenticateJWT, async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const { event_type, entity_type, entity_id, summary, outcome, details } = req.body;
+
+        if (!event_type || !entity_type || !entity_id || !summary || !outcome) {
+            return res.status(400).json({ error: 'event_type, entity_type, entity_id, summary, and outcome are required' });
+        }
+
+        const eventId = await MemoryService.recordEvent(
+            event_type,
+            entity_type,
+            entity_id,
+            summary,
+            outcome,
+            details
+        );
+
+        res.json({ success: true, event_id: eventId });
+    } catch (error) {
+        console.error('Failed to record event:', error);
+        res.status(500).json({ error: 'Failed to record event' });
+    }
+});
+
+// ════════════════════════════════════════════════════════
+// NEW: Skill-Based Endpoints (Pre-Moderation, Compliance Helper, etc.)
+// ════════════════════════════════════════════════════════
+
+// POST /api/agent/execute - Execute specific skill
+router.post('/execute', authenticateJWT, async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const { skill, input, context } = req.body;
+
+        if (!skill || !input) {
+            return res.status(400).json({ error: 'skill and input are required' });
+        }
+
+        let result: any = null;
+
+        switch (skill) {
+            case 'pre_moderation':
+                // Content pre-screening
+                const moderation = await moderateContent(input.content || input);
+                
+                // Record for learning
+                await MemoryService.recordEvent(
+                    'content_moderated',
+                    'listing',
+                    input.listing_id || 0,
+                    `Moderated: ${input.content?.substring(0, 50) || 'text'}...`,
+                    moderation.flagged ? 'escalated' : 'resolved',
+                    { flagged: moderation.flagged, categories: moderation.categories }
+                );
+                
+                result = {
+                    action: moderation.flagged ? 'flag' : 'approve',
+                    confidence: moderation.flagged ? 0.9 : 0.95,
+                    categories: moderation.categories,
+                    suggestion: moderation.flagged 
+                        ? 'Content flagged for human review'
+                        : 'Content appears safe, auto-approved'
+                };
+                break;
+
+            case 'vendor_onboarding':
+                // Vendor onboarding guidance
+                const onboardingMemories = await MemoryService.recall('vendor onboarding rejected compliance', {
+                    user_id: user.id,
+                    memory_types: ['compliance_pattern', 'error_recovery'],
+                    limit: 3
+                });
+
+                result = {
+                    message: 'Welcome to IslandHub! Let\'s get your vendor profile set up.',
+                    step: context?.currentStep || 1,
+                    previousIssues: onboardingMemories.map(m => ({
+                        issue: m.content,
+                        similarity: m.similarity
+                    })),
+                    suggestions: [
+                        'Complete your business profile',
+                        'Verify your identity (KYC)',
+                        'Submit compliance documents'
+                    ]
+                };
+                break;
+
+            case 'compliance_helper':
+                // Post-rejection guidance
+                const { rejection_reason, jurisdiction } = input;
+                
+                const complianceMemories = await MemoryService.getSimilarEvents(
+                    `${rejection_reason} ${jurisdiction} compliance fix`,
+                    'vendor'
+                );
+
+                result = {
+                    message: `I can help you address this ${rejection_reason} issue.`,
+                    guidance: getComplianceGuidance(rejection_reason, jurisdiction),
+                    similarIssues: complianceMemories.slice(0, 3).map(e => ({
+                        summary: e.summary,
+                        outcome: e.outcome
+                    }))
+                };
+                break;
+
+            case 'listing_optimizer':
+                // SEO and pricing suggestions
+                const listingMemories = await MemoryService.recall('successful listing optimization', {
+                    limit: 3
+                });
+
+                result = {
+                    suggestions: generateListingSuggestions(input),
+                    successfulPatterns: listingMemories.map(m => m.content)
+                };
+                break;
+
+            case 'error_recovery':
+                // Context-aware error fix
+                const { error_code, user_action } = input;
+                
+                const errorMemories = await MemoryService.getSimilarEvents(
+                    `error ${error_code} resolved fix`,
+                    'user'
+                );
+
+                result = {
+                    possibleCauses: getErrorCauses(error_code),
+                    suggestedFixes: getErrorFixes(error_code),
+                    similarResolutions: errorMemories.filter(e => e.outcome === 'resolved').slice(0, 3).map(e => ({
+                        summary: e.summary,
+                        details: e.details
+                    }))
+                };
+                break;
+
+            default:
+                return res.status(400).json({ error: `Unknown skill: ${skill}` });
+        }
+
+        res.json({ skill, result });
+    } catch (error) {
+        console.error('Failed to execute skill:', error);
+        res.status(500).json({ error: 'Failed to execute skill' });
+    }
+});
+
+// Helper functions for skill implementations
+function getComplianceGuidance(rejectionReason: string, jurisdiction: string): string {
+    const guidance: Record<string, Record<string, string>> = {
+        insurance_insufficient: {
+            'JM': 'Jamaica requires minimum JMD 1M (XCD equivalent) liability coverage. Contact Saga Insurance or JMMB Insurance for approved rates.',
+            'BB': 'Barbados requires BBD 500K minimum. Contact Caribbean Insurance services.',
+            'default': 'Contact your local insurance provider for requirements specific to your business type.'
+        },
+        business_license_missing: {
+            'JM': 'Apply at Jamaica Companies Office (OCOJ). Required: ID, business name, tax registration.',
+            'BB': 'Apply at Corporate Affairs and Intellectual Property Office.',
+            'default': 'Contact your local Companies Office or business registry.'
+        },
+        kyc_incomplete: {
+            'JM': 'Submit government-issued ID (passport/driver\'s license) and proof of address (utility bill within 3 months).',
+            'default': 'Submit clear, valid ID and recent proof of address.'
+        }
+    };
+
+    return guidance[rejectionReason]?.[jurisdiction] || guidance[rejectionReason]?.default || 
+           'Please review the rejection email for specific requirements.';
+}
+
+function generateListingSuggestions(listing: any): string[] {
+    const suggestions: string[] = [];
+    
+    if (!listing.title || listing.title.length < 10) {
+        suggestions.push('Add a descriptive title (20+ characters) with key details like location and type.');
+    }
+    
+    if (!listing.description || listing.description.length < 50) {
+        suggestions.push('Write a detailed description (100+ words) highlighting unique features and amenities.');
+    }
+    
+    if (!listing.price) {
+        suggestions.push('Set a competitive price - research similar listings in your area.');
+    }
+    
+    if (!listing.images || listing.images.length < 3) {
+        suggestions.push('Add high-quality photos (5+ recommended) showing different angles and features.');
+    }
+    
+    if (!listing.location) {
+        suggestions.push('Specify your exact location/neighborhood for better search visibility.');
+    }
+    
+    return suggestions.length > 0 ? suggestions : ['Your listing looks good! Consider adding more photos.'];
+}
+
+function getErrorCauses(errorCode: string): string[] {
+    const causes: Record<string, string[]> = {
+        'VALIDATION_ERROR': ['Missing required fields', 'Invalid data format', 'Character limit exceeded'],
+        'PAYMENT_FAILED': ['Card declined', 'Network timeout', 'Insufficient funds'],
+        'UPLOAD_FAILED': ['File too large', 'Unsupported format', 'Connection interrupted'],
+        'NOT_FOUND': ['Item no longer available', 'Link expired', 'Deleted by owner'],
+        'PERMISSION_DENIED': ['Session expired', 'Role restriction', 'Not logged in']
+    };
+    return causes[errorCode] || ['Unknown error occurred'];
+}
+
+function getErrorFixes(errorCode: string): string[] {
+    const fixes: Record<string, string[]> = {
+        'VALIDATION_ERROR': ['Check all required fields', 'Remove special characters', 'Stay within character limits'],
+        'PAYMENT_FAILED': ['Try another payment method', 'Contact your bank', 'Use a different card'],
+        'UPLOAD_FAILED': ['Reduce file size below 5MB', 'Use JPG/PNG format', 'Retry with stable connection'],
+        'NOT_FOUND': ['Refresh the page', 'Search for similar items', 'Contact support'],
+        'PERMISSION_DENIED': ['Log in again', 'Check your subscription', 'Contact support']
+    };
+    return fixes[errorCode] || ['Please try again or contact support.'];
+}
+
+// GET /api/agent/skills - List available skills
+router.get('/skills', authenticateJWT, async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            `SELECT skill_name, description, category, is_active 
+             FROM agent_skills 
+             WHERE is_active = TRUE`
+        );
+        res.json({ skills: result.rows });
+    } catch (error) {
+        console.error('Failed to list skills:', error);
+        res.status(500).json({ error: 'Failed to list skills' });
+    }
+});
+
+// GET /api/agent/memories/user/:userId - Get memories for specific user (admin only)
+router.get('/memories/user/:userId', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const { memory_type, limit } = req.query;
+
+        const memories = await MemoryService.getUserMemories(
+            parseInt(userId),
+            memory_type as string,
+            limit ? parseInt(String(limit)) : 20
+        );
+
+        res.json({ memories });
+    } catch (error) {
+        console.error('Failed to get user memories:', error);
+        res.status(500).json({ error: 'Failed to get user memories' });
     }
 });
 

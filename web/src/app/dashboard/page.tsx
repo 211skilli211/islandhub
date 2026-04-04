@@ -30,6 +30,7 @@ import ShippingTracking from '@/components/dashboard/ShippingTracking';
 import BecomeDriver from '@/components/dashboard/BecomeDriver';
 import DriverVerification from '@/components/dashboard/DriverVerification';
 import VendorComplianceStatus from '@/components/dashboard/VendorComplianceStatus';
+import VendorOnboarding from '@/components/dashboard/VendorOnboarding';
 
 // Dynamic imports for heavy components
 const CreateListingModal = dynamic(
@@ -57,7 +58,7 @@ export default function DashboardPage() {
 
     // Role Mode State
     const [viewMode, setViewMode] = useState<'buyer' | 'vendor' | 'driver'>('buyer');
-    const [activeTab, setActiveTab] = useState<'overview' | 'activity' | 'posts' | 'settings' | 'branding' | 'menu' | 'portal' | 'orders' | 'promotions' | 'messages' | 'wallet' | 'reviews' | 'delivery' | 'shipping' | 'become-driver' | 'driver-hub' | 'driver-verification'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'activity' | 'posts' | 'settings' | 'branding' | 'menu' | 'portal' | 'orders' | 'promotions' | 'messages' | 'wallet' | 'reviews' | 'delivery' | 'shipping' | 'become-driver' | 'driver-hub' | 'driver-verification' | 'onboarding'>('overview');
 
     // Data State
     const [myListings, setMyListings] = useState<any[]>([]);
@@ -392,6 +393,7 @@ export default function DashboardPage() {
                             { id: 'wallet', label: 'Earnings', icon: '💰' }
                         ] : viewMode === 'vendor' ? [
                             { id: 'overview', label: 'Overview', icon: '📊' },
+                            { id: 'onboarding', label: 'Setup Guide', icon: '🚀' },
                             { id: 'activity', label: ['Service', 'Services'].includes(activeStore?.category) ? 'My Profile' : 'My Listings', icon: '💎' },
                             { id: 'delivery', label: 'Delivery Dispatch', icon: '📦' },
                             { id: 'shipping', label: 'Shipping & Tracking', icon: '🌍' },
@@ -486,15 +488,9 @@ export default function DashboardPage() {
                 <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden min-h-[500px]">
                     <div className="p-6 sm:p-10">
                         {activeTab === 'overview' && viewMode === 'vendor' && (
-                            <VendorOverview
-                                subscription={subscription}
-                                stores={stores}
-                                activeStore={activeStore}
-                                listingCount={myListings.length}
-                                requestCount={myRequests.length}
-                                vendorId={activeStore?.id}
-                            />
+                            <VendorOverview store={activeStore} />
                         )}
+                        {activeTab === 'onboarding' && viewMode === 'vendor' && <VendorOnboarding />}
                         {activeTab === 'activity' && (
                             <>
                                 <div className="flex justify-between items-center mb-8">

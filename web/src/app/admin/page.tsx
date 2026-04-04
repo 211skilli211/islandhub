@@ -43,6 +43,7 @@ import KybVerificationTab from '@/app/admin/kyb-verification/page';
 import AgentCommandCenter from '@/components/admin/AgentCommandCenter';
 import AssetLibrary from '@/components/admin/AssetLibrary';
 import KYCReviewModal from '@/components/admin/KYCReviewModal';
+import ComplianceAnalytics from '@/components/admin/ComplianceAnalytics';
 
 // Interfaces for Data Types
 interface User {
@@ -129,7 +130,7 @@ export default function AdminPage() {
     const router = useRouter();
     const { user, isAuthenticated } = useAuthStore();
     const { theme } = useTheme();
-    const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'listings' | 'orders' | 'campaigns' | 'stores' | 'subscriptions' | 'assets' | 'assets-hero' | 'kyc' | 'kyb-verification' | 'settings' | 'logs' | 'revenue' | 'broadcasts' | 'drivers' | 'logistics-rates' | 'ads' | 'payouts' | 'agent-center'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'listings' | 'orders' | 'campaigns' | 'stores' | 'subscriptions' | 'assets' | 'assets-hero' | 'kyc' | 'kyb-verification' | 'settings' | 'logs' | 'revenue' | 'broadcasts' | 'drivers' | 'logistics-rates' | 'ads' | 'payouts' | 'agent-center' | 'compliance-analytics'>('overview');
 
     // Modals
     const [showCreateUser, setShowCreateUser] = useState(false);
@@ -667,6 +668,7 @@ export default function AdminPage() {
                         { id: 'assets', label: 'Media Lib 📂' },
                         { id: 'kyc', label: `KYC ${kycList.length > 0 ? `(${kycList.length})` : ''}` },
                         { id: 'kyb-verification', label: 'KYB Verification 🔒' },
+                        { id: 'compliance-analytics', label: 'Compliance 📈' },
                         { id: 'ads', label: 'Advertisements 📺' },
                         { id: 'agent-center', label: 'Agent Center 🤖' },
                         { id: 'logs', label: 'Audit Logs 📜' },
@@ -743,6 +745,19 @@ export default function AdminPage() {
                                                 searchable={true}
                                                 searchPlaceholder="Search by name or email..."
                                                 hoverType="user"
+                                                bulkActions={{
+                                                    activate: async (ids) => {
+                                                        await Promise.all(ids.map(id => api.patch(`/admin/users/${id}`, { is_active: true })));
+                                                    },
+                                                    deactivate: async (ids) => {
+                                                        await Promise.all(ids.map(id => api.patch(`/admin/users/${id}`, { is_active: false })));
+                                                    },
+                                                    delete: async (ids) => {
+                                                        if (confirm(`⚠️ Delete ${ids.length} users? This cannot be undone.`)) {
+                                                            await Promise.all(ids.map(id => api.delete(`/admin/users/${id}`)));
+                                                        }
+                                                    }
+                                                }}
                                                 rowActions={[
                                                     { label: 'Edit Profile', action: 'edit_profile' },
                                                     { label: 'Verify Email', action: 'verify', condition: (u) => !u.email_verified },
@@ -768,6 +783,22 @@ export default function AdminPage() {
                                                 keyName="listings"
                                                 columns={listingColumns}
                                                 hoverType="listing"
+                                                bulkActions={{
+                                                    activate: async (ids) => {
+                                                        await Promise.all(ids.map(id => api.patch(`/listings/${id}`, { status: 'active' })));
+                                                    },
+                                                    deactivate: async (ids) => {
+                                                        await Promise.all(ids.map(id => api.patch(`/listings/${id}`, { status: 'inactive' })));
+                                                    },
+                                                    delete: async (ids) => {
+                                                        if (confirm(`⚠️ Delete ${ids.length} listings?`)) {
+                                                            await Promise.all(ids.map(id => api.delete(`/listings/${id}`)));
+                                                        }
+                                                    },
+                                                    moderate: async (ids) => {
+                                                        await Promise.all(ids.map(id => api.post(`/moderation/listing/${id}/moderate`)));
+                                                    }
+                                                }}
                                                 rowActions={[
                                                     { label: 'Edit Listing', action: 'edit' },
                                                     { label: 'Promote', action: 'promote' },
@@ -866,6 +897,7 @@ export default function AdminPage() {
                                     );
                                 case 'ads': return <AdManagementTab />;
                                 case 'agent-center': return <AgentCommandCenter />;
+                                case 'compliance-analytics': return <ComplianceAnalytics />;
                                 default: return <div className="p-20 text-center text-slate-400 dark:text-slate-400">Select a tab</div>;
                             }
                         })()}

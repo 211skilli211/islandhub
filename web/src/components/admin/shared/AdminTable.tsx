@@ -202,9 +202,10 @@ export function AdminTable<T extends Record<string, any>>({
         const { active, over } = event;
         if (over && active.id !== over.id) {
             setColumnOrder((items) => {
-                const oldIndex = items.indexOf(active.id as number);
-                const newIndex = items.indexOf(over.id as number);
-                return arrayMove(items, oldIndex, newIndex);
+                const oldIndex = items.indexOf(columnOrder[active.id as number]);
+                const newIndex = items.indexOf(columnOrder[over.id as number]);
+                const newOrder = arrayMove(items, oldIndex, newIndex);
+                return newOrder;
             });
         }
     };
@@ -503,14 +504,15 @@ export function AdminTable<T extends Record<string, any>>({
                                         items={columnOrder} 
                                         strategy={horizontalListSortingStrategy}
                                     >
-                                        {columns.map((col, idx) => {
-                                            if (hiddenColumns.includes(idx)) return null;
+                                        {columnOrder.map((colIdx, orderIdx) => {
+                                            const col = columns[colIdx];
+                                            if (hiddenColumns.includes(colIdx)) return null;
                                             return (
                                                 <SortableColumnHeader 
-                                                    key={`head-${col.header}-${idx}`}
-                                                    id={idx}
+                                                    key={`head-${col.header}-${colIdx}`}
+                                                    id={orderIdx}
                                                     col={col}
-                                                    idx={idx}
+                                                    idx={colIdx}
                                                     isCompact={isCompact}
                                                     columnWidths={columnWidths}
                                                     startResize={startResize}

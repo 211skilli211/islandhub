@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
+import { notifyUser } from '../services/notificationService';
+import { EmailService } from '../services/emailService';
 
 export const submitKYC = async (req: Request, res: Response) => {
     try {
@@ -156,6 +158,24 @@ export const approveKYC = async (req: Request, res: Response) => {
             [adminId, kyc.vendor_id]
         );
 
+        // Get user info for notifications
+        const userResult = await pool.query(
+            'SELECT u.email, u.name, u.user_id FROM users u JOIN vendors v ON v.user_id = u.user_id WHERE v.id = $1',
+            [kyc.vendor_id]
+        );
+
+        // Send real-time notification
+        if (userResult.rows.length > 0) {
+            const user = userResult.rows[0];
+            notifyUser(user.user_id, 'kyc_approved', {
+                message: 'Your KYC has been verified! You now have full vendor access.',
+                timestamp: new Date().toISOString()
+            });
+            
+            // Send email notification
+            await EmailService.sendKYCApprovedEmail(user.email, user.name);
+        }
+
         res.json({ message: 'KYC approved successfully' });
     } catch (error) {
         console.error('Approve KYC error:', error);
@@ -195,6 +215,24 @@ export const rejectKYC = async (req: Request, res: Response) => {
              WHERE id = $1`,
             [kyc.vendor_id]
         );
+
+        // Get user info for notifications
+        const userResult = await pool.query(
+            'SELECT u.email, u.name, u.user_id FROM users u JOIN vendors v ON v.user_id = u.user_id WHERE v.id = $1',
+            [kyc.vendor_id]
+        );
+
+        // Send real-time notification
+        if (userResult.rows.length > 0) {
+            const user = userResult.rows[0];
+            notifyUser(user.user_id, 'kyc_rejected', {
+                message: `Your KYC was rejected. Reason: ${reason}`,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Send email notification
+            await EmailService.sendKYCRejectedEmail(user.email, user.name, reason);
+        }
 
         res.json({ message: 'KYC rejected' });
     } catch (error) {

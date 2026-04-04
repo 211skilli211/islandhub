@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
+import { notifyUser } from '../services/notificationService';
+import { EmailService } from '../services/emailService';
 
 export const getComplianceRequirements = async (req: Request, res: Response) => {
     try {
@@ -120,6 +122,48 @@ export const reviewCompliance = async (req: Request, res: Response) => {
              VALUES ($1, $2, $3, $4, $5)`,
             [result.rows[0].vendor_id, status, result.rows[0].requirement_id, adminId, notes]
         );
+
+        // Get vendor's user_id for notification
+        const vendorUser = await pool.query(
+            'SELECT user_id FROM vendors WHERE id = $1',
+            [result.rows[0].vendor_id]
+        );
+
+        // Send real-time notification to vendor
+        if (vendorUser.rows.length > 0) {
+            const vendorUserId = vendorUser.rows[0].user_id;
+            notifyUser(vendorUserId, 'compliance_reviewed', {
+                requirementId: result.rows[0].requirement_id,
+                status,
+                message: status === 'approved' 
+                    ? 'Your compliance document has been approved!' 
+                    : `Your compliance document was rejected. Reason: ${rejectionReason || 'Please contact support'}`,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // Get requirement name and user email for email notification
+        const requirementResult = await pool.query(
+            'SELECT name FROM compliance_requirements WHERE id = $1',
+            [result.rows[0].requirement_id]
+        );
+
+        const userResult = await pool.query(
+            'SELECT u.email, u.name FROM users u JOIN vendors v ON v.user_id = u.user_id WHERE v.id = $1',
+            [result.rows[0].vendor_id]
+        );
+
+        // Send email notification
+        if (userResult.rows.length > 0 && requirementResult.rows.length > 0) {
+            const user = userResult.rows[0];
+            const requirementName = requirementResult.rows[0].name;
+            
+            if (status === 'approved') {
+                await EmailService.sendComplianceApprovedEmail(user.email, user.name, requirementName);
+            } else {
+                await EmailService.sendComplianceRejectedEmail(user.email, user.name, requirementName, rejectionReason || '');
+            }
+        }
 
         res.json({ success: true, message: `Compliance ${status}` });
     } catch (error) {
