@@ -314,6 +314,11 @@ export const acceptDispatch = async (req: Request, res: Response) => {
 
         // Create trip
         const tripId = generateRequestId('TRIP');
+        const pickupLat = typeof d.pickup_location === 'object' ? d.pickup_location.lat : d.pickup_location;
+        const pickupLng = typeof d.pickup_location === 'object' ? d.pickup_location.lng : d.pickup_location;
+        const dropoffLat = typeof d.dropoff_location === 'object' ? d.dropoff_location.lat : d.dropoff_location;
+        const dropoffLng = typeof d.dropoff_location === 'object' ? d.dropoff_location.lng : d.dropoff_location;
+        
         const tripResult = await pool.query(
             `INSERT INTO trips (
                 trip_id, dispatch_request_id, driver_id, rider_id,
@@ -324,8 +329,7 @@ export const acceptDispatch = async (req: Request, res: Response) => {
             [
                 tripId, d.id, user.id, d.rider_id,
                 d.pickup_address, d.dropoff_address,
-                d.pickup_location->>'lat', d.pickup_location->>'lng',
-                d.dropoff_location->>'lat', d.dropoff_location->>'lng',
+                pickupLat, pickupLng, dropoffLat, dropoffLng,
                 d.estimated_fare, d.distance_km
             ]
         );
