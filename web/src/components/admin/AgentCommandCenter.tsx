@@ -837,11 +837,6 @@ export default function AgentCommandCenter() {
                                         </div>
                                     </div>
                                 )}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
 
                                 {/* ─── SWARMS (WORKFLOWS) ────────────────────────── */}
                                 {activeSection === 'teams' && (
