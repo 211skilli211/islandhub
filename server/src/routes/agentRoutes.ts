@@ -1181,15 +1181,14 @@ router.get('/skills', authenticateJWT, async (req: Request, res: Response) => {
 router.get('/memories/user/:userId', authenticateJWT, isAdmin, async (req: Request, res: Response) => {
     try {
         const { userId } = req.params;
-        const { memory_type, limit } = req.query;
-
+        const memory_type = req.query.memory_type as string | undefined;
         const limitStr = req.query.limit as string;
-        const limit = limitStr ? parseInt(limitStr) : 20;
+        const limitNum = limitStr ? parseInt(limitStr) : 20;
         
         const memories = await MemoryService.getUserMemories(
             parseInt(userId),
-            memory_type as string
-        ).then(memories => memories.slice(0, limit));
+            memory_type
+        ).then(memories => memories.slice(0, limitNum));
 
         res.json({ memories });
     } catch (error) {
