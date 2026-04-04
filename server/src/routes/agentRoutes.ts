@@ -1183,11 +1183,13 @@ router.get('/memories/user/:userId', authenticateJWT, isAdmin, async (req: Reque
         const { userId } = req.params;
         const { memory_type, limit } = req.query;
 
+        const limitStr = req.query.limit as string;
+        const limit = limitStr ? parseInt(limitStr) : 20;
+        
         const memories = await MemoryService.getUserMemories(
             parseInt(userId),
-            memory_type as string,
-            limit ? parseInt(String(limit)) : 20
-        );
+            memory_type as string
+        ).then(memories => memories.slice(0, limit));
 
         res.json({ memories });
     } catch (error) {
