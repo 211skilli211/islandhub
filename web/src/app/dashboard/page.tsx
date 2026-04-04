@@ -488,7 +488,13 @@ export default function DashboardPage() {
                 <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden min-h-[500px]">
                     <div className="p-6 sm:p-10">
                         {activeTab === 'overview' && viewMode === 'vendor' && (
-                            <VendorOverview store={activeStore} />
+                            <VendorOverview 
+                                subscription={subscription} 
+                                stores={stores}
+                                activeStore={activeStore}
+                                listingCount={0}
+                                requestCount={0}
+                            />
                         )}
                         {activeTab === 'onboarding' && viewMode === 'vendor' && <VendorOnboarding />}
                         {activeTab === 'activity' && (
