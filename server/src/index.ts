@@ -69,6 +69,7 @@ import complianceRoutes from './routes/complianceRoutes';
 import recommendationRoutes from './routes/recommendationRoutes';
 import agentRoutes from './routes/agentRoutes';
 import advancedRoutes from './routes/advancedRoutes';
+import dispatchRoutes from './routes/dispatchRoutes';
 import { initScheduler } from './services/subscriptionScheduler';
 
 const PORT = process.env.PORT || 5001;
@@ -148,6 +149,7 @@ app.use('/api/discovery', discoveryRoutes);
 app.use('/api/compliance', complianceRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/agent', agentRoutes);
+app.use('/api/drivers', dispatchRoutes);
 app.use('/api', advancedRoutes);
 
 // Basic Route
