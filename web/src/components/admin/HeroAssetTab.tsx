@@ -30,8 +30,10 @@ const PAGES = [
 ];
 
 export default function HeroAssetTab() {
+    const [selectedAsset, setSelectedAsset] = useState<string | null>(null);
+    
     const openMediaLibrary = (type: string) => {
-        toast('Media library coming soon');
+        setSelectedAsset(type);
     };
 
     const [selectedPage, setSelectedPage] = useState(PAGES[0].key);

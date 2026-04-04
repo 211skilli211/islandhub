@@ -702,8 +702,9 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             <div className="absolute top-2 right-2 flex gap-2">
                                                 <button
                                                     type="button"
-                                                    onClick={() => { toast('Crop tool coming soon!') }}
-                                                    className="bg-white text-slate-900 p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg hover:bg-slate-100"
+                                                    onClick={() => toast('Image editing - use upload to replace')}
+                                                    className="bg-white/50 text-slate-400 p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg cursor-not-allowed opacity-50"
+                                                    disabled
                                                 >
                                                     ✂️ Crop
                                                 </button>
