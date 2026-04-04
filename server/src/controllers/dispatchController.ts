@@ -384,19 +384,20 @@ export const updateTripStatus = async (req: Request, res: Response) => {
         const user = (req as any).user;
         const { trip_id, status } = req.body;
 
-        const validStatuses = ['assigned', 'arrived', 'picked_up', 'in_transit', 'completed', 'cancelled'];
+        const validStatuses = ['assigned', 'arrived', 'picked_up', 'in_transit', 'completed', 'cancelled'] as const;
         if (!validStatuses.includes(status)) {
             return res.status(400).json({ error: 'Invalid status' });
         }
 
-        const timestamp = { 
+        const timestampMap: Record<string, string> = { 
             assigned: 'accepted_at', 
             arrived: 'arrived_at',
             picked_up: 'picked_up_at',
             in_transit: 'in_transit_at',
             completed: 'completed_at',
             cancelled: 'cancelled_at'
-        }[status];
+        };
+        const timestamp = timestampMap[status];
 
         await pool.query(
             `UPDATE trips SET status = $1, ${timestamp} = NOW() 
