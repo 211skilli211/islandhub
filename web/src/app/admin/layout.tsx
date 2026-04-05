@@ -14,7 +14,7 @@ import {
     ClipboardList, ChevronLeft, ChevronRight, LogOut, 
     Home, ArrowLeft, Menu, X
 } from 'lucide-react';
-import AdminBreadcrumb from './AdminBreadcrumb';
+import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
 
 const adminNavItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard, href: '/admin/overview' },

@@ -1,6 +1,6 @@
 'use client';
 
-import toast, { ToastOptions } from 'react-hot-toast';
+import { toast as hotToast, ToastOptions } from 'react-hot-toast';
 
 export type ToastStyle = 'modern-dark' | 'clean-light' | 'teal-accent' | 'neumorphic' | 'minimal';
 
@@ -200,21 +200,21 @@ export function setToastStyle(style: ToastStyle) {
 }
 
 export const toast = {
-  ...toast,
+  ...hotToast,
   success: (message: string, opts?: ToastOptions): string | undefined => {
     const style = getToastStyle();
     const config = toastStyles[style];
-    return toast.success(message, { ...defaultOptions, ...opts, style: config.success.style });
+    return hotToast.success(message, { ...defaultOptions, ...opts, style: config.success.style });
   },
   error: (message: string, opts?: ToastOptions): string | undefined => {
     const style = getToastStyle();
     const config = toastStyles[style];
-    return toast.error(message, { ...defaultOptions, duration: 5000, ...opts, style: config.error.style });
+    return hotToast.error(message, { ...defaultOptions, duration: 5000, ...opts, style: config.error.style });
   },
   loading: (message: string, opts?: ToastOptions): string | undefined => {
     const style = getToastStyle();
     const config = toastStyles[style];
-    return toast.loading(message, { ...defaultOptions, duration: Infinity, ...opts, style: config.loading.style });
+    return hotToast.loading(message, { ...defaultOptions, duration: Infinity, ...opts, style: config.loading.style });
   },
   promise: <T>(
     promise: Promise<T>,
@@ -227,7 +227,7 @@ export const toast = {
   ): Promise<T> => {
     const style = getToastStyle();
     const config = toastStyles[style];
-    return toast.promise(promise, {
+    return hotToast.promise(promise, {
       loading: msgs.loading,
       success: msgs.success,
       error: msgs.error,
