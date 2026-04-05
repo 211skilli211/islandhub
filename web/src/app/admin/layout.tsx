@@ -283,12 +283,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </motion.aside>
 
             {/* Main Content */}
-            <motion.main 
-                initial={false}
-                animate={{ marginLeft: collapsed ? 80 : 280 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="flex-1 min-w-0"
-            >
+            <main className="
+                flex-1 min-w-0 
+                ml-0 
+                lg:ml-20 
+                xl:ml-72 
+                transition-all duration-300
+            ">
                 {/* Header with Breadcrumb */}
                 <header className="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700">
                     <div className="px-6 py-4 flex items-center justify-between">
