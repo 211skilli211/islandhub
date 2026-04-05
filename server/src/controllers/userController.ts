@@ -225,25 +225,169 @@ export const deleteAccount = async (req: Request, res: Response) => {
     }
 };
 
+// @desc    Request password reset (forgot password)
+// @access  Public
+export const requestPasswordReset = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ message: 'Email required' });
+        }
+
+        const userResult = await pool.query('SELECT user_id, email, name FROM users WHERE email = $1 AND status != "deleted"', [email]);
+        
+        if (userResult.rows.length === 0) {
+            // Don't reveal if user exists
+            return res.json({ success: true, message: 'If an account exists, a reset link has been sent' });
+        }
+
+        // Generate reset token (single-use, 15 min expiry)
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+        // Store token
+        await pool.query(
+            `INSERT INTO password_reset_tokens (user_id, token, expires_at) 
+             VALUES ($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET token = $2, expires_at = $3`,
+            [userResult.rows[0].user_id, resetToken, expiresAt]
+        );
+
+        // Send reset email
+        const resetLink = `${process.env.FRONTEND_URL || 'https://islandhub.com'}/reset-password?token=${resetToken}`;
+        
+        try {
+            const { EmailService } = require('../services/emailService');
+            await EmailService.sendPasswordResetEmail(
+                userResult.rows[0].email,
+                userResult.rows[0].name || 'User',
+                resetLink
+            );
+        } catch (emailErr) {
+            console.error('Failed to send reset email:', emailErr);
+            // Log token for development
+            console.log(`[DEV] Password reset link: ${resetLink}`);
+        }
+
+        res.json({ success: true, message: 'If an account exists, a reset link has been sent' });
+    } catch (error) {
+        console.error('Request password reset error:', error);
+        res.status(500).json({ message: 'Failed to process request' });
+    }
+};
+
+// @desc    Reset password with token
+// @access  Public
+export const resetPassword = async (req: Request, res: Response) => {
+    try {
+        const { token, new_password } = req.body;
+
+        if (!token || !new_password) {
+            return res.status(400).json({ message: 'Token and new password required' });
+        }
+
+        if (new_password.length < 8) {
+            return res.status(400).json({ message: 'Password must be at least 8 characters' });
+        }
+
+        // Find valid token
+        const tokenResult = await pool.query(
+            `SELECT user_id FROM password_reset_tokens 
+             WHERE token = $1 AND expires_at > NOW()`,
+            [token]
+        );
+
+        if (tokenResult.rows.length === 0) {
+            return res.status(400).json({ message: 'Invalid or expired reset token' });
+        }
+
+        const userId = tokenResult.rows[0].user_id;
+
+        // Hash and update password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(new_password, salt);
+
+        await pool.query(
+            'UPDATE users SET password = $1, updated_at = NOW() WHERE user_id = $2',
+            [hashedPassword, userId]
+        );
+
+        // Invalidate all reset tokens for this user (single-use)
+        await pool.query('DELETE FROM password_reset_tokens WHERE user_id = $1', [userId]);
+
+        res.json({ success: true, message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Reset password error:', error);
+        res.status(500).json({ message: 'Failed to reset password' });
+    }
+};
+
 // @desc    Enable 2FA (TOTP)
 // @access  Private
 export const enable2FA = async (req: Request, res: Response) => {
     try {
         const userId = (req.user as any)?.id;
+        const { method } = req.body;
         
-        // Generate TOTP secret
+        const twoFAMethod = method || 'authenticator';
+        
+        if (twoFAMethod === 'email') {
+            // Email OTP - generate and send code
+            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+            const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 min for OTP
+            
+            // Get user email
+            const userResult = await pool.query('SELECT email, name FROM users WHERE user_id = $1', [userId]);
+            if (userResult.rows.length === 0) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            
+            // Store OTP
+            await pool.query(
+                `INSERT INTO user_2fa (user_id, method, email_otp_secret, email_otp_enabled) 
+                 VALUES ($1, 'email', $2, FALSE) ON CONFLICT (user_id) DO UPDATE SET method = 'email', email_otp_secret = $2`,
+                [userId, otpCode]
+            );
+            
+            // Send OTP via email
+            try {
+                const { EmailService } = require('../services/emailService');
+                await EmailService.sendGenericEmail(
+                    userResult.rows[0].email,
+                    'Your IslandHub Verification Code',
+                    `<div style="font-family: Arial, sans-serif; max-width: 400px; margin: 0 auto; padding: 20px; text-align: center;">
+                        <h2 style="color: #0d9488;">🌴 IslandHub</h2>
+                        <p style="color: #334155;">Your verification code is:</p>
+                        <div style="background: #f0fdfa; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                            <span style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #0d9488;">${otpCode}</span>
+                        </div>
+                        <p style="color: #64748b; font-size: 12px;">This code expires in 5 minutes.</p>
+                    </div>`
+                );
+            } catch (emailErr) {
+                console.log(`[DEV] Email OTP: ${otpCode}`);
+            }
+            
+            return res.json({ 
+                success: true, 
+                method: 'email',
+                message: 'Verification code sent to your email'
+            });
+        }
+        
+        // TOTP - original flow
         const secret = crypto.randomBytes(20).toString('hex');
         const otpauthUrl = `otpauth://totp(IslandHub:${userId})?secret=${secret}&issuer=IslandHub`;
 
-        // Store pending 2FA setup
         await pool.query(
-            `INSERT INTO user_2fa (user_id, secret, enabled) 
-             VALUES ($1, $2, FALSE) ON CONFLICT (user_id) DO UPDATE SET secret = $2, enabled = FALSE`,
+            `INSERT INTO user_2fa (user_id, secret, enabled, method) 
+             VALUES ($1, $2, FALSE, 'authenticator') ON CONFLICT (user_id) DO UPDATE SET secret = $2, enabled = FALSE, method = 'authenticator'`,
             [userId, secret]
         );
 
         res.json({ 
             success: true, 
+            method: 'authenticator',
             secret,
             otpauthUrl,
             message: 'Scan the QR code with your authenticator app, then verify with a code'
@@ -254,7 +398,7 @@ export const enable2FA = async (req: Request, res: Response) => {
     }
 };
 
-// @desc    Verify and activate 2FA
+// @desc    Verify and activate 2FA (handles both TOTP and Email OTP)
 // @access  Private
 export const verify2FA = async (req: Request, res: Response) => {
     try {
@@ -265,22 +409,30 @@ export const verify2FA = async (req: Request, res: Response) => {
             return res.status(400).json({ message: '6-digit code required' });
         }
 
-        // Get stored secret
-        const result = await pool.query('SELECT secret FROM user_2fa WHERE user_id = $1', [userId]);
+        // Get 2FA setup info
+        const result = await pool.query('SELECT method, secret, email_otp_secret FROM user_2fa WHERE user_id = $1', [userId]);
         if (result.rows.length === 0) {
             return res.status(400).json({ message: 'No 2FA setup in progress' });
         }
 
-        const secret = result.rows[0].secret;
+        const { method, secret, email_otp_secret } = result.rows[0];
 
-        // Simple TOTP verification (in production, use proper TOTP library)
-        // For now, accept any 6-digit code (placeholder - implement proper TOTP)
-        if (!/^\d{6}$/.test(code)) {
-            return res.status(400).json({ message: 'Invalid code format' });
+        // Verify based on method
+        if (method === 'email') {
+            // Verify email OTP
+            if (code !== email_otp_secret) {
+                return res.status(400).json({ message: 'Invalid verification code' });
+            }
+            // Enable email OTP
+            await pool.query('UPDATE user_2fa SET email_otp_enabled = TRUE, enabled = TRUE WHERE user_id = $1', [userId]);
+        } else {
+            // Verify TOTP (placeholder - accept any 6-digit for now)
+            if (!/^\d{6}$/.test(code)) {
+                return res.status(400).json({ message: 'Invalid code format' });
+            }
+            // Enable TOTP
+            await pool.query('UPDATE user_2fa SET enabled = TRUE WHERE user_id = $1', [userId]);
         }
-
-        // Enable 2FA
-        await pool.query('UPDATE user_2fa SET enabled = TRUE WHERE user_id = $1', [userId]);
 
         // Generate backup codes
         const backupCodes = Array.from({ length: 10 }, () => crypto.randomBytes(4).toString('hex').toUpperCase());
@@ -288,8 +440,15 @@ export const verify2FA = async (req: Request, res: Response) => {
 
         res.json({ 
             success: true, 
+            method,
             message: '2FA enabled successfully',
-            backupCodes // In production, show only once
+            backupCodes // Show only once in production
+        });
+    } catch (error) {
+        console.error('Verify 2FA error:', error);
+        res.status(500).json({ message: 'Failed to verify 2FA' });
+    }
+};
         });
     } catch (error) {
         console.error('Verify 2FA error:', error);

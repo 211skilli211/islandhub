@@ -428,4 +428,37 @@ export class EmailService {
         `;
         return this.sendEmail(to, subject, html);
     }
+
+    static async sendPasswordResetEmail(to: string, name: string, resetLink: string) {
+        const subject = '🔐 Reset Your IslandHub Password';
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #0d9488; margin: 0;">🌴 IslandHub</h1>
+                    <p style="color: #64748b;">Password Reset</p>
+                </div>
+                <div style="background: #fef3c7; padding: 30px; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                    <h2 style="color: #92400e; margin-top: 0;">Reset Your Password</h2>
+                    <p style="color: #334155;">Hi ${name},</p>
+                    <p style="color: #334155;">We received a request to reset your password. This link expires in <strong>15 minutes</strong>.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${resetLink}" style="display: inline-block; background: #f59e0b; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                            Reset Password
+                        </a>
+                    </div>
+                    <p style="color: #64748b; font-size: 12px;">
+                        If you didn't request this, please ignore this email or contact support if you have concerns.
+                    </p>
+                </div>
+                <p style="color: #94a3b8; font-size: 12px; text-align: center; margin-top: 20px;">
+                    © ${new Date().getFullYear()} IslandHub. All rights reserved.
+                </p>
+            </div>
+        `;
+        return this.sendEmail(to, subject, html);
+    }
+
+    static async sendGenericEmail(to: string, subject: string, html: string) {
+        return this.sendEmail(to, subject, html);
+    }
 }

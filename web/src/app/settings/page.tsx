@@ -59,6 +59,8 @@ export default function SettingsPage() {
     const [show2FASetup, setShow2FASetup] = useState(false);
     const [twoFASecret, setTwoFASecret] = useState('');
     const [twoFACode, setTwoFACode] = useState('');
+    const [twoFAMethod, setTwoFAMethod] = useState<'authenticator' | 'email'>('authenticator');
+    const [show2FAMethodSelect, setShow2FAMethodSelect] = useState(false);
     
     // Privacy
     const [privacyPrefs, setPrivacyPrefs] = useState({
@@ -183,12 +185,23 @@ export default function SettingsPage() {
     };
 
     const handleEnable2FA = async () => {
+        // If 2FA not enabled yet, show method selection first
+        if (!twoFAEnabled && !show2FASetup) {
+            setShow2FAMethodSelect(true);
+            return;
+        }
+        
         setSaving(true);
         try {
-            const res = await api.post('/users/2fa/enable');
-            setTwoFASecret(res.data.secret);
-            setShow2FASetup(true);
-            toast.success('2FA setup initiated');
+            const res = await api.post('/users/2fa/enable', { method: twoFAMethod });
+            if (res.data.method === 'email') {
+                setShow2FASetup(true);
+                toast.success('Verification code sent to your email');
+            } else {
+                setTwoFASecret(res.data.secret);
+                setShow2FASetup(true);
+                toast.success('2FA setup initiated - scan QR code');
+            }
         } catch { toast.error('Failed to enable 2FA'); }
         setSaving(false);
     };
@@ -199,7 +212,9 @@ export default function SettingsPage() {
         try {
             const res = await api.post('/users/2fa/verify', { code: twoFACode });
             setTwoFAEnabled(true);
+            setTwoFAMethod(res.data.method);
             setShow2FASetup(false);
+            setShow2FAMethodSelect(false);
             toast.success('2FA enabled! Save your backup codes: ' + (res.data.backupCodes?.join(', ') || 'N/A'));
         } catch { toast.error('Invalid code'); }
         setSaving(false);
@@ -466,16 +481,46 @@ export default function SettingsPage() {
                                         <div className="p-6 bg-slate-50 rounded-3xl">
                                             <div className="flex items-center justify-between mb-4">
                                                 <h3 className="font-bold text-slate-900">🔐 Two-Factor Authentication</h3>
-                                                {twoFAEnabled && <span className="text-teal-600 text-xs font-bold">✓ Enabled</span>}
+                                                {twoFAEnabled && <span className="text-teal-600 text-xs font-bold">✓ {twoFAMethod === 'email' ? 'Email OTP' : 'Authenticator'} Enabled</span>}
                                             </div>
                                             <p className="text-sm text-slate-500 mb-4">Add an extra layer of security to your account</p>
                                             
+                                            {show2FAMethodSelect && !show2FASetup && (
+                                                <div className="space-y-4">
+                                                    <p className="text-sm font-medium text-slate-700">Choose 2FA method:</p>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                        <button 
+                                                            onClick={() => { setTwoFAMethod('authenticator'); setShow2FAMethodSelect(false); handleEnable2FA(); }}
+                                                            className="p-4 bg-white border border-slate-200 rounded-xl text-left hover:border-teal-500 transition-colors"
+                                                        >
+                                                            <div className="font-bold text-slate-900">📱 Authenticator App</div>
+                                                            <div className="text-xs text-slate-500 mt-1">Google Auth, Authy, etc.</div>
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => { setTwoFAMethod('email'); setShow2FAMethodSelect(false); handleEnable2FA(); }}
+                                                            className="p-4 bg-white border border-slate-200 rounded-xl text-left hover:border-teal-500 transition-colors"
+                                                        >
+                                                            <div className="font-bold text-slate-900">📧 Email Code</div>
+                                                            <div className="text-xs text-slate-500 mt-1">Receive code via email</div>
+                                                        </button>
+                                                    </div>
+                                                    <button onClick={() => setShow2FAMethodSelect(false)} className="text-sm text-slate-500">Cancel</button>
+                                                </div>
+                                            )}
+
                                             {show2FASetup ? (
                                                 <div className="space-y-4">
-                                                    <div className="p-4 bg-white rounded-xl">
-                                                        <p className="text-xs font-bold text-slate-500 mb-2">Secret Key:</p>
-                                                        <code className="text-sm font-mono bg-slate-100 p-2 rounded block">{twoFASecret}</code>
-                                                    </div>
+                                                    {twoFAMethod === 'authenticator' && twoFASecret && (
+                                                        <div className="p-4 bg-white rounded-xl">
+                                                            <p className="text-xs font-bold text-slate-500 mb-2">Secret Key:</p>
+                                                            <code className="text-sm font-mono bg-slate-100 p-2 rounded block">{twoFASecret}</code>
+                                                        </div>
+                                                    )}
+                                                    {twoFAMethod === 'email' && (
+                                                        <div className="p-4 bg-white rounded-xl text-center">
+                                                            <p className="text-sm text-slate-600">Enter the 6-digit code sent to your email</p>
+                                                        </div>
+                                                    )}
                                                     <input 
                                                         type="text" 
                                                         value={twoFACode} 
