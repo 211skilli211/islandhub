@@ -14,7 +14,6 @@ import {
     Radio,
     DollarSign,
     Car,
-    Radio waves,
     Image,
     UserCheck,
     Building2,
