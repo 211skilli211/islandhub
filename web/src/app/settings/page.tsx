@@ -242,18 +242,6 @@ export default function SettingsPage() {
         setSaving(false);
     };
 
-    const tabs: { id: SettingsTab; label: string; icon: string }[] = [
-        { id: 'account', label: 'Account', icon: '👤' },
-        { id: 'notifications', label: 'Notifications', icon: '🔔' },
-        { id: 'privacy', label: 'Privacy', icon: '🔒' },
-        { id: 'security', label: 'Security', icon: '🛡️' },
-        { id: 'connected', label: 'Connected', icon: '🔗' },
-        { id: 'appearance', label: 'Appearance', icon: '🎨' },
-        { id: 'language', label: 'Language', icon: '🌐' },
-        { id: 'media-library', label: 'Media Library', icon: '🖼️' },
-        ...(user?.role === 'vendor' || user?.role === 'admin' ? [{ id: 'vendor' as SettingsTab, label: 'Vendor', icon: '🏪' }] : []),
-    ];
-
     const Toggle = ({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) => (
         <button
             onClick={() => onChange(!checked)}
@@ -264,36 +252,43 @@ export default function SettingsPage() {
     );
 
     return (
-        <div className="min-h-screen bg-slate-50 py-8 px-4">
+        <div className="py-8 px-4">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-black text-slate-900">Settings</h1>
-                    <p className="text-slate-500 mt-1">Manage your account and preferences</p>
+                    <h1 className="text-3xl font-black text-slate-900 dark:text-white">Settings</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-1">Manage your account and preferences</p>
                 </div>
 
-                <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col lg:flex-row">
-                    {/* Sidebar */}
-                    <div className="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-slate-100 p-4 space-y-1">
-                        {tabs.map(tab => (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-bold text-sm transition-all ${
-                                    activeTab === tab.id 
-                                        ? 'bg-teal-50 text-teal-700' 
-                                        : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
-                                }`}
-                            >
-                                <span className="text-lg">{tab.icon}</span>
-                                {tab.label}
-                            </button>
-                        ))}
-                    </div>
+                {/* Tab Navigation */}
+                <div className="flex flex-wrap gap-2 mb-8">
+                    {[
+                        { id: 'account', label: 'Account', icon: '👤' },
+                        { id: 'notifications', label: 'Notifications', icon: '🔔' },
+                        { id: 'security', label: 'Security', icon: '🛡️' },
+                        { id: 'privacy', label: 'Privacy', icon: '🔒' },
+                        { id: 'connected', label: 'Connected', icon: '🔗' },
+                        { id: 'appearance', label: 'Appearance', icon: '🎨' },
+                        { id: 'language', label: 'Language', icon: '🌐' },
+                        { id: 'media-library', label: 'Media', icon: '🖼️' },
+                        ...(user?.role === 'vendor' || user?.role === 'admin' ? [{ id: 'vendor', label: 'Vendor', icon: '🏪' }] : []),
+                    ].map(tab => (
+                        <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id as SettingsTab)}
+                            className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                                activeTab === tab.id 
+                                    ? 'bg-teal-600 text-white' 
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                            }`}
+                        >
+                            {tab.icon} {tab.label}
+                        </button>
+                    ))}
+                </div>
 
-                    {/* Content */}
-                    <div className="flex-1 p-8">
-                        <AnimatePresence mode="wait">
-                            <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
+                <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                    <AnimatePresence mode="wait">
+                        <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
                                 
                                 {/* ACCOUNT */}
                                 {activeTab === 'account' && (

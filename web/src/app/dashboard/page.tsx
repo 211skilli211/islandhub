@@ -177,7 +177,7 @@ export default function DashboardPage() {
     const activeStore = stores.find(s => (s.store_id || s.id) === activeStoreId);
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">
+        <div className="pb-20">
             <CreateListingModal
                 isOpen={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
