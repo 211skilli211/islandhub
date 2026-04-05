@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import { AdminTable, Column } from '@/components/admin/shared/AdminTable';
 import EditUserModal from '@/components/admin/EditUserModal';
 import CreateUserModal from '@/components/admin/CreateUserModal';
-import { User } from '@/lib/types';
 
 export default function AdminUsersPage() {
     const router = useRouter();
@@ -29,7 +28,7 @@ export default function AdminUsersPage() {
         }
     }, [isAuthenticated, user, router]);
 
-    const userColumns: Column<User>[] = [
+    const userColumns: Column<any>[] = [
         { header: 'ID', accessor: 'id', sortKey: 'id' },
         { header: 'Name', accessor: 'name', sortKey: 'name' },
         { header: 'Email', accessor: 'email', sortKey: 'email' },
