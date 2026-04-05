@@ -449,12 +449,6 @@ export const verify2FA = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Failed to verify 2FA' });
     }
 };
-        });
-    } catch (error) {
-        console.error('Verify 2FA error:', error);
-        res.status(500).json({ message: 'Failed to verify 2FA' });
-    }
-};
 
 // @desc    Disable 2FA
 // @access  Private
