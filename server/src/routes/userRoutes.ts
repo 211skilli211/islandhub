@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { updateProfile, getProfile, getCurrentUser, changePassword, requestEmailChange, deleteAccount, enable2FA, verify2FA, disable2FA, requestPasswordReset, resetPassword } from '../controllers/userController';
+import { updateProfile, getProfile, getCurrentUser, changePassword, requestEmailChange, deleteAccount, enable2FA, verify2FA, disable2FA, requestPasswordReset, resetPassword, updatePreferences } from '../controllers/userController';
 import { authenticateJWT } from '../middleware/authMiddleware';
 
 const router = Router();
@@ -12,6 +12,7 @@ router.post('/reset-password', resetPassword);
 router.get('/me', authenticateJWT, getCurrentUser);
 router.get('/:id', getProfile);
 router.put('/update', authenticateJWT, updateProfile);
+router.put('/preferences', authenticateJWT, updatePreferences);
 router.post('/change-password', authenticateJWT, changePassword);
 router.post('/change-email', authenticateJWT, requestEmailChange);
 router.delete('/delete-account', authenticateJWT, deleteAccount);

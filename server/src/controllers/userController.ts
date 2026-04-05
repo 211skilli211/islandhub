@@ -490,3 +490,45 @@ export const disable2FA = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Failed to disable 2FA' });
     }
 };
+
+// @desc    Update user preferences (notifications, privacy, etc)
+// @access  Private
+export const updatePreferences = async (req: Request, res: Response) => {
+    try {
+        const userId = (req.user as any)?.id;
+        const { notifications, privacy, ...rest } = req.body;
+
+        // Build preferences object
+        const preferences: any = {};
+        
+        if (notifications) {
+            preferences.notifications = notifications;
+        }
+        if (privacy) {
+            preferences.privacy = privacy;
+        }
+        // Store any other preferences
+        Object.keys(rest).forEach(key => {
+            preferences[key] = rest[key];
+        });
+
+        // Get current preferences
+        const currentResult = await pool.query(
+            'SELECT preferences FROM users WHERE user_id = $1',
+            [userId]
+        );
+
+        const currentPrefs = currentResult.rows[0]?.preferences || {};
+        const updatedPrefs = { ...currentPrefs, ...preferences };
+
+        await pool.query(
+            'UPDATE users SET preferences = $1, updated_at = NOW() WHERE user_id = $2',
+            [JSON.stringify(updatedPrefs), userId]
+        );
+
+        res.json({ success: true, preferences: updatedPrefs });
+    } catch (error) {
+        console.error('Update preferences error:', error);
+        res.status(500).json({ message: 'Failed to update preferences' });
+    }
+};
