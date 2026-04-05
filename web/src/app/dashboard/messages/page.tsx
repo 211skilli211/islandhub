@@ -32,6 +32,10 @@ function MessageCenterPage() {
     const [conversations, setConversations] = useState<any[]>([]);
     const [selectedUser, setSelectedUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showNewChat, setShowNewChat] = useState(false);
+    const [newChatUser, setNewChatUser] = useState('');
+    const [newChatMessage, setNewChatMessage] = useState('');
 
     const fetchConversations = async () => {
         try {
@@ -61,6 +65,29 @@ function MessageCenterPage() {
         }
     };
 
+    const startNewConversation = async () => {
+        if (!newChatUser.trim()) return;
+        try {
+            const res = await api.post('/messaging/conversations', {
+                participant_name: newChatUser,
+                initial_message: newChatMessage || 'Hi, I\'d like to connect!'
+            });
+            if (res.data.conversation) {
+                setSelectedUser(res.data.conversation);
+                setShowNewChat(false);
+                setNewChatUser('');
+                setNewChatMessage('');
+                fetchConversations();
+            }
+        } catch (err) {
+            console.error('Failed to start conversation', err);
+        }
+    };
+
+    const filteredConversations = conversations.filter(conv =>
+        conv.other_user_name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     useEffect(() => {
         fetchConversations();
         const interval = setInterval(fetchConversations, 10000);
@@ -84,15 +111,71 @@ function MessageCenterPage() {
 
                     {/* Inbox Sidebar */}
                     <div className="w-80 border-r border-slate-100 flex flex-col bg-white">
-                        <div className="p-8 border-b border-slate-100 flex items-center justify-between">
-                            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Inbox</h2>
-                            <span className="bg-indigo-50 text-indigo-600 text-[10px] font-black px-2 py-1 rounded-md">{conversations.length}</span>
+                        <div className="p-6 border-b border-slate-100">
+                            <div className="flex items-center justify-between mb-4">
+                                <h2 className="text-xl font-black text-slate-900 tracking-tight">Messages</h2>
+                                <button 
+                                    onClick={() => setShowNewChat(true)}
+                                    className="p-2 bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            {/* Search */}
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Search conversations..."
+                                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                />
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+                            </div>
                         </div>
+                        
+                        {/* New Chat Modal */}
+                        {showNewChat && (
+                            <div className="p-4 border-b border-slate-100 bg-teal-50">
+                                <p className="text-sm font-bold text-teal-800 mb-3">Start New Conversation</p>
+                                <input
+                                    type="text"
+                                    value={newChatUser}
+                                    onChange={(e) => setNewChatUser(e.target.value)}
+                                    placeholder="User name or email..."
+                                    className="w-full px-3 py-2 mb-2 bg-white border border-slate-200 rounded-lg text-sm"
+                                />
+                                <textarea
+                                    value={newChatMessage}
+                                    onChange={(e) => setNewChatMessage(e.target.value)}
+                                    placeholder="Initial message..."
+                                    className="w-full px-3 py-2 mb-2 bg-white border border-slate-200 rounded-lg text-sm"
+                                    rows={2}
+                                />
+                                <div className="flex gap-2">
+                                    <button 
+                                        onClick={startNewConversation}
+                                        className="flex-1 py-2 bg-teal-600 text-white rounded-lg text-sm font-bold"
+                                    >
+                                        Start Chat
+                                    </button>
+                                    <button 
+                                        onClick={() => setShowNewChat(false)}
+                                        className="px-4 py-2 text-slate-500 text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                        
                         <div className="flex-1 overflow-y-auto">
-                            {conversations.length === 0 && !initialOtherUserId ? (
+                            {filteredConversations.length === 0 && !initialOtherUserId ? (
                                 <div className="p-12 text-center opacity-40">
                                     <div className="text-4xl mb-4">📬</div>
-                                    <p className="font-bold italic text-slate-400 text-sm leading-relaxed">Your inbox is empty. Start a conversation with a vendor!</p>
+                                    <p className="font-bold italic text-slate-400 text-sm leading-relaxed">
+                                        {searchQuery ? 'No matches found' : 'Your inbox is empty. Start a conversation!'}
+                                    </p>
                                 </div>
                             ) : (
                                 <div className="divide-y divide-slate-50">
@@ -114,29 +197,44 @@ function MessageCenterPage() {
                                         </button>
                                     )}
 
-                                    {conversations.map((conv) => (
-                                        <button
-                                            key={conv.other_user_id}
-                                            onClick={() => setSelectedUser(conv)}
-                                            className={`w-full p-8 text-left transition-all group ${selectedUser?.other_user_id === conv.other_user_id ? 'bg-indigo-50/50 border-r-4 border-indigo-500' : 'hover:bg-slate-50/50'}`}
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 bg-slate-100 group-hover:bg-indigo-100 rounded-2xl flex items-center justify-center text-slate-500 group-hover:text-indigo-600 font-black transition-colors shadow-inner">
-                                                    {conv.other_user_name.charAt(0)}
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="flex justify-between items-baseline mb-1">
-                                                        <h3 className="font-black text-slate-900 truncate text-sm">{conv.other_user_name}</h3>
-                                                        <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                                                            {new Date(conv.last_message_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}
-                                                        </span>
+                                    {filteredConversations.map((conv) => (
+                                        <div key={conv.other_user_id} className="relative group">
+                                            <button
+                                                onClick={() => setSelectedUser(conv)}
+                                                className={`w-full p-6 text-left transition-all group ${selectedUser?.other_user_id === conv.other_user_id ? 'bg-teal-50/50 border-r-4 border-teal-500' : 'hover:bg-slate-50/50'}`}
+                                            >
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black transition-colors ${
+                                                        conv.unread_count > 0 ? 'bg-teal-600 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-teal-100 group-hover:text-teal-600'
+                                                    }`}>
+                                                        {conv.other_user_name?.charAt(0)}
                                                     </div>
-                                                    <p className="text-xs text-slate-500 font-medium truncate italic opacity-80">
-                                                        {conv.last_message || 'Start chatting...'}
-                                                    </p>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex justify-between items-baseline mb-1">
+                                                            <h3 className="font-bold text-slate-900 truncate text-sm">{conv.other_user_name}</h3>
+                                                            <span className="text-[8px] text-slate-400 uppercase">
+                                                                {new Date(conv.last_message_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-xs text-slate-500 font-medium truncate">
+                                                            {conv.last_message || 'Start chatting...'}
+                                                        </p>
+                                                    </div>
+                                                    {conv.unread_count > 0 && (
+                                                        <span className="bg-teal-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                                            {conv.unread_count}
+                                                        </span>
+                                                    )}
                                                 </div>
-                                            </div>
-                                        </button>
+                                            </button>
+                                            {/* Conversation Settings */}
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); /* TODO: show settings menu */ }}
+                                                className="absolute top-2 right-2 p-2 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-slate-600 transition-opacity"
+                                            >
+                                                ⚙️
+                                            </button>
+                                        </div>
                                     ))}
                                 </div>
                             )}
