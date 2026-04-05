@@ -123,8 +123,8 @@ export default function RegisterPage() {
                         <div className="w-20 h-20 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
                             📧
                         </div>
-                        <h2 className="text-2xl font-black text-gray-900">Check Your Email</h2>
-                        <p className="text-gray-500 text-sm">
+                        <h2 className="text-2xl font-black text-slate-900">Check Your Email</h2>
+                        <p className="text-slate-500 text-sm">
                             We've sent a verification link to <strong>{email}</strong>.
                             <br />Please verify your account to continue.
                         </p>

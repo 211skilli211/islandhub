@@ -52,12 +52,12 @@ export default function ForgotPasswordPage() {
     return (
         <>
             <Toaster position="top-center" />
-            <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">
                         Reset your password
                     </h2>
-                    <p className="mt-2 text-center text-sm text-gray-600">
+                    <p className="mt-2 text-center text-sm text-slate-600">
                         Enter your email and we'll send you a reset link
                     </p>
                 </div>
@@ -66,7 +66,7 @@ export default function ForgotPasswordPage() {
                     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="email" className="block text-sm font-medium text-slate-700">
                                     Email address
                                 </label>
                                 <div className="mt-1">
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                                        className="block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:border-teal-500 sm:text-sm"
                                     />
                                 </div>
                             </div>
