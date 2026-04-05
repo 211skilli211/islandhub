@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { registerUser, useAuthStore } from '@/lib/auth';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const ROLE_OPTIONS = [
     { id: 'buyer', label: 'Buyer', icon: '🛒', desc: 'Shop products and services' },
@@ -117,7 +117,6 @@ export default function RegisterPage() {
     if (registrationSuccess) {
         return (
             <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-                <Toaster position="top-center" />
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="bg-white py-8 px-4 shadow sm:rounded-3xl sm:px-10 text-center space-y-6">
                         <div className="w-20 h-20 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
@@ -141,7 +140,6 @@ export default function RegisterPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <Toaster position="top-center" />
             <div className="sm:mx-auto sm:w-full sm:max-w-lg">
                 <div className="text-center mb-8">
                     <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-xs font-black uppercase tracking-widest mb-4">

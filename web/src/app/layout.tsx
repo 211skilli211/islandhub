@@ -5,7 +5,7 @@ import { memo } from 'react';
 import Navbar from "@/components/Navbar";
 import TextMarquee from "@/components/TextMarquee";
 import Footer from "@/components/Footer";
-import { Toaster } from "react-hot-toast";
+import Toaster from "@/components/Toaster";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { CartProvider } from "@/contexts/CartContext";
 import FloatingBanner from "@/components/FloatingBanner";
@@ -50,7 +50,7 @@ export default function RootLayout({
           <MemoizedFloatingBanner location="global" />
           <MobileAnnouncement />
           {children}
-          <Toaster position="bottom-right" />
+          <Toaster />
           <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
           <FloatingHub />
           <MemoizedFooter />

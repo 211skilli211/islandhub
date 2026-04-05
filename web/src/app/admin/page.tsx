@@ -31,7 +31,7 @@ import BroadcastTab from '@/components/admin/BroadcastTab';
 import HeroAssetTab from '@/components/admin/HeroAssetTab';
 import BadgeSelector, { BadgeList } from '@/components/marketplace/BadgeSelector';
 import { AdminTable, Column } from '@/components/admin/shared/AdminTable';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import DriversTab from '@/components/admin/DriversTab';
 import LogisticsRatesTab from '@/components/admin/LogisticsRatesTab';
 import OrdersTab from '@/components/admin/OrdersTab';
@@ -140,7 +140,7 @@ export default function AdminPage() {
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [editingListing, setEditingListing] = useState<any>(null);
     const [editingStore, setEditingStore] = useState<Store | null>(null);
-    const [settingsTab, setSettingsTab] = useState<'general' | 'vendor' | 'moderation' | 'export'>('general');
+    const [settingsTab, setSettingsTab] = useState<'general' | 'theme' | 'vendor' | 'moderation' | 'export'>('general');
     const [roleChangeUser, setRoleChangeUser] = useState<User | null>(null);
 
     // Badges State
@@ -571,8 +571,6 @@ export default function AdminPage() {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-800 py-8 px-4 sm:px-6 lg:px-8">
-            <Toaster position="bottom-right" />
-
             {/* Modals */}
             {roleChangeUser && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">

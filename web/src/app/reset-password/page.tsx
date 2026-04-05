@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 function ResetPasswordContent() {
     const [password, setPassword] = useState('');
@@ -64,7 +64,6 @@ function ResetPasswordContent() {
 
     return (
         <>
-            <Toaster position="top-center" />
             <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">

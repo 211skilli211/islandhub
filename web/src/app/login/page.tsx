@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { loginUser, useAuthStore } from '@/lib/auth';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -53,7 +53,6 @@ export default function LoginPage() {
 
     return (
         <>
-            <Toaster position="top-center" />
             <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">

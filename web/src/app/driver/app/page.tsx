@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import Link from 'next/link';
 
 interface DriverStatus {
@@ -154,7 +154,6 @@ export default function DriverApp() {
 
     return (
         <div className="min-h-screen bg-slate-900 text-white">
-            <Toaster position="top-center" />
             
             {/* Header */}
             <div className="bg-slate-800 p-4 sticky top-0 z-50">

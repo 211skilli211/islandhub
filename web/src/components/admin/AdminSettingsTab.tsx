@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import ThemeSettingsPanel from './ThemeSettingsPanel';
 
 interface AdminSettingsTabProps {
     settings: any;
     setSettings: (settings: any) => void;
     saveSettings: () => void;
     savingSettings: boolean;
-    settingsTab: 'general' | 'vendor' | 'moderation' | 'export';
-    setSettingsTab: (tab: 'general' | 'vendor' | 'moderation' | 'export') => void;
+    settingsTab: 'general' | 'theme' | 'vendor' | 'moderation' | 'export';
+    setSettingsTab: (tab: 'general' | 'theme' | 'vendor' | 'moderation' | 'export') => void;
     handleExport: (type: string) => void;
 }
 
@@ -81,7 +82,7 @@ export default function AdminSettingsTab({
                     </h3>
                 </div>
 
-                {['general', 'vendor', 'moderation', 'export'].map(tab => (
+                {['general', 'theme', 'vendor', 'moderation', 'export'].map(tab => (
                     <button
                         key={tab}
                         onClick={() => setSettingsTab(tab as any)}
@@ -122,6 +123,8 @@ export default function AdminSettingsTab({
                                 <p className="text-slate-500 text-[10px]">Download all active listings as CSV.</p>
                             </button>
                         </div>
+                    ) : settingsTab === 'theme' ? (
+                        <ThemeSettingsPanel />
                     ) : (
                         <div className="space-y-8">
                             <div className="grid grid-cols-1 gap-6">
