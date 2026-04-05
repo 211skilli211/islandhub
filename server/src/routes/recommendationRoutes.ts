@@ -1,37 +1,29 @@
-import express from 'express';
-import { pool } from '../config/db';
+import { Router } from 'express';
+import { authenticateJWT } from '../middleware/authMiddleware';
+import {
+    getRecommendations,
+    getSimilarListings,
+    getTrending,
+    getHomepageSections
+} from '../controllers/recommendationController';
 
-const router = express.Router();
+const router = Router();
 
-// Basic trending recommendations (featured listings)
-router.get('/trending', async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit as string) || 10;
-        const result = await pool.query(
-            "SELECT l.*, s.name as shop_name, s.slug as shop_slug, s.logo_url as shop_logo, s.banner_url as shop_banner FROM listings l LEFT JOIN stores s ON l.store_id = s.store_id WHERE l.status = 'active' AND l.featured = true AND l.type IN ('product', 'service') ORDER BY l.created_at DESC LIMIT $1",
-            [limit]
-        );
-        res.json({ recommendations: result.rows });
-    } catch (error) {
-        console.error('Error fetching trending recommendations:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
+// Get personalized recommendations (AI-powered)
+router.get('/recommendations', authenticateJWT, getRecommendations);
 
-// Basic personalized recommendations (random for now, or match user interests)
-router.get('/personalized', async (req, res) => {
-    try {
-        const limit = parseInt(req.query.limit as string) || 10;
-        // For now, just return random active products/services
-        const result = await pool.query(
-            "SELECT l.*, s.name as shop_name, s.slug as shop_slug FROM listings l LEFT JOIN stores s ON l.store_id = s.store_id WHERE l.status = 'active' AND l.type IN ('product', 'service') ORDER BY RANDOM() LIMIT $1",
-            [limit]
-        );
-        res.json({ recommendations: result.rows });
-    } catch (error) {
-        console.error('Error fetching personalized recommendations:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
+// Get similar listings (vector-based)
+router.get('/similar/:listing_id', getSimilarListings);
+
+// Get trending listings
+router.get('/trending', getTrending);
+
+// Get personalized homepage sections
+router.get('/homepage', authenticateJWT, getHomepageSections);
+
+// Legacy endpoints (kept for backward compatibility)
+router.get('/trending', getTrending);
+
+router.get('/personalized', authenticateJWT, getRecommendations);
 
 export default router;
