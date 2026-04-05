@@ -17,7 +17,7 @@ const ImageUpload = dynamic(
     }
 );
 
-type SettingsTab = 'account' | 'notifications' | 'privacy' | 'security' | 'connected' | 'appearance' | 'language' | 'vendor';
+type SettingsTab = 'account' | 'notifications' | 'privacy' | 'security' | 'connected' | 'appearance' | 'language' | 'vendor' | 'media-library';
 
 interface NotificationPrefs {
     email_orders: boolean;
@@ -226,6 +226,7 @@ export default function SettingsPage() {
         { id: 'connected', label: 'Connected', icon: '🔗' },
         { id: 'appearance', label: 'Appearance', icon: '🎨' },
         { id: 'language', label: 'Language', icon: '🌐' },
+        { id: 'media-library', label: 'Media Library', icon: '🖼️' },
         ...(user?.role === 'vendor' || user?.role === 'admin' ? [{ id: 'vendor' as SettingsTab, label: 'Vendor', icon: '🏪' }] : []),
     ];
 
@@ -669,6 +670,41 @@ export default function SettingsPage() {
                                         <button onClick={handleSaveVendor} disabled={saving} className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm">
                                             {saving ? 'Saving...' : 'Save Vendor Settings'}
                                         </button>
+                                    </div>
+                                )}
+
+                                {/* MEDIA LIBRARY */}
+                                {activeTab === 'media-library' && (
+                                    <div className="space-y-8">
+                                        <div>
+                                            <h2 className="text-xl font-black text-slate-900">Media Library</h2>
+                                            <p className="text-sm text-slate-500">Manage your uploaded images and files</p>
+                                        </div>
+
+                                        {mediaLoading ? (
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                {[...Array(8)].map((_, i) => (
+                                                    <div key={i} className="aspect-square bg-slate-100 animate-pulse rounded-xl" />
+                                                ))}
+                                            </div>
+                                        ) : mediaItems.length > 0 ? (
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                {mediaItems.map((item: any, idx: number) => (
+                                                    <div key={idx} className="relative group aspect-square bg-slate-100 rounded-xl overflow-hidden">
+                                                        <img src={item.url || getImageUrl(item.filename)} alt={item.filename} className="w-full h-full object-cover" />
+                                                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                            <button onClick={() => handleDeleteMedia(item.filename)} className="p-2 bg-rose-600 text-white rounded-lg text-xs font-bold">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="text-center py-12 text-slate-400">
+                                                No media uploaded yet
+                                            </div>
+                                        )}
                                     </div>
                                 )}
 
