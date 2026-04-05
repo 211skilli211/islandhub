@@ -91,8 +91,8 @@ export const sendPushNotification = async (notification: PushNotification): Prom
 
         // Broadcast via SSE if user is connected
         try {
-            const { emitToUser } = await import('../services/notificationService');
-            emitToUser(user_id, 'push_notification', {
+            const { notifyUser } = await import('../services/notificationService');
+            notifyUser(user_id, 'push_notification', {
                 id: result.rows[0].id,
                 title,
                 message,

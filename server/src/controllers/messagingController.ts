@@ -169,7 +169,7 @@ export const sendMessage = async (req: Request, res: Response) => {
 
         // Send notification
         try {
-            const { sendTemplatedPushNotification } = await import('./pushNotificationService');
+            const { sendTemplatedPushNotification } = await import('../services/pushNotificationService');
             await sendTemplatedPushNotification(recipientId, 'new_message', {
                 sender: user.name,
                 message: content.substring(0, 50) + (content.length > 50 ? '...' : '')

@@ -5,11 +5,11 @@
 
 import { Router } from 'express';
 import { bulkUpdateStatus, bulkUpdatePrices, bulkDelete, bulkAddToCategory, getBulkStats } from '../controllers/bulkController';
-import { authenticate } from '../middleware/auth';
+import { authenticateJWT } from '../middleware/authMiddleware';
 
 const router = Router();
 
-router.use(authenticate);
+router.use(authenticateJWT);
 
 router.post('/status', bulkUpdateStatus);
 router.post('/prices', bulkUpdatePrices);
