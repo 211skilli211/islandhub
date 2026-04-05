@@ -161,7 +161,7 @@ export default function AdminUsersPage() {
             </div>
 
             {/* Table */}
-            <AdminTable<User>
+            <AdminTable<any>
                 key={`users-${refreshKey}`}
                 endpoint="/admin/users"
                 keyName="users"
