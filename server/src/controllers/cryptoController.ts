@@ -155,7 +155,23 @@ async function handleCryptoPaymentSuccess(chargeId: string, cryptoCurrency: stri
     if (transaction.order_id) {
         const { OrderModel } = require('../models/Order');
         await OrderModel.updateStatus(transaction.order_id, 'paid');
-        // TODO: Send order confirmation email
+        
+        // Send order confirmation email
+        try {
+            const { EmailService } = require('../services/emailService');
+            const order = await OrderModel.findById(transaction.order_id);
+            if (order && order.user_email) {
+                await EmailService.sendOrderConfirmation(
+                    order.user_email,
+                    order.order_number || `ORD-${transaction.order_id}`,
+                    parseFloat(order.total_amount),
+                    order.currency || 'USD',
+                    order.item_count || 1
+                );
+            }
+        } catch (emailErr) {
+            console.error('Failed to send order confirmation email:', emailErr);
+        }
     }
 
     console.log(`✅ Kyrrex payment confirmed: ${chargeId} (${cryptoCurrency}) - ${transaction.amount}`);

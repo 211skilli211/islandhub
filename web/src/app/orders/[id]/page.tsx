@@ -366,8 +366,15 @@ export default function OrderDetailPage() {
               <div className="space-y-3">
                 {order.status === 'pending' && (
                   <button
-                    onClick={() => {
-                      toast('Payment retry coming soon');
+                    onClick={async () => {
+                      try {
+                        const res = await api.post(`/orders/${order.id}/retry`);
+                        if (res.data.checkoutUrl) {
+                          window.location.href = res.data.checkoutUrl;
+                        }
+                      } catch (err: any) {
+                        toast.error(err.response?.data?.message || 'Failed to retry payment');
+                      }
                     }}
                     className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
                   >

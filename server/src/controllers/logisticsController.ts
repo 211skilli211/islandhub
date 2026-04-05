@@ -313,8 +313,7 @@ export const updateJobStatus = async (req: Request, res: Response) => {
                 }
             } catch (revenueError) {
                 console.error('Failed to process revenue for completed delivery:', revenueError);
-                // Don't fail status update, just log the error for manual intervention
-                // TODO: Add to retry queue or manual review system
+                // Revenue processing failed - log for manual review (future: add to retry queue)
             }
         }
 

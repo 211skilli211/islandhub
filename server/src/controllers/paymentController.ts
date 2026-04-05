@@ -305,13 +305,32 @@ async function handlePaymentFailure(paymentIntent: any) {
  */
 async function handlePayoutCompleted(payout: any) {
     const vendorId = payout.metadata.vendor_id;
-
+    
     await pool.query(
         'UPDATE payouts SET status = $1, processed_at = CURRENT_TIMESTAMP WHERE payout_reference = $2',
         ['completed', payout.id]
     );
 
-    // TODO: Send payout confirmation email to vendor
+    // Send payout confirmation email to vendor
+    try {
+        const { EmailService } = require('../services/emailService');
+        const vendorResult = await pool.query(
+            'SELECT u.email, u.name, p.amount, p.currency, p.payout_reference FROM payouts p JOIN users u ON u.user_id = p.vendor_id WHERE p.payout_reference = $1',
+            [payout.id]
+        );
+        if (vendorResult.rows.length > 0) {
+            const vendor = vendorResult.rows[0];
+            await EmailService.sendPayoutConfirmation(
+                vendor.email,
+                parseFloat(vendor.amount),
+                vendor.currency || 'USD',
+                vendor.payout_reference
+            );
+        }
+    } catch (emailErr) {
+        console.error('Failed to send payout confirmation email:', emailErr);
+    }
+    
     console.log(`Payout completed for vendor ${vendorId}`);
 }
 

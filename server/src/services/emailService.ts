@@ -397,4 +397,35 @@ export class EmailService {
         `;
         return this.sendEmail(to, subject, html);
     }
+
+    static async sendPayoutConfirmation(to: string, amount: number, currency: string, payoutReference: string) {
+        const subject = '💰 Payout Processed - IslandHub';
+        const html = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #0d9488; margin: 0;">🌴 IslandHub</h1>
+                    <p style="color: #64748b;">Vendor Payout Confirmation</p>
+                </div>
+                <div style="background: #f0fdfa; padding: 30px; border-radius: 12px;">
+                    <h2 style="color: #134e4a; margin-top: 0;">💸 Payout Completed!</h2>
+                    <p style="color: #334155;">Your payout has been processed successfully.</p>
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Amount:</strong> ${amount.toFixed(2)} ${currency}</p>
+                        <p><strong>Reference:</strong> ${payoutReference}</p>
+                        <p><strong>Status:</strong> <span style="color: #22c55e;">Completed</span></p>
+                    </div>
+                    <p style="color: #64748b;">Funds should arrive in your account within 1-3 business days.</p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <a href="${BASE_URL}/dashboard/vendor/payouts" style="display: inline-block; background: #0d9488; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">
+                            View Payout History
+                        </a>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 12px; text-align: center; margin-top: 20px;">
+                    Thank you for selling on IslandHub!
+                </p>
+            </div>
+        `;
+        return this.sendEmail(to, subject, html);
+    }
 }
