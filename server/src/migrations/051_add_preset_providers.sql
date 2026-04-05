@@ -1,6 +1,22 @@
 -- Migration: Add preset AI providers
 -- Run: psql -d $DATABASE_URL -f 051_add_preset_providers.sql
 
+-- First ensure the table exists (may have been created in 043)
+CREATE TABLE IF NOT EXISTS agent_provider_credentials (
+    id SERIAL PRIMARY KEY,
+    provider_name VARCHAR(100) UNIQUE NOT NULL,
+    display_name VARCHAR(200) NOT NULL,
+    api_key_encrypted TEXT NOT NULL DEFAULT '',
+    api_base_url VARCHAR(500) DEFAULT '',
+    is_active BOOLEAN DEFAULT TRUE,
+    models_available TEXT[] DEFAULT '{}',
+    rate_limit_rpm INTEGER DEFAULT 60,
+    monthly_budget_usd NUMERIC(10,2) DEFAULT 100.00,
+    current_month_spend NUMERIC(10,2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
 -- Add preset providers with predefined models
 INSERT INTO agent_provider_credentials (provider_name, display_name, api_base_url, api_key_encrypted, models_available, rate_limit_rpm, monthly_budget_usd, is_active) VALUES
 (
