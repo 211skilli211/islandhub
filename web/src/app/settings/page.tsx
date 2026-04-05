@@ -106,6 +106,15 @@ export default function SettingsPage() {
         finally { setMediaLoading(false); }
     };
 
+    const handleDeleteMedia = async (filename: string) => {
+        if (!confirm('Delete this file?')) return;
+        try {
+            await api.delete(`/uploads/${filename}`);
+            setMediaItems(prev => prev.filter((item: any) => item.filename !== filename));
+            toast.success('File deleted');
+        } catch { toast.error('Failed to delete'); }
+    };
+
     const handleSaveAccount = async () => {
         setSaving(true);
         try {
