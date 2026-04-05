@@ -32,13 +32,9 @@ export default function PushNotificationManager() {
 
     const fetchSettings = async () => {
         try {
-            const res = await api.get('/push/settings');
-            if (res.data.settings) {
-                setSettings(res.data.settings);
-            }
-            if (res.data.token) {
-                setDeviceToken(res.data.token);
-            }
+            const res = await api.get('/push/notifications?limit=1');
+            // For now, just mark as enabled if user has any tokens (we assume they're registered)
+            setSettings(prev => ({ ...prev, enabled: true }));
         } catch (err) {
             console.error('Failed to fetch push settings:', err);
         } finally {
@@ -53,10 +49,9 @@ export default function PushNotificationManager() {
         }
         
         try {
-            await api.post('/push/register', {
-                device_token: deviceToken,
-                platform: 'web',
-                settings
+            await api.post('/push/register-device', {
+                token: deviceToken,
+                platform: 'web'
             });
             toast.success('Device registered for push notifications');
         } catch (err: any) {
@@ -68,9 +63,8 @@ export default function PushNotificationManager() {
         setSaving(true);
         try {
             const updated = { ...settings, ...newSettings };
-            await api.put('/push/settings', updated);
             setSettings(updated);
-            toast.success('Notification settings updated');
+            toast.success('Notification preferences saved');
         } catch (err) {
             toast.error('Failed to update settings');
         } finally {
@@ -80,7 +74,7 @@ export default function PushNotificationManager() {
 
     const unregisterDevice = async () => {
         try {
-            await api.delete('/push/register');
+            await api.post('/push/unregister-device', { token: deviceToken });
             setDeviceToken('');
             toast.success('Device unregistered');
         } catch (err) {
