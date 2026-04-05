@@ -13,8 +13,8 @@ export default function AdminUsersPage() {
     const router = useRouter();
     const { user, isAuthenticated } = useAuthStore();
     const [showCreateUser, setShowCreateUser] = useState(false);
-    const [editingUser, setEditingUser] = useState<User | null>(null);
-    const [roleChangeUser, setRoleChangeUser] = useState<User | null>(null);
+    const [editingUser, setEditingUser] = useState<any>(null);
+    const [roleChangeUser, setRoleChangeUser] = useState<any>(null);
     const [refreshKey, setRefreshKey] = useState(0);
 
     useEffect(() => {
