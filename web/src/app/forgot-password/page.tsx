@@ -61,13 +61,13 @@ export default function ForgotPasswordPage() {
                 </div>
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <div className="bg-white dark:bg-slate-800 py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+                                <label htmlFor="email" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
                                     Email address
                                 </label>
-                                <div className="mt-1">
+                                <div className="mt-2">
                                     <input
                                         id="email"
                                         name="email"
@@ -76,7 +76,8 @@ export default function ForgotPasswordPage() {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:border-teal-500 sm:text-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                    />
                                     />
                                 </div>
                             </div>

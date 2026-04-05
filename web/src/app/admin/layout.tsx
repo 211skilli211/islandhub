@@ -54,9 +54,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, logout } = useAuthStore();
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('admin-sidebar-collapsed') === 'true';
+        }
+        return false;
+    });
     const [mobileOpen, setMobileOpen] = useState(false);
     const [expandedGroups, setExpandedGroups] = useState<string[]>(['compliance', 'campaigns', 'media']);
+
+    // Persist collapsed state to localStorage
+    useEffect(() => {
+        localStorage.setItem('admin-sidebar-collapsed', String(collapsed));
+    }, [collapsed]);
 
     const isActive = (href: string) => {
         return pathname === href || pathname.startsWith(href + '/');
@@ -149,13 +159,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <motion.aside 
                 initial={false}
                 animate={{ 
-                    x: mobileOpen ? 0 : -280,
                     width: collapsed ? 80 : 280
                 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className={`fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50 
-                    ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-                    ${collapsed ? 'lg:w-20' : 'w-72'}`}
+                className={`
+                    fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50 
+                    transition-all duration-300
+                    ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+                `}
             >
                 {/* Logo & Collapse */}
                 <div className="p-4 border-b border-slate-800 flex items-center justify-between">
@@ -176,7 +187,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     <div className="flex items-center gap-2">
                         <button 
                             onClick={() => setCollapsed(!collapsed)}
-                            className="hidden lg:flex p-2 hover:bg-slate-800 rounded-lg transition-colors"
+                            className="hidden md:flex p-2 hover:bg-slate-800 rounded-lg transition-colors items-center justify-center"
+                            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                         >
                             {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
                         </button>
@@ -286,7 +298,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <main className="
                 flex-1 min-w-0 
                 ml-0 
-                lg:ml-20 
+                md:ml-20 
                 xl:ml-72 
                 transition-all duration-300
             ">
