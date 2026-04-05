@@ -315,7 +315,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 <div className="p-6 lg:p-8">
                     {children}
                 </div>
-            </motion.main>
+            </main>
         </div>
     );
 }
