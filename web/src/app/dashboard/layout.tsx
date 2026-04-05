@@ -7,30 +7,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import toast from 'react-hot-toast';
 import { 
-    User, Bell, Shield, Link2, Palette, Globe, 
-    Image, Store, Settings, ChevronLeft, ChevronRight,
-    LogOut, ArrowLeft, X, Menu
+    LayoutDashboard, User, Package, ShoppingCart, Store, 
+    Settings, Bell, CreditCard, MessageSquare, Truck,
+    FileText, ChevronLeft, ChevronRight, LogOut, ArrowLeft,
+    X, Menu, Home
 } from 'lucide-react';
 
-const settingsNavItems = [
-    { id: 'account', label: 'Account', icon: User, href: '/settings' },
-    { id: 'notifications', label: 'Notifications', icon: Bell, href: '/settings?tab=notifications' },
-    { id: 'privacy', label: 'Privacy', icon: Shield, href: '/settings?tab=privacy' },
-    { id: 'security', label: 'Security', icon: Shield, href: '/settings?tab=security' },
-    { id: 'connected', label: 'Connected', icon: Link2, href: '/settings?tab=connected' },
-    { id: 'appearance', label: 'Appearance', icon: Palette, href: '/settings?tab=appearance' },
-    { id: 'language', label: 'Language', icon: Globe, href: '/settings?tab=language' },
-    { id: 'media-library', label: 'Media Library', icon: Image, href: '/settings?tab=media-library' },
-    { id: 'vendor', label: 'Vendor', icon: Store, href: '/settings?tab=vendor' },
+const dashboardNavItems = [
+    { id: 'overview', label: 'Overview', icon: LayoutDashboard, href: '/dashboard' },
+    { id: 'activity', label: 'Activity', icon: FileText, href: '/dashboard?tab=activity' },
+    { id: 'posts', label: 'Posts', icon: Package, href: '/dashboard?tab=posts' },
+    { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/dashboard?tab=orders' },
+    { id: 'messages', label: 'Messages', icon: MessageSquare, href: '/dashboard/messages' },
+    { id: 'wallet', label: 'Wallet', icon: CreditCard, href: '/dashboard?tab=wallet' },
+    { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
+    { id: 'profile', label: 'Profile', icon: User, href: '/settings?tab=account' },
 ];
 
-export default function SettingsLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, logout } = useAuthStore();
     const [collapsed, setCollapsed] = useState(() => {
         if (typeof window !== 'undefined') {
-            return localStorage.getItem('settings-sidebar-collapsed') === 'true';
+            return localStorage.getItem('dashboard-sidebar-collapsed') === 'true';
         }
         return false;
     });
@@ -38,15 +38,20 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
 
     // Persist collapsed state
     useEffect(() => {
-        localStorage.setItem('settings-sidebar-collapsed', String(collapsed));
+        localStorage.setItem('dashboard-sidebar-collapsed', String(collapsed));
     }, [collapsed]);
+
+    // Don't show sidebar on messages page
+    if (pathname.includes('/messages')) {
+        return <>{children}</>;
+    }
 
     const isActive = (href: string) => {
         if (href.includes('?')) {
             const [base] = href.split('?');
-            return pathname === base || pathname.startsWith(base + '/');
+            return pathname === base;
         }
-        return pathname === href;
+        return pathname === href || href === '/dashboard';
     };
 
     const handleLogout = () => {
@@ -55,7 +60,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         toast.success('Logged out');
     };
 
-    const NavItem = ({ item }: { item: typeof settingsNavItems[0] }) => {
+    const NavItem = ({ item }: { item: typeof dashboardNavItems[0] }) => {
         const Icon = item.icon;
         const active = isActive(item.href);
         
@@ -112,9 +117,9 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
             >
                 {/* Logo & Collapse */}
                 <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-                    <Link href="/dashboard" className="flex items-center gap-3">
+                    <Link href="/" className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-teal-600 rounded-xl flex items-center justify-center">
-                            <Settings className="w-6 h-6 text-white" />
+                            <Home className="w-6 h-6 text-white" />
                         </div>
                         {!collapsed && (
                             <motion.span 
@@ -122,7 +127,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                 animate={{ opacity: 1 }}
                                 className="font-black text-lg tracking-tight"
                             >
-                                Settings
+                                Dashboard
                             </motion.span>
                         )}
                     </Link>
@@ -152,24 +157,24 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="font-bold text-sm truncate text-white">{user.name}</p>
-                                <p className="text-xs text-teal-400 capitalize">{user.role}</p>
+                                <p className="text-xs text-teal-400 capitalize">{user.role || 'User'}</p>
                             </div>
                         </div>
                     </div>
                 )}
 
-                {/* Back to Dashboard */}
+                {/* Back to Home */}
                 <div className="p-3 border-b border-slate-800">
-                    <Link href="/dashboard" className="flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors">
+                    <Link href="/" className="flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors">
                         <ArrowLeft className="w-4 h-4" />
-                        {!collapsed && <span>Back to Dashboard</span>}
+                        {!collapsed && <span>Back to Home</span>}
                     </Link>
                 </div>
 
                 {/* Nav */}
                 <nav className="flex-1 overflow-y-auto py-4">
                     <div className="px-3 space-y-1">
-                        {settingsNavItems.map((item) => (
+                        {dashboardNavItems.map((item) => (
                             <NavItem key={item.id} item={item} />
                         ))}
                     </div>
@@ -202,7 +207,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                     <button onClick={() => setMobileOpen(true)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
                         <Menu className="w-5 h-5 text-slate-600 dark:text-slate-300" />
                     </button>
-                    <span className="font-black text-slate-900 dark:text-white">Settings</span>
+                    <span className="font-black text-slate-900 dark:text-white">Dashboard</span>
                     <div className="w-8" />
                 </header>
 
