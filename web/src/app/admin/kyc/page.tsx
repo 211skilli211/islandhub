@@ -8,13 +8,15 @@ import toast from 'react-hot-toast';
 import KYCReviewModal from '@/components/admin/KYCReviewModal';
 
 interface KYCSubmission {
-    kyc_id: string;
-    business_name?: string;
+    kyc_id: number;
+    vendor_id: number;
+    business_name: string;
     owner_name: string;
     email: string;
+    documents: Record<string, string>;
     status: string;
     submitted_at: string;
-    [key: string]: any;
+    rejection_reason?: string;
 }
 
 export default function AdminKYCPage() {
@@ -43,7 +45,7 @@ export default function AdminKYCPage() {
         fetchKYC();
     }, []);
 
-    const handleKycAction = async (id: string, action: string, reason?: string) => {
+    const handleKycAction = async (id: number, action: string, reason?: string) => {
         try {
             if (action === 'reject' && reason) {
                 await api.post(`/kyc/admin/${id}/reject`, { reason });
