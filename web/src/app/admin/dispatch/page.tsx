@@ -15,19 +15,22 @@ const DispatchMap = dynamic(() => import('@/components/admin/DispatchMap'), {
 export default function AdminDispatch() {
     const [jobs, setJobs] = useState<any[]>([]);
     const [drivers, setDrivers] = useState<any[]>([]);
+    const [trips, setTrips] = useState<any[]>([]);
     const [pricingRules, setPricingRules] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<'dispatch' | 'surge'>('dispatch');
+    const [activeTab, setActiveTab] = useState<'dispatch' | 'trips' | 'earnings' | 'surge'>('dispatch');
     const [selectedJobForAssign, setSelectedJobForAssign] = useState<any>(null);
     const [isMapExpanded, setIsMapExpanded] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'pending' | 'active' | 'completed' | 'scheduled'>('all');
+    const [selectedJobDetails, setSelectedJobDetails] = useState<any>(null);
 
     const fetchData = useCallback(async () => {
         try {
-            const [jobsRes, driversRes, pricingRes] = await Promise.all([
+            const [jobsRes, driversRes, pricingRes, tripsRes] = await Promise.all([
                 api.get('/listings'),
                 api.get('/logistics/drivers/online'),
-                api.get('/logistics/pricing')
+                api.get('/logistics/pricing'),
+                api.get('/drivers/trips').catch(() => ({ data: { trips: [] } }))
             ]);
 
             const allListings = jobsRes.data.listings || [];
@@ -39,6 +42,7 @@ export default function AdminDispatch() {
             setJobs(transportJobs);
             setDrivers(driversRes.data.drivers || []);
             setPricingRules(pricingRes.data.rules || []);
+            setTrips(tripsRes.data.trips || []);
         } catch (error) {
             console.error('Failed to fetch dispatch data', error);
         } finally {
@@ -102,6 +106,18 @@ export default function AdminDispatch() {
                         className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'dispatch' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
                     >
                         Live Dispatch
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('trips')}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'trips' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                    >
+                        Trip Tracker
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('earnings')}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'earnings' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                    >
+                        Earnings
                     </button>
                     <button
                         onClick={() => setActiveTab('surge')}
@@ -253,6 +269,149 @@ export default function AdminDispatch() {
                             </button>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* TRIPS TRACKER TAB */}
+            {activeTab === 'trips' && (
+                <div className="space-y-6">
+                    <div className="bg-white rounded-[2rem] border border-slate-100 shadow-lg overflow-hidden">
+                        <div className="p-6 border-b border-slate-100 flex justify-between items-center">
+                            <h3 className="text-xl font-black text-slate-900">Trip Timeline</h3>
+                            <div className="flex gap-2">
+                                <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">
+                                    {trips.filter(t => t.status === 'assigned').length} Active
+                                </span>
+                                <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-bold">
+                                    {trips.filter(t => t.status === 'completed').length} Completed
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead className="bg-slate-50">
+                                    <tr>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Trip ID</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Driver</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Rider</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Route</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Status</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Fare</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Timeline</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-50">
+                                    {trips.length === 0 ? (
+                                        <tr>
+                                            <td colSpan={7} className="px-6 py-12 text-center text-slate-400">
+                                                No trips yet
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        trips.slice(0, 20).map((trip: any) => (
+                                            <tr key={trip.trip_id} className="hover:bg-slate-50">
+                                                <td className="px-6 py-4 font-mono text-sm font-bold text-slate-600">{trip.trip_id}</td>
+                                                <td className="px-6 py-4 text-sm font-bold">{trip.driver_name || 'Unassigned'}</td>
+                                                <td className="px-6 py-4 text-sm">{trip.rider_name || '-'}</td>
+                                                <td className="px-6 py-4 text-xs text-slate-500 max-w-[200px] truncate">
+                                                    {trip.pickup_address} → {trip.dropoff_address}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
+                                                        trip.status === 'completed' ? 'bg-teal-100 text-teal-700' :
+                                                        trip.status === 'cancelled' ? 'bg-rose-100 text-rose-700' :
+                                                        trip.status === 'in_transit' ? 'bg-indigo-100 text-indigo-700' :
+                                                        'bg-amber-100 text-amber-700'
+                                                    }`}>
+                                                        {trip.status}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-4 font-bold text-slate-900">${trip.fare_amount || '0.00'}</td>
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-1">
+                                                        {['assigned', 'arrived', 'picked_up', 'in_transit', 'completed'].map((step, i) => (
+                                                            <div key={step} className={`w-2 h-2 rounded-full ${
+                                                                ['assigned', 'arrived', 'picked_up', 'in_transit', 'completed'].indexOf(trip.status) >= i
+                                                                    ? 'bg-teal-500' : 'bg-slate-200'
+                                                            }`} />
+                                                        ))}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* EARNINGS TAB */}
+            {activeTab === 'earnings' && (
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    {/* Summary Cards */}
+                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
+                        <p className="text-xs font-black text-slate-400 uppercase">Today's Revenue</p>
+                        <p className="text-3xl font-black text-slate-900 mt-2">
+                            ${trips.filter(t => t.status === 'completed' && new Date(t.completed_at).toDateString() === new Date().toDateString())
+                                .reduce((sum, t) => sum + (parseFloat(t.fare_amount) || 0), 0).toFixed(2)}
+                        </p>
+                    </div>
+                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
+                        <p className="text-xs font-black text-slate-400 uppercase">Today's Trips</p>
+                        <p className="text-3xl font-black text-slate-900 mt-2">
+                            {trips.filter(t => t.status === 'completed' && new Date(t.completed_at).toDateString() === new Date().toDateString()).length}
+                        </p>
+                    </div>
+                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
+                        <p className="text-xs font-black text-slate-400 uppercase">Active Drivers</p>
+                        <p className="text-3xl font-black text-slate-900 mt-2">{drivers.length}</p>
+                    </div>
+                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
+                        <p className="text-xs font-black text-slate-400 uppercase">Platform Fee (15%)</p>
+                        <p className="text-3xl font-black text-teal-600 mt-2">
+                            ${(trips.filter(t => t.status === 'completed').reduce((sum, t) => sum + (parseFloat(t.fare_amount) || 0), 0) * 0.15).toFixed(2)}
+                        </p>
+                    </div>
+
+                    {/* Driver Performance */}
+                    <div className="md:col-span-4 bg-white rounded-[2rem] border border-slate-100 shadow-lg overflow-hidden">
+                        <div className="p-6 border-b border-slate-100">
+                            <h3 className="text-xl font-black text-slate-900">Driver Performance</h3>
+                        </div>
+                        <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {drivers.slice(0, 6).map((driver: any) => (
+                                <div key={driver.user_id} className="p-4 bg-slate-50 rounded-2xl">
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
+                                            {driver.name?.charAt(0) || 'D'}
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-slate-900">{driver.name || 'Driver'}</p>
+                                            <p className="text-xs text-slate-500">ID: {driver.user_id}</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 text-center">
+                                        <div>
+                                            <p className="text-2xl font-black text-slate-900">
+                                                {trips.filter(t => t.driver_id === driver.user_id && t.status === 'completed').length}
+                                            </p>
+                                            <p className="text-[10px] text-slate-400 uppercase">Trips</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-2xl font-black text-teal-600">
+                                                ${trips.filter(t => t.driver_id === driver.user_id && t.status === 'completed')
+                                                    .reduce((sum, t) => sum + (parseFloat(t.fare_amount) || 0) * 0.85, 0).toFixed(0)}
+                                            </p>
+                                            <p className="text-[10px] text-slate-400 uppercase">Earned</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             )}
 
