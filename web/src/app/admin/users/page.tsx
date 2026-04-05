@@ -74,6 +74,10 @@ export default function AdminUsersPage() {
                     toast.success('Status updated');
                     setRefreshKey(k => k + 1);
                     break;
+                case 'change_role':
+                    const roleRes = await api.get(`/users/${userId}`);
+                    setRoleChangeUser(roleRes.data);
+                    break;
                 case 'delete':
                     if (confirm('Delete this user? This cannot be undone.')) {
                         await api.delete(`/users/${userId}`);
@@ -187,14 +191,11 @@ export default function AdminUsersPage() {
                 }}
                 rowActions={[
                     { label: 'Edit Profile', action: 'edit_profile' },
-                    { label: 'Change Role', action: 'change_role', onClick: async (id) => {
-                        const res = await api.get(`/users/${id}`);
-                        setRoleChangeUser(res.data);
-                    }},
-                    { label: 'Verify Email', action: 'verify', condition: (u) => !u.email_verified },
-                    { label: 'Unverify Email', action: 'unverify', condition: (u) => u.email_verified },
-                    { label: 'Verify Driver', action: 'verify_driver', condition: (u) => (u.role?.startsWith('driver') || u.role === 'rider') && !u.is_verified_driver },
-                    { label: 'Unverify Driver', action: 'unverify_driver', condition: (u) => (u.role?.startsWith('driver') || u.role === 'rider') && u.is_verified_driver },
+                    { label: 'Change Role', action: 'change_role' },
+                    { label: 'Verify Email', action: 'verify', condition: (u: any) => !u.email_verified },
+                    { label: 'Unverify Email', action: 'unverify', condition: (u: any) => u.email_verified },
+                    { label: 'Verify Driver', action: 'verify_driver', condition: (u: any) => (u.role?.startsWith('driver') || u.role === 'rider') && !u.is_verified_driver },
+                    { label: 'Unverify Driver', action: 'unverify_driver', condition: (u: any) => (u.role?.startsWith('driver') || u.role === 'rider') && u.is_verified_driver },
                     { label: 'Toggle Status', action: 'toggle_status' },
                     { label: 'Delete User', action: 'delete', className: 'text-red-500' }
                 ]}
