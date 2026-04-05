@@ -5,17 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
-import { AdminTable } from '@/components/admin/shared/AdminTable';
+import { AdminTable, Column } from '@/components/admin/shared/AdminTable';
 import EditStoreModal from '@/components/admin/EditStoreModal';
 import CreateStoreModal from '@/components/admin/CreateStoreModal';
 import BadgeSelector from '@/components/marketplace/BadgeSelector';
-
-interface StoreColumn {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    render?: (value: any, row: any) => React.ReactNode;
-}
 
 export default function AdminStoresPage() {
     const router = useRouter();
@@ -37,21 +30,21 @@ export default function AdminStoresPage() {
         }
     }, [isAuthenticated, user, router]);
 
-    const storeColumns: StoreColumn[] = [
-        { key: 'id', label: 'ID', sortable: true },
-        { key: 'name', label: 'Name', sortable: true },
-        { key: 'vendor_name', label: 'Vendor', sortable: true },
-        { key: 'category', label: 'Category', sortable: true },
-        { key: 'status', label: 'Status', render: (val) => (
+    const storeColumns: Column<any>[] = [
+        { header: 'ID', accessor: 'id', sortKey: 'id' },
+        { header: 'Name', accessor: 'name', sortKey: 'name' },
+        { header: 'Vendor', accessor: 'vendor_name', sortKey: 'vendor_name' },
+        { header: 'Category', accessor: 'category', sortKey: 'category' },
+        { header: 'Status', accessor: (item) => (
             <span className={`px-2 py-1 rounded-full text-xs font-bold ${
-                val === 'active' ? 'bg-green-100 text-green-700' : 
-                val === 'pending' ? 'bg-amber-100 text-amber-700' :
+                item.status === 'active' ? 'bg-green-100 text-green-700' : 
+                item.status === 'pending' ? 'bg-amber-100 text-amber-700' :
                 'bg-red-100 text-red-700'
             }`}>
-                {val || 'active'}
+                {item.status || 'active'}
             </span>
         )},
-        { key: 'created_at', label: 'Created', sortable: true },
+        { header: 'Created', accessor: 'created_at', sortKey: 'created_at' },
     ];
 
     const handleAction = async (action: string, storeId: number) => {

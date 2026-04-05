@@ -5,17 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
-import { AdminTable } from '@/components/admin/shared/AdminTable';
+import { AdminTable, Column } from '@/components/admin/shared/AdminTable';
 import EditUserModal from '@/components/admin/EditUserModal';
 import CreateUserModal from '@/components/admin/CreateUserModal';
 import { User } from '@/lib/types';
-
-interface UserColumn {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    render?: (value: any, row: User) => React.ReactNode;
-}
 
 export default function AdminUsersPage() {
     const router = useRouter();
@@ -36,17 +29,17 @@ export default function AdminUsersPage() {
         }
     }, [isAuthenticated, user, router]);
 
-    const userColumns: UserColumn[] = [
-        { key: 'id', label: 'ID', sortable: true },
-        { key: 'name', label: 'Name', sortable: true },
-        { key: 'email', label: 'Email', sortable: true },
-        { key: 'role', label: 'Role', sortable: true },
-        { key: 'is_active', label: 'Status', render: (val) => (
-            <span className={`px-2 py-1 rounded-full text-xs font-bold ${val ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                {val ? 'Active' : 'Suspended'}
+    const userColumns: Column<User>[] = [
+        { header: 'ID', accessor: 'id', sortKey: 'id' },
+        { header: 'Name', accessor: 'name', sortKey: 'name' },
+        { header: 'Email', accessor: 'email', sortKey: 'email' },
+        { header: 'Role', accessor: 'role', sortKey: 'role' },
+        { header: 'Status', accessor: (item) => (
+            <span className={`px-2 py-1 rounded-full text-xs font-bold ${item.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                {item.is_active ? 'Active' : 'Suspended'}
             </span>
         )},
-        { key: 'created_at', label: 'Joined', sortable: true },
+        { header: 'Joined', accessor: 'created_at', sortKey: 'created_at' },
     ];
 
     const handleAction = async (action: string, userId: number) => {

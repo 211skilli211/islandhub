@@ -5,15 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
-import { AdminTable } from '@/components/admin/shared/AdminTable';
+import { AdminTable, Column } from '@/components/admin/shared/AdminTable';
 import EditListingModal from '@/components/admin/EditListingModal';
-
-interface ListingColumn {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    render?: (value: any, row: any) => React.ReactNode;
-}
 
 export default function AdminListingsPage() {
     const router = useRouter();
@@ -32,22 +25,22 @@ export default function AdminListingsPage() {
         }
     }, [isAuthenticated, user, router]);
 
-    const listingColumns: ListingColumn[] = [
-        { key: 'id', label: 'ID', sortable: true },
-        { key: 'title', label: 'Title', sortable: true },
-        { key: 'type', label: 'Type', sortable: true },
-        { key: 'category', label: 'Category', sortable: true },
-        { key: 'price', label: 'Price', sortable: true, render: (val) => `$${Number(val).toLocaleString()}` },
-        { key: 'status', label: 'Status', render: (val) => (
+    const listingColumns: Column<any>[] = [
+        { header: 'ID', accessor: 'id', sortKey: 'id' },
+        { header: 'Title', accessor: 'title', sortKey: 'title' },
+        { header: 'Type', accessor: 'type', sortKey: 'type' },
+        { header: 'Category', accessor: 'category', sortKey: 'category' },
+        { header: 'Price', accessor: (item) => `$${Number(item.price).toLocaleString()}`, sortKey: 'price' },
+        { header: 'Status', accessor: (item) => (
             <span className={`px-2 py-1 rounded-full text-xs font-bold ${
-                val === 'active' ? 'bg-green-100 text-green-700' : 
-                val === 'inactive' ? 'bg-slate-100 text-slate-700' :
+                item.status === 'active' ? 'bg-green-100 text-green-700' : 
+                item.status === 'inactive' ? 'bg-slate-100 text-slate-700' :
                 'bg-amber-100 text-amber-700'
             }`}>
-                {val || 'active'}
+                {item.status || 'active'}
             </span>
         )},
-        { key: 'created_at', label: 'Created', sortable: true },
+        { header: 'Created', accessor: 'created_at', sortKey: 'created_at' },
     ];
 
     const handleAction = async (action: string, listingId: number) => {
