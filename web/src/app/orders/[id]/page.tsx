@@ -368,7 +368,7 @@ export default function OrderDetailPage() {
                   <button
                     onClick={async () => {
                       try {
-                        const res = await api.post(`/orders/${order.id}/retry`);
+                        const res = await api.post(`/orders/${order.order_id}/retry`);
                         if (res.data.checkoutUrl) {
                           window.location.href = res.data.checkoutUrl;
                         }
