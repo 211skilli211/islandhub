@@ -26,6 +26,7 @@ interface NotificationPrefs {
     push_trips: boolean;
     push_messages: boolean;
     push_promotions: boolean;
+    ai_auto_reply: boolean;
 }
 
 export default function SettingsPage() {
@@ -45,12 +46,19 @@ export default function SettingsPage() {
         push_dispatch: true,
         push_trips: true,
         push_messages: true,
-        push_promotions: false
+        push_promotions: false,
+        ai_auto_reply: false
     });
     
     // Security
     const [passwordData, setPasswordData] = useState({ current: '', new: '', confirm: '' });
     const [showChangePassword, setShowChangePassword] = useState(false);
+    const [showDeleteAccount, setShowDeleteAccount] = useState(false);
+    const [deletePassword, setDeletePassword] = useState('');
+    const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+    const [show2FASetup, setShow2FASetup] = useState(false);
+    const [twoFASecret, setTwoFASecret] = useState('');
+    const [twoFACode, setTwoFACode] = useState('');
     
     // Privacy
     const [privacyPrefs, setPrivacyPrefs] = useState({
@@ -147,6 +155,66 @@ export default function SettingsPage() {
             await api.post('/vendors', vendorData);
             toast.success('Vendor settings saved');
         } catch { toast.error('Failed to save vendor settings'); }
+        setSaving(false);
+    };
+
+    const handleDeleteAccount = async () => {
+        if (!deletePassword) return toast.error('Password required');
+        if (!confirm('Are you sure? This cannot be undone!')) return;
+        setSaving(true);
+        try {
+            await api.delete('/users/delete-account', { data: { password: deletePassword } });
+            toast.success('Account deleted');
+            // Redirect to home or logout
+            window.location.href = '/';
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || 'Failed to delete account');
+        }
+        setSaving(false);
+    };
+
+    const handleEnable2FA = async () => {
+        setSaving(true);
+        try {
+            const res = await api.post('/users/2fa/enable');
+            setTwoFASecret(res.data.secret);
+            setShow2FASetup(true);
+            toast.success('2FA setup initiated');
+        } catch { toast.error('Failed to enable 2FA'); }
+        setSaving(false);
+    };
+
+    const handleVerify2FA = async () => {
+        if (!twoFACode || twoFACode.length !== 6) return toast.error('Enter 6-digit code');
+        setSaving(true);
+        try {
+            const res = await api.post('/users/2fa/verify', { code: twoFACode });
+            setTwoFAEnabled(true);
+            setShow2FASetup(false);
+            toast.success('2FA enabled! Save your backup codes: ' + (res.data.backupCodes?.join(', ') || 'N/A'));
+        } catch { toast.error('Invalid code'); }
+        setSaving(false);
+    };
+
+    const handleDisable2FA = async () => {
+        if (!confirm('Disable 2FA?')) return;
+        setSaving(true);
+        try {
+            await api.post('/users/2fa/disable', { password: passwordData.current, code: twoFACode });
+            setTwoFAEnabled(false);
+            toast.success('2FA disabled');
+        } catch { toast.error('Failed to disable 2FA'); }
+        setSaving(false);
+    };
+
+    const handleToggleAutoReply = async () => {
+        setSaving(true);
+        try {
+            const updated = { ...notifPrefs, ai_auto_reply: !notifPrefs.ai_auto_reply };
+            await api.put('/users/preferences', { notifications: updated });
+            setNotifPrefs(updated);
+            toast.success(updated.ai_auto_reply ? 'AI Auto-Reply enabled' : 'AI Auto-Reply disabled');
+        } catch { toast.error('Failed to update'); }
         setSaving(false);
     };
 
@@ -297,6 +365,19 @@ export default function SettingsPage() {
                                                     ))}
                                                 </div>
                                             </div>
+
+                                            <div className="p-6 bg-gradient-to-r from-teal-50 to-indigo-50 rounded-3xl border border-teal-100">
+                                                <div className="flex items-center justify-between">
+                                                    <div>
+                                                        <h3 className="font-bold text-slate-900">🤖 AI Auto-Reply</h3>
+                                                        <p className="text-xs text-slate-500">Automatically respond to buyer messages using AI</p>
+                                                    </div>
+                                                    <Toggle checked={notifPrefs.ai_auto_reply} onChange={handleToggleAutoReply} />
+                                                </div>
+                                                {notifPrefs.ai_auto_reply && (
+                                                    <p className="text-xs text-teal-600 mt-3">✓ AI will respond to incoming messages when you're unavailable</p>
+                                                )}
+                                            </div>
                                         </div>
 
                                         <div className="border-t border-slate-100 pt-6">
@@ -373,19 +454,74 @@ export default function SettingsPage() {
                                         </div>
 
                                         <div className="p-6 bg-slate-50 rounded-3xl">
-                                            <h3 className="font-bold text-slate-900 mb-4">🔐 Two-Factor Authentication</h3>
+                                            <div className="flex items-center justify-between mb-4">
+                                                <h3 className="font-bold text-slate-900">🔐 Two-Factor Authentication</h3>
+                                                {twoFAEnabled && <span className="text-teal-600 text-xs font-bold">✓ Enabled</span>}
+                                            </div>
                                             <p className="text-sm text-slate-500 mb-4">Add an extra layer of security to your account</p>
-                                            <button className="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-50">
-                                                Enable 2FA
-                                            </button>
+                                            
+                                            {show2FASetup ? (
+                                                <div className="space-y-4">
+                                                    <div className="p-4 bg-white rounded-xl">
+                                                        <p className="text-xs font-bold text-slate-500 mb-2">Secret Key:</p>
+                                                        <code className="text-sm font-mono bg-slate-100 p-2 rounded block">{twoFASecret}</code>
+                                                    </div>
+                                                    <input 
+                                                        type="text" 
+                                                        value={twoFACode} 
+                                                        onChange={(e) => setTwoFACode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                                        placeholder="Enter 6-digit code"
+                                                        className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-center font-mono text-lg tracking-widest"
+                                                    />
+                                                    <div className="flex gap-3">
+                                                        <button onClick={handleVerify2FA} disabled={saving} className="flex-1 py-3 bg-teal-600 text-white rounded-xl font-bold">
+                                                            {saving ? 'Verifying...' : 'Verify & Enable'}
+                                                        </button>
+                                                        <button onClick={() => { setShow2FASetup(false); setTwoFACode(''); }} className="px-4 py-3 text-slate-500">
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : twoFAEnabled ? (
+                                                <div className="flex gap-3">
+                                                    <button onClick={handleDisable2FA} className="px-6 py-3 bg-rose-100 text-rose-700 rounded-xl font-bold text-sm">
+                                                        Disable 2FA
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <button onClick={handleEnable2FA} disabled={saving} className="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-50">
+                                                    Enable 2FA
+                                                </button>
+                                            )}
                                         </div>
 
                                         <div className="p-6 bg-rose-50 rounded-3xl border border-rose-100">
                                             <h3 className="font-bold text-rose-900 mb-2">⚠️ Danger Zone</h3>
                                             <p className="text-sm text-rose-800 mb-4">Permanently delete your account and all data</p>
-                                            <button className="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold text-sm hover:bg-rose-700">
-                                                Delete Account
-                                            </button>
+                                            
+                                            {showDeleteAccount ? (
+                                                <div className="space-y-4">
+                                                    <input 
+                                                        type="password" 
+                                                        value={deletePassword} 
+                                                        onChange={(e) => setDeletePassword(e.target.value)}
+                                                        placeholder="Enter your password to confirm"
+                                                        className="w-full px-4 py-3 bg-white border border-rose-200 rounded-xl"
+                                                    />
+                                                    <div className="flex gap-3">
+                                                        <button onClick={handleDeleteAccount} disabled={saving || !deletePassword} className="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold text-sm">
+                                                            {saving ? 'Deleting...' : 'Confirm Delete'}
+                                                        </button>
+                                                        <button onClick={() => { setShowDeleteAccount(false); setDeletePassword(''); }} className="px-4 py-3 text-slate-500">
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <button onClick={() => setShowDeleteAccount(true)} className="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold text-sm hover:bg-rose-700">
+                                                    Delete Account
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 )}
@@ -399,15 +535,32 @@ export default function SettingsPage() {
                                         </div>
 
                                         <div className="space-y-4">
-                                            {['Google', 'Facebook', 'Apple'].map(provider => (
-                                                <div key={provider} className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl">
+                                            {[
+                                                { provider: 'Google', icon: '🔵', comingSoon: true },
+                                                { provider: 'Facebook', icon: '🔷', comingSoon: true },
+                                                { provider: 'Apple', icon: '🍎', comingSoon: true }
+                                            ].map(item => (
+                                                <div key={item.provider} className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-lg">🔗</div>
-                                                        <span className="font-bold text-slate-900">{provider}</span>
+                                                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-lg">{item.icon}</div>
+                                                        <span className="font-bold text-slate-900">{item.provider}</span>
+                                                        {item.comingSoon && (
+                                                            <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-full">Coming Soon</span>
+                                                        )}
                                                     </div>
-                                                    <button className="px-4 py-2 text-teal-600 font-bold text-sm">Connect</button>
+                                                    {item.comingSoon ? (
+                                                        <button disabled className="px-4 py-2 text-slate-400 font-bold text-sm cursor-not-allowed">Connect</button>
+                                                    ) : (
+                                                        <button className="px-4 py-2 text-teal-600 font-bold text-sm">Connect</button>
+                                                    )}
                                                 </div>
                                             ))}
+                                        </div>
+                                        
+                                        <div className="p-6 bg-slate-50 rounded-2xl">
+                                            <p className="text-sm text-slate-500">
+                                                Social login integration requires OAuth credentials setup. Contact support for configuration assistance.
+                                            </p>
                                         </div>
                                     </div>
                                 )}

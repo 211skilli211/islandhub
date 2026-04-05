@@ -176,6 +176,44 @@ export const sendMessage = async (req: Request, res: Response) => {
             });
         } catch (e) { /* Push not available */ }
 
+        // AI Auto-Reply: Check if recipient has AI auto-reply enabled
+        try {
+            const prefsResult = await pool.query(
+                `SELECT preferences->'notifications'->'ai_auto_reply' as auto_reply 
+                 FROM users WHERE user_id = $1`,
+                [recipientId]
+            );
+            
+            const autoReplyEnabled = prefsResult.rows[0]?.auto_reply === true;
+            
+            if (autoReplyEnabled && recipientId !== user.id) {
+                // Trigger AI auto-reply (async, don't block response)
+                setImmediate(async () => {
+                    try {
+                        const { chatWithAgent } = await import('../services/llmService');
+                        const autoResponse = await chatWithAgent(
+                            'customer_service',
+                            `Auto-reply to: "${content}"`,
+                            `auto-${conversation_id}-${Date.now()}`,
+                            recipientId,
+                            { role: 'system', source: 'auto_reply' }
+                        );
+                        
+                        // Send auto-reply as message
+                        await pool.query(
+                            `INSERT INTO messages (conversation_id, sender_id, content, is_read, metadata)
+                             VALUES ($1, $2, $3, FALSE, $4)`,
+                            [conversation_id, recipientId, autoResponse.reply, { is_auto_reply: true }]
+                        );
+                        
+                        console.log('[AI Auto-Reply] Sent response to user', recipientId);
+                    } catch (err) {
+                        console.error('[AI Auto-Reply] Failed:', err);
+                    }
+                });
+            }
+        } catch (e) { /* Ignore auto-reply errors */ }
+
         res.json({ success: true, message: result.rows[0] });
     } catch (error) {
         console.error('Send message error:', error);
