@@ -18,7 +18,6 @@ import {
     UserCheck,
     Building2,
     PieChart,
-    Megaphone,
     Bot,
     ClipboardList,
     FolderOpen,
