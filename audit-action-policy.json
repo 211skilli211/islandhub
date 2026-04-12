@@ -1,0 +1,35 @@
+{
+    "default": "allow",
+    "deny": [
+        "download",
+        "eval",
+        "upload"
+    ],
+    "allow": [
+        "navigate",
+        "snapshot",
+        "click",
+        "type",
+        "press",
+        "wait",
+        "screenshot",
+        "get",
+        "find",
+        "scroll",
+        "hover",
+        "focus"
+    ],
+    "confirm": [
+        "submit",
+        "delete",
+        "confirm"
+    ],
+    "restrictions": {
+        "maxClicksPerPage": 50,
+        "maxNavigationDepth": 10,
+        "blockedSelectors": [
+            "button:has-text('Delete Account')",
+            "button:has-text('Cancel Subscription')"
+        ]
+    }
+}

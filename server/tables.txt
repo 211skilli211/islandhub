@@ -1,0 +1,57 @@
+                       List of tables
+ Schema |              Name              | Type  |  Owner   
+--------+--------------------------------+-------+----------
+ public | ad_analytics                   | table | postgres
+ public | ad_spaces                      | table | postgres
+ public | admin_settings                 | table | postgres
+ public | advertisements                 | table | postgres
+ public | audit_logs                     | table | postgres
+ public | campaign_change_requests       | table | postgres
+ public | campaign_creator_subscriptions | table | postgres
+ public | campaign_updates               | table | postgres
+ public | campaigns                      | table | postgres
+ public | cart_items                     | table | postgres
+ public | carts                          | table | postgres
+ public | categories                     | table | postgres
+ public | category_form_fields           | table | postgres
+ public | customer_subscriptions         | table | postgres
+ public | donations                      | table | postgres
+ public | hero_assets                    | table | postgres
+ public | listing_views                  | table | postgres
+ public | listings                       | table | postgres
+ public | logistics_pricing              | table | postgres
+ public | marquee_templates              | table | postgres
+ public | media                          | table | postgres
+ public | menu_addons                    | table | postgres
+ public | menu_items                     | table | postgres
+ public | menu_sections                  | table | postgres
+ public | messages                       | table | postgres
+ public | order_items                    | table | postgres
+ public | orders                         | table | postgres
+ public | payouts                        | table | postgres
+ public | product_variants               | table | postgres
+ public | promotional_banners            | table | postgres
+ public | rental_availability            | table | postgres
+ public | rental_pricing                 | table | postgres
+ public | rental_seasonal_rates          | table | postgres
+ public | rentals                        | table | postgres
+ public | revenue_orders                 | table | postgres
+ public | reviews                        | table | postgres
+ public | seasonal_rates                 | table | postgres
+ public | service_calendars              | table | postgres
+ public | settings_audit                 | table | postgres
+ public | site_sections                  | table | postgres
+ public | stores                         | table | postgres
+ public | subscriptions                  | table | postgres
+ public | text_marquee                   | table | postgres
+ public | transactions                   | table | postgres
+ public | user_posts                     | table | postgres
+ public | users                          | table | postgres
+ public | vendor_categories              | table | postgres
+ public | vendor_kyc                     | table | postgres
+ public | vendor_promotions              | table | postgres
+ public | vendor_subscriptions           | table | postgres
+ public | vendor_subtypes                | table | postgres
+ public | vendors                        | table | postgres
+(52 rows)
+

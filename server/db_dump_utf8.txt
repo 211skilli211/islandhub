@@ -1,0 +1,73 @@
+﻿ id |                    title                    | store_id |          store_name          | creator_id |   creator_name    
+----+---------------------------------------------+----------+------------------------------+------------+-------------------
+ 55 | ATV Rainforest Adventure                    |       13 | Signature Island Tours       |          2 | 211
+  3 | Oceanview 2BR Apartment                     |       10 | Palm Ridge Estates & Rentals |          2 | 211
+  2 | 45ft Custom Yacht                           |        2 | Reef Runner Boat Rentals     |          2 | 211
+ 61 | ATV Rainforest Adventure                    |       13 | Signature Island Tours       |          2 | 211
+  4 | Island Pulse Tee                            |        4 | 211 Island Apparel           |          2 | 211
+  7 | Roasted Breadfruit Bowl                     |        1 | Ital Vegan Kitchen           |          2 | 211
+ 10 | Soursop Bliss Juice                         |        1 | Ital Vegan Kitchen           |          2 | 211
+  9 | Avocado Mash                                |        1 | Ital Vegan Kitchen           |          2 | 211
+ 11 | Iced Hibiscus Tea                           |        1 | Ital Vegan Kitchen           |          2 | 211
+ 32 | Pulse Fitness Band                          |        4 | 211 Island Apparel           |          2 | 211
+ 59 | St. Kitts Scenic Railway & Catamaran Combo  |       13 | Signature Island Tours       |          2 | 211
+ 57 | Deep Sea Fishing Expedition                 |       13 | Signature Island Tours       |          2 | 211
+  5 | Community Cancer Support                    |          |                              |          7 | Skits Cancer Fund
+ 56 | Caribbean Sunset Catamaran Sail             |       13 | Signature Island Tours       |          2 | 211
+ 16 | Creamy Island Pumpkin                       |        5 | Soup Kitchen                 |          2 | 211
+ 68 | Furniture Truck                             |          |                              |          2 | 211
+ 69 | Food Scooter                                |          |                              |          2 | 211
+ 26 | Pulse Hoodie                                |        4 | 211 Island Apparel           |          2 | 211
+ 27 | Island Dress                                |        4 | 211 Island Apparel           |          2 | 211
+ 34 | Trade Professional Hub                      |        8 | Nevis Trade Pro              |          2 | 211
+ 33 | Professional Service Hub                    |        6 | Island Wellness Hub          |          2 | 211
+ 37 | Economy Sedan - Toyota Corolla              |       10 | Palm Ridge Estates & Rentals |          2 | 211
+ 21 | Plantain Crisps                             |        5 | Soup Kitchen                 |          2 | 211
+ 54 | Mount Liamuiga Volcano Trek                 |       13 | Signature Island Tours       |          2 | 211
+ 53 | St. Kitts Scenic Railway & Catamaran Combo  |       13 | Signature Island Tours       |          2 | 211
+ 46 | Caribbean Heights 2BR Apartment             |        3 | Caribbean Heights Apartment  |          2 | 211
+ 47 | Compact Car - Honda Civic                   |       12 | Island Wheels Auto Rentals   |          2 | 211
+ 38 | Sport ATV - Off-Road Adventure              |       10 | Palm Ridge Estates & Rentals |          2 | 211
+ 40 | Cozy Studio Apartment - Downtown            |       10 | Palm Ridge Estates & Rentals |          2 | 211
+ 41 | Luxury Airbnb Villa - Ocean View            |       10 | Palm Ridge Estates & Rentals |          2 | 211
+  8 | Fried Plantains                             |        1 | Ital Vegan Kitchen           |          2 | 211
+ 25 | Island Pulse T-Shirt                        |        4 | 211 Island Apparel           |          2 | 211
+ 42 | Turbo Jet Ski - High Performance            |       11 | Azure Watersports            |          2 | 211
+ 49 | Luxury Sedan - BMW 3 Series                 |       12 | Island Wheels Auto Rentals   |          2 | 211
+ 71 | Cornbread                                   |        5 | Soup Kitchen                 |          2 | 211
+ 15 | Coastal Fish Soup                           |        5 | Soup Kitchen                 |          2 | 211
+ 50 | Electric Scooter - Eco Ride                 |       12 | Island Wheels Auto Rentals   |          2 | 211
+ 43 | Family Cruiser Jet Ski                      |       11 | Azure Watersports            |          2 | 211
+ 44 | Fishing Boat - 15ft Skiff                   |       11 | Azure Watersports            |          2 | 211
+ 45 | Luxury Speedboat with Captain               |       11 | Azure Watersports            |          2 | 211
+ 51 | Mountain Bike - Trail Blazer                |       12 | Island Wheels Auto Rentals   |          2 | 211
+ 52 | Convertible - Mustang GT                    |       12 | Island Wheels Auto Rentals   |          2 | 211
+ 48 | SUV - Toyota RAV4                           |       12 | Island Wheels Auto Rentals   |          2 | 211
+ 36 | Island Jeep Wrangler 4x4                    |       10 | Palm Ridge Estates & Rentals |          2 | 211
+ 39 | Urban Scooter - Vespa Style                 |       10 | Palm Ridge Estates & Rentals |          2 | 211
+ 17 | Roasted Tomato Basil                        |        5 | Soup Kitchen                 |          2 | 211
+ 12 | French Onion Soup                           |        5 | Soup Kitchen                 |          2 | 211
+ 67 | Airport Taxi                                |          |                              |          2 | 211
+ 28 | Pulse Cap                                   |        4 | 211 Island Apparel           |          2 | 211
+ 29 | Pulse Smartwatch                            |        4 | 211 Island Apparel           |          2 | 211
+ 30 | Wireless Earbuds                            |        4 | 211 Island Apparel           |          2 | 211
+ 31 | Smart Glasses                               |        4 | 211 Island Apparel           |          2 | 211
+ 60 | Mount Liamuiga Volcano Trek                 |       13 | Signature Island Tours       |          2 | 211
+ 62 | Caribbean Sunset Catamaran Sail             |       13 | Signature Island Tours       |          2 | 211
+ 63 | Deep Sea Fishing Expedition                 |       13 | Signature Island Tours       |          2 | 211
+ 35 | Creative Professional Hub                   |        9 | Island Creative Studio       |          2 | 211
+ 23 | Warm Meal for the less fortunate (donation) |        5 | Soup Kitchen                 |          2 | 211
+ 24 | Sponsor a Family                            |        5 | Soup Kitchen                 |          2 | 211
+  1 | Ital Vegan Kitchen                          |        1 | Ital Vegan Kitchen           |          2 | 211
+ 14 | Nevis Peak Watercress                       |        5 | Soup Kitchen                 |          2 | 211
+ 18 | Smoky Split Pea                             |        5 | Soup Kitchen                 |          2 | 211
+ 20 | Garlic Herb Bread                           |        5 | Soup Kitchen                 |          2 | 211
+ 22 | Garden Salad Cup                            |        5 | Soup Kitchen                 |          2 | 211
+  6 | Ital Vital Stew                             |        1 | Ital Vegan Kitchen           |          2 | 211
+ 70 | Island Pulse Tee                            |       20 | Pulse Island Apparel         |          6 | Apparel Manager
+ 58 | Historic Basseterre & Brimstone Hill Tour   |       13 | Signature Island Tours       |          2 | 211
+ 13 | Caribbean Lentil Soup                       |        5 | Soup Kitchen                 |          2 | 211
+ 64 | Historic Basseterre & Brimstone Hill Tour   |       13 | Signature Island Tours       |          2 | 211
+ 19 | Seafood Chowder                             |        5 | Soup Kitchen                 |          2 | 211
+(69 rows)
+

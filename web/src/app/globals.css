@@ -1,0 +1,309 @@
+@import "tailwindcss";
+
+/* Dark mode styles - responds to .dark class on <html> */
+.dark body {
+    color-scheme: dark;
+}
+
+@theme {
+    /* Map CSS variables to Tailwind theme */
+    --color-background-primary: var(--background-primary);
+    --color-background-secondary: var(--background-secondary);
+    --color-background-tertiary: var(--background-tertiary);
+    --color-background-inverse: var(--background-inverse);
+
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-tertiary: var(--text-tertiary);
+    --color-text-inverse: var(--text-inverse);
+
+    --color-border-primary: var(--border-primary);
+    --color-border-secondary: var(--border-secondary);
+    --color-border-tertiary: var(--border-tertiary);
+
+    --color-accent-primary: var(--accent-primary);
+    --color-accent-secondary: var(--accent-secondary);
+    --color-accent-muted: var(--accent-muted);
+
+    --color-danger-primary: var(--danger-primary);
+    --color-danger-secondary: var(--danger-secondary);
+
+    --color-success-primary: var(--success-primary);
+    --color-success-secondary: var(--success-secondary);
+
+    --color-warning-primary: var(--warning-primary);
+    --color-warning-secondary: var(--warning-secondary);
+
+    --color-card-bg: var(--card-bg);
+    --color-card-border: var(--card-border);
+
+    --color-input-bg: var(--input-bg);
+    --color-input-border: var(--input-border);
+
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+}
+
+/* Base styles with CSS variables */
+:root {
+    /* Default (Light Theme) Variables - Fallback */
+    --background-primary: #ffffff;
+    --background-secondary: #f8fafc;
+    --background-tertiary: #f1f5f9;
+    --background-inverse: #0f172a;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-inverse: #f8fafc;
+
+    --border-primary: #e2e8f0;
+    --border-secondary: #cbd5e1;
+    --border-tertiary: #94a3b8;
+
+    --accent-primary: #14b8a6;
+    --accent-secondary: #0f766e;
+    --accent-muted: #5eead4;
+
+    --danger-primary: #dc2626;
+    --danger-secondary: #b91c1c;
+
+    --success-primary: #16a34a;
+    --success-secondary: #15803d;
+
+    --warning-primary: #d97706;
+    --warning-secondary: #b45309;
+
+    --shadow-color: rgba(15, 23, 42, 0.1);
+    --shadow-color-lg: rgba(15, 23, 42, 0.15);
+
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+    --input-focus-ring: rgba(20, 184, 166, 0.3);
+
+    --overlay-bg: rgba(15, 23, 42, 0.5);
+}
+
+/* Dark mode - automatically applied when 'dark' class is present */
+.dark {
+    --background-primary: #0f172a;
+    --background-secondary: #1e293b;
+    --background-tertiary: #334155;
+    --background-inverse: #f8fafc;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --text-inverse: #0f172a;
+
+    --border-primary: #334155;
+    --border-secondary: #475569;
+    --border-tertiary: #64748b;
+
+    --accent-primary: #14b8a6;
+    --accent-secondary: #0d9488;
+    --accent-muted: #2dd4bf;
+
+    --danger-primary: #ef4444;
+    --danger-secondary: #dc2626;
+
+    --success-primary: #22c55e;
+    --success-secondary: #16a34a;
+
+    --warning-primary: #f59e0b;
+    --warning-secondary: #d97706;
+
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-color-lg: rgba(0, 0, 0, 0.4);
+
+    --card-bg: #1e293b;
+    --card-border: #334155;
+
+    --input-bg: #1e293b;
+    --input-border: #334155;
+    --input-focus-ring: rgba(20, 184, 166, 0.4);
+
+    --overlay-bg: rgba(0, 0, 0, 0.6);
+}
+
+/* Base element styles */
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme-aware background colors */
+.bg-theme-primary {
+    background-color: var(--background-primary);
+}
+
+.bg-theme-secondary {
+    background-color: var(--background-secondary);
+}
+
+.bg-theme-tertiary {
+    background-color: var(--background-tertiary);
+}
+
+.bg-theme-inverse {
+    background-color: var(--background-inverse);
+}
+
+/* Theme-aware text colors */
+.text-theme-primary {
+    color: var(--text-primary);
+}
+
+.text-theme-secondary {
+    color: var(--text-secondary);
+}
+
+.text-theme-tertiary {
+    color: var(--text-tertiary);
+}
+
+.text-theme-inverse {
+    color: var(--text-inverse);
+}
+
+/* Theme-aware border colors */
+.border-theme-primary {
+    border-color: var(--border-primary);
+}
+
+.border-theme-secondary {
+    border-color: var(--border-secondary);
+}
+
+/* Theme-aware card styles */
+.bg-card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+/* Theme-aware input styles */
+.bg-input {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+}
+
+.bg-input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
+}
+
+/* Shadow utilities using theme variables */
+.shadow-theme {
+    box-shadow: 0 1px 3px var(--shadow-color), 0 1px 2px var(--shadow-color);
+}
+
+.shadow-theme-lg {
+    box-shadow: 0 10px 15px -3px var(--shadow-color-lg), 0 4px 6px -2px var(--shadow-color);
+}
+
+/* Overlay using theme variable */
+.bg-overlay {
+    background-color: var(--overlay-bg);
+}
+
+/* Animation utilities */
+@layer utilities {
+    .animate-slide-left {
+        animation: slideLeft 0.3s ease-out;
+    }
+
+    .animate-slide-right {
+        animation: slideRight 0.3s ease-out;
+    }
+
+    /* Smooth theme transition */
+    .theme-transition {
+        transition: background-color 0.3s ease,
+            color 0.3s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Scrollbar styling for both themes */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-secondary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-tertiary);
+}
+
+/* Selection color */
+::selection {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}

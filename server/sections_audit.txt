@@ -1,0 +1,26 @@
+ section_id |     section_name      | store_id 
+------------+-----------------------+----------
+          1 | Today's Special       |        1
+          2 | Beverages             |        1
+          3 | Gourmet Soups         |        5
+          4 | Premium Sides         |        5
+          5 | Community Heart       |        5
+          6 | Apparel               |        4
+          7 | Smart Gear            |        4
+          8 | Wellness              |       33
+         11 | Wellness              |       33
+         14 | Plumbing & Water      |       34
+         15 | Electrical Solutions  |       34
+         16 | Photography           |       35
+         17 | Brand Design          |       35
+         18 | Apartments & Stays    |       10
+         19 | Vehicles              |       10
+         20 | Aquatic Gear          |       11
+         21 | Core Services         |        6
+         22 | Professional Services |        8
+         23 | Creative Services     |        9
+         24 | Car                   |       12
+         25 | Tours                 |       13
+         26 | Boat                  |        2
+(22 rows)
+

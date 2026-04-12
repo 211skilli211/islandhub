@@ -1,0 +1,6 @@
+ store_id |         name         |         slug         
+----------+----------------------+----------------------
+        4 | 211 Island Apparel   | 211-island-apparel
+       20 | Pulse Island Apparel | pulse-island-apparel
+(2 rows)
+

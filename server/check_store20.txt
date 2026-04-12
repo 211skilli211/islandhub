@@ -1,0 +1,5 @@
+ id |      title       | store_id 
+----+------------------+----------
+ 70 | Island Pulse Tee |       20
+(1 row)
+

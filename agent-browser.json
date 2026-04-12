@@ -1,0 +1,151 @@
+{
+    "name": "Island Fund Audit Configuration",
+    "version": "1.0.0",
+    "description": "Agent-browser configuration for auditing Island Fund application",
+    "browser": {
+        "headed": false,
+        "viewport": {
+            "width": 1920,
+            "height": 1080
+        },
+        "userAgent": "IslandFund-Audit-Agent/1.0",
+        "ignoreHTTPSErrors": true,
+        "colorScheme": "light"
+    },
+    "security": {
+        "allowedDomains": [
+            "localhost",
+            "*.localhost",
+            "islandfund.com",
+            "*.islandfund.com",
+            "api.islandfund.com"
+        ],
+        "contentBoundaries": true,
+        "maxOutput": 50000
+    },
+    "sessions": {
+        "path": "./agent-browser-sessions",
+        "persist": true
+    },
+    "screenshots": {
+        "path": "./audit-screenshots",
+        "fullPage": true,
+        "annotate": true
+    },
+    "environments": {
+        "local": {
+            "baseUrl": "http://localhost:3000",
+            "apiUrl": "http://localhost:5001",
+            "sessionName": "islandfund-local"
+        },
+        "staging": {
+            "baseUrl": "https://staging.islandfund.com",
+            "apiUrl": "https://api-staging.islandfund.com",
+            "sessionName": "islandfund-staging"
+        },
+        "production": {
+            "baseUrl": "https://islandfund.com",
+            "apiUrl": "https://api.islandfund.com",
+            "sessionName": "islandfund-prod"
+        }
+    },
+    "tasks": [
+        {
+            "id": "public-pages",
+            "name": "Public Pages Audit",
+            "description": "Audit all publicly accessible pages",
+            "priority": "high",
+            "flows": [
+                {
+                    "name": "Homepage Load",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/"
+                        },
+                        {
+                            "action": "snapshot",
+                            "selector": "main"
+                        },
+                        {
+                            "action": "screenshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Marketplace Browse",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/browse"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Search Functionality",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/search"
+                        },
+                        {
+                            "action": "type",
+                            "selector": "input[type='search']",
+                            "value": "jamaica tours"
+                        },
+                        {
+                            "action": "press",
+                            "key": "Enter"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 3000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Community Page",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/community"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                },
+                {
+                    "name": "Rentals Page",
+                    "steps": [
+                        {
+                            "action": "open",
+                            "url": "{{baseUrl}}/rentals"
+                        },
+                        {
+                            "action": "wait",
+                            "timeout": 2000
+                        },
+                        {
+                            "action": "snapshot"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
