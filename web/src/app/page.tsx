@@ -50,6 +50,10 @@ export default function Home() {
     limit: 12
   });
 
+  // Marketplace category counts — fetched from API
+  const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
+  const [subscriptionTiers, setSubscriptionTiers] = useState<{ vip: number; vendor: number }>({ vip: 15, vendor: 99 });
+
   // Note: Promo Banners and Home Sections would ideally have their own SWR hooks.
   // For now, keeping them in a useEffect until their hooks are created.
   const [promoBanners, setPromoBanners] = useState<any[]>([]);
@@ -58,12 +62,16 @@ export default function Home() {
   useEffect(() => {
     const fetchAdditionalData = async () => {
       try {
-        const [bannersRes, homeSectionsRes] = await Promise.all([
+        const [bannersRes, homeSectionsRes, countsRes, tiersRes] = await Promise.all([
           api.get('/promotions/active?location=home_hero'),
-          api.get('/homepage')
+          api.get('/homepage'),
+          api.get('/stats/categories').catch(() => null),
+          api.get('/config/subscription-tiers').catch(() => null),
         ]);
         setPromoBanners(bannersRes.data);
         setHomeSections(homeSectionsRes.data || []);
+        if (countsRes?.data) setCategoryCounts(countsRes.data);
+        if (tiersRes?.data) setSubscriptionTiers(tiersRes.data);
       } catch (error) {
         console.error('Failed to fetch additional home data', error);
       }
@@ -236,10 +244,10 @@ export default function Home() {
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { label: 'Fresh Food', count: '45+', icon: '🍴', href: '/stores?category=food' },
-                { label: 'Local Brands/Hosts', count: '120+', icon: '📦', href: '/stores?category=product' },
-                { label: 'Rentals', count: '30+', icon: '🏠', href: '/rental-hub' },
-                { label: 'Services', count: '80+', icon: '🛠️', href: '/stores?category=service' }
+                { label: 'Fresh Food', count: categoryCounts.food ?? 0, icon: '🍴', href: '/stores?category=food' },
+                { label: 'Local Brands/Hosts', count: categoryCounts.product ?? 0, icon: '📦', href: '/stores?category=product' },
+                { label: 'Rentals', count: categoryCounts.rental ?? 0, icon: '🏠', href: '/rental-hub' },
+                { label: 'Services', count: categoryCounts.service ?? 0, icon: '🛠️', href: '/stores?category=service' }
               ].map((item) => (
                 <Link
                   key={item.label}
@@ -473,7 +481,7 @@ export default function Home() {
                   Join the elite shoppers. Get 10% OFF every order, double reward points, and early access to limited edition island products.
                 </p>
                 <div className="flex items-center gap-2 mb-10">
-                  <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>$15</span>
+                  <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>${subscriptionTiers.vip}</span>
                   <span className={cnTheme('font-bold uppercase tracking-widest text-[10px]', getTextClass('tertiary'))}>/ month</span>
                 </div>
                 <Link href="/pricing" className={cnTheme(getButtonClasses('primary'), 'bg-amber-500 hover:bg-amber-600 inline-flex items-center gap-3')}>
@@ -503,7 +511,7 @@ export default function Home() {
                   Scale your business with advanced analytics, custom branding, lower commission rates, and featured storefront visibility.
                 </p>
                 <div className="flex items-center gap-2 mb-10">
-                  <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>$99</span>
+                  <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>${subscriptionTiers.vendor}</span>
                   <span className={cnTheme('font-bold uppercase tracking-widest text-[10px]', getTextClass('tertiary'))}>/ month</span>
                 </div>
                 <Link href="/pricing" className={cnTheme(getButtonClasses('primary'), 'inline-flex items-center gap-3')}>
