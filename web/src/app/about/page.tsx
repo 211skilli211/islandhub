@@ -40,7 +40,6 @@ export default function AboutPage() {
                   src="/founder.jpg"
                   alt="N. J. Robin — Founder of IslandHub"
                   className="w-full h-full object-cover"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
               </div>
             </div>
