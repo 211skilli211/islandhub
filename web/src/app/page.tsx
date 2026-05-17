@@ -45,9 +45,8 @@ export default function Home() {
   // Diverse Rentals (Excluding Tools & Equipment)
   const { data: rentalsData, isLoading: rentalsLoading } = useListings({
     category: 'rental',
-    sub_category: 'Apartment,Stays,Car,Boat,Yacht,Gear,Land,Sea', // Multiple subcategories supported now
-    featured: true,
-    limit: 12
+    sub_category: 'Apartment,Stays,Car,Boat,Yacht,Gear,Land,Sea',
+    limit: 20
   });
 
   // Marketplace category counts — fetched from API
@@ -106,19 +105,19 @@ export default function Home() {
     const diverse: any[] = [];
     const seenTypes = new Set();
 
-    // 1. First pass: Unique types
+    // 1. First pass: Unique types (up to 6)
     allRentals.forEach((r: any) => {
       const subCat = r.sub_category?.toLowerCase() || '';
-      if (!seenTypes.has(subCat) && diverse.length < 3) {
+      if (!seenTypes.has(subCat) && diverse.length < 6) {
         diverse.push(r);
         seenTypes.add(subCat);
       }
     });
 
-    // 2. Second pass: Fill up to 3 with whatever is available
-    if (diverse.length < 3) {
+    // 2. Second pass: Fill up to 6 with whatever is available
+    if (diverse.length < 6) {
       allRentals.forEach((r: any) => {
-        if (!diverse.find(d => d.id === r.id) && diverse.length < 3) {
+        if (!diverse.find(d => d.id === r.id) && diverse.length < 6) {
           diverse.push(r);
         }
       });

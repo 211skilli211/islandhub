@@ -1,7 +1,83 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 
+function FounderModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+
+      {/* Modal */}
+      <div className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors"
+        >
+          ✕
+        </button>
+
+        {/* Photo header */}
+        <div className="aspect-[16/9] rounded-t-3xl bg-gradient-to-br from-teal-100 to-amber-50 overflow-hidden">
+          <img
+            src="/founder.jpg"
+            alt="N. J. Robin — Founder of IslandHub"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-8">
+          <h3 className="text-2xl font-black text-slate-900 mb-1">N. J. Robin</h3>
+          <p className="text-lg font-semibold text-teal-600 mb-4">Founder & Creative Technologist</p>
+
+          <div className="text-slate-600 leading-relaxed space-y-4 mb-6">
+            <p>
+              A multi-disciplinary creative technologist based in St. Kitts & Nevis, N. J. Robin brings over
+              13 years of graphic design, 5+ years of app development, and a decade of hands-on technical
+              experience to IslandHub. His vision is to build practical technology infrastructure that empowers
+              Caribbean businesses and communities.
+            </p>
+            <p>
+              From corporate branding and print production to full-stack mobile development with Flutter and Dart,
+              3D modeling, and AI-powered business tools — he combines creative vision with technical execution
+              to build products that serve real community needs.
+            </p>
+            <p>
+              His background in professional painting and construction across Dominica gives him a grounded
+              understanding of physical craft, materials, and project management — skills that inform his
+              approach to digital product design and development.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 mb-6">
+            <a href="mailto:businesstrends869@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-100 transition-colors">
+              📧 businesstrends869@gmail.com
+            </a>
+            <a href="https://wa.me/18697639919" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-100 transition-colors">
+              💬 +1 (869) 763-9919
+            </a>
+            <a href="https://quikrsolutions.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-100 transition-colors">
+              🌐 quikrsolutions.app
+            </a>
+          </div>
+
+          <Link href="/founder" className="inline-flex items-center gap-2 text-teal-600 font-bold text-sm hover:text-teal-700 transition-colors">
+            View Full Profile →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AboutPage() {
+  const [founderModalOpen, setFounderModalOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Hero Section */}
@@ -16,13 +92,13 @@ export default function AboutPage() {
             Empowering <span className="text-teal-400">Island Commerce</span>
           </h1>
           <p className="text-xl text-teal-50/80 max-w-2xl mx-auto leading-relaxed">
-            IslandHub is the premier marketplace for the Caribbean, connecting local creators, 
+            IslandHub is the premier marketplace for the Caribbean, connecting local creators,
             entrepreneurs, and causes with the world.
           </p>
         </div>
       </section>
 
-      {/* Founder Section */}
+      {/* Founder Section — Clickable card that opens modal */}
       <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -32,53 +108,52 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-black text-slate-900">Meet N. J. Robin</h2>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-12 items-start">
-            {/* Photo */}
-            <div className="md:col-span-2">
-              <div className="aspect-[3/4] rounded-3xl bg-gradient-to-br from-teal-100 to-amber-50 overflow-hidden border-4 border-white shadow-xl">
-                <img
-                  src="/founder.jpg"
-                  alt="N. J. Robin — Founder of IslandHub"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Info */}
-            <div className="md:col-span-3">
-              <h3 className="text-2xl font-black text-slate-900 mb-1">N. J. Robin</h3>
-              <p className="text-lg font-semibold text-teal-600 mb-4">Founder & Creative Technologist</p>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                A multi-disciplinary creative technologist based in St. Kitts & Nevis, N. J. Robin brings over 
-                13 years of graphic design, 5+ years of app development, and a decade of hands-on construction 
-                experience to IslandHub. His vision is to build practical technology infrastructure that empowers 
-                Caribbean businesses and communities.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-6">
-                From corporate branding and print production to full-stack mobile development with Flutter and Dart, 
-                3D modeling, and AI-powered business tools — he combines creative vision with technical execution 
-                to build products that serve real community needs.
-              </p>
-
-              <div className="flex flex-wrap gap-3 mb-6">
-                <a href="mailto:businesstrends869@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-100 transition-colors">
-                  📧 businesstrends869@gmail.com
-                </a>
-                <a href="https://wa.me/18697639919" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-100 transition-colors">
-                  💬 +1 (869) 763-9919
-                </a>
-                <a href="https://quikrsolutions.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-100 transition-colors">
-                  🌐 quikrsolutions.app
-                </a>
+          {/* Clickable founder card */}
+          <div
+            onClick={() => setFounderModalOpen(true)}
+            className="group cursor-pointer bg-white rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl hover:border-teal-300 transition-all duration-300 overflow-hidden"
+          >
+            <div className="grid md:grid-cols-5 gap-6 p-6 md:p-8 items-center">
+              {/* Photo */}
+              <div className="md:col-span-2">
+                <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-teal-100 to-amber-50 overflow-hidden">
+                  <img
+                    src="/founder.jpg"
+                    alt="N. J. Robin — Founder of IslandHub"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
               </div>
 
-              <Link href="/founder" className="inline-flex items-center gap-2 text-teal-600 font-bold text-sm hover:text-teal-700 transition-colors">
-                View Full Profile →
-              </Link>
+              {/* Info */}
+              <div className="md:col-span-3 text-center md:text-left">
+                <h3 className="text-2xl font-black text-slate-900 mb-1 group-hover:text-teal-600 transition-colors">N. J. Robin</h3>
+                <p className="text-lg font-semibold text-teal-600 mb-3">Founder & Creative Technologist</p>
+                <p className="text-slate-600 leading-relaxed mb-4 line-clamp-3">
+                  A multi-disciplinary creative technologist based in St. Kitts & Nevis, N. J. Robin brings over
+                  13 years of graphic design, 5+ years of app development, and a decade of hands-on technical
+                  experience to IslandHub...
+                </p>
+
+                <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-4">
+                  <span className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-xs font-medium">Graphic Design</span>
+                  <span className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-xs font-medium">App Development</span>
+                  <span className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-xs font-medium">3D Design</span>
+                  <span className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-xs font-medium">AI Tools</span>
+                </div>
+
+                <span className="inline-flex items-center gap-2 text-teal-600 font-bold text-sm group-hover:gap-3 transition-all">
+                  Click to read full profile
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Founder Modal */}
+      <FounderModal open={founderModalOpen} onClose={() => setFounderModalOpen(false)} />
 
       {/* Mission Section */}
       <section className="py-24 px-4">
@@ -87,7 +162,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6">Our Mission</h2>
               <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                We believe in the power of community commerce to drive sustainable growth across the Caribbean islands. 
+                We believe in the power of community commerce to drive sustainable growth across the Caribbean islands.
                 Our mission is to provide robust digital infrastructure that enables:
               </p>
               <ul className="space-y-4">
@@ -173,7 +248,7 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black mb-6">Ready to Join the Island Economy?</h2>
           <p className="text-teal-50 text-lg mb-10 leading-relaxed">
-            Whether you're a vendor looking to grow or a customer seeking local treasures, 
+            Whether you're a vendor looking to grow or a customer seeking local treasures,
             IslandHub connects you to the Caribbean.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
