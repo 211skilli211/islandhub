@@ -1470,3 +1470,5 @@ export const StoreLayouts = ({ store, listings, layoutType }: StoreProps) => {
             return <ProductLayout store={store} listings={listings} />;
     }
 };
+
+export default StoreLayouts;
