@@ -50,7 +50,7 @@ function detectLayoutType(store: any, layoutType?: string): 'food' | 'service' |
         subtype.includes('rental') || subtype.includes('boat') || subtype.includes('car')) {
         return 'rental';
     }
-    if (category === 'service' || category === 'services' || category === 'professional' ||
+    if (category === 'service' || category === 'services' || category === 'professional' || category === 'retail' ||
         subtype.includes('service') || subtype.includes('consultant') || subtype.includes('trades')) {
         return 'service';
     }

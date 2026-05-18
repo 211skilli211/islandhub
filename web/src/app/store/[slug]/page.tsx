@@ -39,7 +39,7 @@ function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 
         subtype.includes('rental') || subtype.includes('boat') || subtype.includes('car') || subtype.includes('property')) {
         return 'rental';
     }
-    if (category === 'service' || category === 'services' || category === 'professional' ||
+    if (category === 'service' || category === 'services' || category === 'professional' || category === 'retail' ||
         subtype.includes('service') || subtype.includes('consultant') || subtype.includes('trades')) {
         return 'service';
     }
