@@ -74,6 +74,7 @@ import pushRoutes from './routes/pushRoutes';
 import messagingRoutes from './routes/messagingRoutes';
 import bulkRoutes from './routes/bulkRoutes';
 import siteSettingsRoutes from './routes/siteSettingsRoutes';
+import ibtRoutes from './routes/ibtRoutes';
 import { initScheduler } from './services/subscriptionScheduler';
 
 const PORT = process.env.PORT || 5001;
@@ -158,6 +159,7 @@ app.use('/api/push', pushRoutes);
 app.use('/api/messaging', messagingRoutes);
 app.use('/api/bulk', bulkRoutes);
 app.use('/api/site-settings', siteSettingsRoutes);
+app.use('/api/ibt', ibtRoutes);
 app.use('/api', advancedRoutes);
 
 // Basic Route

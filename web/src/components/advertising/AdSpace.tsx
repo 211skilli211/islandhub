@@ -98,14 +98,19 @@ export default function AdSpace({
         }
     };
 
-    // Handle ad click
-    const handleAdClick = (ad: Advertisement) => {
-        trackEvent(ad.ad_id, 'click');
+    // Handle ad click — track first, then navigate
+    const handleAdClick = async (ad: Advertisement, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
 
+        // Track the click event first
+        await trackEvent(ad.ad_id, 'click');
+
+        // Then navigate
         if (ad.click_action === 'url' && ad.target_url) {
-            window.open(ad.target_url, '_blank');
+            window.open(ad.target_url, '_blank', 'noopener,noreferrer');
         } else if (ad.click_action === 'store' && ad.target_store_id) {
-            window.location.href = `/stores/${ad.target_store_id}`;
+            window.location.href = `/store/${ad.target_store_id}`;
         } else if (ad.click_action === 'listing' && ad.target_listing_id) {
             window.location.href = `/listings/${ad.target_listing_id}`;
         }
@@ -409,7 +414,7 @@ export default function AdSpace({
 
                 {/* Ad Content */}
                 <div
-                    onClick={() => currentAd && handleAdClick(currentAd)}
+                    onClick={(e) => currentAd && handleAdClick(currentAd, e)}
                     className={`relative h-full w-full ${currentAd ? 'cursor-pointer' : ''}`}
                 >
                     {renderAdContent()}

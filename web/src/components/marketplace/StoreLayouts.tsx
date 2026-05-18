@@ -19,10 +19,49 @@ interface StoreProps {
     store: any;
     listings: any[];
     menuData?: any;
+    layoutType?: 'food' | 'service' | 'rental' | 'product';
 }
 
 const PLACEHOLDER_LOGO = '/placeholders/logo-placeholder.png';
 const PLACEHOLDER_HERO = '/placeholders/food-hero.jpg';
+
+// Layout selection - uses explicit layoutType if provided, otherwise falls back to category detection
+function detectLayoutType(store: any, layoutType?: string): 'food' | 'service' | 'rental' | 'product' {
+    // Use explicit layout type if provided
+    if (layoutType && ['food', 'service', 'rental', 'product'].includes(layoutType)) {
+        return layoutType as any;
+    }
+
+    // Fallback: template_id mapping
+    const templateMap: Record<string, 'food' | 'service' | 'rental' | 'product'> = {
+        'food_vendor': 'food',
+        'host_rental': 'rental',
+        'service_provider': 'service',
+        'retail_produce': 'product',
+    };
+    if (store.template_id && templateMap[store.template_id]) {
+        return templateMap[store.template_id];
+    }
+
+    // Fallback: category-based detection
+    const category = (store.category || '').toLowerCase();
+    const subtype = (store.subtype || '').toLowerCase();
+
+    if (category === 'food' || category === 'restaurant' || category === 'cafe' ||
+        subtype.includes('food') || subtype.includes('restaurant') || subtype.includes('cafe')) {
+        return 'food';
+    }
+    if (category === 'rental' || category === 'rentals' ||
+        subtype.includes('rental') || subtype.includes('boat') || subtype.includes('car')) {
+        return 'rental';
+    }
+    if (category === 'service' || category === 'services' || category === 'professional' ||
+        subtype.includes('service') || subtype.includes('consultant') || subtype.includes('trades')) {
+        return 'service';
+    }
+
+    return 'product';
+}
 
 // Custom Hook for fetching store-specific sections
 const useStoreSections = (storeId: number | string) => {
@@ -1406,11 +1445,28 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                         <div className="flex gap-6 text-xs text-slate-400">
                             <a href="#" className="hover:text-slate-700 transition-colors">Terms</a>
                             <a href="#" className="hover:text-slate-700 transition-colors">Privacy</a>
-                            <a href="#" className="hover:text-slate-700 transition-colors">License</a>
+            <a href="#" className="hover:text-slate-700 transition-colors">License</a>
                         </div>
                     </div>
                 </div>
             </footer>
         </div>
     );
+};
+
+// Wrapper component that selects the correct layout based on layoutType prop
+export const StoreLayouts = ({ store, listings, layoutType }: StoreProps) => {
+    const detectedLayout = detectLayoutType(store, layoutType);
+
+    switch (detectedLayout) {
+        case 'food':
+            return <FoodShopLayout store={store} listings={listings} />;
+        case 'service':
+            return <ServiceLayout store={store} listings={listings} />;
+        case 'rental':
+            return <RentalLayout store={store} listings={listings} />;
+        case 'product':
+        default:
+            return <ProductLayout store={store} listings={listings} />;
+    }
 };
