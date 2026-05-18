@@ -18,13 +18,13 @@ export const getAllStores = async (req: Request, res: Response) => {
             FROM stores s
             LEFT JOIN vendors v ON s.vendor_id = v.user_id
             LEFT JOIN users u ON s.vendor_id = u.user_id
-            WHERE 1=1
+            WHERE s.is_active = true AND s.status = 'active'
         `;
         let countQuery = `
             SELECT COUNT(*) 
             FROM stores s
             LEFT JOIN vendors v ON s.vendor_id = v.user_id
-            WHERE 1=1
+            WHERE s.is_active = true AND s.status = 'active'
         `;
         const params: any[] = [];
 
@@ -40,10 +40,10 @@ export const getAllStores = async (req: Request, res: Response) => {
 
         // Map frontend category names to database category names
         const categoryMap: Record<string, string[]> = {
-            'food': ['Food', 'Food & Dining', 'Restaurant', 'food', 'Cafe', 'Dining'],
-            'product': ['Retail', 'Retail & Shopping', 'E-Commerce', 'Shopping', 'product', 'products', 'Products', 'Boutique'],
-            'service': ['Service', 'Professional Services', 'service', 'services', 'Services', 'Tours', 'Experiences'],
-            'rental': ['Rental', 'Rentals & Property', 'rental', 'rentals', 'Rentals', 'Accommodation', 'Transport']
+            'food': ['Food', 'Food & Dining', 'Restaurant', 'Cafe', 'Dining'],
+            'product': ['Retail', 'Retail & Shopping', 'E-Commerce', 'Shopping', 'Products', 'Boutique'],
+            'service': ['Services', 'Professional', 'Professional Services', 'Tours', 'Experiences', 'Automotive', 'Marine', 'Events'],
+            'rental': ['Rental', 'Rentals', 'Rentals & Property', 'Accommodation', 'Transport']
         };
 
         if (category) {

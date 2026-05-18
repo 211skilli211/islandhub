@@ -26,7 +26,7 @@ export interface BrandMarqueeItem {
     price?: string | number;
 }
 
-const DOUBLED_COUNT = 3;
+const DOUBLED_COUNT = 2; // Double for seamless loop (was 3, causing triple duplication)
 
 export default function BrandMarquee({
     type = 'brand',
@@ -83,14 +83,16 @@ export default function BrandMarquee({
 
     const isLoading = storesLoading || productsLoading;
 
-    // Triple for seamless loop
-    const doubledItems = displayItems.length > 0 ? [...displayItems, ...displayItems, ...displayItems] : [];
+    // Double for seamless loop (not triple)
+    const doubledItems = displayItems.length > 0
+        ? [...displayItems, ...displayItems]
+        : [];
 
     // Use framer-motion's useAnimationFrame for optimized performance
     useAnimationFrame((time, delta) => {
         if (!autoPlay || isPaused || !scrollRef.current || displayItems.length === 0) return;
 
-        const containerWidth = scrollRef.current.scrollWidth / 3;
+        const containerWidth = scrollRef.current.scrollWidth / 2;
 
         // Use delta-based movement for consistent speed across different refresh rates
         const frameAdjustedSpeed = speed * (delta / 16.6);

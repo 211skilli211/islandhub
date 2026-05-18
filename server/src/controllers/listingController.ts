@@ -218,13 +218,13 @@ export const getListings = async (req: Request, res: Response) => {
         }
         if (category) {
             const categoryMap: Record<string, string[]> = {
-                'food': ['Food', 'Food & Dining', 'Restaurant', 'food', 'Cafe', 'Dining'],
-                'product': ['Retail', 'Retail & Shopping', 'E-Commerce', 'Shopping', 'product', 'products', 'Products', 'Boutique'],
-                'service': ['Service', 'Professional Services', 'service', 'services', 'Services', 'Tours', 'Experiences'],
-                'tour': ['Service', 'Tours', 'tour', 'experience', 'Experience'],
-                'experience': ['Service', 'Tours', 'tour', 'experience', 'Experience'],
-                'rental': ['Rental', 'Rentals & Property', 'rental', 'rentals', 'Rentals', 'Accommodation', 'Transport'],
-                'campaign': ['Campaign', 'Fundraiser', 'Donation', 'campaign']
+                'food': ['Food', 'Food & Dining', 'Restaurant', 'Cafe', 'Dining'],
+                'product': ['Retail', 'Retail & Shopping', 'E-Commerce', 'Shopping', 'Products', 'Boutique'],
+                'service': ['Services', 'Professional', 'Professional Services', 'Tours', 'Experiences', 'Automotive', 'Marine', 'Events'],
+                'tour': ['Services', 'Tours', 'Experiences'],
+                'experience': ['Services', 'Tours', 'Experiences'],
+                'rental': ['Rental', 'Rentals', 'Rentals & Property', 'Accommodation', 'Transport'],
+                'campaign': ['Campaign', 'Fundraiser', 'Donation']
             };
             const dbCategories = categoryMap[category as string] || [category];
             query += ` AND l.category = ANY($${params.length + 1})`;
