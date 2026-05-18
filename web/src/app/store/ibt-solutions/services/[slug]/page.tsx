@@ -6,6 +6,16 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 
+const FALLBACK_SERVICES: Record<string, any> = {
+    'ai-digital-employees': { title: 'AI Digital Employees', description: 'AI-powered digital employees that handle customer service, data entry, scheduling, and more — 24/7 availability with human-like interaction.', price: 5000, metadata: { pricing_model: 'monthly', features: ['24/7 Availability', 'Natural Language Processing', 'Custom Training', 'API Integration', 'Multi-language Support'] } },
+    'web-app-design': { title: 'Web & App Design', description: 'Custom websites and mobile applications built for Caribbean businesses. From e-commerce to booking systems, we create digital experiences that convert.', price: 2000, metadata: { features: ['Responsive Design', 'SEO Optimized', 'CMS Integration', 'Payment Gateway', 'Analytics Dashboard'] } },
+    'business-automation': { title: 'Business Automation', description: 'Streamline your operations with automated workflows. Reduce manual tasks, eliminate errors, and free up your team to focus on growth.', price: null, metadata: { features: ['Workflow Design', 'System Integration', 'Process Documentation', 'Training & Support'] } },
+    'graphic-design': { title: 'Graphic Design', description: 'Professional branding and design services including logos, marketing materials, social media graphics, and print-on-demand products.', price: 75, metadata: { features: ['Logo Design', 'Brand Guidelines', 'Social Media Kit', 'Print Materials'] } },
+    'lead-generation': { title: 'Lead Generation', description: 'Data-driven lead generation strategies to help your Caribbean business find and convert qualified prospects.', price: null, metadata: { features: ['Targeted Campaigns', 'CRM Integration', 'Analytics & Reporting', 'A/B Testing'] } },
+    'business-audit': { title: 'Business Audit', description: 'Comprehensive business analysis covering operations, technology, marketing, and financial efficiency. Get actionable insights to grow.', price: 300, metadata: { features: ['Operations Review', 'Tech Stack Assessment', 'Market Analysis', 'Action Plan'] } },
+    'consultation': { title: 'Consultation', description: 'Expert business and tech consultation to help you make the right decisions for your Caribbean business.', price: 100, metadata: { features: ['1-on-1 Session', 'Strategic Planning', 'Tech Recommendations', 'Follow-up Report'] } },
+};
+
 export default function IBTServiceDetailPage() {
     const params = useParams();
     const slug = params.slug as string;

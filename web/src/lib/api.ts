@@ -45,6 +45,16 @@ const getBaseUrl = () => {
         }
     }
 
+    // In production (Vercel), use the Render backend directly
+    // CORS is configured on the backend to allow *.vercel.app origins
+    if (typeof window !== 'undefined') {
+        const { hostname } = window.location;
+        const isLocal = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
+        if (!isLocal && !envUrl) {
+            console.log('[API] Production mode, using Render backend');
+            return 'https://islandhub.onrender.com';
+        }
+    }
     console.log('[API] Using environment URL:', envUrl || 'http://localhost:5001');
     return envUrl || 'http://localhost:5001';
 };

@@ -22,13 +22,13 @@ const COOP_SECTORS = [
 ];
 
 const IBT_SERVICES = [
-    { title: 'AI Digital Employees', price: '$5,000/mo', desc: 'AI-powered digital employees for your business', icon: '🤖' },
-    { title: 'Web & App Design', price: '$1,000-$3,000', desc: 'Custom websites and mobile applications', icon: '💻' },
-    { title: 'Business Automation', price: 'Custom', desc: 'Streamline operations with automated workflows', icon: '⚙️' },
-    { title: 'Graphic Design', price: 'From $75', desc: 'Professional branding and design', icon: '🎨' },
-    { title: 'Lead Generation', price: 'Custom', desc: 'Data-driven lead generation strategies', icon: '📈' },
-    { title: 'Business Audit', price: 'From $300', desc: 'Comprehensive business analysis', icon: '🔍' },
-    { title: 'Consultation', price: 'From $100', desc: 'Expert business and tech consultation', icon: '💡' },
+    { title: 'AI Digital Employees', slug: 'ai-digital-employees', price: '$5,000/mo', desc: 'AI-powered digital employees for your business', icon: '🤖' },
+    { title: 'Web & App Design', slug: 'web-app-design', price: '$1,000-$3,000', desc: 'Custom websites and mobile applications', icon: '💻' },
+    { title: 'Business Automation', slug: 'business-automation', price: 'Custom', desc: 'Streamline operations with automated workflows', icon: '⚙️' },
+    { title: 'Graphic Design', slug: 'graphic-design', price: 'From $75', desc: 'Professional branding and design', icon: '🎨' },
+    { title: 'Lead Generation', slug: 'lead-generation', price: 'Custom', desc: 'Data-driven lead generation strategies', icon: '📈' },
+    { title: 'Business Audit', slug: 'business-audit', price: 'From $300', desc: 'Comprehensive business analysis', icon: '🔍' },
+    { title: 'Consultation', slug: 'consultation', price: 'From $100', desc: 'Expert business and tech consultation', icon: '💡' },
 ];
 
 export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
@@ -111,31 +111,33 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {(ibtServices.length > 0 ? ibtServices : []).map((service: any, i: number) => {
+                        {(ibtServices.length > 0 ? ibtServices : IBT_SERVICES).map((service: any, i: number) => {
                             const icons: Record<string, string> = {
                                 ai_employees: '🤖', web_design: '💻', automation: '⚙️',
                                 api_integration: '🔌', coop_membership: '🤝', graphic_design: '🎨',
                                 lead_generation: '📈', business_audit: '🔍', consultation: '💡',
                             };
+                            const slug = service.slug || service.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                            const iconKey = service.service_type || '';
                             return (
                                 <motion.div
-                                    key={service.id || service.slug}
+                                    key={service.id || slug}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.05 }}
                                     className="bg-white rounded-2xl p-8 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all group"
                                 >
-                                    <div className="text-4xl mb-4">{icons[service.service_type] || '📦'}</div>
+                                    <div className="text-4xl mb-4">{icons[iconKey] || service.icon || '📦'}</div>
                                     <h3 className="text-xl font-black text-slate-900 mb-2 group-hover:text-teal-600 transition-colors">
                                         {service.title}
                                     </h3>
                                     <p className="text-teal-600 font-bold text-sm mb-3">
-                                        {service.price ? `$${Number(service.price).toLocaleString()}${service.metadata?.pricing_model === 'monthly' ? '/mo' : ''}` : 'Contact for pricing'}
+                                        {service.price ? (typeof service.price === 'string' && service.price.startsWith('$') ? service.price : `$${Number(service.price).toLocaleString()}${service.metadata?.pricing_model === 'monthly' ? '/mo' : ''}`) : 'Contact for pricing'}
                                     </p>
                                     <p className="text-slate-500 text-sm leading-relaxed mb-6">{service.description}</p>
                                     <Link
-                                        href={`/store/ibt-solutions/services/${service.slug}`}
+                                        href={`/store/ibt-solutions/services/${slug}`}
                                         className="inline-flex items-center gap-2 text-teal-600 font-bold text-sm hover:gap-3 transition-all"
                                     >
                                         Learn More →
