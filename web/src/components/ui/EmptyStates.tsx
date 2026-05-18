@@ -126,7 +126,7 @@ export function EmptyVendorOrders() {
             actionLabel="View Products"
             actionHref="/dashboard?tab=menu"
             secondaryActionLabel="Marketing Tips"
-            actionHref="/dashboard?tab=promotions"
+            secondaryActionHref="/dashboard?tab=promotions"
         />
     );
 }
