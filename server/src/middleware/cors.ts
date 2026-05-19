@@ -63,6 +63,14 @@ export const corsOptions = {
       return;
     }
 
+    // Allow Render deployments (onrender.com)
+    const renderPattern = /^https:\/\/[a-zA-Z0-9-]+\.onrender\.com$/;
+    if (renderPattern.test(origin)) {
+      console.log(`[CORS] Allowing Render deployment: ${origin}`);
+      callback(null, true);
+      return;
+    }
+
     console.warn(`[CORS] Blocked Origin: ${origin}`);
     callback(new Error('Not allowed by CORS'));
   },

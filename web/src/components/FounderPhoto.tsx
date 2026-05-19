@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import api from '@/lib/api';
+import api, { getImageUrl } from '@/lib/api';
 
 export default function FounderPhoto({ className = '' }: { className?: string }) {
   const [hasError, setHasError] = useState(false);
@@ -15,7 +15,7 @@ export default function FounderPhoto({ className = '' }: { className?: string })
         if (res.data && Array.isArray(res.data)) {
           const founderSetting = res.data.find((s: any) => s.setting_key === 'founder_photo_url');
           if (founderSetting?.setting_value) {
-            setPhotoUrl(founderSetting.setting_value);
+            setPhotoUrl(getImageUrl(founderSetting.setting_value));
             setLoading(false);
             return;
           }
