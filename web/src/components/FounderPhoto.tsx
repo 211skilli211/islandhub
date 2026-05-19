@@ -11,15 +11,12 @@ export default function FounderPhoto({ className = '' }: { className?: string })
   useEffect(() => {
     const fetchPhoto = async () => {
       try {
-        const res = await api.get('/site-settings');
-        if (res.data && Array.isArray(res.data)) {
-          const founderSetting = res.data.find((s: any) => s.setting_key === 'founder_photo_url');
-          if (founderSetting?.setting_value) {
-            const url = getImageUrl(founderSetting.setting_value);
-            if (url) setPhotoUrl(url);
-            setLoading(false);
-            return;
-          }
+        const res = await api.get('/site-settings/public');
+        if (res.data && res.data.founder_photo_url) {
+          const url = getImageUrl(res.data.founder_photo_url);
+          if (url) setPhotoUrl(url);
+          setLoading(false);
+          return;
         }
       } catch {
         // silent fail — use fallback
