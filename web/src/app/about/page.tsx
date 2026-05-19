@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import FounderPhoto from '@/components/FounderPhoto';
 
 function FounderModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   if (!open) return null;
@@ -22,12 +23,8 @@ function FounderModal({ open, onClose }: { open: boolean; onClose: () => void })
         </button>
 
         {/* Photo header */}
-        <div className="aspect-[16/9] rounded-t-3xl bg-gradient-to-br from-teal-100 to-amber-50 overflow-hidden">
-          <img
-            src="/founder.jpg"
-            alt="N. J. Robin — Founder of IslandHub"
-            className="w-full h-full object-cover"
-          />
+        <div className="aspect-[16/9] rounded-t-3xl overflow-hidden">
+          <FounderPhoto className="w-full h-full" />
         </div>
 
         {/* Content */}
@@ -116,12 +113,8 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-5 gap-6 p-6 md:p-8 items-center">
               {/* Photo */}
               <div className="md:col-span-2">
-                <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-teal-100 to-amber-50 overflow-hidden">
-                  <img
-                    src="/founder.jpg"
-                    alt="N. J. Robin — Founder of IslandHub"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                <div className="aspect-[3/4] rounded-2xl overflow-hidden">
+                  <FounderPhoto className="w-full h-full group-hover:scale-105 transition-transform duration-500" />
                 </div>
               </div>
 

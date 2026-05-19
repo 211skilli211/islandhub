@@ -79,6 +79,15 @@ export default function HeroAssetTab() {
     const [styleConfig, setStyleConfig] = useState<any>({});
 
     const [expandedSections, setExpandedSections] = useState<string[]>(['background', 'content']);
+    
+    // ── Site Media State ──
+    const [founderPhotoUrl, setFounderPhotoUrl] = useState('');
+    const [ibtLogoUrl, setIbtLogoUrl] = useState('');
+    const [uploadingFounder, setUploadingFounder] = useState(false);
+    const [uploadingLogo, setUploadingLogo] = useState(false);
+    const [savingSiteMedia, setSavingSiteMedia] = useState(false);
+    const [siteMediaLoaded, setSiteMediaLoaded] = useState(false);
+
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
     const [uploading, setUploading] = useState(false);
@@ -264,6 +273,100 @@ export default function HeroAssetTab() {
         } catch (error) {
             toast.error('Failed to delete hero asset');
         }
+    };
+
+    // ── Site Media: Load ──
+    useEffect(() => {
+        if (siteMediaLoaded) return;
+        const loadSiteMedia = async () => {
+            try {
+                const res = await api.get('/site-settings');
+                if (res.data && Array.isArray(res.data)) {
+                    const settings: any = {};
+                    res.data.forEach((s: any) => { settings[s.setting_key] = s.setting_value; });
+                    if (settings.founder_photo_url) setFounderPhotoUrl(settings.founder_photo_url);
+                    if (settings.ibt_logo_url) setIbtLogoUrl(settings.ibt_logo_url);
+                }
+            } catch (err) {
+                // silent fail — settings may not exist yet
+            } finally {
+                setSiteMediaLoaded(true);
+            }
+        };
+        loadSiteMedia();
+    }, [siteMediaLoaded]);
+
+    // ── Site Media: Upload Handlers ──
+    const handleFounderPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setUploadingFounder(true);
+        const formData = new FormData();
+        formData.append('image', file);
+        try {
+            const res = await api.post('/uploads/asset', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setFounderPhotoUrl(res.data.url);
+            toast.success('Founder photo uploaded');
+        } catch {
+            toast.error('Upload failed');
+        } finally {
+            setUploadingFounder(false);
+        }
+    };
+
+    const handleIbtLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setUploadingLogo(true);
+        const formData = new FormData();
+        formData.append('image', file);
+        try {
+            const res = await api.post('/uploads/asset', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setIbtLogoUrl(res.data.url);
+            toast.success('Logo uploaded');
+        } catch {
+            toast.error('Upload failed');
+        } finally {
+            setUploadingLogo(false);
+        }
+    };
+
+    const handleRemoveFounderPhoto = () => {
+        setFounderPhotoUrl('');
+    };
+
+    const handleRemoveIbtLogo = () => {
+        setIbtLogoUrl('');
+    };
+
+    const handleSaveSiteMedia = async () => {
+        setSavingSiteMedia(true);
+        try {
+            if (founderPhotoUrl) {
+                await api.put('/site-settings', { setting_key: 'founder_photo_url', setting_value: founderPhotoUrl });
+            } else {
+                await api.put('/site-settings', { setting_key: 'founder_photo_url', setting_value: '' });
+            }
+            if (ibtLogoUrl) {
+                await api.put('/site-settings', { setting_key: 'ibt_logo_url', setting_value: ibtLogoUrl });
+            } else {
+                await api.put('/site-settings', { setting_key: 'ibt_logo_url', setting_value: '' });
+            }
+            toast.success('Site media saved');
+        } catch {
+            toast.error('Failed to save site media');
+        } finally {
+            setSavingSiteMedia(false);
+        }
+    };
+
+    const handleResetSiteMedia = () => {
+        setFounderPhotoUrl('');
+        setIbtLogoUrl('');
     };
 
     return (
@@ -1238,6 +1341,155 @@ export default function HeroAssetTab() {
                                                 </div>
                                             </div>
                                         )}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+
+                    {/* ═══════════════════════════════════════════════════════════
+                        Section: Site Media
+                        ═══════════════════════════════════════════════════════════ */}
+                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                        <button
+                            onClick={() => toggleSection('site-media')}
+                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                        >
+                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-sm">👤</span>
+                                Site Media &amp; Founder Photo
+                            </span>
+                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('site-media') ? 'rotate-180' : ''}`}>▼</span>
+                        </button>
+
+                        <AnimatePresence>
+                            {expandedSections.includes('site-media') && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    className="p-6 space-y-6 overflow-hidden"
+                                >
+                                    {/* Description */}
+                                    <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                                        Manage site-wide media assets like the founder photo displayed on the IBT Solutions founder page and IslandHub about page.
+                                    </p>
+
+                                    {/* Founder Photo */}
+                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Founder Photo</h4>
+                                            <span className="text-[9px] font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Used on: IBT Founder Page · IslandHub About</span>
+                                        </div>
+
+                                        {/* Current Photo Preview */}
+                                        {founderPhotoUrl && (
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-20 h-20 rounded-2xl bg-white border-2 border-slate-200 overflow-hidden shrink-0">
+                                                    <img src={getImageUrl(founderPhotoUrl)} alt="Founder" className="w-full h-full object-cover" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-[10px] font-mono text-slate-400 truncate">{founderPhotoUrl}</p>
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleRemoveFounderPhoto}
+                                                        className="mt-1 text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-red-600 transition-colors"
+                                                    >
+                                                        ✕ Remove Photo
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Upload Area */}
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingFounder ? 'bg-slate-100 border-slate-300' : 'hover:border-teal-500 bg-white border-slate-200'}`}>
+                                            <input
+                                                type="file"
+                                                onChange={handleFounderPhotoUpload}
+                                                className="absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                                                accept="image/jpeg,image/png,image/webp,image/gif"
+                                                disabled={uploadingFounder}
+                                            />
+                                            {uploadingFounder ? (
+                                                <div className="flex flex-col items-center">
+                                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500 mb-2" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-teal-600">Uploading...</span>
+                                                </div>
+                                            ) : (
+                                                <div className="flex flex-col items-center">
+                                                    <span className="text-3xl mb-2">📷</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click or Drag Founder Photo</span>
+                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">JPG, PNG, WebP (Max 10MB)</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* IBT Solutions Site Logo */}
+                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">IBT Solutions Logo</h4>
+                                            <span className="text-[9px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">Used on: Navbar · Footer</span>
+                                        </div>
+
+                                        {ibtLogoUrl && (
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-20 h-20 rounded-2xl bg-white border-2 border-slate-200 overflow-hidden shrink-0 flex items-center justify-center p-2">
+                                                    <img src={getImageUrl(ibtLogoUrl)} alt="IBT Logo" className="w-full h-full object-contain" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-[10px] font-mono text-slate-400 truncate">{ibtLogoUrl}</p>
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleRemoveIbtLogo}
+                                                        className="mt-1 text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-red-600 transition-colors"
+                                                    >
+                                                        ✕ Remove Logo
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingLogo ? 'bg-slate-100 border-slate-300' : 'hover:border-indigo-500 bg-white border-slate-200'}`}>
+                                            <input
+                                                type="file"
+                                                onChange={handleIbtLogoUpload}
+                                                className="absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                                                accept="image/jpeg,image/png,image/webp,image/svg+xml"
+                                                disabled={uploadingLogo}
+                                            />
+                                            {uploadingLogo ? (
+                                                <div className="flex flex-col items-center">
+                                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500 mb-2" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">Uploading...</span>
+                                                </div>
+                                            ) : (
+                                                <div className="flex flex-col items-center">
+                                                    <span className="text-3xl mb-2">🏢</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click or Drag Logo</span>
+                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">PNG, SVG, WebP with transparency recommended</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Save Site Media */}
+                                    <div className="flex gap-3 pt-2">
+                                        <button
+                                            type="button"
+                                            onClick={handleSaveSiteMedia}
+                                            disabled={savingSiteMedia}
+                                            className="flex-1 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-teal-700 transition-all disabled:opacity-50"
+                                        >
+                                            {savingSiteMedia ? 'Saving...' : 'Save Site Media'}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleResetSiteMedia}
+                                            className="px-6 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-all"
+                                        >
+                                            Reset
+                                        </button>
                                     </div>
                                 </motion.div>
                             )}
