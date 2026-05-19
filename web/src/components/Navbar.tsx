@@ -116,6 +116,15 @@ export default function Navbar() {
                                         <Link href="/community" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
                                             <span className="text-lg">🏝</span> Community
                                         </Link>
+
+                                        <div className="my-2 border-t border-slate-50" />
+                                        <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb2">Business</div>
+                                        <Link href="/store/ibt-solutions" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
+                                            <span className="text-lg">💼</span> IBT Solutions
+                                        </Link>
+                                        <Link href="/store/ibt-solutions/coops" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
+                                            <span className="text-lg">🤝</span> IBT Co-ops
+                                        </Link>
                                     </div>
                                 )}
                             </div>
@@ -309,6 +318,23 @@ export default function Navbar() {
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
                                 >
                                     <span>🏝</span> Community
+                                </Link>
+
+                                <div className="pt-2 mt-2 border-t border-slate-100" />
+                                <div className="px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Business</div>
+                                <Link
+                                    href="/store/ibt-solutions"
+                                    onClick={() => setIsOpen(false)}
+                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
+                                >
+                                    <span>💼</span> IBT Solutions
+                                </Link>
+                                <Link
+                                    href="/store/ibt-solutions/coops"
+                                    onClick={() => setIsOpen(false)}
+                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
+                                >
+                                    <span>🤝</span> IBT Co-ops
                                 </Link>
 
                                 <Link

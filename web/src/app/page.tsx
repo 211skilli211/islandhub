@@ -269,6 +269,52 @@ export default function Home() {
         </div>
       </section>
 
+      {/* IBT Solutions Section */}
+      <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBgClass('secondary'))}>
+        <div className={cnTheme(getCardBaseClasses(false), 'p-8 md:p-16 rounded-[3rem] md:rounded-[4rem] relative overflow-hidden', getShadowClass('lg'))}>
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-block px-4 py-1.5 bg-teal-500/10 text-teal-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+                💼 Business Solutions
+              </div>
+              <h2 className={cnTheme('text-4xl md:text-5xl font-black mb-6 tracking-tighter leading-tight italic', getTextClass('primary'))}>
+                IBT <span className="text-teal-600">Solutions</span>
+              </h2>
+              <p className={cnTheme('text-lg mb-8 leading-relaxed', getTextClass('secondary'))}>
+                AI-powered digital employees, web development, business automation, and a growing co-operative federation — everything your Caribbean business needs to compete.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/store/ibt-solutions" className={cnTheme(getButtonClasses('primary'), 'text-center')}>
+                  Explore Services →
+                </Link>
+                <Link href="/store/ibt-solutions/coops" className={cnTheme(getButtonClasses('outline'), 'text-center')}>
+                  Join Co-ops 🤝
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: '🤖', title: 'AI Employees', desc: '24/7 digital workforce', slug: 'ai-digital-employees' },
+                { icon: '💻', title: 'Web & App Design', desc: 'Custom development', slug: 'web-app-design' },
+                { icon: '⚙️', title: 'Automation', desc: 'Streamline operations', slug: 'business-automation' },
+                { icon: '🤝', title: 'Co-ops', desc: 'Join the federation', slug: 'coops' },
+              ].map((item) => (
+                <Link
+                  key={item.slug}
+                  href={item.slug === 'coops' ? '/store/ibt-solutions/coops' : `/store/ibt-solutions/services/${item.slug}`}
+                  className={cnTheme(getCardBaseClasses(true), 'hover:shadow-lg hover:-translate-y-1 text-center group')}
+                >
+                  <span className="text-3xl mb-3 block group-hover:scale-110 transition-transform">{item.icon}</span>
+                  <h4 className={cnTheme('text-sm font-black mb-1', getTextClass('primary'))}>{item.title}</h4>
+                  <p className={cnTheme('text-[10px] font-bold uppercase tracking-widest', getTextClass('tertiary'))}>{item.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Campaigns */}
       <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBorderClass('primary'))}>
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
