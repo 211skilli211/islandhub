@@ -39,7 +39,7 @@ export default function Navbar() {
                     <div className="flex">
                         <div className="shrink-0 flex items-center gap-2 group">
                             <Link href="/">
-                                <span className="font-black text-2xl text-teal-600 transition-transform group-hover:scale-110">IslandHub 🌴</span>
+                                <span className="font-black text-2xl text-teal-600 transition-transform group-hover:scale-110">IslandHub</span>
                             </Link>
 
                             {/* Cart Icon with Badge */}
@@ -77,25 +77,25 @@ export default function Navbar() {
                                     <div className="absolute left-0 top-[76px] w-56 bg-white rounded-2xl shadow-2xl ring-1 ring-black ring-opacity-5 py-4 z-1001 text-left px-2">
                                         <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Marketplace</div>
                                         <Link href="/stores?category=food" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-rose-50 hover:text-rose-600 rounded-xl transition-all">
-                                            <span className="text-lg">🍴</span> Food & Dining
+                                            Food & Dining
                                         </Link>
                                         <Link href="/stores?category=product" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-amber-50 hover:text-amber-600 rounded-xl transition-all">
-                                            <span className="text-lg">📦</span> Local Shopping
+                                            Local Shopping
                                         </Link>
                                         <Link href="/stores?category=service" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all">
-                                            <span className="text-lg">🛠</span> Services
+                                            Services
                                         </Link>
 
                                         <div className="my-2 border-t border-slate-50" />
 
                                         {/* Simplified Tour Hub Link */}
                                         <Link href="/tours" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-orange-50 hover:text-orange-600 rounded-xl transition-all">
-                                            <span className="text-lg">🗺️</span> Tour Hub
+                                            Tour Hub
                                         </Link>
 
                                         {/* Simplified Rental Hub Link */}
                                         <Link href="/rental-hub" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all">
-                                            <span className="text-lg">⚓</span> Rental Hub
+                                            Rental Hub
                                         </Link>
 
 
@@ -103,7 +103,7 @@ export default function Navbar() {
 
                                         {/* Taxi Hub Link */}
                                         <Link href="/request-ride?type=taxi" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-yellow-50 hover:text-yellow-600 rounded-xl transition-all">
-                                            <span className="text-lg">🚖</span> Taxi Hub
+                                            Taxi Hub
                                         </Link>
 
                                         <div className="my-2 border-t border-slate-50" />
@@ -111,10 +111,10 @@ export default function Navbar() {
                                         <div className="my-2 border-t border-slate-50" />
                                         <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Impact</div>
                                         <Link href="/campaigns" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-all">
-                                            <span className="text-lg">❤️</span> Campaigns
+                                            Campaigns
                                         </Link>
                                         <Link href="/community" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
-                                            <span className="text-lg">🏝</span> Community
+                                            Community
                                         </Link>
 
                                         <div className="my-2 border-t border-slate-50" />
@@ -184,7 +184,7 @@ export default function Navbar() {
                                         href="/start"
                                         className="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-lg shadow-teal-200 transition-all transform hover:-translate-y-1 flex items-center gap-2"
                                     >
-                                        <span>+</span> Create
+                                        Create
                                     </Link>
                                     <UserProfileDropdown />
                                 </>
@@ -236,7 +236,7 @@ export default function Navbar() {
                         {/* Drawer Content */}
                         <div className="absolute right-0 top-0 h-full w-[300px] bg-white shadow-2xl flex flex-col animate-slide-left overflow-y-auto">
                             <div className="p-6 flex justify-between items-center border-b border-slate-50">
-                                <span className="font-black text-xl text-teal-600">IslandHub 🌴</span>
+                                <span className="font-black text-xl text-teal-600">IslandHub</span>
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     className="p-2 hover:bg-slate-100 rounded-full transition-colors"
@@ -257,11 +257,11 @@ export default function Navbar() {
                                     <div>
                                         {theme === 'dark' ? (
                                             <div className="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-wider">
-                                                <span>Light Mode</span> ☀️
+                                                <span>Light Mode</span>
                                             </div>
                                         ) : (
                                             <div className="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase tracking-wider">
-                                                <span>Dark Mode</span> 🌙
+                                                <span>Dark Mode</span>
                                             </div>
                                         )}
                                     </div>
@@ -272,21 +272,21 @@ export default function Navbar() {
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition-all flex items-center gap-3"
                                 >
-                                    <span>🍴</span> Food & Dining
+                                    Food & Dining
                                 </Link>
                                 <Link
                                     href="/stores?category=product"
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition-all flex items-center gap-3"
                                 >
-                                    <span>📦</span> Shopping
+                                    Shopping
                                 </Link>
                                 <Link
                                     href="/stores?category=service"
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-all flex items-center gap-3"
                                 >
-                                    <span>🛠</span> Services
+                                    Services
                                 </Link>
                                 {/* Simplified Mobile Hub Links */}
                                 <Link
@@ -294,7 +294,7 @@ export default function Navbar() {
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-4 rounded-xl text-base font-black text-orange-600 bg-orange-50/50 transition-all flex items-center gap-3"
                                 >
-                                    <span>🗺️</span> Signature Tour Hub
+                                    Signature Tour Hub
                                 </Link>
 
                                 <Link
@@ -302,7 +302,7 @@ export default function Navbar() {
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-4 rounded-xl text-base font-black text-blue-600 bg-blue-50/50 transition-all flex items-center gap-3"
                                 >
-                                    <span>⚓</span> Island Rental Hub
+                                    Island Rental Hub
                                 </Link>
 
                                 <Link
@@ -310,14 +310,14 @@ export default function Navbar() {
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-all flex items-center gap-3"
                                 >
-                                    <span>❤️</span> Campaigns
+                                    Campaigns
                                 </Link>
                                 <Link
                                     href="/community"
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
                                 >
-                                    <span>🏝</span> Community
+                                    Community
                                 </Link>
 
                                 <div className="pt-2 mt-2 border-t border-slate-100" />
@@ -342,28 +342,28 @@ export default function Navbar() {
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                 >
-                                    <span>🏷️</span> Pricing & Tiers
+                                    Pricing & Tiers
                                 </Link>
                                 <Link
                                     href="/how-it-works"
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                 >
-                                    <span>📖</span> How it Works
+                                    How it Works
                                 </Link>
                                 <Link
                                     href="/about"
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                 >
-                                    <span>🌿</span> About Us
+                                    About Us
                                 </Link>
                                 <Link
                                     href="/contact"
                                     onClick={() => setIsOpen(false)}
                                     className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                 >
-                                    <span>📧</span> Contact
+                                    Contact
                                 </Link>
 
                                 <div className="pt-6 mt-6 border-t border-slate-100 space-y-3">
@@ -406,28 +406,28 @@ export default function Navbar() {
                                                         onClick={() => setIsOpen(false)}
                                                         className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
-                                                        <span>👤</span> My Profile
+                                                        My Profile
                                                     </Link>
                                                     <Link
                                                         href="/settings"
                                                         onClick={() => setIsOpen(false)}
                                                         className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
-                                                        <span>⚙️</span> Settings
+                                                        Settings
                                                     </Link>
                                                     <Link
                                                         href="/dashboard"
                                                         onClick={() => setIsOpen(false)}
                                                         className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
-                                                        <span>📊</span> Dashboard
+                                                        Dashboard
                                                     </Link>
                                                     <Link
                                                         href="/dashboard/messages"
                                                         onClick={() => setIsOpen(false)}
                                                         className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
                                                     >
-                                                        <span>💬</span> Messages
+                                                        Messages
                                                     </Link>
                                                     {user?.role === 'admin' && (
                                                         <Link
@@ -435,7 +435,7 @@ export default function Navbar() {
                                                             onClick={() => setIsOpen(false)}
                                                             className="px-6 py-3 rounded-xl text-sm font-bold text-teal-600 bg-teal-50/50 hover:bg-teal-50 transition-all flex items-center gap-3"
                                                         >
-                                                            <span>🛡️</span> Admin Panel
+                                                            Admin Panel
                                                         </Link>
                                                     )}
                                                     {user?.role === 'user' && (
@@ -444,7 +444,7 @@ export default function Navbar() {
                                                             onClick={() => setIsOpen(false)}
                                                             className="px-6 py-3 rounded-xl text-sm font-bold text-orange-600 bg-orange-50/50 hover:bg-orange-50 transition-all flex items-center gap-3"
                                                         >
-                                                            <span>🚀</span> Become a Vendor/Host
+                                                            Become a Vendor/Host
                                                         </Link>
                                                     )}
                                                     <button
@@ -454,7 +454,7 @@ export default function Navbar() {
                                                         }}
                                                         className="w-full text-left px-6 py-3 rounded-xl text-sm font-bold text-rose-500 hover:bg-rose-50 flex items-center gap-3"
                                                     >
-                                                        <span>🚪</span> Log out
+                                                        Log out
                                                     </button>
                                                 </div>
                                             )}

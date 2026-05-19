@@ -1,7 +1,4 @@
-'use client';
-
 import { notFound } from 'next/navigation';
-import api from '@/lib/api';
 import StoreLayouts from '@/components/marketplace/StoreLayouts';
 import { IBTSolutionsLayout } from '@/components/marketplace/IBTSolutionsLayout';
 
@@ -11,12 +8,10 @@ interface StorePageProps {
 
 // Layout selection based on template_id (priority) or category (fallback)
 function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 'ibt' {
-    // Priority 1: IBT Solutions custom store
     if (store.slug === 'ibt-solutions' || store.ibt_tier) {
         return 'ibt';
     }
 
-    // Priority 2: Explicit template_id
     const templateMap: Record<string, 'food' | 'service' | 'rental' | 'product'> = {
         'food_vendor': 'food',
         'host_rental': 'rental',
@@ -27,7 +22,6 @@ function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 
         return templateMap[store.template_id];
     }
 
-    // Priority 3: Category-based fallback
     const category = (store.category || '').toLowerCase();
     const subtype = (store.subtype || '').toLowerCase();
 
@@ -44,24 +38,35 @@ function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 
         return 'service';
     }
 
-    // Default: product layout
     return 'product';
+}
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://islandhub.onrender.com';
+
+async function fetchAPI(path: string) {
+    const res = await fetch(`${API_BASE}/api${path}`, { cache: 'no-store' });
+    if (!res.ok) {
+        if (res.status === 404) return null;
+        throw new Error(`API error: ${res.status}`);
+    }
+    const text = await res.text();
+    try {
+        return JSON.parse(text);
+    } catch {
+        return null;
+    }
 }
 
 export default async function StorePage({ params }: StorePageProps) {
     const { slug } = params;
 
     try {
-        // Fetch store data
-        const storeRes = await api.get(`/stores/slug/${slug}`);
-        const store = storeRes.data;
+        const store = await fetchAPI(`/stores/slug/${slug}`);
 
-        // Check if store exists
         if (!store || !store.store_id) {
             notFound();
         }
 
-        // Check if store is active
         if (store.status !== 'active') {
             return (
                 <main className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -81,14 +86,11 @@ export default async function StorePage({ params }: StorePageProps) {
             );
         }
 
-        // Fetch store listings
-        const listingsRes = await api.get(`/stores/${store.store_id}/listings`);
-        const listings = Array.isArray(listingsRes.data) ? listingsRes.data : (listingsRes.data.listings || []);
+        const listingsData = await fetchAPI(`/stores/${store.store_id}/listings`);
+        const listings = Array.isArray(listingsData) ? listingsData : (listingsData?.listings || []);
 
-        // Determine layout type
         const layoutType = getLayoutType(store);
 
-        // Render appropriate layout
         if (layoutType === 'ibt') {
             return <IBTSolutionsLayout store={store} listings={listings} />;
         }
@@ -101,10 +103,6 @@ export default async function StorePage({ params }: StorePageProps) {
             />
         );
     } catch (error: any) {
-        if (error.response?.status === 404) {
-            notFound();
-        }
-
         console.error('Store page error:', error);
         return (
             <main className="min-h-screen bg-slate-50 flex items-center justify-center">
