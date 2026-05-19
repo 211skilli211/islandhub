@@ -6,7 +6,6 @@ interface StorePageProps {
     params: { slug: string };
 }
 
-// Layout selection based on template_id (priority) or category (fallback)
 function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 'ibt' {
     if (store.slug === 'ibt-solutions' || store.ibt_tier) {
         return 'ibt';
@@ -41,14 +40,21 @@ function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 
     return 'product';
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://islandhub.onrender.com';
-
 async function fetchAPI(path: string) {
-    const res = await fetch(`${API_BASE}/api${path}`, { cache: 'no-store' });
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+    const url = `${baseUrl}${path}`;
+    
+    const res = await fetch(url, { 
+        cache: 'no-store',
+        signal: AbortSignal.timeout(10000),
+    });
+    
     if (!res.ok) {
         if (res.status === 404) return null;
-        throw new Error(`API error: ${res.status}`);
+        const text = await res.text().catch(() => '');
+        throw new Error(`API error ${res.status}: ${text.slice(0, 200)}`);
     }
+    
     const text = await res.text();
     try {
         return JSON.parse(text);
@@ -61,7 +67,7 @@ export default async function StorePage({ params }: StorePageProps) {
     const { slug } = params;
 
     try {
-        const store = await fetchAPI(`/stores/slug/${slug}`);
+        const store = await fetchAPI(`/api/stores/slug/${slug}`);
 
         if (!store || !store.store_id) {
             notFound();
@@ -71,7 +77,6 @@ export default async function StorePage({ params }: StorePageProps) {
             return (
                 <main className="min-h-screen bg-slate-50 flex items-center justify-center">
                     <div className="text-center max-w-md mx-auto px-6">
-                        <div className="text-6xl mb-6">🏪</div>
                         <h1 className="text-2xl font-black text-slate-900 mb-2">{store.name || 'This Store'}</h1>
                         <p className="text-slate-500 mb-6">
                             {store.status === 'suspended'
@@ -86,7 +91,7 @@ export default async function StorePage({ params }: StorePageProps) {
             );
         }
 
-        const listingsData = await fetchAPI(`/stores/${store.store_id}/listings`);
+        const listingsData = await fetchAPI(`/api/stores/${store.store_id}/listings`);
         const listings = Array.isArray(listingsData) ? listingsData : (listingsData?.listings || []);
 
         const layoutType = getLayoutType(store);
@@ -103,13 +108,13 @@ export default async function StorePage({ params }: StorePageProps) {
             />
         );
     } catch (error: any) {
-        console.error('Store page error:', error);
+        console.error('Store page error:', error.message || error);
         return (
             <main className="min-h-screen bg-slate-50 flex items-center justify-center">
                 <div className="text-center max-w-md mx-auto px-6">
-                    <div className="text-6xl mb-6">😕</div>
                     <h1 className="text-2xl font-black text-slate-900 mb-2">Something went wrong</h1>
-                    <p className="text-slate-500 mb-6">We couldn&apos;t load this store. Please try again later.</p>
+                    <p className="text-slate-500 mb-2">We couldn&apos;t load this store.</p>
+                    <p className="text-slate-400 text-xs mb-6 font-mono">{error.message || 'Unknown error'}</p>
                     <a href="/stores" className="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors">
                         Browse Stores
                     </a>
