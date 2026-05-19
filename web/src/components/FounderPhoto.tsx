@@ -15,7 +15,8 @@ export default function FounderPhoto({ className = '' }: { className?: string })
         if (res.data && Array.isArray(res.data)) {
           const founderSetting = res.data.find((s: any) => s.setting_key === 'founder_photo_url');
           if (founderSetting?.setting_value) {
-            setPhotoUrl(getImageUrl(founderSetting.setting_value));
+            const url = getImageUrl(founderSetting.setting_value);
+            if (url) setPhotoUrl(url);
             setLoading(false);
             return;
           }
