@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
-
+import HeroBackground from '@/components/HeroBackground';
 interface CoopSector {
     sector_id: number;
     sector_key: string;
@@ -89,11 +90,7 @@ export default function CoopsPage() {
     return (
         <main className="min-h-screen bg-slate-50">
             {/* Hero */}
-            <section className="relative bg-slate-900 py-20 px-6">
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-600 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600 rounded-full blur-[120px]" />
-                </div>
+            <HeroBackground pageKey="ibt-coops">
                 <div className="relative z-10 max-w-4xl mx-auto text-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                         <span className="inline-block px-4 py-1 bg-teal-600/20 text-teal-400 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
@@ -107,7 +104,7 @@ export default function CoopsPage() {
                         </p>
                     </motion.div>
                 </div>
-            </section>
+            </HeroBackground>
 
             {/* Filters */}
             <section className="sticky top-0 z-20 bg-white border-b border-slate-200 shadow-sm">
