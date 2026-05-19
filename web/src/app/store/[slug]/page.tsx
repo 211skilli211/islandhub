@@ -1,14 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { notFound } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import StoreLayouts from '@/components/marketplace/StoreLayouts';
 import { IBTSolutionsLayout } from '@/components/marketplace/IBTSolutionsLayout';
-
-interface StorePageProps {
-    params: { slug: string };
-}
 
 function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 'ibt' {
     if (store.slug === 'ibt-solutions' || store.ibt_tier) return 'ibt';
@@ -34,8 +30,10 @@ function getLayoutType(store: any): 'food' | 'service' | 'rental' | 'product' | 
     return 'product';
 }
 
-export default function StorePage({ params }: StorePageProps) {
-    const { slug } = params;
+export default function StorePage() {
+    const params = useParams<{ slug: string }>();
+    const slug = params?.slug || '';
+
     const [store, setStore] = useState<any>(null);
     const [listings, setListings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -43,15 +41,18 @@ export default function StorePage({ params }: StorePageProps) {
     const [notFoundError, setNotFoundError] = useState(false);
 
     useEffect(() => {
+        if (!slug) {
+            setLoading(false);
+            setNotFoundError(true);
+            return;
+        }
+
         const fetchData = async () => {
             try {
-                console.log('[StorePage] Fetching store:', slug);
                 const storeRes = await api.get(`/stores/slug/${slug}`);
-                console.log('[StorePage] Store response:', storeRes.data?.name, 'status:', storeRes.data?.status);
                 const storeData = storeRes.data;
 
                 if (!storeData || !storeData.store_id) {
-                    console.log('[StorePage] No store data found');
                     setNotFoundError(true);
                     return;
                 }
@@ -62,12 +63,10 @@ export default function StorePage({ params }: StorePageProps) {
                     const listingsRes = await api.get(`/stores/${storeData.store_id}/listings`);
                     const l = Array.isArray(listingsRes.data) ? listingsRes.data : (listingsRes.data?.listings || []);
                     setListings(l);
-                } catch (e) {
-                    console.log('[StorePage] Listings fetch failed');
+                } catch {
                     setListings([]);
                 }
             } catch (err: any) {
-                console.error('[StorePage] Error:', err.message, 'status:', err.response?.status, 'url:', err.config?.url);
                 if (err.response?.status === 404) {
                     setNotFoundError(true);
                 } else {
