@@ -1,153 +1,123 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import api from '@/lib/api';
-import ListingCard from '@/components/ListingCard';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 
+interface Store {
+    id: number;
+    store_id?: number;
+    name: string;
+    business_name?: string;
+    description: string;
+    logo_url?: string;
+    banner_url?: string;
+    branding_color?: string;
+    category: string;
+    subtype: string;
+    slug: string;
+    rating?: number;
+}
+
 export default function CampaignsPage() {
-    const [campaigns, setCampaigns] = useState<any[]>([]);
+    const [stores, setStores] = useState<Store[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        const fetchCampaigns = async () => {
+        const fetchStores = async () => {
             setLoading(true);
             try {
-                let url = '/listings?type=campaign';
-                if (searchTerm) {
-                    url = `/listings?type=campaign&search=${encodeURIComponent(searchTerm)}`;
-                }
-                const response = await api.get(url);
-                setCampaigns(response.data);
+                const response = await api.get('/stores');
+                const allStores = response.data?.stores || response.data || [];
+                setStores(allStores);
             } catch (error) {
-                console.error('Error fetching campaigns:', error);
+                console.error('Error fetching stores:', error);
             } finally {
                 setLoading(false);
             }
         };
+        fetchStores();
+    }, []);
 
-        const debounceTimer = setTimeout(() => {
-            fetchCampaigns();
-        }, 300);
-
-        return () => clearTimeout(debounceTimer);
-    }, [searchTerm]);
+    const filteredStores = useMemo(() => {
+        if (!searchTerm) return stores;
+        const term = searchTerm.toLowerCase();
+        return stores.filter(s =>
+            s.name?.toLowerCase().includes(term) ||
+            s.description?.toLowerCase().includes(term) ||
+            s.category?.toLowerCase().includes(term)
+        );
+    }, [stores, searchTerm]);
 
     return (
-        <main className="min-h-screen bg-white overflow-hidden">
-            {/* Hero Section */}
-            <HeroBackground pageKey="campaigns" className="py-24 md:py-32">
-                <div className="max-w-7xl mx-auto relative z-30 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-rose-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8"
-                    >
-                        ❤️ Community & Fundraising
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-7xl font-black text-white mb-6 tracking-tighter"
-                    >
-                        Empower the <span className="text-rose-500">Islands</span>
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-teal-50 text-lg max-w-2xl mx-auto mb-12 font-medium opacity-80"
-                    >
-                        Support community projects, disaster relief, and local startups.
-                        Every contribution makes a direct impact on island life.
-                    </motion.p>
-
-                    {/* Search Bar */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="max-w-xl mx-auto relative group"
-                    >
-                        <input
-                            type="text"
-                            placeholder="Find a cause to support..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full px-8 py-5 bg-white/5 backdrop-blur-2xl border-2 border-white/10 rounded-2xl text-white text-md placeholder-teal-200/40 focus:outline-none focus:border-rose-400/50 transition-all font-medium"
-                        />
-                    </motion.div>
-                </div>
-            </HeroBackground>
-
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <div className="flex justify-between items-center mb-12">
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                        {loading ? 'Finding Causes...' : `${campaigns.length} Active Campaigns`}
-                    </h2>
-                </div>
-
-                {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[1, 2, 3, 4, 5, 6].map(i => (
-                            <div key={i} className="h-96 bg-slate-50 animate-pulse rounded-[2.5rem] border border-slate-100" />
-                        ))}
-                    </div>
-                ) : campaigns.length === 0 ? (
-                    <div className="text-center py-32 bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
-                        <p className="text-slate-400 text-lg font-bold italic">No campaigns found. Try a different search!</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {campaigns.map((campaign, idx) => (
-                            <motion.div
-                                key={campaign.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                            >
-                                <ListingCard listing={campaign} />
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
-                {/* Cross-Category Navigation */}
-                <section className="bg-slate-50 py-24 mb-12">
-                    <div className="max-w-7xl mx-auto px-4 text-center">
-                        <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight uppercase">Explore More from the Islands</h2>
-                        <p className="text-slate-500 font-medium mb-12 max-w-xl mx-auto italic">
-                            Support local businesses while you support community causes.
-                        </p>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                            {[
-                                { label: 'Restaurants', href: '/stores?category=food', icon: '🍴', color: 'rose' },
-                                { label: 'Services', href: '/stores?category=service', icon: '🛠', color: 'emerald' },
-                                { label: 'Rentals', href: '/rentals', icon: '🏠', color: 'blue' },
-                                { label: 'Community', href: '/community', icon: '🏝', color: 'teal' }
-                            ].map((link) => (
-                                <Link
-                                    key={link.label}
-                                    href={link.href}
-                                    className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all group flex flex-col items-center gap-4"
-                                >
-                                    <span className="text-4xl group-hover:scale-110 transition-transform">{link.icon}</span>
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
-                                        {link.label} →
-                                    </span>
-                                </Link>
-                            ))}
+        <main className="min-h-screen bg-gray-50">
+            <HeroBackground
+                title="Campaigns"
+                subtitle="Discover promotions, fundraisers and special offers from local businesses"
+                bgGradient="from-purple-600 via-pink-600 to-rose-600"
+            />
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
+                <div className="bg-white rounded-2xl shadow-xl p-6">
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <div className="flex-1 relative">
+                            <input type="text" placeholder="Search campaigns and stores..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none" />
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Active Campaigns</h2>
+                <p className="text-gray-500 mb-8">Stores running promotions and special offers</p>
+                {loading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[1,2,3].map(i => (<div key={i} className="bg-white rounded-2xl h-64 animate-pulse" />))}
+                    </div>
+                ) : filteredStores.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <AnimatePresence>
+                            {filteredStores.map((store, index) => (
+                                <motion.div key={store.id || store.store_id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
+                                    <Link href={`/store/${store.slug}`}>
+                                        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden group cursor-pointer h-full">
+                                            <div className="h-40 overflow-hidden relative">
+                                                {store.banner_url ? (<img src={getImageUrl(store.banner_url)} alt={store.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />) : (<div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-500" />)}
+                                                <div className="absolute top-3 left-3"><span className="bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">Campaign</span></div>
+                                            </div>
+                                            <div className="p-4">
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    {store.logo_url && (<img src={getImageUrl(store.logo_url)} alt="" className="w-10 h-10 rounded-full object-cover border-2 border-white shadow" />)}
+                                                    <div className="flex-1 min-w-0">
+                                                        <h3 className="font-bold text-gray-900 truncate">{store.name}</h3>
+                                                        <span className="text-xs text-purple-600 font-medium">{store.category}</span>
+                                                    </div>
+                                                </div>
+                                                <p className="text-gray-500 text-sm line-clamp-2">{store.description}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </div>
+                ) : (
+                    <div className="text-center py-16">
+                        <div className="text-6xl mb-4">📢</div>
+                        <h3 className="text-xl font-bold text-gray-700 mb-2">No campaigns found</h3>
+                        <p className="text-gray-500">Try adjusting your search</p>
+                    </div>
+                )}
+            </section>
+            <section className="bg-gradient-to-r from-purple-600 to-pink-600 py-16">
+                <div className="max-w-4xl mx-auto text-center px-4">
+                    <h2 className="text-3xl font-bold text-white mb-4">Launch your campaign</h2>
+                    <p className="text-purple-100 mb-8">Promote your products, events or fundraisers to the IslandHub community.</p>
+                    <Link href="/become-vendor" className="inline-block bg-white text-purple-700 font-bold px-8 py-4 rounded-xl hover:bg-purple-50 transition-all shadow-lg hover:shadow-xl">Get Started →</Link>
+                </div>
+            </section>
         </main>
     );
 }
-
