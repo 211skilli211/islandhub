@@ -60,7 +60,7 @@ function StoresContent() {
             setLoading(true);
             try {
                 // Determine API endpoint query
-                let endpoint = '/api/stores';
+                let endpoint = '/stores';
                 const params = new URLSearchParams();
                 if (categoryParam) params.append('category', categoryParam);
 

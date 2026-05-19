@@ -123,7 +123,7 @@ export default function AdVisualManager() {
             const [spacesRes, sectionsRes, storesRes] = await Promise.all([
                 api.get('/advertisements/spaces'),
                 api.get('/homepage?type=homepage'),
-                api.get('/api/stores')
+                api.get('/stores')
             ]);
             setSpaces(spacesRes.data);
             setSections(sectionsRes.data);
