@@ -45,10 +45,13 @@ export default function StorePage({ params }: StorePageProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log('[StorePage] Fetching store:', slug);
                 const storeRes = await api.get(`/stores/slug/${slug}`);
+                console.log('[StorePage] Store response:', storeRes.data?.name, 'status:', storeRes.data?.status);
                 const storeData = storeRes.data;
 
                 if (!storeData || !storeData.store_id) {
+                    console.log('[StorePage] No store data found');
                     setNotFoundError(true);
                     return;
                 }
@@ -60,10 +63,11 @@ export default function StorePage({ params }: StorePageProps) {
                     const l = Array.isArray(listingsRes.data) ? listingsRes.data : (listingsRes.data?.listings || []);
                     setListings(l);
                 } catch (e) {
-                    // Listings fetch failed, but we can still show the store
+                    console.log('[StorePage] Listings fetch failed');
                     setListings([]);
                 }
             } catch (err: any) {
+                console.error('[StorePage] Error:', err.message, 'status:', err.response?.status, 'url:', err.config?.url);
                 if (err.response?.status === 404) {
                     setNotFoundError(true);
                 } else {
