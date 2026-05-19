@@ -118,7 +118,7 @@ export default function Navbar() {
                                         </Link>
 
                                         <div className="my-2 border-t border-slate-50" />
-                                        <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb2">Business</div>
+                                        <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Business</div>
                                         <Link href="/store/ibt-solutions" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
                                             IBT Solutions
                                         </Link>
