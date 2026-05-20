@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api, { getImageUrl } from '@/lib/api';
 import toast from 'react-hot-toast';
 import { Package, Plus, Edit, Trash2, Eye, Image as ImageIcon } from 'lucide-react';
 
-interface Product {
+function ProductsContent() {
+    const searchParams = useSearchParams();
     id: number;
     title: string;
     description: string;
@@ -371,5 +372,17 @@ export default function AdminIBTPartnerProductsPage() {
                 </div>
             )}
         </div>
+    );
+}
+
+export default function AdminIBTPartnerProductsPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center py-20">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
+            </div>
+        }>
+            <ProductsContent />
+        </Suspense>
     );
 }
