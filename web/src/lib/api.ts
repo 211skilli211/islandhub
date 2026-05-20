@@ -136,7 +136,7 @@ api.interceptors.response.use(
     (response) => {
         // Check if response is HTML (often a 404 or 500 error page from Next.js/Express)
         const contentType = response.headers['content-type'];
-        if (contentType && contentType.includes('text/html')) {
+        if (contentType && String(contentType).includes('text/html')) {
             console.error('Received HTML response from API - likely a 404 or misconfigured route:', response.config.url);
             return Promise.reject(new Error('API returned HTML instead of JSON. Possible 404 or Server Error.'));
         }
