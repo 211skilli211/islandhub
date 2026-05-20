@@ -62,9 +62,15 @@ export default function CommunityPage() {
     return (
         <main className="min-h-screen bg-gray-50">
             <HeroBackground
-                title="Community"
-                subtitle="Connect with locals, discover events and join the conversation"
-                bgGradient="from-emerald-600 via-teal-600 to-cyan-700"
+                fallbackTitle="Community"
+                defaultImage="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&h=1080&fit=crop"
+                overrideData={{
+                    title: "Community",
+                    subtitle: "Connect with locals, discover events and join the conversation",
+                    overlay_color: "#059669",
+                    overlay_opacity: 0.5,
+                    style_config: { bgColor: "#059669" }
+                }}
             />
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
                 <div className="bg-white rounded-2xl shadow-xl p-6">

@@ -93,9 +93,15 @@ export default function TransportPage() {
     return (
         <main className="min-h-screen bg-gray-50">
             <HeroBackground
-                title="Transport"
-                subtitle="Ride hailing, delivery, boat charters and moving services"
-                bgGradient="from-yellow-500 via-orange-500 to-red-600"
+                fallbackTitle="Transport"
+                defaultImage="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&h=1080&fit=crop"
+                overrideData={{
+                    title: "Transport",
+                    subtitle: "Ride hailing, delivery, boat charters and moving services",
+                    overlay_color: "#ea580c",
+                    overlay_opacity: 0.5,
+                    style_config: { bgColor: "#ea580c" }
+                }}
             />
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
                 <div className="bg-white rounded-2xl shadow-xl p-6">

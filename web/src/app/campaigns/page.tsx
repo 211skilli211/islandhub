@@ -55,9 +55,15 @@ export default function CampaignsPage() {
     return (
         <main className="min-h-screen bg-gray-50">
             <HeroBackground
-                title="Campaigns"
-                subtitle="Discover promotions, fundraisers and special offers from local businesses"
-                bgGradient="from-purple-600 via-pink-600 to-rose-600"
+                fallbackTitle="Campaigns"
+                defaultImage="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop"
+                overrideData={{
+                    title: "Campaigns",
+                    subtitle: "Discover promotions, fundraisers and special offers from local businesses",
+                    overlay_color: "#7c3aed",
+                    overlay_opacity: 0.5,
+                    style_config: { bgColor: "#7c3aed" }
+                }}
             />
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
                 <div className="bg-white rounded-2xl shadow-xl p-6">

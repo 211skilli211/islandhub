@@ -91,9 +91,15 @@ export default function RentalsPage() {
     return (
         <main className="min-h-screen bg-gray-50">
             <HeroBackground
-                title="Rentals"
-                subtitle="Vehicles, equipment, property and water sports"
-                bgGradient="from-cyan-600 via-blue-600 to-indigo-700"
+                fallbackTitle="Rentals"
+                defaultImage="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&h=1080&fit=crop"
+                overrideData={{
+                    title: "Rentals",
+                    subtitle: "Vehicles, equipment, property and water sports",
+                    overlay_color: "#0891b2",
+                    overlay_opacity: 0.5,
+                    style_config: { bgColor: "#0891b2" }
+                }}
             />
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
                 <div className="bg-white rounded-2xl shadow-xl p-6">
