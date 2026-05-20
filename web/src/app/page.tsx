@@ -243,10 +243,10 @@ export default function Home() {
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { label: 'Fresh Food', count: categoryCounts.food ?? 0, icon: '🍴', href: '/stores?category=food' },
-                { label: 'Local Brands/Hosts', count: categoryCounts.product ?? 0, icon: '📦', href: '/stores?category=product' },
-                { label: 'Rentals', count: categoryCounts.rental ?? 0, icon: '🏠', href: '/rental-hub' },
-                { label: 'Services', count: categoryCounts.service ?? 0, icon: '🛠️', href: '/stores?category=service' }
+                { label: 'Fresh Food', count: categoryCounts.food ?? 0, icon: '🍴', href: '/food' },
+                { label: 'Local Brands/Hosts', count: categoryCounts.product ?? 0, icon: '📦', href: '/products' },
+                { label: 'Rentals', count: categoryCounts.rental ?? 0, icon: '🏠', href: '/rentals' },
+                { label: 'Services', count: categoryCounts.service ?? 0, icon: '🛠️', href: '/services' }
               ].map((item) => (
                 <Link
                   key={item.label}

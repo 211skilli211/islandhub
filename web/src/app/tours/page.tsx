@@ -1,177 +1,248 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import api from '@/lib/api';
+import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
-import ListingCard from '@/components/ListingCard';
+import BrandMarquee from '@/components/BrandMarquee';
+
+interface Store {
+    id: number;
+    store_id?: number;
+    name: string;
+    business_name?: string;
+    description: string;
+    logo_url?: string;
+    banner_url?: string;
+    branding_color?: string;
+    category: string;
+    subtype: string;
+    slug: string;
+    rating?: number;
+}
 
 const TOUR_CATEGORIES = [
-    { id: 'sea', title: 'Sea & Aquatic', icon: '🚤', desc: 'Catamarans, diving, and fishing expeditions.', gradient: 'from-cyan-500 to-blue-600' },
-    { id: 'land', title: 'Land & Culture', icon: '🌿', desc: 'Rainforest hikes, volcano treks, and historic tours.', gradient: 'from-emerald-500 to-teal-600' },
-    { id: 'rail', title: 'Rail & Scenic', icon: '🚂', desc: 'The historic St. Kitts Scenic Railway experiences.', gradient: 'from-amber-500 to-orange-600' },
-    { id: 'adventure', title: 'Extreme & Adventure', icon: '🏎️', desc: 'ATV trails, buggy rides, and ziplining.', gradient: 'from-rose-500 to-red-600' },
-    { id: 'charter', title: 'Private Charters', icon: '🛥️', desc: 'Luxury yachts and private island expeditions.', gradient: 'from-slate-700 to-slate-900' },
-    { id: 'culture', title: 'History & Heritage', icon: '🏛️', desc: 'Colonial landmarks and local storytelling.', gradient: 'from-indigo-500 to-purple-600' }
+    { id: 'all', title: 'All Tours', icon: '🗺️', subtypes: [] },
+    { id: 'land', title: 'Land Tours', icon: '🥾', desc: 'Hiking, history & nature', subtypes: ['land', 'hiking', 'history', 'nature', 'culture', 'rail'] },
+    { id: 'sea', title: 'Sea & Water', icon: '🌊', desc: 'Snorkeling, sailing & fishing', subtypes: ['sea', 'snorkeling', 'sailing', 'fishing', 'diving'] },
+    { id: 'adventure', title: 'Adventure', icon: '🧗', desc: 'Zip-lining, ATV & extreme', subtypes: ['adventure', 'zipline', 'atv', 'extreme'] },
+    { id: 'charter', title: 'Charters', icon: '⛵', desc: 'Private boat & yacht charters', subtypes: ['charter', 'yacht', 'private_boat'] },
 ];
 
-export default function TourHubPage() {
-    const [featuredTours, setFeaturedTours] = useState<any[]>([]);
+function categorizeStore(store: Store): string {
+    const subtype = (store.subtype || '').toLowerCase();
+    const name = (store.name || store.business_name || '').toLowerCase();
+    const desc = (store.description || '').toLowerCase();
+    const combined = `${subtype} ${name} ${desc}`;
+
+    for (const cat of TOUR_CATEGORIES) {
+        if (cat.id === 'all') continue;
+        for (const s of cat.subtypes) {
+            if (combined.includes(s)) return cat.id;
+        }
+    }
+    return 'land';
+}
+
+function TourCard({ store, index }: { store: Store; index: number }) {
+    const storeName = store.name || store.business_name || 'Unknown';
+    const rating = store.rating ? Number(store.rating).toFixed(1) : '4.9';
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, duration: 0.4 }}
+            whileHover={{ y: -6 }}
+        >
+            <Link
+                href={`/store/${store.slug}`}
+                className="group block bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-amber-200 transition-all duration-300"
+            >
+                <div className="relative h-48 overflow-hidden">
+                    {store.banner_url ? (
+                        <img src={getImageUrl(store.banner_url)} alt={storeName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-amber-100 to-orange-50 flex items-center justify-center">
+                            <span className="text-5xl">🗺️</span>
+                        </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-bold text-slate-700 flex items-center gap-1">
+                        <span className="text-yellow-500">★</span> {rating}
+                    </div>
+                    <div className="absolute bottom-3 left-3 right-3">
+                        <h3 className="text-lg font-black text-white drop-shadow-lg line-clamp-1">{storeName}</h3>
+                    </div>
+                </div>
+                <div className="p-4">
+                    <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-3 min-h-[2rem]">
+                        {store.description || 'Unforgettable island experiences await.'}
+                    </p>
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-50">
+                        <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-wider">Available</span>
+                        <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-amber-500 text-white text-[11px] font-bold rounded-lg group-hover:bg-amber-600 transition-colors">
+                            Book Tour →
+                        </span>
+                    </div>
+                </div>
+            </Link>
+        </motion.div>
+    );
+}
+
+export default function ToursHubPage() {
+    const [allStores, setAllStores] = useState<Store[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [activeCategory, setActiveCategory] = useState('all');
 
     useEffect(() => {
-        const fetchTours = async () => {
+        const fetchStores = async () => {
+            setLoading(true);
             try {
-                const res = await api.get('/listings?category=tour&featured=true');
-                setFeaturedTours(Array.isArray(res.data) ? res.data : res.data.listings || []);
+                const res = await api.get('/stores');
+                const rawData = Array.isArray(res.data) ? res.data : (res.data.stores || []);
+                const stores: Store[] = rawData
+                    .filter((s: any) => {
+                        const subtype = (s.subtype || '').toLowerCase();
+                        return subtype === 'tour_operator' || subtype === 'tour' || subtype === 'charter';
+                    })
+                    .map((s: any) => ({
+                        id: s.store_id || s.id,
+                        store_id: s.store_id,
+                        name: s.name || s.business_name,
+                        business_name: s.business_name,
+                        description: s.description,
+                        logo_url: s.logo_url,
+                        banner_url: s.banner_url,
+                        branding_color: s.branding_color || '#f59e0b',
+                        category: s.category,
+                        subtype: s.subtype,
+                        slug: s.slug,
+                        rating: s.rating,
+                    }));
+                setAllStores(stores);
             } catch (error) {
-                console.error('Failed to fetch tours', error);
+                console.error('Failed to fetch tour stores:', error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchTours();
+        fetchStores();
     }, []);
 
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-    const scroll = (direction: 'left' | 'right') => {
-        if (scrollContainerRef.current) {
-            const { current } = scrollContainerRef;
-            const scrollAmount = 340; // Card width + gap
-            if (direction === 'left') {
-                current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            } else {
-                current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
+    const filteredStores = useMemo(() => {
+        let stores = allStores;
+        if (activeCategory !== 'all') {
+            stores = stores.filter(s => categorizeStore(s) === activeCategory);
         }
-    };
+        if (searchTerm.trim()) {
+            const q = searchTerm.toLowerCase();
+            stores = stores.filter(s =>
+                (s.name || s.business_name || '').toLowerCase().includes(q) ||
+                (s.description || '').toLowerCase().includes(q)
+            );
+        }
+        return stores;
+    }, [allStores, activeCategory, searchTerm]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (scrollContainerRef.current) {
-                const { current } = scrollContainerRef;
-                if (current.scrollLeft + current.clientWidth >= current.scrollWidth - 10) {
-                    current.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    current.scrollBy({ left: 340, behavior: 'smooth' });
-                }
-            }
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+    const storesByCategory = useMemo(() => {
+        const map: Record<string, Store[]> = {};
+        for (const cat of TOUR_CATEGORIES) { map[cat.id] = []; }
+        for (const store of filteredStores) {
+            const catId = categorizeStore(store);
+            if (map[catId]) map[catId].push(store);
+        }
+        return map;
+    }, [filteredStores]);
+
+    const totalStores = filteredStores.length;
 
     return (
         <main className="min-h-screen bg-white">
-            {/* Hero Section */}
-            <section className="relative min-h-[80vh] flex items-center overflow-hidden bg-slate-900">
-                <HeroBackground
-                    pageKey="tour-hub"
-                >
-                    {/* Stats Grid as children */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="mt-8 pointer-events-auto hidden lg:grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 w-full max-w-2xl mx-auto lg:mx-0"
-                    >
-                        {[
-                            { label: 'Experiences', val: '50+' },
-                            { label: 'Categories', val: '6' },
-                            { label: 'Rating', val: '4.9/5' },
-                            { label: 'Verified', val: '100%' }
-                        ].map((stat, i) => (
-                            <div key={i} className="p-4 md:p-6 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-4xl text-center">
-                                <div className="text-xl md:text-2xl font-black text-orange-400 mb-1">{stat.val}</div>
-                                <div className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-white/50">{stat.label}</div>
-                            </div>
-                        ))}
-                    </motion.div>
-                </HeroBackground>
-            </section>
-
-            {/* Signature Experiences Carousel */}
-            <section className="py-24 bg-slate-50 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-100/50 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-
-                <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="flex justify-between items-end mb-16">
-                        <div>
-                            <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight italic uppercase leading-none mb-4">
-                                Signature <span className="text-orange-600">Experiences</span>
-                            </h2>
-                            <p className="text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px]">Hand-picked premium excursions for our elite travelers</p>
-                        </div>
-                        <div className="hidden sm:flex gap-4">
-                            <button onClick={() => scroll('left')} className="text-slate-300 font-bold hover:text-orange-600 cursor-pointer transition-colors">← Prev</button>
-                            <button onClick={() => scroll('right')} className="text-slate-900 font-bold hover:text-orange-600 cursor-pointer transition-colors">Next →</button>
-                        </div>
+            <HeroBackground pageKey="tour-hub" fallbackTitle="Island Experiences" className="min-h-[50vh]">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="w-full max-w-2xl mx-auto text-center">
+                    <h1 className="text-4xl md:text-6xl font-black text-white mb-4 drop-shadow-lg">Island <span className="text-amber-400">Experiences</span></h1>
+                    <p className="text-lg text-white/80 mb-8 font-medium">Discover curated adventures — from volcano treks to private charters.</p>
+                    <div className="relative max-w-lg mx-auto">
+                        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" placeholder="Search tours, experiences..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-12 pr-4 py-4 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-xl border border-white/20" />
                     </div>
+                    <div className="flex items-center justify-center gap-6 mt-6">
+                        <div className="text-center"><div className="text-2xl font-black text-white">{loading ? '—' : totalStores}</div><div className="text-[10px] font-bold uppercase tracking-widest text-white/60">Tours</div></div>
+                        <div className="w-px h-8 bg-white/20" />
+                        <div className="text-center"><div className="text-2xl font-black text-white">{TOUR_CATEGORIES.length - 1}</div><div className="text-[10px] font-bold uppercase tracking-widest text-white/60">Types</div></div>
+                    </div>
+                </motion.div>
+            </HeroBackground>
 
-                    <div ref={scrollContainerRef} className="flex gap-8 overflow-x-auto pb-12 scrollbar-hide snap-x select-none">
-                        {loading ? (
-                            [1, 2, 3].map(i => (
-                                <div key={i} className="shrink-0 w-80 h-[450px] bg-slate-200 animate-pulse rounded-[3rem]" />
-                            ))
-                        ) : featuredTours.map((tour, idx) => (
-                            <div key={tour.id} className="shrink-0 w-80 snap-center">
-                                <ListingCard listing={tour} layout="compact" />
-                            </div>
-                        ))}
+            <section className="bg-slate-50 border-b border-slate-100 sticky top-0 z-30">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                        {TOUR_CATEGORIES.map(cat => {
+                            const count = cat.id === 'all' ? totalStores : (storesByCategory[cat.id]?.length || 0);
+                            return (
+                                <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${activeCategory === cat.id ? 'bg-amber-500 text-white shadow-lg' : 'bg-white text-slate-700 border border-slate-200 hover:border-amber-300 hover:bg-amber-50'}`}>
+                                    <span>{cat.icon}</span><span>{cat.title}</span>
+                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${activeCategory === cat.id ? 'bg-white/20' : 'bg-slate-100'}`}>{loading ? '…' : count}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
 
-            {/* Silo Categories Grid */}
-            <section className="py-32 px-6 bg-white">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-24">
-                        <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter italic uppercase mb-6">Choose Your <span className="text-orange-600">Adventure</span></h2>
-                        <p className="text-slate-400 font-medium text-xl max-w-2xl mx-auto italic">Explore our specialized hubs organized by category for a professional, focused journey.</p>
+            {!loading && totalStores > 0 && <BrandMarquee type="brand" />}
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {!loading && totalStores === 0 && (
+                    <div className="text-center py-20">
+                        <span className="text-6xl mb-4 block">🗺️</span>
+                        <h3 className="text-xl font-bold text-slate-900 mb-2">No tours found</h3>
+                        <p className="text-slate-500 mb-6">Try adjusting your search or browse all tour types.</p>
+                        <button onClick={() => { setSearchTerm(''); setActiveCategory('all'); }} className="px-6 py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-colors">View All Tours</button>
                     </div>
+                )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {TOUR_CATEGORIES.map((cat, i) => (
-                            <motion.div
-                                key={cat.id}
-                                whileHover={{ y: -15, scale: 1.02 }}
-                                className="group relative"
-                            >
-                                <Link href={`/tours/${cat.id}`} className="block relative h-96 rounded-[3rem] overflow-hidden shadow-2xl shadow-slate-200">
-                                    <div className={`absolute inset-0 bg-linear-to-br ${cat.gradient} opacity-90 group-hover:opacity-100 transition-all duration-500`} />
-
-                                    {/* Abstract Decoration */}
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-
-                                    <div className="absolute inset-0 p-12 flex flex-col justify-end">
-                                        <div className="text-6xl mb-6 transform group-hover:-translate-y-4 group-hover:scale-110 transition-all duration-500">{cat.icon}</div>
-                                        <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-4">{cat.title}</h3>
-                                        <p className="text-white/70 font-medium mb-8 leading-relaxed italic">{cat.desc}</p>
-                                        <div className="w-12 h-12 bg-white text-slate-900 rounded-2xl flex items-center justify-center font-black group-hover:w-full group-hover:bg-slate-900 group-hover:text-white transition-all duration-500">
-                                            {cat.id === 'rail' ? '🚂' : '➔'}
-                                        </div>
+                {(searchTerm || activeCategory !== 'all') ? (
+                    !loading && totalStores > 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filteredStores.map((store, idx) => (<TourCard key={store.store_id || store.id} store={store} index={idx} />))}
+                        </div>
+                    )
+                ) : (
+                    TOUR_CATEGORIES.filter(c => c.id !== 'all').map(cat => {
+                        const stores = storesByCategory[cat.id] || [];
+                        if (!loading && stores.length === 0) return null;
+                        return (
+                            <section key={cat.id} className="mb-10">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-2xl">{cat.icon}</span>
+                                        <div><h2 className="text-xl font-bold text-slate-900">{cat.title}</h2><p className="text-xs text-slate-500">{cat.desc}</p></div>
                                     </div>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                                    <span className="text-xs font-semibold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-full">{loading ? '…' : stores.length}</span>
+                                </div>
+                                {loading ? (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{[1,2,3].map(i => (<div key={i} className="h-80 bg-slate-100 animate-pulse rounded-2xl" />))}</div>
+                                ) : (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{stores.map((store, idx) => (<TourCard key={store.store_id || store.id} store={store} index={idx} />))}</div>
+                                )}
+                            </section>
+                        );
+                    })
+                )}
+            </div>
 
-            {/* Call to Action */}
-            <section className="py-24 px-6">
-                <div className="max-w-5xl mx-auto bg-slate-900 rounded-[4rem] p-12 md:p-24 relative overflow-hidden text-center">
-                    <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
-                        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-orange-600 rounded-full blur-[120px] -translate-y-1/2" />
-                    </div>
-
-                    <div className="relative z-10">
-                        <h2 className="text-4xl md:text-6xl font-black text-white mb-8 italic uppercase tracking-tighter">Are you a Tour Operator?</h2>
-                        <p className="text-slate-400 text-xl font-medium mb-12 max-w-2xl mx-auto italic">Join the most premium experience marketplace in the Caribbean. Empower your brand with professional tools.</p>
-                        <Link href="/become-vendor" className="inline-block px-12 py-5 bg-orange-600 text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-orange-500 transition-all shadow-xl shadow-orange-900/50">
-                            Apply to Host ➔
-                        </Link>
-                    </div>
+            <section className="py-16 px-6 bg-gradient-to-br from-amber-500 to-orange-600">
+                <div className="max-w-3xl mx-auto text-center">
+                    <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Lead Tours & Experiences?</h2>
+                    <p className="text-white/80 text-lg mb-8 font-medium">Share your island expertise and earn by leading unforgettable adventures.</p>
+                    <Link href="/become-vendor" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-amber-700 font-bold rounded-2xl hover:bg-amber-50 transition-colors shadow-xl text-sm uppercase tracking-wider">Become a Guide →</Link>
                 </div>
             </section>
         </main>
