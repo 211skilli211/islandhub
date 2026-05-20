@@ -32,6 +32,7 @@ const adminNavItems = [
     { id: 'broadcasts', label: 'Broadcasts', icon: Radio, href: '/admin/broadcasts' },
     { id: 'logistics', label: 'Logistics', icon: Truck, href: '/admin/logistics' },
     { id: 'media', label: 'Media', icon: Image, href: '/admin/assets' },
+    { id: 'ibt-partners', label: 'IBT Partners', icon: Building2, href: '/admin/ibt-partners' },
     { id: 'ads', label: 'Ads', icon: Megaphone, href: '/admin/ads' },
     { id: 'agent', label: 'Agent', icon: Bot, href: '/admin/agent' },
     { id: 'settings', label: 'Settings', icon: Settings, href: '/admin/settings' },
@@ -46,6 +47,8 @@ const secondaryNavItems = [
     { id: 'compliance-analytics', label: 'Compliance Analytics', icon: PieChart, href: '/admin/compliance-analytics', parent: 'compliance' },
     { id: 'campaigns-pending', label: 'Pending Campaigns', icon: Megaphone, href: '/admin/campaigns/pending', parent: 'campaigns' },
     { id: 'assets-hero', label: 'Hero Assets', icon: Image, href: '/admin/assets-hero', parent: 'media' },
+    { id: 'ibt-partners-stores', label: 'Partner Stores', icon: Store, href: '/admin/ibt-partners/stores', parent: 'ibt-partners' },
+    { id: 'ibt-partners-products', label: 'Partner Products', icon: Package, href: '/admin/ibt-partners/products', parent: 'ibt-partners' },
     { id: 'subscriptions', label: 'Subscriptions', icon: CreditCard, href: '/admin/subscriptions' },
     { id: 'logistics-rates', label: 'Logistics Rates', icon: FileText, href: '/admin/logistics-rates' },
 ];
@@ -61,7 +64,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         return false;
     });
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [expandedGroups, setExpandedGroups] = useState<string[]>(['compliance', 'campaigns', 'media']);
+    const [expandedGroups, setExpandedGroups] = useState<string[]>(['compliance', 'campaigns', 'media', 'ibt-partners']);
 
     // Persist collapsed state to localStorage
     useEffect(() => {
@@ -252,6 +255,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         ))}
                                     </div>
                                 )}
+                                {!collapsed && expandedGroups.includes(item.id) && item.id === 'ibt-partners' && (
+                                    <div className="ml-4 mt-1 space-y-1">
+                                        {secondaryNavItems.filter(s => s.parent === 'ibt-partners').map(sub => (
+                                            <SecondaryNavItem key={sub.id} item={sub} />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -260,7 +270,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 {/* Quick Links (when collapsed) */}
                 {collapsed && (
                     <div className="px-2 py-2 border-t border-slate-800">
-                        {['compliance', 'campaigns', 'media'].map(group => {
+                        {['compliance', 'campaigns', 'media', 'ibt-partners'].map(group => {
                             const groupItem = adminNavItems.find(i => i.id === group);
                             if (!groupItem) return null;
                             const active = isParentActive(group);

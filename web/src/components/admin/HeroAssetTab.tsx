@@ -46,6 +46,9 @@ const PAGES = [
     { key: 'ibt-solutions-store', label: 'IslandHub — IBT Solutions Store' },
     { key: 'ibt-coops-directory', label: 'IslandHub — IBT Co-ops Directory' },
     { key: 'ibt-service-detail', label: 'IslandHub — IBT Service Detail' },
+    // — Horizon Salt Co. —
+    { key: 'horizon-salt', label: 'IBT — Horizon Salt Co. Landing' },
+    { key: 'horizon-salt-store', label: 'IslandHub — Horizon Salt Store' },
 ];
 
 export default function HeroAssetTab() {
