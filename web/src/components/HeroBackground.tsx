@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import ShaderBackgroundComponent from './shaders/ShaderBackground';
+import ParticleField from './shaders/ParticleField';
+
 interface HeroBackgroundProps {
     pageKey?: string;
     defaultImage?: string;
@@ -74,7 +77,9 @@ export default function HeroBackground({
     }, [pageKey, overrideData]);
 
     const assetUrl = asset?.asset_url || (loading ? null : defaultImage);
-    const isVideo = asset?.asset_type === 'video';
+    const assetType = asset?.asset_type || 'image';
+    const isVideo = assetType === 'video';
+    const shaderName = asset?.style_config?.shader || asset?.style_config?.shaderName || '';
     const overlayColor = asset?.overlay_color || '#000000';
     const overlayOpacity = asset?.overlay_opacity !== undefined && asset.overlay_opacity !== null ? parseFloat(asset.overlay_opacity) : 0.4;
 
@@ -207,7 +212,23 @@ export default function HeroBackground({
                             transition: 'transform 0.5s ease-out'
                         }}
                     >
-                        {isVideo ? (
+                        {/* Shader background */}
+                        {assetType === 'shader' && shaderName ? (
+                          <ShaderBackgroundComponent
+                            shader={shaderName}
+                            colors={styleConfig.shaderColors}
+                            className="absolute inset-0"
+                          />
+                        ) : assetType === 'particle' ? (
+                          <div className="absolute inset-0 bg-slate-900">
+                            <ParticleField
+                              count={styleConfig.particleCount || 80}
+                              color={styleConfig.particleColor || '#06b6d4'}
+                              speed={styleConfig.particleSpeed || 0.5}
+                              size={styleConfig.particleSize || 2}
+                            />
+                          </div>
+                        ) : isVideo ? (
                             <video autoPlay loop muted playsInline className="w-full h-full object-cover" src={getImageUrl(assetUrl)} />
                         ) : (getImageUrl(assetUrl) || defaultImage) ? (
                             <img src={getImageUrl(assetUrl) || defaultImage} alt={title || 'Hero'} className="w-full h-full object-cover" />

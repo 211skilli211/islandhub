@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getShaderNames, SHADERS } from '../shaders/shaderRegistry';
 
 const PAGES = [
     { key: 'home', label: 'Homepage' },
@@ -493,23 +494,97 @@ export default function HeroAssetTab() {
                                         </div>
                                     </div>
 
-                                    {/* Asset Type */}
+                                    {/* Hero Background Type */}
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Override Type</label>
-                                        <div className="flex gap-4 p-1 bg-slate-50 rounded-2xl border border-slate-100">
-                                            {['image', 'video', 'pdf'].map(t => (
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Background Type</label>
+                                        <div className="grid grid-cols-3 gap-2 p-1 bg-slate-50 rounded-2xl border border-slate-100">
+                                            {[
+                                                { key: 'image', label: '📷 Image' },
+                                                { key: 'video', label: '🎬 Video' },
+                                                { key: 'shader', label: '🎨 Shader' },
+                                                { key: 'particle', label: '✨ Particles' },
+                                                { key: 'pdf', label: '📄 PDF' },
+                                            ].map(t => (
                                                 <button
-                                                    key={t}
-                                                    onClick={() => setAssetType(t as any)}
-                                                    className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${assetType === t ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                    key={t.key}
+                                                    onClick={() => setAssetType(t.key as any)}
+                                                    className={`py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${assetType === t.key ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
                                                 >
-                                                    {t}
+                                                    {t.label}
                                                 </button>
                                             ))}
                                         </div>
                                     </div>
 
-                                    {/* Asset URL */}
+                                    {/* Shader Configuration */}
+                                    {assetType === 'shader' && (
+                                        <div className="space-y-4 p-4 bg-gradient-to-br from-purple-50 to-cyan-50 rounded-2xl border border-purple-100">
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-purple-600">Shader Effect</label>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {getShaderNames().map(s => (
+                                                    <button
+                                                        key={s.key}
+                                                        onClick={() => setStyleConfig(prev => ({ ...prev, shader: s.key }))}
+                                                        className={`p-3 rounded-xl text-xs font-bold transition-all text-left ${
+                                                            (styleConfig.shader || styleConfig.shaderName) === s.key
+                                                                ? 'bg-purple-600 text-white shadow-lg'
+                                                                : 'bg-white text-slate-700 border border-slate-200 hover:border-purple-300'
+                                                        }`}
+                                                    >
+                                                        <div>{s.name}</div>
+                                                        <div className="text-[9px] font-normal opacity-70 mt-0.5">{s.description}</div>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            <div>
+                                                <label className="block text-[9px] font-bold uppercase text-slate-500 mb-2">Shader Colors (4 colors)</label>
+                                                <div className="flex gap-2">
+                                                    {[0, 1, 2, 3].map(i => (
+                                                        <div key={i} className="flex-1">
+                                                            <input
+                                                                type="color"
+                                                                value={(styleConfig.shaderColors || SHADERS[styleConfig.shader]?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'])[i]}
+                                                                onChange={(e) => {
+                                                                    const colors = [...(styleConfig.shaderColors || SHADERS[styleConfig.shader]?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'])];
+                                                                    colors[i] = e.target.value;
+                                                                    setStyleConfig(prev => ({ ...prev, shaderColors: colors }));
+                                                                }}
+                                                                className="w-full h-10 rounded-lg cursor-pointer border-0"
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Particle Configuration */}
+                                    {assetType === 'particle' && (
+                                        <div className="space-y-4 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-cyan-600">Particle Settings</label>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Count</label>
+                                                    <input type="number" min="20" max="200" value={styleConfig.particleCount || 80} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleCount: parseInt(e.target.value) }))} className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold" />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Speed</label>
+                                                    <input type="number" min="0.1" max="3" step="0.1" value={styleConfig.particleSpeed || 0.5} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSpeed: parseFloat(e.target.value) }))} className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold" />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Size</label>
+                                                    <input type="number" min="1" max="5" step="0.5" value={styleConfig.particleSize || 2} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSize: parseFloat(e.target.value) }))} className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold" />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Color</label>
+                                                    <input type="color" value={styleConfig.particleColor || '#06b6d4'} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleColor: e.target.value }))} className="w-full h-8 rounded-lg cursor-pointer border-0" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Asset URL — only for image/video/pdf */}
+                                    {['image', 'video', 'pdf'].includes(assetType) && (
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Direct Asset URL</label>
                                         <input
@@ -520,6 +595,7 @@ export default function HeroAssetTab() {
                                             className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all"
                                         />
                                     </div>
+                                    )}
 
                                     {/* Color Overlays */}
                                     <div className="grid grid-cols-2 gap-6">
