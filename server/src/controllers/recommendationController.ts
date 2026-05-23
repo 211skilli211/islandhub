@@ -20,7 +20,7 @@ export const getRecommendations = async (req: Request, res: Response) => {
              WHERE o.user_id = $1
              ORDER BY o.created_at DESC
              LIMIT 20`,
-            [user.id]
+            [user.user_id]
         );
 
         const categoryIds = userHistory.rows.map((r: any) => r.listing_id);
@@ -198,7 +198,7 @@ export const getHomepageSections = async (req: Request, res: Response) => {
              GROUP BY l.category_id
              ORDER BY interaction_count DESC
              LIMIT 3`,
-            [user.id]
+            [user.user_id]
         );
 
         const sections = [];

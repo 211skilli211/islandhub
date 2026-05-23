@@ -186,10 +186,10 @@ export default function HeroBackground({
 
     return (
         <div className={`relative w-full overflow-hidden ${className}`} style={{ minHeight: '600px', backgroundColor: bgColor }}>
-            <style jsx global>{`
+            <style dangerouslySetInnerHTML={{ __html: `
                 .text-shadow-glow { text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3); }
                 .text-shadow-outline { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
-            `}</style>
+            `}} />
 
             {/* Background Layer */}
             <div
