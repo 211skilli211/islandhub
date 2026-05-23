@@ -13,9 +13,9 @@ export class DatabaseStorageProvider implements StorageProvider {
         const dataUri = `data:${file.mimetype};base64,${base64Data}`;
         await pool.query(
             'INSERT INTO media (user_id, filename, url, file_type, file_size, data, storage_type) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-            [userId || null, file.filename, dataUri, file.mimetype, file.size, dataUri, 'database']
+            [userId || null, file.filename, `/api/media/file/${file.filename}`, file.mimetype, file.size, dataUri, 'database']
         );
-        return dataUri;
+        return `/api/media/file/${file.filename}`;
     }
     async deleteFile(filename: string): Promise<void> {
         await pool.query('DELETE FROM media WHERE filename = $1', [filename]);

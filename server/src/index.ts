@@ -98,6 +98,8 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Note: uploads now served from database via /api/media/file/:filename
+// Static fallback for local files (backward compatibility)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use(passport.initialize());
