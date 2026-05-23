@@ -10,10 +10,16 @@ interface StyleConfig {
   shader?: string;
   shaderName?: string;
   shaderColors?: string[];
+  shaderSpeed?: number;
+  shaderInteractive?: boolean;
   particleCount?: number;
   particleSpeed?: number;
   particleSize?: number;
   particleColor?: string;
+  particleInteractive?: boolean;
+  connectionDistance?: number;
+  mouseRadius?: number;
+  mouseForce?: number;
   showOverlay?: boolean;
   bgColor?: string;
   scale?: number;
@@ -22,7 +28,8 @@ interface StyleConfig {
   overlayAlign?: string;
   offsetY?: number;
   offsetX?: number;
-  [key: string]: unknown;
+  pattern?: string;
+  patternColor?: string;
 }
 
 const PAGES = [
