@@ -562,9 +562,9 @@ export default function HeroAssetTab() {
                                                         <div key={i} className="flex-1">
                                                             <input
                                                                 type="color"
-                                                                value={(styleConfig.shaderColors || SHADERS[styleConfig.shader]?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'])[i]}
+                                                                value={(styleConfig.shaderColors || SHADERS[styleConfig.shader!]?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'])[i]}
                                                                 onChange={(e) => {
-                                                                    const colors = [...(styleConfig.shaderColors || SHADERS[styleConfig.shader]?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'])];
+                                                                    const colors = [...(styleConfig.shaderColors || SHADERS[styleConfig.shader!]?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'])];
                                                                     colors[i] = e.target.value;
                                                                     setStyleConfig(prev => ({ ...prev, shaderColors: colors }));
                                                                 }}
