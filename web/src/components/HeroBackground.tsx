@@ -218,6 +218,8 @@ export default function HeroBackground({
                             shader={shaderName}
                             colors={styleConfig.shaderColors}
                             className="absolute inset-0"
+                            interactive={styleConfig.shaderInteractive}
+                            speed={styleConfig.shaderSpeed || 1}
                           />
                         ) : assetType === 'particle' ? (
                           <div className="absolute inset-0 bg-slate-900">
@@ -226,6 +228,10 @@ export default function HeroBackground({
                               color={styleConfig.particleColor || '#06b6d4'}
                               speed={styleConfig.particleSpeed || 0.5}
                               size={styleConfig.particleSize || 2}
+                              interactive={styleConfig.particleInteractive}
+                              mouseRadius={styleConfig.mouseRadius || 150}
+                              mouseForce={styleConfig.mouseForce || 0.8}
+                              connectionDistance={styleConfig.connectionDistance || 120}
                             />
                           </div>
                         ) : isVideo ? (

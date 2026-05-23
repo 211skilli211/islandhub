@@ -535,7 +535,7 @@ export default function HeroAssetTab() {
 
                                     {/* Shader Configuration */}
                                     {assetType === 'shader' && (
-                                        <div className="space-y-4 p-4 bg-gradient-to-br from-purple-50 to-cyan-50 rounded-2xl border border-purple-100">
+                                        <div className="space-y-5 p-5 bg-gradient-to-br from-purple-50 to-cyan-50 rounded-2xl border border-purple-100">
                                             <label className="block text-[10px] font-black uppercase tracking-widest text-purple-600">Shader Effect</label>
                                             <div className="grid grid-cols-2 gap-2">
                                                 {getShaderNames().map(s => (
@@ -553,8 +553,10 @@ export default function HeroAssetTab() {
                                                     </button>
                                                 ))}
                                             </div>
+
+                                            {/* Shader Colors */}
                                             <div>
-                                                <label className="block text-[9px] font-bold uppercase text-slate-500 mb-2">Shader Colors (4 colors)</label>
+                                                <label className="block text-[9px] font-bold uppercase text-slate-500 mb-2">Shader Colors</label>
                                                 <div className="flex gap-2">
                                                     {[0, 1, 2, 3].map(i => (
                                                         <div key={i} className="flex-1">
@@ -572,31 +574,198 @@ export default function HeroAssetTab() {
                                                     ))}
                                                 </div>
                                             </div>
+
+                                            {/* Animation Speed */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Animation Speed</label>
+                                                    <span className="text-[10px] font-black text-purple-600">{styleConfig.shaderSpeed || 1}x</span>
+                                                </div>
+                                                <input
+                                                    type="range"
+                                                    min="0.25"
+                                                    max="3"
+                                                    step="0.25"
+                                                    value={styleConfig.shaderSpeed || 1}
+                                                    onChange={(e) => setStyleConfig(prev => ({ ...prev, shaderSpeed: parseFloat(e.target.value) }))}
+                                                    className="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                                                />
+                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                    <span>Slow</span>
+                                                    <span>Normal</span>
+                                                    <span>Fast</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Mouse Interactivity Toggle */}
+                                            <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-purple-200">
+                                                <div>
+                                                    <div className="text-[10px] font-bold text-slate-700">Mouse Interaction</div>
+                                                    <div className="text-[8px] text-slate-400">Shader follows cursor movement</div>
+                                                </div>
+                                                <button
+                                                    onClick={() => setStyleConfig(prev => ({ ...prev, shaderInteractive: !prev.shaderInteractive }))}
+                                                    className={`relative w-12 h-6 rounded-full transition-all ${
+                                                        styleConfig.shaderInteractive ? 'bg-purple-600' : 'bg-slate-300'
+                                                    }`}
+                                                >
+                                                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all ${
+                                                        styleConfig.shaderInteractive ? 'left-6' : 'left-0.5'
+                                                    }`} />
+                                                </button>
+                                            </div>
                                         </div>
                                     )}
 
                                     {/* Particle Configuration */}
                                     {assetType === 'particle' && (
-                                        <div className="space-y-4 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+                                        <div className="space-y-5 p-5 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
                                             <label className="block text-[10px] font-black uppercase tracking-widest text-cyan-600">Particle Settings</label>
-                                            <div className="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Count</label>
-                                                    <input type="number" min="20" max="200" value={styleConfig.particleCount || 80} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleCount: parseInt(e.target.value) }))} className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold" />
+
+                                            {/* Particle Count */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Count</label>
+                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.particleCount || 80}</span>
                                                 </div>
-                                                <div>
-                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Speed</label>
-                                                    <input type="number" min="0.1" max="3" step="0.1" value={styleConfig.particleSpeed || 0.5} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSpeed: parseFloat(e.target.value) }))} className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold" />
-                                                </div>
-                                                <div>
-                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Size</label>
-                                                    <input type="number" min="1" max="5" step="0.5" value={styleConfig.particleSize || 2} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSize: parseFloat(e.target.value) }))} className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold" />
-                                                </div>
-                                                <div>
-                                                    <label className="block text-[9px] font-bold uppercase text-slate-500 mb-1">Color</label>
-                                                    <input type="color" value={styleConfig.particleColor || '#06b6d4'} onChange={(e) => setStyleConfig(prev => ({ ...prev, particleColor: e.target.value }))} className="w-full h-8 rounded-lg cursor-pointer border-0" />
+                                                <input
+                                                    type="range"
+                                                    min="10"
+                                                    max="300"
+                                                    step="10"
+                                                    value={styleConfig.particleCount || 80}
+                                                    onChange={(e) => setStyleConfig(prev => ({ ...prev, particleCount: parseInt(e.target.value) }))}
+                                                    className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
+                                                />
+                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                    <span>Few</span>
+                                                    <span>Default</span>
+                                                    <span>Many</span>
                                                 </div>
                                             </div>
+
+                                            {/* Particle Speed */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Speed</label>
+                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.particleSpeed || 0.5}x</span>
+                                                </div>
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="5"
+                                                    step="0.1"
+                                                    value={styleConfig.particleSpeed || 0.5}
+                                                    onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSpeed: parseFloat(e.target.value) }))}
+                                                    className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
+                                                />
+                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                    <span>Still</span>
+                                                    <span>Normal</span>
+                                                    <span>Fast</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Particle Size */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Size</label>
+                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.particleSize || 2}px</span>
+                                                </div>
+                                                <input
+                                                    type="range"
+                                                    min="0.5"
+                                                    max="6"
+                                                    step="0.5"
+                                                    value={styleConfig.particleSize || 2}
+                                                    onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSize: parseFloat(e.target.value) }))}
+                                                    className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
+                                                />
+                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                    <span>Tiny</span>
+                                                    <span>Normal</span>
+                                                    <span>Large</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Connection Distance */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Connection Distance</label>
+                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.connectionDistance || 120}px</span>
+                                                </div>
+                                                <input
+                                                    type="range"
+                                                    min="40"
+                                                    max="200"
+                                                    step="10"
+                                                    value={styleConfig.connectionDistance || 120}
+                                                    onChange={(e) => setStyleConfig(prev => ({ ...prev, connectionDistance: parseInt(e.target.value) }))}
+                                                    className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
+                                                />
+                                            </div>
+
+                                            {/* Particle Color */}
+                                            <div>
+                                                <label className="text-[9px] font-bold uppercase text-slate-500 mb-2 block">Particle Color</label>
+                                                <div className="flex gap-2">
+                                                    <input
+                                                        type="color"
+                                                        value={styleConfig.particleColor || '#06b6d4'}
+                                                        onChange={(e) => setStyleConfig(prev => ({ ...prev, particleColor: e.target.value }))}
+                                                        className="w-10 h-10 rounded-lg cursor-pointer border-0"
+                                                    />
+                                                    <div className="flex-1 grid grid-cols-6 gap-1">
+                                                        {['#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#ef4444', '#3b82f6', '#f97316', '#14b8a6', '#a855f7', '#ffffff', '#64748b'].map(c => (
+                                                            <button
+                                                                key={c}
+                                                                onClick={() => setStyleConfig(prev => ({ ...prev, particleColor: c }))}
+                                                                className={`h-10 rounded-lg border-2 transition-all ${
+                                                                    (styleConfig.particleColor || '#06b6d4') === c ? 'border-slate-900 scale-110' : 'border-transparent hover:border-slate-300'
+                                                                }`}
+                                                                style={{ backgroundColor: c }}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Mouse Interactivity Toggle */}
+                                            <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-cyan-200">
+                                                <div>
+                                                    <div className="text-[10px] font-bold text-slate-700">Mouse Repulsion</div>
+                                                    <div className="text-[8px] text-slate-400">Particles react to cursor movement</div>
+                                                </div>
+                                                <button
+                                                    onClick={() => setStyleConfig(prev => ({ ...prev, particleInteractive: !prev.particleInteractive }))}
+                                                    className={`relative w-12 h-6 rounded-full transition-all ${
+                                                        styleConfig.particleInteractive ? 'bg-cyan-600' : 'bg-slate-300'
+                                                    }`}
+                                                >
+                                                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all ${
+                                                        styleConfig.particleInteractive ? 'left-6' : 'left-0.5'
+                                                    }`} />
+                                                </button>
+                                            </div>
+
+                                            {/* Mouse Radius (only when interactive) */}
+                                            {styleConfig.particleInteractive && (
+                                                <div>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <label className="text-[9px] font-bold uppercase text-slate-500">Mouse Radius</label>
+                                                        <span className="text-[10px] font-black text-cyan-600">{styleConfig.mouseRadius || 150}px</span>
+                                                    </div>
+                                                    <input
+                                                        type="range"
+                                                        min="50"
+                                                        max="300"
+                                                        step="25"
+                                                        value={styleConfig.mouseRadius || 150}
+                                                        onChange={(e) => setStyleConfig(prev => ({ ...prev, mouseRadius: parseInt(e.target.value) }))}
+                                                        className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     )}
 
