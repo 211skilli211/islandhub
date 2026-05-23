@@ -579,7 +579,7 @@ export default function HeroAssetTab() {
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
                                                     <label className="text-[9px] font-bold uppercase text-slate-500">Animation Speed</label>
-                                                    <span className="text-[10px] font-black text-purple-600">{styleConfig.shaderSpeed || 1}x</span>
+                                                    <span className="text-[10px] font-black text-purple-600">{(styleConfig.shaderSpeed as number) || 1}x</span>
                                                 </div>
                                                 <input
                                                     type="range"
@@ -626,14 +626,14 @@ export default function HeroAssetTab() {
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
                                                     <label className="text-[9px] font-bold uppercase text-slate-500">Count</label>
-                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.particleCount || 80}</span>
+                                                    <span className="text-[10px] font-black text-cyan-600">{(styleConfig.particleCount as number) || 80}</span>
                                                 </div>
                                                 <input
                                                     type="range"
                                                     min="10"
                                                     max="300"
                                                     step="10"
-                                                    value={styleConfig.particleCount || 80}
+                                                    value={(styleConfig.particleCount as number) || 80}
                                                     onChange={(e) => setStyleConfig(prev => ({ ...prev, particleCount: parseInt(e.target.value) }))}
                                                     className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                                                 />
@@ -648,7 +648,7 @@ export default function HeroAssetTab() {
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
                                                     <label className="text-[9px] font-bold uppercase text-slate-500">Speed</label>
-                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.particleSpeed || 0.5}x</span>
+                                                    <span className="text-[10px] font-black text-cyan-600">{(styleConfig.particleSpeed as number) || 0.5}x</span>
                                                 </div>
                                                 <input
                                                     type="range"
@@ -670,7 +670,7 @@ export default function HeroAssetTab() {
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
                                                     <label className="text-[9px] font-bold uppercase text-slate-500">Size</label>
-                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.particleSize || 2}px</span>
+                                                    <span className="text-[10px] font-black text-cyan-600">{(styleConfig.particleSize as number) || 2}px</span>
                                                 </div>
                                                 <input
                                                     type="range"
@@ -692,7 +692,7 @@ export default function HeroAssetTab() {
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
                                                     <label className="text-[9px] font-bold uppercase text-slate-500">Connection Distance</label>
-                                                    <span className="text-[10px] font-black text-cyan-600">{styleConfig.connectionDistance || 120}px</span>
+                                                    <span className="text-[10px] font-black text-cyan-600">{(styleConfig.connectionDistance as number) || 120}px</span>
                                                 </div>
                                                 <input
                                                     type="range"
@@ -753,7 +753,7 @@ export default function HeroAssetTab() {
                                                 <div>
                                                     <div className="flex items-center justify-between mb-2">
                                                         <label className="text-[9px] font-bold uppercase text-slate-500">Mouse Radius</label>
-                                                        <span className="text-[10px] font-black text-cyan-600">{styleConfig.mouseRadius || 150}px</span>
+                                                        <span className="text-[10px] font-black text-cyan-600">{(styleConfig.mouseRadius as number) || 150}px</span>
                                                     </div>
                                                     <input
                                                         type="range"
