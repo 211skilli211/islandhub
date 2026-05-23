@@ -60,7 +60,7 @@ export default function HeroAssetTab() {
 
     const [selectedPage, setSelectedPage] = useState(PAGES[0].key);
     const [assetUrl, setAssetUrl] = useState('');
-    const [assetType, setAssetType] = useState<'image' | 'video'>('image');
+    const [assetType, setAssetType] = useState<'image' | 'video' | 'pdf'>('image');
     const [overlayColor, setOverlayColor] = useState('#000000');
     const [overlayOpacity, setOverlayOpacity] = useState(0.4);
 
@@ -1189,11 +1189,12 @@ export default function HeroAssetTab() {
                                                     <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Media Type</label>
                                                     <select
                                                         value={assetType}
-                                                        onChange={(e) => setAssetType(e.target.value as 'image' | 'video')}
+                                                        onChange={(e) => setAssetType(e.target.value as 'image' | 'video' | 'pdf')}
                                                         className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
                                                     >
                                                         <option value="image">Image</option>
                                                         <option value="video">Video</option>
+                                                        <option value="pdf">PDF Document</option>
                                                     </select>
                                                 </div>
                                                 <button
