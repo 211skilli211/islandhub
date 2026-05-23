@@ -6,6 +6,25 @@ import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getShaderNames, SHADERS } from '../shaders/shaderRegistry';
 
+interface StyleConfig {
+  shader?: string;
+  shaderName?: string;
+  shaderColors?: string[];
+  particleCount?: number;
+  particleSpeed?: number;
+  particleSize?: number;
+  particleColor?: string;
+  showOverlay?: boolean;
+  bgColor?: string;
+  scale?: number;
+  splitDivide?: number;
+  overlayScale?: number;
+  overlayAlign?: string;
+  offsetY?: number;
+  offsetX?: number;
+  [key: string]: unknown;
+}
+
 const PAGES = [
     { key: 'home', label: 'Homepage' },
     { key: 'marketplace', label: 'Marketplace' },
@@ -80,7 +99,7 @@ export default function HeroAssetTab() {
         subtitle: { model: 'classic', color: 'rgba(255,255,255,0.8)', size: 24, effect: '', custom_font: '' }
     });
     const [layoutTemplate, setLayoutTemplate] = useState('standard');
-    const [styleConfig, setStyleConfig] = useState<any>({});
+    const [styleConfig, setStyleConfig] = useState<StyleConfig>({});
 
     const [expandedSections, setExpandedSections] = useState<string[]>(['background', 'content']);
     
