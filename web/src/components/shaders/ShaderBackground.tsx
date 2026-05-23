@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useId } from 'react';
 import { SHADERS, type ShaderConfig } from './shaderRegistry';
 
 interface ShaderBackgroundProps {
@@ -20,6 +20,7 @@ export default function ShaderBackground({
 }: ShaderBackgroundProps) {
   const config: ShaderConfig | undefined = SHADERS[shader];
   const resolvedColors = colors || config?.defaultColors || ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'];
+  const uid = useId().replace(/:/g, '');
 
   const cssVars = useMemo(() => ({
     '--s1': resolvedColors[0],
@@ -28,22 +29,22 @@ export default function ShaderBackground({
     '--s4': resolvedColors[3],
   } as React.CSSProperties), [resolvedColors]);
 
-  if (!config) {
-    return (
-      <div className={`relative overflow-hidden bg-slate-900 ${className}`} style={cssVars}>
-        {children}
-      </div>
-    );
-  }
+  const scopedCss = useMemo(() => {
+    if (!config) return '';
+    // Scope all shader CSS to this instance using the unique ID
+    return config.css
+      .replace(/\.shader-[a-z]+/g, `.shader-${shader}-${uid}`)
+      .replace(/@keyframes\s+([a-z-]+)/g, `@keyframes $1-${uid}`);
+  }, [config, shader, uid]);
+
+  const wrapperClass = config ? `shader-${shader}-${uid}` : '';
 
   return (
     <div
-      className={`relative overflow-hidden shader-${shader} ${className}`}
+      className={`relative overflow-hidden ${wrapperClass} ${className}`}
       style={{ ...cssVars, opacity }}
     >
-      <style jsx global>{`
-        ${config.css}
-      `}</style>
+      {scopedCss && <style dangerouslySetInnerHTML={{ __html: scopedCss }} />}
       {children}
     </div>
   );
