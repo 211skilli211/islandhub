@@ -80,7 +80,7 @@ export default function HeroAssetTab() {
 
     const [selectedPage, setSelectedPage] = useState(PAGES[0].key);
     const [assetUrl, setAssetUrl] = useState('');
-    const [assetType, setAssetType] = useState<'image' | 'video' | 'pdf' | 'shader' | 'particle'>('image');
+    const [assetType, setAssetType] = useState<'image' | 'video' | 'shader' | 'particle'>('image');
     const [overlayColor, setOverlayColor] = useState('#000000');
     const [overlayOpacity, setOverlayOpacity] = useState(0.4);
 
@@ -222,7 +222,6 @@ export default function HeroAssetTab() {
             });
 
             setAssetUrl(response.data.url);
-            setAssetType('pdf');
             toast.success('PDF uploaded');
         } catch (error) {
             toast.error('PDF upload failed');
@@ -522,7 +521,6 @@ export default function HeroAssetTab() {
                                                 { key: 'video', label: '🎬 Video' },
                                                 { key: 'shader', label: '🎨 Shader' },
                                                 { key: 'particle', label: '✨ Particles' },
-                                                { key: 'pdf', label: '📄 PDF' },
                                             ].map(t => (
                                                 <button
                                                     key={t.key}
@@ -602,8 +600,8 @@ export default function HeroAssetTab() {
                                         </div>
                                     )}
 
-                                    {/* Asset URL — only for image/video/pdf */}
-                                    {['image', 'video', 'pdf'].includes(assetType) && (
+                                    {/* Asset URL — only for image/video */}
+                                    {['image', 'video'].includes(assetType) && (
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Direct Asset URL</label>
                                         <input
@@ -1284,12 +1282,11 @@ export default function HeroAssetTab() {
                                                     <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Media Type</label>
                                                     <select
                                                         value={assetType}
-                                                        onChange={(e) => setAssetType(e.target.value as 'image' | 'video' | 'pdf')}
+                                                        onChange={(e) => setAssetType(e.target.value as 'image' | 'video')}
                                                         className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
                                                     >
                                                         <option value="image">Image</option>
                                                         <option value="video">Video</option>
-                                                        <option value="pdf">PDF Document</option>
                                                     </select>
                                                 </div>
                                                 <button
