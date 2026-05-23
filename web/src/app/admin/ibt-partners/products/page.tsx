@@ -7,8 +7,7 @@ import api, { getImageUrl } from '@/lib/api';
 import toast from 'react-hot-toast';
 import { Package, Plus, Edit, Trash2, Eye, Image as ImageIcon } from 'lucide-react';
 
-function ProductsContent() {
-    const searchParams = useSearchParams();
+interface Product {
     id: number;
     title: string;
     description: string;
@@ -28,9 +27,9 @@ interface StoreOption {
     slug: string;
 }
 
-export default function AdminIBTPartnerProductsPage() {
-    const router = useRouter();
+function ProductsContent() {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const { user, isAuthenticated } = useAuthStore();
     const [products, setProducts] = useState<Product[]>([]);
     const [stores, setStores] = useState<StoreOption[]>([]);
@@ -57,13 +56,11 @@ export default function AdminIBTPartnerProductsPage() {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // Fetch partner stores
                 const storesRes = await api.get('/admin/stores');
                 const allStores = storesRes.data.stores || storesRes.data || [];
                 const partnerStores = allStores.filter((s: any) => s.vendor_id === 2 || s.vendor_name === 'IBT Solutions');
                 setStores(partnerStores.map((s: any) => ({ id: s.store_id || s.id, name: s.name, slug: s.slug })));
 
-                // Fetch products for partner stores
                 const productsRes = await api.get('/listings', { params: { limit: 100 } });
                 const allProducts = productsRes.data.listings || productsRes.data || [];
                 const partnerStoreIds = partnerStores.map((s: any) => s.store_id || s.id);
@@ -132,7 +129,6 @@ export default function AdminIBTPartnerProductsPage() {
             setShowForm(false);
             setEditingProduct(null);
             setFormData({ title: '', description: '', price: '', category: 'product', store_id: '', image_url: '' });
-            // Refresh
             window.location.reload();
         } catch (error: any) {
             toast.error(error.response?.data?.message || 'Failed to save product');
