@@ -75,6 +75,7 @@ import messagingRoutes from './routes/messagingRoutes';
 import bulkRoutes from './routes/bulkRoutes';
 import siteSettingsRoutes from './routes/siteSettingsRoutes';
 import ibtRoutes from './routes/ibtRoutes';
+import mediaRoutes from './routes/mediaRoutes';
 import { initScheduler } from './services/subscriptionScheduler';
 
 const PORT = process.env.PORT || 5001;
@@ -96,8 +97,7 @@ configureSanitization(app);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Serve static uploads directory
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// Note: uploads now served from database via /api/media/file/:filename
 
 // Routes
 app.use(passport.initialize());
@@ -112,6 +112,7 @@ app.use('/api/campaign-updates', campaignUpdateRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/media', mediaRoutes);
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reviews', reviewRoutes);
