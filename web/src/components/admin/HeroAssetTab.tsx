@@ -61,7 +61,7 @@ export default function HeroAssetTab() {
 
     const [selectedPage, setSelectedPage] = useState(PAGES[0].key);
     const [assetUrl, setAssetUrl] = useState('');
-    const [assetType, setAssetType] = useState<'image' | 'video' | 'pdf'>('image');
+    const [assetType, setAssetType] = useState<'image' | 'video' | 'pdf' | 'shader' | 'particle'>('image');
     const [overlayColor, setOverlayColor] = useState('#000000');
     const [overlayOpacity, setOverlayOpacity] = useState(0.4);
 
