@@ -28,14 +28,15 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
         'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png', 'req.file.mimetype', 'image/gif', 'image/avif',
         'image/heic', 'image/heif',
         'video/mp4', 'video/webm', 'video/quicktime', 'video/x-matroska', 'video/avi',
-        'font/ttf', 'font/otf', 'font/woff', 'font/woff2', 'application/x-font-ttf', 'application/x-font-otf', 'application/font-woff', 'application/font-woff2'
+        'font/ttf', 'font/otf', 'font/woff', 'font/woff2', 'application/x-font-ttf', 'application/x-font-otf', 'application/font-woff', 'application/font-woff2',
+        'application/pdf'
     ];
 
-    if (allowedMimes.includes(file.mimetype) || file.originalname.match(/\.(ttf|otf|woff|woff2)$/i)) {
+    if (allowedMimes.includes(file.mimetype) || file.originalname.match(/\.(ttf|otf|woff|woff2|pdf)$/i)) {
         cb(null, true);
     } else {
         console.warn(`[UPLOAD REJECTED] Invalid file type: ${file.mimetype} for file: ${file.originalname}`);
-        cb(new Error(`Invalid file type (${file.mimetype}). Support for Images, Videos, and Fonts (TTF, OTF, WOFF2) only.`));
+        cb(new Error(`Invalid file type (${file.mimetype}). Support for Images, Videos, Fonts (TTF, OTF, WOFF2), and PDF only.`));
     }
 };
 
@@ -354,6 +355,22 @@ export const deleteUpload = async (req: Request, res: Response) => {
     }
 };
 
+// File filter for documents (PDF)
+const docFileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+    const allowedMimes = ['application/pdf'];
+    if (allowedMimes.includes(file.mimetype) || file.originalname.match(/\.pdf$/i)) {
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Only PDF is allowed.'));
+    }
+};
+
+export const docUpload = multer({
+    storage,
+    fileFilter: docFileFilter,
+    limits: { fileSize: 25 * 1024 * 1024 } // 25MB
+});
+
 // File filter for KYC (Images + PDF)
 const kycFileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
     const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'req.file.mimetype', 'application/pdf'];
@@ -399,6 +416,37 @@ export const uploadKYC = async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.error('KYC upload error:', error);
+        res.status(500).json({ success: false, message: 'Failed to upload document' });
+    }
+};
+
+// Upload Document (PDF - admin use)
+export const uploadDocument = async (req: Request, res: Response) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        const userId = (req.user as any)?.id;
+        if (!userId) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
+        const fileUrl = await storageProvider.uploadFile(req.file);
+
+        const mediaResult = await pool.query(
+            'INSERT INTO media (user_id, filename, url, file_type, file_size) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [userId, req.file.filename, fileUrl, req.file.mimetype, req.file.size]
+        );
+
+        res.json({
+            success: true,
+            url: fileUrl,
+            message: 'Document uploaded successfully',
+            media: mediaResult.rows[0]
+        });
+    } catch (error) {
+        console.error('Document upload error:', error);
         res.status(500).json({ success: false, message: 'Failed to upload document' });
     }
 };

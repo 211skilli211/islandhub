@@ -32,6 +32,15 @@ const SERVICE_CATEGORIES = [
     { id: 'digital', title: 'Digital & Tech', icon: '💻', desc: 'Web, app & digital services', subtypes: ['digital', 'web', 'app', 'tech', 'it'] },
 ];
 
+const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+    professional: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
+    automotive: { bg: 'bg-slate-100', text: 'text-slate-700', border: 'border-slate-300' },
+    health: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-200' },
+    marine: { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200' },
+    events: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200' },
+    digital: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200' },
+};
+
 function categorizeStore(store: Store): string {
     const subtype = (store.subtype || '').toLowerCase();
     const name = (store.name || store.business_name || '').toLowerCase();
@@ -47,51 +56,120 @@ function categorizeStore(store: Store): string {
     return 'professional';
 }
 
+function StarRating({ rating }: { rating: string }) {
+    const numRating = parseFloat(rating);
+    const fullStars = Math.floor(numRating);
+    const hasHalf = numRating - fullStars >= 0.5;
+
+    return (
+        <div className="flex items-center gap-0.5">
+            {[...Array(5)].map((_, i) => (
+                <svg
+                    key={i}
+                    className={`w-3.5 h-3.5 ${i < fullStars ? 'text-amber-400' : (i === fullStars && hasHalf) ? 'text-amber-400' : 'text-slate-200'}`}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+            ))}
+        </div>
+    );
+}
+
 function ServiceCard({ store, index }: { store: Store; index: number }) {
     const storeName = store.name || store.business_name || 'Unknown';
     const rating = store.rating ? Number(store.rating).toFixed(1) : '4.9';
     const subtypeLabel = store.subtype
-        ? store.subtype.replace(/_/g, ' ').replace(/\w/g, c => c.toUpperCase())
+        ? store.subtype.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
         : 'Service';
+    const catId = categorizeStore(store);
+    const catColors = CATEGORY_COLORS[catId] || CATEGORY_COLORS.professional;
+    const catConf = SERVICE_CATEGORIES.find(c => c.id === catId);
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, duration: 0.4 }}
-            whileHover={{ y: -4 }}
+            whileHover={{ y: -3 }}
         >
             <Link
                 href={`/store/${store.slug}`}
-                className="group block bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-lg hover:border-violet-200 transition-all duration-300"
+                className="group block bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-blue-500/8 hover:border-blue-300 transition-all duration-300"
             >
+                {/* Top accent bar */}
+                <div className="h-1.5 bg-gradient-to-r from-blue-500 via-blue-600 to-slate-600" />
+
                 <div className="p-5">
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-100 bg-slate-50 shrink-0">
+                    {/* Header: logo + name + rating */}
+                    <div className="flex items-start gap-3.5 mb-4">
+                        <div className="w-14 h-14 rounded-xl overflow-hidden border border-slate-100 bg-slate-50 shrink-0 shadow-sm">
                             {store.logo_url ? (
                                 <img src={getImageUrl(store.logo_url)} alt={storeName} className="w-full h-full object-cover" />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-xl font-black text-white uppercase" style={{ backgroundColor: store.branding_color || '#7c3aed' }}>
+                                <div className="w-full h-full flex items-center justify-center text-xl font-black text-white uppercase" style={{ backgroundColor: store.branding_color || '#3b82f6' }}>
                                     {storeName.charAt(0)}
                                 </div>
                             )}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h3 className="text-sm font-bold text-slate-900 group-hover:text-violet-600 transition-colors line-clamp-1">{storeName}</h3>
-                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{subtypeLabel}</span>
-                        </div>
-                        <div className="flex items-center gap-1 shrink-0">
-                            <span className="text-yellow-400 text-xs">★</span>
-                            <span className="text-xs font-bold text-slate-700">{rating}</span>
+                            <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1 leading-tight mb-1">
+                                {storeName}
+                            </h3>
+                            <div className="flex items-center gap-1.5 mb-1.5">
+                                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold ${catColors.bg} ${catColors.text} ${catColors.border} border`}>
+                                    {catConf?.icon} {subtypeLabel}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <StarRating rating={rating} />
+                                <span className="text-xs font-bold text-slate-600">{rating}</span>
+                            </div>
                         </div>
                     </div>
-                    <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
+
+                    {/* Description */}
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
                         {store.description || 'Professional services for your needs.'}
                     </p>
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-50">
-                        <span className="text-[10px] font-semibold text-emerald-600 uppercase tracking-wider">Available</span>
-                        <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-violet-500 text-white text-[11px] font-bold rounded-lg group-hover:bg-violet-600 transition-colors">
-                            Book Now →
+
+                    {/* Trust signals */}
+                    <div className="flex items-center gap-3 mb-4 text-[10px] text-slate-400 font-medium">
+                        <span className="inline-flex items-center gap-1">
+                            <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Verified
+                        </span>
+                        <span className="w-px h-3 bg-slate-200" />
+                        <span className="inline-flex items-center gap-1">
+                            <svg className="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            Quick Response
+                        </span>
+                        <span className="w-px h-3 bg-slate-200" />
+                        <span className="inline-flex items-center gap-1">
+                            <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            Island Local
+                        </span>
+                    </div>
+
+                    {/* CTA footer */}
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            Available
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl group-hover:bg-blue-700 transition-colors shadow-sm group-hover:shadow-md group-hover:shadow-blue-500/20">
+                            Book Consultation
+                            <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
                         </span>
                     </div>
                 </div>
@@ -125,7 +203,7 @@ export default function ServicesHubPage() {
                         description: s.description,
                         logo_url: s.logo_url,
                         banner_url: s.banner_url,
-                        branding_color: s.branding_color || '#7c3aed',
+                        branding_color: s.branding_color || '#3b82f6',
                         category: s.category,
                         subtype: s.subtype,
                         slug: s.slug,
@@ -170,34 +248,100 @@ export default function ServicesHubPage() {
     const totalStores = filteredStores.length;
 
     return (
-        <main className="min-h-screen bg-white">
-            <HeroBackground pageKey="service-stores" fallbackTitle="Island Services" className="min-h-[50vh]">
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="w-full max-w-2xl mx-auto text-center">
-                    <h1 className="text-4xl md:text-6xl font-black text-white mb-4 drop-shadow-lg">Island <span className="text-violet-400">Services</span></h1>
-                    <p className="text-lg text-white/80 mb-8 font-medium">Find trusted professionals for every need — from legal to digital.</p>
-                    <div className="relative max-w-lg mx-auto">
-                        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <main className="min-h-screen bg-slate-50">
+            {/* ═══════════════════════════════════════════════════════════════
+                HERO — Professional blue gradient, trustworthy feel
+            ═══════════════════════════════════════════════════════════════ */}
+            <HeroBackground pageKey="service-stores" fallbackTitle="Island Services" className="min-h-[52vh]">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="w-full max-w-3xl mx-auto text-center">
+                    {/* Trust badge */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.25 }}
+                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full border border-white/20 mb-6"
+                    >
+                        <svg className="w-4 h-4 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
-                        <input type="text" placeholder="Search services, professionals..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-12 pr-4 py-4 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-400 shadow-xl border border-white/20" />
+                        <span className="text-xs font-semibold text-white/90 tracking-wide">Verified & Trusted Professionals</span>
+                    </motion.div>
+
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 drop-shadow-lg tracking-tight">
+                        Find the Right <span className="bg-gradient-to-r from-blue-300 to-blue-200 bg-clip-text text-transparent">Professional</span>
+                    </h1>
+                    <p className="text-base md:text-lg text-white/75 mb-8 font-medium max-w-xl mx-auto leading-relaxed">
+                        Connect with vetted service providers across the island — from legal experts to marine specialists.
+                    </p>
+
+                    {/* Search bar */}
+                    <div className="relative max-w-xl mx-auto">
+                        <div className="absolute left-1 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                            <svg className="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Search by service, skill, or provider..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-14 pr-5 py-4 bg-white rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-lg focus:shadow-blue-500/10 shadow-xl border border-slate-200"
+                        />
                     </div>
-                    <div className="flex items-center justify-center gap-6 mt-6">
-                        <div className="text-center"><div className="text-2xl font-black text-white">{loading ? '—' : totalStores}</div><div className="text-[10px] font-bold uppercase tracking-widest text-white/60">Providers</div></div>
-                        <div className="w-px h-8 bg-white/20" />
-                        <div className="text-center"><div className="text-2xl font-black text-white">{SERVICE_CATEGORIES.length - 1}</div><div className="text-[10px] font-bold uppercase tracking-widest text-white/60">Categories</div></div>
+
+                    {/* Stats row */}
+                    <div className="flex items-center justify-center gap-8 mt-8">
+                        <div className="text-center">
+                            <div className="text-2xl md:text-3xl font-black text-white">{loading ? '—' : totalStores}</div>
+                            <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Service Providers</div>
+                        </div>
+                        <div className="w-px h-8 bg-white/15" />
+                        <div className="text-center">
+                            <div className="text-2xl md:text-3xl font-black text-white">{SERVICE_CATEGORIES.length - 1}</div>
+                            <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Categories</div>
+                        </div>
+                        <div className="w-px h-8 bg-white/15" />
+                        <div className="text-center">
+                            <div className="text-2xl md:text-3xl font-black text-white">4.8</div>
+                            <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Avg Rating</div>
+                        </div>
                     </div>
                 </motion.div>
             </HeroBackground>
 
-            <section className="bg-slate-50 border-b border-slate-100 sticky top-0 z-30">
+            {/* ═══════════════════════════════════════════════════════════════
+                CATEGORY FILTER BAR — Sticky, professional pill badges
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                    <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-hide">
+                        <div className="flex items-center gap-1.5 mr-4 shrink-0">
+                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                            </svg>
+                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Filter:</span>
+                        </div>
                         {SERVICE_CATEGORIES.map(cat => {
                             const count = cat.id === 'all' ? totalStores : (storesByCategory[cat.id]?.length || 0);
+                            const isActive = activeCategory === cat.id;
                             return (
-                                <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${activeCategory === cat.id ? 'bg-violet-500 text-white shadow-lg' : 'bg-white text-slate-700 border border-slate-200 hover:border-violet-300 hover:bg-violet-50'}`}>
-                                    <span>{cat.icon}</span><span>{cat.title}</span>
-                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${activeCategory === cat.id ? 'bg-white/20' : 'bg-slate-100'}`}>{loading ? '…' : count}</span>
+                                <button
+                                    key={cat.id}
+                                    onClick={() => setActiveCategory(cat.id)}
+                                    className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap border ${
+                                        isActive
+                                            ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20'
+                                            : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
+                                    }`}
+                                >
+                                    <span className="text-base">{cat.icon}</span>
+                                    <span>{cat.title}</span>
+                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${
+                                        isActive ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-500'
+                                    }`}>
+                                        {loading ? '…' : count}
+                                    </span>
                                 </button>
                             );
                         })}
@@ -205,41 +349,132 @@ export default function ServicesHubPage() {
                 </div>
             </section>
 
-            {!loading && totalStores > 0 && <BrandMarquee type="brand" />}
+            {/* ═══════════════════════════════════════════════════════════════
+                BRAND MARQUEE — Overridden to blue/slate theme
+            ═══════════════════════════════════════════════════════════════ */}
+            {!loading && totalStores > 0 && (
+                <div className="bg-white border-b border-slate-100">
+                    <BrandMarquee type="brand" />
+                </div>
+            )}
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {/* ═══════════════════════════════════════════════════════════════
+                SERVICE LISTINGS — Grouped by category with headers
+            ═══════════════════════════════════════════════════════════════ */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+                {/* Empty state */}
                 {!loading && totalStores === 0 && (
-                    <div className="text-center py-20">
-                        <span className="text-6xl mb-4 block">🛠️</span>
+                    <div className="text-center py-24">
+                        <div className="w-20 h-20 mx-auto mb-6 bg-slate-100 rounded-2xl flex items-center justify-center">
+                            <svg className="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
                         <h3 className="text-xl font-bold text-slate-900 mb-2">No services found</h3>
-                        <p className="text-slate-500 mb-6">Try adjusting your search or browse all categories.</p>
-                        <button onClick={() => { setSearchTerm(''); setActiveCategory('all'); }} className="px-6 py-3 bg-violet-500 text-white font-bold rounded-xl hover:bg-violet-600 transition-colors">View All Services</button>
+                        <p className="text-slate-500 mb-6 max-w-md mx-auto">Try adjusting your search or browse all categories to find the right professional.</p>
+                        <button
+                            onClick={() => { setSearchTerm(''); setActiveCategory('all'); }}
+                            className="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20"
+                        >
+                            View All Services
+                        </button>
                     </div>
                 )}
 
+                {/* Filtered / searched results */}
                 {(searchTerm || activeCategory !== 'all') ? (
                     !loading && totalStores > 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {filteredStores.map((store, idx) => (<ServiceCard key={store.store_id || store.id} store={store} index={idx} />))}
+                        <div>
+                            {/* Results header */}
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <h2 className="text-lg font-bold text-slate-900">
+                                        {activeCategory !== 'all'
+                                            ? `${SERVICE_CATEGORIES.find(c => c.id === activeCategory)?.title} Services`
+                                            : 'Search Results'
+                                        }
+                                    </h2>
+                                    <p className="text-xs text-slate-500 mt-0.5">
+                                        {totalStores} provider{totalStores !== 1 ? 's' : ''} found
+                                        {searchTerm && <span> for &ldquo;{searchTerm}&rdquo;</span>}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => { setSearchTerm(''); setActiveCategory('all'); }}
+                                    className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                                >
+                                    Clear filters
+                                </button>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {filteredStores.map((store, idx) => (
+                                    <ServiceCard key={store.store_id || store.id} store={store} index={idx} />
+                                ))}
+                            </div>
                         </div>
                     )
                 ) : (
+                    /* Grouped by category */
                     SERVICE_CATEGORIES.filter(c => c.id !== 'all').map(cat => {
                         const stores = storesByCategory[cat.id] || [];
                         if (!loading && stores.length === 0) return null;
                         return (
-                            <section key={cat.id} className="mb-10">
-                                <div className="flex items-center justify-between mb-4">
+                            <section key={cat.id} className="mb-12">
+                                {/* Category header */}
+                                <div className="flex items-center justify-between mb-5">
                                     <div className="flex items-center gap-3">
-                                        <span className="text-2xl">{cat.icon}</span>
-                                        <div><h2 className="text-xl font-bold text-slate-900">{cat.title}</h2><p className="text-xs text-slate-500">{cat.desc}</p></div>
+                                        <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-lg">
+                                            {cat.icon}
+                                        </div>
+                                        <div>
+                                            <h2 className="text-lg font-bold text-slate-900">{cat.title}</h2>
+                                            <p className="text-xs text-slate-500">{cat.desc}</p>
+                                        </div>
                                     </div>
-                                    <span className="text-xs font-semibold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-full">{loading ? '…' : stores.length}</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-lg">
+                                            {loading ? '…' : `${stores.length} provider${stores.length !== 1 ? 's' : ''}`}
+                                        </span>
+                                        <Link
+                                            href={`/services?category=${cat.id}`}
+                                            className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                                        >
+                                            View all →
+                                        </Link>
+                                    </div>
                                 </div>
+
                                 {loading ? (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{[1,2,3].map(i => (<div key={i} className="h-40 bg-slate-100 animate-pulse rounded-xl" />))}</div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        {[1, 2, 3].map(i => (
+                                            <div key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                                                <div className="h-1.5 bg-slate-200 animate-pulse" />
+                                                <div className="p-5">
+                                                    <div className="flex items-start gap-3.5 mb-4">
+                                                        <div className="w-14 h-14 bg-slate-100 rounded-xl animate-pulse shrink-0" />
+                                                        <div className="flex-1 space-y-2">
+                                                            <div className="h-4 bg-slate-100 rounded-lg animate-pulse w-3/4" />
+                                                            <div className="h-3 bg-slate-100 rounded-lg animate-pulse w-1/2" />
+                                                            <div className="h-3 bg-slate-100 rounded-lg animate-pulse w-1/3" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="h-3 bg-slate-100 rounded-lg animate-pulse w-full mb-2" />
+                                                    <div className="h-3 bg-slate-100 rounded-lg animate-pulse w-2/3 mb-4" />
+                                                    <div className="flex justify-between pt-4 border-t border-slate-100">
+                                                        <div className="h-6 bg-slate-100 rounded-lg animate-pulse w-20" />
+                                                        <div className="h-8 bg-slate-100 rounded-xl animate-pulse w-32" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 ) : (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{stores.map((store, idx) => (<ServiceCard key={store.store_id || store.id} store={store} index={idx} />))}</div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        {stores.map((store, idx) => (
+                                            <ServiceCard key={store.store_id || store.id} store={store} index={idx} />
+                                        ))}
+                                    </div>
                                 )}
                             </section>
                         );
@@ -247,11 +482,89 @@ export default function ServicesHubPage() {
                 )}
             </div>
 
-            <section className="py-16 px-6 bg-gradient-to-br from-violet-600 to-purple-700">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Offer a Service?</h2>
-                    <p className="text-white/80 text-lg mb-8 font-medium">Join IslandHub and connect with customers looking for your expertise.</p>
-                    <Link href="/become-vendor" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-violet-700 font-bold rounded-2xl hover:bg-violet-50 transition-colors shadow-xl text-sm uppercase tracking-wider">List Your Service →</Link>
+            {/* ═══════════════════════════════════════════════════════════════
+                TRUST SECTION — Social proof & trust signals
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="bg-white border-t border-slate-200">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="text-center">
+                            <div className="w-14 h-14 mx-auto mb-4 bg-blue-50 rounded-2xl flex items-center justify-center">
+                                <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-sm font-bold text-slate-900 mb-1">Verified Professionals</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">Every provider is vetted and verified for quality and reliability.</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="w-14 h-14 mx-auto mb-4 bg-blue-50 rounded-2xl flex items-center justify-center">
+                                <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-sm font-bold text-slate-900 mb-1">Transparent Pricing</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">No hidden fees. Get upfront quotes before you book any service.</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="w-14 h-14 mx-auto mb-4 bg-blue-50 rounded-2xl flex items-center justify-center">
+                                <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-sm font-bold text-slate-900 mb-1">24/7 Support</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">Our team is always available to help you find the right professional.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ═══════════════════════════════════════════════════════════════
+                CTA — Blue gradient, professional services copy
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="relative overflow-hidden">
+                {/* Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-slate-800" />
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-slate-600/20 rounded-full blur-3xl" />
+
+                <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 mb-6">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                            <span className="text-xs font-semibold text-white/80">Join 500+ service providers</span>
+                        </div>
+
+                        <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
+                            Offer a Service?
+                        </h2>
+                        <p className="text-white/70 text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed font-medium">
+                            Join IslandHub&apos;s professional network and connect with customers actively looking for your expertise.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <Link
+                                href="/become-vendor"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-700 font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl shadow-black/10 text-sm uppercase tracking-wider group"
+                            >
+                                List Your Service
+                                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </Link>
+                            <Link
+                                href="/contact"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20 text-sm uppercase tracking-wider"
+                            >
+                                Contact Sales
+                            </Link>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
         </main>

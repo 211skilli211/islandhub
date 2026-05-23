@@ -96,6 +96,7 @@ export default function HeroAssetTab() {
     const [uploading, setUploading] = useState(false);
     const [uploadingFont, setUploadingFont] = useState<'heading' | 'subtitle' | null>(null);
     const [uploadingIcon, setUploadingIcon] = useState(false);
+    const [uploadingPdf, setUploadingPdf] = useState(false);
 
     const showOverlay = styleConfig.showOverlay !== false;
 
@@ -184,6 +185,29 @@ export default function HeroAssetTab() {
             toast.error('Upload failed');
         } finally {
             setUploading(false);
+        }
+    };
+
+    const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploadingPdf(true);
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await api.post('/uploads/document', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            setAssetUrl(response.data.url);
+            setAssetType('pdf');
+            toast.success('PDF uploaded');
+        } catch (error) {
+            toast.error('PDF upload failed');
+        } finally {
+            setUploadingPdf(false);
         }
     };
 
@@ -443,11 +467,37 @@ export default function HeroAssetTab() {
                                         </div>
                                     </div>
 
+                                    {/* PDF Document Upload */}
+                                    <div>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Upload Document (PDF)</label>
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingPdf ? 'bg-slate-50 border-slate-200' : 'hover:border-red-400 bg-slate-50 border-slate-100'}`}>
+                                            <input
+                                                type="file"
+                                                onChange={handlePdfUpload}
+                                                className="absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                                                accept="application/pdf"
+                                                disabled={uploadingPdf}
+                                            />
+                                            {uploadingPdf ? (
+                                                <div className="flex flex-col items-center">
+                                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mb-2" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-red-600">Uploading PDF...</span>
+                                                </div>
+                                            ) : (
+                                                <div className="flex flex-col items-center">
+                                                    <span className="text-3xl mb-2">📄</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click to Upload PDF</span>
+                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">For contracts, reports, guides (Max 25MB)</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
                                     {/* Asset Type */}
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Override Type</label>
                                         <div className="flex gap-4 p-1 bg-slate-50 rounded-2xl border border-slate-100">
-                                            {['image', 'video'].map(t => (
+                                            {['image', 'video', 'pdf'].map(t => (
                                                 <button
                                                     key={t}
                                                     onClick={() => setAssetType(t as any)}

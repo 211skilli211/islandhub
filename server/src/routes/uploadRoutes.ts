@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { upload, uploadAvatar, uploadBanner, uploadListingImages, deleteUpload, getUserMedia, uploadKYC, kycUpload, getAllMedia, uploadAsset, uploadUserProfilePhoto, uploadUserBannerImage, uploadFont, uploadStoreAsset } from '../controllers/uploadController';
+import { upload, uploadAvatar, uploadBanner, uploadListingImages, deleteUpload, getUserMedia, uploadKYC, kycUpload, getAllMedia, uploadAsset, uploadUserProfilePhoto, uploadUserBannerImage, uploadFont, uploadStoreAsset, uploadDocument, docUpload } from '../controllers/uploadController';
 import { authenticateJWT, isAdmin } from '../middleware/authMiddleware';
 
 const router = Router();
@@ -51,6 +51,11 @@ router.post('/asset', upload.single('image'), uploadAsset);
 // @desc    Upload custom font file
 // @access  Private
 router.post('/font', upload.single('font'), uploadFont);
+
+// @route   POST /api/uploads/document
+// @desc    Upload PDF document (admin)
+// @access  Private (Admin)
+router.post('/document', docUpload.single('file'), uploadDocument);
 
 // @route   POST /api/uploads/profile-photo
 // @desc    Upload user profile photo

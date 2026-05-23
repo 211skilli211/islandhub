@@ -1831,7 +1831,7 @@ CREATE TABLE public.hero_assets (
     cta2_link text,
     layout_template character varying(50) DEFAULT 'standard'::character varying,
     style_config jsonb DEFAULT '{}'::jsonb,
-    CONSTRAINT hero_assets_asset_type_check CHECK (((asset_type)::text = ANY ((ARRAY['image'::character varying, 'video'::character varying])::text[])))
+    CONSTRAINT hero_assets_asset_type_check CHECK (((asset_type)::text = ANY ((ARRAY['image'::character varying, 'video'::character varying, 'pdf'::character varying])::text[])))
 );
 
 
