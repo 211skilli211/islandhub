@@ -198,25 +198,28 @@ export function useCart() {
 
 const EMPTY_ARRAY: any[] = [];
 
-export function useRecommendations(type?: 'personalized' | 'trending', limit: number = 10) {
+export function useRecommendations(type?: 'personalized' | 'trending' | null, limit: number = 10) {
   const endpoint = type === 'trending'
     ? `/recommendations/trending?limit=${limit}`
-    : `/recommendations/personalized?limit=${limit}`;
+    : type === 'personalized'
+      ? `/recommendations/personalized?limit=${limit}`
+      : null; // null key = don't fetch
 
   const { data, error, isLoading, mutate } = useSWR(
     endpoint,
     fetcher,
     {
-      dedupingInterval: 300000, // 5 minutes for recommendations
+      dedupingInterval: 300000,
       revalidateOnFocus: false,
-      refreshInterval: 600000, // 10 minutes
+      refreshInterval: 600000,
       fallbackData: null,
+      shouldRetryOnError: false, // Don't retry on 500 errors
     }
   );
 
   return {
     recommendations: data?.recommendations || data || EMPTY_ARRAY,
-    isLoading,
+    isLoading: endpoint ? isLoading : false,
     isError: error,
     refresh: mutate,
   };

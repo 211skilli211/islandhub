@@ -43,7 +43,7 @@ export default function BrandMarquee({
 
     // Dynamic data fetching
     const { data: storesData, isLoading: storesLoading } = useStores(type === 'brand' ? { is_featured: true } : undefined);
-    const { recommendations: trendingProducts, isLoading: productsLoading } = useRecommendations(type === 'product' ? 'trending' : undefined, 12);
+    const { recommendations: trendingProducts, isLoading: productsLoading } = useRecommendations(type === 'product' ? 'trending' : null, 12);
 
     const [displayItems, setDisplayItems] = useState<BrandMarqueeItem[]>(items || []);
 
