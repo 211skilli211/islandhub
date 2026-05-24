@@ -31,7 +31,7 @@ export default function CheckoutPage() {
         // Redirect to login if user is not authenticated and cart is not empty
         if (!user && cart && itemCount > 0) {
             // Allow guest checkout but show warning
-            toast('You can checkout as a guest or login for faster checkout', {
+            toast.success('You can checkout as a guest or login for faster checkout', {
                 icon: '👋',
                 duration: 5000
             });
