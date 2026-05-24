@@ -88,12 +88,12 @@ export default function MyTicketsPage() {
                 <div className="space-y-4">
                   {activeTickets.map(ticket => {
                     const event = ticket.event;
-                    const isOpen = selectedTicket === ticket.id;
+                    const isOpen = selectedTicket === ticket.ticket_id;
                     return (
-                      <div key={ticket.id} className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-100 dark:border-ocean-700 overflow-hidden">
+                      <div key={ticket.ticket_id} className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-100 dark:border-ocean-700 overflow-hidden">
                         <div
                           className="p-6 cursor-pointer hover:bg-slate-50 dark:hover:bg-ocean-700/50 transition-colors"
-                          onClick={() => setSelectedTicket(isOpen ? null : ticket.id)}
+                          onClick={() => setSelectedTicket(isOpen ? null : ticket.ticket_id)}
                         >
                           <div className="flex items-start gap-4">
                             {event?.image_url && (
@@ -109,7 +109,7 @@ export default function MyTicketsPage() {
                                     📅 {event?.start_date ? formatDate(event.start_date) : 'TBD'} · 📍 {event?.venue || 'TBD'}
                                   </p>
                                   <p className="text-xs text-purple-600 dark:text-purple-400 font-bold mt-2">
-                                    {ticket.tier?.name || 'General'} · Ticket #{ticket.id}
+                                    {ticket.tier?.name || 'General'} · Ticket #{ticket.ticket_id}
                                   </p>
                                 </div>
                                 <div className="text-right shrink-0 ml-4">
@@ -150,11 +150,11 @@ export default function MyTicketsPage() {
                 <h2 className="text-xl font-black text-slate-900 dark:text-sand-50 mb-4">Past Tickets ({pastTickets.length})</h2>
                 <div className="space-y-3">
                   {pastTickets.map(ticket => (
-                    <div key={ticket.id} className="bg-white dark:bg-ocean-800 rounded-xl p-4 border border-slate-100 dark:border-ocean-700 opacity-60">
+                    <div key={ticket.ticket_id} className="bg-white dark:bg-ocean-800 rounded-xl p-4 border border-slate-100 dark:border-ocean-700 opacity-60">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-bold text-slate-700 dark:text-slate-200">{ticket.event?.title || 'Event'} — {ticket.tier?.name || 'Ticket'}</p>
-                          <p className="text-xs text-slate-500">#{ticket.id} · {ticket.status}</p>
+                          <p className="text-xs text-slate-500">#{ticket.ticket_id} · {ticket.status}</p>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                           ticket.status === 'used' ? 'bg-slate-100 text-slate-600 dark:bg-ocean-700 dark:text-slate-300' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'

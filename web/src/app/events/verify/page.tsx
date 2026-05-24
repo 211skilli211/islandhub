@@ -69,7 +69,7 @@ export default function QRVerifyPage() {
                 <div className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
                   <p><span className="font-bold">Event:</span> {result.ticket?.event_title}</p>
                   <p><span className="font-bold">Tier:</span> {result.ticket?.tier_name}</p>
-                  <p><span className="font-bold">Ticket ID:</span> {result.ticket?.id}</p>
+                  <p><span className="font-bold">Ticket ID:</span> {result.ticket?.ticket_id}</p>
                 </div>
               </div>
             ) : (

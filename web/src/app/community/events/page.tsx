@@ -8,7 +8,7 @@ import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 
 interface Event {
-    id: number;
+    event_id: number;
     title: string;
     description: string;
     date: string;
@@ -284,7 +284,7 @@ export default function EventsPage() {
                     <div className="space-y-6">
                         {filteredEvents.map((event, index) => (
                             <motion.div
-                                key={event.id}
+                                key={event.event_id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
@@ -347,13 +347,13 @@ export default function EventsPage() {
                                             ) : (
                                                 <div className="flex gap-2">
                                                     <button
-                                                        onClick={() => handleRSVP(event.id, 'attending')}
+                                                        onClick={() => handleRSVP(event.event_id, 'attending')}
                                                         className="px-6 py-3 bg-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-teal-700 transition-colors"
                                                     >
                                                         RSVP ✓
                                                     </button>
                                                     <button
-                                                        onClick={() => handleRSVP(event.id, 'interested')}
+                                                        onClick={() => handleRSVP(event.event_id, 'interested')}
                                                         className="px-6 py-3 bg-amber-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-600 transition-colors"
                                                     >
                                                         Interested

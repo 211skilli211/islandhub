@@ -115,7 +115,7 @@ router.post('/', requireAuth, async (req: Request, res: Response) => {
         await pool.query(`
           INSERT INTO ticket_tiers (event_id, name, price, quantity, sold, description, perks)
           VALUES ($1, $2, $3, $4, 0, $5, $6)
-        `, [event.id, tier.name, tier.price, tier.quantity, tier.description || '', tier.perks || []]);
+        `, [event.event_id, tier.name, tier.price, tier.quantity, tier.description || '', tier.perks || []]);
       }
     }
 

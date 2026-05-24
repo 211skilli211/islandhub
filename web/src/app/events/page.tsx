@@ -118,8 +118,8 @@ export default function EventsHubPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map(event => (
               <Link
-                key={event.id}
-                href={`/events/${event.id}`}
+                key={event.event_id}
+                href={`/events/${event.event_id}`}
                 className="group bg-white dark:bg-ocean-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-ocean-700"
               >
                 <div className="relative h-48 overflow-hidden">

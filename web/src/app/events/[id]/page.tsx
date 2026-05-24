@@ -52,8 +52,8 @@ export default function EventDetailPage() {
     setPurchasing(true);
     try {
       const res = await api.post('/events/tickets/purchase', {
-        event_id: event.id,
-        tier_id: tier.id,
+        event_id: event.event_id,
+        tier_id: tier.tier_id,
         quantity: 1,
       });
       toast.success('Ticket purchased! Check My Tickets.');
@@ -71,9 +71,9 @@ export default function EventDetailPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
       {/* Banner */}
       <div className="relative h-64 sm:h-96 overflow-hidden">
-        {event.banner_url || event.image_url ? (
+        {(event.banner_url || event.image_url) ? (
           <Image
-            src={getImageUrl(event.banner_url || event.image_url)}
+            src={getImageUrl(event.banner_url || event.image_url) || '/placeholder-event.jpg'}
             alt={event.title}
             fill
             className="object-cover"
@@ -144,7 +144,7 @@ export default function EventDetailPage() {
                     const isSelected = selectedTier === idx;
                     return (
                       <button
-                        key={t.id}
+                        key={t.tier_id}
                         disabled={soldOut}
                         onClick={() => setSelectedTier(idx)}
                         className={`w-full text-left p-4 rounded-xl border-2 transition-all ${

@@ -3,7 +3,7 @@
 
 -- Events table
 CREATE TABLE IF NOT EXISTS events (
-  id SERIAL PRIMARY KEY,
+  event_id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   venue VARCHAR(255),
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS events (
   category VARCHAR(50) DEFAULT 'community',
   image_url VARCHAR(500),
   banner_url VARCHAR(500),
-  organizer_id INTEGER REFERENCES users(id),
+  organizer_id INTEGER REFERENCES users(user_id),
   organizer_name VARCHAR(255),
   status VARCHAR(20) DEFAULT 'draft' CHECK (status IN ('draft', 'published', 'cancelled', 'completed')),
   total_capacity INTEGER DEFAULT 100,
@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS events (
 
 -- Ticket tiers (pricing levels per event)
 CREATE TABLE IF NOT EXISTS ticket_tiers (
-  id SERIAL PRIMARY KEY,
-  event_id INTEGER REFERENCES events(id) ON DELETE CASCADE,
+  tier_id SERIAL PRIMARY KEY,
+  event_id INTEGER REFERENCES events(event_id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
   price DECIMAL(10,2) NOT NULL DEFAULT 0,
   quantity INTEGER NOT NULL DEFAULT 100,
@@ -39,10 +39,10 @@ CREATE TABLE IF NOT EXISTS ticket_tiers (
 
 -- Tickets (purchased tickets with QR codes)
 CREATE TABLE IF NOT EXISTS tickets (
-  id SERIAL PRIMARY KEY,
-  event_id INTEGER REFERENCES events(id) ON DELETE CASCADE,
-  tier_id INTEGER REFERENCES ticket_tiers(id),
-  user_id INTEGER REFERENCES users(id),
+  ticket_id SERIAL PRIMARY KEY,
+  event_id INTEGER REFERENCES events(event_id) ON DELETE CASCADE,
+  tier_id INTEGER REFERENCES ticket_tiers(tier_id),
+  user_id INTEGER REFERENCES users(user_id),
   qr_code VARCHAR(500),
   qr_token VARCHAR(128) UNIQUE NOT NULL,
   status VARCHAR(20) DEFAULT 'valid' CHECK (status IN ('valid', 'used', 'refunded', 'expired')),
@@ -81,13 +81,13 @@ VALUES (
 
 -- Sample ticket tiers for the festival
 INSERT INTO ticket_tiers (event_id, name, price, quantity, description, perks)
-SELECT id, 'General Admission', 75.00, 3000, 'Access to all general areas', '{"Main stage access", "Food court", "Festival merch discount"}'
+SELECT event_id, 'General Admission', 75.00, 3000, 'Access to all general areas', '{"Main stage access", "Food court", "Festival merch discount"}'
 FROM events WHERE title = 'Caribbean Music Festival 2026';
 
 INSERT INTO ticket_tiers (event_id, name, price, quantity, description, perks)
-SELECT id, 'VIP Experience', 200.00, 1500, 'VIP area with premium viewing', '{"VIP lounge", "Complimentary drinks", "Meet & greet", "Priority parking"}'
+SELECT event_id, 'VIP Experience', 200.00, 1500, 'VIP area with premium viewing', '{"VIP lounge", "Complimentary drinks", "Meet & greet", "Priority parking"}'
 FROM events WHERE title = 'Caribbean Music Festival 2026';
 
 INSERT INTO ticket_tiers (event_id, name, price, quantity, description, perks)
-SELECT id, 'Platinum Table', 500.00, 500, 'Private table for 8 with bottle service', '{"Private table", "Bottle service", "Dedicated host", "Backstage tour", "All VIP perks"}'
+SELECT event_id, 'Platinum Table', 500.00, 500, 'Private table for 8 with bottle service', '{"Private table", "Bottle service", "Dedicated host", "Backstage tour", "All VIP perks"}'
 FROM events WHERE title = 'Caribbean Music Festival 2026';

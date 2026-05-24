@@ -5,7 +5,7 @@ import api from '@/lib/api';
 import toast from '@/lib/toast';
 
 export interface EventItem {
-  id: number;
+  event_id: number;
   title: string;
   description: string;
   venue: string;
@@ -23,7 +23,7 @@ export interface EventItem {
 }
 
 export interface TicketTier {
-  id: number;
+  tier_id: number;
   name: string;
   price: number;
   quantity: number;
@@ -33,9 +33,10 @@ export interface TicketTier {
 }
 
 export interface Ticket {
-  id: number;
+  ticket_id: number;
   event_id: number;
   tier_id: number;
+  user_id: number;
   qr_code: string;
   qr_token: string;
   status: 'valid' | 'used' | 'refunded' | 'expired';
@@ -50,7 +51,6 @@ export interface Ticket {
 export function useEvents(filters?: { category?: string; status?: string; search?: string }) {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const params = new URLSearchParams();
     if (filters?.category) params.append('category', filters.category);
@@ -58,7 +58,6 @@ export function useEvents(filters?: { category?: string; status?: string; search
     if (filters?.search) params.append('search', filters.search);
     api.get(`/events?${params}`).then(res => setEvents(res.data.events || [])).catch(() => {}).finally(() => setLoading(false));
   }, [filters?.category, filters?.status, filters?.search]);
-
   return { events, loading };
 }
 

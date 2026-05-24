@@ -100,7 +100,7 @@ router.post('/', requireAuth, async (req: Request, res: Response) => {
     if (ticket_tiers?.length) {
       for (const t of ticket_tiers) {
         await pool.query(`INSERT INTO ticket_tiers (event_id, name, price, quantity, sold, description, perks) VALUES ($1,$2,$3,$4,0,$5,$6)`,
-          [event.id, t.name, t.price, t.quantity, t.description || '', t.perks || []]);
+          [event.event_id, t.name, t.price, t.quantity, t.description || '', t.perks || []]);
       }
     }
     res.status(201).json(event);
