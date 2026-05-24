@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/contexts/CartContext";
+import { memo } from 'react';
+import Navbar from "@/components/Navbar";
+import TextMarquee from "@/components/TextMarquee";
+import Footer from "@/components/Footer";
 import Toaster from "@/components/Toaster";
 import { ThemeProvider } from "@/components/ThemeContext";
-import PublicChrome from "@/components/PublicChrome";
+import { CartProvider } from "@/contexts/CartContext";
+import FloatingBanner from "@/components/FloatingBanner";
+import UserSync from "@/components/UserSync";
+import AdSpace from "@/components/advertising/AdSpace";
+import FloatingHub from "@/components/FloatingHub";
+import SessionMonitor from "@/components/SessionExpiryModal";
+import MobileAnnouncement from "@/components/MobileAnnouncement";
+
+const MemoizedNavbar = memo(Navbar);
+const MemoizedTextMarquee = memo(TextMarquee);
+const MemoizedFooter = memo(Footer);
+const MemoizedFloatingBanner = memo(FloatingBanner);
+const MemoizedUserSync = memo(UserSync);
 
 const inter = Inter({
   variable: "--font-inter",
@@ -26,8 +41,17 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider>
           <CartProvider>
-            <PublicChrome>{children}</PublicChrome>
+            <MemoizedNavbar />
+            <MemoizedUserSync />
+            <MemoizedTextMarquee />
+            <MemoizedFloatingBanner location="global" />
+            <MobileAnnouncement />
+            {children}
             <Toaster />
+            <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
+            <FloatingHub />
+            <SessionMonitor />
+            <MemoizedFooter />
           </CartProvider>
         </ThemeProvider>
       </body>
