@@ -1,0 +1,490 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import api from '@/lib/api';
+import toast from '@/lib/toast';
+
+interface TicketTierForm {
+  name: string;
+  price: string;
+  quantity: string;
+  description: string;
+  perks: string;
+}
+
+const CATEGORIES = [
+  { value: 'music', label: '🎵 Music & Concerts' },
+  { value: 'food', label: '🍽️ Food & Drink' },
+  { value: 'sports', label: '⚽ Sports & Fitness' },
+  { value: 'arts', label: '🎨 Arts & Culture' },
+  { value: 'business', label: '💼 Business & Networking' },
+  { value: 'community', label: '🤝 Community' },
+  { value: 'festival', label: '🎪 Festivals' },
+  { value: 'workshop', label: '🔧 Workshops' },
+];
+
+const emptyTier = (): TicketTierForm => ({ name: '', price: '', quantity: '', description: '', perks: '' });
+
+export default function CreateEventPage() {
+  const router = useRouter();
+  const [saving, setSaving] = useState(false);
+  const [step, setStep] = useState(1);
+
+  // Event details
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [venue, setVenue] = useState('');
+  const [address, setAddress] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [startTime, setStartTime] = useState('18:00');
+  const [endDate, setEndDate] = useState('');
+  const [endTime, setEndTime] = useState('22:00');
+  const [category, setCategory] = useState('music');
+  const [imageUrl, setImageUrl] = useState('');
+  const [bannerUrl, setBannerUrl] = useState('');
+  const [totalCapacity, setTotalCapacity] = useState('100');
+
+  // Ticket tiers
+  const [tiers, setTiers] = useState<TicketTierForm[]>([emptyTier()]);
+
+  const addTier = () => setTiers([...tiers, emptyTier()]);
+  const removeTier = (idx: number) => setTiers(tiers.filter((_, i) => i !== idx));
+  const updateTier = (idx: number, field: string, value: string) => {
+    const updated = [...tiers];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setTiers(updated);
+  };
+
+  const handleSubmit = async () => {
+    // Validation
+    if (!title.trim()) { toast.error('Event title is required'); return; }
+    if (!venue.trim()) { toast.error('Venue is required'); return; }
+    if (!startDate) { toast.error('Start date is required'); return; }
+
+    const startDateTime = `${startDate}T${startTime}:00`;
+    const endDateTime = endDate ? `${endDate}T${endTime}:00` : null;
+
+    // Build ticket tiers
+    const ticketTiers = tiers
+      .filter(t => t.name.trim() && t.price && t.quantity)
+      .map(t => ({
+        name: t.name.trim(),
+        price: parseFloat(t.price) || 0,
+        quantity: parseInt(t.quantity) || 0,
+        description: t.description.trim(),
+        perks: t.perks.split(',').map(p => p.trim()).filter(Boolean),
+      }));
+
+    if (ticketTiers.length === 0) {
+      toast.error('Add at least one ticket tier');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const res = await api.post('/events', {
+        title: title.trim(),
+        description: description.trim(),
+        venue: venue.trim(),
+        address: address.trim(),
+        start_date: startDateTime,
+        end_date: endDateTime,
+        category,
+        image_url: imageUrl.trim(),
+        banner_url: bannerUrl.trim(),
+        total_capacity: parseInt(totalCapacity) || 100,
+        ticket_tiers: ticketTiers,
+      });
+      toast.success('Event created successfully!');
+      router.push(`/events/${res.data.event_id || res.data.id}`);
+    } catch (err: any) {
+      toast.error(err.response?.data?.error || 'Failed to create event');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
+        <div className="max-w-3xl mx-auto px-4 py-10">
+          <button onClick={() => router.back()} className="text-purple-200 hover:text-white text-sm mb-4 flex items-center gap-1">
+            ← Back
+          </button>
+          <h1 className="text-3xl font-black">Create Event</h1>
+          <p className="text-purple-200 mt-2">Set up your event with ticketed entry</p>
+        </div>
+      </div>
+
+      <div className="max-w-3xl mx-auto px-4 py-8">
+        {/* Step indicator */}
+        <div className="flex items-center gap-3 mb-8">
+          {[1, 2, 3].map(s => (
+            <button
+              key={s}
+              onClick={() => setStep(s)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
+                step === s
+                  ? 'bg-purple-600 text-white'
+                  : step > s
+                    ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
+                    : 'bg-slate-100 dark:bg-ocean-800 text-slate-400'
+              }`}
+            >
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
+                step === s ? 'bg-white text-purple-600' : step > s ? 'bg-purple-600 text-white' : 'bg-slate-200 dark:bg-ocean-700'
+              }`}>{step > s ? '✓' : s}</span>
+              {s === 1 ? 'Details' : s === 2 ? 'Tickets' : 'Review'}
+            </button>
+          ))}
+        </div>
+
+        {/* Step 1: Event Details */}
+        {step === 1 && (
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-ocean-800 rounded-2xl p-6 border border-slate-100 dark:border-ocean-700 space-y-5">
+              <h2 className="text-lg font-black text-slate-900 dark:text-sand-50">Event Details</h2>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Event Title *</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  placeholder="e.g. Caribbean Music Festival 2026"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Description</label>
+                <textarea
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  placeholder="Tell people what your event is about..."
+                  rows={4}
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50 resize-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Category</label>
+                  <select
+                    value={category}
+                    onChange={e => setCategory(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                  >
+                    {CATEGORIES.map(c => (
+                      <option key={c.value} value={c.value}>{c.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Total Capacity</label>
+                  <input
+                    type="number"
+                    value={totalCapacity}
+                    onChange={e => setTotalCapacity(e.target.value)}
+                    min="1"
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Venue *</label>
+                <input
+                  type="text"
+                  value={venue}
+                  onChange={e => setVenue(e.target.value)}
+                  placeholder="e.g. Warner Park Sporting Complex"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Address</label>
+                <input
+                  type="text"
+                  value={address}
+                  onChange={e => setAddress(e.target.value)}
+                  placeholder="e.g. Basseterre, St. Kitts"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Start Date *</label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={e => setStartDate(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Start Time</label>
+                  <input
+                    type="time"
+                    value={startTime}
+                    onChange={e => setStartTime(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">End Date</label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={e => setEndDate(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">End Time</label>
+                  <input
+                    type="time"
+                    value={endTime}
+                    onChange={e => setEndTime(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Cover Image URL</label>
+                <input
+                  type="text"
+                  value={imageUrl}
+                  onChange={e => setImageUrl(e.target.value)}
+                  placeholder="https://example.com/event-image.jpg"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Banner Image URL</label>
+                <input
+                  type="text"
+                  value={bannerUrl}
+                  onChange={e => setBannerUrl(e.target.value)}
+                  placeholder="https://example.com/event-banner.jpg"
+                  className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={() => setStep(2)}
+              className="w-full py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors"
+            >
+              Next: Ticket Tiers →
+            </button>
+          </div>
+        )}
+
+        {/* Step 2: Ticket Tiers */}
+        {step === 2 && (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              {tiers.map((tier, idx) => (
+                <div key={idx} className="bg-white dark:bg-ocean-800 rounded-2xl p-6 border border-slate-100 dark:border-ocean-700">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-black text-slate-900 dark:text-sand-50">Tier {idx + 1}</h3>
+                    {tiers.length > 1 && (
+                      <button
+                        onClick={() => removeTier(idx)}
+                        className="text-red-500 text-sm font-bold hover:text-red-600"
+                      >
+                        ✕ Remove
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 mb-1">Tier Name *</label>
+                      <input
+                        type="text"
+                        value={tier.name}
+                        onChange={e => updateTier(idx, 'name', e.target.value)}
+                        placeholder="e.g. General Admission"
+                        className="w-full px-3 py-2.5 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 mb-1">Price (XCD) *</label>
+                      <input
+                        type="number"
+                        value={tier.price}
+                        onChange={e => updateTier(idx, 'price', e.target.value)}
+                        placeholder="75.00"
+                        min="0"
+                        step="0.01"
+                        className="w-full px-3 py-2.5 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 mb-1">Quantity *</label>
+                      <input
+                        type="number"
+                        value={tier.quantity}
+                        onChange={e => updateTier(idx, 'quantity', e.target.value)}
+                        placeholder="100"
+                        min="1"
+                        className="w-full px-3 py-2.5 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 mb-1">Description</label>
+                      <input
+                        type="text"
+                        value={tier.description}
+                        onChange={e => updateTier(idx, 'description', e.target.value)}
+                        placeholder="Access to all general areas"
+                        className="w-full px-3 py-2.5 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-500 mb-1">Perks (comma-separated)</label>
+                      <input
+                        type="text"
+                        value={tier.perks}
+                        onChange={e => updateTier(idx, 'perks', e.target.value)}
+                        placeholder="VIP lounge, Free drinks, Meet & greet"
+                        className="w-full px-3 py-2.5 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tier preview */}
+                  <div className="mt-4 p-3 bg-slate-50 dark:bg-ocean-900 rounded-lg flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-sm text-slate-800 dark:text-sand-50">{tier.name || 'Unnamed Tier'}</span>
+                      {tier.description && <span className="text-xs text-slate-500 ml-2">— {tier.description}</span>}
+                    </div>
+                    <span className="font-black text-purple-600 dark:text-purple-400">
+                      ${tier.price || '0'} XCD
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={addTier}
+              className="w-full py-3 border-2 border-dashed border-slate-300 dark:border-ocean-600 text-slate-500 dark:text-slate-400 rounded-xl font-bold hover:border-purple-400 hover:text-purple-600 transition-colors"
+            >
+              + Add Another Tier
+            </button>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setStep(1)}
+                className="flex-1 py-3 bg-slate-100 dark:bg-ocean-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-ocean-700 transition-colors"
+              >
+                ← Back
+              </button>
+              <button
+                onClick={() => setStep(3)}
+                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors"
+              >
+                Review →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 3: Review & Publish */}
+        {step === 3 && (
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-ocean-800 rounded-2xl p-6 border border-slate-100 dark:border-ocean-700 space-y-5">
+              <h2 className="text-lg font-black text-slate-900 dark:text-sand-50">Review & Publish</h2>
+
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Title</span>
+                  <span className="font-bold text-slate-800 dark:text-sand-50">{title || '—'}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Category</span>
+                  <span className="font-bold text-slate-800 dark:text-sand-50">{CATEGORIES.find(c => c.value === category)?.label}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Venue</span>
+                  <span className="font-bold text-slate-800 dark:text-sand-50">{venue || '—'}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Start</span>
+                  <span className="font-bold text-slate-800 dark:text-sand-50">
+                    {startDate ? `${startDate} at ${startTime}` : '—'}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">End</span>
+                  <span className="font-bold text-slate-800 dark:text-sand-50">
+                    {endDate ? `${endDate} at ${endTime}` : '—'}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Capacity</span>
+                  <span className="font-bold text-slate-800 dark:text-sand-50">{totalCapacity}</span>
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100 dark:border-ocean-700 pt-4">
+                <h3 className="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">Ticket Tiers ({tiers.filter(t => t.name.trim()).length})</h3>
+                <div className="space-y-2">
+                  {tiers.filter(t => t.name.trim()).map((tier, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-ocean-900 rounded-lg">
+                      <div>
+                        <span className="font-bold text-sm text-slate-800 dark:text-sand-50">{tier.name}</span>
+                        <span className="text-xs text-slate-500 ml-2">× {tier.quantity} tickets</span>
+                      </div>
+                      <span className="font-black text-purple-600 dark:text-purple-400">${tier.price} XCD</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100 dark:border-ocean-700 pt-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">Projected Revenue (if sold out)</span>
+                  <span className="font-black text-green-600 text-lg">
+                    ${tiers.filter(t => t.name.trim()).reduce((sum, t) => sum + (parseFloat(t.price) || 0) * (parseInt(t.quantity) || 0), 0).toLocaleString()} XCD
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setStep(2)}
+                className="flex-1 py-3 bg-slate-100 dark:bg-ocean-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-ocean-700 transition-colors"
+              >
+                ← Edit Tickets
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={saving}
+                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors disabled:opacity-50"
+              >
+                {saving ? 'Publishing...' : '🎉 Publish Event'}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
