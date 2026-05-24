@@ -7,25 +7,13 @@ import { Request, Response } from 'express';
 import { pool } from '../config/db';
 import { generateEmbedding } from '../services/embeddingService';
 
-// Get personalized recommendations for user
+// Get personalized recommendations for user (works for guests too)
 export const getRecommendations = async (req: Request, res: Response) => {
     try {
         const user = (req as any).user;
         const { type = 'all', limit = 10, offset = 0 } = req.query;
 
-        // Get user's browsing/purchase history for personalization
-        const userHistory = await pool.query(
-            `SELECT listing_id FROM orders o
-             JOIN order_items oi ON oi.order_id = o.order_id
-             WHERE o.user_id = $1
-             ORDER BY o.created_at DESC
-             LIMIT 20`,
-            [user.user_id]
-        );
-
-        const categoryIds = userHistory.rows.map((r: any) => r.listing_id);
-
-        // Build recommendation query based on user history
+        // Build base query
         let query = `
             SELECT l.*, s.business_name as vendor_name, s.logo_url as vendor_logo,
                    COALESCE(AVG(r.rating), 0) as avg_rating,
@@ -39,15 +27,27 @@ export const getRecommendations = async (req: Request, res: Response) => {
         const params: any[] = [];
         let paramIndex = 1;
 
-        // If user has history, personalize
-        if (categoryIds.length > 0) {
-            query += ` AND l.category_id IN (SELECT category_id FROM listings WHERE id = ANY($${paramIndex}::int[]))`;
-            params.push(categoryIds);
-            paramIndex++;
+        // If user is authenticated, personalize based on history
+        if (user?.user_id) {
+            const userHistory = await pool.query(
+                `SELECT listing_id FROM orders o
+                 JOIN order_items oi ON oi.order_id = o.order_id
+                 WHERE o.user_id = $1
+                 ORDER BY o.created_at DESC
+                 LIMIT 20`,
+                [user.user_id]
+            );
+            const categoryIds = userHistory.rows.map((r: any) => r.listing_id);
+
+            if (categoryIds.length > 0) {
+                query += ` AND l.category_id IN (SELECT category_id FROM listings WHERE id = ANY($${paramIndex}::int[]))`;
+                params.push(categoryIds);
+                paramIndex++;
+            }
         }
 
         // Filter by type if specified
-        if (type !== 'all' && type !== 'all') {
+        if (type !== 'all') {
             query += ` AND l.service_type = $${paramIndex}`;
             params.push(type);
             paramIndex++;
@@ -55,17 +55,16 @@ export const getRecommendations = async (req: Request, res: Response) => {
 
         query += `
             GROUP BY l.id, s.id
-            ORDER BY ${categoryIds.length > 0 ? 'CASE WHEN l.category_id IN (SELECT category_id FROM listings WHERE id = ANY($1::int[])) THEN 0 ELSE 1 END, ' : ''}
-                   l.view_count DESC, avg_rating DESC
+            ORDER BY l.view_count DESC, avg_rating DESC
             LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
         `;
         params.push(parseInt(limit as string), parseInt(offset as string));
 
         const result = await pool.query(query, params);
 
-        res.json({ 
+        res.json({
             recommendations: result.rows,
-            personalization: categoryIds.length > 0 ? 'based_on_history' : 'popular'
+            personalization: user?.user_id ? 'personalized' : 'popular'
         });
     } catch (error) {
         console.error('Get recommendations error:', error);

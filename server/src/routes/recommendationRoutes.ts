@@ -9,8 +9,10 @@ import {
 
 const router = Router();
 
-// Get personalized recommendations (AI-powered)
-router.get('/recommendations', authenticateJWT, getRecommendations);
+// Get personalized recommendations (works for both authenticated and guest users)
+// Authenticated: personalized based on history
+// Guest: returns popular/trending items
+router.get('/recommendations', getRecommendations);
 
 // Get similar listings (vector-based)
 router.get('/similar/:listing_id', getSimilarListings);
@@ -19,11 +21,9 @@ router.get('/similar/:listing_id', getSimilarListings);
 router.get('/trending', getTrending);
 
 // Get personalized homepage sections
-router.get('/homepage', authenticateJWT, getHomepageSections);
+router.get('/homepage', getHomepageSections);
 
 // Legacy endpoints (kept for backward compatibility)
-router.get('/trending', getTrending);
-
-router.get('/personalized', authenticateJWT, getRecommendations);
+router.get('/personalized', getRecommendations);
 
 export default router;
