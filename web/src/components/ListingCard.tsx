@@ -88,7 +88,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Campaign Goal</p>
                     <p className="text-xl font-black text-slate-900">${goal_amount.toLocaleString()}</p>
                     <div className="w-full bg-slate-100 rounded-full h-2 mt-2">
-                        <div className="bg-linear-to-r from-teal-500 to-emerald-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                        <div className="bg-gradient-to-r from-teal-500 to-emerald-500 h-2 rounded-full" style={{ width: '45%' }}></div>
                     </div>
                 </div>
             );

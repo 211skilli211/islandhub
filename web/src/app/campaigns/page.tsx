@@ -161,7 +161,7 @@ export default function CampaignsPage() {
 
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 drop-shadow-lg leading-tight">
                         Events &amp;{' '}
-                        <span className="bg-linear-to-r from-pink-300 via-violet-300 to-purple-300 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-pink-300 via-violet-300 to-purple-300 bg-clip-text text-transparent">
                             Campaigns
                         </span>
                     </h1>
@@ -220,7 +220,7 @@ export default function CampaignsPage() {
                                 onClick={() => setActiveTab('campaigns')}
                                 className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
                                     activeTab === 'campaigns'
-                                        ? 'bg-linear-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
+                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
                                         : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-purple-300 hover:text-purple-600'
                                 }`}
                             >
@@ -231,7 +231,7 @@ export default function CampaignsPage() {
                                 onClick={() => setActiveTab('events')}
                                 className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
                                     activeTab === 'events'
-                                        ? 'bg-linear-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
+                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
                                         : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-purple-300 hover:text-purple-600'
                                 }`}
                             >
@@ -278,7 +278,7 @@ export default function CampaignsPage() {
                 {/* Empty State */}
                 {!loading && filteredItems.length === 0 && (
                     <div className="text-center py-24">
-                        <div className="w-24 h-24 mx-auto mb-6 bg-linear-to-br from-purple-100 to-pink-100 rounded-3xl flex items-center justify-center">
+                        <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl flex items-center justify-center">
                             <span className="text-5xl">{activeTab === 'campaigns' ? '💜' : '🎟️'}</span>
                         </div>
                         <h3 className="text-xl font-bold text-slate-900 mb-2">
@@ -300,7 +300,7 @@ export default function CampaignsPage() {
                             )}
                             <Link
                                 href="/campaigns/new"
-                                className="px-6 py-3 bg-linear-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all text-sm shadow-lg shadow-purple-500/25"
+                                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all text-sm shadow-lg shadow-purple-500/25"
                             >
                                 Create {activeTab === 'campaigns' ? 'Campaign' : 'Event'} →
                             </Link>
@@ -346,7 +346,7 @@ export default function CampaignsPage() {
                                                     }}
                                                 />
                                                 {/* Gradient overlay */}
-                                                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
                                                 {/* Date Badge */}
                                                 <div className="absolute top-4 left-4 bg-white rounded-xl overflow-hidden shadow-lg shadow-black/20 text-center w-[60px]">
@@ -408,7 +408,7 @@ export default function CampaignsPage() {
                                                 {/* CTA */}
                                                 <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                                                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Entry</span>
-                                                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-linear-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20">
+                                                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20">
                                                         Get Tickets
                                                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -458,10 +458,10 @@ export default function CampaignsPage() {
                                                         target.src = getFallbackImage(item.id + 3);
                                                     }}
                                                 />
-                                                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
                                                 {/* Campaign Badge */}
-                                                <div className="absolute top-4 left-4 bg-linear-to-r from-purple-500 to-pink-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg shadow-purple-500/30">
+                                                <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg shadow-purple-500/30">
                                                     Campaign
                                                 </div>
 
@@ -491,7 +491,7 @@ export default function CampaignsPage() {
                                                         </div>
                                                         <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
                                                             <div
-                                                                className="h-full bg-linear-to-r from-purple-500 to-pink-500 rounded-full transition-all"
+                                                                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all"
                                                                 style={{ width: `${getProgress(item)}%` }}
                                                             />
                                                         </div>
@@ -510,7 +510,7 @@ export default function CampaignsPage() {
                                                             <span className="text-[11px] font-semibold text-slate-500 line-clamp-1">{item.store_name}</span>
                                                         </div>
                                                     )}
-                                                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-linear-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20 ml-auto">
+                                                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20 ml-auto">
                                                         Donate
                                                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -547,7 +547,7 @@ export default function CampaignsPage() {
             {/* ─── CTA FOOTER ─── */}
             <section className="relative overflow-hidden">
                 {/* Background */}
-                <div className="absolute inset-0 bg-linear-to-br from-purple-600 via-violet-600 to-pink-600" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-violet-600 to-pink-600" />
                 <div className="absolute inset-0 opacity-10" style={{
                     backgroundImage: `radial-gradient(white 1px, transparent 1px)`,
                     backgroundSize: '24px 24px'
@@ -568,7 +568,7 @@ export default function CampaignsPage() {
 
                         <h2 className="text-3xl md:text-5xl font-black text-white mb-5 leading-tight">
                             Ready to create your<br />
-                            own <span className="bg-linear-to-r from-pink-300 to-violet-300 bg-clip-text text-transparent">event</span>?
+                            own <span className="bg-gradient-to-r from-pink-300 to-violet-300 bg-clip-text text-transparent">event</span>?
                         </h2>
                         <p className="text-white/65 text-base md:text-lg mb-10 max-w-xl mx-auto font-medium">
                             Raise funds for your cause or sell tickets to your event. Reach thousands of people in minutes.

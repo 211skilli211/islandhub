@@ -76,7 +76,7 @@ export default function TourDetailPage() {
                 <HeroBackground
                     pageKey={`tour-detail-${tourId}`}
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-0" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-0" />
 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 w-full pb-16">
                     <motion.div

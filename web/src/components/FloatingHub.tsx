@@ -105,7 +105,7 @@ export default function FloatingHub() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={toggleHub}
-                    className="w-[52px] h-[52px] bg-linear-to-br from-teal-500 via-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative z-10001"
+                    className="w-[52px] h-[52px] bg-gradient-to-br from-teal-500 via-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative z-10001"
                 >
                     <AnimatePresence mode="wait">
                         {isOpen ? (

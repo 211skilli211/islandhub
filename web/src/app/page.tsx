@@ -161,7 +161,7 @@ export default function Home() {
               className="text-4xl md:text-8xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[0.95] md:leading-[0.9]"
             >
               The Caribbean <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-300 via-emerald-400 to-teal-200">Commerce Hub</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-400 to-teal-200">Commerce Hub</span>
             </motion.h1>
 
             <motion.p
@@ -582,7 +582,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={cnTheme('bg-linear-to-br rounded-[3rem] p-12 md:p-24 relative overflow-hidden theme-transition', getBgClass('secondary'))}
+            className={cnTheme('bg-gradient-to-br rounded-[3rem] p-12 md:p-24 relative overflow-hidden theme-transition', getBgClass('secondary'))}
             style={{
               background: `linear-gradient(135deg, ${section.style_config?.from || 'var(--accent-primary)'}, ${section.style_config?.to || 'var(--success-primary)'})`
             }}

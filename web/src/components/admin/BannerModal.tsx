@@ -274,7 +274,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     {templateStyles.badge}
                 </div>
             )}
-            <div className={`flex flex-col ${formData.alignment === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} gap-4 p-6 bg-linear-to-br ${selectedTheme.gradient} ${getAlignmentClasses()}`}>
+            <div className={`flex flex-col ${formData.alignment === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} gap-4 p-6 bg-gradient-to-br ${selectedTheme.gradient} ${getAlignmentClasses()}`}>
                 {formData.image_url && (
                     <div className="shrink-0">
                         <img
@@ -312,7 +312,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     <div className={`absolute inset-0 bg-gradient-to-${formData.alignment === 'right' ? 'l' : formData.alignment === 'center' ? 't' : 'r'} ${selectedTheme.from} ${selectedTheme.to} opacity-80`} />
                 </div>
             ) : (
-                <div className={`absolute inset-0 bg-linear-to-br ${selectedTheme.from} ${selectedTheme.to}`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to}`} />
             )}
             <div className={`relative p-8 flex flex-col ${getAlignmentClasses()} min-h-[200px] justify-center`}>
                 {templateStyles.badge && (
@@ -346,7 +346,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
     const renderFloatingPreview = () => (
         <div className={`max-w-sm mx-auto rounded-2xl ${templateStyles.borderStyle} shadow-2xl overflow-hidden`}>
-            <div className={`bg-linear-to-br ${selectedTheme.gradient} p-5 relative`}>
+            <div className={`bg-gradient-to-br ${selectedTheme.gradient} p-5 relative`}>
                 <button className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-slate-400 hover:text-slate-600">
                     <X size={14} />
                 </button>
@@ -373,7 +373,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
     );
 
     const renderMinimalPreview = () => (
-        <div className={`rounded-2xl ${templateStyles.borderStyle} shadow-lg bg-linear-to-br ${selectedTheme.gradient} p-6`}>
+        <div className={`rounded-2xl ${templateStyles.borderStyle} shadow-lg bg-gradient-to-br ${selectedTheme.gradient} p-6`}>
             <div className={`flex ${formData.alignment === 'center' ? 'flex-col items-center' : formData.alignment === 'right' ? 'flex-row-reverse' : 'flex-row'} gap-4 items-start`}>
                 <div className={`w-12 h-12 rounded-2xl ${selectedTheme.bg} flex items-center justify-center shrink-0 shadow-lg`}>
                     <IconComponent className="w-6 h-6 text-white" />
@@ -433,7 +433,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     </div>
                 </div>
             ) : (
-                <div className={`h-48 bg-linear-to-br ${selectedTheme.from} ${selectedTheme.to} p-6 flex flex-col ${getAlignmentClasses()} justify-end`}>
+                <div className={`h-48 bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} p-6 flex flex-col ${getAlignmentClasses()} justify-end`}>
                     {templateStyles.badge && (
                         <div className={`mb-2 px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white inline-block`}>
                             {templateStyles.badge}
@@ -459,7 +459,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                 {formData.image_url ? (
                     <img src={formData.image_url} alt="Banner" className="w-full h-full object-cover min-h-[200px]" />
                 ) : (
-                    <div className={`w-full h-full min-h-[200px] bg-linear-to-br ${selectedTheme.from} ${selectedTheme.to} flex items-center justify-center`}>
+                    <div className={`w-full h-full min-h-[200px] bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} flex items-center justify-center`}>
                         <IconComponent className="w-12 h-12 text-white/50" />
                     </div>
                 )}
@@ -469,7 +469,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     </div>
                 )}
             </div>
-            <div className={`w-1/2 bg-linear-to-br ${selectedTheme.gradient} p-6 flex flex-col ${getAlignmentClasses()} justify-center`}>
+            <div className={`w-1/2 bg-gradient-to-br ${selectedTheme.gradient} p-6 flex flex-col ${getAlignmentClasses()} justify-center`}>
                 <div className={`w-10 h-10 rounded-xl ${selectedTheme.light} flex items-center justify-center mb-3`}>
                     <IconComponent className={`w-5 h-5 ${selectedTheme.text}`} />
                 </div>
@@ -512,12 +512,12 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
     const renderGlassPreview = () => (
         <div className={`relative overflow-hidden rounded-3xl border border-white/40 shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
-            <div className={`absolute inset-0 bg-linear-to-br ${selectedTheme.gradient} opacity-20`} />
+            <div className={`absolute inset-0 bg-gradient-to-br ${selectedTheme.gradient} opacity-20`} />
             <div className="absolute inset-0 backdrop-blur-2xl" />
             <div className={`relative p-8 flex flex-col md:flex-row gap-6 items-center ${getAlignmentClasses()}`}>
                 {formData.image_url && (
                     <div className="relative group">
-                        <div className={`absolute -inset-2 bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity`} />
+                        <div className={`absolute -inset-2 bg-gradient-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity`} />
                         <img
                             src={formData.image_url}
                             alt="Banner"
@@ -554,19 +554,19 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
     const renderGlowPreview = () => (
         <div className={`relative group`}>
-            <div className={`absolute -inset-1 bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000 animate-pulse`} />
+            <div className={`absolute -inset-1 bg-gradient-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000 animate-pulse`} />
             <div className={`relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-8 flex flex-col items-center text-center gap-4`}>
-                <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${selectedTheme.from} ${selectedTheme.to} flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.3)] border border-white/10 mb-2`}>
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.3)] border border-white/10 mb-2`}>
                     <IconComponent className="w-8 h-8 text-white" />
                 </div>
-                <h3 className={`text-3xl font-black text-transparent bg-clip-text bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} uppercase tracking-tight`}>
+                <h3 className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${selectedTheme.from} ${selectedTheme.to} uppercase tracking-tight`}>
                     {formData.title || 'Floating Glow'}
                 </h3>
                 <p className="text-slate-400 font-medium max-w-md">
                     {formData.subtitle || 'A dark-mode optimized design with vibrant pulsing glows.'}
                 </p>
                 {formData.target_url && (
-                    <button className={`mt-2 px-10 py-4 bg-linear-to-r ${selectedTheme.from} ${selectedTheme.to} text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all`}>
+                    <button className={`mt-2 px-10 py-4 bg-gradient-to-r ${selectedTheme.from} ${selectedTheme.to} text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_30px_rgba(0,0,0,0.4)] transition-all`}>
                         {formData.button_text || 'Get Glowing'}
                     </button>
                 )}
@@ -576,7 +576,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
     const renderNeonPreview = () => (
         <div className="relative overflow-hidden rounded-2xl bg-black border-2 border-white/5 p-8">
-            <div className={`absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
+            <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
             <div className={`flex flex-col md:flex-row gap-8 items-center ${getAlignmentClasses()}`}>
                 <div className={`w-24 h-24 rounded-full border-2 border-${selectedTheme.value}-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5),inset_0_0_10px_rgba(0,0,0,0.5)] bg-slate-900/50`}>
                     <IconComponent className={`w-10 h-10 text-${selectedTheme.value}-400 drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]`} />
@@ -596,7 +596,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     )}
                 </div>
             </div>
-            <div className={`absolute bottom-0 right-0 w-full h-1 bg-linear-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
+            <div className={`absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
         </div>
     );
 
@@ -769,7 +769,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
 
                         {/* Page Targets */}
-                        <div className="bg-linear-to-br from-teal-50 to-emerald-50 rounded-2xl p-4 border border-teal-200">
+                        <div className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-4 border border-teal-200">
                             <label className="block text-sm font-bold text-slate-700 mb-2">
                                 📍 Show Banner On These Pages
                             </label>
@@ -949,7 +949,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             : 'border-slate-200 hover:border-slate-300'
                                             }`}
                                     >
-                                        <div className={`w-full h-8 rounded-lg bg-linear-to-r ${theme.gradient}`} />
+                                        <div className={`w-full h-8 rounded-lg bg-gradient-to-r ${theme.gradient}`} />
                                         <p className="text-[10px] font-black uppercase text-slate-700">{theme.name}</p>
                                     </button>
                                 ))}
@@ -957,7 +957,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
 
                         {/* Enhanced Controls: Texture, Opacity, & Custom Colors */}
-                        <div className="bg-linear-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-slate-200">
+                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-slate-200">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="text-xl">🎨</span>
                                 <label className="block text-sm font-bold text-slate-700">

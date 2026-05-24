@@ -317,7 +317,7 @@ function RequestRideContent() {
                         </>
                     ) : (
                         <>
-                            <div className="absolute inset-0 bg-linear-to-br from-teal-600 via-teal-500 to-emerald-400" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-teal-500 to-emerald-400" />
                             <div className="absolute inset-0 bg-[url('/images/taxi-pattern.png')] opacity-10" />
                         </>
                     )}

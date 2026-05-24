@@ -188,7 +188,7 @@ export default function GroupsPage() {
                     </div>
                     <button
                         onClick={() => setShowCreateModal(true)}
-                        className="px-8 py-4 bg-linear-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
+                        className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
                     >
                         + Create Group
                     </button>
@@ -235,7 +235,7 @@ export default function GroupsPage() {
                                 className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-teal-500/10 transition-all group"
                             >
                                 {/* Cover Image */}
-                                <div className="h-40 bg-linear-to-br from-teal-400 to-teal-600 relative overflow-hidden">
+                                <div className="h-40 bg-gradient-to-br from-teal-400 to-teal-600 relative overflow-hidden">
                                     {group.cover_image_url ? (
                                         <img src={group.cover_image_url} alt={group.name} className="w-full h-full object-cover" />
                                     ) : (

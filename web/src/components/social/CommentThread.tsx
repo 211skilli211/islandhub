@@ -101,7 +101,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
             <div className="flex gap-3">
                 {/* Avatar */}
                 <Link href={`/community/profile/${comment.user_id}`} className="shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">
                         {comment.user_photo ? (
                             <img src={comment.user_photo} alt={comment.user_name} className="w-full h-full rounded-full object-cover" />
                         ) : (

@@ -200,7 +200,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
     // If no vendor profile exists, show onboarding CTA
     if (!vendor) {
         return (
-            <div className="p-20 text-center bg-linear-to-br from-slate-50 to-slate-100 rounded-[3rem] border-2 border-dashed border-slate-200">
+            <div className="p-20 text-center bg-gradient-to-br from-slate-50 to-slate-100 rounded-[3rem] border-2 border-dashed border-slate-200">
                 <div className="text-5xl mb-4">🏪</div>
                 <h3 className="text-xl font-black text-slate-800 uppercase tracking-tight mb-2">Set Up Your Store</h3>
                 <p className="text-slate-500 font-medium mb-8 max-w-md mx-auto">Create your first store to unlock branding customization and start selling on IslandHub.</p>

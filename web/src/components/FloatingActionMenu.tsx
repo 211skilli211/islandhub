@@ -150,7 +150,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-14 h-14 bg-linear-to-br from-teal-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative z-50"
+                    className="w-14 h-14 bg-gradient-to-br from-teal-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative z-50"
                 >
                     <motion.div
                         animate={{ rotate: isOpen ? 45 : 0 }}

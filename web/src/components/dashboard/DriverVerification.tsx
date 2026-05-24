@@ -86,7 +86,7 @@ export default function DriverVerification() {
             </div>
 
             {/* Overall Status Card */}
-            <div className="bg-linear-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white">
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white">
                 <div className="flex items-center justify-between">
                     <div>
                         <h3 className="text-lg font-semibold opacity-90">Verification Status</h3>

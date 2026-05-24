@@ -49,7 +49,7 @@ export default function VendorAnalyticsPage() {
             >
                 <div className="mb-16">
                     <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">
-                        Performance <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-teal-500">Analytics</span>
+                        Performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">Analytics</span>
                     </h1>
                     <p className="text-slate-500 font-medium text-lg italic max-w-2xl">
                         Deep insights into your business impact. Understand your audience, track conversions, and grow your island presence.

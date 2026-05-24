@@ -486,7 +486,7 @@ export default function VendorBrandingPage() {
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-linear-to-r from-slate-100 to-slate-200 flex items-center justify-center">
+                                        <div className="w-full h-full bg-gradient-to-r from-slate-100 to-slate-200 flex items-center justify-center">
                                             <span className="text-xs text-slate-400">No Banner</span>
                                         </div>
                                     )}
@@ -525,11 +525,11 @@ export default function VendorBrandingPage() {
                                 >
                                     {/* Template Preview Image */}
                                     <div className="aspect-video bg-slate-100 rounded-xl mb-4 overflow-hidden relative">
-                                        <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-slate-50 to-slate-100">
+                                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
                                             <span className="text-4xl">{template.icon}</span>
                                         </div>
                                         {/* Simulated layout preview overlay */}
-                                        <div className="absolute inset-0 bg-linear-to-brom-transparent to-black/30"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-brom-transparent to-black/30"></div>
                                         {/* Layout mock elements */}
                                         <div className="absolute top-2 left-2 right-2 h-3 bg-white/70 rounded-sm"></div>
                                         <div className="absolute bottom-2 left-2 right-10 h-2 bg-white/50 rounded-sm"></div>
@@ -634,7 +634,7 @@ export default function VendorBrandingPage() {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-linear-to-r from-slate-100 to-slate-200">
+                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-slate-100 to-slate-200">
                                                 <span className="text-slate-400">No banner uploaded</span>
                                             </div>
                                         )}

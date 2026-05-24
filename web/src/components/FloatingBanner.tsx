@@ -105,7 +105,7 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                     className="fixed bottom-4 left-4 right-4 z-50 lg:hidden"
                 >
-                    <div className={`bg-linear-to-r ${colors.gradient} rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/30 backdrop-blur-2xl overflow-hidden`}>
+                    <div className={`bg-gradient-to-r ${colors.gradient} rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/30 backdrop-blur-2xl overflow-hidden`}>
                         {/* Close Button */}
 
                         <button

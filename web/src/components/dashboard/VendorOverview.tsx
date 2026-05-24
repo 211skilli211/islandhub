@@ -229,7 +229,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
 
             {/* Subscription Upgrade CTA */}
             {!canHaveMultipleStores && storeCount >= 1 && (
-                <div className="bg-linear-to-r from-indigo-600 to-teal-500 rounded-4xl p-8 text-white">
+                <div className="bg-gradient-to-r from-indigo-600 to-teal-500 rounded-4xl p-8 text-white">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <h3 className="text-xl font-black uppercase tracking-tight">Unlock Multi-Store Functionality</h3>

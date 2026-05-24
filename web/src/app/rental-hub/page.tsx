@@ -46,7 +46,7 @@ export default function RentalHubPage() {
     // Featured listings will be fetched from API
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-indigo-50">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
             {/* Hero Section */}
             <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-slate-900">
                 <HeroBackground
@@ -86,7 +86,7 @@ export default function RentalHubPage() {
                         >
                             <motion.div
                                 whileHover={{ scale: 1.02, y: -5 }}
-                                className={`relative p-8 rounded-[2.5rem] bg-linear-to-br ${cat.gradient} text-white overflow-hidden shadow-xl hover:shadow-2xl transition-all h-full flex flex-col`}
+                                className={`relative p-8 rounded-[2.5rem] bg-gradient-to-br ${cat.gradient} text-white overflow-hidden shadow-xl hover:shadow-2xl transition-all h-full flex flex-col`}
                             >
                                 <div className="absolute top-0 right-0 text-9xl opacity-20 -mr-8 -mt-8 grayscale group-hover:opacity-30 transition-opacity">
                                     {cat.icon}
@@ -111,7 +111,7 @@ export default function RentalHubPage() {
             </section>
 
             {/* Final CTA */}
-            <section className="relative bg-linear-to-br from-slate-900 via-indigo-900 to-slate-900 py-24 md:py-32 overflow-hidden">
+            <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 py-24 md:py-32 overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.15)_0%,transparent_60%)]" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter italic uppercase">

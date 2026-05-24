@@ -58,7 +58,7 @@ export default function UserProfileDropdown() {
                 aria-label="Profile menu"
                 aria-expanded={isOpen}
             >
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white bg-linear-to-br ${gradient} shadow-md ring-2 ring-white group-hover:ring-teal-400 transition-all duration-200 overflow-hidden`}>
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white bg-gradient-to-br ${gradient} shadow-md ring-2 ring-white group-hover:ring-teal-400 transition-all duration-200 overflow-hidden`}>
                     {user.avatar_url ? (
                         <img
                             src={getImageUrl(user.avatar_url)}
@@ -78,7 +78,7 @@ export default function UserProfileDropdown() {
                 <div className="absolute right-0 top-[calc(100%+10px)] w-60 bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 z-1100 animate-in fade-in slide-in-from-top-2 duration-150 overflow-hidden">
                     {/* User header */}
                     <div className="px-4 py-3.5 border-b border-slate-100 flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white bg-linear-to-br ${gradient} shadow-sm overflow-hidden shrink-0`}>
+                        <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white bg-gradient-to-br ${gradient} shadow-sm overflow-hidden shrink-0`}>
                             {user.avatar_url ? (
                                 <img src={getImageUrl(user.avatar_url)} alt={user.name} className="w-full h-full object-cover" />
                             ) : (

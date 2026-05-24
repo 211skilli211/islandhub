@@ -143,7 +143,7 @@ export default function MarketplaceDiscoveryPage() {
                             />
 
                             {/* Sponsored Strip */}
-                            <section className="bg-linear-to-rrom-teal-600/5 to-emerald-600/5 rounded-[3rem] p-12 border border-teal-100 overflow-hidden relative">
+                            <section className="bg-gradient-to-rrom-teal-600/5 to-emerald-600/5 rounded-[3rem] p-12 border border-teal-100 overflow-hidden relative">
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                                     <div>

@@ -54,8 +54,13 @@ export const updateHeroAsset = async (req: Request, res: Response) => {
         } = req.body;
         const adminId = (req as any).user?.id;
 
-        if (!page_key || !asset_url) {
-            return res.status(400).json({ message: 'Page key and asset URL are required' });
+        if (!page_key) {
+            return res.status(400).json({ message: 'Page key is required' });
+        }
+
+        // Shader/particle types don't need an asset_url
+        if (asset_type !== 'shader' && asset_type !== 'particle' && !asset_url) {
+            return res.status(400).json({ message: 'Asset URL is required for image/video types' });
         }
 
         const result = await pool.query(

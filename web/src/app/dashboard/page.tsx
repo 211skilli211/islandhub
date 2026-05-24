@@ -215,7 +215,7 @@ function DashboardPageContent() {
                                     onClick={() => setIsDetailModalOpen(false)}
                                     className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 shadow-xl hover:scale-110 transition-all font-black"
                                 >✕</button>
-                                <div className="absolute inset-0 bg-linear-to-t from-slate-900 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
                                 <div className="absolute bottom-8 left-8">
                                     <span className="px-3 py-1 bg-teal-500 text-white rounded-lg text-[9px] font-black uppercase tracking-widest mb-4 inline-block">
                                         {selectedListing.type}
@@ -450,7 +450,7 @@ function DashboardPageContent() {
 
                 {/* Subscription Management Banner */}
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
-                    <div className="bg-linear-to-r from-indigo-50 to-teal-50 rounded-4xl border border-indigo-100 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-4xl border border-indigo-100 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-6">
                             <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-3xl">🎫</div>
                             <div>

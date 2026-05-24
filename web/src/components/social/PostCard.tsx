@@ -97,7 +97,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
             <div className="p-8 pb-0">
                 <div className="flex items-center justify-between">
                     <Link href={`/community/profile/${post.user_id}`} className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-full bg-linear-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
                             {post.user_photo ? (
                                 <img src={post.user_photo} alt={post.user_name} className="w-full h-full rounded-full object-cover" />
                             ) : (

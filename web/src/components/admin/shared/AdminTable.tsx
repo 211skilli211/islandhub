@@ -712,7 +712,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                     {typeof imageCol.accessor === 'function' ? imageCol.accessor(item) : (item[imageCol.accessor] as React.ReactNode)}
                                                 </div>
                                             ) : (
-                                                <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-slate-100 to-slate-200 flex items-center justify-center text-2xl font-black text-slate-300 shadow-inner">
+                                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-2xl font-black text-slate-300 shadow-inner">
                                                     {(item as any).name?.charAt(0) || '#'}
                                                 </div>
                                             )}

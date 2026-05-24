@@ -92,7 +92,7 @@ export default function MarketplaceHero({ onSearch }: MarketplaceHeroProps) {
                     onSubmit={handleSearchSubmit}
                     className="max-w-2xl mx-auto mb-20 relative group"
                 >
-                    <div className={`absolute -inset-1 bg-linear-to-r ${bgGradient} rounded-[2.2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200`}></div>
+                    <div className={`absolute -inset-1 bg-gradient-to-r ${bgGradient} rounded-[2.2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200`}></div>
                     <div className="relative">
                         <input
                             type="text"

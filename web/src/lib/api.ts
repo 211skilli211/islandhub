@@ -76,6 +76,12 @@ export const getImageUrl = (path?: string | { url?: string } | null) => {
     if (typeof path !== 'string') return undefined;
     if (path.startsWith('http')) return path;
 
+    // Already a full media file URL — return as-is with base
+    if (path.startsWith('/api/media/file/')) {
+        const filename = path.replace('/api/media/file/', '');
+        return `${BASE_URL}/api/media/file/${filename}`;
+    }
+
     // Clean user input — extract filename and route through media API
     let cleanPath = path;
     if (cleanPath.startsWith('/uploads/')) {

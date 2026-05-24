@@ -322,7 +322,7 @@ export default function CheckoutPage() {
                             <button
                                 onClick={handleCheckout}
                                 disabled={loadingPayment || processing || !agreedToTerms}
-                                className="w-full py-4 bg-linear-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loadingPayment ? (
                                     <span className="flex items-center justify-center gap-2">

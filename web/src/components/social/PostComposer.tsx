@@ -87,7 +87,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
         return (
             <div className="bg-white rounded-3xl border border-slate-100 p-6">
                 <div className="flex gap-4">
-                    <div className="w-10 h-10 bg-linear-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-10 h-10 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
                         U
                     </div>
                     <div className="flex-1">
@@ -140,7 +140,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
             {/* Header */}
             <div className="p-8 border-b border-slate-100">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-linear-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold">
                         U
                     </div>
                     <div className="flex-1">
@@ -270,7 +270,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                     <button
                         onClick={handleSubmit}
                         disabled={isPosting || (!content.trim() && media.length === 0)}
-                        className="px-8 py-3 bg-linear-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
+                        className="px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
                     >
                         {isPosting ? (
                             <span className="flex items-center gap-2">

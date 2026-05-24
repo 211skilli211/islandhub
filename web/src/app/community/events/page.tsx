@@ -244,7 +244,7 @@ export default function EventsPage() {
                     </div>
                     <button
                         onClick={() => setShowCreateModal(true)}
-                        className="px-8 py-4 bg-linear-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
+                        className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
                     >
                         + Create Event
                     </button>
@@ -291,7 +291,7 @@ export default function EventsPage() {
                                 className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-teal-500/10 transition-all flex flex-col md:flex-row"
                             >
                                 {/* Date Box */}
-                                <div className="md:w-48 bg-linear-to-br from-teal-400 to-teal-600 p-6 flex flex-col items-center justify-center text-white">
+                                <div className="md:w-48 bg-gradient-to-br from-teal-400 to-teal-600 p-6 flex flex-col items-center justify-center text-white">
                                     <span className="text-4xl mb-2">{getCategoryIcon(event.category)}</span>
                                     <span className="font-black text-lg uppercase tracking-wider">
                                         {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}

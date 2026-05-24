@@ -331,7 +331,7 @@ export default function AdSpace({
                         <BackgroundPatterns type={displayConfig.pattern} color={displayConfig.patternColor} />
                         <div className="absolute inset-0 z-0 scale-110 group-hover:scale-100 transition-transform duration-[2s]">
                             <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000" alt="" />
-                            <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/40 to-black/90" />
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/90" />
                         </div>
                         <div className="relative z-10 mt-auto flex flex-col gap-3">
                             <span className="inline-block w-fit px-2 py-0.5 bg-white/10 backdrop-blur-md rounded text-[7px] font-black uppercase tracking-[0.2em] mb-1 border border-white/10">Limited Spot</span>
@@ -377,7 +377,7 @@ export default function AdSpace({
 
                         {/* Overlay with title/description */}
                         {title && (
-                            <div className={`absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6 ${displayConfig?.textAlign === 'center' ? 'text-center' : ''}`}>
+                            <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6 ${displayConfig?.textAlign === 'center' ? 'text-center' : ''}`}>
                                 <h3 className="text-white font-black text-lg md:text-xl italic tracking-tighter uppercase" style={{ fontSize: displayConfig.titleSize ? `${displayConfig.titleSize}px` : undefined }}>{title}</h3>
                                 {body && (
                                     <p className="text-white/80 text-[10px] md:text-xs font-medium mt-1 line-clamp-1 uppercase tracking-widest italic opacity-60">

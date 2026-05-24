@@ -1919,7 +1919,7 @@ export default function HeroAssetTab() {
                             {layoutTemplate !== 'split' && (
                                 <>
                                     <div className="absolute inset-0 pointer-events-none z-5" style={{ backgroundColor: overlayColor, opacity: overlayOpacity }} />
-                                    <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/30 pointer-events-none z-6" />
+                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30 pointer-events-none z-6" />
                                 </>
                             )}
                         </div>

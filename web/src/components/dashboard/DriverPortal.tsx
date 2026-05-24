@@ -427,7 +427,7 @@ export default function DriverPortal() {
 
                     {activeView === 'services' && (
                         <div className="space-y-6">
-                            <div className="bg-linear-to-br from-indigo-600 to-teal-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-indigo-600 to-teal-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                                 <div className="relative z-10">
                                     <h4 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Post Fixed Services 📣</h4>
                                     <p className="text-white/80 text-sm max-w-md font-medium mb-8 leading-relaxed">

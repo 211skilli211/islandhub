@@ -372,7 +372,7 @@ export default function CreatePage() {
                         {/* Custom Type Option */}
                         <button
                             onClick={() => handleProductTypeSelect(PRODUCT_TYPES.find(t => t.type_key === 'custom')!)}
-                            className="group relative bg-linear-to-br from-amber-50 to-orange-50 p-8 rounded-[2.5rem] shadow-xl shadow-amber-200/50 hover:shadow-2xl hover:shadow-amber-100/50 transition-all hover:-translate-y-2 border-2 border-amber-200 hover:border-amber-300 text-left"
+                            className="group relative bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2.5rem] shadow-xl shadow-amber-200/50 hover:shadow-2xl hover:shadow-amber-100/50 transition-all hover:-translate-y-2 border-2 border-amber-200 hover:border-amber-300 text-left"
                         >
                             <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 ✨
@@ -457,7 +457,7 @@ export default function CreatePage() {
                                     <button
                                         type="submit"
                                         disabled={!customTypeName.trim()}
-                                        className="flex-1 px-8 py-4 bg-linear-to-r from-amber-500 to-orange-500 text-white rounded-2xl font-black text-lg shadow-xl shadow-amber-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="flex-1 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl font-black text-lg shadow-xl shadow-amber-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         Submit Request
                                     </button>

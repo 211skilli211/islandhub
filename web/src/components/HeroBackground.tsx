@@ -76,12 +76,13 @@ export default function HeroBackground({
         fetchAsset();
     }, [pageKey, overrideData]);
 
-    const assetUrl = asset?.asset_url || (loading ? null : defaultImage);
+    const assetUrl = asset?.asset_url || (loading ? null : (defaultImage || '/placeholder-event.svg'));
     const assetType = asset?.asset_type || 'image';
     const isVideo = assetType === 'video';
     const shaderName = asset?.style_config?.shader || asset?.style_config?.shaderName || '';
     const overlayColor = asset?.overlay_color || '#000000';
     const overlayOpacity = asset?.overlay_opacity !== undefined && asset.overlay_opacity !== null ? parseFloat(asset.overlay_opacity) : 0.4;
+    const brandingColor = asset?.branding_color || overrideData?.branding_color || '#14b8a6';
 
     // Content Fields
     const title = asset?.title || asset?.hero_title || fallbackTitle;
@@ -234,11 +235,19 @@ export default function HeroBackground({
                               connectionDistance={styleConfig.connectionDistance || 120}
                             />
                           </div>
-                        ) : isVideo ? (
-                            <video autoPlay loop muted playsInline className="w-full h-full object-cover" src={getImageUrl(assetUrl)} />
-                        ) : (getImageUrl(assetUrl) || defaultImage) ? (
-                            <img src={getImageUrl(assetUrl) || defaultImage} alt={title || 'Hero'} className="w-full h-full object-cover" />
-                        ) : null}
+                        ) : isVideo && assetUrl ? (
+                            <video autoPlay loop muted playsInline className="w-full h-full object-cover" src={getImageUrl(assetUrl) || undefined} />
+                        ) : assetType === 'image' && assetUrl ? (
+                            <img
+                              src={getImageUrl(assetUrl) || undefined}
+                              alt={title || ''}
+                              className="w-full h-full object-cover"
+                              style={{ objectPosition: `${50 + (offsetX || 0)}% ${50 + (offsetY || 0)}%` }}
+                              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                            />
+                        ) : (
+                            <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${brandingColor}, ${brandingColor}88, #0f172a)` }} />
+                        )}
                     </motion.div>
                 </AnimatePresence>
 
@@ -246,7 +255,7 @@ export default function HeroBackground({
                 {showOverlay && (
                     <>
                         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: overlayColor, opacity: overlayOpacity }} />
-                        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
                         <BackgroundPatterns type={styleConfig.pattern} color={styleConfig.patternColor} />
                     </>
                 )}

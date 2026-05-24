@@ -220,7 +220,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Quick Access - Dispatch Button */}
-            <div className="bg-linear-to-r from-teal-500 to-emerald-500 p-6 rounded-3xl shadow-2xl text-white">
+            <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-6 rounded-3xl shadow-2xl text-white">
                 <div className="flex items-center justify-between">
                     <div>
                         <h3 className="text-2xl font-black mb-1">Dispatch Command Center 🛰️</h3>

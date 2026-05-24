@@ -212,7 +212,7 @@ export default function StoriesPage() {
                                     onClick={() => setActiveStory(user.stories[0])}
                                     className="shrink-0 flex flex-col items-center"
                                 >
-                                    <div className={`w-20 h-20 rounded-full p-1 mb-2 ${!user.latestStory.is_viewed ? 'bg-linear-to-tr from-teal-400 via-teal-500 to-teal-600' : 'bg-slate-200'}`}>
+                                    <div className={`w-20 h-20 rounded-full p-1 mb-2 ${!user.latestStory.is_viewed ? 'bg-gradient-to-tr from-teal-400 via-teal-500 to-teal-600' : 'bg-slate-200'}`}>
                                         <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-2xl overflow-hidden">
                                             {user.latestStory.profile_photo_url ? (
                                                 <img src={user.latestStory.profile_photo_url} alt={user.latestStory.user_name} className="w-full h-full object-cover" />
@@ -248,7 +248,7 @@ export default function StoriesPage() {
                                 className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-teal-500/10 transition-all cursor-pointer group"
                             >
                                 {/* Story Media */}
-                                <div className="h-48 bg-linear-to-br from-teal-400 to-teal-600 relative">
+                                <div className="h-48 bg-gradient-to-br from-teal-400 to-teal-600 relative">
                                     {story.media_url ? (
                                         <img src={story.media_url} alt={story.user_name} className="w-full h-full object-cover" />
                                     ) : (
@@ -296,7 +296,7 @@ export default function StoriesPage() {
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {['Food', 'Beach', 'Events', 'Business', 'Sports', 'Art'].map((highlight, index) => (
                             <div key={highlight} className="bg-white rounded-3xl p-6 text-center border border-slate-100 hover:border-teal-200 transition-colors cursor-pointer">
-                                <div className="w-16 h-16 mx-auto mb-3 bg-linear-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center text-2xl">
+                                <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center text-2xl">
                                     {['🍽️', '🏖️', '🎉', '💼', '⚽', '🎨'][index]}
                                 </div>
                                 <span className="text-xs font-black text-slate-600 uppercase tracking-wider">{highlight}</span>
@@ -315,7 +315,7 @@ export default function StoriesPage() {
                     <div className="max-w-lg w-full mx-4" onClick={e => e.stopPropagation()}>
                         <div className="bg-black rounded-3xl overflow-hidden">
                             {/* Story Content */}
-                            <div className="relative aspect-9/16 bg-linear-to-br from-teal-800 to-teal-900">
+                            <div className="relative aspect-9/16 bg-gradient-to-br from-teal-800 to-teal-900">
                                 {activeStory.media_url ? (
                                     <img src={activeStory.media_url} alt={activeStory.user_name} className="w-full h-full object-cover" />
                                 ) : (

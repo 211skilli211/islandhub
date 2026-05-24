@@ -173,7 +173,7 @@ export default function BroadcastTab() {
 
             {/* Current Status Banner */}
             {currentMarquee && (
-                <div className="bg-linear-to-r from-teal-500/10 to-indigo-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
+                <div className="bg-gradient-to-r from-teal-500/10 to-indigo-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-teal-200 text-lg">📢</div>
                         <div>
