@@ -24,7 +24,7 @@ export default function VendorAnalyticsPage() {
     }, []);
 
     if (loading) return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-ocean-900">
             <div className="text-center">
                 <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="font-black text-slate-400 uppercase tracking-widest text-xs">Generating Reports...</p>
@@ -33,15 +33,15 @@ export default function VendorAnalyticsPage() {
     );
 
     if (!stats) return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
-            <div className="p-24 text-center font-bold text-slate-400 bg-white rounded-[3rem] shadow-xl">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-ocean-900">
+            <div className="p-24 text-center font-bold text-slate-400 bg-white dark:bg-ocean-800 rounded-[3rem] shadow-xl">
                 Failed to load analytics. Please ensure your vendor profile is active.
             </div>
         </div>
     );
 
     return (
-        <main className="min-h-screen bg-slate-50 py-20 pb-40">
+        <main className="min-h-screen bg-slate-50 dark:bg-ocean-900 py-20 pb-40">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -23,21 +23,21 @@ export default function ComplianceAnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
+        <div className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-200 p-6">
           <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Users</div>
           <div className="text-3xl font-black text-slate-900 mt-2">{loading ? '...' : (data as any)?.totalUsers || '—'}</div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
+        <div className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-200 p-6">
           <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Active Stores</div>
           <div className="text-3xl font-black text-slate-900 mt-2">{loading ? '...' : (data as any)?.activeStores || '—'}</div>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
+        <div className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-200 p-6">
           <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Compliance Rate</div>
           <div className="text-3xl font-black text-emerald-600 mt-2">{loading ? '...' : (data as any)?.complianceRate || '—'}</div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+      <div className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-200 p-8 text-center">
         <div className="text-4xl mb-4">📊</div>
         <h3 className="text-lg font-bold text-slate-700">Compliance Dashboard</h3>
         <p className="text-sm text-slate-400 mt-2">Detailed compliance analytics coming soon.</p>

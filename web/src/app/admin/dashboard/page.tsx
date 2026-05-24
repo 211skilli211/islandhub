@@ -52,7 +52,7 @@ export default function AdminDashboard() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h1>
 
-                <div className="bg-white shadow overflow-hidden sm:rounded-md">
+                <div className="bg-white dark:bg-ocean-800 shadow overflow-hidden sm:rounded-md">
                     <ul className="divide-y divide-gray-200">
                         {campaigns.map((campaign) => (
                             <li key={campaign.campaign_id}>

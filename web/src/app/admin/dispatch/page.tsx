@@ -143,7 +143,7 @@ export default function AdminDispatch() {
                                     <button
                                         key={f}
                                         onClick={() => setSelectedFilter(f)}
-                                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedFilter === f ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-50 text-slate-400'}`}
+                                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedFilter === f ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-50 dark:bg-ocean-900 text-slate-400'}`}
                                     >
                                         {f}
                                     </button>
@@ -152,7 +152,7 @@ export default function AdminDispatch() {
 
                             <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                                 {filteredJobs.map(job => (
-                                    <div key={job.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 group hover:border-indigo-200 hover:bg-white transition-all">
+                                    <div key={job.id} className="p-4 bg-slate-50 dark:bg-ocean-900 rounded-2xl border border-slate-100 group hover:border-indigo-200 hover:bg-white transition-all">
                                         <div className="flex justify-between items-start mb-2">
                                             <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-indigo-100 text-indigo-700'}`}>
                                                 {job.transport_status}
@@ -290,7 +290,7 @@ export default function AdminDispatch() {
                         
                         <div className="overflow-x-auto">
                             <table className="w-full">
-                                <thead className="bg-slate-50">
+                                <thead className="bg-slate-50 dark:bg-ocean-900">
                                     <tr>
                                         <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Trip ID</th>
                                         <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Driver</th>
@@ -310,7 +310,7 @@ export default function AdminDispatch() {
                                         </tr>
                                     ) : (
                                         trips.slice(0, 20).map((trip: any) => (
-                                            <tr key={trip.trip_id} className="hover:bg-slate-50">
+                                            <tr key={trip.trip_id} className="hover:bg-slate-50 dark:bg-ocean-900">
                                                 <td className="px-6 py-4 font-mono text-sm font-bold text-slate-600">{trip.trip_id}</td>
                                                 <td className="px-6 py-4 text-sm font-bold">{trip.driver_name || 'Unassigned'}</td>
                                                 <td className="px-6 py-4 text-sm">{trip.rider_name || '-'}</td>
@@ -383,7 +383,7 @@ export default function AdminDispatch() {
                         </div>
                         <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                             {drivers.slice(0, 6).map((driver: any) => (
-                                <div key={driver.user_id} className="p-4 bg-slate-50 rounded-2xl">
+                                <div key={driver.user_id} className="p-4 bg-slate-50 dark:bg-ocean-900 rounded-2xl">
                                     <div className="flex items-center gap-4 mb-4">
                                         <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
                                             {driver.name?.charAt(0) || 'D'}

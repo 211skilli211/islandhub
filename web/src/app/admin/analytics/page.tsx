@@ -146,14 +146,14 @@ export default function AdminAnalyticsDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 dark:bg-ocean-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 dark:bg-ocean-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -318,14 +318,14 @@ export default function AdminAnalyticsDashboard() {
         </div>
 
         {/* Top Stores Table */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-white dark:bg-ocean-800 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="p-6 border-b border-slate-100">
             <h2 className="text-xl font-bold text-slate-900">Top Performing Stores</h2>
             <p className="text-sm text-slate-600 mt-1">Based on revenue (Last {timeRange} days)</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-slate-50">
+              <thead className="bg-slate-50 dark:bg-ocean-900">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Store</th>
                   <th className="px-6 py-4 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">Orders</th>
@@ -336,7 +336,7 @@ export default function AdminAnalyticsDashboard() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {topStores.map((store, index) => (
-                  <tr key={store.store_id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={store.store_id} className="hover:bg-slate-50 dark:bg-ocean-900 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <span className="w-8 h-8 rounded-full bg-teal-100 text-teal-600 font-bold flex items-center justify-center text-sm">

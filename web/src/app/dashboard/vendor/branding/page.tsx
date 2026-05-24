@@ -391,7 +391,7 @@ export default function VendorBrandingPage() {
     };
 
     if (loading) return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 flex items-center justify-center">
             <div className="text-center">
                 <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4"></div>
                 <p className="text-slate-600 font-bold">Loading Branding Studio...</p>
@@ -400,7 +400,7 @@ export default function VendorBrandingPage() {
     );
 
     return (
-        <main className="min-h-screen bg-slate-50 py-20">
+        <main className="min-h-screen bg-slate-50 dark:bg-ocean-900 py-20">
             <div className="max-w-6xl mx-auto px-4">
                 {/* Header */}
                 <div className="mb-12">
@@ -413,7 +413,7 @@ export default function VendorBrandingPage() {
                     </div>
 
                     {/* Store Info with Editable Logo */}
-                    <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-200/50">
+                    <div className="bg-white/80 dark:bg-ocean-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-200/50">
                         <div className="flex items-center gap-6">
                             {/* Logo Upload */}
                             <div className="relative group">
@@ -520,7 +520,7 @@ export default function VendorBrandingPage() {
                                     onClick={() => handleTemplateSelect(template.key)}
                                     className={`relative p-4 rounded-2xl border-2 transition-all text-left ${vendor.template_id === template.key
                                         ? 'border-indigo-500 bg-indigo-50/50 shadow-lg shadow-indigo-200'
-                                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 dark:bg-ocean-900'
                                         }`}
                                 >
                                     {/* Template Preview Image */}
@@ -658,10 +658,10 @@ export default function VendorBrandingPage() {
 
                     {/* Action Buttons */}
                     <div className="flex justify-end gap-4">
-                        <Link href={`/dashboard`} className="px-8 py-5 bg-white text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 hover:bg-slate-50 transition-all">
+                        <Link href={`/dashboard`} className="px-8 py-5 bg-white text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 hover:bg-slate-50 dark:bg-ocean-900 transition-all">
                             Back to Dashboard
                         </Link>
-                        <Link href={`/store/${vendor.slug || 'preview'}`} className="px-8 py-5 bg-white text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 hover:bg-slate-50 transition-all">
+                        <Link href={`/store/${vendor.slug || 'preview'}`} className="px-8 py-5 bg-white text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 hover:bg-slate-50 dark:bg-ocean-900 transition-all">
                             Preview Storefront
                         </Link>
                         <button

@@ -108,14 +108,14 @@ export default function MyOrdersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
+    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -139,7 +139,7 @@ export default function MyOrdersPage() {
               className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
                 filter === status
                   ? 'bg-teal-600 text-white'
-                  : 'bg-white text-slate-600 hover:bg-slate-100'
+                  : 'bg-white dark:bg-ocean-800 text-slate-600 hover:bg-slate-100'
               }`}
             >
               {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -148,7 +148,7 @@ export default function MyOrdersPage() {
         </div>
 
         {filteredOrders.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
+          <div className="bg-white dark:bg-ocean-800 rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
             <div className="text-6xl mb-4">📦</div>
             <h2 className="text-2xl font-bold text-slate-900 mb-2">
               {filter === 'all' ? 'No orders yet' : `No ${filter} orders`}
@@ -171,7 +171,7 @@ export default function MyOrdersPage() {
             {filteredOrders.map((order) => (
               <div
                 key={order.order_id}
-                className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-ocean-800 rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow"
               >
                 {/* Order Header */}
                 <div className="p-6 border-b border-slate-100">
@@ -229,14 +229,14 @@ export default function MyOrdersPage() {
                 </div>
 
                 {/* Order Actions */}
-                <div className="px-6 py-4 bg-slate-50 flex items-center justify-between">
+                <div className="px-6 py-4 bg-slate-50 dark:bg-ocean-900 flex items-center justify-between">
                   <div className="text-sm text-slate-600">
                     {order.delivery_type === 'delivery' ? '🚚 Delivery' : '🏪 Store Pickup'}
                   </div>
                   <div className="flex gap-3">
                     <Link
                       href={`/orders/${order.order_id}`}
-                      className="px-4 py-2 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-100 transition-all"
+                      className="px-4 py-2 bg-white dark:bg-ocean-800 border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-100 transition-all"
                     >
                       View Details
                     </Link>
