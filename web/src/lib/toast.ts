@@ -110,3 +110,11 @@ export const toast = {
 };
 
 export default toast;
+
+// Backward compatibility exports
+export type ToastStyle = 'modern-dark' | 'clean-light' | 'teal-accent' | 'neumorphic' | 'minimal';
+
+export function setToastStyle(_style: ToastStyle) {
+  // No-op: toast style now auto-detects from dark mode
+  console.warn('setToastStyle is deprecated. Toast style now auto-detects from theme.');
+}

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import api from '@/lib/api';
-import { setToastStyle, ToastStyle } from '@/lib/toast';
+import toast from '@/lib/toast';
+import type { ToastStyle } from '@/lib/toast';
 
 interface ThemeSettingsPanelProps {
     onThemeChange?: (theme: string) => void;
@@ -44,7 +45,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
             await api.put('/site-settings', { setting_key: 'theme', setting_value: theme });
             await api.put('/site-settings', { setting_key: 'primary_color', setting_value: primaryColor });
             await api.put('/site-settings', { setting_key: 'toast_style', setting_value: toastStyle });
-            setToastStyle(toastStyle);
+            // toastStyle is now auto-detected from theme
             if (onThemeChange) onThemeChange(theme);
         } catch (err) {
             console.error('Failed to save theme');
