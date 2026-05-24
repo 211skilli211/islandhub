@@ -1847,8 +1847,8 @@ export default function HeroAssetTab() {
                         <p className="text-slate-400 font-medium">How the hero section will look on {PAGES.find(p => p.key === selectedPage)?.label}.</p>
                     </div>
 
-                    <div className="relative aspect-video rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl shadow-slate-300" style={{ backgroundColor: styleConfig.bgColor || '#000000' }}>
-                        {/* Mock Background / Media Layer */}
+            <div className="relative aspect-video rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl shadow-slate-300" style={{ backgroundColor: styleConfig.bgColor || '#000000' }}>
+                        {/* Background / Media Layer */}
                         <div
                             className="absolute inset-0 z-0 transition-all duration-700"
                             style={layoutTemplate === 'split' ? {
@@ -1856,7 +1856,28 @@ export default function HeroAssetTab() {
                                 left: `${styleConfig.splitDivide || 50}%`
                             } : { width: '100%', left: 0 }}
                         >
-                            {assetUrl ? (
+                            {assetType === 'shader' && styleConfig.shader ? (
+                                <ShaderBackgroundComponent
+                                    shader={styleConfig.shader}
+                                    colors={styleConfig.shaderColors}
+                                    interactive={styleConfig.shaderInteractive}
+                                    speed={styleConfig.shaderSpeed || 1}
+                                    className="absolute inset-0"
+                                />
+                            ) : assetType === 'particle' ? (
+                                <div className="absolute inset-0 bg-slate-900">
+                                    <ParticleField
+                                        count={styleConfig.particleCount || 80}
+                                        color={styleConfig.particleColor || '#06b6d4'}
+                                        speed={styleConfig.particleSpeed || 0.5}
+                                        size={styleConfig.particleSize || 2}
+                                        interactive={styleConfig.particleInteractive}
+                                        mouseRadius={styleConfig.mouseRadius || 150}
+                                        mouseForce={styleConfig.mouseForce || 0.8}
+                                        connectionDistance={styleConfig.connectionDistance || 120}
+                                    />
+                                </div>
+                            ) : assetUrl ? (
                                 <div className="absolute inset-0 overflow-hidden">
                                     {assetType === 'video' ? (
                                         <video key={assetUrl} autoPlay loop muted className="w-full h-full object-cover" style={{ transform: `scale(${(styleConfig.scale || 100) / 100}) translateY(${styleConfig.offsetY || 0}px)` }}>

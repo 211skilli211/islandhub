@@ -10,15 +10,36 @@ export interface StorageProvider {
 export class DatabaseStorageProvider implements StorageProvider {
     async uploadFile(file: Express.Multer.File, userId?: number): Promise<string> {
         const base64Data = file.buffer.toString('base64');
-        const dataUri = `data:${file.mimetype};base64,${base64Data}`;
-        await pool.query(
-            'INSERT INTO media (user_id, filename, url, file_type, file_size, data, storage_type) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-            [userId || null, file.filename, `/api/media/file/${file.filename}`, file.mimetype, file.size, dataUri, 'database']
-        );
-        return `/api/media/file/${file.filename}`;
+        const mimeType = file.mimetype;
+        const dataUri = `data:${mimeType};base64,${base64Data}`;
+
+        // Try DB storage first, fall back to disk if DB fails
+        try {
+            await pool.query(
+                'INSERT INTO media (user_id, filename, url, file_type, file_size, data, storage_type) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                [userId || null, file.filename, `/api/media/file/${file.filename}`, mimeType, file.size, dataUri, 'database']
+            );
+            return `/api/media/file/${file.filename}`;
+        } catch (dbError: any) {
+            console.warn('DB storage failed, falling back to disk:', dbError.message);
+            // Fallback: save to disk
+            const uploadsDir = path.join(process.cwd(), 'src', 'uploads');
+            if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+            const filePath = path.join(uploadsDir, file.filename);
+            fs.writeFileSync(filePath, file.buffer);
+            return `/uploads/${file.filename}`;
+        }
     }
+
     async deleteFile(filename: string): Promise<void> {
-        await pool.query('DELETE FROM media WHERE filename = $1', [filename]);
+        try {
+            await pool.query('DELETE FROM media WHERE filename = $1', [filename]);
+        } catch (e) {
+            console.warn('DB delete failed:', e);
+        }
+        // Also try disk
+        const filePath = path.join(process.cwd(), 'src', 'uploads', filename);
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
     }
 }
 

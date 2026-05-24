@@ -101,7 +101,7 @@ export default function ShaderBackground({
       className={`relative overflow-hidden ${wrapperClass} ${className}`}
       style={{ ...cssVars, opacity }}
     >
-      {scopedCss && <style dangerouslySetInnerHTML={{ __html: scopedCss }} />}
+      {scopedCss && <style suppressHydrationWarning dangerouslySetInnerHTML={{ __html: scopedCss }} />}
       {children}
     </div>
   );
