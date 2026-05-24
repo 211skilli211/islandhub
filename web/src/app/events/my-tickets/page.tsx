@@ -98,7 +98,7 @@ export default function MyTicketsPage() {
                           <div className="flex items-start gap-4">
                             {event?.image_url && (
                               <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
-                                <Image src={getImageUrl(event.image_url) || '/placeholder-event.jpg'} alt={event.title} width={80} height={80} className="object-cover w-full h-full" />
+                                <Image src={getImageUrl(event.image_url) || '/placeholder-event.svg'} alt={event.title} width={80} height={80} className="object-cover w-full h-full" />
                               </div>
                             )}
                             <div className="flex-1 min-w-0">

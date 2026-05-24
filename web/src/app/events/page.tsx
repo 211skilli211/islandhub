@@ -125,7 +125,7 @@ export default function EventsHubPage() {
                 <div className="relative h-48 overflow-hidden">
                   {event.image_url ? (
                     <Image
-                      src={getImageUrl(event.image_url) || '/placeholder-event.jpg'}
+                      src={getImageUrl(event.image_url) || '/placeholder-event.svg'}
                       alt={event.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
