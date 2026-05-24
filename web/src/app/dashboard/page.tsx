@@ -31,6 +31,7 @@ import BecomeDriver from '@/components/dashboard/BecomeDriver';
 import DriverVerification from '@/components/dashboard/DriverVerification';
 import VendorComplianceStatus from '@/components/dashboard/VendorComplianceStatus';
 import VendorOnboarding from '@/components/dashboard/VendorOnboarding';
+import BuyerDashboard from './buyer/page';
 
 // Dynamic imports for heavy components
 const CreateListingModal = dynamic(
@@ -500,7 +501,8 @@ function DashboardPageContent() {
                             />
                         )}
                         {activeTab === 'onboarding' && viewMode === 'vendor' && <VendorOnboarding />}
-                        {activeTab === 'activity' && (
+                        {activeTab === 'activity' && viewMode === 'buyer' && <BuyerDashboard />}
+                        {activeTab === 'activity' && viewMode !== 'buyer' && (
                             <>
                                 <div className="flex justify-between items-center mb-8">
                                     <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">
