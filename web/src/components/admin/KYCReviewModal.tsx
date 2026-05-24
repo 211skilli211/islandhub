@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { getImageUrl, api } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 interface KYCSubmission {
     kyc_id: number;

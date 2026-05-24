@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { X, Smartphone, Monitor, Sparkles, Users, Timer, Tag, ShoppingBag, Flame, Gem, Gift, Megaphone, Shield, Building2, Utensils, Briefcase, Target, Store } from 'lucide-react';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 interface BannerModalProps {
     isOpen: boolean;

@@ -5,7 +5,7 @@ import api from '@/lib/api';
 import DynamicForm from '@/components/marketplace/DynamicForm';
 import { CATEGORY_SCHEMAS } from '@/lib/schemas';
 import { getImageUrl } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import MediaManager, { MediaItem } from './shared/MediaManager';
 
 interface EditListingModalProps {

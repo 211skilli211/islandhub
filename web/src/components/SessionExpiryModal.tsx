@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import { initActivityTracking, isSessionExpired, SESSION_CONFIG } from '@/lib/session';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 export default function SessionMonitor() {
   const router = useRouter();

@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import { getImageUrl } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 interface ServiceBookingModalProps {
     isOpen: boolean;

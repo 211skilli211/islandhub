@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import api from '@/lib/api';
 import { AdminTable, Column } from './shared/AdminTable';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { Check, X, DollarSign, Wallet, CreditCard, Calendar } from 'lucide-react';
 
 interface PayoutRequest {

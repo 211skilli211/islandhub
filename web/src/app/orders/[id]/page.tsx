@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import Link from 'next/link';
 
 interface Order {

@@ -5,20 +5,21 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
-import toast from 'react-hot-toast';
-import { 
-    LayoutDashboard, Users, Package, ShoppingCart, Store, 
-    Settings, BarChart3, Truck, Megaphone, Shield, 
-    FileText, CreditCard, Radio, DollarSign, Car, 
-    Image, UserCheck, Building2, PieChart, Bot, 
-    ClipboardList, ChevronLeft, ChevronRight, LogOut, 
-    Home, ArrowLeft, Menu, X
+import toast from '@/lib/toast';
+import {
+    LayoutDashboard, Users, Package, ShoppingCart, Store,
+    Settings, BarChart3, Truck, Megaphone, Shield,
+    FileText, CreditCard, Radio, DollarSign, Car,
+    Image, UserCheck, Building2, PieChart, Bot,
+    ClipboardList, ChevronLeft, ChevronRight, LogOut,
+    Home, ArrowLeft, Menu, X, Ticket
 } from 'lucide-react';
 import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
 
 const adminNavItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard, href: '/admin/overview' },
     { id: 'users', label: 'Users', icon: Users, href: '/admin/users' },
+    { id: 'events', label: 'Events', icon: Ticket, href: '/admin/events' },
     { id: 'listings', label: 'Listings', icon: Package, href: '/admin/listings' },
     { id: 'orders', label: 'Orders', icon: ShoppingCart, href: '/admin/orders' },
     { id: 'stores', label: 'Stores', icon: Store, href: '/admin/stores' },

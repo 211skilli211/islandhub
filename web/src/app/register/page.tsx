@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { registerUser, useAuthStore } from '@/lib/auth';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 const ROLE_OPTIONS = [
     { id: 'buyer', label: 'Buyer', icon: '🛒', desc: 'Shop products and services' },

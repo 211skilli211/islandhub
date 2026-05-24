@@ -7,7 +7,7 @@ import { useAuthStore } from '@/lib/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api, { getImageUrl } from '@/lib/api';
 import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import MapWithErrorBoundary from '@/components/Map/MapWithErrorBoundary';
 
 

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import api from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import AssignDriverModal from '@/components/admin/AssignDriverModal';
 
 // Dynamically import map to avoid SSR issues

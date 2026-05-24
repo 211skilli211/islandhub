@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import { useCart } from '@/contexts/CartContext';
 import api, { getImageUrl } from '@/lib/api';
-import { toast } from 'react-hot-toast';
+import toast from '@/lib/toast';
 import Link from 'next/link';
 import ReviewSection from '@/components/ReviewSection';
 import AvailabilityCalendar from '@/components/AvailabilityCalendar';

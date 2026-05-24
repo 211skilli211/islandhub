@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getImageUrl, api } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 interface Media {
     id: number;

@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import api, { getImageUrl } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import ListingCard from '@/components/ListingCard';
 
 export default function UserProfilePage() {

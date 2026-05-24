@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { 
     User, Bell, Shield, Link2, Palette, Globe, 
     Image, Store, Settings, ChevronLeft, ChevronRight,

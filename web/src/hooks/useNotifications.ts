@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { useAuthStore } from '@/lib/auth';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 interface NotificationEvent {
     type: string;

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { Wallet, ArrowUpRight, ArrowDownLeft, History, CreditCard, DollarSign, Send, Clock, CheckCircle, XCircle } from 'lucide-react';
 
 interface WalletData {

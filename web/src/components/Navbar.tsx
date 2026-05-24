@@ -26,6 +26,7 @@ const EXPLORE_HUBS = [
   { href: '/products', label: 'Local Shopping', emoji: '🛍️', group: 'Marketplace' },
   { href: '/services', label: 'Services', emoji: '🛠️', group: 'Marketplace' },
   { href: '/rentals', label: 'Rentals', emoji: '🏠', group: 'Marketplace' },
+  { href: '/events', label: 'Events & Tickets', emoji: '🎫', group: 'Explore' },
   { href: '/tours', label: 'Tours', emoji: '🗺️', group: 'Explore' },
   { href: '/transport', label: 'Transport', emoji: '🚕', group: 'Explore' },
   { href: '/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },

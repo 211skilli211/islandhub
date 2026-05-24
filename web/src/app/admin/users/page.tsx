@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { AdminTable, Column } from '@/components/admin/shared/AdminTable';
 import EditUserModal from '@/components/admin/EditUserModal';
 import CreateUserModal from '@/components/admin/CreateUserModal';

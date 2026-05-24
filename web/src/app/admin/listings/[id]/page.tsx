@@ -6,7 +6,7 @@ import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 import EditListingModal from '@/components/admin/EditListingModal';
 import { CATEGORY_SCHEMAS, FormField } from '@/lib/schemas';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 export default function ListingDetailPage() {
     const { user, isAuthenticated } = useAuthStore();

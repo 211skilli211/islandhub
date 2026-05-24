@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 import Image from 'next/image';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import Link from 'next/link';
 
 interface Order {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuthStore } from '@/lib/auth';
 import api, { getImageUrl } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import Link from 'next/link';
 
 export default function DriverDashboard() {

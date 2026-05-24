@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 import { useCart } from '@/contexts/CartContext';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 export default function TourDetailPage() {
     const params = useParams();

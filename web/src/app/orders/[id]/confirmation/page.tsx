@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import Image from 'next/image';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 interface OrderItem {
     order_item_id: number;

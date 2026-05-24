@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { useAuthStore } from '@/lib/auth';
 
 const INITIAL_FORM_STATE = {

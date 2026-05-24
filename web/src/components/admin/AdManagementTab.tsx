@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import {
     Plus,
     Monitor,

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api, { getImageUrl } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import PushNotificationManager from '@/components/notifications/PushNotificationManager';
 

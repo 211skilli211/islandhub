@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { Plus, Tag, Clock, CheckCircle, XCircle, Trash2, Edit2, Info } from 'lucide-react';
 
 interface Promotion {

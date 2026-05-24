@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ListingCard from '@/components/ListingCard';
 
 import RoleSwitcher from '@/components/RoleSwitcher';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import ProfileSettings from '@/components/dashboard/ProfileSettings';
 import CommunityPosts from '@/components/dashboard/CommunityPosts';
 import VendorBranding from '@/components/dashboard/VendorBranding';

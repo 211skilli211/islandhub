@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import MemoryDashboard from './MemoryDashboard';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 // ─── Types ──────────────────────────────────────────────────
 interface AgentConfig {

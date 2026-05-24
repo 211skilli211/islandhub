@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getShaderNames, SHADERS } from '../shaders/shaderRegistry';
 import ShaderBackground from '../shaders/ShaderBackground';

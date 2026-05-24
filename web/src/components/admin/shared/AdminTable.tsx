@@ -25,7 +25,7 @@ import FilterControls from './FilterControls';
 import ConfirmationModal from './ConfirmationModal';
 import InlineEdit from './InlineEdit';
 import HoverPreview from './HoverPreview';
-import toast from 'react-hot-toast';
+import toast from '@/lib/toast';
 
 export interface Column<T> {
     header: string;
