@@ -296,6 +296,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                     fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50 
                     transition-all duration-300
                     ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+                    md:top-18 md:h-[calc(100vh-72px)]
                 `}
             >
                 {/* Logo & Collapse */}
@@ -434,11 +435,11 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                 flex-1 min-w-0 
                 ml-0 
                 md:ml-20 
-                xl:ml-72 
+                xl:ml-[280px] 
                 transition-all duration-300
             ">
                 {/* Mobile Header */}
-                <header className="md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between sticky top-0 z-30">
+                <header className="md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between sticky top-18 z-30">
                     <button onClick={() => setMobileOpen(true)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
                         <Menu className="w-5 h-5 text-slate-600 dark:text-slate-300" />
                     </button>

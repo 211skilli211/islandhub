@@ -76,16 +76,13 @@ export const getImageUrl = (path?: string | { url?: string } | null) => {
     if (typeof path !== 'string') return undefined;
     if (path.startsWith('http')) return path;
 
-    // Clean user input that might already have /uploads
+    // Clean user input — extract filename and route through media API
     let cleanPath = path;
     if (cleanPath.startsWith('/uploads/')) {
-        return `${BASE_URL}${cleanPath}`;
+        cleanPath = cleanPath.replace('/uploads/', '');
     }
-
-    cleanPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
-    // Ensure we don't double-prefix uploads if the path already has it (handling various edge cases)
-    const finalPath = cleanPath.includes('/uploads/') ? cleanPath : `/uploads${cleanPath}`;
-    return `${BASE_URL}${finalPath}`;
+    const filename = cleanPath.startsWith('/') ? cleanPath.slice(1) : cleanPath;
+    return `${BASE_URL}/api/media/file/${filename}`;
 };
 
 const api = axios.create({
