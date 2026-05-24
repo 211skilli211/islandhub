@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getShaderNames, SHADERS } from '../shaders/shaderRegistry';
 import ShaderBackground from '../shaders/ShaderBackground';
 import ParticleField from '../shaders/ParticleField';
+import { compressImage, formatFileSize } from '@/lib/image-compress';
 
 interface StyleConfig {
   shader?: string;
@@ -197,10 +198,25 @@ export default function HeroAssetTab() {
         if (!file) return;
 
         setUploading(true);
-        const formData = new FormData();
-        formData.append('image', file);
 
         try {
+            // Compress image if it's larger than 2MB
+            let fileToUpload = file;
+            if (file.type.startsWith('image/') && file.size > 2 * 1024 * 1024) {
+                toast.loading('Compressing image...', { id: 'upload' });
+                fileToUpload = await compressImage(file, {
+                    maxWidth: 1920,
+                    maxHeight: 1080,
+                    quality: 0.8,
+                    type: 'image/jpeg',
+                });
+                const saved = ((file.size - fileToUpload.size) / file.size * 100).toFixed(0);
+                toast.success(`Image compressed (${saved}% smaller)`, { id: 'upload' });
+            }
+
+            const formData = new FormData();
+            formData.append('image', fileToUpload);
+
             const response = await api.post('/uploads/asset', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
@@ -210,8 +226,9 @@ export default function HeroAssetTab() {
             else setAssetType('image');
 
             toast.success('Hero asset uploaded');
-        } catch (error) {
-            toast.error('Upload failed');
+        } catch (error: any) {
+            const msg = error?.response?.data?.message || error?.message || 'Upload failed';
+            toast.error(msg);
         } finally {
             setUploading(false);
         }
