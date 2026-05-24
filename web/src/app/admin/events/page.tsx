@@ -57,7 +57,7 @@ export default function AdminEventsPage() {
           const res = await api.get(`/events/${eventId}`);
           const newStatus = res.data.status === 'published' ? 'draft' : 'published';
           await api.patch(`/events/${eventId}`, { status: newStatus });
-          toast.status === 'published' ? 'Event unpublished' : 'Event published';
+          toast.success(newStatus === 'published' ? 'Event published' : 'Event unpublished');
           setRefreshKey(k => k + 1);
           break;
         }
