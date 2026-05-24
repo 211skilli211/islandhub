@@ -5,6 +5,8 @@ import api, { getImageUrl } from '@/lib/api';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getShaderNames, SHADERS } from '../shaders/shaderRegistry';
+import ShaderBackground from '../shaders/ShaderBackground';
+import ParticleField from '../shaders/ParticleField';
 
 interface StyleConfig {
   shader?: string;
@@ -1857,7 +1859,7 @@ export default function HeroAssetTab() {
                             } : { width: '100%', left: 0 }}
                         >
                             {assetType === 'shader' && styleConfig.shader ? (
-                                <ShaderBackgroundComponent
+                                <ShaderBackground
                                     shader={styleConfig.shader}
                                     colors={styleConfig.shaderColors}
                                     interactive={styleConfig.shaderInteractive}
