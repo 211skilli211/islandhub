@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import UserProfileDropdown from './UserProfileDropdown';
@@ -10,490 +11,406 @@ import { useCart } from '@/contexts/CartContext';
 import CartDrawer from '@/components/cart/CartDrawer';
 import { getImageUrl } from '@/lib/api';
 import NotificationCenter from './NotificationCenter';
+import { Search, Menu, X, ShoppingCart, Sun, Moon } from 'lucide-react';
+
+const NAV_LINKS = [
+  { href: '/stores', label: 'Explore' },
+  { href: '/food', label: 'Food', color: 'coral' },
+  { href: '/products', label: 'Shop', color: 'accent' },
+  { href: '/rentals', label: 'Stays', color: 'palm' },
+  { href: '/tours', label: 'Tours', color: 'sand' },
+];
+
+const EXPLORE_HUBS = [
+  { href: '/food', label: 'Food & Dining', emoji: '🍽️', group: 'Marketplace' },
+  { href: '/products', label: 'Local Shopping', emoji: '🛍️', group: 'Marketplace' },
+  { href: '/services', label: 'Services', emoji: '🛠️', group: 'Marketplace' },
+  { href: '/rentals', label: 'Rentals', emoji: '🏠', group: 'Marketplace' },
+  { href: '/tours', label: 'Tours', emoji: '🗺️', group: 'Explore' },
+  { href: '/transport', label: 'Transport', emoji: '🚕', group: 'Explore' },
+  { href: '/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },
+  { href: '/community', label: 'Community', emoji: '🌴', group: 'Impact' },
+];
 
 export default function Navbar() {
-    const [mounted, setMounted] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const [exploreOpen, setExploreOpen] = useState(false);
-    const [resourcesOpen, setResourcesOpen] = useState(false);
-    const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
-    const [cartOpen, setCartOpen] = useState(false);
-    const { user, isAuthenticated, logout } = useAuthStore();
-    const { theme, toggleTheme } = useTheme();
-    const { itemCount } = useCart();
-    const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [exploreOpen, setExploreOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuthStore();
+  const { theme, toggleTheme } = useTheme();
+  const { itemCount } = useCart();
+  const router = useRouter();
 
-    React.useEffect(() => {
-        setMounted(true);
-    }, []);
+  useEffect(() => { setMounted(true); }, []);
 
-    const handleLogout = () => {
-        logout();
-        router.push('/');
-    };
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return (
-        <nav className="sticky top-0 bg-white shadow-md z-1000 border-b border-slate-100">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-20">
-                    <div className="flex">
-                        <div className="shrink-0 flex items-center gap-2 group">
-                            <Link href="/">
-                                <span className="font-black text-2xl text-teal-600 transition-transform group-hover:scale-110">IslandHub</span>
-                            </Link>
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
-                            {/* Cart Icon with Badge */}
-                            <button
-                                onClick={() => setCartOpen(true)}
-                                className="relative text-slate-400 hover:text-teal-600 transition-colors p-2 hover:bg-slate-50 rounded-lg"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                {itemCount > 0 && (
-                                    <span className="absolute -top-1 -right-1 bg-teal-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                                        {itemCount}
-                                    </span>
-                                )}
-                            </button>
-                            {/* Notification Bell - only when authenticated */}
-                            {mounted && <NotificationCenter />}
-                        </div>
-                        <div className="hidden sm:ml-10 sm:flex sm:space-x-8 items-center">
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
 
-                            {/* Explore Dropdown */}
-                            <div
-                                className="relative flex h-full items-center"
-                                onMouseEnter={() => window.innerWidth > 1024 && setExploreOpen(true)}
-                                onMouseLeave={() => setExploreOpen(false)}
-                            >
-                                <button
-                                    onClick={() => setExploreOpen(!exploreOpen)}
-                                    className="border-transparent text-slate-500 hover:text-teal-600 inline-flex items-center px-1 pt-1 border-b-4 hover:border-teal-500 text-sm font-bold uppercase tracking-widest transition-all focus:outline-none h-full"
-                                >
-                                    Explore ▾
-                                </button>
-                                {exploreOpen && (
-                                    <div className="absolute left-0 top-[76px] w-56 bg-white rounded-2xl shadow-2xl ring-1 ring-black ring-opacity-5 py-4 z-1001 text-left px-2">
-                                        <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Marketplace</div>
-                                        <Link href="/stores?category=food" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-rose-50 hover:text-rose-600 rounded-xl transition-all">
-                                            Food & Dining
-                                        </Link>
-                                        <Link href="/stores?category=product" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-amber-50 hover:text-amber-600 rounded-xl transition-all">
-                                            Local Shopping
-                                        </Link>
-                                        <Link href="/stores?category=service" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all">
-                                            Services
-                                        </Link>
+  return (
+    <>
+      <nav
+        className={`
+          sticky top-0 z-50 transition-all duration-300
+          ${scrolled
+            ? 'glass shadow-md border-b border-border-primary'
+            : 'bg-surface-primary/95 border-b border-transparent'
+          }
+        `}
+        style={{ height: 'var(--navbar-height, 72px)' }}
+      >
+        <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 lg:px-8 h-full">
+          <div className="flex items-center justify-between h-full">
 
-                                        <div className="my-2 border-t border-slate-50" />
+            {/* ═══ LEFT: Logo + Nav Links ═══ */}
+            <div className="flex items-center gap-8">
+              {/* Logo */}
+              <Link href="/" className="shrink-0 group">
+                <span className="text-display-md text-gradient-brand tracking-tight">
+                  IslandHub
+                </span>
+              </Link>
 
-                                        {/* Simplified Tour Hub Link */}
-                                        <Link href="/tours" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-orange-50 hover:text-orange-600 rounded-xl transition-all">
-                                            Tour Hub
-                                        </Link>
+              {/* Desktop Nav Links */}
+              <div className="hidden lg:flex items-center gap-1">
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-3 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg hover:bg-surface-secondary transition-all duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
-                                        {/* Simplified Rental Hub Link */}
-                                        <Link href="/rental-hub" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all">
-                                            Rental Hub
-                                        </Link>
+                {/* Explore Dropdown */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => setExploreOpen(true)}
+                  onMouseLeave={() => setExploreOpen(false)}
+                >
+                  <button className="px-3 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg hover:bg-surface-secondary transition-all duration-200 flex items-center gap-1">
+                    More
+                    <svg className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: exploreOpen ? 'rotate(180deg)' : 'rotate(0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
 
-
-                                        <div className="my-2 border-t border-slate-50" />
-
-                                        {/* Taxi Hub Link */}
-                                        <Link href="/request-ride?type=taxi" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-yellow-50 hover:text-yellow-600 rounded-xl transition-all">
-                                            Taxi Hub
-                                        </Link>
-
-                                        <div className="my-2 border-t border-slate-50" />
-
-                                        <div className="my-2 border-t border-slate-50" />
-                                        <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Impact</div>
-                                        <Link href="/campaigns" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-all">
-                                            Campaigns
-                                        </Link>
-                                        <Link href="/community" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
-                                            Community
-                                        </Link>
-
-                                        <div className="my-2 border-t border-slate-50" />
-                                        <div className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Business</div>
-                                        <Link href="/store/ibt-solutions" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
-                                            IBT Solutions
-                                        </Link>
-                                        <Link href="/store/ibt-solutions/coops" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-all">
-                                            IBT Co-ops
-                                        </Link>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Resources Dropdown */}
-                            <div
-                                className="relative flex h-full items-center"
-                                onMouseEnter={() => window.innerWidth > 1024 && setResourcesOpen(true)}
-                                onMouseLeave={() => setResourcesOpen(false)}
-                            >
-                                <button
-                                    onClick={() => setResourcesOpen(!resourcesOpen)}
-                                    className="border-transparent text-slate-500 hover:text-teal-600 inline-flex items-center px-1 pt-1 border-b-4 hover:border-teal-500 text-sm font-bold uppercase tracking-widest transition-all focus:outline-none h-full"
-                                >
-                                    Resources ▾
-                                </button>
-                                {resourcesOpen && (
-                                    <div className="absolute left-0 top-[76px] w-48 bg-white rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 py-2 z-1001 text-center">
-                                        <Link href="/pricing" className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">Pricing & Tiers</Link>
-                                        <Link href="/how-it-works" className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">How it Works</Link>
-                                        <Link href="/about" className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">About Us</Link>
-                                        <Link href="/contact" className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-colors">Contact</Link>
-                                    </div>
-                                )}
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-6">
-                        {/* Global Search */}
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
-                                if (q.trim()) router.push(`/search?q=${encodeURIComponent(q)}`);
-                            }}
-                            className="relative mx-4 text-gray-400 focus-within:text-gray-600"
+                  <AnimatePresence>
+                    {exploreOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute left-0 top-full mt-2 w-64 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary py-3 z-50"
+                      >
+                        {EXPLORE_HUBS.map((hub, i) => (
+                          <Link
+                            key={hub.href}
+                            href={hub.href}
+                            className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors"
+                          >
+                            <span className="text-base">{hub.emoji}</span>
+                            {hub.label}
+                          </Link>
+                        ))}
+                        <div className="my-2 border-t border-border-primary" />
+                        <Link
+                          href="/store/ibt-solutions"
+                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-brand-600 hover:bg-brand-50 transition-colors"
                         >
-                            <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <input
-                                id="global-search"
-                                name="search"
-                                className="block w-full bg-slate-100 border-transparent py-2 pl-10 pr-3 rounded-full border text-slate-900 placeholder-slate-500 focus:outline-none focus:bg-white focus:border-teal-500/30 focus:ring-4 focus:ring-teal-500/5 sm:text-sm transition-all min-w-[200px]"
-                                placeholder="Search the island..."
-                                type="search"
-                            />
-                        </form>
-                        {mounted && (
-                            isAuthenticated ? (
-                                <>
-                                    <Link
-                                        href="/start"
-                                        className="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-lg shadow-teal-200 transition-all transform hover:-translate-y-1 flex items-center gap-2"
-                                    >
-                                        Create
-                                    </Link>
-                                    <UserProfileDropdown />
-                                </>
-                            ) : (
-                                <>
-                                    <Link href="/login" className="text-slate-500 hover:text-teal-600 px-3 py-2 text-sm font-bold uppercase tracking-widest transition-all">
-                                        Log in
-                                    </Link>
-                                    <Link href="/register" className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-lg shadow-teal-100 transition-all hover:-translate-y-0.5 active:translate-y-0">
-                                        Join Now
-                                    </Link>
-                                </>
-                            )
-                        )}
-                    </div>
-
-                    {/* Mobile menu button */}
-                    <div className="flex items-center sm:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            type="button"
-                            className="inline-flex items-center justify-center p-3 rounded-xl text-slate-400 hover:text-slate-500 hover:bg-slate-100 focus:outline-none transition-all"
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            {!isOpen ? (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            ) : (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
+                          <span className="text-base">⚡</span>
+                          IBT Solutions
+                        </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
+              </div>
             </div>
 
-            {/* Mobile menu - Side Drawer */}
-            {
-                isOpen && (
-                    <div className="fixed inset-0 z-100 sm:hidden">
-                        {/* Backdrop */}
-                        <div
-                            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
-                            onClick={() => setIsOpen(false)}
-                        ></div>
+            {/* ═══ CENTER: Search (desktop) ═══ */}
+            <div className="hidden md:flex flex-1 max-w-md mx-8">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
+                  if (q.trim()) router.push(`/search?q=${encodeURIComponent(q)}`);
+                }}
+                className="w-full"
+              >
+                <div className="relative">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
+                  <input
+                    name="search"
+                    type="search"
+                    placeholder="Search the island..."
+                    className="w-full pl-10 pr-4 py-2.5 rounded-full bg-surface-secondary border border-border-primary text-body-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
+                  />
+                </div>
+              </form>
+            </div>
 
-                        {/* Drawer Content */}
-                        <div className="absolute right-0 top-0 h-full w-[300px] bg-white shadow-2xl flex flex-col animate-slide-left overflow-y-auto">
-                            <div className="p-6 flex justify-between items-center border-b border-slate-50">
-                                <span className="font-black text-xl text-teal-600">IslandHub</span>
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="p-2 hover:bg-slate-100 rounded-full transition-colors"
-                                >
-                                    <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
+            {/* ═══ RIGHT: Actions ═══ */}
+            <div className="flex items-center gap-2">
+              {/* Theme Toggle */}
+              {mounted && (
+                <button
+                  onClick={toggleTheme}
+                  className="p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
+              )}
 
-                            <div className="flex-1 py-6 px-4 space-y-2">
-                                {/* Mobile Theme Toggle */}
-                                <button
-                                    onClick={toggleTheme}
-                                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50 mb-4"
-                                >
-                                    <span className="font-bold text-slate-600 text-sm">Appearance</span>
-                                    <div>
-                                        {theme === 'dark' ? (
-                                            <div className="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-wider">
-                                                <span>Light Mode</span>
-                                            </div>
-                                        ) : (
-                                            <div className="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase tracking-wider">
-                                                <span>Dark Mode</span>
-                                            </div>
-                                        )}
-                                    </div>
-                                </button>
+              {/* Cart */}
+              <button
+                onClick={() => setCartOpen(true)}
+                className="relative p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
+                aria-label="Cart"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                    {itemCount > 9 ? '9+' : itemCount}
+                  </span>
+                )}
+              </button>
 
-                                <Link
-                                    href="/stores?category=food"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition-all flex items-center gap-3"
-                                >
-                                    Food & Dining
-                                </Link>
-                                <Link
-                                    href="/stores?category=product"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition-all flex items-center gap-3"
-                                >
-                                    Shopping
-                                </Link>
-                                <Link
-                                    href="/stores?category=service"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-all flex items-center gap-3"
-                                >
-                                    Services
-                                </Link>
-                                {/* Simplified Mobile Hub Links */}
-                                <Link
-                                    href="/tours"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-4 rounded-xl text-base font-black text-orange-600 bg-orange-50/50 transition-all flex items-center gap-3"
-                                >
-                                    Signature Tour Hub
-                                </Link>
+              {/* Notifications (authenticated) */}
+              {mounted && isAuthenticated && (
+                <div className="hidden sm:block">
+                  <NotificationCenter />
+                </div>
+              )}
 
-                                <Link
-                                    href="/rental-hub"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-4 rounded-xl text-base font-black text-blue-600 bg-blue-50/50 transition-all flex items-center gap-3"
-                                >
-                                    Island Rental Hub
-                                </Link>
+              {/* Auth buttons / Profile (desktop) */}
+              <div className="hidden lg:flex items-center gap-2 ml-2">
+                {mounted && (
+                  isAuthenticated ? (
+                    <UserProfileDropdown />
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="px-4 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg transition-colors"
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="px-5 py-2.5 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl hover:from-brand-700 hover:to-accent-700 shadow-sm transition-all"
+                      >
+                        Join Free
+                      </Link>
+                    </>
+                  )
+                )}
+              </div>
 
-                                <Link
-                                    href="/campaigns"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-all flex items-center gap-3"
-                                >
-                                    Campaigns
-                                </Link>
-                                <Link
-                                    href="/community"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
-                                >
-                                    Community
-                                </Link>
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="lg:hidden p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
+                aria-label="Menu"
+              >
+                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
 
-                                <div className="pt-2 mt-2 border-t border-slate-100" />
-                                <div className="px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Business</div>
-                                <Link
-                                    href="/store/ibt-solutions"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
-                                >
-                                    IBT Solutions
-                                </Link>
-                                <Link
-                                    href="/store/ibt-solutions/coops"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-600 transition-all flex items-center gap-3"
-                                >
-                                    IBT Co-ops
-                                </Link>
+      {/* ═══ MOBILE DRAWER ═══ */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[60] bg-surface-overlay backdrop-blur-sm lg:hidden"
+              onClick={() => setMobileOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated shadow-2xl lg:hidden flex flex-col overflow-y-auto"
+            >
+              {/* Mobile header */}
+              <div className="flex items-center justify-between p-5 border-b border-border-primary shrink-0">
+                <span className="text-headline-md text-gradient-brand">IslandHub</span>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 rounded-xl hover:bg-surface-secondary transition-colors"
+                >
+                  <X className="w-5 h-5 text-ink-secondary" />
+                </button>
+              </div>
 
-                                <Link
-                                    href="/pricing"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                >
-                                    Pricing & Tiers
-                                </Link>
-                                <Link
-                                    href="/how-it-works"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                >
-                                    How it Works
-                                </Link>
-                                <Link
-                                    href="/about"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                >
-                                    About Us
-                                </Link>
-                                <Link
-                                    href="/contact"
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                >
-                                    Contact
-                                </Link>
+              {/* Mobile search */}
+              <div className="p-4 border-b border-border-primary">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
+                    if (q.trim()) { router.push(`/search?q=${encodeURIComponent(q)}`); setMobileOpen(false); }
+                  }}
+                >
+                  <div className="relative">
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
+                    <input
+                      name="search"
+                      type="search"
+                      placeholder="Search the island..."
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-secondary border border-border-primary text-body-sm focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
+                    />
+                  </div>
+                </form>
+              </div>
 
-                                <div className="pt-6 mt-6 border-t border-slate-100 space-y-3">
-                                    {isAuthenticated ? (
-                                        <>
-                                            <button
-                                                onClick={() => setMobileProfileOpen(!mobileProfileOpen)}
-                                                className="w-full text-left focus:outline-none"
-                                            >
-                                                <div className={`px-4 py-4 rounded-2xl transition-all cursor-pointer ${mobileProfileOpen ? 'bg-teal-50 ring-2 ring-teal-100' : 'bg-slate-50 hover:bg-slate-100'}`}>
-                                                    <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-black text-lg shadow-inner overflow-hidden border-2 border-white">
-                                                                {user?.avatar_url ? (
-                                                                    <img
-                                                                        src={getImageUrl(user.avatar_url)}
-                                                                        alt={user.name}
-                                                                        className="w-full h-full object-cover"
-                                                                    />
-                                                                ) : (
-                                                                    user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
-                                                                )}
-                                                            </div>
-                                                            <div>
-                                                                <div className="font-black text-slate-900 leading-tight">{user?.name}</div>
-                                                                <div className="text-xs text-slate-500 font-bold tracking-tight">{user?.email}</div>
-                                                            </div>
-                                                        </div>
-                                                        <svg className={`w-5 h-5 text-slate-400 transition-transform ${mobileProfileOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </button>
+              {/* Mobile nav links */}
+              <div className="flex-1 p-4 space-y-1">
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 text-body-md font-semibold text-ink-primary hover:bg-surface-secondary rounded-xl transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
-                                            {mobileProfileOpen && (
-                                                <div className="space-y-1 py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                                                    <Link
-                                                        href={`/users/${user?.id}`}
-                                                        onClick={() => setIsOpen(false)}
-                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                                    >
-                                                        My Profile
-                                                    </Link>
-                                                    <Link
-                                                        href="/settings"
-                                                        onClick={() => setIsOpen(false)}
-                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                                    >
-                                                        Settings
-                                                    </Link>
-                                                    <Link
-                                                        href="/dashboard"
-                                                        onClick={() => setIsOpen(false)}
-                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                                    >
-                                                        Dashboard
-                                                    </Link>
-                                                    <Link
-                                                        href="/dashboard/messages"
-                                                        onClick={() => setIsOpen(false)}
-                                                        className="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-teal-50 hover:text-teal-700 transition-all flex items-center gap-3"
-                                                    >
-                                                        Messages
-                                                    </Link>
-                                                    {user?.role === 'admin' && (
-                                                        <Link
-                                                            href="/admin"
-                                                            onClick={() => setIsOpen(false)}
-                                                            className="px-6 py-3 rounded-xl text-sm font-bold text-teal-600 bg-teal-50/50 hover:bg-teal-50 transition-all flex items-center gap-3"
-                                                        >
-                                                            Admin Panel
-                                                        </Link>
-                                                    )}
-                                                    {user?.role === 'user' && (
-                                                        <Link
-                                                            href="/become-vendor"
-                                                            onClick={() => setIsOpen(false)}
-                                                            className="px-6 py-3 rounded-xl text-sm font-bold text-orange-600 bg-orange-50/50 hover:bg-orange-50 transition-all flex items-center gap-3"
-                                                        >
-                                                            Become a Vendor/Host
-                                                        </Link>
-                                                    )}
-                                                    <button
-                                                        onClick={() => {
-                                                            handleLogout();
-                                                            setIsOpen(false);
-                                                        }}
-                                                        className="w-full text-left px-6 py-3 rounded-xl text-sm font-bold text-rose-500 hover:bg-rose-50 flex items-center gap-3"
-                                                    >
-                                                        Log out
-                                                    </button>
-                                                </div>
-                                            )}
+                <div className="my-3 border-t border-border-primary" />
+                <div className="px-4 py-2 text-caption-xs text-ink-tertiary">Marketplace Hubs</div>
 
-                                            <Link
-                                                href="/start"
-                                                onClick={() => setIsOpen(false)}
-                                                className="block px-4 py-4 rounded-2xl text-base font-black bg-teal-600 text-white text-center shadow-lg shadow-teal-100 active:scale-95 transition-transform"
-                                            >
-                                                + Start Something
-                                            </Link>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Link
-                                                href="/login"
-                                                onClick={() => setIsOpen(false)}
-                                                className="block px-4 py-4 rounded-xl text-base font-bold text-slate-700 hover:bg-slate-50 text-center border-2 border-slate-100"
-                                            >
-                                                Log in
-                                            </Link>
-                                            <Link
-                                                href="/register"
-                                                onClick={() => setIsOpen(false)}
-                                                className="block px-4 py-4 rounded-2xl text-base font-black bg-teal-600 text-white text-center shadow-lg shadow-teal-100 active:scale-95 transition-transform"
-                                            >
-                                                Join IslandHub
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
+                {EXPLORE_HUBS.filter(h => h.group === 'Marketplace').map((hub) => (
+                  <Link
+                    key={hub.href}
+                    href={hub.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary rounded-xl transition-colors"
+                  >
+                    <span>{hub.emoji}</span>
+                    {hub.label}
+                  </Link>
+                ))}
+
+                <div className="my-3 border-t border-border-primary" />
+                <div className="px-4 py-2 text-caption-xs text-ink-tertiary">Explore</div>
+
+                {EXPLORE_HUBS.filter(h => h.group !== 'Marketplace').map((hub) => (
+                  <Link
+                    key={hub.href}
+                    href={hub.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary rounded-xl transition-colors"
+                  >
+                    <span>{hub.emoji}</span>
+                    {hub.label}
+                  </Link>
+                ))}
+
+                <div className="my-3 border-t border-border-primary" />
+                <Link
+                  href="/store/ibt-solutions"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-brand-600 hover:bg-brand-50 rounded-xl transition-colors"
+                >
+                  <span>⚡</span>
+                  IBT Solutions
+                </Link>
+              </div>
+
+              {/* Mobile auth area */}
+              <div className="p-4 border-t border-border-primary shrink-0 space-y-3">
+                {mounted && (
+                  isAuthenticated ? (
+                    <>
+                      <div className="flex items-center gap-3 px-2">
+                        <div className="w-10 h-10 rounded-full bg-accent-100 flex items-center justify-center text-accent-700 font-bold text-sm overflow-hidden">
+                          {user?.avatar_url ? (
+                            <img src={getImageUrl(user.avatar_url)} alt="" className="w-full h-full object-cover" />
+                          ) : (
+                            user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
+                          )}
                         </div>
-                    </div>
-                )
-            }
+                        <div>
+                          <div className="text-body-sm font-bold text-ink-primary">{user?.name}</div>
+                          <div className="text-caption text-ink-tertiary">{user?.email}</div>
+                        </div>
+                      </div>
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"
+                      >
+                        Dashboard
+                      </Link>
+                      {user?.role === 'admin' && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setMobileOpen(false)}
+                          className="block w-full px-4 py-3 text-body-sm font-bold text-accent-600 bg-accent-50 rounded-xl text-center hover:bg-accent-100 transition-colors"
+                        >
+                          Admin Panel
+                        </Link>
+                      )}
+                      <button
+                        onClick={() => { handleLogout(); setMobileOpen(false); }}
+                        className="w-full px-4 py-3 text-body-sm font-semibold text-coral-600 bg-coral-50 rounded-xl text-center hover:bg-coral-100 transition-colors"
+                      >
+                        Log out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary border border-border-primary rounded-xl text-center hover:bg-surface-secondary transition-colors"
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        href="/register"
+                        onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl text-center shadow-sm"
+                      >
+                        Join IslandHub
+                      </Link>
+                    </>
+                  )
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
-            {/* Cart Drawer */}
-            <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
-        </nav >
-    );
+      {/* Cart Drawer */}
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+    </>
+  );
 }
