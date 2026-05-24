@@ -14,6 +14,36 @@
  */
 
 :root {
+  /* ── Backward-compatible aliases (for old theme-helpers.ts) ── */
+  --background-primary: var(--surface-primary);
+  --background-secondary: var(--surface-secondary);
+  --background-tertiary: var(--surface-tertiary);
+  --background-inverse: #0f172a;
+  --text-primary: var(--ink-primary);
+  --text-secondary: var(--ink-secondary);
+  --text-tertiary: var(--ink-tertiary);
+  --text-inverse: var(--ink-inverse);
+  --border-primary: var(--border-primary);
+  --border-secondary: var(--border-secondary);
+  --border-tertiary: var(--border-tertiary);
+  --accent-primary: var(--accent-500);
+  --accent-secondary: var(--accent-600);
+  --accent-muted: var(--accent-300);
+  --danger-primary: var(--danger-500);
+  --danger-secondary: var(--danger-600);
+  --success-primary: var(--success-500);
+  --success-secondary: var(--success-600);
+  --warning-primary: var(--warning-500);
+  --warning-secondary: var(--warning-600);
+  --shadow-color: rgba(15, 23, 42, 0.08);
+  --shadow-color-lg: rgba(15, 23, 42, 0.12);
+  --card-bg: var(--surface-elevated);
+  --card-border: var(--border-primary);
+  --input-bg: var(--surface-primary);
+  --input-border: var(--border-primary);
+  --input-focus-ring: rgba(6, 182, 212, 0.15);
+  --overlay-bg: rgba(2, 6, 23, 0.5);
+
   /* ── Identity ── */
   --brand-50: #f0f9ff;
   --brand-100: #e0f2fe;
@@ -119,6 +149,29 @@
   --shadow-inner: inset 0 2px 4px rgba(2, 6, 23, 0.06);
   --shadow-brand: 0 0 0 3px rgba(6, 182, 212, 0.15);
 
+  /* ── Backward-compatible aliases (for old theme-helpers.ts) ── */
+  --background-primary: var(--surface-primary);
+  --background-secondary: var(--surface-secondary);
+  --background-tertiary: var(--surface-tertiary);
+  --background-inverse: #0f172a;
+  --text-primary: var(--ink-primary);
+  --text-secondary: var(--ink-secondary);
+  --text-tertiary: var(--ink-tertiary);
+  --text-inverse: var(--ink-inverse);
+  --accent-primary: var(--accent-500);
+  --accent-secondary: var(--accent-600);
+  --accent-muted: var(--accent-300);
+  --danger-primary: var(--danger-500);
+  --danger-secondary: var(--danger-600);
+  --success-primary: var(--success-500);
+  --success-secondary: var(--success-600);
+  --warning-primary: var(--warning-500);
+  --warning-secondary: var(--warning-600);
+  --card-bg: var(--surface-elevated);
+  --input-bg: var(--surface-primary);
+  --input-focus-ring: rgba(6, 182, 212, 0.15);
+  --overlay-bg: rgba(2, 6, 23, 0.5);
+
   /* ── Typography ── */
   --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
@@ -150,12 +203,14 @@
    Volcanic dark surfaces with warm ink
    ══════════════════════════════════════ */
 .dark {
+  /* ── Dark Theme Surfaces ── */
   --surface-primary: #0f172a;
   --surface-secondary: #1e293b;
   --surface-tertiary: #334155;
   --surface-elevated: #1e293b;
   --surface-overlay: rgba(0, 0, 0, 0.7);
 
+  /* ── Dark Theme Ink (text) ── */
   --ink-primary: #f1f5f9;
   --ink-secondary: #cbd5e1;
   --ink-tertiary: #64748b;
@@ -163,12 +218,14 @@
   --ink-brand: #38bdf8;
   --ink-accent: #22d3ee;
 
+  /* ── Dark Theme Borders ── */
   --border-primary: #1e293b;
   --border-secondary: #334155;
   --border-tertiary: #475569;
   --border-accent: #0891b2;
   --border-brand: #0284c7;
 
+  /* ── Shadows (dark) ── */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -177,6 +234,29 @@
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.6);
   --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-brand: 0 0 0 3px rgba(6, 182, 212, 0.25);
+
+  /* ── Backward-compatible aliases ── */
+  --background-primary: var(--surface-primary);
+  --background-secondary: var(--surface-secondary);
+  --background-tertiary: var(--surface-tertiary);
+  --background-inverse: #f8fafc;
+  --text-primary: var(--ink-primary);
+  --text-secondary: var(--ink-secondary);
+  --text-tertiary: var(--ink-tertiary);
+  --text-inverse: var(--ink-inverse);
+  --accent-primary: var(--accent-500);
+  --accent-secondary: var(--accent-600);
+  --accent-muted: var(--accent-300);
+  --danger-primary: var(--danger-500);
+  --danger-secondary: var(--danger-600);
+  --success-primary: var(--success-500);
+  --success-secondary: var(--success-600);
+  --warning-primary: var(--warning-500);
+  --warning-secondary: var(--warning-600);
+  --card-bg: var(--surface-elevated);
+  --input-bg: var(--surface-primary);
+  --input-focus-ring: rgba(6, 182, 212, 0.25);
+  --overlay-bg: rgba(0, 0, 0, 0.7);
 }
 
 /* ══════════════════════════════════════
