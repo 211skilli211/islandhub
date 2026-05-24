@@ -30,6 +30,7 @@ const EXPLORE_HUBS = [
   { href: '/transport', label: 'Transport', emoji: '🚕', group: 'Explore' },
   { href: '/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },
   { href: '/community', label: 'Community', emoji: '🌴', group: 'Impact' },
+  { href: '/listings', label: 'Marketplace', emoji: '🏪', group: 'Marketplace' },
 ];
 
 export default function Navbar() {
