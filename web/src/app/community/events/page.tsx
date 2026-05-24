@@ -57,7 +57,7 @@ export default function EventsPage() {
 
     const getSampleEvents = (): Event[] => [
         {
-            id: 1,
+    event_id: 1,
             title: 'Island Food Festival 2026',
             description: 'Annual celebration of local cuisine featuring 50+ vendors, live cooking demos, and family activities.',
             date: '2026-03-15T11:00:00',
@@ -73,7 +73,7 @@ export default function EventsPage() {
             status: 'upcoming'
         },
         {
-            id: 2,
+    event_id: 2,
             title: 'Beach Cleanup Day',
             description: 'Join us for our monthly beach cleanup initiative. All supplies provided. Great for families!',
             date: '2026-03-20T08:00:00',
@@ -88,7 +88,7 @@ export default function EventsPage() {
             status: 'upcoming'
         },
         {
-            id: 3,
+    event_id: 3,
             title: 'Local Artists Market',
             description: 'Discover unique handcrafted goods from local artisans. Jewelry, paintings, textiles, and more.',
             date: '2026-03-22T10:00:00',
@@ -103,7 +103,7 @@ export default function EventsPage() {
             status: 'upcoming'
         },
         {
-            id: 4,
+    event_id: 4,
             title: 'Sunset Yoga on the Beach',
             description: 'Weekly yoga session as the sun sets over the ocean. All levels welcome. Bring your own mat.',
             date: '2026-03-07T17:30:00',
@@ -119,7 +119,7 @@ export default function EventsPage() {
             status: 'upcoming'
         },
         {
-            id: 5,
+    event_id: 5,
             title: 'Island Music Festival',
             description: 'Three days of live music featuring local bands and international artists.',
             date: '2026-04-10T18:00:00',
@@ -136,7 +136,7 @@ export default function EventsPage() {
             status: 'upcoming'
         },
         {
-            id: 6,
+    event_id: 6,
             title: 'Farmers Market',
             description: 'Fresh local produce, artisan breads, organic dairy, and more from local farmers.',
             date: '2026-03-08T06:00:00',
@@ -173,7 +173,7 @@ export default function EventsPage() {
         try {
             await api.post(`/events/${eventId}/rsvp`, { status });
             setEvents(events.map(e => {
-                if (e.id === eventId) {
+                if (e.event_id === eventId) {
                     return {
                         ...e,
                         user_rsvp: status,
