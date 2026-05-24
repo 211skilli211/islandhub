@@ -26,7 +26,7 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
     }
 };
 
-export const upload = multer({ storage, fileFilter, limits: { fileSize: 50 * 1024 * 1024 } });
+export const upload = multer({ storage, fileFilter, limits: { fileSize: 100 * 1024 * 1024 } });
 
 // PDF-only filter
 const pdfFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
