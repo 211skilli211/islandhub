@@ -166,7 +166,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 className={`
-                    fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50 
+                    fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50  
                     transition-all duration-300
                     ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
                 `}

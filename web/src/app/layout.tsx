@@ -14,6 +14,7 @@ import AdSpace from "@/components/advertising/AdSpace";
 import FloatingHub from "@/components/FloatingHub";
 import SessionMonitor from "@/components/SessionExpiryModal";
 import MobileAnnouncement from "@/components/MobileAnnouncement";
+import { NavbarGate, FooterGate } from "@/components/LayoutGates";
 
 const MemoizedNavbar = memo(Navbar);
 const MemoizedTextMarquee = memo(TextMarquee);
@@ -41,17 +42,21 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider>
           <CartProvider>
-            <MemoizedNavbar />
-            <MemoizedUserSync />
-            <MemoizedTextMarquee />
-            <MemoizedFloatingBanner location="global" />
-            <MobileAnnouncement />
+            <NavbarGate>
+              <MemoizedNavbar />
+              <MemoizedUserSync />
+              <MemoizedTextMarquee />
+              <MemoizedFloatingBanner location="global" />
+              <MobileAnnouncement />
+            </NavbarGate>
             {children}
             <Toaster />
             <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
             <FloatingHub />
             <SessionMonitor />
-            <MemoizedFooter />
+            <FooterGate>
+              <MemoizedFooter />
+            </FooterGate>
           </CartProvider>
         </ThemeProvider>
       </body>
