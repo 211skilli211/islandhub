@@ -77,6 +77,7 @@ import siteSettingsRoutes from './routes/siteSettingsRoutes';
 import ibtRoutes from './routes/ibtRoutes';
 import mediaRoutes from './routes/mediaRoutes';
 import { initScheduler } from './services/subscriptionScheduler';
+import configRoutes from './routes/configRoutes';
 
 const PORT = process.env.PORT || 5001;
 
@@ -163,6 +164,7 @@ app.use('/api/messaging', messagingRoutes);
 app.use('/api/bulk', bulkRoutes);
 app.use('/api/site-settings', siteSettingsRoutes);
 app.use('/api/ibt', ibtRoutes);
+app.use('/api/config', configRoutes);
 app.use('/api', advancedRoutes);
 
 // Basic Route
