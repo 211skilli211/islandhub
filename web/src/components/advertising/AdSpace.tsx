@@ -267,7 +267,6 @@ export default function AdSpace({
     const renderAdContent = () => {
         switch (template) {
             case 'sleek':
-                if (!currentAd) return null;
                 return (
                     <div className="relative h-full w-full flex items-center p-8 md:p-12 text-white overflow-hidden">
                         <BackgroundPatterns type={displayConfig.pattern} color={displayConfig.patternColor} />
@@ -277,13 +276,17 @@ export default function AdSpace({
                                 animate={{ opacity: 1, x: 0 }}
                                 className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-[8px] font-black uppercase tracking-widest mb-4 border border-white/10"
                             >
-                                Premium Offer
+                                {currentAd ? 'Premium Offer' : 'Featured'}
                             </motion.span>
-                            <h3 className="text-3xl md:text-5xl font-black italic tracking-tighter mb-4 leading-none uppercase drop-shadow-2xl">{currentAd.title}</h3>
-                            <p className="text-white/70 text-sm font-medium italic mb-6 line-clamp-2">{currentAd.description}</p>
-                            <button className="px-6 py-3 bg-white text-slate-900 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-110 transition-transform shadow-xl shadow-white/10">Explore Now</button>
+                            <h3 className="text-3xl md:text-5xl font-black italic tracking-tighter mb-4 leading-none uppercase drop-shadow-2xl">{title}</h3>
+                            <p className="text-white/70 text-sm font-medium italic mb-6 line-clamp-2">{body}</p>
+                            {displayConfig?.show_button && displayConfig?.targetLink && (
+                                <a href={displayConfig.targetLink} className="px-6 py-3 bg-white text-slate-900 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-110 transition-transform shadow-xl shadow-white/10">
+                                    {displayConfig.buttonText || 'Explore Now'}
+                                </a>
+                            )}
                         </div>
-                        {currentAd.media_url && (
+                        {currentAd?.media_url && (
                             <div className="absolute right-0 top-0 bottom-0 w-1/2 h-full opacity-40">
                                 <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover grayscale mix-blend-overlay" alt="" />
                                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.6), transparent)' }} />
@@ -292,18 +295,23 @@ export default function AdSpace({
                     </div>
                 );
             case 'glass':
-                if (!currentAd) return null;
                 return (
                     <div className="relative h-full w-full flex items-center justify-center p-6 overflow-hidden">
                         <BackgroundPatterns type={displayConfig.pattern} color={displayConfig.patternColor} />
-                        <div className="absolute inset-0">
-                            <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover blur-md opacity-40" alt="" />
-                        </div>
+                        {currentAd?.media_url && (
+                            <div className="absolute inset-0">
+                                <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover blur-md opacity-40" alt="" />
+                            </div>
+                        )}
                         <div className="relative z-10 w-full max-w-lg p-10 bg-white/5 backdrop-blur-2xl rounded-[3rem] border border-white/10 text-center text-white shadow-2xl">
-                            <h3 className="text-2xl md:text-4xl font-black italic tracking-tighter mb-2 leading-tight uppercase drop-shadow-xl">{currentAd.title}</h3>
-                            <p className="text-white/70 text-[10px] font-black uppercase tracking-[0.2em] mb-6 opacity-70 italic">{currentAd.description}</p>
+                            <h3 className="text-2xl md:text-4xl font-black italic tracking-tighter mb-2 leading-tight uppercase drop-shadow-xl">{title}</h3>
+                            <p className="text-white/70 text-[10px] font-black uppercase tracking-[0.2em] mb-6 opacity-70 italic">{body}</p>
                             <div className="w-16 h-1 bg-white/20 mx-auto rounded-full mb-8" />
-                            <button className="px-8 py-3 border border-white/20 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-slate-900 transition-all">Discover</button>
+                            {displayConfig?.show_button && displayConfig?.targetLink && (
+                                <a href={displayConfig.targetLink} className="px-8 py-3 border border-white/20 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-slate-900 transition-all">
+                                    {displayConfig.buttonText || 'Discover'}
+                                </a>
+                            )}
                         </div>
                     </div>
                 );
@@ -311,33 +319,45 @@ export default function AdSpace({
                 if (!currentAd) return null;
                 return currentAd.media_urls ? <TrellisLayout urls={currentAd.media_urls} /> : null;
             case 'minimal':
-                if (!currentAd) return null;
                 return (
                     <div className="relative h-full w-full flex items-center gap-6 p-6 px-10">
-                        <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20">
-                            <img src={getImageUrl(currentAd.thumbnail_url || currentAd.media_url)} className="w-10 h-10 object-contain rounded-lg" alt="" />
+                        <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 shrink-0">
+                            {currentAd?.thumbnail_url || currentAd?.media_url ? (
+                                <img src={getImageUrl(currentAd.thumbnail_url || currentAd.media_url)} className="w-10 h-10 object-contain rounded-lg" alt="" />
+                            ) : (
+                                <span className="text-lg">🏝️</span>
+                            )}
                         </div>
-                        <div className="flex-1">
-                            <h3 className="text-lg md:text-2xl font-black italic text-white uppercase tracking-tighter leading-none">{currentAd.title}</h3>
-                            <p className="text-white/60 text-[10px] uppercase font-black tracking-widest mt-1">{currentAd.description}</p>
+                        <div className="flex-1 min-w-0">
+                            <h3 className="text-lg md:text-2xl font-black italic text-white uppercase tracking-tighter leading-none truncate">{title}</h3>
+                            <p className="text-white/60 text-[10px] uppercase font-black tracking-widest mt-1 truncate">{body}</p>
                         </div>
-                        <div className="px-4 py-2 border border-white/20 rounded-full text-white text-[9px] font-black uppercase tracking-widest">View</div>
+                        {displayConfig?.show_button && displayConfig?.targetLink && (
+                            <a href={displayConfig.targetLink} className="px-4 py-2 border border-white/20 rounded-full text-white text-[9px] font-black uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0">
+                                {displayConfig.buttonText || 'View'}
+                            </a>
+                        )}
                     </div>
                 );
             case 'portrait':
-                if (!currentAd) return null;
                 return (
                     <div className="relative h-full w-full flex flex-col p-8 text-white overflow-hidden group">
                         <BackgroundPatterns type={displayConfig.pattern} color={displayConfig.patternColor} />
-                        <div className="absolute inset-0 z-0 scale-110 group-hover:scale-100 transition-transform duration-[2s]">
-                            <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000" alt="" />
-                            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/90" />
-                        </div>
+                        {currentAd?.media_url && (
+                            <div className="absolute inset-0 z-0 scale-110 group-hover:scale-100 transition-transform duration-[2s]">
+                                <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000" alt="" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/90" />
+                            </div>
+                        )}
                         <div className="relative z-10 mt-auto flex flex-col gap-3">
                             <span className="inline-block w-fit px-2 py-0.5 bg-white/10 backdrop-blur-md rounded text-[7px] font-black uppercase tracking-[0.2em] mb-1 border border-white/10">Limited Spot</span>
-                            <h3 className="text-2xl font-black italic tracking-tighter leading-none uppercase drop-shadow-lg">{currentAd.title}</h3>
-                            <p className="text-white/50 text-[10px] font-medium leading-tight mb-4 line-clamp-3 opacity-80">{currentAd.description}</p>
-                            <button className="w-full py-3 bg-white text-slate-900 rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-teal-50 hover:scale-105 transition-all shadow-xl shadow-black/20">View Details</button>
+                            <h3 className="text-2xl font-black italic tracking-tighter leading-none uppercase drop-shadow-lg">{title}</h3>
+                            <p className="text-white/50 text-[10px] font-medium leading-tight mb-4 line-clamp-3 opacity-80">{body}</p>
+                            {displayConfig?.show_button && displayConfig?.targetLink && (
+                                <a href={displayConfig.targetLink} className="w-full py-3 bg-white text-slate-900 rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-teal-50 hover:scale-105 transition-all shadow-xl shadow-black/20 text-center">
+                                    {displayConfig.buttonText || 'View Details'}
+                                </a>
+                            )}
                         </div>
                     </div>
                 );
@@ -348,8 +368,8 @@ export default function AdSpace({
             default:
                 return (
                     <>
-                        {/* Default/Background Content if no template match or standard */}
-                        {mediaType === 'video' ? (
+                        {/* Background media (from ad or space config) */}
+                        {mediaType === 'video' && mediaUrl ? (
                             <video
                                 src={mediaUrl}
                                 autoPlay
@@ -376,19 +396,34 @@ export default function AdSpace({
                         ) : null}
 
                         {/* Overlay with title/description */}
-                        {title && (
+                        {(title || body) && (
                             <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6 ${displayConfig?.textAlign === 'center' ? 'text-center' : ''}`}>
-                                <h3 className="text-white font-black text-lg md:text-xl italic tracking-tighter uppercase" style={{ fontSize: displayConfig.titleSize ? `${displayConfig.titleSize}px` : undefined }}>{title}</h3>
+                                {title && (
+                                    <h3 className="text-white font-black text-lg md:text-xl italic tracking-tighter uppercase" style={{ fontSize: displayConfig.titleSize ? `${displayConfig.titleSize}px` : undefined }}>{title}</h3>
+                                )}
                                 {body && (
                                     <p className="text-white/80 text-[10px] md:text-xs font-medium mt-1 line-clamp-1 uppercase tracking-widest italic opacity-60">
                                         {body}
                                     </p>
                                 )}
+                                {displayConfig?.show_button && displayConfig?.targetLink && (
+                                    <a
+                                        href={displayConfig.targetLink}
+                                        className="inline-block mt-3 px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-105"
+                                        style={{
+                                            backgroundColor: displayConfig.buttonBgColor || '#0d9488',
+                                            color: displayConfig.buttonTextColor || '#ffffff',
+                                            border: displayConfig.buttonStyle === 'outline' ? '2px solid currentColor' : 'none'
+                                        }}
+                                    >
+                                        {displayConfig.buttonText || 'Learn More'}
+                                    </a>
+                                )}
                             </div>
                         )}
 
-                        {/* Optional CTA Link overlay if it's a default banner with a link */}
-                        {!currentAd && displayConfig?.targetLink && (
+                        {/* Optional CTA Link overlay for default banner */}
+                        {!currentAd && displayConfig?.targetLink && !displayConfig?.show_button && (
                             <a href={displayConfig.targetLink} className="absolute inset-0 z-20" />
                         )}
                     </>

@@ -137,6 +137,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
             {/* Service Catalogue */}
             <div id="catalog" className="max-w-7xl mx-auto px-4 md:px-6 pt-8">
                 <PromotionBanner storeId={store.store_id || store.id} />
+                <AdSpace spaceName="vendor_store_banner" className="h-20 md:h-28 my-6 rounded-xl overflow-hidden shadow-sm" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
