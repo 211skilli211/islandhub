@@ -1,11 +1,11 @@
 'use client';
-// refresh
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
+import { Search, Users, Calendar, Lock, Globe, Plus, MessageCircle, MapPin, ChevronRight } from 'lucide-react';
 
 interface Group {
     id: number;
@@ -17,16 +17,18 @@ interface Group {
     post_count: number;
     is_member: boolean;
     created_at: string;
+    category?: string;
 }
 
 const categories = [
     { id: 'all', name: 'All Groups', icon: '🌟' },
     { id: 'food', name: 'Food & Dining', icon: '🍽️' },
-    { id: 'activities', name: 'Beach Activities', icon: '🏖️' },
-    { id: 'events', name: 'Local Events', icon: '🎉' },
+    { id: 'activities', name: 'Activities', icon: '🏖️' },
+    { id: 'events', name: 'Events', icon: '🎉' },
     { id: 'business', name: 'Business', icon: '💼' },
     { id: 'sports', name: 'Sports', icon: '⚽' },
-    { id: 'arts', name: 'Arts & Culture', icon: '🎨' },
+    { id: 'arts', name: 'Arts', icon: '🎨' },
+    { id: 'community', name: 'Community', icon: '🌴' },
 ];
 
 export default function GroupsPage() {
@@ -37,94 +39,29 @@ export default function GroupsPage() {
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
-        const fetchGroups = async () => {
-            setIsLoading(true);
-            try {
-                const params = new URLSearchParams();
-                if (selectedCategory !== 'all') params.append('category', selectedCategory);
-                params.append('limit', '20');
-
-                const response = await api.get(`/groups?${params.toString()}`);
-                setGroups(response.data || response || []);
-            } catch (error) {
-                console.error('Failed to fetch groups:', error);
-                // Sample data for demo
-                setGroups(getSampleGroups());
-            } finally {
-                setIsLoading(false);
-            }
-        };
         fetchGroups();
     }, [selectedCategory]);
 
-    const getSampleGroups = (): Group[] => [
-        {
-            id: 1,
-            name: 'Island Foodies',
-            description: 'Share recipes, discover local restaurants, and connect with food lovers across the island.',
-            cover_image_url: '',
-            privacy: 'public',
-            member_count: 1250,
-            post_count: 342,
-            is_member: false,
-            created_at: '2025-06-15'
-        },
-        {
-            id: 2,
-            name: 'Water Sports Enthusiasts',
-            description: 'From surfing to diving, share your aquatic adventures and find new spots to explore.',
-            cover_image_url: '',
-            privacy: 'public',
-            member_count: 890,
-            post_count: 156,
-            is_member: true,
-            created_at: '2025-08-20'
-        },
-        {
-            id: 3,
-            name: 'Local Business Network',
-            description: 'Connect with local entrepreneurs, share tips, and grow your island business together.',
-            cover_image_url: '',
-            privacy: 'public',
-            member_count: 567,
-            post_count: 89,
-            is_member: false,
-            created_at: '2025-10-01'
-        },
-        {
-            id: 4,
-            name: 'Beach Cleanup Crew',
-            description: 'Join our monthly beach cleanup events and help keep our shores beautiful.',
-            cover_image_url: '',
-            privacy: 'public',
-            member_count: 234,
-            post_count: 45,
-            is_member: false,
-            created_at: '2025-11-10'
-        },
-        {
-            id: 5,
-            name: 'Island Artists Collective',
-            description: 'Showcase your art, collaborate with fellow creators, and celebrate island culture.',
-            cover_image_url: '',
-            privacy: 'public',
-            member_count: 345,
-            post_count: 78,
-            is_member: false,
-            created_at: '2025-12-05'
-        },
-        {
-            id: 6,
-            name: 'Real Estate & Rentals',
-            description: 'Find your dream home or list your property. Connect with trusted agents and landlords.',
-            cover_image_url: '',
-            privacy: 'private',
-            member_count: 678,
-            post_count: 123,
-            is_member: false,
-            created_at: '2026-01-01'
-        }
-    ];
+    const fetchGroups = async () => {
+        setIsLoading(true);
+        try {
+            const params = new URLSearchParams();
+            if (selectedCategory !== 'all') params.append('category', selectedCategory);
+            params.append('limit', '20');
+            const response = await api.get(`/groups?${params.toString()}`);
+            setGroups(response.data || response || []);
+        } catch {
+            // Fallback sample data
+            setGroups([
+                { id: 1, name: 'Island Foodies', description: 'Share recipes, discover local restaurants, and connect with food lovers across the island.', cover_image_url: '', privacy: 'public', member_count: 1250, post_count: 342, is_member: false, created_at: '2025-06-15', category: 'food' },
+                { id: 2, name: 'Water Sports Enthusiasts', description: 'From surfing to diving, share your aquatic adventures and find new spots.', cover_image_url: '', privacy: 'public', member_count: 890, post_count: 156, is_member: true, created_at: '2025-08-20', category: 'activities' },
+                { id: 3, name: 'Local Business Network', description: 'Connect with local entrepreneurs, share tips, and grow your island business.', cover_image_url: '', privacy: 'public', member_count: 567, post_count: 89, is_member: false, created_at: '2025-10-01', category: 'business' },
+                { id: 4, name: 'Beach Cleanup Crew', description: 'Join monthly beach cleanup events and help keep our shores beautiful.', cover_image_url: '', privacy: 'public', member_count: 234, post_count: 45, is_member: false, created_at: '2025-11-10', category: 'community' },
+                { id: 5, name: 'Island Artists Collective', description: 'Showcase your art, collaborate with fellow creators, and celebrate island culture.', cover_image_url: '', privacy: 'public', member_count: 345, post_count: 78, is_member: false, created_at: '2025-12-05', category: 'arts' },
+                { id: 6, name: 'Real Estate & Rentals', description: 'Find your dream home or list your property with trusted agents.', cover_image_url: '', privacy: 'private', member_count: 678, post_count: 123, is_member: false, created_at: '2026-01-01', category: 'community' },
+            ]);
+        } finally { setIsLoading(false); }
+    };
 
     const filteredGroups = groups.filter(group =>
         group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -134,167 +71,111 @@ export default function GroupsPage() {
     const handleJoinGroup = async (groupId: number) => {
         try {
             await api.post(`/groups/${groupId}/join`);
-            setGroups(groups.map(g =>
-                g.id === groupId
-                    ? { ...g, is_member: true, member_count: g.member_count + 1 }
-                    : g
-            ));
-        } catch (error) {
-            console.error('Failed to join group:', error);
-        }
+            setGroups(groups.map(g => g.id === groupId ? { ...g, is_member: true, member_count: g.member_count + 1 } : g));
+        } catch { /* silent */ }
     };
 
     return (
         <main className="min-h-screen bg-slate-50">
             <HeroBackground pageKey="community" className="py-16">
-                <div className="max-w-7xl mx-auto relative z-30 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
-                    >
+                <div className="max-w-7xl mx-auto relative z-30 text-center px-4">
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10">
                         Community Groups 🌴
                     </motion.div>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter"
-                    >
-                        Join Island Communities
+                    <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
+                        Find Your People
                     </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-teal-50 text-xl max-w-2xl mx-auto mb-12 font-medium opacity-80 leading-relaxed"
-                    >
-                        Connect with people who share your interests and passions
+                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-teal-50 text-lg max-w-xl mx-auto mb-8 font-medium opacity-80">
+                        Join local groups, connect with neighbors who share your interests.
                     </motion.p>
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="relative max-w-md mx-auto">
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input type="text" placeholder="Search groups..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3.5 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 shadow-xl" />
+                    </motion.div>
                 </div>
             </HeroBackground>
 
-            <section className="max-w-7xl mx-auto px-4 py-12">
-                {/* Search and Create */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-                    <div className="relative flex-1 max-w-md">
-                        <input
-                            type="text"
-                            placeholder="Search groups..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full px-6 py-4 bg-white rounded-2xl border border-slate-200 font-medium outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
-                        />
-                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+                {/* Toolbar */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                    <div className="flex gap-2 overflow-x-auto pb-2 w-full sm:w-auto scrollbar-hide">
+                        {categories.map(cat => (
+                            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${selectedCategory === cat.id ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'}`}>
+                                <span>{cat.icon}</span>
+                                <span className="hidden sm:inline">{cat.name}</span>
+                            </button>
+                        ))}
                     </div>
-                    <button
-                        onClick={() => setShowCreateModal(true)}
-                        className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-teal-500/25 active:scale-95 transition-all"
-                    >
-                        + Create Group
+                    <button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-colors shrink-0">
+                        <Plus size={14} />
+                        Create Group
                     </button>
-                </div>
-
-                {/* Category Tabs */}
-                <div className="flex gap-3 overflow-x-auto pb-4 mb-8">
-                    {categories.map(category => (
-                        <button
-                            key={category.id}
-                            onClick={() => setSelectedCategory(category.id)}
-                            className={`px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest whitespace-nowrap transition-all ${selectedCategory === category.id
-                                ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/25'
-                                : 'bg-white text-slate-500 hover:bg-slate-100'
-                                }`}
-                        >
-                            {category.icon} {category.name}
-                        </button>
-                    ))}
                 </div>
 
                 {/* Groups Grid */}
                 {isLoading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[1, 2, 3, 4, 5, 6].map(i => (
-                            <div key={i} className="bg-white rounded-[3rem] h-80 animate-pulse">
-                                <div className="h-40 bg-slate-200 rounded-t-[3rem]"></div>
-                                <div className="p-8">
-                                    <div className="h-6 bg-slate-200 rounded w-3/4 mb-4"></div>
-                                    <div className="h-4 bg-slate-100 rounded w-full mb-2"></div>
-                                    <div className="h-4 bg-slate-100 rounded w-2/3"></div>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {[1,2,3,4,5,6].map(i => <div key={i} className="h-64 bg-slate-100 animate-pulse rounded-2xl" />)}
                     </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {filteredGroups.map((group, index) => (
-                            <motion.div
-                                key={group.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.05 }}
-                                className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-teal-500/10 transition-all group"
-                            >
-                                {/* Cover Image */}
-                                <div className="h-40 bg-gradient-to-br from-teal-400 to-teal-600 relative overflow-hidden">
-                                    {group.cover_image_url ? (
-                                        <img src={group.cover_image_url} alt={group.name} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                                            {group.privacy === 'private' ? '🔒' : group.privacy === 'invite_only' ? '👥' : '🌴'}
-                                        </div>
-                                    )}
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-black/20 backdrop-blur-sm rounded-full text-white text-[10px] font-black uppercase tracking-widest">
-                                        {group.privacy === 'public' && '🌎 Public'}
-                                        {group.privacy === 'private' && '🔒 Private'}
-                                        {group.privacy === 'invite_only' && '👥 Invite Only'}
-                                    </div>
-                                </div>
-
-                                {/* Content */}
-                                <div className="p-8">
-                                    <h3 className="text-2xl font-black text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
-                                        {group.name}
-                                    </h3>
-                                    <p className="text-slate-500 font-medium text-sm mb-6 line-clamp-2">
-                                        {group.description}
-                                    </p>
-
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex gap-4 text-xs font-bold text-slate-400">
-                                            <span>👥 {group.member_count.toLocaleString()} members</span>
-                                            <span>📝 {group.post_count} posts</span>
-                                        </div>
-                                        {group.is_member ? (
-                                            <Link
-                                                href={`/community/groups/${group.id}`}
-                                                className="px-6 py-2 bg-teal-50 text-teal-600 rounded-xl font-black text-xs uppercase tracking-widest"
-                                            >
-                                                View
-                                            </Link>
+                ) : filteredGroups.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {filteredGroups.map((group, idx) => (
+                            <motion.div key={group.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
+                                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all group h-full flex flex-col">
+                                    {/* Cover */}
+                                    <div className="h-32 bg-gradient-to-br from-teal-400 via-indigo-400 to-violet-500 relative overflow-hidden">
+                                        {group.cover_image_url ? (
+                                            <img src={group.cover_image_url} alt="" className="w-full h-full object-cover" />
                                         ) : (
-                                            <button
-                                                onClick={() => handleJoinGroup(group.id)}
-                                                className="px-6 py-2 bg-teal-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-teal-700 transition-colors"
-                                            >
-                                                Join
-                                            </button>
+                                            <div className="absolute inset-0 flex items-center justify-center text-white/30 text-6xl">
+                                                {categories.find(c => c.id === group.category)?.icon || '👥'}
+                                            </div>
                                         )}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                                        <div className="absolute top-3 right-3">
+                                            {group.privacy === 'private' ? (
+                                                <span className="flex items-center gap-1 px-2 py-1 bg-black/30 backdrop-blur-sm text-white rounded-lg text-[9px] font-bold uppercase"><Lock size={10} /> Private</span>
+                                            ) : (
+                                                <span className="flex items-center gap-1 px-2 py-1 bg-black/30 backdrop-blur-sm text-white rounded-lg text-[9px] font-bold uppercase"><Globe size={10} /> Public</span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="p-5 flex-1 flex flex-col">
+                                        <h3 className="text-base font-black text-slate-900 mb-1.5 group-hover:text-teal-600 transition-colors">{group.name}</h3>
+                                        <p className="text-xs text-slate-500 line-clamp-2 mb-4 flex-1">{group.description}</p>
+
+                                        <div className="flex items-center justify-between text-[10px] text-slate-400 mb-4">
+                                            <span className="flex items-center gap-1 font-bold"><Users size={12} /> {group.member_count.toLocaleString()} members</span>
+                                            <span className="flex items-center gap-1 font-bold"><MessageCircle size={12} /> {group.post_count} posts</span>
+                                        </div>
+
+                                        <div className="flex gap-2">
+                                            {group.is_member ? (
+                                                <Link href={`/community/groups/${group.id}`} className="flex-1 py-2.5 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest text-center hover:bg-teal-700 transition-colors">
+                                                    View Group
+                                                </Link>
+                                            ) : (
+                                                <button onClick={() => handleJoinGroup(group.id)} className="flex-1 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-colors">
+                                                    Join Group
+                                                </button>
+                                            )}
+                                            <Link href={`/community/groups/${group.id}`} className="px-3 py-2.5 bg-slate-100 rounded-xl text-slate-500 hover:bg-slate-200 transition-colors">
+                                                <ChevronRight size={14} />
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
-                )}
-
-                {filteredGroups.length === 0 && !isLoading && (
-                    <div className="text-center py-20">
-                        <p className="text-slate-400 font-medium text-lg">No groups found matching your search</p>
-                        <button
-                            onClick={() => setShowCreateModal(true)}
-                            className="mt-4 text-teal-600 font-black text-sm uppercase tracking-widest hover:underline"
-                        >
-                            Create the first one →
-                        </button>
+                ) : (
+                    <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+                        <div className="text-5xl mb-4">👥</div>
+                        <h3 className="text-lg font-black text-slate-900 mb-2">No groups found</h3>
+                        <p className="text-sm text-slate-500 mb-6">Try a different search or create a new group!</p>
+                        <button onClick={() => setShowCreateModal(true)} className="px-6 py-3 bg-teal-600 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-teal-700">Create Group</button>
                     </div>
                 )}
             </section>

@@ -233,14 +233,14 @@ export default function EventsPage() {
                 {/* Search and Create */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                     <div className="relative flex-1 max-w-md">
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                         <input
                             type="text"
                             placeholder="Search events..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full px-6 py-4 bg-white rounded-2xl border border-slate-200 font-medium outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
+                            className="w-full pl-12 pr-4 py-3.5 bg-white rounded-2xl border border-slate-200 font-medium outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
                         />
-                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
                     </div>
                     <button
                         onClick={() => setShowCreateModal(true)}
@@ -251,7 +251,7 @@ export default function EventsPage() {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex gap-3 mb-8">
+                <div className="flex gap-2 overflow-x-auto pb-2 mb-8 scrollbar-hide">
                     {(['upcoming', 'ongoing', 'past', 'all'] as FilterType[]).map(f => (
                         <button
                             key={f}
