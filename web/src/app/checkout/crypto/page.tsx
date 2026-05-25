@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
@@ -20,7 +20,7 @@ interface CryptoPayment {
     confirmations_required: number;
 }
 
-export default function CryptoCheckoutPage() {
+function CryptoCheckoutContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const paymentId = searchParams.get('payment');
@@ -72,7 +72,6 @@ export default function CryptoCheckoutPage() {
 
     const handleCoinChange = async (coin: string) => {
         setSelectedCoin(coin);
-        // Recalculate crypto amount
         try {
             const { data } = await api.post('/payments/crypto/convert', {
                 amount_xcd: payment?.amount_xcd || 0,
@@ -146,21 +145,18 @@ export default function CryptoCheckoutPage() {
     return (
         <div className="min-h-screen bg-slate-50 py-12">
             <div className="max-w-2xl mx-auto px-4">
-                {/* Header */}
                 <div className="text-center mb-8">
                     <div className="text-5xl mb-4">₿</div>
                     <h1 className="text-3xl font-bold text-slate-900 mb-2">Pay with Cryptocurrency</h1>
                     <p className="text-slate-600">Send the exact amount to the address below</p>
                 </div>
 
-                {/* Timer */}
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-center">
                     <p className="text-amber-700 font-bold">
                         ⏱ Payment expires in {minutesLeft} minute{minutesLeft !== 1 ? 's' : ''}
                     </p>
                 </div>
 
-                {/* Coin Selection */}
                 <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
                     <h2 className="text-lg font-bold text-slate-900 mb-4">Select Cryptocurrency</h2>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -184,12 +180,9 @@ export default function CryptoCheckoutPage() {
                     </div>
                 </div>
 
-                {/* Payment Details */}
                 <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
                     <h2 className="text-lg font-bold text-slate-900 mb-4">Payment Details</h2>
-
                     <div className="space-y-4">
-                        {/* Amount */}
                         <div className="flex justify-between items-center p-4 bg-slate-50 rounded-xl">
                             <div>
                                 <p className="text-sm text-slate-500">Amount (XCD)</p>
@@ -201,19 +194,16 @@ export default function CryptoCheckoutPage() {
                             </div>
                         </div>
 
-                        {/* Exchange Rate */}
                         <div className="flex justify-between text-sm text-slate-500">
                             <span>Exchange Rate</span>
                             <span>1 XCD = {payment.exchange_rate} {payment.coin}</span>
                         </div>
 
-                        {/* Network */}
                         <div className="flex justify-between text-sm text-slate-500">
                             <span>Network</span>
                             <span>{payment.network}</span>
                         </div>
 
-                        {/* Payment Address */}
                         <div className="p-4 bg-slate-50 rounded-xl">
                             <p className="text-sm text-slate-500 mb-2">Send to this address</p>
                             <div className="flex items-center gap-2">
@@ -229,7 +219,6 @@ export default function CryptoCheckoutPage() {
                             </div>
                         </div>
 
-                        {/* QR Code placeholder */}
                         <div className="p-4 bg-slate-50 rounded-xl text-center">
                             <p className="text-sm text-slate-500 mb-2">Scan QR Code</p>
                             <div className="w-48 h-48 mx-auto bg-white rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center">
@@ -243,18 +232,16 @@ export default function CryptoCheckoutPage() {
                     </div>
                 </div>
 
-                {/* Instructions */}
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
                     <h3 className="font-bold text-blue-900 mb-2">📋 Payment Instructions</h3>
                     <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
                         <li>Open your {payment.coin} wallet</li>
                         <li>Send <strong>exactly {payment.crypto_amount} {payment.coin}</strong> to the address above</li>
                         <li>Wait for {payment.confirmations_required} blockchain confirmations</li>
-                        <li>Click "Verify Payment" below once sent</li>
+                        <li>Click &quot;Verify Payment&quot; below once sent</li>
                     </ol>
                 </div>
 
-                {/* Actions */}
                 <div className="space-y-3">
                     <button
                         onClick={handleVerifyPayment}
@@ -272,5 +259,20 @@ export default function CryptoCheckoutPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function CryptoCheckoutPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                    <h1 className="text-2xl font-bold text-slate-900 mb-2">Loading...</h1>
+                </div>
+            </div>
+        }>
+            <CryptoCheckoutContent />
+        </Suspense>
     );
 }
