@@ -199,7 +199,7 @@ export default function AdminUsersPage() {
                     { label: 'Toggle Status', action: 'toggle_status' },
                     { label: 'Delete User', action: 'delete', className: 'text-red-500' }
                 ]}
-                onRowAction={(action, id) => handleAction(action, id)}
+                onRowAction={(action, item) => handleAction(action, item.id)}
             />
         </div>
     );

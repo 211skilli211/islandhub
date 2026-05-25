@@ -155,7 +155,7 @@ export default function AdminStoresPage() {
                     { label: 'Status', action: 'toggle_status' },
                     { label: 'Delete', action: 'delete', className: 'text-red-500' }
                 ]}
-                onRowAction={(action, id) => handleAction(action, id)}
+                onRowAction={(action, item) => handleAction(action, item.id)}
             />
         </div>
     );

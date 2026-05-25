@@ -131,7 +131,7 @@ export default function AdminEventsPage() {
           { label: 'Verify Tickets', action: 'verify_tickets' },
           { label: 'Delete', action: 'delete', className: 'text-red-500' },
         ]}
-        onRowAction={(action, id) => handleAction(action, id)}
+        onRowAction={(action, item) => handleAction(action, item.id)}
       />
     </div>
   );
