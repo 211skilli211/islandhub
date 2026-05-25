@@ -97,6 +97,10 @@ export const toast = {
     const styles = getToastStyles();
     return hotToast.loading(message, { ...defaultOptions, duration: Infinity, ...opts, ...styles.loading });
   },
+  info: (message: string, opts?: ToastOptions) => {
+    const styles = getToastStyles();
+    return hotToast(message, { ...defaultOptions, ...opts, icon: 'ℹ️', style: { ...styles.loading.style, ...opts?.style } });
+  },
   promise: <T>(
     promise: Promise<T>,
     msgs: { loading: string; success: string; error: (err: any) => string },
