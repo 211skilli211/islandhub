@@ -2,6 +2,9 @@
 
 import { useMemo, useId, useEffect, useRef, useState } from 'react';
 import { SHADERS, type ShaderConfig } from './shaderRegistry';
+import WebGLFluid from './webgl/WebGLFluid';
+import WebGLParticles from './webgl/WebGLParticles';
+import { useAdaptiveShader } from './AdaptiveShader';
 
 interface ShaderBackgroundProps {
   shader: string;
@@ -27,6 +30,9 @@ export default function ShaderBackground({
   const uid = useId().replace(/:/g, '');
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+
+  // Adaptive quality for WebGL shaders
+  const { quality, particleCount, isWebGLSupported } = useAdaptiveShader(120);
 
   const cssVars = useMemo(() => ({
     '--s1': resolvedColors[0],
@@ -61,13 +67,13 @@ export default function ShaderBackground({
     };
   }, [interactive]);
 
+  // CSS shader rendering (existing system)
   const scopedCss = useMemo(() => {
-    if (!config) return '';
+    if (!config || config.webgl) return '';
     let css = config.css
       .replace(/\.shader-[a-z]+/g, `.shader-${shader}-${uid}`)
       .replace(/@keyframes\s+([a-z-]+)/g, `@keyframes $1-${uid}`);
 
-    // Apply speed multiplier to all animation durations
     if (speed !== 1) {
       css = css.replace(/(\d+(?:\.\d+)?)s\s+(ease|linear|infinite|alternate|forwards|backwards)/g, (_match, dur: string, rest: string) => {
         const newDur = (parseFloat(dur) / speed).toFixed(2);
@@ -75,7 +81,6 @@ export default function ShaderBackground({
       });
     }
 
-    // Add interactive mouse-following effect
     if (interactive) {
       css += `
         .shader-${shader}-${uid} {
@@ -93,8 +98,39 @@ export default function ShaderBackground({
     return css;
   }, [config, shader, uid, speed, interactive]);
 
-  const wrapperClass = config ? `shader-${shader}-${uid}` : '';
+  const wrapperClass = config && !config.webgl ? `shader-${shader}-${uid}` : '';
 
+  // Render WebGL shader
+  if (config?.webgl && isWebGLSupported) {
+    if (config.webglType === 'particles') {
+      return (
+        <div ref={containerRef} className={`relative overflow-hidden ${className}`} style={{ opacity }}>
+          <WebGLParticles
+            colors={resolvedColors}
+            count={particleCount}
+            interactive={interactive}
+            speed={speed}
+          />
+          {children}
+        </div>
+      );
+    }
+
+    // Default: fluid shader
+    return (
+      <div ref={containerRef} className={`relative overflow-hidden ${className}`} style={{ opacity }}>
+        <WebGLFluid
+          colors={resolvedColors}
+          interactive={interactive}
+          speed={speed}
+          quality={quality}
+        />
+        {children}
+      </div>
+    );
+  }
+
+  // CSS shader rendering (fallback)
   return (
     <div
       ref={containerRef}
