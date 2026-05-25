@@ -10,34 +10,19 @@ function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
+import { QRCodeSVG } from 'qrcode.react';
+
 function QRDisplay({ token }: { token: string }) {
-  // Render QR code as a visual pattern using the token
-  // Since we can't use the qrcode library without npm install, we render a styled placeholder
-  // that includes the token as a data attribute for the backend verification
   return (
     <div className="bg-white p-4 rounded-xl inline-block">
-      <div className="w-40 h-40 bg-slate-900 rounded-lg flex items-center justify-center relative overflow-hidden">
-        {/* QR-like pattern using CSS grid */}
-        <div className="absolute inset-2 grid grid-cols-8 grid-rows-8 gap-0.5">
-          {Array.from({ length: 64 }).map((_, i) => {
-            // Use token to deterministically generate pattern
-            const charCode = token.charCodeAt(i % token.length);
-            const isFilled = (charCode + i) % 3 !== 0;
-            return (
-              <div
-                key={i}
-                className={`rounded-[1px] ${isFilled ? 'bg-white' : 'bg-slate-900'}`}
-              />
-            );
-          })}
-        </div>
-        {/* Center logo */}
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
-            <span className="text-white text-lg font-black">IH</span>
-          </div>
-        </div>
-      </div>
+      <QRCodeSVG
+        value={token}
+        size={160}
+        level="H"
+        includeMargin={false}
+        bgColor="#ffffff"
+        fgColor="#0f172a"
+      />
       <p className="text-center text-[10px] text-slate-400 mt-2 font-mono">{token.slice(0, 16)}...</p>
     </div>
   );
