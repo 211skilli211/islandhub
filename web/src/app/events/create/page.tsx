@@ -177,6 +177,8 @@ export default function CreateEventPage() {
     }
     setStep(targetStep);
   };
+
+  return (
     <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
