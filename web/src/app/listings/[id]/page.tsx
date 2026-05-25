@@ -64,8 +64,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             description: listing.description?.slice(0, 200),
             images: [ogImage],
             type: 'website',
-            site_name: 'IslandHub Marketplace',
-            locale: 'en_KN',
+            siteName: 'IslandHub Marketplace',
             url: `https://islandhub.app/listings/${listing.slug || id}`,
         },
         twitter: {
