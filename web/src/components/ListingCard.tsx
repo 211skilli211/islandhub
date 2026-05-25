@@ -41,7 +41,7 @@ interface Listing {
 interface ListingCardProps {
     listing: Listing;
     onClick?: () => void;
-    layout?: 'default' | 'compact';
+    layout?: 'default' | 'compact' | 'grid' | 'list';
 }
 
 const ListingCardComponent = function ListingCard({ listing, onClick, layout = 'default' }: ListingCardProps) {
@@ -199,6 +199,78 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
             </div>
         );
     };
+
+    // List layout
+    if (layout === 'list') {
+        return (
+            <CardWrapper>
+                <div className="flex items-center gap-4 p-3 sm:p-4">
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0">
+                        <img
+                            src={imageUrl || '/assets/placeholder-listing.png'}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            alt={listing.title}
+                        />
+                        {listing.is_promoted && (
+                            <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-amber-400 text-white rounded text-[7px] font-black uppercase">★</span>
+                        )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                                <h3 className="text-sm sm:text-base font-black text-slate-900 leading-tight group-hover:text-teal-600 transition-colors truncate">
+                                    {title}
+                                </h3>
+                                <p className="text-[10px] sm:text-xs text-slate-500 font-medium line-clamp-1 mt-0.5">
+                                    {listing.description}
+                                </p>
+                            </div>
+                            <div className="text-right shrink-0">
+                                {renderPriceOrGoal()}
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2 mt-1.5">
+                            <TypeBadge type={type} />
+                            {listing.shop_name && (
+                                <span className="text-[9px] font-bold text-slate-400 truncate">by {listing.shop_name}</span>
+                            )}
+                            {location && (
+                                <span className="text-[9px] text-teal-600 font-medium">📍 {location}</span>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </CardWrapper>
+        );
+    }
+
+    // Grid layout (compact grid for catalogue)
+    if (layout === 'grid') {
+        return (
+            <CardWrapper>
+                <div className="relative aspect-square overflow-hidden">
+                    <img
+                        src={imageUrl || '/assets/placeholder-listing.png'}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        alt={listing.title}
+                    />
+                    {listing.is_promoted && (
+                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-amber-400 text-white rounded text-[8px] font-black uppercase shadow">★</span>
+                    )}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
+                </div>
+                <div className="p-3 sm:p-4">
+                    <h3 className="text-xs sm:text-sm font-black text-slate-900 leading-tight group-hover:text-teal-600 transition-colors line-clamp-2 mb-1">
+                        {title}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                        {renderPriceOrGoal()}
+                        <TypeBadge type={type} />
+                    </div>
+                </div>
+            </CardWrapper>
+        );
+    }
 
     return (
         <CardWrapper>
