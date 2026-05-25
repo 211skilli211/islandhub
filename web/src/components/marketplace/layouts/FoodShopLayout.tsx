@@ -6,7 +6,7 @@ import ListingCard from '@/components/ListingCard';
 import ReviewSection from '@/components/ReviewSection';
 import api, { getImageUrl } from '@/lib/api';
 import { BadgeList } from '../BadgeSelector';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import KitchenSidebar from '../KitchenSidebar';
 import FoodSelectionModal from '../FoodSelectionModal';
 import ServiceBookingModal from '../ServiceBookingModal';
@@ -25,6 +25,18 @@ interface StoreProps {
 const PLACEHOLDER_LOGO = '/placeholders/logo-placeholder.png';
 const PLACEHOLDER_HERO = '/placeholders/food-hero.jpg';
 
+// Dietary badge config for menu items
+const DIETARY_BADGES: Record<string, { label: string; emoji: string; color: string; darkColor: string }> = {
+    vegan: { label: 'Vegan', emoji: '🌱', color: 'bg-green-100 text-green-700 border-green-200', darkColor: 'dark:bg-green-900/40 dark:text-green-300 dark:border-green-700' },
+    vegetarian: { label: 'Vegetarian', emoji: '🥬', color: 'bg-lime-100 text-lime-700 border-lime-200', darkColor: 'dark:bg-lime-900/40 dark:text-lime-300 dark:border-lime-700' },
+    gf: { label: 'Gluten-Free', emoji: '🌾', color: 'bg-amber-100 text-amber-700 border-amber-200', darkColor: 'dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700' },
+    gluten_free: { label: 'Gluten-Free', emoji: '🌾', color: 'bg-amber-100 text-amber-700 border-amber-200', darkColor: 'dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700' },
+    halal: { label: 'Halal', emoji: '☪️', color: 'bg-teal-100 text-teal-700 border-teal-200', darkColor: 'dark:bg-teal-900/40 dark:text-teal-300 dark:border-teal-700' },
+    spicy: { label: 'Spicy', emoji: '🌶️', color: 'bg-red-100 text-red-700 border-red-200', darkColor: 'dark:bg-red-900/40 dark:text-red-300 dark:border-red-700' },
+    df: { label: 'Dairy-Free', emoji: '🥛', color: 'bg-blue-100 text-blue-700 border-blue-200', darkColor: 'dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700' },
+    dairy_free: { label: 'Dairy-Free', emoji: '🥛', color: 'bg-blue-100 text-blue-700 border-blue-200', darkColor: 'dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700' },
+};
+
 export const FoodShopLayout = ({ store, listings }: StoreProps) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('All');
@@ -33,12 +45,36 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const [hoveredItem, setHoveredItem] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [fabOpen, setFabOpen] = useState(false);
+    const [aboutOpen, setAboutOpen] = useState(false);
 
     const isSoupKitchen = store.slug === 'soup-kitchen' || store.subtype?.includes('community') || store.business_name.toLowerCase().includes('soup');
     const brandingColor = store.branding_color || '#14b8a6';
     const secondaryColor = store.secondary_color || '#0f172a';
 
     const { sections: siteSections } = useStoreSections(store.store_id || store.id);
+
+    // Refs for scroll fade detection
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [showLeftFade, setShowLeftFade] = useState(false);
+    const [showRightFade, setShowRightFade] = useState(true);
+
+    const handleScrollFade = () => {
+        const el = scrollContainerRef.current;
+        if (!el) return;
+        setShowLeftFade(el.scrollLeft > 8);
+        setShowRightFade(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+    };
+
+    useEffect(() => {
+        const el = scrollContainerRef.current;
+        if (el) {
+            el.addEventListener('scroll', handleScrollFade, { passive: true });
+            // Initial check
+            handleScrollFade();
+            return () => el.removeEventListener('scroll', handleScrollFade);
+        }
+    }, [menu]);
 
     useEffect(() => {
         const fetchMenu = async () => {
@@ -64,17 +100,133 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
         ? menu
         : menu.filter(section => section.name === activeTab);
 
+    const hasMenuItems = menu.length > 0;
+
+    // FAB action handlers
+    const handleCall = () => {
+        if (store.phone || store.contact_phone) {
+            window.location.href = `tel:${store.phone || store.contact_phone}`;
+        } else {
+            window.location.href = `tel:${store.user_phone || ''}`;
+        }
+    };
+
+    const handleDirections = () => {
+        const addr = store.business_address || store.location || store.name;
+        const encoded = encodeURIComponent(addr || '');
+        window.open(`https://www.google.com/maps/search/?api=1&query=${encoded}`, '_blank');
+    };
+
+    const handleShare = async () => {
+        const shareData = {
+            title: store.business_name || store.name,
+            text: store.description || store.bio || `Check out ${store.business_name} on IslandHub`,
+            url: window.location.href,
+        };
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch {
+                // User cancelled
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+            } catch {
+                // clipboard failed
+            }
+        }
+    };
+
+    const handleCart = () => {
+        setSidebarOpen(true);
+    };
+
     return (
-        <div className="bg-white min-h-screen font-sans">
-            {/* Kitchen Hub Toggle */}
-            <button
-                onClick={() => setSidebarOpen(true)}
-                className="fixed right-6 top-28 z-50 p-3 bg-slate-900 text-white rounded-full shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all group flex items-center gap-2 border-2 border-white"
-                title="Open Kitchen Hub"
-            >
-                <span className="text-lg">👨‍🍳</span>
-                <span className="text-xs font-medium hidden group-hover:inline pr-1">Kitchen Hub</span>
-            </button>
+        <div className="bg-white dark:bg-[var(--surface-primary)] min-h-screen font-sans transition-colors duration-300">
+
+            {/* ═══ Floating Action Bar (replaces Kitchen Hub button) ═══ */}
+            <div className="fixed right-4 bottom-24 z-50 flex flex-col items-end gap-3">
+                {/* Secondary FAB actions */}
+                <AnimatePresence>
+                    {fabOpen && (
+                        <>
+                            {/* Cart */}
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.5, y: 20 }}
+                                transition={{ delay: 0.0 }}
+                                onClick={handleCart}
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                title="Cart"
+                            >
+                                <span className="text-lg">🛒</span>
+                                <span className="text-xs font-semibold hidden group-hover:inline">Cart</span>
+                            </motion.button>
+
+                            {/* Share */}
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.5, y: 20 }}
+                                transition={{ delay: 0.05 }}
+                                onClick={handleShare}
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                title="Share"
+                            >
+                                <span className="text-lg">📤</span>
+                                <span className="text-xs font-semibold hidden group-hover:inline">Share</span>
+                            </motion.button>
+
+                            {/* Directions */}
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.5, y: 20 }}
+                                transition={{ delay: 0.1 }}
+                                onClick={handleDirections}
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                title="Directions"
+                            >
+                                <span className="text-lg">📍</span>
+                                <span className="text-xs font-semibold hidden group-hover:inline">Directions</span>
+                            </motion.button>
+
+                            {/* Call */}
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.5, y: 20 }}
+                                transition={{ delay: 0.15 }}
+                                onClick={handleCall}
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                title="Call"
+                            >
+                                <span className="text-lg">📞</span>
+                                <span className="text-xs font-semibold hidden group-hover:inline">Call</span>
+                            </motion.button>
+                        </>
+                    )}
+                </AnimatePresence>
+
+                {/* Main FAB toggle */}
+                <button
+                    onClick={() => setFabOpen(!fabOpen)}
+                    className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center text-white text-xl border-2 border-white dark:border-[var(--surface-primary)]"
+                    style={{ backgroundColor: brandingColor }}
+                    title={fabOpen ? 'Close actions' : 'Quick actions'}
+                >
+                    <motion.span
+                        animate={{ rotate: fabOpen ? 45 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="block"
+                    >
+                        ⚡
+                    </motion.span>
+                </button>
+            </div>
 
             <KitchenSidebar
                 isOpen={sidebarOpen}
@@ -83,7 +235,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 storeId={store.store_id || store.id}
             />
 
-            {/* Elegant Restaurant Hero */}
+            {/* Elegant Restaurant Hero — UNCHANGED */}
             <div className="relative h-[60vh] w-full overflow-hidden">
                 <HeroBackground
                     overrideData={{
@@ -121,23 +273,163 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 </HeroBackground>
             </div>
 
-            {/* Menu Filters */}
-            <div id="menu" className="sticky top-0 bg-white/90 backdrop-blur-md z-40 border-b border-slate-100 py-4">
-                <div className="max-w-7xl mx-auto px-4 md:px-6 overflow-x-auto scrollbar-hide">
-                    <div className="flex gap-2 min-w-max">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveTab(cat)}
-                                className="px-5 py-2.5 rounded-lg text-sm font-medium transition-all"
-                                style={{
-                                    backgroundColor: activeTab === cat ? brandingColor : '#f8fafc',
-                                    color: activeTab === cat ? 'white' : '#64748b'
-                                }}
-                            >
-                                {cat}
-                            </button>
-                        ))}
+            {/* ═══ Collapsible About Section ═══ */}
+            <div className="max-w-7xl mx-auto px-4 md:px-6">
+                <button
+                    onClick={() => setAboutOpen(!aboutOpen)}
+                    className="w-full flex items-center justify-between py-4 mt-2 group"
+                >
+                    <div className="flex items-center gap-3">
+                        <span className="text-lg">ℹ️</span>
+                        <span className="text-sm font-semibold text-slate-700 dark:text-[var(--ink-secondary)] group-hover:text-slate-900 dark:group-hover:text-[var(--ink-primary)] transition-colors">
+                            About {store.business_name}
+                        </span>
+                    </div>
+                    <motion.span
+                        animate={{ rotate: aboutOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-slate-400 dark:text-[var(--ink-tertiary)]"
+                    >
+                        ▼
+                    </motion.span>
+                </button>
+
+                <AnimatePresence>
+                    {aboutOpen && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                        >
+                            <div className="pb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {/* Description */}
+                                {(store.description || store.bio) && (
+                                    <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)]">
+                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)] mb-2">About Us</h4>
+                                        <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)] leading-relaxed">
+                                            {store.description || store.bio}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Location & Hours */}
+                                <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)] space-y-3">
+                                    <div className="flex items-start gap-2">
+                                        <span className="text-base">📍</span>
+                                        <div>
+                                            <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)]">Location</h4>
+                                            <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)]">
+                                                {store.business_address || store.location || 'St. Kitts & Nevis'}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {store.opening_hours && (
+                                        <div className="flex items-start gap-2">
+                                            <span className="text-base">🕒</span>
+                                            <div>
+                                                <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)]">Hours</h4>
+                                                <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)] whitespace-pre-line">
+                                                    {store.opening_hours}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {store.phone && (
+                                        <div className="flex items-start gap-2">
+                                            <span className="text-base">📞</span>
+                                            <div>
+                                                <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)]">Phone</h4>
+                                                <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)]">{store.phone}</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Dietary Options */}
+                                {store.dietary_options && store.dietary_options.length > 0 && (
+                                    <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)] md:col-span-2">
+                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)] mb-2">Dietary Options</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {store.dietary_options.map((opt: string) => {
+                                                const badge = DIETARY_BADGES[opt];
+                                                if (!badge) return (
+                                                    <span key={opt} className="px-2.5 py-1 bg-slate-100 dark:bg-[var(--surface-tertiary)] rounded-lg text-xs font-medium text-slate-600 dark:text-[var(--ink-secondary)] border border-slate-200 dark:border-[var(--border-secondary)]">
+                                                        {opt}
+                                                    </span>
+                                                );
+                                                return (
+                                                    <span key={opt} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium border ${badge.color} ${badge.darkColor}`}>
+                                                        <span>{badge.emoji}</span>
+                                                        {badge.label}
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Store Badges */}
+                                {store.badges && store.badges.length > 0 && (
+                                    <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)] md:col-span-2">
+                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)] mb-2">Highlights</h4>
+                                        <BadgeList badges={store.badges} />
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <div className="border-b border-slate-100 dark:border-[var(--border-primary)]" />
+            </div>
+
+            {/* ═══ Menu Filters — Enhanced Mobile UX ═══ */}
+            <div id="menu" className="sticky top-0 bg-white/90 dark:bg-[var(--surface-primary)]/90 backdrop-blur-md z-40 border-b border-slate-100 dark:border-[var(--border-primary)]">
+                <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
+                    {/* Left fade edge */}
+                    <AnimatePresence>
+                        {showLeftFade && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white dark:from-[var(--surface-primary)] to-transparent z-10 pointer-events-none"
+                            />
+                        )}
+                    </AnimatePresence>
+
+                    {/* Right fade edge */}
+                    <AnimatePresence>
+                        {showRightFade && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white dark:from-[var(--surface-primary)] to-transparent z-10 pointer-events-none"
+                            />
+                        )}
+                    </AnimatePresence>
+
+                    <div
+                        ref={scrollContainerRef}
+                        className="overflow-x-auto scrollbar-hide py-3 md:py-4"
+                    >
+                        <div className="flex gap-2 md:gap-3 min-w-max px-1">
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setActiveTab(cat)}
+                                    className="px-5 py-3 md:py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap min-h-[44px] md:min-h-0"
+                                    style={{
+                                        backgroundColor: activeTab === cat ? brandingColor : '#f8fafc',
+                                        color: activeTab === cat ? 'white' : '#64748b'
+                                    }}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,116 +446,195 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     {filteredSections.length > 0 ? filteredSections.map((section: any) => (
                         <section key={section.id} id={`section-${section.id}`}>
                             <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-                                <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
+                                <h2 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-[var(--ink-primary)]">
                                     {section.name}
                                 </h2>
-                                <div className="flex-1 h-px bg-slate-100" />
+                                <div className="flex-1 h-px bg-slate-100 dark:bg-[var(--border-primary)]" />
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                {section.items?.map((item: any, idx: number) => (
-                                    <div
-                                        key={item.id}
-                                        className="relative block group cursor-pointer"
-                                        onMouseEnter={() => setHoveredItem(item)}
-                                        onMouseLeave={() => setHoveredItem(null)}
-                                        onClick={() => {
-                                            if (item.listing_id || item.id) {
-                                                window.location.href = `/listings/${item.listing_id || item.id}`;
-                                            } else {
-                                                setSelectedItem(item);
-                                                setIsModalOpen(true);
-                                            }
-                                        }}
-                                    >
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: idx * 0.05 }}
-                                            className={`relative bg-white p-4 rounded-xl border ${isSoupKitchen ? 'border-amber-100 hover:border-amber-200' : 'border-slate-100 hover:border-slate-200'} group-hover:shadow-sm transition-all flex gap-4`}
-                                        >
-                                            <div className="w-20 h-20 md:w-24 md:h-24 shrink-0late-50 rounded-lg overflow-hidden">
-                                                {item.image_url ? (
-                                                    <img
-                                                        src={getImageUrl(item.image_url)}
-                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                                        alt={item.name}
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center text-2xl md:text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
-                                                )}
-                                            </div>
-                                            <div className="flex-1 flex flex-col justify-center min-w-0">
-                                                <div className="flex justify-between items-start mb-1 gap-2">
-                                                    <h3 className="font-semibold text-slate-900 text-sm md:text-base group-hover:text-slate-700 transition-colors truncate">{item.name}</h3>
-                                                    <div className="text-right shrink-0">
-                                                        <span
-                                                            className="font-medium text-white px-2 py-0.5 rounded text-xs"
-                                                            style={{ backgroundColor: brandingColor }}
-                                                        >
-                                                            ${item.price}
-                                                        </span>
-                                                        {item.donation_suggested && (
-                                                            <p className="text-xs text-slate-500 mt-0.5">Suggested</p>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                <p className="text-slate-500 text-xs leading-relaxed mb-2 line-clamp-2">{item.description}</p>
-                                                <div className="text-xs font-medium" style={{ color: brandingColor }}>
-                                                    {item.donation_suggested ? 'Donate & Order →' : '+ Add to Selection'}
-                                                </div>
-                                            </div>
-                                        </motion.div>
+                                {section.items?.map((item: any, idx: number) => {
+                                    // Get dietary badges for this item
+                                    const itemDietary = (item.dietary_tags || item.dietary || []).filter((tag: string) => DIETARY_BADGES[tag]);
 
-                                        {/* Hover Preview Card */}
-                                        <AnimatePresence>
-                                            {hoveredItem?.id === item.id && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, x: -10 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    exit={{ opacity: 0, x: -10 }}
-                                                    className="absolute left-full ml-4 top-0 z-50 hidden lg:block w-72"
-                                                >
-                                                    <div className="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden">
-                                                        <div className="h-32 relative bg-slate-100">
-                                                            {item.image_url ? (
-                                                                <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt="" />
-                                                            ) : (
-                                                                <div className="w-full h-full flex items-center justify-center text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
-                                                            )}
-                                                            <div className="absolute top-3 right-3 bg-white/95 backdrop-blur px-2 py-1 rounded-lg font-semibold text-sm text-slate-900 shadow-sm">
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            className="relative block group cursor-pointer"
+                                            onMouseEnter={() => setHoveredItem(item)}
+                                            onMouseLeave={() => setHoveredItem(null)}
+                                            onClick={() => {
+                                                if (item.listing_id || item.id) {
+                                                    window.location.href = `/listings/${item.listing_id || item.id}`;
+                                                } else {
+                                                    setSelectedItem(item);
+                                                    setIsModalOpen(true);
+                                                }
+                                            }}
+                                        >
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 10 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: idx * 0.05 }}
+                                                whileHover={{ scale: 1.02 }}
+                                                className={`relative bg-white dark:bg-[var(--surface-elevated)] p-4 rounded-xl border ${isSoupKitchen ? 'border-amber-100 dark:border-amber-900/50 hover:border-amber-200 dark:hover:border-amber-700' : 'border-slate-100 dark:border-[var(--border-primary)] hover:border-slate-200 dark:hover:border-[var(--border-secondary)]'} group-hover:shadow-md dark:group-hover:shadow-lg transition-all flex gap-4`}
+                                            >
+                                                <div className="w-20 h-20 md:w-24 md:h-24 shrink-0 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded-lg overflow-hidden">
+                                                    {item.image_url ? (
+                                                        <img
+                                                            src={getImageUrl(item.image_url)}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                            alt={item.name}
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-2xl md:text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
+                                                    )}
+                                                </div>
+                                                <div className="flex-1 flex flex-col justify-center min-w-0">
+                                                    <div className="flex justify-between items-start mb-1 gap-2">
+                                                        <h3 className="font-semibold text-slate-900 dark:text-[var(--ink-primary)] text-sm md:text-base group-hover:text-slate-700 dark:group-hover:text-[var(--ink-secondary)] transition-colors truncate">{item.name}</h3>
+                                                        <div className="text-right shrink-0">
+                                                            <span
+                                                                className="font-medium text-white px-2 py-0.5 rounded text-xs"
+                                                                style={{ backgroundColor: brandingColor }}
+                                                            >
                                                                 ${item.price}
-                                                            </div>
-                                                        </div>
-                                                        <div className="p-5">
-                                                            <h4 className="text-base font-semibold text-slate-900 mb-2">{item.name}</h4>
-                                                            <p className="text-slate-500 text-xs leading-relaxed mb-4">
-                                                                {item.description || "The finest island ingredients prepared with tradition and care."}
-                                                            </p>
-                                                            <div className="flex flex-wrap gap-1.5 mb-3">
-                                                                {['Organic', 'Local', 'Artisan'].map(tag => (
-                                                                    <span key={tag} className="px-2 py-0.5 bg-slate-50 rounded text-xs font-medium text-slate-500 border border-slate-100">
-                                                                        {tag}
-                                                                    </span>
-                                                                ))}
-                                                            </div>
-                                                            <div className="flex items-center gap-2 py-3 border-t border-slate-50">
-                                                                <div className="w-6 h-6 rounded-full flex items-center justify-center text-sm" style={{ backgroundColor: `${brandingColor}15` }}>👨‍🍳</div>
-                                                                <p className="text-xs font-medium text-slate-400">Chef&apos;s Special</p>
-                                                            </div>
+                                                            </span>
+                                                            {item.donation_suggested && (
+                                                                <p className="text-xs text-slate-500 dark:text-[var(--ink-tertiary)] mt-0.5">Suggested</p>
+                                                            )}
                                                         </div>
                                                     </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </div>
-                                ))}
+                                                    <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-xs leading-relaxed mb-2 line-clamp-2">{item.description}</p>
+
+                                                    {/* Dietary badges */}
+                                                    {itemDietary.length > 0 && (
+                                                        <div className="flex flex-wrap gap-1 mb-2">
+                                                            {itemDietary.map((tag: string) => {
+                                                                const badge = DIETARY_BADGES[tag];
+                                                                return (
+                                                                    <span key={tag} className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium border ${badge.color} ${badge.darkColor}`}>
+                                                                        <span>{badge.emoji}</span>
+                                                                        {badge.label}
+                                                                    </span>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
+
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="text-xs font-medium" style={{ color: brandingColor }}>
+                                                            {item.donation_suggested ? 'Donate & Order →' : '+ Add to Selection'}
+                                                        </div>
+
+                                                        {/* Quick add button — visible on hover */}
+                                                        <motion.button
+                                                            initial={{ opacity: 0, scale: 0.8 }}
+                                                            whileHover={{ scale: 1.1 }}
+                                                            whileTap={{ scale: 0.9 }}
+                                                            className="opacity-0 group-hover:opacity-100 transition-opacity w-8 h-8 rounded-full flex items-center justify-center text-white text-sm shadow-md"
+                                                            style={{ backgroundColor: brandingColor }}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setSelectedItem(item);
+                                                                setIsModalOpen(true);
+                                                            }}
+                                                            title="Quick add"
+                                                        >
+                                                            +
+                                                        </motion.button>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+
+                                            {/* Hover Preview Card */}
+                                            <AnimatePresence>
+                                                {hoveredItem?.id === item.id && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, x: -10 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        exit={{ opacity: 0, x: -10 }}
+                                                        className="absolute left-full ml-4 top-0 z-50 hidden lg:block w-72"
+                                                    >
+                                                        <div className="bg-white dark:bg-[var(--surface-elevated)] rounded-xl shadow-lg border border-slate-100 dark:border-[var(--border-primary)] overflow-hidden">
+                                                            <div className="h-32 relative bg-slate-100 dark:bg-[var(--surface-tertiary)]">
+                                                                {item.image_url ? (
+                                                                    <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt="" />
+                                                                ) : (
+                                                                    <div className="w-full h-full flex items-center justify-center text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
+                                                                )}
+                                                                <div className="absolute top-3 right-3 bg-white/95 dark:bg-[var(--surface-elevated)]/95 backdrop-blur px-2 py-1 rounded-lg font-semibold text-sm text-slate-900 dark:text-[var(--ink-primary)] shadow-sm">
+                                                                    ${item.price}
+                                                                </div>
+                                                            </div>
+                                                            <div className="p-5">
+                                                                <h4 className="text-base font-semibold text-slate-900 dark:text-[var(--ink-primary)] mb-2">{item.name}</h4>
+                                                                <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-xs leading-relaxed mb-4">
+                                                                    {item.description || "The finest island ingredients prepared with tradition and care."}
+                                                                </p>
+                                                                <div className="flex flex-wrap gap-1.5 mb-3">
+                                                                    {(item.dietary_tags || item.dietary || ['Organic', 'Local', 'Artisan']).map((tag: string) => {
+                                                                        const badge = DIETARY_BADGES[tag];
+                                                                        if (badge) {
+                                                                            return (
+                                                                                <span key={tag} className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded text-xs font-medium border ${badge.color} ${badge.darkColor}`}>
+                                                                                    <span>{badge.emoji}</span>
+                                                                                    {badge.label}
+                                                                                </span>
+                                                                            );
+                                                                        }
+                                                                        return (
+                                                                            <span key={tag} className="px-2 py-0.5 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded text-xs font-medium text-slate-500 dark:text-[var(--ink-tertiary)] border border-slate-100 dark:border-[var(--border-secondary)]">
+                                                                                {tag}
+                                                                            </span>
+                                                                        );
+                                                                    })}
+                                                                </div>
+                                                                <div className="flex items-center gap-2 py-3 border-t border-slate-50 dark:border-[var(--border-primary)]">
+                                                                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-sm" style={{ backgroundColor: `${brandingColor}15` }}>👨‍🍳</div>
+                                                                    <p className="text-xs font-medium text-slate-400 dark:text-[var(--ink-tertiary)]">Chef&apos;s Special</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </section>
                     )) : !loading ? (
-                        <div className="py-20 text-center">
-                            <span className="text-5xl mb-4 block">🍽️</span>
-                            <h3 className="text-lg font-medium text-slate-600">No specialties in this section yet</h3>
+                        /* ═══ Empty State ═══ */
+                        <div className="py-16 md:py-24 text-center">
+                            <div
+                                className="w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center"
+                                style={{ backgroundColor: `${brandingColor}15` }}
+                            >
+                                <span className="text-5xl">{isSoupKitchen ? '🍲' : '🍽️'}</span>
+                            </div>
+                            <h3 className="text-xl font-semibold text-slate-900 dark:text-[var(--ink-primary)] mb-2">
+                                Menu Coming Soon
+                            </h3>
+                            <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-sm max-w-md mx-auto mb-6">
+                                {store.business_name} is preparing something special. Check back soon for our delicious offerings!
+                            </p>
+                            <div className="flex items-center justify-center gap-3">
+                                <div
+                                    className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm"
+                                    style={{ backgroundColor: brandingColor }}
+                                >
+                                    🔔
+                                </div>
+                                <span className="text-sm text-slate-600 dark:text-[var(--ink-secondary)]">
+                                    We&apos;ll notify you when the menu is live
+                                </span>
+                            </div>
+                            {store.badges && store.badges.length > 0 && (
+                                <div className="mt-8 flex justify-center">
+                                    <BadgeList badges={store.badges} />
+                                </div>
+                            )}
                         </div>
                     ) : null}
 
@@ -271,17 +642,17 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     {siteSections.find(s => s.name === 'kitchen_story') ? (() => {
                         const section = siteSections.find(s => s.name === 'kitchen_story');
                         return (
-                            <section className="pt-12 border-t border-slate-100">
+                            <section className="pt-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                                     <motion.div
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                     >
-                                        <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-4">
+                                        <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-[var(--ink-primary)] mb-4">
                                             {section.title}
                                         </h2>
-                                        <p className="text-slate-600 leading-relaxed mb-6">
+                                        <p className="text-slate-600 dark:text-[var(--ink-secondary)] leading-relaxed mb-6">
                                             &ldquo;{section.body}&rdquo;
                                         </p>
 
@@ -289,12 +660,12 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                             <div className="space-y-4">
                                                 {section.list_items.map((item: any, i: number) => (
                                                     <div key={i} className="flex items-center gap-4 group">
-                                                        <div className="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center text-xl group-hover:scale-105 transition-transform">
+                                                        <div className="w-10 h-10 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded-lg flex items-center justify-center text-xl group-hover:scale-105 transition-transform">
                                                             {item.icon}
                                                         </div>
                                                         <div>
-                                                            <p className="font-medium text-slate-900 text-sm">{item.title}</p>
-                                                            <p className="text-xs text-slate-400">{item.desc}</p>
+                                                            <p className="font-medium text-slate-900 dark:text-[var(--ink-primary)] text-sm">{item.title}</p>
+                                                            <p className="text-xs text-slate-400 dark:text-[var(--ink-tertiary)]">{item.desc}</p>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -302,7 +673,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         )}
 
                                         {section.cta_text && (
-                                            <Link href={section.cta_link || '#'} className="inline-block mt-6 px-6 py-3 bg-slate-900 text-white rounded-lg font-medium text-sm hover:bg-slate-800 transition-colors">
+                                            <Link href={section.cta_link || '#'} className="inline-block mt-6 px-6 py-3 bg-slate-900 dark:bg-[var(--ink-primary)] text-white dark:text-[var(--surface-primary)] rounded-lg font-medium text-sm hover:bg-slate-800 dark:hover:bg-[var(--ink-secondary)] transition-colors">
                                                 {section.cta_text}
                                             </Link>
                                         )}
@@ -313,7 +684,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         viewport={{ once: true }}
                                         className="relative"
                                     >
-                                        <div className="aspect-square bg-slate-100 rounded-2xl overflow-hidden shadow-md group relative">
+                                        <div className="aspect-square bg-slate-100 dark:bg-[var(--surface-tertiary)] rounded-2xl overflow-hidden shadow-md group relative">
                                             <img
                                                 src={getImageUrl(section.image_url)}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -333,24 +704,24 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
 
                     {/* Professional Business Profile: Aims & Objectives */}
                     {(store.aims || store.objectives) && (
-                        <section className="pt-12 border-t border-slate-100">
+                        <section className="pt-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
                             <div className="flex flex-col md:flex-row gap-6 md:gap-8">
                                 {store.aims && (
-                                    <div className="flex-1 p-6 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div className="flex-1 p-6 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)]">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center text-lg">🎯</span>
-                                            <h3 className="text-base font-semibold text-slate-900">Strategic Aims</h3>
+                                            <span className="w-8 h-8 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center text-lg">🎯</span>
+                                            <h3 className="text-base font-semibold text-slate-900 dark:text-[var(--ink-primary)]">Strategic Aims</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
+                                        <p className="text-sm text-slate-600 dark:text-[var(--ink-secondary)] leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
                                     </div>
                                 )}
                                 {store.objectives && (
-                                    <div className="flex-1 p-6 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div className="flex-1 p-6 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)]">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center text-lg">🚀</span>
-                                            <h3 className="text-base font-semibold text-slate-900">Key Objectives</h3>
+                                            <span className="w-8 h-8 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg flex items-center justify-center text-lg">🚀</span>
+                                            <h3 className="text-base font-semibold text-slate-900 dark:text-[var(--ink-primary)]">Key Objectives</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 leading-relaxed">&ldquo;{store.objectives}&rdquo;</p>
+                                        <p className="text-sm text-slate-600 dark:text-[var(--ink-secondary)] leading-relaxed">&ldquo;{store.objectives}&rdquo;</p>
                                     </div>
                                 )}
                             </div>
@@ -358,7 +729,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     )}
 
                     {/* Integrated Reviews */}
-                    <section className="pt-12 border-t border-slate-100">
+                    <section className="pt-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
                         <ReviewSection vendorId={String(store.id || store.user_id)} />
                     </section>
                 </div>
@@ -416,7 +787,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         {siteSections.find(s => s.name === 'connect_with_us') ? (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
-                                <div className="bg-slate-900 p-6 rounded-xl text-white shadow-sm">
+                                <div className="bg-slate-900 dark:bg-[var(--surface-secondary)] p-6 rounded-xl text-white shadow-sm">
                                     <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                                         <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                         {section.title}
@@ -427,8 +798,8 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                             <div key={i} className="flex gap-3 items-start group">
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
-                                                    <p className="text-slate-400 text-xs mb-0.5">{item.title}</p>
-                                                    <p className="font-medium text-sm text-slate-200">{item.desc}</p>
+                                                    <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">{item.title}</p>
+                                                    <p className="font-medium text-sm text-slate-200 dark:text-[var(--ink-secondary)]">{item.desc}</p>
                                                 </div>
                                             </div>
                                         ))}
@@ -442,7 +813,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 </div>
                             );
                         })() : (
-                            <div className="bg-slate-900 p-6 rounded-xl text-white shadow-sm">
+                            <div className="bg-slate-900 dark:bg-[var(--surface-secondary)] p-6 rounded-xl text-white shadow-sm">
                                 <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                                     <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                     Connect With Us
@@ -452,7 +823,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         <a href={store.website_url.startsWith('http') ? store.website_url : `https://${store.website_url}`} target="_blank" rel="noopener noreferrer" className="flex gap-3 items-center group">
                                             <span className="text-xl group-hover:scale-110 transition-transform">🌐</span>
                                             <div>
-                                                <p className="text-slate-400 text-xs mb-0.5">Official Website</p>
+                                                <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">Official Website</p>
                                                 <p className="font-medium text-white group-hover:text-indigo-400 transition-colors">Visit Official Site →</p>
                                             </div>
                                         </a>
@@ -460,17 +831,17 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                     <div className="flex gap-3 items-start">
                                         <span className="text-xl">📍</span>
                                         <div>
-                                            <p className="text-slate-400 text-xs mb-0.5">Location</p>
-                                            <p className="font-medium text-slate-200">{store.business_address || store.location || 'Verified Island Merchant'}</p>
+                                            <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">Location</p>
+                                            <p className="font-medium text-slate-200 dark:text-[var(--ink-secondary)]">{store.business_address || store.location || 'Verified Island Merchant'}</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-3 items-start">
                                         <span className="text-xl">🕒</span>
                                         <div>
-                                            <p className="text-slate-400 text-xs mb-0.5">Status</p>
+                                            <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">Status</p>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                                                <p className="font-medium text-slate-200">Accepting Orders</p>
+                                                <p className="font-medium text-slate-200 dark:text-[var(--ink-secondary)]">Accepting Orders</p>
                                             </div>
                                         </div>
                                     </div>
@@ -492,33 +863,33 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
             />
 
             {/* Clean Footer */}
-            <footer className="bg-slate-50 py-12 border-t border-slate-100">
+            <footer className="bg-slate-50 dark:bg-[var(--surface-secondary)] py-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
                     <div className="md:col-span-2">
-                        <Link href="/" className="text-2xl font-serif mb-3 block">IslandHub</Link>
-                        <p className="text-slate-500 text-sm max-w-sm">
+                        <Link href="/" className="text-2xl font-serif mb-3 block text-slate-900 dark:text-[var(--ink-primary)]">IslandHub</Link>
+                        <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-sm max-w-sm">
                             Empowering local island businesses through verified commerce and authentic community hubs.
                         </p>
                     </div>
                     <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-900 mb-4">Explore</h4>
-                        <nav className="flex flex-col gap-2 text-sm text-slate-500">
-                            <Link href="/food" className="hover:text-slate-900 transition-colors">Food Hub</Link>
-                            <Link href="/listings" className="hover:text-slate-900 transition-colors">Marketplace</Link>
-                            <Link href="/about" className="hover:text-slate-900 transition-colors">Our Charter</Link>
+                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-[var(--ink-primary)] mb-4">Explore</h4>
+                        <nav className="flex flex-col gap-2 text-sm text-slate-500 dark:text-[var(--ink-tertiary)]">
+                            <Link href="/food" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Food Hub</Link>
+                            <Link href="/listings" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Marketplace</Link>
+                            <Link href="/about" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Our Charter</Link>
                         </nav>
                     </div>
                     <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-900 mb-4">Support</h4>
-                        <nav className="flex flex-col gap-2 text-sm text-slate-500">
-                            <a href="#" className="hover:text-slate-900 transition-colors">Contact Vendor</a>
-                            <a href="#" className="hover:text-slate-900 transition-colors">Report Issue</a>
-                            <a href="#" className="hover:text-slate-900 transition-colors">Help Center</a>
+                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-[var(--ink-primary)] mb-4">Support</h4>
+                        <nav className="flex flex-col gap-2 text-sm text-slate-500 dark:text-[var(--ink-tertiary)]">
+                            <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Contact Vendor</a>
+                            <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Report Issue</a>
+                            <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Help Center</a>
                         </nav>
                     </div>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 mt-8 border-t border-slate-200 text-center">
-                    <p className="text-xs text-slate-400">
+                <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 mt-8 border-t border-slate-200 dark:border-[var(--border-secondary)] text-center">
+                    <p className="text-xs text-slate-400 dark:text-[var(--ink-tertiary)]">
                         © 2026 {store.business_name} • Secure Island Commerce Protocol
                     </p>
                 </div>

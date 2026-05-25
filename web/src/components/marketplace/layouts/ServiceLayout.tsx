@@ -71,7 +71,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
     }, [store.store_id, store.id, listings]);
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-white dark:bg-slate-900 min-h-screen">
             {/* Service Hero */}
             <div className="relative pt-20 pb-16 overflow-hidden bg-slate-50 min-h-[400px] flex items-center">
                 <HeroBackground
@@ -153,7 +153,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                         <div className="flex items-end justify-between mb-6 border-b border-slate-100 pb-4">
                                             <div>
                                                 <h2 className="text-xl font-semibold text-slate-900">{section.section_name}</h2>
-                                                <p className="text-slate-500 text-sm">Professional {section.section_name.toLowerCase()} for your needs</p>
+                                                <p className="text-slate-500 dark:text-slate-400 text-sm">Professional {section.section_name.toLowerCase()} for your needs</p>
                                             </div>
                                             <span className="text-xs text-slate-400">Section {section.priority}</span>
                                         </div>
@@ -171,7 +171,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                                                 setIsBookingModalOpen(true);
                                                             }
                                                         }}
-                                                        className="group bg-white rounded-xl border border-slate-100 overflow-hidden transition-all hover:shadow-md flex flex-col cursor-pointer"
+                                                        className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-hidden transition-all hover:shadow-md flex flex-col cursor-pointer"
                                                     >
                                                         <div className="relative h-40 bg-slate-100">
                                                             {service.image_url ? (
@@ -185,7 +185,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                                         <div className="p-5 flex-1 flex flex-col">
                                                             <div className="flex justify-between items-start mb-3">
                                                                 <h3 className="text-base font-semibold text-slate-900">{service.service_name}</h3>
-                                                                <span className="bg-slate-900 text-white px-2.5 py-1 rounded-lg text-xs font-medium">${service.price}</span>
+                                                                <span className="bg-slate-900 dark:bg-slate-700 text-white px-2.5 py-1 rounded-lg text-xs font-medium">${service.price}</span>
                                                             </div>
                                                             <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">{service.description}</p>
                                                         </div>

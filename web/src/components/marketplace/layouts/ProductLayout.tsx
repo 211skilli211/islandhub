@@ -57,7 +57,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
     const sortedListings = [...listings].sort((a, b) => b.id - a.id);
 
     return (
-        <div className="bg-white min-h-screen font-sans">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-800 min-h-screen font-sans">
             {/* Premium Lifestyle Hero */}
             <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-slate-950">
                 <HeroBackground
@@ -94,8 +94,8 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                             {store.badges && <BadgeList badges={store.badges} />}
                             {store.template_id === 'retail_produce' && (
                                 <div className="mt-2 flex gap-2">
-                                    <span className="bg-emerald-500 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tight">Eco-Package</span>
-                                    <span className="bg-blue-500 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tight">Farm Direct</span>
+                                    <span className="bg-emerald-50 dark:bg-emerald-900/200 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tight">Eco-Package</span>
+                                    <span className="bg-blue-50 dark:bg-blue-900/200 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tight">Farm Direct</span>
                                 </div>
                             )}
                         </div>
@@ -114,7 +114,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
                         <div>
                             <span className="text-xs font-medium uppercase tracking-wide mb-2 block" style={{ color: brandingColor }}>{store.hero_subtitle?.includes('collection') ? 'Collection' : 'Shop'}</span>
-                            <h2 className="text-3xl md:text-4xl font-semibold text-slate-900">{store.business_name ? `${store.business_name}'s Collection` : 'Our Collection'}</h2>
+                            <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white">{store.business_name ? `${store.business_name}'s Collection` : 'Our Collection'}</h2>
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {categories.map(cat => (
@@ -136,8 +136,8 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
 
                     {loading ? (
                         <div className="py-16 text-center">
-                            <div className="w-10 h-10 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin mx-auto mb-3" />
-                            <p className="text-xs text-slate-400">Loading Boutique...</p>
+                            <div className="w-10 h-10 border-4 border-slate-200 dark:border-slate-600 border-t-slate-900 rounded-full animate-spin mx-auto mb-3" />
+                            <p className="text-xs text-slate-400 dark:text-slate-500">Loading Boutique...</p>
                         </div>
                     ) : (
                         <div className="space-y-12">
@@ -145,7 +145,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                                 <div key={section.id}>
                                     <div className="flex items-center gap-3 mb-6">
                                         <div className="w-8 h-px" style={{ backgroundColor: brandingColor }} />
-                                        <h4 className="text-sm font-semibold text-slate-900">{section.name}</h4>
+                                        <h4 className="text-sm font-semibold text-slate-900 dark:text-white">{section.name}</h4>
                                         <div className="flex-1 h-px bg-slate-100" />
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
@@ -210,7 +210,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                                     <h3 className="text-lg font-semibold mb-3">{section.title}</h3>
                                     <p className="text-sm mb-5 opacity-90 leading-relaxed">{section.body}</p>
                                     {section.cta_text && (
-                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-white text-center rounded-lg font-medium text-sm transition-colors hover:bg-slate-50" style={{ color: brandingColor }}>
+                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-white text-center rounded-lg font-medium text-sm transition-colors hover:bg-slate-50 dark:bg-slate-800" style={{ color: brandingColor }}>
                                             {section.cta_text}
                                         </Link>
                                     )}
@@ -222,7 +222,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
-                                <div className="bg-slate-900 p-6 rounded-xl text-white shadow-sm">
+                                <div className="bg-slate-900 dark:bg-slate-800 p-6 rounded-xl text-white shadow-sm">
                                     <h3 className="text-base font-semibold mb-5 flex items-center gap-2">
                                         <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                         {section.title}
@@ -232,7 +232,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                                             <div key={i} className="flex gap-3 items-start group">
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
-                                                    <p className="text-slate-400 text-xs mb-0.5">{item.title}</p>
+                                                    <p className="text-slate-400 dark:text-slate-500 text-xs mb-0.5">{item.title}</p>
                                                     <p className="font-medium text-sm text-slate-200">{item.desc}</p>
                                                 </div>
                                             </div>
@@ -246,16 +246,16 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
             </div>
 
             {/* Newsletter & Loyalty */}
-            <section className="bg-slate-50 py-16 md:py-20 border-t border-slate-100">
+            <section className="bg-slate-50 dark:bg-slate-800 py-16 md:py-20 border-t border-slate-100 dark:border-slate-700">
                 <div className="max-w-2xl mx-auto px-4 md:px-6 text-center">
                     <span className="text-3xl mb-4 block">📩</span>
-                    <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-3">Join The Pulse Club</h2>
-                    <p className="text-slate-500 mb-8">Get early access to drops, smart tech updates, and exclusive island styling tips.</p>
+                    <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-white mb-3">Join The Pulse Club</h2>
+                    <p className="text-slate-500 dark:text-slate-400 dark:text-slate-500 mb-8">Get early access to drops, smart tech updates, and exclusive island styling tips.</p>
                     <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
                         <input
                             type="email"
                             placeholder="your@email.com"
-                            className="flex-1 px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-offset-1 outline-none transition-all text-sm"
+                            className="flex-1 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 focus:ring-2 focus:ring-offset-1 outline-none transition-all text-sm"
                             style={{ '--tw-ring-color': brandingColor } as any}
                         />
                         <button
@@ -269,25 +269,25 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
             </section>
 
             {/* Clean Footer */}
-            <footer className="py-12 md:py-16 border-t border-slate-100">
+            <footer className="py-12 md:py-16 border-t border-slate-100 dark:border-slate-700">
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
                         <div className="col-span-1 md:col-span-2">
                             <h4 className="text-xl font-semibold mb-4" style={{ color: brandingColor }}>🏝️ {store.business_name}</h4>
-                            <p className="text-slate-500 text-sm max-w-sm mb-6 leading-relaxed">
+                            <p className="text-slate-500 dark:text-slate-400 dark:text-slate-500 text-sm max-w-sm mb-6 leading-relaxed">
                                 {store.bio || "Hand-picked local products that embody the spirit of paradise. Quality, sustainable, and authentic."}
                             </p>
                             <div className="flex gap-3">
                                 {['fb', 'ig', 'tw', 'wa'].map(sm => (
-                                    <div key={sm} className="w-9 h-9 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all cursor-pointer text-xs font-medium uppercase">
+                                    <div key={sm} className="w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 hover:bg-slate-100 transition-all cursor-pointer text-xs font-medium uppercase">
                                         {sm}
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <div>
-                            <h5 className="text-xs font-semibold uppercase tracking-wide text-slate-900 mb-4">Boutique Services</h5>
-                            <ul className="space-y-2 text-sm text-slate-500">
+                            <h5 className="text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-white mb-4">Boutique Services</h5>
+                            <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500">
                                 <li className="hover:text-slate-700 cursor-pointer transition-colors">Size Guides</li>
                                 <li className="hover:text-slate-700 cursor-pointer transition-colors">Smart Tech Setup</li>
                                 <li className="hover:text-slate-700 cursor-pointer transition-colors">Eco-Returns</li>
@@ -295,7 +295,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                             </ul>
                         </div>
                         <div>
-                            <h5 className="text-xs font-semibold uppercase tracking-wide text-slate-900 mb-4">Pulse Payments</h5>
+                            <h5 className="text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-white mb-4">Pulse Payments</h5>
                             <div className="grid grid-cols-2 gap-2 opacity-40 grayscale">
                                 <div className="h-6 bg-slate-100 rounded" />
                                 <div className="h-6 bg-slate-100 rounded" />
@@ -305,11 +305,11 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                             <p className="text-xs text-slate-300 mt-4">Encrypted & Secure</p>
                         </div>
                     </div>
-                    <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-xs text-slate-400">
+                    <div className="pt-8 border-t border-slate-100 dark:border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p className="text-xs text-slate-400 dark:text-slate-500">
                             © 2024 {store.business_name}. Verified Hub Merchant.
                         </p>
-                        <div className="flex gap-6 text-xs text-slate-400">
+                        <div className="flex gap-6 text-xs text-slate-400 dark:text-slate-500">
                             <a href="#" className="hover:text-slate-700 transition-colors">Terms</a>
                             <a href="#" className="hover:text-slate-700 transition-colors">Privacy</a>
             <a href="#" className="hover:text-slate-700 transition-colors">License</a>
