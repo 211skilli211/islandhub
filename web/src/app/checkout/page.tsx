@@ -25,6 +25,7 @@ export default function CheckoutPage() {
     const [guestEmail, setGuestEmail] = useState('');
     const [guestPhone, setGuestPhone] = useState('');
     const [agreedToTerms, setAgreedToTerms] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState<'dodopayments' | 'paypal' | 'crypto'>('dodopayments');
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | null>(null);
 
     useEffect(() => {
@@ -55,7 +56,6 @@ export default function CheckoutPage() {
             return;
         }
 
-        // For guest checkout, require email
         if (!user && !guestEmail.trim()) {
             toast.error('Please enter your email address');
             return;
@@ -69,25 +69,64 @@ export default function CheckoutPage() {
                 await setDeliverySettings('delivery', deliveryAddress);
             }
 
-            // Create payment intent
-            const { data } = await api.post('/payments/create-intent', {
+            const commonPayload = {
                 delivery_address: cart?.delivery_type === 'delivery' ? deliveryAddress : undefined,
                 guest_email: !user ? guestEmail : undefined,
-                guest_phone: !user ? guestPhone : undefined
-            });
+                guest_phone: !user ? guestPhone : undefined,
+            };
 
-            if (data.payment_url) {
-                // DodoPayments hosted checkout - redirect to payment page
-                window.location.href = data.payment_url;
-                return;
-            }
+            if (paymentMethod === 'dodopayments') {
+                // DodoPayments card payment
+                const { data } = await api.post('/payments/create-intent', commonPayload);
 
-            if (data.client_secret) {
-                // Embedded checkout - show payment form
-                setPaymentIntent(data);
-                setProcessing(true);
-            } else {
-                throw new Error('Invalid payment response');
+                if (data.payment_url) {
+                    window.location.href = data.payment_url;
+                    return;
+                }
+                if (data.return_url) {
+                    window.location.href = data.return_url;
+                    return;
+                }
+                if (data.client_secret) {
+                    setPaymentIntent(data);
+                    setProcessing(true);
+                } else {
+                    throw new Error('Invalid payment response');
+                }
+            } else if (paymentMethod === 'paypal') {
+                // PayPal payment
+                const { data } = await api.post('/payments/paypal/create', {
+                    ...commonPayload,
+                    order_id: cart?.cart_id,
+                    amount: finalTotal,
+                    currency: 'XCD',
+                });
+
+                if (data.orderId) {
+                    // Redirect to PayPal approval
+                    const paypalRes = await api.get(`/payments/paypal/approve/${data.orderId}`);
+                    if (paypalRes.data?.approval_url) {
+                        window.location.href = paypalRes.data.approval_url;
+                        return;
+                    }
+                }
+                // Fallback: redirect to PayPal checkout page
+                window.location.href = `/checkout/paypal?order=${data.orderId}`;
+            } else if (paymentMethod === 'crypto') {
+                // Crypto payment
+                const { data } = await api.post('/payments/crypto/create', {
+                    ...commonPayload,
+                    order_id: cart?.cart_id,
+                    coin: 'USDT', // Default to USDT, user can change
+                    amount_xcd: finalTotal,
+                });
+
+                if (data.payment_id) {
+                    // Show crypto payment modal/page
+                    router.push(`/checkout/crypto?payment=${data.payment_id}`);
+                } else {
+                    throw new Error('Failed to create crypto payment');
+                }
             }
         } catch (error: any) {
             console.error('Checkout error:', error);
@@ -287,7 +326,70 @@ export default function CheckoutPage() {
                         </div>
                     </div>
 
-                    {/* Price Breakdown */}
+                        {/* Payment Method */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                            <h2 className="text-2xl font-bold text-slate-900 mb-6">Payment Method</h2>
+                            <div className="space-y-3">
+                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'dodopayments' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}>
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="dodopayments"
+                                        checked={paymentMethod === 'dodopayments'}
+                                        onChange={() => setPaymentMethod('dodopayments')}
+                                        className="w-5 h-5 text-teal-600"
+                                    />
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xl">💳</span>
+                                            <span className="font-bold text-slate-900">Credit / Debit Card</span>
+                                        </div>
+                                        <p className="text-xs text-slate-500 mt-1">Visa, Mastercard, American Express</p>
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-400">via DodoPayments</span>
+                                </label>
+
+                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'paypal' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}>
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="paypal"
+                                        checked={paymentMethod === 'paypal'}
+                                        onChange={() => setPaymentMethod('paypal')}
+                                        className="w-5 h-5 text-teal-600"
+                                    />
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xl">🅿️</span>
+                                            <span className="font-bold text-slate-900">PayPal</span>
+                                        </div>
+                                        <p className="text-xs text-slate-500 mt-1">Pay with your PayPal account or card</p>
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-400">via PayPal</span>
+                                </label>
+
+                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}>
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="crypto"
+                                        checked={paymentMethod === 'crypto'}
+                                        onChange={() => setPaymentMethod('crypto')}
+                                        className="w-5 h-5 text-teal-600"
+                                    />
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xl">₿</span>
+                                            <span className="font-bold text-slate-900">Cryptocurrency</span>
+                                        </div>
+                                        <p className="text-xs text-slate-500 mt-1">USDT, BTC, ETH</p>
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-400">via Crypto</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        {/* Price Breakdown */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sticky top-24">
                             <h2 className="text-xl font-bold text-slate-900 mb-6">Price Details</h2>

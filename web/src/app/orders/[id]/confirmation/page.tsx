@@ -25,9 +25,11 @@ interface Order {
     status: string;
     payment_status: string;
     subtotal: number;
-    tax: number;
+    tax_amount: number;
     service_fee: number;
-    total: number;
+    total_amount: number;
+    delivery_fee: number;
+    currency: string;
     created_at: string;
 }
 
@@ -44,9 +46,9 @@ export default function OrderConfirmationPage() {
 
     const fetchOrder = async () => {
         try {
-            const response = await api.get(`/payments/orders/${params.id}`);
-            setOrder(response.data.order);
-            setItems(response.data.items);
+            const response = await api.get(`/orders/${params.id}`);
+            setOrder(response.data);
+            setItems(response.data.items || []);
         } catch (error) {
             console.error('Failed to fetch order:', error);
             toast.error('Failed to load order details');
@@ -175,12 +177,12 @@ export default function OrderConfirmationPage() {
                         </div>
                         <div className="flex justify-between text-slate-700">
                             <span>Tax</span>
-                            <span>${order.tax.toFixed(2)}</span>
+                            <span>${order.tax_amount.toFixed(2)}</span>
                         </div>
                         <div className="border-t border-slate-200 pt-2 mt-2">
                             <div className="flex justify-between text-xl font-bold text-slate-900">
                                 <span>Total Paid</span>
-                                <span>${order.total.toFixed(2)} XCD</span>
+                                <span>${order.total_amount.toFixed(2)} XCD</span>
                             </div>
                         </div>
                     </div>
