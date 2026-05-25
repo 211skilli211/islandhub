@@ -64,6 +64,7 @@ const PAGES = [
     { key: 'ibt-services-web', label: 'IBT — Web Dev Page' },
     { key: 'ibt-services-audit', label: 'IBT — Business Audit Page' },
     { key: 'ibt-services-business', label: 'IBT — Business Automation Page' },
+    { key: 'ibt-services-tourism', label: 'IBT — Tourism APIs Page' },
     { key: 'ibt-coops', label: 'IBT — Co-ops Directory' },
     { key: 'ibt-coops-trades', label: 'IBT — Trades Co-op' },
     { key: 'ibt-coops-micro-farms', label: 'IBT — Micro-Farms Co-op' },
