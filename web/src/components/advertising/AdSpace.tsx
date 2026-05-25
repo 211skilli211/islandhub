@@ -27,7 +27,8 @@ interface AdSpaceProps {
     className?: string;
     fallback?: React.ReactNode;
     autoRotate?: boolean;
-    rotationInterval?: number; // in seconds
+    rotationInterval?: number;
+    hideOnEmpty?: boolean;
 }
 
 export default function AdSpace({
@@ -35,7 +36,8 @@ export default function AdSpace({
     className = '',
     fallback = null,
     autoRotate = true,
-    rotationInterval = 10
+    rotationInterval = 10,
+    hideOnEmpty = false,
 }: AdSpaceProps) {
     const [ads, setAds] = useState<Advertisement[]>([]);
     const [spaceConfig, setSpaceConfig] = useState<any>(null);
@@ -227,6 +229,9 @@ export default function AdSpace({
 
     // If dismissed, show nothing
     if (isDismissed) return null;
+
+    // If hideOnEmpty and no ads + no space config, show nothing
+    if (hideOnEmpty && ads.length === 0 && !spaceConfig?.style_config) return null;
 
     // Determine what to display: current ad or default space config
     const currentAd = ads.length > 0 ? ads[currentAdIndex] : null;

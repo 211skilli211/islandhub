@@ -1,259 +1,378 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
+import PostCard from '@/components/social/PostCard';
+import PostComposer from '@/components/social/PostComposer';
+import AdSpace from '@/components/advertising/AdSpace';
+import { Search, TrendingUp, Users, Calendar, MapPin, ChevronRight, Plus, Hash, Flame, Clock, Star } from 'lucide-react';
 
-interface Store {
-    id: number;
-    store_id?: number;
-    name: string;
-    business_name?: string;
-    description: string;
-    logo_url?: string;
-    banner_url?: string;
-    branding_color?: string;
-    category: string;
-    subtype: string;
-    slug: string;
-    rating?: number;
-}
+const CATEGORIES = [
+    { id: 'all', label: 'All Posts', icon: '✨' },
+    { id: 'general', label: 'General', icon: '📢' },
+    { id: 'food', label: 'Food & Dining', icon: '🍽️' },
+    { id: 'deals', label: 'Hot Deals', icon: '🔥' },
+    { id: 'events', label: 'Events', icon: '🎉' },
+    { id: 'services', label: 'Services', icon: '🛠️' },
+    { id: 'housing', label: 'Housing', icon: '🏠' },
+    { id: 'transport', label: 'Transport', icon: '🚕' },
+    { id: 'jobs', label: 'Jobs', icon: '💼' },
+    { id: 'community', label: 'Community', icon: '🌴' },
+];
 
-const COMMUNITY_SECTIONS = [
-    { id: 'groups', label: 'Groups', icon: '👥', desc: 'Join local interest groups', gradient: 'from-indigo-500 to-violet-600', members: '2.4k members' },
-    { id: 'events', label: 'Events', icon: '📅', desc: "What's happening nearby", gradient: 'from-violet-500 to-purple-600', members: '1.8k members' },
-    { id: 'classifieds', label: 'Classifieds', icon: '📋', desc: 'Buy, sell and trade locally', gradient: 'from-purple-500 to-fuchsia-600', members: '3.1k members' },
-    { id: 'announcements', label: 'Announcements', icon: '📢', desc: 'Community news and updates', gradient: 'from-indigo-600 to-purple-700', members: '5.2k members' },
+const QUICK_LINKS = [
+    { href: '/community/groups', label: 'Groups', icon: '👥', desc: 'Join local communities', color: 'from-indigo-500 to-violet-600' },
+    { href: '/community/events', label: 'Events', icon: '📅', desc: "What's happening", color: 'from-violet-500 to-purple-600' },
+    { href: '/community/stories', label: 'Stories', icon: '⚡', desc: 'Island moments', color: 'from-amber-500 to-orange-600' },
+    { href: '/community/marketplace', label: 'Marketplace', icon: '🏪', desc: 'Buy & sell locally', color: 'from-teal-500 to-emerald-600' },
 ];
 
 export default function CommunityPage() {
-    const [stores, setStores] = useState<Store[]>([]);
+    const [posts, setPosts] = useState<any[]>([]);
+    const [stores, setStores] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [activeCategory, setActiveCategory] = useState('all');
+    const [sortBy, setSortBy] = useState<'recent' | 'popular' | 'trending'>('recent');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showComposer, setShowComposer] = useState(false);
 
     useEffect(() => {
-        const fetchStores = async () => {
-            setLoading(true);
-            try {
-                const res = await api.get('/stores');
-                const rawData = Array.isArray(res.data) ? res.data : (res.data.stores || []);
-                const stores: Store[] = rawData.map((s: any) => ({
-                    id: s.store_id || s.id,
-                    store_id: s.store_id,
-                    name: s.name || s.business_name,
-                    business_name: s.business_name,
-                    description: s.description,
-                    logo_url: s.logo_url,
-                    banner_url: s.banner_url,
-                    branding_color: s.branding_color || '#059669',
-                    category: s.category,
-                    subtype: s.subtype,
-                    slug: s.slug,
-                    rating: s.rating,
-                }));
-                setStores(stores);
-            } catch (error) {
-                console.error('Failed to fetch stores:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+        fetchPosts();
         fetchStores();
     }, []);
 
-    const filteredStores = useMemo(() => {
-        if (!searchTerm.trim()) return stores;
-        const q = searchTerm.toLowerCase();
-        return stores.filter(s =>
-            (s.name || s.business_name || '').toLowerCase().includes(q) ||
-            (s.description || '').toLowerCase().includes(q) ||
-            (s.category || '').toLowerCase().includes(q)
-        );
-    }, [stores, searchTerm]);
+    const fetchPosts = async () => {
+        try {
+            const res = await api.get('/posts?limit=50');
+            setPosts(Array.isArray(res.data) ? res.data : (res.data.posts || []));
+        } catch (error) {
+            console.error('Failed to fetch posts:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchStores = async () => {
+        try {
+            const res = await api.get('/stores?limit=8');
+            const rawData = Array.isArray(res.data) ? res.data : (res.data.stores || []);
+            setStores(rawData.map((s: any) => ({
+                id: s.store_id || s.id,
+                name: s.name || s.business_name,
+                logo_url: s.logo_url,
+                category: s.category,
+                slug: s.slug,
+                rating: s.rating,
+            })));
+        } catch { /* silent */ }
+    };
+
+    const handlePostCreated = useCallback((newPost: any) => {
+        setPosts(prev => [newPost, ...prev]);
+        setShowComposer(false);
+    }, []);
+
+    const filteredPosts = useMemo(() => {
+        let result = [...posts];
+
+        if (activeCategory !== 'all') {
+            result = result.filter(p => p.category === activeCategory);
+        }
+
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            result = result.filter(p =>
+                (p.title || '').toLowerCase().includes(q) ||
+                (p.content || '').toLowerCase().includes(q) ||
+                (p.user_name || '').toLowerCase().includes(q)
+            );
+        }
+
+        switch (sortBy) {
+            case 'popular': result.sort((a, b) => (b.likes_count || 0) - (a.likes_count || 0)); break;
+            case 'trending': result.sort((a, b) => ((b.likes_count || 0) + (b.comments_count || 0)) - ((a.likes_count || 0) + (a.comments_count || 0))); break;
+            case 'recent': default: result.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()); break;
+        }
+
+        return result;
+    }, [posts, activeCategory, searchQuery, sortBy]);
 
     return (
         <main className="min-h-screen bg-slate-50">
-            {/* Hero Section */}
-            <HeroBackground pageKey="community" fallbackTitle="Community" className="min-h-[55vh]">
+            {/* Hero */}
+            <HeroBackground pageKey="community" fallbackTitle="Community" className="min-h-[40vh]">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="w-full max-w-3xl mx-auto text-center">
                     <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-2 mb-6">
                         <span className="text-lg">🏝️</span>
                         <span className="text-white/90 text-sm font-medium">Your neighborhood, connected</span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-4 drop-shadow-lg">
-                        Your Island <span className="bg-gradient-to-r from-indigo-300 via-violet-300 to-purple-300 bg-clip-text text-transparent">Community</span>
+                        Island <span className="bg-gradient-to-r from-amber-300 via-teal-300 to-indigo-300 bg-clip-text text-transparent">Community</span>
                     </h1>
-                    <p className="text-lg text-white/80 mb-8 font-medium max-w-xl mx-auto">Connect with neighbors, discover local events, and be part of what makes our island special.</p>
+                    <p className="text-lg text-white/80 mb-8 font-medium max-w-xl mx-auto">Share discoveries, find your people, and be part of what makes our island special.</p>
                     <div className="relative max-w-lg mx-auto">
-                        <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <input type="text" placeholder="Search community..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-12 pr-4 py-4 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-xl border border-white/20" />
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <input
+                            type="text"
+                            placeholder="Search posts, people, topics..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-12 pr-4 py-4 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 shadow-xl border border-white/20"
+                        />
                     </div>
                 </motion.div>
             </HeroBackground>
 
-            {/* Community Sections */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="text-center mb-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-2">Explore Your Community</h2>
-                    <p className="text-slate-500">Find your people, find your place</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-                    {COMMUNITY_SECTIONS.map(section => (
-                        <Link
-                            key={section.id}
-                            href={`/community/${section.id}`}
-                            className={`relative p-7 rounded-2xl text-center bg-gradient-to-br ${section.gradient} text-white shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group overflow-hidden`}
-                        >
-                            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
-                            <div className="relative z-10">
-                                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{section.icon}</div>
-                                <h3 className="font-bold text-lg mb-1">{section.label}</h3>
-                                <p className="text-sm opacity-80 mb-3">{section.desc}</p>
-                                <div className="flex items-center justify-center gap-1.5 text-xs font-semibold opacity-90">
-                                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                                    </svg>
-                                    {section.members}
-                                </div>
-                                <button className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white text-sm font-bold px-5 py-2 rounded-full transition-all duration-200 group-hover:bg-white/30">
-                                    Join →
-                                </button>
+            {/* Main Content */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                    {/* Left Sidebar — Navigation */}
+                    <aside className="lg:col-span-3 space-y-6">
+                        {/* Quick Links */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-2 mb-3">Explore</h3>
+                            <div className="space-y-1">
+                                {QUICK_LINKS.map(link => (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
+                                    >
+                                        <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${link.color} flex items-center justify-center text-white text-sm shrink-0`}>
+                                            {link.icon}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="text-sm font-bold text-slate-900 group-hover:text-teal-600 transition-colors">{link.label}</div>
+                                            <div className="text-[10px] text-slate-400 truncate">{link.desc}</div>
+                                        </div>
+                                        <ChevronRight size={14} className="text-slate-300 group-hover:text-teal-500 transition-colors" />
+                                    </Link>
+                                ))}
                             </div>
-                        </Link>
-                    ))}
-                </div>
-            </section>
+                        </div>
 
-            {/* Community Stats Bar */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="bg-white rounded-2xl border border-indigo-100 shadow-sm p-6 flex flex-wrap items-center justify-center gap-8 md:gap-16">
-                    <div className="text-center">
-                        <div className="text-2xl font-black text-indigo-600">12.5k</div>
-                        <div className="text-xs text-slate-500 font-medium">Active Members</div>
-                    </div>
-                    <div className="w-px h-10 bg-slate-200 hidden md:block" />
-                    <div className="text-center">
-                        <div className="text-2xl font-black text-violet-600">48</div>
-                        <div className="text-xs text-slate-500 font-medium">Local Groups</div>
-                    </div>
-                    <div className="w-px h-10 bg-slate-200 hidden md:block" />
-                    <div className="text-center">
-                        <div className="text-2xl font-black text-purple-600">156</div>
-                        <div className="text-xs text-slate-500 font-medium">Events This Month</div>
-                    </div>
-                    <div className="w-px h-10 bg-slate-200 hidden md:block" />
-                    <div className="text-center">
-                        <div className="text-2xl font-black text-fuchsia-600">89%</div>
-                        <div className="text-xs text-slate-500 font-medium">Satisfaction</div>
-                    </div>
-                </div>
-            </section>
+                        {/* Categories */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-2 mb-3">Categories</h3>
+                            <div className="space-y-0.5">
+                                {CATEGORIES.map(cat => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => setActiveCategory(cat.id)}
+                                        className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition-all ${
+                                            activeCategory === cat.id
+                                                ? 'bg-teal-50 text-teal-700'
+                                                : 'text-slate-600 hover:bg-slate-50'
+                                        }`}
+                                    >
+                                        <span className="text-sm">{cat.icon}</span>
+                                        <span className={`text-xs font-bold ${activeCategory === cat.id ? 'text-teal-700' : 'text-slate-600'}`}>{cat.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
-            {/* Community Stores */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <div className="flex items-center justify-between mb-8">
-                    <div>
-                        <h2 className="text-2xl font-bold text-slate-900 mb-1">Community Businesses</h2>
-                        <p className="text-slate-500">Local shops and services loved by neighbors</p>
-                    </div>
-                    <Link href="/stores" className="hidden md:inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-semibold text-sm transition-colors">
-                        View all <span>→</span>
-                    </Link>
-                </div>
-                {loading ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {[1,2,3,4].map(i => (<div key={i} className="h-72 bg-slate-100 animate-pulse rounded-2xl" />))}
-                    </div>
-                ) : filteredStores.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {/* Ad */}
+                        <AdSpace spaceName="community_sidebar" className="h-48 rounded-2xl overflow-hidden shadow-sm" hideOnEmpty />
+                    </aside>
+
+                    {/* Center — Feed */}
+                    <div className="lg:col-span-6 space-y-6">
+                        {/* Sort + Compose Toggle */}
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="flex gap-1 p-1 bg-white rounded-xl border border-slate-200">
+                                {([
+                                    { id: 'recent' as const, label: 'Recent', icon: <Clock size={13} /> },
+                                    { id: 'popular' as const, label: 'Popular', icon: <Star size={13} /> },
+                                    { id: 'trending' as const, label: 'Trending', icon: <Flame size={13} /> },
+                                ]).map(opt => (
+                                    <button
+                                        key={opt.id}
+                                        onClick={() => setSortBy(opt.id)}
+                                        className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+                                            sortBy === opt.id ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-slate-600'
+                                        }`}
+                                    >
+                                        {opt.icon}
+                                        {opt.label}
+                                    </button>
+                                ))}
+                            </div>
+                            <button
+                                onClick={() => setShowComposer(!showComposer)}
+                                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                                    showComposer ? 'bg-slate-100 text-slate-600' : 'bg-teal-600 text-white hover:bg-teal-700 shadow-lg shadow-teal-200'
+                                }`}
+                            >
+                                <Plus size={16} />
+                                New Post
+                            </button>
+                        </div>
+
+                        {/* Composer */}
                         <AnimatePresence>
-                            {filteredStores.map((store, index) => (
-                                <motion.div key={store.store_id || store.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-                                    <Link href={`/store/${store.slug}`}>
-                                        <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-indigo-200 transition-all duration-300 group h-full">
-                                            <div className="h-40 overflow-hidden relative">
-                                                {store.banner_url ? (
-                                                    <img src={getImageUrl(store.banner_url)} alt={store.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                                ) : (
-                                                    <div className="w-full h-full bg-gradient-to-br from-indigo-100 via-violet-50 to-purple-100 flex items-center justify-center">
-                                                        <span className="text-5xl">🏝️</span>
-                                                    </div>
-                                                )}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                                                <div className="absolute top-3 left-3">
-                                                    <span className="bg-indigo-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">{store.category}</span>
-                                                </div>
-                                                <div className="absolute bottom-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1">
-                                                    <svg className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>
-                                                    <span className="text-xs font-bold text-slate-700">{store.rating || '4.8'}</span>
+                            {showComposer && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="overflow-hidden"
+                                >
+                                    <PostComposer onPostCreated={handlePostCreated} />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Posts Feed */}
+                        <div className="space-y-6">
+                            {loading ? (
+                                <div className="space-y-4">
+                                    {[1, 2, 3].map(i => (
+                                        <div key={i} className="bg-white rounded-2xl border border-slate-100 p-8 animate-pulse">
+                                            <div className="flex items-center gap-4 mb-4">
+                                                <div className="w-12 h-12 rounded-full bg-slate-200" />
+                                                <div className="space-y-2">
+                                                    <div className="w-32 h-4 bg-slate-200 rounded" />
+                                                    <div className="w-20 h-3 bg-slate-100 rounded" />
                                                 </div>
                                             </div>
-                                            <div className="p-5">
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    {store.logo_url && (<img src={getImageUrl(store.logo_url)} alt="" className="w-10 h-10 rounded-xl object-cover border border-slate-100 shadow-sm" />)}
-                                                    <div className="flex-1 min-w-0">
-                                                        <h3 className="font-bold text-sm text-slate-900 truncate">{store.name}</h3>
-                                                        <p className="text-[11px] text-indigo-500 font-medium">{store.subtype || 'Local Business'}</p>
-                                                    </div>
-                                                </div>
-                                                <p className="text-[12px] text-slate-500 line-clamp-2 mb-3">{store.description}</p>
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-1 text-[11px] text-slate-400">
-                                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        </svg>
-                                                        Island Local
-                                                    </div>
-                                                    <span className="text-[11px] font-semibold text-indigo-600 group-hover:text-indigo-700 transition-colors">Visit →</span>
-                                                </div>
+                                            <div className="space-y-2">
+                                                <div className="w-full h-4 bg-slate-200 rounded" />
+                                                <div className="w-3/4 h-4 bg-slate-100 rounded" />
                                             </div>
                                         </div>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
+                                    ))}
+                                </div>
+                            ) : filteredPosts.length > 0 ? (
+                                <>
+                                    {filteredPosts.map((post, idx) => (
+                                        <motion.div
+                                            key={post.post_id || idx}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: idx * 0.05 }}
+                                        >
+                                            <PostCard post={post} />
+                                        </motion.div>
+                                    ))}
+                                    {filteredPosts.length >= 20 && (
+                                        <div className="text-center py-6">
+                                            <button className="px-6 py-3 bg-white border border-slate-200 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-colors">
+                                                Load More Posts
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+                                    <div className="text-5xl mb-4">🌊</div>
+                                    <h3 className="text-lg font-black text-slate-900 mb-2">
+                                        {searchQuery ? 'No results found' : 'No posts yet'}
+                                    </h3>
+                                    <p className="text-sm text-slate-500 mb-6">
+                                        {searchQuery
+                                            ? `No posts matching "${searchQuery}". Try different keywords.`
+                                            : 'Be the first to share something with the community!'}
+                                    </p>
+                                    {!searchQuery && (
+                                        <button
+                                            onClick={() => setShowComposer(true)}
+                                            className="px-6 py-3 bg-teal-600 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-teal-700 transition-colors"
+                                        >
+                                            🚀 Create First Post
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                ) : (
-                    <div className="text-center py-20 bg-white rounded-2xl border border-slate-100">
-                        <div className="text-6xl mb-4">🏝️</div>
-                        <h3 className="text-xl font-bold text-gray-700 mb-2">No stores found</h3>
-                        <p className="text-gray-500">Try adjusting your search</p>
-                    </div>
-                )}
-            </section>
 
-            {/* CTA Section */}
-            <section className="relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-700" />
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-300/10 rounded-full blur-3xl" />
+                    {/* Right Sidebar — Trending + Businesses */}
+                    <aside className="lg:col-span-3 space-y-6">
+                        {/* Trending Topics */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                            <div className="flex items-center gap-2 px-2 mb-3">
+                                <TrendingUp size={16} className="text-amber-500" />
+                                <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Trending</h3>
+                            </div>
+                            <div className="space-y-1">
+                                {['#IslandLife', '#StKitts', '#LocalFood', '#BeachDay', '#CaribbeanVibes', '#SmallBusiness'].map(tag => (
+                                    <button
+                                        key={tag}
+                                        onClick={() => setSearchQuery(tag.replace('#', ''))}
+                                        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors text-left"
+                                    >
+                                        <Hash size={14} className="text-slate-400 shrink-0" />
+                                        <span className="text-xs font-bold text-slate-700 truncate">{tag}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Featured Businesses */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                            <div className="flex items-center justify-between px-2 mb-3">
+                                <div className="flex items-center gap-2">
+                                    <Users size={16} className="text-teal-500" />
+                                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Local Businesses</h3>
+                                </div>
+                                <Link href="/stores" className="text-[10px] font-bold text-teal-600 hover:underline">View all</Link>
+                            </div>
+                            <div className="space-y-2">
+                                {stores.slice(0, 5).map(store => (
+                                    <Link
+                                        key={store.id}
+                                        href={`/store/${store.slug}`}
+                                        className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+                                    >
+                                        <div className="w-9 h-9 rounded-lg bg-slate-100 overflow-hidden shrink-0 flex items-center justify-center">
+                                            {store.logo_url ? (
+                                                <img src={getImageUrl(store.logo_url)} alt="" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="text-sm">🏪</span>
+                                            )}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="text-xs font-bold text-slate-900 truncate">{store.name}</div>
+                                            <div className="text-[10px] text-slate-400 truncate">{store.category}</div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Community Stats */}
+                        <div className="bg-gradient-to-br from-teal-600 to-indigo-600 rounded-2xl p-5 text-white">
+                            <h3 className="text-[10px] font-black uppercase tracking-widest text-white/70 mb-3">Community Pulse</h3>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="bg-white/10 rounded-xl p-3 text-center">
+                                    <div className="text-xl font-black">{posts.length}</div>
+                                    <div className="text-[9px] font-bold text-white/70 uppercase tracking-widest">Posts</div>
+                                </div>
+                                <div className="bg-white/10 rounded-xl p-3 text-center">
+                                    <div className="text-xl font-black">{stores.length}</div>
+                                    <div className="text-[9px] font-bold text-white/70 uppercase tracking-widest">Businesses</div>
+                                </div>
+                                <div className="bg-white/10 rounded-xl p-3 text-center">
+                                    <div className="text-xl font-black">48</div>
+                                    <div className="text-[9px] font-bold text-white/70 uppercase tracking-widest">Groups</div>
+                                </div>
+                                <div className="bg-white/10 rounded-xl p-3 text-center">
+                                    <div className="text-xl font-black">156</div>
+                                    <div className="text-[9px] font-bold text-white/70 uppercase tracking-widest">Events</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Ad */}
+                        <AdSpace spaceName="marketplace_sidebar" className="h-48 rounded-2xl overflow-hidden shadow-sm" hideOnEmpty />
+                    </aside>
                 </div>
-                <div className="relative max-w-4xl mx-auto text-center px-4 py-20">
-                    <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
-                        <span className="text-sm">✨</span>
-                        <span className="text-white/90 text-xs font-medium">Growing every day</span>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Be Part of Something Special</h2>
-                    <p className="text-indigo-100 mb-10 max-w-xl mx-auto text-lg">List your business, connect with neighbors, and grow together with our island community.</p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/become-vendor" className="inline-flex items-center gap-2 bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl hover:bg-indigo-50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                            <span>Join the Community</span>
-                            <span>→</span>
-                        </Link>
-                        <Link href="/about" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white font-bold px-8 py-4 rounded-xl hover:bg-white/20 transition-all border border-white/20">
-                            Learn More
-                        </Link>
-                    </div>
-                </div>
-            </section>
+            </div>
         </main>
     );
 }
