@@ -364,6 +364,13 @@ export default function Navbar() {
                         </div>
                       </div>
                       <Link
+                        href="/profile"
+                        onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"
+                      >
+                        Edit Profile
+                      </Link>
+                      <Link
                         href="/dashboard"
                         onClick={() => setMobileOpen(false)}
                         className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"

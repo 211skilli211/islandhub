@@ -13,7 +13,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
         }
 
         const result = await pool.query(
-            'SELECT user_id as id, name, email, role, bio, profile_photo_url, profile_photo_url as avatar_url, banner_image_url, banner_color, created_at, is_verified_driver, vehicle_type, vehicle_plate, license_number, vehicle_color, vehicle_seating, is_online FROM users WHERE user_id = $1',
+            'SELECT user_id as id, name, email, role, bio, profile_photo_url, profile_photo_url as avatar_url, banner_image_url, banner_color, created_at, is_verified_driver, vehicle_type, vehicle_plate, license_number, vehicle_color, vehicle_seating, is_online, phone, location, website FROM users WHERE user_id = $1',
             [userId]
         );
 
@@ -36,7 +36,8 @@ export const updateProfile = async (req: Request, res: Response) => {
         const {
             bio, banner_color, name, license_number, vehicle_type,
             vehicle_plate, vehicle_color, vehicle_seating,
-            avatar_url, cover_photo_url
+            avatar_url, cover_photo_url,
+            phone, location, website
         } = req.body;
 
         // Validation for driver-specific fields
@@ -69,12 +70,15 @@ export const updateProfile = async (req: Request, res: Response) => {
                 vehicle_seating = COALESCE($8, vehicle_seating),
                 profile_photo_url = COALESCE($9, profile_photo_url),
                 banner_image_url = COALESCE($10, banner_image_url),
+                phone = COALESCE($11, phone),
+                location = COALESCE($12, location),
+                website = COALESCE($13, website),
                 updated_at = NOW()
-            WHERE user_id = $11 RETURNING user_id, name, email, role, bio, profile_photo_url, profile_photo_url as avatar_url, banner_image_url, banner_color, is_verified_driver, vehicle_type, vehicle_plate, license_number, vehicle_color, vehicle_seating`,
+            WHERE user_id = $14 RETURNING user_id, name, email, role, bio, profile_photo_url, profile_photo_url as avatar_url, banner_image_url, banner_color, is_verified_driver, vehicle_type, vehicle_plate, license_number, vehicle_color, vehicle_seating, phone, location, website`,
             [
                 bio, banner_color, name, license_number, vehicle_type,
                 vehicle_plate, vehicle_color, vehicle_seating ? parseInt(vehicle_seating) : null,
-                avatar_url, cover_photo_url, userId
+                avatar_url, cover_photo_url, phone, location, website, userId
             ]
         );
 
@@ -95,7 +99,7 @@ export const getProfile = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const result = await pool.query(
-            'SELECT user_id, name, email, role, bio, profile_photo_url, profile_photo_url as avatar_url, banner_image_url, banner_color, created_at, is_verified_driver, vehicle_type, vehicle_plate, license_number, vehicle_color, vehicle_seating, is_online FROM users WHERE user_id = $1',
+            'SELECT user_id, name, email, role, bio, profile_photo_url, profile_photo_url as avatar_url, banner_image_url, banner_color, created_at, is_verified_driver, vehicle_type, vehicle_plate, license_number, vehicle_color, vehicle_seating, is_online, phone, location, website FROM users WHERE user_id = $1',
             [id]
         );
 
