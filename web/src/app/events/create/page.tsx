@@ -160,7 +160,23 @@ export default function CreateEventPage() {
 
   const uploading = uploadingCover || uploadingBanner || saving;
 
-  return (
+  // Step validation
+  const canProceedStep1 = title.trim() && venue.trim() && startDate;
+  const canProceedStep2 = tiers.filter(t => t.name.trim() && t.price && t.quantity).length > 0;
+
+  const goToStep = (targetStep: number) => {
+    if (uploading) return;
+    // Validate current step before advancing
+    if (step === 1 && targetStep > 1 && !canProceedStep1) {
+      toast.error('Please fill in Title, Venue, and Start Date');
+      return;
+    }
+    if (step === 2 && targetStep > 2 && !canProceedStep2) {
+      toast.error('Add at least one ticket tier with name, price, and quantity');
+      return;
+    }
+    setStep(targetStep);
+  };
     <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
@@ -179,7 +195,7 @@ export default function CreateEventPage() {
           {[1, 2, 3].map(s => (
             <button
               key={s}
-              onClick={() => !uploading && setStep(s)}
+              onClick={() => goToStep(s)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
                 step === s
                   ? 'bg-purple-600 text-white'
@@ -317,7 +333,7 @@ export default function CreateEventPage() {
               </div>
             </div>
 
-            <button onClick={() => setStep(2)}
+            <button onClick={() => goToStep(2)}
               className="w-full py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
               Next: Ticket Tiers →
             </button>
@@ -387,11 +403,11 @@ export default function CreateEventPage() {
             </button>
 
             <div className="flex gap-3">
-              <button onClick={() => setStep(1)}
+              <button onClick={() => goToStep(1)}
                 className="flex-1 py-3 bg-slate-100 dark:bg-ocean-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-ocean-700 transition-colors">
                 ← Back
               </button>
-              <button onClick={() => setStep(3)}
+              <button onClick={() => goToStep(3)}
                 className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
                 Review →
               </button>
@@ -476,7 +492,7 @@ export default function CreateEventPage() {
             </div>
 
             <div className="flex gap-3">
-              <button onClick={() => setStep(2)}
+              <button onClick={() => goToStep(2)}
                 className="flex-1 py-3 bg-slate-100 dark:bg-ocean-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold hover:bg-slate-200 dark:hover:bg-ocean-700 transition-colors">
                 ← Edit Tickets
               </button>
