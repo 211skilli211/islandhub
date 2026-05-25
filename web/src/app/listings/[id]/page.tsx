@@ -63,11 +63,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             title: listing.title,
             description: listing.description?.slice(0, 200),
             images: [ogImage],
-            type: isProduct ? 'product' : 'website',
+            type: 'website',
             site_name: 'IslandHub Marketplace',
             locale: 'en_KN',
             url: `https://islandhub.app/listings/${listing.slug || id}`,
-            ...productOgTags,
         },
         twitter: {
             card: 'summary_large_image',
@@ -77,6 +76,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         other: {
             'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID || '',
+            ...productOgTags,
         }
     };
 }
