@@ -198,7 +198,7 @@ export default function EditListingPage() {
                                         className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all pr-32"
                                         placeholder="e.g. delicious-ital-stew"
                                     />
-                                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-300 uppercase">
+                                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-black text-ink-tertiary uppercase">
                                         /listings/
                                     </div>
                                 </div>
@@ -296,7 +296,7 @@ export default function EditListingPage() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="flex-1 px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-xl shadow-2xl shadow-teal-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                                className="flex-1 px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-xl shadow-2xl shadow-accent-500/10 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                             >
                                 {saving ? 'Saving...' : 'Save Changes'}
                             </button>

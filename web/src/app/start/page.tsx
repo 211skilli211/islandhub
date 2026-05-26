@@ -67,7 +67,7 @@ export default function StartHubPage() {
                             transition={{ delay: idx * 0.1 }}
                         >
                             <Link href={option.href} className="block h-full group">
-                                <div className="h-full bg-surface-elevated rounded-[2.5rem] p-8 border border-border-primary shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100 hover:-translate-y-2 transition-all relative overflow-hidden">
+                                <div className="h-full bg-surface-elevated rounded-[2.5rem] p-8 border border-border-primary shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-accent-500/10 hover:-translate-y-2 transition-all relative overflow-hidden">
                                     {option.badge && (
                                         <div className="absolute top-6 right-6 px-3 py-1 bg-accent-500/10 text-accent-400 text-[10px] font-black uppercase tracking-widest rounded-full">
                                             {option.badge}
@@ -78,7 +78,7 @@ export default function StartHubPage() {
                                         {option.icon}
                                     </div>
 
-                                    <h3 className="text-2xl font-black text-slate-800 mb-4 tracking-tight">
+                                    <h3 className="text-2xl font-black text-ink-primary mb-4 tracking-tight">
                                         {option.title}
                                     </h3>
 
@@ -101,12 +101,12 @@ export default function StartHubPage() {
                 <div className="mt-20 p-12 bg-surface-tertiary rounded-[3rem] text-center text-white relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                         <div className="absolute top-0 left-10 w-40 h-40 bg-accent-500/100 blur-[100px]" />
-                        <div className="absolute bottom-0 right-10 w-40 h-40 bg-indigo-500 blur-[100px]" />
+                        <div className="absolute bottom-0 right-10 w-40 h-40 bg-[#818cf8]/100 blur-[100px]" />
                     </div>
 
                     <h2 className="text-3xl font-black mb-4">Not sure where to begin?</h2>
                     <p className="text-ink-tertiary font-medium mb-8 max-w-xl mx-auto">Our support team is here to help you set up your store or launch your first campaign.</p>
-                    <Link href="/contact" className="inline-block px-10 py-4 bg-accent-500 hover:bg-accent-500/100 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal-500/20">
+                    <Link href="/contact" className="inline-block px-10 py-4 bg-accent-500 hover:bg-accent-500/100 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 shadow-xl shadow-accent-500/20">
                         Contact Support
                     </Link>
                 </div>

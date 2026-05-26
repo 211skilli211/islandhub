@@ -21,7 +21,7 @@ export default function BusinessCommunityPage() {
                 <input 
                     type="text" 
                     placeholder="Search businesses, services, or industries..." 
-                    className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
+                    className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
                 />
             </div>
 
@@ -31,7 +31,7 @@ export default function BusinessCommunityPage() {
                     onClick={() => setActiveTab('directory')}
                     className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${
                         activeTab === 'directory' 
-                            ? 'bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white shadow-sm' 
+                            ? 'bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white shadow-sm' 
                             : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-primary dark:hover:text-white'
                     }`}
                 >
@@ -41,7 +41,7 @@ export default function BusinessCommunityPage() {
                     onClick={() => setActiveTab('network')}
                     className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${
                         activeTab === 'network' 
-                            ? 'bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white shadow-sm' 
+                            ? 'bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white shadow-sm' 
                             : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-primary dark:hover:text-white'
                     }`}
                 >
@@ -51,7 +51,7 @@ export default function BusinessCommunityPage() {
                     onClick={() => setActiveTab('forum')}
                     className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${
                         activeTab === 'forum' 
-                            ? 'bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white shadow-sm' 
+                            ? 'bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white shadow-sm' 
                             : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-primary dark:hover:text-white'
                     }`}
                 >
@@ -70,13 +70,13 @@ export default function BusinessCommunityPage() {
                         { name: 'Island Adventures', category: 'Tourism', verified: true },
                         { name: 'Coastal Services', category: 'Professional Services', verified: false },
                     ].map((business, idx) => (
-                        <div key={idx} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl p-6 border border-border-primary dark:border-slate-700 hover:border-teal-500 dark:hover:border-teal-500 transition-all cursor-pointer">
+                        <div key={idx} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl p-6 border border-border-primary dark:border-border-primary hover:border-teal-500 dark:hover:border-teal-500 transition-all cursor-pointer">
                             <div className="flex items-start justify-between">
-                                <div className="w-12 h-12 bg-accent-500/15 dark:bg-teal-900 rounded-xl flex items-center justify-center">
-                                    <Building2 className="w-6 h-6 text-accent-400 dark:text-teal-400" />
+                                <div className="w-12 h-12 bg-accent-500/15 dark:bg-accent-800 rounded-xl flex items-center justify-center">
+                                    <Building2 className="w-6 h-6 text-accent-400 dark:text-accent-400" />
                                 </div>
                                 {business.verified && (
-                                    <span className="px-2 py-1 bg-accent-500/15 dark:bg-teal-900 text-accent-500 dark:text-teal-300 text-xs font-bold rounded-full">Verified</span>
+                                    <span className="px-2 py-1 bg-accent-500/15 dark:bg-accent-800 text-accent-500 dark:text-accent-300 text-xs font-bold rounded-full">Verified</span>
                                 )}
                             </div>
                             <h3 className="font-bold text-ink-primary dark:text-white mt-4">{business.name}</h3>

@@ -9,10 +9,10 @@ interface RoleSwitcherProps {
 
 export default function RoleSwitcher({ viewMode, setViewMode, showDriverView, showVendorView = true }: RoleSwitcherProps) {
     return (
-        <div className="flex bg-slate-100 p-1 rounded-xl">
+        <div className="flex bg-surface-secondary p-1 rounded-xl">
             <button
                 onClick={() => setViewMode('buyer')}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'buyer' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'buyer' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary0 hover:text-ink-primary'
                     }`}
             >
                 Shopping
@@ -20,7 +20,7 @@ export default function RoleSwitcher({ viewMode, setViewMode, showDriverView, sh
             {showVendorView && (
                 <button
                     onClick={() => setViewMode('vendor')}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'vendor' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'vendor' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary0 hover:text-ink-primary'
                         }`}
                 >
                     Selling
@@ -29,7 +29,7 @@ export default function RoleSwitcher({ viewMode, setViewMode, showDriverView, sh
             {showDriverView && (
                 <button
                     onClick={() => setViewMode('driver')}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'driver' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'driver' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary0 hover:text-ink-primary'
                         }`}
                 >
                     Logistics

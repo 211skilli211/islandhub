@@ -80,13 +80,13 @@ export default function CoopDetailPage() {
             {/* Hero */}
             <section className="bg-surface-tertiary py-16 px-6">
                 <div className="max-w-4xl mx-auto">
-                    <Link href="/store/ibt-solutions/coops" className="inline-flex items-center gap-2 text-teal-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
+                    <Link href="/store/ibt-solutions/coops" className="inline-flex items-center gap-2 text-accent-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
                         ← Back to Co-ops
                     </Link>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                         <div className="flex items-center gap-3 mb-4">
                             <span className="text-4xl">{coop.sector_icon}</span>
-                            <span className="px-3 py-1 bg-accent-500/20 text-teal-400 rounded-full text-xs font-bold uppercase tracking-widest">
+                            <span className="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-xs font-bold uppercase tracking-widest">
                                 {coop.sector_name}
                             </span>
                             {coop.is_verified && (

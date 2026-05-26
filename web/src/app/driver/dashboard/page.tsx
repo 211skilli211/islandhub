@@ -146,7 +146,7 @@ export default function DriverDashboard() {
                         </div>
                         <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
                             <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">This Week</p>
-                            <p className="text-2xl font-black text-teal-400">${earnings.week.toFixed(2)}</p>
+                            <p className="text-2xl font-black text-accent-400">${earnings.week.toFixed(2)}</p>
                         </div>
                         <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
                             <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">Active</p>
@@ -217,7 +217,7 @@ export default function DriverDashboard() {
                                                 <div className="w-3 h-3 bg-green-500 rounded-full mt-1 flex-shrink-0" />
                                                 <div className="flex-1">
                                                     <p className="text-[10px] text-ink-tertiary font-bold uppercase">Pickup</p>
-                                                    <p className="text-sm font-bold text-slate-800">{job.pickup_location}</p>
+                                                    <p className="text-sm font-bold text-ink-primary">{job.pickup_location}</p>
                                                 </div>
                                             </div>
                                             <div className="w-0.5 h-4 bg-surface-tertiary ml-1.5" />
@@ -225,7 +225,7 @@ export default function DriverDashboard() {
                                                 <div className="w-3 h-3 bg-red-500 rounded-full mt-1 flex-shrink-0" />
                                                 <div className="flex-1">
                                                     <p className="text-[10px] text-ink-tertiary font-bold uppercase">Dropoff</p>
-                                                    <p className="text-sm font-bold text-slate-800">{job.dropoff_location}</p>
+                                                    <p className="text-sm font-bold text-ink-primary">{job.dropoff_location}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -271,8 +271,8 @@ export default function DriverDashboard() {
                                             onClick={() => handleUpdateStatus(job.id, 'in_progress')}
                                             disabled={job.transport_status === 'in_progress'}
                                             className={`py-3 rounded-xl font-black uppercase text-xs tracking-widest border-2 transition-all ${job.transport_status === 'in_progress'
-                                                ? 'bg-[#818cf8] text-white border-indigo-600'
-                                                : 'bg-surface-elevated text-[#818cf8] border-indigo-200 hover:bg-indigo-50'
+                                                ? 'bg-[#818cf8] text-white border-[#818cf8]'
+                                                : 'bg-surface-elevated text-[#818cf8] border-[#818cf8]/20 hover:bg-[#818cf8]/10'
                                                 }`}>
                                             🚗 Start / En Route
                                         </button>
@@ -307,7 +307,7 @@ export default function DriverDashboard() {
                                 <p className="text-5xl font-black mb-4">${earnings.today.toFixed(2)}</p>
                                 <p className="text-sm opacity-80">Keep up the great work! 🚀</p>
                             </div>
-                            <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-8 rounded-3xl text-white shadow-2xl">
+                            <div className="bg-gradient-to-br from-teal-500 to-accent-400 p-8 rounded-3xl text-white shadow-2xl">
                                 <p className="text-sm font-bold uppercase tracking-widest opacity-80 mb-2">This Week</p>
                                 <p className="text-5xl font-black mb-4">${earnings.week.toFixed(2)}</p>
                                 <p className="text-sm opacity-80">{completedJobs.length} jobs completed</p>
@@ -407,7 +407,7 @@ export default function DriverDashboard() {
                         <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 rounded-3xl text-white shadow-2xl overflow-hidden relative">
                             <div className="relative z-10">
                                 <h3 className="text-2xl font-black mb-2">Fleet Performance</h3>
-                                <p className="text-indigo-100 mb-6">Your current vehicle efficiency and stats</p>
+                                <p className="text-[#a5b4fc] mb-6">Your current vehicle efficiency and stats</p>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-xl">
                                         <p className="text-[10px] font-black uppercase opacity-60">Reliability</p>
@@ -458,7 +458,7 @@ export default function DriverDashboard() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="p-6 bg-surface-primary rounded-2xl">
-                                    <h3 className="font-black text-slate-800 mb-4 uppercase tracking-widest text-xs">Driver Stats</h3>
+                                    <h3 className="font-black text-ink-primary mb-4 uppercase tracking-widest text-xs">Driver Stats</h3>
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
                                             <span className="text-ink-secondary font-medium">Total Jobs</span>
@@ -476,7 +476,7 @@ export default function DriverDashboard() {
                                 </div>
 
                                 <div className="p-6 bg-surface-primary rounded-2xl">
-                                    <h3 className="font-black text-slate-800 mb-4 uppercase tracking-widest text-xs">Vehicle Info</h3>
+                                    <h3 className="font-black text-ink-primary mb-4 uppercase tracking-widest text-xs">Vehicle Info</h3>
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
                                             <span className="text-ink-secondary font-medium">Type</span>
@@ -484,7 +484,7 @@ export default function DriverDashboard() {
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-ink-secondary font-medium">Status</span>
-                                            <span className={`font-black ${user?.is_verified_driver ? 'text-green-600' : 'text-amber-600'}`}>
+                                            <span className={`font-black ${user?.is_verified_driver ? 'text-green-600' : 'text-sand-500'}`}>
                                                 {user?.is_verified_driver ? 'Verified' : 'Pending'}
                                             </span>
                                         </div>

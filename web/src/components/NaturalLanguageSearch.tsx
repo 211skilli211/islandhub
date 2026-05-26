@@ -175,7 +175,7 @@ export function NaturalLanguageSearch() {
                             <a
                                 key={result.id}
                                 href={result.url}
-                                className="block p-4 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow"
+                                className="block p-4 bg-surface-elevated border border-gray-200 rounded-xl hover:shadow-lg transition-shadow"
                             >
                                 {result.image && (
                                     <img

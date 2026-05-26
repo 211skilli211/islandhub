@@ -212,7 +212,7 @@ export default function MyOrdersPage() {
                     {order.items.map((item) => (
                       <div
                         key={item.order_item_id}
-                        className="flex items-center justify-between py-3 border-b border-slate-50 last:border-0"
+                        className="flex items-center justify-between py-3 border-b border-border-primary last:border-0"
                       >
                         <div className="flex-1">
                           <p className="font-semibold text-ink-primary">{item.item_name}</p>

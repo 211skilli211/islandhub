@@ -55,7 +55,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
     };
 
     if (loading) {
-        return <div className="animate-pulse h-48 bg-slate-100 rounded-2xl"></div>;
+        return <div className="animate-pulse h-48 bg-surface-secondary rounded-2xl"></div>;
     }
 
     const colorPresets = [
@@ -82,8 +82,8 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
     return (
         <div className="space-y-8">
             <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Site Theme</h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Control the default theme for the entire platform</p>
+                <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-4">Site Theme</h3>
+                <p className="text-sm text-ink-tertiary0 dark:text-ink-tertiary mb-6">Control the default theme for the entire platform</p>
             </div>
 
             {/* Theme Selection */}
@@ -94,8 +94,8 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                         onClick={() => setTheme(t)}
                         className={`p-4 rounded-2xl border-2 transition-all ${
                             theme === t 
-                                ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20' 
-                                : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                                ? 'border-teal-500 bg-accent-500/10 dark:bg-accent-800/20' 
+                                : 'border-border-primary dark:border-border-primary hover:border-border-primary dark:hover:border-border-primary'
                         }`}
                     >
                         <div className="text-2xl mb-2">
@@ -108,7 +108,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
 
             {/* Primary Color */}
             <div>
-                <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">Primary Color</h4>
+                <h4 className="text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-3">Primary Color</h4>
                 <div className="flex flex-wrap gap-3">
                     {colorPresets.map((color) => (
                         <button
@@ -116,7 +116,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                             onClick={() => setPrimaryColor(color.value)}
                             className={`w-10 h-10 rounded-full border-2 transition-all ${
                                 primaryColor === color.value 
-                                    ? 'border-slate-900 dark:border-white scale-110' 
+                                    ? 'border-border-primary dark:border-white scale-110' 
                                     : 'border-transparent'
                             }`}
                             style={{ backgroundColor: color.value }}
@@ -127,8 +127,8 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
             </div>
 
             {/* Toast Style */}
-            <div className="border-t border-slate-200 dark:border-slate-700 pt-6">
-                <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">Toast Notifications</h4>
+            <div className="border-t border-border-primary dark:border-border-primary pt-6">
+                <h4 className="text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-3">Toast Notifications</h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                     {toastStylePresets.map((style) => (
                         <button
@@ -136,21 +136,21 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                             onClick={() => setToastStyleLocal(style.id)}
                             className={`p-3 rounded-xl border-2 transition-all text-left ${
                                 toastStyle === style.id
-                                    ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20'
-                                    : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                                    ? 'border-teal-500 bg-accent-500/10 dark:bg-accent-800/20'
+                                    : 'border-border-primary dark:border-border-primary hover:border-border-primary dark:hover:border-border-primary'
                             }`}
                         >
                             <div className="text-xl mb-1">{style.icon}</div>
                             <div className="font-bold text-xs">{style.name}</div>
-                            <div className="text-[10px] text-slate-500 dark:text-slate-400">{style.desc}</div>
+                            <div className="text-[10px] text-ink-tertiary0 dark:text-ink-tertiary">{style.desc}</div>
                         </button>
                     ))}
                 </div>
             </div>
 
             {/* Preview */}
-            <div className="p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl">
-                <h4 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3">Preview</h4>
+            <div className="p-6 bg-surface-secondary dark:bg-surface-tertiary rounded-2xl">
+                <h4 className="text-xs font-bold text-ink-tertiary dark:text-ink-tertiary0 uppercase mb-3">Preview</h4>
                 <div className="flex gap-3">
                     <div 
                         className="px-4 py-2 rounded-lg text-white font-bold"
@@ -158,7 +158,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                     >
                         Button
                     </div>
-                    <div className="px-4 py-2 rounded-lg bg-slate-900 text-white font-bold text-sm">
+                    <div className="px-4 py-2 rounded-lg bg-ink-primary text-white font-bold text-sm">
                         Toast Style
                     </div>
                 </div>
@@ -168,7 +168,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
             <button
                 onClick={handleSaveTheme}
                 disabled={saving}
-                className="w-full py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-slate-600 disabled:opacity-50"
+                className="w-full py-3 bg-ink-primary dark:bg-surface-tertiary text-white rounded-xl font-bold hover:bg-surface-tertiary dark:hover:bg-surface-tertiary disabled:opacity-50"
             >
                 {saving ? 'Saving...' : 'Save Theme Settings'}
             </button>

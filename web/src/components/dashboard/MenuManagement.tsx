@@ -145,19 +145,19 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
     };
 
     if (loading) return <div className="p-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mx-auto" /></div>;
-    if (!storeId) return <div className="p-20 text-center text-slate-400 font-black uppercase text-xs">Register your store to enable menu management</div>;
+    if (!storeId) return <div className="p-20 text-center text-ink-tertiary font-black uppercase text-xs">Register your store to enable menu management</div>;
 
     return (
         <div className="space-y-12 pb-12">
             <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                 <div>
-                    <h3 className="text-xl font-black text-slate-800 tracking-tight">Menu Management</h3>
-                    <p className="text-sm font-medium text-slate-400">Organize your shop's offerings into sections</p>
+                    <h3 className="text-xl font-black text-ink-primary tracking-tight">Menu Management</h3>
+                    <p className="text-sm font-medium text-ink-tertiary">Organize your shop's offerings into sections</p>
                 </div>
                 {!isAddingSection ? (
                     <button
                         onClick={() => setIsAddingSection(true)}
-                        className="px-6 py-3 bg-teal-600 text-white rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg shadow-teal-100 w-full sm:w-auto"
+                        className="px-6 py-3 bg-accent-500 text-white rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg shadow-accent-500/10 w-full sm:w-auto"
                     >
                         + Add Section
                     </button>
@@ -167,11 +167,11 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                             value={newSectionName}
                             onChange={(e) => setNewSectionName(e.target.value)}
                             placeholder="Section Name (e.g. Lunch)"
-                            className="px-4 py-3 rounded-xl border border-slate-200 text-sm font-bold w-full sm:w-auto"
+                            className="px-4 py-3 rounded-xl border border-border-primary text-sm font-bold w-full sm:w-auto"
                         />
                         <div className="flex gap-2">
-                            <button onClick={handleAddSection} className="px-4 py-3 bg-teal-600 text-white rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none">Add</button>
-                            <button onClick={() => setIsAddingSection(false)} className="px-4 py-3 bg-slate-100 text-slate-400 rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none">✕</button>
+                            <button onClick={handleAddSection} className="px-4 py-3 bg-accent-500 text-white rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none">Add</button>
+                            <button onClick={() => setIsAddingSection(false)} className="px-4 py-3 bg-surface-secondary text-ink-tertiary rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none">✕</button>
                         </div>
                     </div>
                 )}
@@ -179,10 +179,10 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
 
             <div className="space-y-10">
                 {menu.length > 0 ? menu.map((section) => (
-                    <div key={section.id} className="bg-slate-50/50 rounded-[3rem] border border-slate-100 p-10 relative group">
+                    <div key={section.id} className="bg-surface-secondary/50 rounded-[3rem] border border-border-primary p-10 relative group">
                         <button
                             onClick={() => handleDeleteSection(section.id)}
-                            className="absolute top-4 right-4 sm:top-8 sm:right-8 text-slate-300 hover:text-rose-500 transition-colors bg-white/50 p-2 rounded-full sm:bg-transparent sm:p-0"
+                            className="absolute top-4 right-4 sm:top-8 sm:right-8 text-ink-tertiary hover:text-[#e11d48] transition-colors bg-surface-elevated/50 p-2 rounded-full sm:bg-transparent sm:p-0"
                             title="Delete Section"
                         >
                             <span className="sm:hidden text-lg font-bold">✕</span>
@@ -190,19 +190,19 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                         </button>
 
                         <div className="flex items-center gap-4 mb-8">
-                            <h4 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase">{section.name}</h4>
-                            <div className="flex-1 h-[2px] bg-white" />
+                            <h4 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase">{section.name}</h4>
+                            <div className="flex-1 h-[2px] bg-surface-elevated" />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {section.items?.map((item: any) => (
                                 <div
                                     key={item.id}
-                                    className="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-lg transition-all"
+                                    className="bg-surface-elevated p-5 rounded-[2rem] border border-border-primary shadow-sm flex flex-col gap-4 hover:shadow-lg transition-all"
                                 >
                                     {/* Top: Image + Info */}
                                     <div className="flex gap-4">
-                                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl overflow-hidden flex-shrink-0 border border-slate-50">
+                                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-surface-secondary rounded-2xl overflow-hidden flex-shrink-0 border border-border-primary">
                                             {item.image_url ? (
                                                 <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.name} />
                                             ) : (
@@ -210,32 +210,32 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-black text-slate-900 uppercase text-sm truncate">{item.name}</p>
-                                            <p className="text-[10px] text-slate-400 mt-1 line-clamp-2">{item.description}</p>
+                                            <p className="font-black text-ink-primary uppercase text-sm truncate">{item.name}</p>
+                                            <p className="text-[10px] text-ink-tertiary mt-1 line-clamp-2">{item.description}</p>
                                             <div className="flex flex-wrap gap-1.5 mt-2">
                                                 {item.duration && (
-                                                    <span className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-[8px] font-black uppercase tracking-widest">⏱️ {item.duration}</span>
+                                                    <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary0 rounded text-[8px] font-black uppercase tracking-widest">⏱️ {item.duration}</span>
                                                 )}
                                                 {item.donation_suggested && (
-                                                    <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded text-[8px] font-black uppercase tracking-widest">Donation</span>
+                                                    <span className="px-2 py-0.5 bg-sand-500/5 text-sand-500 rounded text-[8px] font-black uppercase tracking-widest">Donation</span>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Bottom: Price + Actions */}
-                                    <div className="flex items-center justify-between pt-2 border-t border-slate-50">
-                                        <span className="font-black text-teal-600 px-3 py-1 bg-teal-50 rounded-xl text-sm">${item.price}</span>
+                                    <div className="flex items-center justify-between pt-2 border-t border-border-primary">
+                                        <span className="font-black text-accent-400 px-3 py-1 bg-accent-500/10 rounded-xl text-sm">${item.price}</span>
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); handleOpenItemModal(section.id, item); }}
-                                                className="px-3 py-1.5 bg-slate-900 text-white rounded-lg text-[9px] uppercase font-black tracking-widest hover:bg-teal-600 transition-colors"
+                                                className="px-3 py-1.5 bg-ink-primary text-white rounded-lg text-[9px] uppercase font-black tracking-widest hover:bg-accent-500 transition-colors"
                                             >
                                                 Edit
                                             </button>
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); handleDeleteItem(item.id); }}
-                                                className="px-3 py-1.5 bg-rose-50 text-rose-600 rounded-lg text-[9px] uppercase font-black tracking-widest hover:bg-rose-100 transition-colors"
+                                                className="px-3 py-1.5 bg-[#e11d48]/5 text-[#e11d48] rounded-lg text-[9px] uppercase font-black tracking-widest hover:bg-[#e11d48]/10 transition-colors"
                                             >
                                                 Del
                                             </button>
@@ -245,7 +245,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                             ))}
                             <button
                                 onClick={() => handleOpenItemModal(section.id)}
-                                className="h-full min-h-[100px] border-2 border-dashed border-slate-200 rounded-[2.5rem] flex flex-col items-center justify-center text-slate-400 hover:border-teal-300 hover:text-teal-600 transition-all gap-2 group"
+                                className="h-full min-h-[100px] border-2 border-dashed border-border-primary rounded-[2.5rem] flex flex-col items-center justify-center text-ink-tertiary hover:border-teal-300 hover:text-accent-400 transition-all gap-2 group"
                             >
                                 <span className="text-2xl group-hover:scale-125 transition-transform">➕</span>
                                 <p className="text-[10px] font-black uppercase tracking-widest">New Item</p>
@@ -253,8 +253,8 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                         </div>
                     </div>
                 )) : (
-                    <div className="py-20 text-center border-2 border-dashed border-slate-200 rounded-[3rem]">
-                        <p className="text-slate-400 font-bold italic">No menu sections created yet. Add one to start building your menu!</p>
+                    <div className="py-20 text-center border-2 border-dashed border-border-primary rounded-[3rem]">
+                        <p className="text-ink-tertiary font-bold italic">No menu sections created yet. Add one to start building your menu!</p>
                     </div>
                 )}
             </div>
@@ -262,24 +262,24 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
             {/* Item Modal */}
             <AnimatePresence>
                 {isItemModalOpen && editingItem && (
-                    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 bg-ink-primary/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                            className="bg-surface-elevated w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
                         >
-                            <div className="p-8 border-b border-slate-100 flex justify-between items-center">
-                                <h4 className="text-xl font-black text-slate-900 uppercase italic">
+                            <div className="p-8 border-b border-border-primary flex justify-between items-center">
+                                <h4 className="text-xl font-black text-ink-primary uppercase italic">
                                     {editingItem.id ? 'Edit Menu Item' : 'New Menu Item'}
                                 </h4>
-                                <button onClick={() => setIsItemModalOpen(false)} className="text-slate-300 hover:text-slate-900">✕</button>
+                                <button onClick={() => setIsItemModalOpen(false)} className="text-ink-tertiary hover:text-ink-primary">✕</button>
                             </div>
 
                             <div className="p-8 space-y-6 overflow-y-auto">
                                 <div className="space-y-4">
                                     {/* Link to Existing Listing */}
-                                    <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-100 mb-6">
+                                    <div className="p-4 bg-[#818cf8]/10 rounded-xl border border-[#818cf8]/20 mb-6">
                                         <label className="text-[9px] font-black uppercase tracking-widest text-indigo-800 mb-2 block">Link to Existing Listing (Auto-fill)</label>
                                         <select
                                             onChange={(e) => {
@@ -296,7 +296,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                     });
                                                 }
                                             }}
-                                            className="w-full px-4 py-3 text-xs font-bold bg-white rounded-xl border border-indigo-200 focus:border-indigo-500 transition-all text-indigo-900"
+                                            className="w-full px-4 py-3 text-xs font-bold bg-surface-elevated rounded-xl border border-[#818cf8]/20 focus:border-[#818cf8] transition-all text-indigo-900"
                                         >
                                             <option value="">Select a listing to link...</option>
                                             {listings.map(l => (
@@ -306,13 +306,13 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                     </div>
 
                                     <div className="flex justify-center">
-                                        <div className="w-40 h-40 bg-slate-50 rounded-[2rem] border-2 border-dashed border-slate-200 relative group overflow-hidden">
+                                        <div className="w-40 h-40 bg-surface-secondary rounded-[2rem] border-2 border-dashed border-border-primary relative group overflow-hidden">
                                             {editingItem.image_url ? (
                                                 <img src={getImageUrl(editingItem.image_url)} className="w-full h-full object-cover" />
                                             ) : (
                                                 <div className="w-full h-full flex flex-col items-center justify-center gap-2">
                                                     <span className="text-3xl">📸</span>
-                                                    <p className="text-[8px] font-black uppercase text-slate-400">Add Dish Photo</p>
+                                                    <p className="text-[8px] font-black uppercase text-ink-tertiary">Add Dish Photo</p>
                                                 </div>
                                             )}
                                             <input type="file" onChange={handleImageUpload} className="absolute inset-0 opacity-0 cursor-pointer" />
@@ -321,39 +321,39 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
 
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Item Name</label>
+                                            <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Item Name</label>
                                             <input
                                                 value={editingItem.name}
                                                 onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                                                className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-bold"
+                                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-bold"
                                                 placeholder="e.g. Ital Vital Stew"
                                             />
                                         </div>
                                         <div>
-                                            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Description</label>
+                                            <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Description</label>
                                             <textarea
                                                 value={editingItem.description}
                                                 onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
-                                                className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-medium text-sm h-24 resize-none"
+                                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-medium text-sm h-24 resize-none"
                                                 placeholder="Tell them what's in the bowl..."
                                             />
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Price ($)</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Price ($)</label>
                                                 <input
                                                     type="number"
                                                     value={editingItem.price}
                                                     onChange={(e) => setEditingItem({ ...editingItem, price: parseFloat(e.target.value) })}
-                                                    className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-black text-xl"
+                                                    className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-black text-xl"
                                                 />
                                             </div>
                                             <div>
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 block">Duration (e.g. 1h)</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Duration (e.g. 1h)</label>
                                                 <input
                                                     value={editingItem.duration || ''}
                                                     onChange={(e) => setEditingItem({ ...editingItem, duration: e.target.value })}
-                                                    className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-bold"
+                                                    className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 transition-all font-bold"
                                                     placeholder="Session length"
                                                 />
                                             </div>
@@ -363,16 +363,16 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                         type="checkbox"
                                                         checked={editingItem.donation_suggested}
                                                         onChange={(e) => setEditingItem({ ...editingItem, donation_suggested: e.target.checked })}
-                                                        className="w-5 h-5 rounded-lg text-amber-600 focus:ring-amber-500"
+                                                        className="w-5 h-5 rounded-lg text-sand-500 focus:ring-amber-500"
                                                     />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Suggested Donation</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary">Suggested Donation</span>
                                                 </label>
                                             </div>
                                         </div>
 
                                         {/* Site IDs */}
-                                        <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                                            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Site IDs (e.g. For Specific Locations)</label>
+                                        <div className="p-5 bg-surface-secondary rounded-2xl border border-border-primary space-y-2">
+                                            <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary block">Site IDs (e.g. For Specific Locations)</label>
                                             <input
                                                 value={editingItem.site_ids?.join(', ') || ''}
                                                 onChange={(e) => {
@@ -381,7 +381,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                     setEditingItem({ ...editingItem, site_ids: ids });
                                                 }}
                                                 placeholder="e.g. 33, 34"
-                                                className="w-full px-4 py-2 text-xs font-bold bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500"
+                                                className="w-full px-4 py-2 text-xs font-bold bg-surface-elevated border border-border-primary rounded-xl focus:ring-2 focus:ring-accent-400"
                                             />
                                         </div>
 
@@ -395,7 +395,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                         const inclusions = [...(editingItem.inclusions || []), ''];
                                                         setEditingItem({ ...editingItem, inclusions });
                                                     }}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 px-2 py-1 bg-white rounded-lg shadow-sm"
+                                                    className="text-[9px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 px-2 py-1 bg-surface-elevated rounded-lg shadow-sm"
                                                 >
                                                     + Add Inclusion
                                                 </button>
@@ -415,7 +415,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, inclusions });
                                                                 }}
                                                                 placeholder="e.g. Private Guide, Lunch included"
-                                                                className="flex-1 px-3 py-2 text-xs font-bold bg-white rounded-lg border border-blue-100 focus:ring-2 focus:ring-blue-300"
+                                                                className="flex-1 px-3 py-2 text-xs font-bold bg-surface-elevated rounded-lg border border-blue-100 focus:ring-2 focus:ring-blue-300"
                                                             />
                                                             <button
                                                                 type="button"
@@ -423,7 +423,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     const inclusions = (editingItem.inclusions || []).filter((_: any, i: number) => i !== index);
                                                                     setEditingItem({ ...editingItem, inclusions });
                                                                 }}
-                                                                className="text-rose-500 hover:text-rose-700 p-1"
+                                                                className="text-[#e11d48] hover:text-[#be123c] p-1"
                                                             >×</button>
                                                         </div>
                                                     ))}
@@ -432,23 +432,23 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Exclusions Builder */}
-                                        <div className="p-5 bg-gradient-to-br from-rose-50 to-orange-50 rounded-2xl border border-rose-100 space-y-4">
+                                        <div className="p-5 bg-gradient-to-br from-rose-50 to-orange-50 rounded-2xl border border-[#e11d48]/20 space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-rose-600">Exclusions (Not Included)</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-[#e11d48]">Exclusions (Not Included)</label>
                                                 <button
                                                     type="button"
                                                     onClick={() => {
                                                         const exclusions = [...(editingItem.exclusions || []), ''];
                                                         setEditingItem({ ...editingItem, exclusions });
                                                     }}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-rose-600 hover:text-rose-800 px-2 py-1 bg-white rounded-lg shadow-sm"
+                                                    className="text-[9px] font-black uppercase tracking-widest text-[#e11d48] hover:text-rose-800 px-2 py-1 bg-surface-elevated rounded-lg shadow-sm"
                                                 >
                                                     + Add Exclusion
                                                 </button>
                                             </div>
 
                                             {(editingItem.exclusions || []).length === 0 ? (
-                                                <p className="text-[10px] text-rose-400 italic text-center py-3">No exclusions added yet.</p>
+                                                <p className="text-[10px] text-[#fb7185] italic text-center py-3">No exclusions added yet.</p>
                                             ) : (
                                                 <div className="space-y-2">
                                                     {(editingItem.exclusions || []).map((exc: string, index: number) => (
@@ -461,7 +461,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, exclusions });
                                                                 }}
                                                                 placeholder="e.g. Gratuities, Airport Pickup"
-                                                                className="flex-1 px-3 py-2 text-xs font-bold bg-white rounded-lg border border-rose-100 focus:ring-2 focus:ring-rose-300"
+                                                                className="flex-1 px-3 py-2 text-xs font-bold bg-surface-elevated rounded-lg border border-[#e11d48]/20 focus:ring-2 focus:ring-rose-300"
                                                             />
                                                             <button
                                                                 type="button"
@@ -469,7 +469,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     const exclusions = (editingItem.exclusions || []).filter((_: any, i: number) => i !== index);
                                                                     setEditingItem({ ...editingItem, exclusions });
                                                                 }}
-                                                                className="text-rose-500 hover:text-rose-700 p-1"
+                                                                className="text-[#e11d48] hover:text-[#be123c] p-1"
                                                             >×</button>
                                                         </div>
                                                     ))}
@@ -478,27 +478,27 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Variants Builder */}
-                                        <div className="p-5 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl border border-indigo-100 space-y-4">
+                                        <div className="p-5 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl border border-[#818cf8]/20 space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-indigo-600">Variants (e.g. Size, Spice Level)</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-[#818cf8]">Variants (e.g. Size, Spice Level)</label>
                                                 <button
                                                     type="button"
                                                     onClick={() => {
                                                         const variants = { ...(editingItem.variants || {}), '': [''] };
                                                         setEditingItem({ ...editingItem, variants });
                                                     }}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 px-2 py-1 bg-white rounded-lg shadow-sm"
+                                                    className="text-[9px] font-black uppercase tracking-widest text-[#818cf8] hover:text-indigo-800 px-2 py-1 bg-surface-elevated rounded-lg shadow-sm"
                                                 >
                                                     + Add Variant Group
                                                 </button>
                                             </div>
 
                                             {Object.entries(editingItem.variants || {}).length === 0 ? (
-                                                <p className="text-[10px] text-indigo-400 italic text-center py-3">No variants. Add groups like "Size" with options "Small, Large".</p>
+                                                <p className="text-[10px] text-[#818cf8] italic text-center py-3">No variants. Add groups like "Size" with options "Small, Large".</p>
                                             ) : (
                                                 <div className="space-y-3">
                                                     {Object.entries(editingItem.variants || {}).map(([groupName, options], groupIndex) => (
-                                                        <div key={groupIndex} className="bg-white p-4 rounded-xl border border-indigo-100 relative group/variant">
+                                                        <div key={groupIndex} className="bg-surface-elevated p-4 rounded-xl border border-[#818cf8]/20 relative group/variant">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
@@ -506,7 +506,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     delete variants[groupName];
                                                                     setEditingItem({ ...editingItem, variants });
                                                                 }}
-                                                                className="absolute -top-2 -right-2 w-5 h-5 bg-rose-500 text-white rounded-full flex items-center justify-center text-[9px] shadow-sm opacity-0 group-hover/variant:opacity-100 transition-opacity"
+                                                                className="absolute -top-2 -right-2 w-5 h-5 bg-[#e11d48]/50 text-white rounded-full flex items-center justify-center text-[9px] shadow-sm opacity-0 group-hover/variant:opacity-100 transition-opacity"
                                                             >×</button>
                                                             <div className="flex gap-2 mb-2">
                                                                 <input
@@ -519,7 +519,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                         setEditingItem({ ...editingItem, variants });
                                                                     }}
                                                                     placeholder="Group name (e.g. Size)"
-                                                                    className="flex-1 px-3 py-2 text-xs font-bold bg-indigo-50 rounded-lg border-0 focus:ring-2 focus:ring-indigo-300"
+                                                                    className="flex-1 px-3 py-2 text-xs font-bold bg-[#818cf8]/10 rounded-lg border-0 focus:ring-2 focus:ring-indigo-300"
                                                                 />
                                                             </div>
                                                             <input
@@ -530,7 +530,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, variants });
                                                                 }}
                                                                 placeholder="Options (comma-separated): Small, Medium, Large (+$5)"
-                                                                className="w-full px-3 py-2 text-[10px] font-medium bg-slate-50 rounded-lg border-0 focus:ring-2 focus:ring-indigo-300"
+                                                                className="w-full px-3 py-2 text-[10px] font-medium bg-surface-secondary rounded-lg border-0 focus:ring-2 focus:ring-indigo-300"
                                                             />
                                                         </div>
                                                     ))}
@@ -539,16 +539,16 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Addons Builder */}
-                                        <div className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-100 space-y-4">
+                                        <div className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-500/20 space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-emerald-600">Addons & Extras</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-emerald-400">Addons & Extras</label>
                                                 <button
                                                     type="button"
                                                     onClick={() => {
                                                         const addons = [...(editingItem.addons || []), { name: '', price: 0 }];
                                                         setEditingItem({ ...editingItem, addons });
                                                     }}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-800 px-2 py-1 bg-white rounded-lg shadow-sm"
+                                                    className="text-[9px] font-black uppercase tracking-widest text-emerald-400 hover:text-emerald-800 px-2 py-1 bg-surface-elevated rounded-lg shadow-sm"
                                                 >
                                                     + Add Extra
                                                 </button>
@@ -559,14 +559,14 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             ) : (
                                                 <div className="space-y-2">
                                                     {(editingItem.addons || []).map((addon: any, index: number) => (
-                                                        <div key={index} className="bg-white p-3 rounded-xl border border-emerald-100 flex gap-2 items-center relative group/addon">
+                                                        <div key={index} className="bg-surface-elevated p-3 rounded-xl border border-emerald-500/20 flex gap-2 items-center relative group/addon">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
                                                                     const addons = (editingItem.addons || []).filter((_: any, i: number) => i !== index);
                                                                     setEditingItem({ ...editingItem, addons });
                                                                 }}
-                                                                className="absolute -top-2 -right-2 w-5 h-5 bg-rose-500 text-white rounded-full flex items-center justify-center text-[9px] shadow-sm opacity-0 group-hover/addon:opacity-100 transition-opacity"
+                                                                className="absolute -top-2 -right-2 w-5 h-5 bg-[#e11d48]/50 text-white rounded-full flex items-center justify-center text-[9px] shadow-sm opacity-0 group-hover/addon:opacity-100 transition-opacity"
                                                             >×</button>
                                                             <input
                                                                 value={addon.name}
@@ -576,10 +576,10 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, addons });
                                                                 }}
                                                                 placeholder="Addon name"
-                                                                className="flex-1 px-3 py-2 text-xs font-bold bg-emerald-50 rounded-lg border-0 focus:ring-2 focus:ring-emerald-300"
+                                                                className="flex-1 px-3 py-2 text-xs font-bold bg-emerald-500/10 rounded-lg border-0 focus:ring-2 focus:ring-emerald-300"
                                                             />
-                                                            <div className="flex items-center gap-1 bg-emerald-50 rounded-lg px-2">
-                                                                <span className="text-emerald-600 font-black text-xs">$</span>
+                                                            <div className="flex items-center gap-1 bg-emerald-500/10 rounded-lg px-2">
+                                                                <span className="text-emerald-400 font-black text-xs">$</span>
                                                                 <input
                                                                     type="number"
                                                                     step="0.01"
@@ -599,10 +599,10 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Gallery Image Upload */}
-                                        <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
+                                        <div className="p-5 bg-surface-secondary rounded-2xl border border-border-primary space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-slate-400">Image Gallery (Professional Look)</label>
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-teal-600 hover:text-teal-700 cursor-pointer">
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">Image Gallery (Professional Look)</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-accent-400 hover:text-accent-500 cursor-pointer">
                                                     + Add Images
                                                     <input
                                                         type="file"
@@ -627,7 +627,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             </div>
 
                                             {(editingItem.gallery || []).length === 0 ? (
-                                                <p className="text-[10px] text-slate-400 italic text-center py-3">No extra images added. Add images for a better detail page.</p>
+                                                <p className="text-[10px] text-ink-tertiary italic text-center py-3">No extra images added. Add images for a better detail page.</p>
                                             ) : (
                                                 <div className="grid grid-cols-4 gap-2">
                                                     {(editingItem.gallery || []).map((url: string, index: number) => (
@@ -638,7 +638,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     const gallery = (editingItem.gallery || []).filter((_: any, i: number) => i !== index);
                                                                     setEditingItem({ ...editingItem, gallery });
                                                                 }}
-                                                                className="absolute top-1 right-1 w-5 h-5 bg-rose-500 text-white rounded-full flex items-center justify-center text-[8px] opacity-0 group-hover/img:opacity-100"
+                                                                className="absolute top-1 right-1 w-5 h-5 bg-[#e11d48]/50 text-white rounded-full flex items-center justify-center text-[8px] opacity-0 group-hover/img:opacity-100"
                                                             >×</button>
                                                         </div>
                                                     ))}
@@ -647,34 +647,34 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* FAQ Builder */}
-                                        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
+                                        <div className="p-6 bg-surface-secondary rounded-2xl border border-border-primary space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-slate-400">Frequently Asked Questions</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">Frequently Asked Questions</label>
                                                 <button
                                                     type="button"
                                                     onClick={() => {
                                                         const faqs = [...(editingItem.faqs || []), { question: '', answer: '' }];
                                                         setEditingItem({ ...editingItem, faqs });
                                                     }}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-teal-600 hover:text-teal-700"
+                                                    className="text-[9px] font-black uppercase tracking-widest text-accent-400 hover:text-accent-500"
                                                 >
                                                     + Add FAQ
                                                 </button>
                                             </div>
 
                                             {(editingItem.faqs || []).length === 0 ? (
-                                                <p className="text-[10px] text-slate-400 italic text-center py-3">No FAQs added yet.</p>
+                                                <p className="text-[10px] text-ink-tertiary italic text-center py-3">No FAQs added yet.</p>
                                             ) : (
                                                 <div className="space-y-3">
                                                     {(editingItem.faqs || []).map((faq: any, index: number) => (
-                                                        <div key={index} className="space-y-2 bg-white p-3 rounded-xl border border-slate-100 relative group/faq">
+                                                        <div key={index} className="space-y-2 bg-surface-elevated p-3 rounded-xl border border-border-primary relative group/faq">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
                                                                     const faqs = (editingItem.faqs || []).filter((_: any, i: number) => i !== index);
                                                                     setEditingItem({ ...editingItem, faqs });
                                                                 }}
-                                                                className="absolute -top-2 -right-2 w-5 h-5 bg-rose-500 text-white rounded-full flex items-center justify-center text-[9px] opacity-0 group-hover/faq:opacity-100"
+                                                                className="absolute -top-2 -right-2 w-5 h-5 bg-[#e11d48]/50 text-white rounded-full flex items-center justify-center text-[9px] opacity-0 group-hover/faq:opacity-100"
                                                             >×</button>
                                                             <input
                                                                 value={faq.question}
@@ -684,7 +684,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, faqs });
                                                                 }}
                                                                 placeholder="Question (e.g. Is lunch included?)"
-                                                                className="w-full px-3 py-2 text-xs font-bold bg-slate-50 rounded-lg border-0 focus:ring-2 focus:ring-teal-300"
+                                                                className="w-full px-3 py-2 text-xs font-bold bg-surface-secondary rounded-lg border-0 focus:ring-2 focus:ring-teal-300"
                                                             />
                                                             <textarea
                                                                 value={faq.answer}
@@ -694,7 +694,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, faqs });
                                                                 }}
                                                                 placeholder="Answer"
-                                                                className="w-full h-16 px-3 py-2 text-[10px] font-medium bg-white border border-slate-100 rounded-lg focus:ring-2 focus:ring-teal-300"
+                                                                className="w-full h-16 px-3 py-2 text-[10px] font-medium bg-surface-elevated border border-border-primary rounded-lg focus:ring-2 focus:ring-teal-300"
                                                             />
                                                         </div>
                                                     ))}
@@ -703,15 +703,15 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Sides Config */}
-                                        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
-                                            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Side IDs (Comma Separated)</label>
+                                        <div className="p-6 bg-surface-secondary rounded-2xl border border-border-primary space-y-4">
+                                            <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary block">Side IDs (Comma Separated)</label>
                                             <input
                                                 value={(editingItem.side_ids || []).join(', ')}
                                                 onChange={(e) => {
                                                     const ids = e.target.value.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
                                                     setEditingItem({ ...editingItem, side_ids: ids });
                                                 }}
-                                                className="w-full px-4 py-2 text-xs font-bold bg-white border border-slate-200 rounded-xl"
+                                                className="w-full px-4 py-2 text-xs font-bold bg-surface-elevated border border-border-primary rounded-xl"
                                                 placeholder="e.g. 33, 34"
                                             />
                                         </div>
@@ -719,7 +719,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                 </div>
                             </div>
 
-                            <div className="p-8 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row gap-4">
+                            <div className="p-8 bg-surface-secondary border-t border-border-primary flex flex-col sm:flex-row gap-4">
                                 {editingItem.id && (
                                     <button
                                         onClick={() => {
@@ -728,20 +728,20 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                 setIsItemModalOpen(false);
                                             }
                                         }}
-                                        className="py-4 px-6 bg-rose-50 text-rose-600 rounded-2xl font-black uppercase tracking-widest text-[10px] border border-rose-100 hover:bg-rose-100 transition-colors order-3 sm:order-1"
+                                        className="py-4 px-6 bg-[#e11d48]/5 text-[#e11d48] rounded-2xl font-black uppercase tracking-widest text-[10px] border border-[#e11d48]/20 hover:bg-[#e11d48]/10 transition-colors order-3 sm:order-1"
                                     >
                                         Delete
                                     </button>
                                 )}
                                 <button
                                     onClick={() => setIsItemModalOpen(false)}
-                                    className="flex-1 py-4 bg-white text-slate-400 rounded-2xl font-black uppercase tracking-widest text-[10px] border border-slate-200 order-2 sm:order-2"
+                                    className="flex-1 py-4 bg-surface-elevated text-ink-tertiary rounded-2xl font-black uppercase tracking-widest text-[10px] border border-border-primary order-2 sm:order-2"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={handleSaveItem}
-                                    className="flex-1 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-teal-100 order-1 sm:order-3"
+                                    className="flex-1 py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-accent-500/10 order-1 sm:order-3"
                                 >
                                     {editingItem.id ? 'Update Item' : 'Add to Menu'}
                                 </button>

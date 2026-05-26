@@ -101,10 +101,10 @@ export default function VendorProfilePage() {
                                         {item.images && item.images[0] ? (
                                             <img src={getImageUrl(item.images[0])} alt={item.title} className="w-full h-full object-cover" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-slate-300 bg-surface-primary">No Image</div>
+                                            <div className="w-full h-full flex items-center justify-center text-ink-tertiary bg-surface-primary">No Image</div>
                                         )}
                                         <div className="absolute top-3 left-3">
-                                            <span className="bg-surface-elevated/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider text-slate-800 shadow-sm">
+                                            <span className="bg-surface-elevated/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider text-ink-primary shadow-sm">
                                                 {item.type}
                                             </span>
                                         </div>

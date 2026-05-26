@@ -10,7 +10,7 @@ const PRESETS: Record<string, any> = {
         textColor: '#ffffff',
         accentColor: '#ffffff',
         glow: 'rgba(249, 115, 22, 0.4)',
-        dot: 'bg-white',
+        dot: 'bg-surface-elevated',
         text: 'text-white'
     },
     highland_dark: {
@@ -55,7 +55,7 @@ const PRESETS: Record<string, any> = {
         textColor: '#7dd3fc',
         accentColor: '#ffffff',
         glow: 'rgba(125, 211, 252, 0.4)',
-        dot: 'bg-white',
+        dot: 'bg-surface-elevated',
         text: 'text-sky-300',
         fadeFrom: 'from-sky-950',
         shadow: '0 0 15px rgba(125, 211, 252, 0.5)'
@@ -65,7 +65,7 @@ const PRESETS: Record<string, any> = {
         textColor: '#000000',
         accentColor: '#6366f1',
         glow: 'rgba(99, 102, 241, 0.2)',
-        dot: 'bg-indigo-600',
+        dot: 'bg-[#818cf8]',
         text: 'text-black',
         fadeFrom: 'from-white'
     },

@@ -27,10 +27,10 @@ export default function GuestWelcomeModal() {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform transition-all scale-100 p-8 text-center relative">
+            <div className="bg-surface-elevated rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform transition-all scale-100 p-8 text-center relative">
                 <button
                     onClick={handleClose}
-                    className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 transition-colors"
+                    className="absolute top-4 right-4 p-2 text-ink-tertiary hover:text-ink-secondary transition-colors"
                 >
                     ✕
                 </button>
@@ -39,31 +39,31 @@ export default function GuestWelcomeModal() {
                     👋
                 </div>
 
-                <h2 className="text-3xl font-black text-slate-900 mb-4">
+                <h2 className="text-3xl font-black text-ink-primary mb-4">
                     Welcome to IslandHub!
                 </h2>
-                <p className="text-lg text-slate-600 mb-8">
+                <p className="text-lg text-ink-secondary mb-8">
                     Islands funds' premier marketplace. Browse unique products, book local experiences, or rent gear.
                 </p>
 
                 <div className="space-y-3">
                     <Link
                         href="/register"
-                        className="block w-full py-3 px-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition-transform active:scale-95 shadow-lg shadow-teal-600/20"
+                        className="block w-full py-3 px-4 bg-accent-500 hover:bg-accent-600 text-white font-bold rounded-xl transition-transform active:scale-95 shadow-lg shadow-teal-600/20"
                     >
                         Join the Community
                     </Link>
 
                     <Link
                         href="/register?type=vendor"
-                        className="block w-full py-3 px-4 bg-white border-2 border-slate-200 hover:border-teal-600 text-slate-700 hover:text-teal-600 font-bold rounded-xl transition-colors"
+                        className="block w-full py-3 px-4 bg-surface-elevated border-2 border-border-primary hover:border-teal-600 text-ink-secondary hover:text-accent-400 font-bold rounded-xl transition-colors"
                     >
                         Become a Vendor
                     </Link>
 
                     <button
                         onClick={handleClose}
-                        className="block w-full py-3 px-4 text-slate-500 font-medium hover:text-slate-700 underline text-sm mt-4"
+                        className="block w-full py-3 px-4 text-ink-tertiary0 font-medium hover:text-ink-secondary underline text-sm mt-4"
                     >
                         Wait, I'll just keep shopping
                     </button>

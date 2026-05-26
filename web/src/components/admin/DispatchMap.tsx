@@ -68,10 +68,10 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
     // Don't render on server or before hydration
     if (!isMounted) {
         return (
-            <div className="w-full h-full min-h-[400px] bg-slate-100 animate-pulse rounded-2xl flex items-center justify-center">
+            <div className="w-full h-full min-h-[400px] bg-surface-secondary animate-pulse rounded-2xl flex items-center justify-center">
                 <div className="text-center">
                     <div className="text-4xl mb-4">🗺️</div>
-                    <p className="text-slate-400 text-sm font-medium">Loading map...</p>
+                    <p className="text-ink-tertiary text-sm font-medium">Loading map...</p>
                 </div>
             </div>
         );
@@ -98,10 +98,10 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                 >
                     <Popup>
                         <div className="text-center min-w-[150px]">
-                            <p className="text-[10px] font-black text-teal-600 uppercase tracking-widest mb-1">Active Driver</p>
-                            <h4 className="font-black text-slate-800 text-sm mb-1">{driver.name}</h4>
-                            <p className="text-[10px] text-slate-500">{driver.make} {driver.model} ({driver.vehicle_category})</p>
-                            <div className="mt-2 text-[9px] font-bold text-slate-400">
+                            <p className="text-[10px] font-black text-accent-400 uppercase tracking-widest mb-1">Active Driver</p>
+                            <h4 className="font-black text-ink-primary text-sm mb-1">{driver.name}</h4>
+                            <p className="text-[10px] text-ink-tertiary0">{driver.make} {driver.model} ({driver.vehicle_category})</p>
+                            <div className="mt-2 text-[9px] font-bold text-ink-tertiary">
                                 Last online: {new Date(driver.last_online).toLocaleTimeString()}
                             </div>
                         </div>
@@ -131,30 +131,30 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                             <Popup>
                                 <div className="text-center min-w-[200px]">
                                     <div className="flex items-center justify-center gap-2 mb-2">
-                                        <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-indigo-100 text-indigo-700'}`}>
+                                        <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-[#818cf8]/15 text-[#6366f1]'}`}>
                                             {job.service_type || 'Job'}
                                         </span>
-                                        <span className="text-[10px] font-black text-slate-400">#{job.id}</span>
+                                        <span className="text-[10px] font-black text-ink-tertiary">#{job.id}</span>
                                     </div>
-                                    <h3 className="font-black text-slate-800 text-sm mb-1">{job.title}</h3>
-                                    <div className="text-[10px] text-slate-500 mb-2 space-y-1 text-left px-2">
-                                        <p><span className="font-bold text-teal-600 uppercase tracking-tighter">Requester:</span> {job.owner_name || job.userName || 'Anonymous'}</p>
-                                        <p><span className="font-bold text-indigo-600 uppercase tracking-tighter">Driver:</span> {job.driver_name || 'Unassigned'}</p>
+                                    <h3 className="font-black text-ink-primary text-sm mb-1">{job.title}</h3>
+                                    <div className="text-[10px] text-ink-tertiary0 mb-2 space-y-1 text-left px-2">
+                                        <p><span className="font-bold text-accent-400 uppercase tracking-tighter">Requester:</span> {job.owner_name || job.userName || 'Anonymous'}</p>
+                                        <p><span className="font-bold text-[#818cf8] uppercase tracking-tighter">Driver:</span> {job.driver_name || 'Unassigned'}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mt-2 pt-2 border-t border-slate-100 gap-4">
-                                        <span className="px-2 py-0.5 bg-slate-50 text-slate-500 rounded text-[9px] font-black uppercase">{job.transport_status}</span>
+                                    <div className="flex justify-between items-center mt-2 pt-2 border-t border-border-primary gap-4">
+                                        <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary0 rounded text-[9px] font-black uppercase">{job.transport_status}</span>
                                         {job.transport_status === 'pending' && onAssignJob ? (
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     onAssignJob(job.id, -1); // Signal to open modal by passing -1
                                                 }}
-                                                className="px-3 py-1 bg-indigo-600 text-white rounded-lg font-black text-[9px] uppercase tracking-widest hover:bg-indigo-700"
+                                                className="px-3 py-1 bg-[#818cf8] text-white rounded-lg font-black text-[9px] uppercase tracking-widest hover:bg-[#6366f1]"
                                             >
                                                 Assign
                                             </button>
                                         ) : (
-                                            <span className="font-black text-teal-600 text-sm">${job.price}</span>
+                                            <span className="font-black text-accent-400 text-sm">${job.price}</span>
                                         )}
                                     </div>
                                 </div>

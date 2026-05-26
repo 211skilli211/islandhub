@@ -137,11 +137,11 @@ export default function FAQPage() {
             <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 py-24 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/100/10 rounded-full blur-[100px]" />
                 <div className="max-w-3xl mx-auto text-center relative z-10">
-                    <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
+                    <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
                         Help Center
                     </span>
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Frequently Asked Questions</h1>
-                    <p className="text-xl text-teal-50/80">Find quick answers to common questions about IslandHub.</p>
+                    <p className="text-xl text-accent-50/80">Find quick answers to common questions about IslandHub.</p>
                 </div>
             </section>
 
@@ -171,7 +171,7 @@ export default function FAQPage() {
                                         onClick={() => setActiveCategory(cat.id)}
                                         className={`w-full text-left px-6 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all flex items-center gap-3 ${
                                             activeCategory === cat.id 
-                                                ? 'bg-accent-500 text-white shadow-lg shadow-teal-100' 
+                                                ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/10' 
                                                 : 'text-ink-tertiary hover:bg-surface-primary'
                                         }`}
                                     >
@@ -214,10 +214,10 @@ export default function FAQPage() {
                         </div>
 
                         {/* Still Need Help */}
-                        <div className="mt-10 bg-teal-900 rounded-[3rem] p-10 text-center text-white">
+                        <div className="mt-10 bg-accent-800 rounded-[3rem] p-10 text-center text-white">
                             <h3 className="text-2xl font-black mb-4">Still have questions?</h3>
-                            <p className="text-teal-100 mb-8 max-w-lg mx-auto">Our team is here to help you succeed. Reach out and we'll get back to you within 24 hours.</p>
-                            <Link href="/contact" className="inline-block px-10 py-5 bg-surface-elevated text-teal-900 rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-xl transition-all">
+                            <p className="text-accent-100 mb-8 max-w-lg mx-auto">Our team is here to help you succeed. Reach out and we'll get back to you within 24 hours.</p>
+                            <Link href="/contact" className="inline-block px-10 py-5 bg-surface-elevated text-accent-700 rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-xl transition-all">
                                 Contact Support
                             </Link>
                         </div>

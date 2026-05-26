@@ -41,14 +41,14 @@ export interface BannerFormData {
 }
 
 const COLOR_THEMES = [
-    { name: 'Teal', value: 'teal', from: 'from-teal-500', to: 'to-emerald-500', bg: 'bg-teal-500', text: 'text-teal-600', light: 'bg-teal-50', border: 'border-teal-500', gradient: 'from-teal-500/20 to-emerald-500/20' },
-    { name: 'Indigo', value: 'indigo', from: 'from-indigo-500', to: 'to-purple-500', bg: 'bg-indigo-500', text: 'text-indigo-600', light: 'bg-indigo-50', border: 'border-indigo-500', gradient: 'from-indigo-500/20 to-purple-500/20' },
-    { name: 'Rose', value: 'rose', from: 'from-rose-500', to: 'to-pink-500', bg: 'bg-rose-500', text: 'text-rose-600', light: 'bg-rose-50', border: 'border-rose-500', gradient: 'from-rose-500/20 to-pink-500/20' },
-    { name: 'Amber', value: 'amber', from: 'from-amber-500', to: 'to-orange-500', bg: 'bg-amber-500', text: 'text-amber-600', light: 'bg-amber-50', border: 'border-amber-500', gradient: 'from-amber-500/20 to-orange-500/20' },
-    { name: 'Emerald', value: 'emerald', from: 'from-emerald-500', to: 'to-green-500', bg: 'bg-emerald-500', text: 'text-emerald-600', light: 'bg-emerald-50', border: 'border-emerald-500', gradient: 'from-emerald-500/20 to-green-500/20' },
+    { name: 'Teal', value: 'teal', from: 'from-teal-500', to: 'to-emerald-500', bg: 'bg-accent-500/100', text: 'text-accent-400', light: 'bg-accent-500/10', border: 'border-teal-500', gradient: 'from-teal-500/20 to-emerald-500/20' },
+    { name: 'Indigo', value: 'indigo', from: 'from-indigo-500', to: 'to-purple-500', bg: 'bg-[#818cf8]/100', text: 'text-[#818cf8]', light: 'bg-[#818cf8]/10', border: 'border-[#818cf8]', gradient: 'from-indigo-500/20 to-purple-500/20' },
+    { name: 'Rose', value: 'rose', from: 'from-rose-500', to: 'to-pink-500', bg: 'bg-[#e11d48]/50', text: 'text-[#e11d48]', light: 'bg-[#e11d48]/5', border: 'border-[#e11d48]', gradient: 'from-rose-500/20 to-pink-500/20' },
+    { name: 'Amber', value: 'amber', from: 'from-amber-500', to: 'to-orange-500', bg: 'bg-sand-500/50', text: 'text-sand-500', light: 'bg-sand-500/5', border: 'border-amber-500', gradient: 'from-amber-500/20 to-orange-500/20' },
+    { name: 'Emerald', value: 'emerald', from: 'from-emerald-500', to: 'to-green-500', bg: 'bg-emerald-500/100', text: 'text-emerald-400', light: 'bg-emerald-500/10', border: 'border-emerald-500', gradient: 'from-emerald-500/20 to-green-500/20' },
     { name: 'Blue', value: 'blue', from: 'from-blue-500', to: 'to-cyan-500', bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50', border: 'border-blue-500', gradient: 'from-blue-500/20 to-cyan-500/20' },
     { name: 'Violet', value: 'violet', from: 'from-violet-500', to: 'to-fuchsia-500', bg: 'bg-violet-500', text: 'text-violet-600', light: 'bg-violet-50', border: 'border-violet-500', gradient: 'from-violet-500/20 to-fuchsia-500/20' },
-    { name: 'Slate', value: 'slate', from: 'from-slate-500', to: 'to-gray-500', bg: 'bg-slate-500', text: 'text-slate-600', light: 'bg-slate-50', border: 'border-slate-500', gradient: 'from-slate-500/20 to-gray-500/20' },
+    { name: 'Slate', value: 'slate', from: 'from-slate-500', to: 'to-gray-500', bg: 'bg-surface-secondary0', text: 'text-ink-secondary', light: 'bg-surface-secondary', border: 'border-border-primary0', gradient: 'from-slate-500/20 to-gray-500/20' },
 ];
 
 const LOCATIONS = [
@@ -235,7 +235,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
             case 'promotion':
                 return {
                     badge: '🏷️ Special Offer',
-                    badgeColor: 'bg-amber-500 text-white',
+                    badgeColor: 'bg-sand-500/50 text-white',
                     animation: '',
                     borderStyle: 'border-2 border-amber-400',
                 };
@@ -288,10 +288,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     <div className={`w-12 h-12 rounded-xl ${selectedTheme.light} flex items-center justify-center shadow-sm`}>
                         <IconComponent className={`w-6 h-6 ${selectedTheme.text}`} />
                     </div>
-                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight">
+                    <h3 className="text-lg font-black text-ink-primary uppercase tracking-tight">
                         {formData.title || 'Banner Title'}
                     </h3>
-                    <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                    <p className="text-sm text-ink-secondary font-medium leading-relaxed">
                         {formData.subtitle || 'Banner subtitle description goes here'}
                     </p>
                     {formData.target_url && formData.show_button && (
@@ -316,11 +316,11 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
             )}
             <div className={`relative p-8 flex flex-col ${getAlignmentClasses()} min-h-[200px] justify-center`}>
                 {templateStyles.badge && (
-                    <div className={`mb-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-sm text-white inline-block w-fit`}>
+                    <div className={`mb-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-elevated/20 backdrop-blur-sm text-white inline-block w-fit`}>
                         {templateStyles.badge}
                     </div>
                 )}
-                <div className={`w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-lg mb-4`}>
+                <div className={`w-14 h-14 rounded-2xl bg-surface-elevated/20 backdrop-blur-sm flex items-center justify-center shadow-lg mb-4`}>
                     <IconComponent className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">
@@ -331,7 +331,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                 </p>
                 {formData.target_url && (
                     <button
-                        className={`mt-4 px-6 py-2.5 text-xs font-black uppercase tracking-wider rounded-lg hover:opacity-90 transition-colors ${!formData.button_bg_color ? 'bg-white text-slate-900 hover:bg-white/90' : ''}`}
+                        className={`mt-4 px-6 py-2.5 text-xs font-black uppercase tracking-wider rounded-lg hover:opacity-90 transition-colors ${!formData.button_bg_color ? 'bg-surface-elevated text-ink-primary hover:bg-surface-elevated/90' : ''}`}
                         style={formData.button_bg_color || formData.button_text_color ? {
                             backgroundColor: formData.button_bg_color || 'white',
                             color: formData.button_text_color || '#0f172a'
@@ -347,7 +347,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
     const renderFloatingPreview = () => (
         <div className={`max-w-sm mx-auto rounded-2xl ${templateStyles.borderStyle} shadow-2xl overflow-hidden`}>
             <div className={`bg-gradient-to-br ${selectedTheme.gradient} p-5 relative`}>
-                <button className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-slate-400 hover:text-slate-600">
+                <button className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-ink-tertiary hover:text-ink-secondary">
                     <X size={14} />
                 </button>
                 <div className={`flex ${formData.alignment === 'right' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
@@ -360,10 +360,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {templateStyles.badge}
                             </div>
                         )}
-                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight leading-tight">
+                        <h3 className="text-sm font-black text-ink-primary uppercase tracking-tight leading-tight">
                             {formData.title || 'Banner Title'}
                         </h3>
-                        <p className="text-xs text-slate-600 mt-1 leading-snug">
+                        <p className="text-xs text-ink-secondary mt-1 leading-snug">
                             {formData.subtitle || 'Banner subtitle goes here'}
                         </p>
                     </div>
@@ -384,10 +384,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             {templateStyles.badge}
                         </div>
                     )}
-                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight">
+                    <h3 className="text-lg font-black text-ink-primary uppercase tracking-tight">
                         {formData.title || 'Banner Title'}
                     </h3>
-                    <p className="text-sm text-slate-700 font-medium mt-1">
+                    <p className="text-sm text-ink-secondary font-medium mt-1">
                         {formData.subtitle || 'Banner subtitle description goes here'}
                     </p>
                     {formData.target_url && formData.show_button && (
@@ -435,7 +435,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
             ) : (
                 <div className={`h-48 bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} p-6 flex flex-col ${getAlignmentClasses()} justify-end`}>
                     {templateStyles.badge && (
-                        <div className={`mb-2 px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white inline-block`}>
+                        <div className={`mb-2 px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-elevated/20 text-white inline-block`}>
                             {templateStyles.badge}
                         </div>
                     )}
@@ -473,10 +473,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                 <div className={`w-10 h-10 rounded-xl ${selectedTheme.light} flex items-center justify-center mb-3`}>
                     <IconComponent className={`w-5 h-5 ${selectedTheme.text}`} />
                 </div>
-                <h3 className="text-base font-black text-slate-900 uppercase tracking-tight mb-2">
+                <h3 className="text-base font-black text-ink-primary uppercase tracking-tight mb-2">
                     {formData.title || 'Banner Title'}
                 </h3>
-                <p className="text-xs text-slate-700 font-medium leading-relaxed">
+                <p className="text-xs text-ink-secondary font-medium leading-relaxed">
                     {formData.subtitle || 'Banner subtitle description goes here'}
                 </p>
                 {formData.target_url && (
@@ -527,7 +527,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                 )}
                 <div className={`flex-1 flex flex-col gap-3 ${getAlignmentClasses()}`}>
                     <div className="flex items-center gap-2">
-                        <div className={`w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-inner`}>
+                        <div className={`w-10 h-10 rounded-xl bg-surface-elevated/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-inner`}>
                             <IconComponent className={`w-5 h-5 text-white`} />
                         </div>
                         {templateStyles.badge && (
@@ -543,7 +543,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         {formData.subtitle || 'Sophisticated design with deep blur and vibrant accents.'}
                     </p>
                     {formData.target_url && (
-                        <button className="mt-2 px-8 py-3 bg-white text-slate-900 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl hover:bg-slate-50 transition-all active:scale-95">
+                        <button className="mt-2 px-8 py-3 bg-surface-elevated text-ink-primary rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl hover:bg-surface-secondary transition-all active:scale-95">
                             {formData.button_text || 'Experience'} →
                         </button>
                     )}
@@ -555,14 +555,14 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
     const renderGlowPreview = () => (
         <div className={`relative group`}>
             <div className={`absolute -inset-1 bg-gradient-to-r ${selectedTheme.from} ${selectedTheme.to} rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000 animate-pulse`} />
-            <div className={`relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-8 flex flex-col items-center text-center gap-4`}>
+            <div className={`relative overflow-hidden rounded-3xl bg-ink-primary border border-border-primary shadow-2xl p-8 flex flex-col items-center text-center gap-4`}>
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.3)] border border-white/10 mb-2`}>
                     <IconComponent className="w-8 h-8 text-white" />
                 </div>
                 <h3 className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${selectedTheme.from} ${selectedTheme.to} uppercase tracking-tight`}>
                     {formData.title || 'Floating Glow'}
                 </h3>
-                <p className="text-slate-400 font-medium max-w-md">
+                <p className="text-ink-tertiary font-medium max-w-md">
                     {formData.subtitle || 'A dark-mode optimized design with vibrant pulsing glows.'}
                 </p>
                 {formData.target_url && (
@@ -578,7 +578,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
         <div className="relative overflow-hidden rounded-2xl bg-black border-2 border-white/5 p-8">
             <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${selectedTheme.value}-500 to-transparent opacity-50 shadow-[0_0_15px_#currentColor]`} />
             <div className={`flex flex-col md:flex-row gap-8 items-center ${getAlignmentClasses()}`}>
-                <div className={`w-24 h-24 rounded-full border-2 border-${selectedTheme.value}-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5),inset_0_0_10px_rgba(0,0,0,0.5)] bg-slate-900/50`}>
+                <div className={`w-24 h-24 rounded-full border-2 border-${selectedTheme.value}-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5),inset_0_0_10px_rgba(0,0,0,0.5)] bg-ink-primary/50`}>
                     <IconComponent className={`w-10 h-10 text-${selectedTheme.value}-400 drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]`} />
                 </div>
                 <div className={`flex-1 ${getAlignmentClasses()}`}>
@@ -603,20 +603,20 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden flex flex-col">
+            <div className="bg-surface-elevated rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden flex flex-col">
                 {/* Header */}
-                <div className="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center shrink-0 z-10">
+                <div className="sticky top-0 bg-surface-elevated border-b border-border-primary p-6 flex justify-between items-center shrink-0 z-10">
                     <div>
-                        <h2 className="text-2xl font-black text-slate-900">
+                        <h2 className="text-2xl font-black text-ink-primary">
                             {mode === 'create' ? 'Create Promotional Banner' : 'Edit Banner'}
                         </h2>
-                        <p className="text-sm text-slate-500 mt-1">
+                        <p className="text-sm text-ink-tertiary0 mt-1">
                             Design and preview your banner before publishing
                         </p>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
+                        className="p-2 hover:bg-surface-secondary rounded-xl transition-colors"
                     >
                         <X size={24} />
                     </button>
@@ -627,7 +627,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     <form onSubmit={handleSubmit} className="flex-1 p-6 space-y-6 overflow-y-auto">
                         {/* Title */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-2">
+                            <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Banner Title *
                             </label>
                             <input
@@ -635,14 +635,14 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 placeholder="e.g., Summer Sale - 50% Off!"
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-medium"
+                                className="w-full px-4 py-3 border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-medium"
                                 required
                             />
                         </div>
 
                         {/* Subtitle */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-2">
+                            <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Subtitle
                             </label>
                             <input
@@ -650,13 +650,13 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 value={formData.subtitle}
                                 onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
                                 placeholder="e.g., Limited time offer on all products"
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                className="w-full px-4 py-3 border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400"
                             />
                         </div>
 
                         {/* Target URL */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-2">
+                            <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Target URL
                             </label>
                             <input
@@ -664,13 +664,13 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 value={formData.target_url}
                                 onChange={(e) => setFormData({ ...formData, target_url: e.target.value })}
                                 placeholder="https://example.com/promo"
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                className="w-full px-4 py-3 border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400"
                             />
                         </div>
 
                         {/* Image Upload */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-2">
+                            <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Banner Image (Optional)
                             </label>
                             <div className="flex gap-4 items-start">
@@ -679,7 +679,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         <button
                                             type="button"
                                             onClick={() => document.getElementById('banner-upload')?.click()}
-                                            className="w-full h-32 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-slate-50 hover:bg-slate-100 hover:border-teal-500 transition-all text-slate-400 hover:text-teal-600"
+                                            className="w-full h-32 border-2 border-dashed border-border-primary rounded-xl flex flex-col items-center justify-center bg-surface-secondary hover:bg-surface-secondary hover:border-teal-500 transition-all text-ink-tertiary hover:text-accent-400"
                                         >
                                             {formData.image_url ? (
                                                 <img src={formData.image_url} className="w-full h-full object-cover rounded-xl" />
@@ -708,7 +708,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 <button
                                                     type="button"
                                                     onClick={() => toast.success('Image editing - use upload to replace')}
-                                                    className="bg-white/50 text-slate-400 p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg cursor-not-allowed opacity-50"
+                                                    className="bg-surface-elevated/50 text-ink-tertiary p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg cursor-not-allowed opacity-50"
                                                     disabled
                                                 >
                                                     ✂️ Crop
@@ -716,7 +716,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 <button
                                                     type="button"
                                                     onClick={() => setFormData({ ...formData, image_url: '' })}
-                                                    className="bg-white text-rose-500 p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg hover:bg-rose-50"
+                                                    className="bg-surface-elevated text-[#e11d48] p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg hover:bg-[#e11d48]/5"
                                                 >
                                                     ✕
                                                 </button>
@@ -729,7 +729,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                         {/* Layout Presets */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-3">
+                            <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Layout Style *
                             </label>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -739,13 +739,13 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         type="button"
                                         onClick={() => setFormData({ ...formData, layout_preset: preset.id as any })}
                                         className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.layout_preset === preset.id
-                                            ? 'border-teal-500 bg-teal-50'
-                                            : 'border-slate-200 hover:border-slate-300'
+                                            ? 'border-teal-500 bg-accent-500/10'
+                                            : 'border-border-primary hover:border-border-primary'
                                             }`}
                                     >
                                         <span className="text-2xl">{preset.icon}</span>
                                         <p className="text-[10px] font-black uppercase tracking-widest">{preset.name}</p>
-                                        <p className="text-[9px] text-slate-500 text-center leading-tight">{preset.description}</p>
+                                        <p className="text-[9px] text-ink-tertiary0 text-center leading-tight">{preset.description}</p>
                                     </button>
                                 ))}
                             </div>
@@ -753,13 +753,13 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                         {/* Location */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-2">
+                            <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Location *
                             </label>
                             <select
                                 value={formData.location}
                                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-medium"
+                                className="w-full px-4 py-3 border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-medium"
                                 required
                             >
                                 {LOCATIONS.map(loc => (
@@ -770,10 +770,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                         {/* Page Targets */}
                         <div className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-4 border border-teal-200">
-                            <label className="block text-sm font-bold text-slate-700 mb-2">
+                            <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 📍 Show Banner On These Pages
                             </label>
-                            <p className="text-xs text-slate-500 mb-4">
+                            <p className="text-xs text-ink-tertiary0 mb-4">
                                 Select which pages should display this banner. You can choose multiple pages.
                             </p>
 
@@ -802,8 +802,8 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 setFormData({ ...formData, url_pattern: updated.join(',') });
                                             }}
                                             className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${isSelected
-                                                ? 'bg-teal-600 text-white shadow-lg'
-                                                : 'bg-white border border-slate-300 text-slate-600 hover:border-teal-400'
+                                                ? 'bg-accent-500 text-white shadow-lg'
+                                                : 'bg-surface-elevated border border-border-primary text-ink-secondary hover:border-teal-400'
                                                 }`}
                                         >
                                             <span>{page.icon}</span>
@@ -814,7 +814,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
 
                             {formData.url_pattern && (
-                                <p className="text-xs text-teal-700 font-medium mt-3">
+                                <p className="text-xs text-accent-500 font-medium mt-3">
                                     ✓ Will appear on: {(formData.url_pattern || '').split(',').filter(Boolean).join(', ')}
                                 </p>
                             )}
@@ -822,7 +822,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                         {/* Mobile Display Mode */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-3">
+                            <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Mobile Display Mode
                             </label>
                             <div className="grid grid-cols-2 gap-3">
@@ -830,28 +830,28 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     type="button"
                                     onClick={() => setFormData({ ...formData, mobile_mode: 'hero' })}
                                     className={`p-4 rounded-xl border-2 transition-all ${formData.mobile_mode === 'hero'
-                                        ? 'border-teal-500 bg-teal-50'
-                                        : 'border-slate-200 hover:border-slate-300'
+                                        ? 'border-teal-500 bg-accent-500/10'
+                                        : 'border-border-primary hover:border-border-primary'
                                         }`}
                                 >
                                     <div className="text-2xl mb-2">📱</div>
-                                    <p className="text-xs font-bold text-slate-700 mb-1">Hero Embed</p>
-                                    <p className="text-[10px] text-slate-500">Shows in hero section</p>
+                                    <p className="text-xs font-bold text-ink-secondary mb-1">Hero Embed</p>
+                                    <p className="text-[10px] text-ink-tertiary0">Shows in hero section</p>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setFormData({ ...formData, mobile_mode: 'floating' })}
                                     className={`p-4 rounded-xl border-2 transition-all ${formData.mobile_mode === 'floating'
-                                        ? 'border-teal-500 bg-teal-50'
-                                        : 'border-slate-200 hover:border-slate-300'
+                                        ? 'border-teal-500 bg-accent-500/10'
+                                        : 'border-border-primary hover:border-border-primary'
                                         }`}
                                 >
                                     <div className="text-2xl mb-2">💬</div>
-                                    <p className="text-xs font-bold text-slate-700 mb-1">Floating Card</p>
-                                    <p className="text-[10px] text-slate-500">Overlay at bottom</p>
+                                    <p className="text-xs font-bold text-ink-secondary mb-1">Floating Card</p>
+                                    <p className="text-[10px] text-ink-tertiary0">Overlay at bottom</p>
                                 </button>
                             </div>
-                            <p className="text-xs text-slate-500 mt-2">
+                            <p className="text-xs text-ink-tertiary0 mt-2">
                                 {formData.mobile_mode === 'hero'
                                     ? '✓ Desktop & Mobile: Banner appears in hero section'
                                     : '✓ Desktop: Hero section | Mobile: Dismissible floating card'}
@@ -860,7 +860,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                         {/* Template Type */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-3">
+                            <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Template Style
                             </label>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -875,8 +875,8 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         type="button"
                                         onClick={() => setFormData({ ...formData, template_type: item.id as any })}
                                         className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.template_type === item.id
-                                            ? 'border-teal-500 bg-teal-50'
-                                            : 'border-slate-200 hover:border-slate-300'
+                                            ? 'border-teal-500 bg-accent-500/10'
+                                            : 'border-border-primary hover:border-border-primary'
                                             }`}
                                     >
                                         <span className="text-xl">{item.icon}</span>
@@ -889,14 +889,14 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Alignment */}
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Content Alignment</label>
-                                <div className="flex bg-slate-100 p-1 rounded-xl">
+                                <label className="block text-sm font-bold text-ink-secondary mb-2">Content Alignment</label>
+                                <div className="flex bg-surface-secondary p-1 rounded-xl">
                                     {['left', 'center', 'right'].map((align) => (
                                         <button
                                             key={align}
                                             type="button"
                                             onClick={() => setFormData({ ...formData, alignment: align as any })}
-                                            className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${formData.alignment === align ? 'bg-white shadow-sm text-teal-600' : 'text-slate-400'}`}
+                                            className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${formData.alignment === align ? 'bg-surface-elevated shadow-sm text-accent-400' : 'text-ink-tertiary'}`}
                                         >
                                             {align}
                                         </button>
@@ -906,7 +906,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                             {/* Icon Picker */}
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Icon Overlay</label>
+                                <label className="block text-sm font-bold text-ink-secondary mb-2">Icon Overlay</label>
                                 <div className="space-y-3">
                                     <div className="grid grid-cols-8 gap-1">
                                         {ICONS.map(({ emoji }) => (
@@ -914,7 +914,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 key={emoji}
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, icon: emoji })}
-                                                className={`h-9 rounded-lg text-lg flex items-center justify-center transition-all ${formData.icon === emoji ? 'bg-teal-100 border border-teal-500' : 'bg-slate-50 border border-slate-200 hover:bg-slate-100'}`}
+                                                className={`h-9 rounded-lg text-lg flex items-center justify-center transition-all ${formData.icon === emoji ? 'bg-accent-500/15 border border-teal-500' : 'bg-surface-secondary border border-border-primary hover:bg-surface-secondary'}`}
                                             >
                                                 {emoji}
                                             </button>
@@ -926,7 +926,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             value={formData.icon || ''}
                                             onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
                                             placeholder="Or type custom emoji..."
-                                            className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                            className="flex-1 px-3 py-2 text-sm border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400"
                                         />
                                     </div>
                                 </div>
@@ -935,7 +935,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                         {/* Color Theme */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-3">
+                            <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Color Palette
                             </label>
                             <div className="grid grid-cols-4 gap-3">
@@ -946,21 +946,21 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         onClick={() => setFormData({ ...formData, color_theme: theme.value })}
                                         className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.color_theme === theme.value
                                             ? `${theme.border} ${theme.light}`
-                                            : 'border-slate-200 hover:border-slate-300'
+                                            : 'border-border-primary hover:border-border-primary'
                                             }`}
                                     >
                                         <div className={`w-full h-8 rounded-lg bg-gradient-to-r ${theme.gradient}`} />
-                                        <p className="text-[10px] font-black uppercase text-slate-700">{theme.name}</p>
+                                        <p className="text-[10px] font-black uppercase text-ink-secondary">{theme.name}</p>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         {/* Enhanced Controls: Texture, Opacity, & Custom Colors */}
-                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-slate-200">
+                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-border-primary">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="text-xl">🎨</span>
-                                <label className="block text-sm font-bold text-slate-700">
+                                <label className="block text-sm font-bold text-ink-secondary">
                                     Enhanced Appearance Controls
                                 </label>
                             </div>
@@ -968,7 +968,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             <div className="space-y-6">
                                 {/* Texture Pattern */}
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                    <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                         Background Texture
                                     </label>
                                     <div className="grid grid-cols-3 gap-2">
@@ -978,12 +978,12 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, texture_pattern: pattern.id as any })}
                                                 className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 ${formData.texture_pattern === pattern.id
-                                                    ? 'border-teal-500 bg-teal-50'
-                                                    : 'border-slate-200 hover:border-slate-300'
+                                                    ? 'border-teal-500 bg-accent-500/10'
+                                                    : 'border-border-primary hover:border-border-primary'
                                                     }`}
                                             >
                                                 <span className="text-lg">{pattern.icon}</span>
-                                                <p className="text-[9px] font-medium text-slate-600">{pattern.name}</p>
+                                                <p className="text-[9px] font-medium text-ink-secondary">{pattern.name}</p>
                                             </button>
                                         ))}
                                     </div>
@@ -992,10 +992,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Texture Opacity */}
                                 <div>
                                     <div className="flex justify-between mb-2">
-                                        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 uppercase tracking-wider">
                                             Texture Opacity
                                         </label>
-                                        <span className="text-xs font-bold text-teal-600">{formData.texture_opacity || 25}%</span>
+                                        <span className="text-xs font-bold text-accent-400">{formData.texture_opacity || 25}%</span>
                                     </div>
                                     <input
                                         type="range"
@@ -1003,17 +1003,17 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         max="100"
                                         value={formData.texture_opacity || 25}
                                         onChange={(e) => setFormData({ ...formData, texture_opacity: parseInt(e.target.value) })}
-                                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                                        className="w-full h-2 bg-surface-tertiary rounded-lg appearance-none cursor-pointer"
                                     />
                                 </div>
 
                                 {/* Background Opacity */}
                                 <div>
                                     <div className="flex justify-between mb-2">
-                                        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 uppercase tracking-wider">
                                             Background Opacity
                                         </label>
-                                        <span className="text-xs font-bold text-teal-600">{formData.background_opacity || 100}%</span>
+                                        <span className="text-xs font-bold text-accent-400">{formData.background_opacity || 100}%</span>
                                     </div>
                                     <input
                                         type="range"
@@ -1021,26 +1021,26 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         max="100"
                                         value={formData.background_opacity || 100}
                                         onChange={(e) => setFormData({ ...formData, background_opacity: parseInt(e.target.value) })}
-                                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                                        className="w-full h-2 bg-surface-tertiary rounded-lg appearance-none cursor-pointer"
                                     />
                                 </div>
 
                                 {/* Hero Image Overlay Section - Prominent */}
                                 <div className="mt-6 p-4 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl border-2 border-teal-200 dark:border-teal-700">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
+                                        <div className="w-8 h-8 bg-accent-500 rounded-lg flex items-center justify-center">
                                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                         </div>
                                         <div>
-                                            <h4 className="text-sm font-black text-slate-900 dark:text-white">Hero Image Overlay</h4>
-                                            <p className="text-[10px] text-slate-500 dark:text-slate-400">Controls visibility of text on hero image</p>
+                                            <h4 className="text-sm font-black text-ink-primary dark:text-white">Hero Image Overlay</h4>
+                                            <p className="text-[10px] text-ink-tertiary0 dark:text-ink-tertiary">Controls visibility of text on hero image</p>
                                         </div>
                                     </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                             Overlay Color
                                         </label>
                                         <div className="flex items-center gap-2">
@@ -1048,22 +1048,22 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 type="color"
                                                 value={formData.overlay_color || '#000000'}
                                                 onChange={(e) => setFormData({ ...formData, overlay_color: e.target.value })}
-                                                className="w-10 h-10 rounded-lg border-2 border-slate-200 cursor-pointer"
+                                                className="w-10 h-10 rounded-lg border-2 border-border-primary cursor-pointer"
                                             />
                                             <input
                                                 type="text"
                                                 value={formData.overlay_color || '#000000'}
                                                 onChange={(e) => setFormData({ ...formData, overlay_color: e.target.value })}
-                                                className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-mono"
+                                                className="flex-1 px-3 py-2 text-sm border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-mono"
                                             />
                                         </div>
                                     </div>
                                     <div>
                                         <div className="flex justify-between mb-2">
-                                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                            <label className="block text-xs font-bold text-ink-tertiary0 uppercase tracking-wider">
                                                 Overlay Opacity
                                             </label>
-                                            <span className="text-xs font-bold text-teal-600">{formData.overlay_opacity || 0}%</span>
+                                            <span className="text-xs font-bold text-accent-400">{formData.overlay_opacity || 0}%</span>
                                         </div>
                                         <input
                                             type="range"
@@ -1071,7 +1071,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             max="80"
                                             value={formData.overlay_opacity || 0}
                                             onChange={(e) => setFormData({ ...formData, overlay_opacity: parseInt(e.target.value) })}
-                                            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                                            className="w-full h-2 bg-surface-tertiary rounded-lg appearance-none cursor-pointer"
                                         />
                                     </div>
                                 </div>
@@ -1080,22 +1080,22 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Button Toggle & Text */}
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                             Show Button
                                         </label>
                                         <button
                                             type="button"
                                             onClick={() => setFormData({ ...formData, show_button: !formData.show_button })}
                                             className={`w-full py-2 rounded-lg text-xs font-bold capitalize transition-all border-2 ${formData.show_button
-                                                ? 'border-teal-500 bg-teal-50 text-teal-600'
-                                                : 'border-slate-200 hover:border-slate-300 text-slate-600'
+                                                ? 'border-teal-500 bg-accent-500/10 text-accent-400'
+                                                : 'border-border-primary hover:border-border-primary text-ink-secondary'
                                                 }`}
                                         >
                                             {formData.show_button ? '✓ Visible' : '○ Hidden'}
                                         </button>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                             Button Text
                                         </label>
                                         <input
@@ -1104,14 +1104,14 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             onChange={(e) => setFormData({ ...formData, button_text: e.target.value })}
                                             placeholder="e.g., Shop Now"
                                             disabled={!formData.show_button}
-                                            className="w-full px-3 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 disabled:bg-slate-100 disabled:text-slate-400"
+                                            className="w-full px-3 py-2 text-sm border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400 disabled:bg-surface-secondary disabled:text-ink-tertiary"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Button Style */}
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                    <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                         Button Style
                                     </label>
                                     <div className="grid grid-cols-4 gap-2">
@@ -1122,8 +1122,8 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 onClick={() => setFormData({ ...formData, button_style: style as any })}
                                                 disabled={!formData.show_button}
                                                 className={`px-3 py-2 rounded-lg text-xs font-bold capitalize transition-all border-2 ${formData.button_style === style
-                                                    ? 'border-teal-500 bg-teal-50 text-teal-600'
-                                                    : 'border-slate-200 hover:border-slate-300 text-slate-600 disabled:opacity-50'
+                                                    ? 'border-teal-500 bg-accent-500/10 text-accent-400'
+                                                    : 'border-border-primary hover:border-border-primary text-ink-secondary disabled:opacity-50'
                                                     }`}
                                             >
                                                 {style}
@@ -1135,7 +1135,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Custom Button Colors */}
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                             Button Text Color
                                         </label>
                                         <div className="flex items-center gap-2">
@@ -1144,19 +1144,19 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 value={formData.button_text_color || '#ffffff'}
                                                 onChange={(e) => setFormData({ ...formData, button_text_color: e.target.value })}
                                                 disabled={!formData.show_button}
-                                                className="w-10 h-10 rounded-lg border-2 border-slate-200 cursor-pointer disabled:opacity-50"
+                                                className="w-10 h-10 rounded-lg border-2 border-border-primary cursor-pointer disabled:opacity-50"
                                             />
                                             <input
                                                 type="text"
                                                 value={formData.button_text_color || '#ffffff'}
                                                 onChange={(e) => setFormData({ ...formData, button_text_color: e.target.value })}
                                                 disabled={!formData.show_button}
-                                                className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-mono disabled:bg-slate-100"
+                                                className="flex-1 px-3 py-2 text-sm border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-mono disabled:bg-surface-secondary"
                                             />
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
                                             Button Background
                                         </label>
                                         <div className="flex items-center gap-2">
@@ -1165,7 +1165,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 value={formData.button_bg_color || selectedTheme?.bg || '#0d9488'}
                                                 onChange={(e) => setFormData({ ...formData, button_bg_color: e.target.value })}
                                                 disabled={!formData.show_button}
-                                                className="w-10 h-10 rounded-lg border-2 border-slate-200 cursor-pointer disabled:opacity-50"
+                                                className="w-10 h-10 rounded-lg border-2 border-border-primary cursor-pointer disabled:opacity-50"
                                             />
                                             <input
                                                 type="text"
@@ -1173,7 +1173,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 onChange={(e) => setFormData({ ...formData, button_bg_color: e.target.value })}
                                                 placeholder="Use theme color"
                                                 disabled={!formData.show_button}
-                                                className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-mono disabled:bg-slate-100"
+                                                className="flex-1 px-3 py-2 text-sm border border-border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-mono disabled:bg-surface-secondary"
                                             />
                                         </div>
                                     </div>
@@ -1182,18 +1182,18 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
 
                         {/* Actions */}
-                        <div className="flex gap-3 pt-4 border-t border-slate-200 sticky bottom-0 bg-white pb-2">
+                        <div className="flex gap-3 pt-4 border-t border-border-primary sticky bottom-0 bg-surface-elevated pb-2">
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="flex-1 px-6 py-3 border-2 border-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-50 transition-colors"
+                                className="flex-1 px-6 py-3 border-2 border-border-primary text-ink-secondary rounded-xl font-bold hover:bg-surface-secondary transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
                                 disabled={isSaving}
-                                className="flex-1 px-6 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors disabled:opacity-50"
+                                className="flex-1 px-6 py-3 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors disabled:opacity-50"
                             >
                                 {isSaving ? 'Saving...' : mode === 'create' ? 'Create Banner' : 'Update Banner'}
                             </button>
@@ -1201,30 +1201,30 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                     </form>
 
                     {/* Right Panel - Live Preview */}
-                    <div className="w-[400px] bg-slate-50 border-l border-slate-200 flex flex-col overflow-hidden">
-                        <div className="p-6 border-b border-slate-200 bg-white">
+                    <div className="w-[400px] bg-surface-secondary border-l border-border-primary flex flex-col overflow-hidden">
+                        <div className="p-6 border-b border-border-primary bg-surface-elevated">
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">
+                                <h3 className="text-sm font-black text-ink-primary uppercase tracking-wider">
                                     Live Preview
                                 </h3>
-                                <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+                                <div className="flex items-center gap-1 bg-surface-secondary p-1 rounded-lg">
                                     <button
                                         type="button"
                                         onClick={() => setPreviewMode('desktop')}
-                                        className={`p-1.5 rounded-md transition-all ${previewMode === 'desktop' ? 'bg-white shadow-sm text-teal-600' : 'text-slate-400 hover:text-slate-600'}`}
+                                        className={`p-1.5 rounded-md transition-all ${previewMode === 'desktop' ? 'bg-surface-elevated shadow-sm text-accent-400' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                     >
                                         <Monitor size={16} />
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setPreviewMode('mobile')}
-                                        className={`p-1.5 rounded-md transition-all ${previewMode === 'mobile' ? 'bg-white shadow-sm text-teal-600' : 'text-slate-400 hover:text-slate-600'}`}
+                                        className={`p-1.5 rounded-md transition-all ${previewMode === 'mobile' ? 'bg-surface-elevated shadow-sm text-accent-400' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                     >
                                         <Smartphone size={16} />
                                     </button>
                                 </div>
                             </div>
-                            <p className="text-xs text-slate-500">
+                            <p className="text-xs text-ink-tertiary0">
                                 See exactly how your banner will appear on the site
                             </p>
                         </div>
@@ -1233,20 +1233,20 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             {/* Context Labels */}
                             <div className="mb-4 space-y-2">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-xs font-bold text-slate-400 uppercase">Layout:</span>
-                                    <span className="text-xs font-bold text-slate-700 bg-slate-200 px-2 py-1 rounded-full">
+                                    <span className="text-xs font-bold text-ink-tertiary uppercase">Layout:</span>
+                                    <span className="text-xs font-bold text-ink-secondary bg-surface-tertiary px-2 py-1 rounded-full">
                                         {selectedLayout.name}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-xs font-bold text-slate-400 uppercase">Template:</span>
-                                    <span className="text-xs font-bold text-slate-700 bg-slate-200 px-2 py-1 rounded-full capitalize">
+                                    <span className="text-xs font-bold text-ink-tertiary uppercase">Template:</span>
+                                    <span className="text-xs font-bold text-ink-secondary bg-surface-tertiary px-2 py-1 rounded-full capitalize">
                                         {formData.template_type}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-xs font-bold text-slate-400 uppercase">Theme:</span>
-                                    <span className="text-xs font-bold text-slate-700 bg-slate-200 px-2 py-1 rounded-full">
+                                    <span className="text-xs font-bold text-ink-tertiary uppercase">Theme:</span>
+                                    <span className="text-xs font-bold text-ink-secondary bg-surface-tertiary px-2 py-1 rounded-full">
                                         {selectedTheme.name}
                                     </span>
                                 </div>
@@ -1259,12 +1259,12 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                             {/* Info Cards */}
                             <div className="mt-6 space-y-3">
-                                <div className="bg-white rounded-xl p-4 border border-slate-200">
-                                    <h4 className="text-xs font-black text-slate-900 uppercase mb-2 flex items-center gap-2">
-                                        <Sparkles size={12} className="text-teal-500" />
+                                <div className="bg-surface-elevated rounded-xl p-4 border border-border-primary">
+                                    <h4 className="text-xs font-black text-ink-primary uppercase mb-2 flex items-center gap-2">
+                                        <Sparkles size={12} className="text-accent-500" />
                                         Layout Features
                                     </h4>
-                                    <ul className="text-[11px] text-slate-600 space-y-1">
+                                    <ul className="text-[11px] text-ink-secondary space-y-1">
                                         <li>• {selectedLayout.description}</li>
                                         <li>• Responsive {previewMode} view</li>
                                         {formData.image_url && <li>• Custom image support</li>}
@@ -1272,26 +1272,26 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </ul>
                                 </div>
 
-                                <div className="bg-white rounded-xl p-4 border border-slate-200">
-                                    <h4 className="text-xs font-black text-slate-900 uppercase mb-2">
+                                <div className="bg-surface-elevated rounded-xl p-4 border border-border-primary">
+                                    <h4 className="text-xs font-black text-ink-primary uppercase mb-2">
                                         Appearance Settings
                                     </h4>
                                     <div className="space-y-2 text-[11px]">
                                         <div className="flex justify-between">
-                                            <span className="text-slate-500">Alignment:</span>
-                                            <span className="font-medium text-slate-900 capitalize">{formData.alignment}</span>
+                                            <span className="text-ink-tertiary0">Alignment:</span>
+                                            <span className="font-medium text-ink-primary capitalize">{formData.alignment}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-slate-500">Mobile Mode:</span>
-                                            <span className="font-medium text-slate-900 capitalize">{formData.mobile_mode}</span>
+                                            <span className="text-ink-tertiary0">Mobile Mode:</span>
+                                            <span className="font-medium text-ink-primary capitalize">{formData.mobile_mode}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-slate-500">Color Theme:</span>
+                                            <span className="text-ink-tertiary0">Color Theme:</span>
                                             <div className={`w-4 h-4 rounded ${selectedTheme.bg}`} />
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-slate-500">Template Type:</span>
-                                            <span className="font-medium text-slate-900 capitalize">{formData.template_type}</span>
+                                            <span className="text-ink-tertiary0">Template Type:</span>
+                                            <span className="font-medium text-ink-primary capitalize">{formData.template_type}</span>
                                         </div>
                                     </div>
                                 </div>

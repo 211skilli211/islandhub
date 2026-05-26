@@ -94,21 +94,21 @@ export default function ProfileSettings() {
     return (
         <div className="space-y-12 pb-12">
             <section>
-                <h3 className="text-xl font-black text-slate-800 mb-6">Profile Appearance</h3>
+                <h3 className="text-xl font-black text-ink-primary mb-6">Profile Appearance</h3>
 
                 <div className="space-y-8">
                     {/* Banner Section */}
                     <div
-                        className="relative h-48 rounded-[2rem] overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center group"
+                        className="relative h-48 rounded-[2rem] overflow-hidden border border-border-primary bg-surface-secondary flex items-center justify-center group"
                         style={{ backgroundColor: formData.banner_color }}
                     >
                         {bannerImage ? (
                             <img src={getImageUrl(bannerImage)} alt="Banner" className="w-full h-full object-cover" />
                         ) : (
-                            <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">No Banner (Click to upload)</div>
+                            <div className="text-ink-tertiary font-bold uppercase tracking-widest text-xs">No Banner (Click to upload)</div>
                         )}
                         <label className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
-                            <span className="bg-white px-4 py-2 rounded-xl text-xs font-black uppercase text-slate-900 shadow-xl">Change Banner Image</span>
+                            <span className="bg-surface-elevated px-4 py-2 rounded-xl text-xs font-black uppercase text-ink-primary shadow-xl">Change Banner Image</span>
                             <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'banner')} />
                         </label>
                     </div>
@@ -116,7 +116,7 @@ export default function ProfileSettings() {
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Profile Photo */}
                         <div className="relative group">
-                            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-slate-100 flex items-center justify-center">
+                            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-surface-secondary flex items-center justify-center">
                                 {profilePhoto ? (
                                     <img src={getImageUrl(profilePhoto)} alt="Avatar" className="w-full h-full object-cover" />
                                 ) : (
@@ -132,16 +132,16 @@ export default function ProfileSettings() {
                         {/* Name & Color */}
                         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                             <div className="space-y-1.5">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Display Name</label>
+                                <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Display Name</label>
                                 <input
                                     type="text"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full px-5 py-3 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-teal-50 focus:border-teal-500 transition-all font-bold text-slate-700"
+                                    className="w-full px-5 py-3 rounded-2xl border border-border-primary focus:ring-4 focus:ring-teal-50 focus:border-teal-500 transition-all font-bold text-ink-secondary"
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Banner Color</label>
+                                <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Banner Color</label>
                                 <div className="flex flex-wrap gap-2 mb-2">
                                     {['#0d9488', '#6366f1', '#f43f5e', '#f59e0b', '#8b5cf6', '#0ea5e9', '#10b981', '#1e293b'].map(color => (
                                         <button
@@ -161,13 +161,13 @@ export default function ProfileSettings() {
                                             onChange={(e) => setFormData({ ...formData, banner_color: e.target.value })}
                                             className="w-12 h-12 rounded-lg border-2 border-teal-500 p-1 cursor-pointer"
                                         />
-                                        <span className="absolute -top-1 -right-1 bg-teal-500 text-white text-[6px] font-black px-1 rounded-full uppercase">Current</span>
+                                        <span className="absolute -top-1 -right-1 bg-accent-500/100 text-white text-[6px] font-black px-1 rounded-full uppercase">Current</span>
                                     </div>
                                     <input
                                         type="text"
                                         value={formData.banner_color}
                                         onChange={(e) => setFormData({ ...formData, banner_color: e.target.value })}
-                                        className="flex-1 px-4 py-3 rounded-2xl border border-slate-200 transition-all font-mono text-xs uppercase focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10"
+                                        className="flex-1 px-4 py-3 rounded-2xl border border-border-primary transition-all font-mono text-xs uppercase focus:border-teal-500 focus:ring-4 focus:ring-accent-400/10"
                                     />
                                 </div>
                             </div>
@@ -178,13 +178,13 @@ export default function ProfileSettings() {
 
             <section className="space-y-6">
                 <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Bio / Tagline</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Bio / Tagline</label>
                     <textarea
                         rows={4}
                         placeholder="Tell the community about yourself..."
                         value={formData.bio}
                         onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                        className="w-full px-5 py-4 rounded-[2rem] border border-slate-200 focus:ring-4 focus:ring-teal-50 focus:border-teal-500 transition-all font-medium text-slate-600 leading-relaxed"
+                        className="w-full px-5 py-4 rounded-[2rem] border border-border-primary focus:ring-4 focus:ring-teal-50 focus:border-teal-500 transition-all font-medium text-ink-secondary leading-relaxed"
                     />
                 </div>
 
@@ -192,7 +192,7 @@ export default function ProfileSettings() {
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
-                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all disabled:opacity-50 shadow-xl shadow-slate-200"
+                        className="px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all disabled:opacity-50 shadow-xl shadow-black/10"
                     >
                         {loading ? 'Saving Updates...' : 'Save Profile Changes'}
                     </button>

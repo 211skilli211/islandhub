@@ -97,8 +97,8 @@ export default function AssetLibrary() {
             {/* Header */}
             <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                 <div>
-                    <h2 className="text-xl font-black text-slate-800">Media Library</h2>
-                    <p className="text-sm text-slate-500">{filteredAssets.length} assets</p>
+                    <h2 className="text-xl font-black text-ink-primary">Media Library</h2>
+                    <p className="text-sm text-ink-tertiary0">{filteredAssets.length} assets</p>
                 </div>
                 <div className="flex flex-wrap gap-3">
                     {/* Search */}
@@ -108,22 +108,22 @@ export default function AssetLibrary() {
                             placeholder="Search assets..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-lg text-sm w-48"
+                            className="pl-10 pr-4 py-2 bg-surface-elevated border border-border-primary rounded-lg text-sm w-48"
                         />
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary">🔍</span>
                     </div>
 
                     {/* View Toggle */}
-                    <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+                    <div className="flex bg-surface-secondary p-1 rounded-lg border border-border-primary">
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'grid' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500'}`}
+                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'grid' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary0'}`}
                         >
                             Grid
                         </button>
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'list' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-500'}`}
+                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'list' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary0'}`}
                         >
                             List
                         </button>
@@ -140,8 +140,8 @@ export default function AssetLibrary() {
                             onClick={() => setDateFilter(date)}
                             className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all ${
                                 dateFilter === date 
-                                    ? 'bg-teal-600 text-white' 
-                                    : 'bg-white border border-slate-200 text-slate-500 hover:border-teal-300'
+                                    ? 'bg-accent-500 text-white' 
+                                    : 'bg-surface-elevated border border-border-primary text-ink-tertiary0 hover:border-teal-300'
                             }`}
                         >
                             {date === 'all' ? 'All Time' : date === 'today' ? 'Today' : date === 'week' ? 'This Week' : 'This Month'}
@@ -154,24 +154,24 @@ export default function AssetLibrary() {
             {loading ? (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {[...Array(12)].map((_, i) => (
-                        <div key={i} className="aspect-square bg-slate-100 rounded-xl animate-pulse" />
+                        <div key={i} className="aspect-square bg-surface-secondary rounded-xl animate-pulse" />
                     ))}
                 </div>
             ) : filteredAssets.length === 0 ? (
-                <div className="text-center py-20 bg-white rounded-3xl border border-slate-200">
+                <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary">
                     <div className="text-5xl mb-4">📂</div>
-                    <p className="text-slate-500 font-medium">No assets found</p>
-                    <p className="text-xs text-slate-400 mt-1">Try adjusting your filters</p>
+                    <p className="text-ink-tertiary0 font-medium">No assets found</p>
+                    <p className="text-xs text-ink-tertiary mt-1">Try adjusting your filters</p>
                 </div>
             ) : viewMode === 'grid' ? (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {filteredAssets.map(asset => (
                         <div 
                             key={asset.id}
-                            className="group relative bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-lg transition-all cursor-pointer"
+                            className="group relative bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:shadow-lg transition-all cursor-pointer"
                             onClick={() => openPreview(asset)}
                         >
-                            <div className="aspect-square bg-slate-50 flex items-center justify-center">
+                            <div className="aspect-square bg-surface-secondary flex items-center justify-center">
                                 {isImage(asset.file_type) ? (
                                     <img 
                                         src={getImageUrl(asset.url)} 
@@ -186,20 +186,20 @@ export default function AssetLibrary() {
                                 )}
                             </div>
                             <div className="p-3">
-                                <p className="text-xs font-bold text-slate-700 truncate">{asset.filename}</p>
-                                <p className="text-[10px] text-slate-400">{formatFileSize(asset.file_size)}</p>
+                                <p className="text-xs font-bold text-ink-secondary truncate">{asset.filename}</p>
+                                <p className="text-[10px] text-ink-tertiary">{formatFileSize(asset.file_size)}</p>
                             </div>
                             {/* Hover Actions */}
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                                 <button 
                                     onClick={(e) => { e.stopPropagation(); openPreview(asset); }}
-                                    className="p-2 bg-white rounded-full hover:bg-teal-50"
+                                    className="p-2 bg-surface-elevated rounded-full hover:bg-accent-500/10"
                                 >
                                     👁️
                                 </button>
                                 <button 
                                     onClick={(e) => { e.stopPropagation(); handleDelete(asset); }}
-                                    className="p-2 bg-white rounded-full hover:bg-red-50"
+                                    className="p-2 bg-surface-elevated rounded-full hover:bg-red-50"
                                 >
                                     🗑️
                                 </button>
@@ -208,24 +208,24 @@ export default function AssetLibrary() {
                     ))}
                 </div>
             ) : (
-                <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                     <table className="w-full">
-                        <thead className="bg-slate-50 border-b border-slate-200">
+                        <thead className="bg-surface-secondary border-b border-border-primary">
                             <tr>
-                                <th className="px-4 py-3 text-left text-xs font-black text-slate-400 uppercase">Preview</th>
-                                <th className="px-4 py-3 text-left text-xs font-black text-slate-400 uppercase">Filename</th>
-                                <th className="px-4 py-3 text-left text-xs font-black text-slate-400 uppercase">Type</th>
-                                <th className="px-4 py-3 text-left text-xs font-black text-slate-400 uppercase">Size</th>
-                                <th className="px-4 py-3 text-left text-xs font-black text-slate-400 uppercase">Uploaded By</th>
-                                <th className="px-4 py-3 text-left text-xs font-black text-slate-400 uppercase">Date</th>
-                                <th className="px-4 py-3 text-right text-xs font-black text-slate-400 uppercase">Actions</th>
+                                <th className="px-4 py-3 text-left text-xs font-black text-ink-tertiary uppercase">Preview</th>
+                                <th className="px-4 py-3 text-left text-xs font-black text-ink-tertiary uppercase">Filename</th>
+                                <th className="px-4 py-3 text-left text-xs font-black text-ink-tertiary uppercase">Type</th>
+                                <th className="px-4 py-3 text-left text-xs font-black text-ink-tertiary uppercase">Size</th>
+                                <th className="px-4 py-3 text-left text-xs font-black text-ink-tertiary uppercase">Uploaded By</th>
+                                <th className="px-4 py-3 text-left text-xs font-black text-ink-tertiary uppercase">Date</th>
+                                <th className="px-4 py-3 text-right text-xs font-black text-ink-tertiary uppercase">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {filteredAssets.map(asset => (
-                                <tr key={asset.id} className="hover:bg-slate-50">
+                                <tr key={asset.id} className="hover:bg-surface-secondary">
                                     <td className="px-4 py-3">
-                                        <div className="w-10 h-10 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center">
+                                        <div className="w-10 h-10 bg-surface-secondary rounded-lg overflow-hidden flex items-center justify-center">
                                             {isImage(asset.file_type) ? (
                                                 <img src={getImageUrl(asset.url)} alt="" className="w-full h-full object-cover" />
                                             ) : (
@@ -233,13 +233,13 @@ export default function AssetLibrary() {
                                             )}
                                         </div>
                                     </td>
-                                    <td className="px-4 py-3 text-sm font-medium text-slate-700">{asset.filename}</td>
-                                    <td className="px-4 py-3 text-xs text-slate-500 uppercase">{asset.file_type || 'unknown'}</td>
-                                    <td className="px-4 py-3 text-xs text-slate-500">{formatFileSize(asset.file_size)}</td>
-                                    <td className="px-4 py-3 text-xs text-slate-500">{asset.user_name || 'System'}</td>
-                                    <td className="px-4 py-3 text-xs text-slate-500">{new Date(asset.created_at).toLocaleDateString()}</td>
+                                    <td className="px-4 py-3 text-sm font-medium text-ink-secondary">{asset.filename}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary0 uppercase">{asset.file_type || 'unknown'}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary0">{formatFileSize(asset.file_size)}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary0">{asset.user_name || 'System'}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary0">{new Date(asset.created_at).toLocaleDateString()}</td>
                                     <td className="px-4 py-3 text-right">
-                                        <button onClick={() => openPreview(asset)} className="text-teal-600 hover:underline text-xs font-bold">View</button>
+                                        <button onClick={() => openPreview(asset)} className="text-accent-400 hover:underline text-xs font-bold">View</button>
                                     </td>
                                 </tr>
                             ))}
@@ -251,13 +251,13 @@ export default function AssetLibrary() {
             {/* Preview Modal */}
             {isPreviewOpen && selectedAsset && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-                        <div className="flex justify-between items-center p-6 border-b border-slate-100">
-                            <h3 className="font-black text-slate-800">{selectedAsset.filename}</h3>
-                            <button onClick={() => setIsPreviewOpen(false)} className="p-2 hover:bg-slate-100 rounded-lg">✕</button>
+                    <div className="bg-surface-elevated rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                        <div className="flex justify-between items-center p-6 border-b border-border-primary">
+                            <h3 className="font-black text-ink-primary">{selectedAsset.filename}</h3>
+                            <button onClick={() => setIsPreviewOpen(false)} className="p-2 hover:bg-surface-secondary rounded-lg">✕</button>
                         </div>
                         <div className="p-6 overflow-auto">
-                            <div className="bg-slate-50 rounded-2xl flex items-center justify-center min-h-[300px] mb-6">
+                            <div className="bg-surface-secondary rounded-2xl flex items-center justify-center min-h-[300px] mb-6">
                                 {isImage(selectedAsset.file_type) ? (
                                     <img src={getImageUrl(selectedAsset.url)} alt="" className="max-w-full max-h-[400px] object-contain" />
                                 ) : isVideo(selectedAsset.file_type) ? (
@@ -265,35 +265,35 @@ export default function AssetLibrary() {
                                 ) : (
                                     <div className="text-center p-12">
                                         <span className="text-6xl mb-4 block">{getFileTypeIcon(selectedAsset.file_type)}</span>
-                                        <p className="text-slate-500">Preview not available for this file type</p>
+                                        <p className="text-ink-tertiary0">Preview not available for this file type</p>
                                     </div>
                                 )}
                             </div>
                             <div className="grid grid-cols-2 gap-4 text-sm">
-                                <div className="p-4 bg-slate-50 rounded-xl">
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">File Type</p>
-                                    <p className="font-bold text-slate-700">{selectedAsset.file_type || 'Unknown'}</p>
+                                <div className="p-4 bg-surface-secondary rounded-xl">
+                                    <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">File Type</p>
+                                    <p className="font-bold text-ink-secondary">{selectedAsset.file_type || 'Unknown'}</p>
                                 </div>
-                                <div className="p-4 bg-slate-50 rounded-xl">
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">File Size</p>
-                                    <p className="font-bold text-slate-700">{formatFileSize(selectedAsset.file_size)}</p>
+                                <div className="p-4 bg-surface-secondary rounded-xl">
+                                    <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">File Size</p>
+                                    <p className="font-bold text-ink-secondary">{formatFileSize(selectedAsset.file_size)}</p>
                                 </div>
-                                <div className="p-4 bg-slate-50 rounded-xl">
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Uploaded By</p>
-                                    <p className="font-bold text-slate-700">{selectedAsset.user_name || 'System'}</p>
+                                <div className="p-4 bg-surface-secondary rounded-xl">
+                                    <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">Uploaded By</p>
+                                    <p className="font-bold text-ink-secondary">{selectedAsset.user_name || 'System'}</p>
                                 </div>
-                                <div className="p-4 bg-slate-50 rounded-xl">
-                                    <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Upload Date</p>
-                                    <p className="font-bold text-slate-700">{new Date(selectedAsset.created_at).toLocaleString()}</p>
+                                <div className="p-4 bg-surface-secondary rounded-xl">
+                                    <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">Upload Date</p>
+                                    <p className="font-bold text-ink-secondary">{new Date(selectedAsset.created_at).toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="p-6 border-t border-slate-100 flex justify-between">
+                        <div className="p-6 border-t border-border-primary flex justify-between">
                             <a 
                                 href={getImageUrl(selectedAsset.url)} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="px-6 py-3 bg-slate-100 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-200"
+                                className="px-6 py-3 bg-surface-secondary text-ink-secondary rounded-xl font-bold text-sm hover:bg-surface-tertiary"
                             >
                                 Open in New Tab
                             </a>
@@ -306,7 +306,7 @@ export default function AssetLibrary() {
                                 </button>
                                 <button 
                                     onClick={() => setIsPreviewOpen(false)}
-                                    className="px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700"
+                                    className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600"
                                 >
                                     Done
                                 </button>

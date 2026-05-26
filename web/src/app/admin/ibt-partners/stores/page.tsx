@@ -116,8 +116,8 @@ export default function AdminIBTPartnerStoresPage() {
                     ))}
                 </div>
             ) : stores.length === 0 ? (
-                <div className="text-center py-16 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700">
-                    <Store className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                <div className="text-center py-16 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary">
+                    <Store className="w-12 h-12 text-ink-tertiary mx-auto mb-4" />
                     <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-2">No Partner Stores</h3>
                     <p className="text-ink-tertiary mb-6">Get started by creating a partner store.</p>
                     <a href="/admin/stores" className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors">
@@ -127,7 +127,7 @@ export default function AdminIBTPartnerStoresPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {stores.map(store => (
-                        <div key={store.store_id || store.id} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 p-5 hover:shadow-lg transition-shadow">
+                        <div key={store.store_id || store.id} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary p-5 hover:shadow-lg transition-shadow">
                             <div className="flex items-start justify-between mb-3">
                                 <div>
                                     <h3 className="font-bold text-ink-primary dark:text-white">{store.name}</h3>
@@ -146,14 +146,14 @@ export default function AdminIBTPartnerStoresPage() {
                                 <a
                                     href={`/store/${store.slug}`}
                                     target="_blank"
-                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-surface-secondary dark:bg-slate-700 text-ink-secondary dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-surface-tertiary dark:hover:bg-slate-600 transition-colors"
+                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary rounded-lg text-xs font-bold hover:bg-surface-tertiary dark:hover:bg-surface-tertiary transition-colors"
                                 >
                                     <Eye className="w-3.5 h-3.5" />
                                     View
                                 </a>
                                 <a
                                     href={`/admin/ibt-partners/products?store=${store.store_id || store.id}`}
-                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-sand-500/10 text-sand-500 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
+                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-sand-500/10 text-sand-500 rounded-lg text-xs font-bold hover:bg-sand-500/15 transition-colors"
                                 >
                                     <Edit className="w-3.5 h-3.5" />
                                     Products

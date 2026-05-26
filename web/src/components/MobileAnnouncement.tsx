@@ -37,8 +37,8 @@ export default function MobileAnnouncement() {
         const styles: Record<string, { bg: string; border: string; iconBg: string; iconColor: string; labelColor: string; icon: string }> = {
             urgency: { bg: 'bg-red-900/95', border: 'border-red-500/50', iconBg: 'bg-red-500/20', iconColor: 'text-red-400', labelColor: 'text-red-400', icon: '🚨' },
             community: { bg: 'bg-blue-900/95', border: 'border-blue-500/50', iconBg: 'bg-blue-500/20', iconColor: 'text-blue-400', labelColor: 'text-blue-400', icon: '🫂' },
-            promotion: { bg: 'bg-amber-900/95', border: 'border-amber-500/50', iconBg: 'bg-amber-500/20', iconColor: 'text-amber-400', labelColor: 'text-amber-400', icon: '🎁' },
-            standard: { bg: 'bg-slate-900/95', border: 'border-teal-500/30', iconBg: 'bg-teal-500/20', iconColor: 'text-teal-400', labelColor: 'text-teal-500', icon: '📣' }
+            promotion: { bg: 'bg-sand-800/95', border: 'border-amber-500/50', iconBg: 'bg-sand-500/50/20', iconColor: 'text-sand-400', labelColor: 'text-sand-400', icon: '🎁' },
+            standard: { bg: 'bg-ink-primary/95', border: 'border-teal-500/30', iconBg: 'bg-accent-500/100/20', iconColor: 'text-accent-400', labelColor: 'text-accent-500', icon: '📣' }
         };
         return styles[type] || styles.standard;
     };
@@ -68,7 +68,7 @@ export default function MobileAnnouncement() {
                         </div>
                         <button
                             onClick={() => setVisible(false)}
-                            className="p-1 text-slate-400 hover:text-white transition-colors"
+                            className="p-1 text-ink-tertiary hover:text-white transition-colors"
                         >
                             <X size={20} />
                         </button>

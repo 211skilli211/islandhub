@@ -32,7 +32,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ currentPage, to
             <button
                 disabled={currentPage === 1}
                 onClick={() => onPageChange(currentPage - 1)}
-                className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-600 disabled:opacity-50 disabled:cursor-not-allowed hover:border-teal-500 hover:text-teal-600 transition-colors"
+                className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-lg text-sm font-bold text-ink-secondary disabled:opacity-50 disabled:cursor-not-allowed hover:border-teal-500 hover:text-accent-400 transition-colors"
             >
                 Previous
             </button>
@@ -43,8 +43,8 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ currentPage, to
                         key={pageNum}
                         onClick={() => onPageChange(pageNum)}
                         className={`w-10 h-10 rounded-lg text-sm font-bold flex items-center justify-center transition-all ${currentPage === pageNum
-                                ? 'bg-teal-600 text-white shadow-md shadow-teal-200'
-                                : 'bg-white border border-slate-200 text-slate-600 hover:border-teal-500 hover:text-teal-600'
+                                ? 'bg-accent-500 text-white shadow-md shadow-accent-500/15'
+                                : 'bg-surface-elevated border border-border-primary text-ink-secondary hover:border-teal-500 hover:text-accent-400'
                             }`}
                     >
                         {pageNum}
@@ -55,12 +55,12 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ currentPage, to
             <button
                 disabled={currentPage === totalPages}
                 onClick={() => onPageChange(currentPage + 1)}
-                className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-600 disabled:opacity-50 disabled:cursor-not-allowed hover:border-teal-500 hover:text-teal-600 transition-colors"
+                className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-lg text-sm font-bold text-ink-secondary disabled:opacity-50 disabled:cursor-not-allowed hover:border-teal-500 hover:text-accent-400 transition-colors"
             >
                 Next
             </button>
 
-            <span className="text-xs text-slate-400 font-medium ml-4">
+            <span className="text-xs text-ink-tertiary font-medium ml-4">
                 Page {currentPage} of {totalPages}
             </span>
         </div>

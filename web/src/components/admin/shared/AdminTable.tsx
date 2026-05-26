@@ -85,7 +85,7 @@ function SortableColumnHeader<T>({
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none relative group select-none cursor-grab active:cursor-grabbing`}
+            className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-ink-tertiary uppercase tracking-widest leading-none relative group select-none cursor-grab active:cursor-grabbing`}
             style={{ 
                 ...style,
                 width: columnWidths[idx], 
@@ -99,11 +99,11 @@ function SortableColumnHeader<T>({
             </div>
             {/* Resizer Handle */}
             <div
-                className="absolute right-0 top-0 bottom-0 w-4 cursor-col-resize hover:bg-teal-500/10 group-hover:bg-slate-300/20 transition-colors z-10 flex flex-col justify-center items-center gap-0.5"
+                className="absolute right-0 top-0 bottom-0 w-4 cursor-col-resize hover:bg-accent-500/100/10 group-hover:bg-surface-tertiary/20 transition-colors z-10 flex flex-col justify-center items-center gap-0.5"
                 onMouseDown={(e) => startResize(idx, e)}
                 onClick={e => e.stopPropagation()}
             >
-                <div className="w-0.5 h-3 bg-slate-300 rounded-full"></div>
+                <div className="w-0.5 h-3 bg-surface-tertiary rounded-full"></div>
             </div>
         </th>
     );
@@ -301,7 +301,7 @@ export function AdminTable<T extends Record<string, any>>({
     return (
         <div className="space-y-4">
             {/* Toolbar */}
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-surface-elevated p-4 rounded-xl border border-border-primary shadow-sm">
                 <div className="flex flex-wrap gap-4 items-center w-full md:w-auto">
                     {/* Search */}
                     {searchable && (
@@ -311,9 +311,9 @@ export function AdminTable<T extends Record<string, any>>({
                                 placeholder={searchPlaceholder}
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
+                                className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-teal-500 transition-all"
                             />
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-ink-tertiary">
                                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
@@ -364,8 +364,8 @@ export function AdminTable<T extends Record<string, any>>({
                             window.open(url, '_blank');
                         }}
                         className={`flex items-center gap-2 px-3 py-2 border rounded-lg text-sm font-bold transition-all shadow-sm ${selectedRows.length > 0
-                            ? 'bg-teal-600 text-white border-teal-600 hover:bg-teal-700'
-                            : 'bg-white border-slate-200 text-slate-600 hover:border-teal-500 hover:text-teal-600'
+                            ? 'bg-accent-500 text-white border-teal-600 hover:bg-accent-600'
+                            : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-teal-500 hover:text-accent-400'
                             }`}
                     >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -377,10 +377,10 @@ export function AdminTable<T extends Record<string, any>>({
 
                 <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">
                     {/* View Toggles */}
-                    <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+                    <div className="flex bg-surface-secondary p-1 rounded-lg border border-border-primary">
                     <button
                         onClick={() => setIsCompact(!isCompact)}
-                        className={`p-2 rounded-lg border transition-all ${isCompact ? 'bg-teal-50 border-teal-300 text-teal-600' : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'}`}
+                        className={`p-2 rounded-lg border transition-all ${isCompact ? 'bg-accent-500/10 border-teal-300 text-accent-400' : 'bg-surface-elevated border-border-primary text-ink-tertiary0 hover:border-border-primary'}`}
                         title={isCompact ? 'Expanded View' : 'Compact View'}
                     >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -392,7 +392,7 @@ export function AdminTable<T extends Record<string, any>>({
                     <div className="relative">
                         <button
                             onClick={() => setShowColumnSettings(!showColumnSettings)}
-                            className={`p-2 rounded-lg border transition-all ${showColumnSettings ? 'bg-teal-50 border-teal-300 text-teal-600' : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'}`}
+                            className={`p-2 rounded-lg border transition-all ${showColumnSettings ? 'bg-accent-500/10 border-teal-300 text-accent-400' : 'bg-surface-elevated border-border-primary text-ink-tertiary0 hover:border-border-primary'}`}
                             title="Column Settings"
                         >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -403,18 +403,18 @@ export function AdminTable<T extends Record<string, any>>({
                         {showColumnSettings && isMounted && createPortal(
                             <div className="fixed inset-0 z-9999" onClick={() => setShowColumnSettings(false)}>
                                 <div 
-                                    className="absolute bg-white rounded-xl shadow-2xl border border-slate-100 py-3 animate-in fade-in slide-in-from-top-2 duration-200 w-64"
+                                    className="absolute bg-surface-elevated rounded-xl shadow-2xl border border-border-primary py-3 animate-in fade-in slide-in-from-top-2 duration-200 w-64"
                                     style={{ top: '180px', right: '20px' }}
                                     onClick={e => e.stopPropagation()}
                                 >
-                                    <div className="px-3 py-2 border-b border-slate-100 mb-2">
-                                        <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Columns</p>
+                                    <div className="px-3 py-2 border-b border-border-primary mb-2">
+                                        <p className="text-xs font-black text-ink-tertiary0 uppercase tracking-widest">Columns</p>
                                     </div>
                                     <div className="max-h-64 overflow-y-auto">
                                         {columns.map((col, idx) => (
                                             <label
                                                 key={idx}
-                                                className="flex items-center gap-3 px-3 py-2 hover:bg-slate-50 cursor-pointer"
+                                                className="flex items-center gap-3 px-3 py-2 hover:bg-surface-secondary cursor-pointer"
                                             >
                                                 <input
                                                     type="checkbox"
@@ -426,19 +426,19 @@ export function AdminTable<T extends Record<string, any>>({
                                                             setHiddenColumns(prev => [...prev, idx]);
                                                         }
                                                     }}
-                                                    className="w-4 h-4 rounded border-slate-300 text-teal-600"
+                                                    className="w-4 h-4 rounded border-border-primary text-accent-400"
                                                 />
-                                                <span className="text-sm font-medium text-slate-700">{col.header}</span>
+                                                <span className="text-sm font-medium text-ink-secondary">{col.header}</span>
                                             </label>
                                         ))}
                                     </div>
-                                    <div className="px-3 py-2 border-t border-slate-100 mt-2 flex gap-2">
+                                    <div className="px-3 py-2 border-t border-border-primary mt-2 flex gap-2">
                                         <button 
                                             onClick={() => {
                                                 setHiddenColumns([]);
                                                 setColumnOrder(columns.map((_, idx) => idx));
                                             }}
-                                            className="text-xs text-slate-500 hover:text-teal-600"
+                                            className="text-xs text-ink-tertiary0 hover:text-accent-400"
                                         >
                                             Reset All
                                         </button>
@@ -450,11 +450,11 @@ export function AdminTable<T extends Record<string, any>>({
                     </div>
                 </div>
 
-                    <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
+                    <div className="h-6 w-px bg-surface-tertiary hidden md:block"></div>
 
                     <button
                         onClick={() => setIsCompact(!isCompact)}
-                        className={`px-3 py-2 border rounded-lg text-xs font-bold transition-all ${isCompact ? 'bg-teal-50 border-teal-200 text-teal-600' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
+                        className={`px-3 py-2 border rounded-lg text-xs font-bold transition-all ${isCompact ? 'bg-accent-500/10 border-teal-200 text-accent-400' : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-border-primary'}`}
                     >
                         {isCompact ? 'Expanded Mode' : 'Compact Mode'}
                     </button>
@@ -466,7 +466,7 @@ export function AdminTable<T extends Record<string, any>>({
                                 <button
                                     key={action}
                                     onClick={() => handleBulkClick(action)}
-                                    className="px-3 py-1.5 bg-slate-800 text-white text-sm font-bold rounded-lg hover:bg-slate-700 shadow-lg shadow-slate-200 transition-all capitalize"
+                                    className="px-3 py-1.5 bg-surface-tertiary text-white text-sm font-bold rounded-lg hover:bg-surface-tertiary shadow-lg shadow-black/10 transition-all capitalize"
                                 >
                                     {action} ({selectedRows.length})
                                 </button>
@@ -478,7 +478,7 @@ export function AdminTable<T extends Record<string, any>>({
 
             {/* Table */}
             {/* Table / Card View Toggle or Responsive Logic */}
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px]">
+            <div className="bg-surface-elevated rounded-xl border border-border-primary shadow-sm overflow-hidden min-h-[400px]">
                 {/* Desktop Table View */}
                 {viewType === 'table' && (
                     <div className="hidden md:block overflow-x-auto">
@@ -489,14 +489,14 @@ export function AdminTable<T extends Record<string, any>>({
                         >
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-slate-50 border-b border-slate-200">
+                                <tr className="bg-surface-secondary border-b border-border-primary">
                                     {bulkActions && (
                                         <th className="px-6 py-4 w-12 text-center">
                                             <input
                                                 type="checkbox"
                                                 checked={items.length > 0 && selectedRows.length === items.length}
                                                 onChange={toggleAll}
-                                                className="w-4 h-4 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
+                                                className="w-4 h-4 rounded border-border-primary text-accent-400 focus:ring-accent-400"
                                             />
                                         </th>
                                     )}
@@ -519,23 +519,23 @@ export function AdminTable<T extends Record<string, any>>({
                                                 />
                                             );})}
                                     </SortableContext>
-                                    {(rowActions || onRowAction) && <th className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-slate-400 uppercase tracking-widest leading-none text-right`}>Actions</th>}
+                                    {(rowActions || onRowAction) && <th className={`${isCompact ? 'px-4 py-2' : 'px-6 py-4'} text-xs font-black text-ink-tertiary uppercase tracking-widest leading-none text-right`}>Actions</th>}
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {loading ? (
                                     [...Array(5)].map((_, i) => (
                                         <tr key={i} className="animate-pulse">
-                                            {bulkActions && <td className="px-6 py-4"><div className="w-4 h-4 bg-slate-200 rounded"></div></td>}
+                                            {bulkActions && <td className="px-6 py-4"><div className="w-4 h-4 bg-surface-tertiary rounded"></div></td>}
                                             {columns.map((_, j) => (
-                                                <td key={j} className="px-6 py-4"><div className="h-4 bg-slate-200 rounded w-24"></div></td>
+                                                <td key={j} className="px-6 py-4"><div className="h-4 bg-surface-tertiary rounded w-24"></div></td>
                                             ))}
-                                            {(rowActions || onRowAction) && <td className="px-6 py-4"><div className="h-8 w-16 bg-slate-200 rounded ml-auto"></div></td>}
+                                            {(rowActions || onRowAction) && <td className="px-6 py-4"><div className="h-8 w-16 bg-surface-tertiary rounded ml-auto"></div></td>}
                                         </tr>
                                     ))
                                 ) : items.length === 0 ? (
                                     <tr>
-                                        <td colSpan={columns.length + (bulkActions ? 1 : 0) + ((rowActions || onRowAction) ? 1 : 0)} className="px-6 py-20 text-center text-slate-400">
+                                        <td colSpan={columns.length + (bulkActions ? 1 : 0) + ((rowActions || onRowAction) ? 1 : 0)} className="px-6 py-20 text-center text-ink-tertiary">
                                             <div className="text-4xl mb-2">🍃</div>
                                             <p className="font-medium">No results found</p>
                                         </td>
@@ -551,7 +551,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                     router.push(getRowLink(item));
                                                 }
                                             }}
-                                            className={`transition-colors group ${selectedRows.includes(item[idKey] as any) ? 'bg-teal-50/50' : 'hover:bg-slate-50'} ${getRowLink ? 'cursor-pointer' : ''}`}
+                                            className={`transition-colors group ${selectedRows.includes(item[idKey] as any) ? 'bg-accent-500/10/50' : 'hover:bg-surface-secondary'} ${getRowLink ? 'cursor-pointer' : ''}`}
                                         >
                                             {bulkActions && (
                                                 <td className="px-6 py-4 w-12 text-center" onClick={(e) => e.stopPropagation()}>
@@ -559,7 +559,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                         type="checkbox"
                                                         checked={selectedRows.includes(item[idKey] as any)}
                                                         onChange={() => toggleRow(item[idKey] as any)}
-                                                        className="w-4 h-4 rounded border-slate-300 text-teal-600 focus:ring-teal-50"
+                                                        className="w-4 h-4 rounded border-border-primary text-accent-400 focus:ring-teal-50"
                                                     />
                                                 </td>
                                             )}
@@ -577,14 +577,14 @@ export function AdminTable<T extends Record<string, any>>({
                                                             typeof col.accessor === 'function' ? col.accessor(item) : (item[col.accessor] as React.ReactNode)
                                                         )}
                                                         {loadingRows.includes(item[idKey] as any) && idx === 0 && (
-                                                            <span className="inline-flex items-center ml-2 px-2 py-0.5 rounded text-[10px] bg-indigo-50 text-indigo-600 animate-pulse">
+                                                            <span className="inline-flex items-center ml-2 px-2 py-0.5 rounded text-[10px] bg-[#818cf8]/10 text-[#818cf8] animate-pulse">
                                                                 Wait...
                                                             </span>
                                                         )}
                                                     </>
                                                 );
                                                 return (
-                                                <td key={`cell-${item[idKey] as any}-${idx}`} className={`${isCompact ? 'px-4 py-2 text-xs' : 'px-6 py-4 text-sm'} text-slate-600 font-medium ${col.className || ''}`}>
+                                                <td key={`cell-${item[idKey] as any}-${idx}`} className={`${isCompact ? 'px-4 py-2 text-xs' : 'px-6 py-4 text-sm'} text-ink-secondary font-medium ${col.className || ''}`}>
                                                     {hoverType && idx === 0 ? (
                                                         <HoverPreview data={item} type={hoverType}>
                                                             {cellContent}
@@ -604,7 +604,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                                 });
                                                                 setOpenMenuId(openMenuId === item[idKey] ? null : item[idKey]);
                                                             }}
-                                                            className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition-all border border-transparent hover:border-slate-200"
+                                                            className="p-2 hover:bg-surface-secondary rounded-lg text-ink-tertiary hover:text-ink-secondary transition-all border border-transparent hover:border-border-primary"
                                                         >
                                                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
@@ -620,11 +620,11 @@ export function AdminTable<T extends Record<string, any>>({
                                                                     top: menuPosition.top - window.scrollY,
                                                                     right: menuPosition.right,
                                                                 }}
-                                                                className="w-48 bg-white rounded-xl shadow-2xl border border-slate-100 py-2 animate-in fade-in slide-in-from-top-2 duration-200"
+                                                                className="w-48 bg-surface-elevated rounded-xl shadow-2xl border border-border-primary py-2 animate-in fade-in slide-in-from-top-2 duration-200"
                                                                 onClick={(e) => e.stopPropagation()}
                                                             >
-                                                                <div className="px-3 py-1 mb-1 border-b border-slate-50">
-                                                                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Options</p>
+                                                                <div className="px-3 py-1 mb-1 border-b border-border-primary">
+                                                                    <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Options</p>
                                                                 </div>
                                                                 {rowActions?.map((action, aIdx) => {
                                                                     if (action.condition && !action.condition(item)) return null;
@@ -636,7 +636,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                                                 setOpenMenuId(null);
                                                                             }}
                                                                             disabled={loadingRows.includes(item[idKey] as any)}
-                                                                            className={`w-full text-left px-4 py-2.5 text-xs font-bold transition-colors flex items-center gap-2 hover:bg-slate-50 ${action.className || 'text-slate-600 hover:text-teal-600'}`}
+                                                                            className={`w-full text-left px-4 py-2.5 text-xs font-bold transition-colors flex items-center gap-2 hover:bg-surface-secondary ${action.className || 'text-ink-secondary hover:text-accent-400'}`}
                                                                         >
                                                                             {action.icon && <span>{action.icon}</span>}
                                                                             <span>{action.label}</span>
@@ -674,7 +674,7 @@ export function AdminTable<T extends Record<string, any>>({
                                 <div
                                     key={item[idKey] as any}
                                     onClick={() => getRowLink && router.push(getRowLink(item))}
-                                    className={`group relative rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col ${selectedRows.includes(item[idKey] as any) ? 'border-teal-500 bg-teal-50/10' : 'border-slate-100 bg-white hover:border-teal-200 hover:shadow-xl hover:-translate-y-1'} ${getRowLink ? 'cursor-pointer' : ''}`}
+                                    className={`group relative rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col ${selectedRows.includes(item[idKey] as any) ? 'border-teal-500 bg-accent-500/10/10' : 'border-border-primary bg-surface-elevated hover:border-teal-200 hover:shadow-xl hover:-translate-y-1'} ${getRowLink ? 'cursor-pointer' : ''}`}
                                 >
                                     {/* Action Header */}
                                     <div className="absolute top-3 right-3 z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -683,7 +683,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                 <button
                                                     key={action.action}
                                                     onClick={(e) => { e.stopPropagation(); handleRowClick(action.action, item); }}
-                                                    className="p-1.5 rounded-full bg-white/90 backdrop-blur text-slate-500 hover:text-teal-600 shadow-sm border border-slate-100"
+                                                    className="p-1.5 rounded-full bg-surface-elevated/90 backdrop-blur text-ink-tertiary0 hover:text-accent-400 shadow-sm border border-border-primary"
                                                     title={action.label}
                                                 >
                                                     {/* Use icon if available, else simple fallback */}
@@ -694,14 +694,14 @@ export function AdminTable<T extends Record<string, any>>({
                                     </div>
 
                                     {/* Card Header (Image + Title) */}
-                                    <div className="p-5 flex flex-col items-center text-center border-b border-slate-50 relative overflow-hidden bg-slate-50/30">
+                                    <div className="p-5 flex flex-col items-center text-center border-b border-border-primary relative overflow-hidden bg-surface-secondary/30">
                                         {bulkActions && (
                                             <div className="absolute top-3 left-3 z-10" onClick={e => e.stopPropagation()}>
                                                 <input
                                                     type="checkbox"
                                                     checked={selectedRows.includes(item[idKey] as any)}
                                                     onChange={() => toggleRow(item[idKey] as any)}
-                                                    className="w-5 h-5 rounded-md border-slate-300 text-teal-600 focus:ring-offset-0"
+                                                    className="w-5 h-5 rounded-md border-border-primary text-accent-400 focus:ring-offset-0"
                                                 />
                                             </div>
                                         )}
@@ -712,13 +712,13 @@ export function AdminTable<T extends Record<string, any>>({
                                                     {typeof imageCol.accessor === 'function' ? imageCol.accessor(item) : (item[imageCol.accessor] as React.ReactNode)}
                                                 </div>
                                             ) : (
-                                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-2xl font-black text-slate-300 shadow-inner">
+                                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-2xl font-black text-ink-tertiary shadow-inner">
                                                     {(item as any).name?.charAt(0) || '#'}
                                                 </div>
                                             )}
                                         </div>
 
-                                        <h3 className="font-black text-slate-800 line-clamp-1 text-lg leading-tight mb-1">
+                                        <h3 className="font-black text-ink-primary line-clamp-1 text-lg leading-tight mb-1">
                                             {titleCol ? (typeof titleCol.accessor === 'function' ? titleCol.accessor(item) : item[titleCol.accessor] as React.ReactNode) : `Item #${item.id}`}
                                         </h3>
 
@@ -730,11 +730,11 @@ export function AdminTable<T extends Record<string, any>>({
                                     </div>
 
                                     {/* Card Details Grid */}
-                                    <div className="p-4 grid grid-cols-2 gap-y-3 gap-x-2 bg-white flex-1 content-start">
+                                    <div className="p-4 grid grid-cols-2 gap-y-3 gap-x-2 bg-surface-elevated flex-1 content-start">
                                         {detailColumns.slice(0, 6).map((col, idx) => (
                                             <div key={`card-det-${item.id}-${idx}`} className="flex flex-col">
-                                                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">{col.header}</p>
-                                                <div className="text-slate-600 font-bold text-xs truncate">
+                                                <p className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-0.5">{col.header}</p>
+                                                <div className="text-ink-secondary font-bold text-xs truncate">
                                                     {typeof col.accessor === 'function' ? col.accessor(item) : (item[col.accessor] as React.ReactNode)}
                                                 </div>
                                             </div>
@@ -742,7 +742,7 @@ export function AdminTable<T extends Record<string, any>>({
                                     </div>
 
                                     {/* Footer ID */}
-                                    <div className="px-4 py-2 bg-slate-50/50 text-[9px] font-mono text-slate-300 text-right uppercase tracking-widest">
+                                    <div className="px-4 py-2 bg-surface-secondary/50 text-[9px] font-mono text-ink-tertiary text-right uppercase tracking-widest">
                                         ID: {item[idKey] as any}
                                     </div>
                                 </div>
@@ -757,13 +757,13 @@ export function AdminTable<T extends Record<string, any>>({
                         {loading ? (
                             [...Array(3)].map((_, i) => (
                                 <div key={i} className="p-4 animate-pulse space-y-3">
-                                    <div className="h-4 bg-slate-200 rounded w-1/2"></div>
-                                    <div className="h-3 bg-slate-100 rounded w-3/4"></div>
-                                    <div className="h-8 bg-slate-200 rounded w-24"></div>
+                                    <div className="h-4 bg-surface-tertiary rounded w-1/2"></div>
+                                    <div className="h-3 bg-surface-secondary rounded w-3/4"></div>
+                                    <div className="h-8 bg-surface-tertiary rounded w-24"></div>
                                 </div>
                             ))
                         ) : items.length === 0 ? (
-                            <div className="px-6 py-20 text-center text-slate-400">
+                            <div className="px-6 py-20 text-center text-ink-tertiary">
                                 <div className="text-4xl mb-2">🍃</div>
                                 <p className="font-medium">No results found</p>
                             </div>
@@ -771,7 +771,7 @@ export function AdminTable<T extends Record<string, any>>({
                             items.map((item) => (
                                 <div
                                     key={item[idKey] as any}
-                                    className={`p-4 transition-colors ${selectedRows.includes(item[idKey] as any) ? 'bg-teal-50/50' : 'active:bg-slate-50'}`}
+                                    className={`p-4 transition-colors ${selectedRows.includes(item[idKey] as any) ? 'bg-accent-500/10/50' : 'active:bg-surface-secondary'}`}
                                     onClick={() => getRowLink && router.push(getRowLink(item))}
                                 >
                                     <div className="flex items-start justify-between mb-2">
@@ -781,28 +781,28 @@ export function AdminTable<T extends Record<string, any>>({
                                                     type="checkbox"
                                                     checked={selectedRows.includes(item[idKey] as any)}
                                                     onChange={(e) => { e.stopPropagation(); toggleRow(item[idKey] as any); }}
-                                                    className="w-5 h-5 rounded border-slate-300 text-teal-600"
+                                                    className="w-5 h-5 rounded border-border-primary text-accent-400"
                                                 />
                                             )}
-                                            <div className="font-bold text-slate-900">
+                                            <div className="font-bold text-ink-primary">
                                                 {columns[1] ? (
                                                     typeof columns[1].accessor === 'function'
                                                         ? columns[1].accessor(item)
                                                         : (item[columns[1].accessor as keyof T] as React.ReactNode)
                                                 ) : (
-                                                    <span className="text-slate-300">Item #{item[idKey] as any}</span>
+                                                    <span className="text-ink-tertiary">Item #{item[idKey] as any}</span>
                                                 )}
                                             </div>
                                         </div>
                                         {loadingRows.includes(item[idKey] as any) && (
-                                            <span className="text-[10px] font-black uppercase text-indigo-500">Wait...</span>
+                                            <span className="text-[10px] font-black uppercase text-[#a5b4fc]0">Wait...</span>
                                         )}
                                     </div>
                                     <div className="grid grid-cols-2 gap-y-2 mb-4 pl-8">
                                         {columns.slice(2).map((col, idx) => (
                                             <div key={idx} className="text-xs">
-                                                <div className="text-slate-400 font-black uppercase tracking-widest scale-75 origin-left">{col.header}</div>
-                                                <div className="text-slate-600 font-medium">
+                                                <div className="text-ink-tertiary font-black uppercase tracking-widest scale-75 origin-left">{col.header}</div>
+                                                <div className="text-ink-secondary font-medium">
                                                     {typeof col.accessor === 'function' ? col.accessor(item) : (item[col.accessor] as React.ReactNode)}
                                                 </div>
                                             </div>
@@ -817,7 +817,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                         key={action.action}
                                                         onClick={() => handleRowClick(action.action, item)}
                                                         disabled={loadingRows.includes(item[idKey] as any)}
-                                                        className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 ${action.className || 'bg-slate-100 text-slate-600 border border-slate-200'}`}
+                                                        className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 ${action.className || 'bg-surface-secondary text-ink-secondary border border-border-primary'}`}
                                                     >
                                                         {action.icon && <span>{action.icon}</span>}
                                                         {action.label}

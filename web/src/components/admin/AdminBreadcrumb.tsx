@@ -38,23 +38,23 @@ export default function AdminBreadcrumb() {
         <nav className="flex items-center gap-1 text-sm">
             <Link 
                 href="/admin" 
-                className="flex items-center gap-1 text-slate-500 hover:text-teal-600 transition-colors"
+                className="flex items-center gap-1 text-ink-tertiary0 hover:text-accent-400 transition-colors"
             >
                 <Home className="w-4 h-4" />
                 <span className="hidden sm:inline">Admin</span>
             </Link>
             {breadcrumbs.slice(1).map((crumb, index) => (
                 <div key={index} className="flex items-center gap-1">
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronRight className="w-4 h-4 text-ink-tertiary" />
                     {crumb.href ? (
                         <Link 
                             href={crumb.href}
-                            className="text-slate-500 hover:text-teal-600 transition-colors font-medium"
+                            className="text-ink-tertiary0 hover:text-accent-400 transition-colors font-medium"
                         >
                             {crumb.label}
                         </Link>
                     ) : (
-                        <span className="text-slate-900 dark:text-white font-bold">{crumb.label}</span>
+                        <span className="text-ink-primary dark:text-white font-bold">{crumb.label}</span>
                     )}
                 </div>
             ))}

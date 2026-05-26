@@ -47,8 +47,8 @@ export default function DriverVerification() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'approved': return 'bg-emerald-100 text-emerald-700';
-            case 'pending': return 'bg-amber-100 text-amber-700';
+            case 'approved': return 'bg-emerald-500/15 text-emerald-500';
+            case 'pending': return 'bg-sand-500/10 text-sand-500';
             case 'rejected': return 'bg-red-100 text-red-700';
             default: return 'bg-gray-100 text-gray-700';
         }
@@ -68,9 +68,9 @@ export default function DriverVerification() {
         const anyRejected = verifications.some(v => v.status === 'rejected');
         const pending = verifications.filter(v => v.status === 'pending' || v.status === 'not_started').length;
 
-        if (allApproved) return { status: 'verified', text: 'Fully Verified', color: 'text-emerald-600' };
+        if (allApproved) return { status: 'verified', text: 'Fully Verified', color: 'text-emerald-400' };
         if (anyRejected) return { status: 'rejected', text: 'Issues Found', color: 'text-red-600' };
-        if (pending > 0) return { status: 'pending', text: `${pending} Items Pending`, color: 'text-amber-600' };
+        if (pending > 0) return { status: 'pending', text: `${pending} Items Pending`, color: 'text-sand-500' };
         return { status: 'incomplete', text: 'Incomplete', color: 'text-gray-600' };
     };
 
@@ -94,7 +94,7 @@ export default function DriverVerification() {
                             {overallStatus.text}
                         </p>
                     </div>
-                    <div className="bg-white/20 backdrop-blur rounded-full p-4">
+                    <div className="bg-surface-elevated/20 backdrop-blur rounded-full p-4">
                         <span className="text-4xl">🪪</span>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ export default function DriverVerification() {
                             {verifications.filter(v => v.status === 'approved').length} Approved
                         </span>
                         <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
+                            <span className="w-2 h-2 bg-sand-400 rounded-full"></span>
                             {verifications.filter(v => v.status === 'pending').length} Pending
                         </span>
                         <span className="flex items-center gap-1">
@@ -117,7 +117,7 @@ export default function DriverVerification() {
             </div>
 
             {/* Verification Items */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-200">
                     <h3 className="font-semibold text-gray-900">Verification Documents</h3>
                 </div>
@@ -132,8 +132,8 @@ export default function DriverVerification() {
                         >
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${item.status === 'approved' ? 'bg-emerald-100 text-emerald-600' :
-                                        item.status === 'pending' ? 'bg-amber-100 text-amber-600' :
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${item.status === 'approved' ? 'bg-emerald-500/15 text-emerald-400' :
+                                        item.status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
                                             item.status === 'rejected' ? 'bg-red-100 text-red-600' :
                                                 'bg-gray-100 text-gray-400'
                                         }`}>
@@ -159,13 +159,13 @@ export default function DriverVerification() {
                                                 setUploadingDoc(item.id);
                                                 setShowUploadModal(true);
                                             }}
-                                            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm"
+                                            className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1] transition-colors text-sm"
                                         >
                                             Upload
                                         </button>
                                     )}
                                     {item.status === 'pending' && (
-                                        <button className="px-4 py-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors text-sm">
+                                        <button className="px-4 py-2 text-[#818cf8] hover:bg-[#818cf8]/10 rounded-lg transition-colors text-sm">
                                             View Details
                                         </button>
                                     )}
@@ -182,13 +182,13 @@ export default function DriverVerification() {
             </div>
 
             {/* Progress Timeline */}
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">Verification Timeline</h3>
                 <div className="relative">
                     <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
                     <div className="space-y-6">
                         <div className="relative pl-10">
-                            <div className="absolute left-2.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
+                            <div className="absolute left-2.5 w-3 h-3 bg-emerald-500/100 rounded-full border-2 border-white"></div>
                             <div className="bg-gray-50 rounded-lg p-4">
                                 <div className="text-sm text-gray-500">Jan 15, 2024</div>
                                 <div className="font-medium text-gray-900">Driver's License Verified</div>
@@ -196,7 +196,7 @@ export default function DriverVerification() {
                             </div>
                         </div>
                         <div className="relative pl-10">
-                            <div className="absolute left-2.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
+                            <div className="absolute left-2.5 w-3 h-3 bg-emerald-500/100 rounded-full border-2 border-white"></div>
                             <div className="bg-gray-50 rounded-lg p-4">
                                 <div className="text-sm text-gray-500">Jan 16, 2024</div>
                                 <div className="font-medium text-gray-900">Background Check Cleared</div>
@@ -204,9 +204,9 @@ export default function DriverVerification() {
                             </div>
                         </div>
                         <div className="relative pl-10">
-                            <div className="absolute left-2.5 w-3 h-3 bg-amber-500 rounded-full border-2 border-white animate-pulse"></div>
-                            <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
-                                <div className="text-sm text-amber-600">In Progress</div>
+                            <div className="absolute left-2.5 w-3 h-3 bg-sand-500/50 rounded-full border-2 border-white animate-pulse"></div>
+                            <div className="bg-sand-500/5 rounded-lg p-4 border border-sand-500/20">
+                                <div className="text-sm text-sand-500">In Progress</div>
                                 <div className="font-medium text-gray-900">Vehicle Insurance Review</div>
                                 <div className="text-sm text-gray-600">Additional documentation under review.</div>
                             </div>
@@ -216,7 +216,7 @@ export default function DriverVerification() {
             </div>
 
             {/* FAQ Section */}
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">Common Questions</h3>
                 <div className="space-y-4">
                     <details className="group">
@@ -255,7 +255,7 @@ export default function DriverVerification() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white rounded-2xl p-6 max-w-md w-full mx-4"
+                        className="bg-surface-elevated rounded-2xl p-6 max-w-md w-full mx-4"
                     >
                         <h3 className="text-xl font-bold text-gray-900 mb-4">
                             Upload {verifications.find(v => v.id === uploadingDoc)?.name}
@@ -263,7 +263,7 @@ export default function DriverVerification() {
                         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
                             <div className="text-4xl mb-4">📁</div>
                             <p className="text-gray-600 mb-2">Drag and drop your file here, or</p>
-                            <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                            <button className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1]">
                                 Browse Files
                             </button>
                             <p className="text-sm text-gray-500 mt-4">PDF, JPG, PNG up to 5MB</p>
@@ -280,7 +280,7 @@ export default function DriverVerification() {
                                     setShowUploadModal(false);
                                     alert('Document uploaded successfully!');
                                 }}
-                                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                                className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1]"
                             >
                                 Upload
                             </button>

@@ -93,11 +93,11 @@ export default function CoopsPage() {
             <HeroBackground pageKey="ibt-coops">
                 <div className="relative z-10 max-w-4xl mx-auto text-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <span className="inline-block px-4 py-1 bg-accent-500/20 text-teal-400 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
+                        <span className="inline-block px-4 py-1 bg-accent-500/20 text-accent-400 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
                             IBT Co-operative Federation
                         </span>
                         <h1 className="text-4xl md:text-6xl font-black text-white mb-6 italic uppercase tracking-tighter">
-                            Caribbean <span className="text-teal-400">Co-ops</span>
+                            Caribbean <span className="text-accent-400">Co-ops</span>
                         </h1>
                         <p className="text-xl text-white/60 max-w-2xl mx-auto">
                             Democratically-governed cooperatives uniting tradespeople, farmers, creatives, and logistics providers across the islands.
@@ -208,7 +208,7 @@ export default function CoopsPage() {
                                                         </p>
                                                     </div>
                                                     {coop.is_verified && (
-                                                        <span className="text-teal-500 text-sm" title="Verified">✓</span>
+                                                        <span className="text-accent-500 text-sm" title="Verified">✓</span>
                                                     )}
                                                 </div>
                                                 <p className="text-ink-tertiary text-sm leading-relaxed mb-4 line-clamp-2">
@@ -245,7 +245,7 @@ export default function CoopsPage() {
             <section className="bg-surface-tertiary py-20 px-6">
                 <div className="max-w-3xl mx-auto text-center">
                     <h2 className="text-3xl md:text-4xl font-black text-white mb-4 italic uppercase">
-                        Start Your Own <span className="text-teal-400">Co-op</span>
+                        Start Your Own <span className="text-accent-400">Co-op</span>
                     </h2>
                     <p className="text-ink-tertiary mb-8">
                         Have a group of Caribbean professionals ready to collaborate? Apply to join the IBT Co-operative Federation.

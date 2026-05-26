@@ -79,13 +79,13 @@ export default function GroupsPage() {
         <main className="min-h-screen bg-surface-primary">
             <HeroBackground pageKey="community" className="py-16">
                 <div className="max-w-7xl mx-auto relative z-30 text-center px-4">
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10">
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10">
                         Community Groups 🌴
                     </motion.div>
                     <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
                         Find Your People
                     </motion.h1>
-                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-teal-50 text-lg max-w-xl mx-auto mb-8 font-medium opacity-80">
+                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-accent-50 text-lg max-w-xl mx-auto mb-8 font-medium opacity-80">
                         Join local groups, connect with neighbors who share your interests.
                     </motion.p>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="relative max-w-md mx-auto">
@@ -100,7 +100,7 @@ export default function GroupsPage() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div className="flex gap-2 overflow-x-auto pb-2 w-full sm:w-auto scrollbar-hide">
                         {categories.map(cat => (
-                            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${selectedCategory === cat.id ? 'bg-accent-500 text-white shadow-lg shadow-teal-200' : 'bg-surface-elevated text-ink-tertiary border border-border-primary hover:bg-surface-primary'}`}>
+                            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${selectedCategory === cat.id ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/15' : 'bg-surface-elevated text-ink-tertiary border border-border-primary hover:bg-surface-primary'}`}>
                                 <span>{cat.icon}</span>
                                 <span className="hidden sm:inline">{cat.name}</span>
                             </button>

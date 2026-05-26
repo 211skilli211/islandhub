@@ -41,13 +41,13 @@ export default function RequestServicesSection() {
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-8 md:mb-12">
-                    <div className="inline-block px-4 py-1.5 bg-teal-100 dark:bg-teal-900/30 rounded-full text-teal-700 dark:text-teal-300 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                    <div className="inline-block px-4 py-1.5 bg-accent-500/15 dark:bg-accent-800/30 rounded-full text-accent-500 dark:text-accent-300 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
                         On-Demand Services
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">
+                    <h2 className="text-3xl md:text-5xl font-black text-ink-primary dark:text-white mb-3 tracking-tight">
                         How can we help you today?
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-300 font-medium text-sm md:text-base max-w-2xl mx-auto">
+                    <p className="text-ink-tertiary0 dark:text-ink-tertiary font-medium text-sm md:text-base max-w-2xl mx-auto">
                         Request rides, order food, or send packages — all in one platform
                     </p>
                 </div>
@@ -102,17 +102,17 @@ export default function RequestServicesSection() {
 
                 {/* Quick Stats - Mobile Optimized */}
                 <div className="mt-8 md:mt-12 grid grid-cols-3 gap-3 md:gap-6 max-w-3xl mx-auto">
-                    <div className="text-center p-4 md:p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                        <div className="text-2xl md:text-3xl font-black text-teal-600 dark:text-teal-400 mb-1">24/7</div>
-                        <div className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Available</div>
+                    <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
+                        <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">24/7</div>
+                        <div className="text-[10px] md:text-xs text-ink-tertiary0 dark:text-ink-tertiary font-bold uppercase tracking-wider">Available</div>
                     </div>
-                    <div className="text-center p-4 md:p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                        <div className="text-2xl md:text-3xl font-black text-teal-600 dark:text-teal-400 mb-1">5min</div>
-                        <div className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Avg Wait</div>
+                    <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
+                        <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">5min</div>
+                        <div className="text-[10px] md:text-xs text-ink-tertiary0 dark:text-ink-tertiary font-bold uppercase tracking-wider">Avg Wait</div>
                     </div>
-                    <div className="text-center p-4 md:p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                        <div className="text-2xl md:text-3xl font-black text-teal-600 dark:text-teal-400 mb-1">100+</div>
-                        <div className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Drivers</div>
+                    <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
+                        <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">100+</div>
+                        <div className="text-[10px] md:text-xs text-ink-tertiary0 dark:text-ink-tertiary font-bold uppercase tracking-wider">Drivers</div>
                     </div>
                 </div>
             </div>

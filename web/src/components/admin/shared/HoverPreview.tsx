@@ -83,13 +83,13 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                             </div>
                         )}
                         <div className="text-center">
-                            <p className="font-black text-slate-800">{data.name}</p>
-                            <p className="text-xs text-slate-500">{data.email}</p>
+                            <p className="font-black text-ink-primary">{data.name}</p>
+                            <p className="text-xs text-ink-tertiary0">{data.email}</p>
                             <span className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ${
                                 data.role === 'admin' ? 'bg-purple-100 text-purple-700' :
-                                data.role?.startsWith('vendor') ? 'bg-teal-100 text-teal-700' :
-                                data.role?.startsWith('driver') ? 'bg-amber-100 text-amber-700' :
-                                'bg-slate-100 text-slate-600'
+                                data.role?.startsWith('vendor') ? 'bg-accent-500/15 text-accent-500' :
+                                data.role?.startsWith('driver') ? 'bg-sand-500/10 text-sand-500' :
+                                'bg-surface-secondary text-ink-secondary'
                             }`}>
                                 {data.role}
                             </span>
@@ -98,7 +98,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                             <span className={`flex items-center gap-1 ${data.is_active ? 'text-green-600' : 'text-red-500'}`}>
                                 {data.is_active ? '● Active' : '○ Inactive'}
                             </span>
-                            <span className={data.email_verified ? 'text-green-600' : 'text-amber-600'}>
+                            <span className={data.email_verified ? 'text-green-600' : 'text-sand-500'}>
                                 {data.email_verified ? '✓ Verified' : '⚠ Unverified'}
                             </span>
                         </div>
@@ -114,21 +114,21 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                             </div>
                         )}
                         <div>
-                            <p className="font-bold text-slate-800 text-sm line-clamp-2">{data.title}</p>
-                            <p className="text-lg font-black text-teal-600">{data.price ? `$${data.price}` : ''}</p>
+                            <p className="font-bold text-ink-primary text-sm line-clamp-2">{data.title}</p>
+                            <p className="text-lg font-black text-accent-400">{data.price ? `$${data.price}` : ''}</p>
                         </div>
                         <div className="flex gap-2 flex-wrap">
-                            <span className="text-xs px-2 py-1 bg-slate-100 rounded-full">{data.category}</span>
+                            <span className="text-xs px-2 py-1 bg-surface-secondary rounded-full">{data.category}</span>
                             <span className={`text-xs px-2 py-1 rounded-full ${
                                 data.status === 'active' ? 'bg-green-100 text-green-700' :
-                                data.status === 'pending' ? 'bg-amber-100 text-amber-700' :
-                                'bg-slate-100 text-slate-600'
+                                data.status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
+                                'bg-surface-secondary text-ink-secondary'
                             }`}>
                                 {data.status}
                             </span>
                         </div>
                         {data.owner_name && (
-                            <p className="text-xs text-slate-500">By {data.owner_name}</p>
+                            <p className="text-xs text-ink-tertiary0">By {data.owner_name}</p>
                         )}
                     </div>
                 );
@@ -142,10 +142,10 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                             </div>
                         )}
                         <div className="text-center">
-                            <p className="font-black text-slate-800">{data.business_name || data.store_name}</p>
-                            <span className="text-xs text-slate-500">Vendor Store</span>
+                            <p className="font-black text-ink-primary">{data.business_name || data.store_name}</p>
+                            <span className="text-xs text-ink-tertiary0">Vendor Store</span>
                         </div>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-xs text-ink-tertiary">
                             Created: {data.created_at ? new Date(data.created_at).toLocaleDateString() : 'N/A'}
                         </p>
                     </div>
@@ -155,17 +155,17 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                 return (
                     <div className="space-y-3">
                         <div className="text-center">
-                            <p className="font-black text-slate-800">Order #{data.id}</p>
-                            <p className="text-xl font-black text-teal-600">{data.total ? `$${data.total}` : ''}</p>
+                            <p className="font-black text-ink-primary">Order #{data.id}</p>
+                            <p className="text-xl font-black text-accent-400">{data.total ? `$${data.total}` : ''}</p>
                         </div>
                         <span className={`block text-center text-xs px-2 py-1 rounded-full ${
                             data.order_status === 'completed' ? 'bg-green-100 text-green-700' :
-                            data.order_status === 'pending' ? 'bg-amber-100 text-amber-700' :
-                            'bg-slate-100 text-slate-600'
+                            data.order_status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
+                            'bg-surface-secondary text-ink-secondary'
                         }`}>
                             {data.order_status}
                         </span>
-                        <p className="text-xs text-slate-400 text-center">
+                        <p className="text-xs text-ink-tertiary text-center">
                             {data.created_at ? new Date(data.created_at).toLocaleDateString() : ''}
                         </p>
                     </div>
@@ -175,16 +175,16 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                 return (
                     <div className="space-y-3">
                         {image && (
-                            <div className="w-full h-24 rounded-lg overflow-hidden flex items-center justify-center bg-slate-50">
+                            <div className="w-full h-24 rounded-lg overflow-hidden flex items-center justify-center bg-surface-secondary">
                                 <img src={image} alt="" className="max-w-full max-h-full object-contain" />
                             </div>
                         )}
-                        <p className="text-xs text-slate-500 text-center">ID: {data.id}</p>
+                        <p className="text-xs text-ink-tertiary0 text-center">ID: {data.id}</p>
                     </div>
                 );
 
             default:
-                return <p className="text-sm text-slate-600">Preview</p>;
+                return <p className="text-sm text-ink-secondary">Preview</p>;
         }
     };
 
@@ -197,7 +197,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
             {children}
             {showPreview && (
                 <div 
-                    className="fixed z-50 bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 w-64 animate-in fade-in slide-in-from-top-1"
+                    className="fixed z-50 bg-surface-elevated rounded-2xl shadow-2xl border border-border-primary p-4 w-64 animate-in fade-in slide-in-from-top-1"
                     style={{ 
                         left: Math.min(position.x, window.innerWidth - 280),
                         top: position.y 

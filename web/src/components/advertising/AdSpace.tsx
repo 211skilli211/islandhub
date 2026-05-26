@@ -159,7 +159,7 @@ export default function AdSpace({
     const VideoWindow = ({ url, thumbnail }: { url: string, thumbnail?: string }) => (
         <div className="relative h-full w-full flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
-            <div className="relative z-10 h-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border-2 border-white/20">
+            <div className="relative z-10 h-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border-2 border-surface-elevated/20">
                 <video
                     src={url}
                     autoPlay
@@ -221,7 +221,7 @@ export default function AdSpace({
     // Loading state
     if (isLoading) {
         return (
-            <div className={`animate-pulse bg-slate-200 rounded-2xl ${className}`}>
+            <div className={`animate-pulse bg-surface-tertiary rounded-2xl ${className}`}>
                 <div className="h-full w-full" />
             </div>
         );
@@ -279,14 +279,14 @@ export default function AdSpace({
                             <motion.span
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-[8px] font-black uppercase tracking-widest mb-4 border border-white/10"
+                                className="inline-block px-3 py-1 bg-surface-elevated/20 backdrop-blur-md rounded-lg text-[8px] font-black uppercase tracking-widest mb-4 border border-white/10"
                             >
                                 {currentAd ? 'Premium Offer' : 'Featured'}
                             </motion.span>
                             <h3 className="text-3xl md:text-5xl font-black italic tracking-tighter mb-4 leading-none uppercase drop-shadow-2xl">{title}</h3>
                             <p className="text-white/70 text-sm font-medium italic mb-6 line-clamp-2">{body}</p>
                             {displayConfig?.show_button && displayConfig?.targetLink && (
-                                <a href={displayConfig.targetLink} className="px-6 py-3 bg-white text-slate-900 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-110 transition-transform shadow-xl shadow-white/10">
+                                <a href={displayConfig.targetLink} className="px-6 py-3 bg-surface-elevated text-ink-primary rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-110 transition-transform shadow-xl shadow-white/10">
                                     {displayConfig.buttonText || 'Explore Now'}
                                 </a>
                             )}
@@ -308,12 +308,12 @@ export default function AdSpace({
                                 <img src={getImageUrl(currentAd.media_url)} className="w-full h-full object-cover blur-md opacity-40" alt="" />
                             </div>
                         )}
-                        <div className="relative z-10 w-full max-w-lg p-10 bg-white/5 backdrop-blur-2xl rounded-[3rem] border border-white/10 text-center text-white shadow-2xl">
+                        <div className="relative z-10 w-full max-w-lg p-10 bg-surface-elevated/5 backdrop-blur-2xl rounded-[3rem] border border-white/10 text-center text-white shadow-2xl">
                             <h3 className="text-2xl md:text-4xl font-black italic tracking-tighter mb-2 leading-tight uppercase drop-shadow-xl">{title}</h3>
                             <p className="text-white/70 text-[10px] font-black uppercase tracking-[0.2em] mb-6 opacity-70 italic">{body}</p>
-                            <div className="w-16 h-1 bg-white/20 mx-auto rounded-full mb-8" />
+                            <div className="w-16 h-1 bg-surface-elevated/20 mx-auto rounded-full mb-8" />
                             {displayConfig?.show_button && displayConfig?.targetLink && (
-                                <a href={displayConfig.targetLink} className="px-8 py-3 border border-white/20 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-slate-900 transition-all">
+                                <a href={displayConfig.targetLink} className="px-8 py-3 border border-surface-elevated/20 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-surface-elevated hover:text-ink-primary transition-all">
                                     {displayConfig.buttonText || 'Discover'}
                                 </a>
                             )}
@@ -326,7 +326,7 @@ export default function AdSpace({
             case 'minimal':
                 return (
                     <div className="relative h-full w-full flex items-center gap-6 p-6 px-10">
-                        <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 shrink-0">
+                        <div className="w-16 h-16 bg-surface-elevated/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-surface-elevated/20 shrink-0">
                             {currentAd?.thumbnail_url || currentAd?.media_url ? (
                                 <img src={getImageUrl(currentAd.thumbnail_url || currentAd.media_url)} className="w-10 h-10 object-contain rounded-lg" alt="" />
                             ) : (
@@ -338,7 +338,7 @@ export default function AdSpace({
                             <p className="text-white/60 text-[10px] uppercase font-black tracking-widest mt-1 truncate">{body}</p>
                         </div>
                         {displayConfig?.show_button && displayConfig?.targetLink && (
-                            <a href={displayConfig.targetLink} className="px-4 py-2 border border-white/20 rounded-full text-white text-[9px] font-black uppercase tracking-widest hover:bg-white/10 transition-colors shrink-0">
+                            <a href={displayConfig.targetLink} className="px-4 py-2 border border-surface-elevated/20 rounded-full text-white text-[9px] font-black uppercase tracking-widest hover:bg-surface-elevated/10 transition-colors shrink-0">
                                 {displayConfig.buttonText || 'View'}
                             </a>
                         )}
@@ -355,11 +355,11 @@ export default function AdSpace({
                             </div>
                         )}
                         <div className="relative z-10 mt-auto flex flex-col gap-3">
-                            <span className="inline-block w-fit px-2 py-0.5 bg-white/10 backdrop-blur-md rounded text-[7px] font-black uppercase tracking-[0.2em] mb-1 border border-white/10">Limited Spot</span>
+                            <span className="inline-block w-fit px-2 py-0.5 bg-surface-elevated/10 backdrop-blur-md rounded text-[7px] font-black uppercase tracking-[0.2em] mb-1 border border-white/10">Limited Spot</span>
                             <h3 className="text-2xl font-black italic tracking-tighter leading-none uppercase drop-shadow-lg">{title}</h3>
                             <p className="text-white/50 text-[10px] font-medium leading-tight mb-4 line-clamp-3 opacity-80">{body}</p>
                             {displayConfig?.show_button && displayConfig?.targetLink && (
-                                <a href={displayConfig.targetLink} className="w-full py-3 bg-white text-slate-900 rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-teal-50 hover:scale-105 transition-all shadow-xl shadow-black/20 text-center">
+                                <a href={displayConfig.targetLink} className="w-full py-3 bg-surface-elevated text-ink-primary rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-teal-50 hover:scale-105 transition-all shadow-xl shadow-black/20 text-center">
                                     {displayConfig.buttonText || 'View Details'}
                                 </a>
                             )}
@@ -460,7 +460,7 @@ export default function AdSpace({
                     {renderAdContent()}
 
                     {/* Sponsored/Default label */}
-                    <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 rounded-md z-30 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute top-4 left-4 bg-surface-elevated/10 backdrop-blur-md border border-surface-elevated/20 px-3 py-1 rounded-md z-30 opacity-0 group-hover:opacity-100 transition-opacity">
                         <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white">
                             {currentAd ? 'Partner Spotlight' : 'Island Hub'}
                         </span>
@@ -473,9 +473,9 @@ export default function AdSpace({
                                 e.stopPropagation();
                                 setIsDismissed(true);
                             }}
-                            className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-1.5 rounded-full hover:bg-white transition-colors z-40 shadow-xl"
+                            className="absolute top-4 right-4 bg-surface-elevated/90 backdrop-blur-sm p-1.5 rounded-full hover:bg-surface-elevated transition-colors z-40 shadow-xl"
                         >
-                            <X size={16} className="text-slate-700" />
+                            <X size={16} className="text-ink-secondary" />
                         </button>
                     )}
                 </div>
@@ -491,8 +491,8 @@ export default function AdSpace({
                                     setHasTrackedImpression(false);
                                 }}
                                 className={`w-1.5 h-1.5 rounded-full transition-all ${index === currentAdIndex
-                                    ? 'bg-white w-4'
-                                    : 'bg-white/30 hover:bg-white/50'
+                                    ? 'bg-surface-elevated w-4'
+                                    : 'bg-surface-elevated/30 hover:bg-surface-elevated/50'
                                     }`}
                             />
                         ))}

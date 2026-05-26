@@ -139,61 +139,61 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-ink-primary/60 backdrop-blur-sm animate-in fade-in duration-300">
             <motion.div
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
-                className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-xl overflow-hidden border border-slate-100"
+                className="bg-surface-elevated rounded-[2.5rem] shadow-2xl w-full max-w-xl overflow-hidden border border-border-primary"
             >
-                <div className="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
+                <div className="p-8 border-b border-border-primary flex justify-between items-center bg-surface-secondary/50">
                     <div>
-                        <h2 className="text-2xl font-black text-slate-800 tracking-tight italic">Store Configuration</h2>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">
-                            Editing: <span className="text-teal-600">{store.name}</span> (ID: {store.store_id})
+                        <h2 className="text-2xl font-black text-ink-primary tracking-tight italic">Store Configuration</h2>
+                        <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest mt-1">
+                            Editing: <span className="text-accent-400">{store.name}</span> (ID: {store.store_id})
                         </p>
                     </div>
-                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-600 transition-all border border-slate-100">✕</button>
+                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-surface-elevated shadow-sm flex items-center justify-center text-ink-tertiary hover:text-ink-secondary transition-all border border-border-primary">✕</button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Display Name</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Display Name</label>
                         <input
                             type="text"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none"
+                            className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none"
                             required
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Store Slug (Custom URL)</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Store Slug (Custom URL)</label>
                         <div className="relative">
                             <input
                                 type="text"
                                 value={formData.slug}
                                 onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') })}
-                                className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none pr-32"
+                                className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none pr-32"
                                 placeholder="your-store-name"
                                 required
                             />
-                            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-300 uppercase">
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-ink-tertiary uppercase">
                                 /store/
                             </div>
                         </div>
-                        <p className="text-[9px] text-slate-400 mt-1 px-1">
-                            Public URL: <span className="text-teal-600 font-bold">islandhub.com/store/{formData.slug || '...'}</span>
+                        <p className="text-[9px] text-ink-tertiary mt-1 px-1">
+                            Public URL: <span className="text-accent-400 font-bold">islandhub.com/store/{formData.slug || '...'}</span>
                         </p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Category (Primary)</label>
+                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Category (Primary)</label>
                             <select
                                 value={formData.category_id || ''}
                                 onChange={handleCategoryChange}
-                                className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none appearance-none capitalize"
+                                className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none appearance-none capitalize"
                                 required
                             >
                                 <option value="">Select Category</option>
@@ -206,11 +206,11 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Subtype (Specific)</label>
+                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Subtype (Specific)</label>
                             <select
                                 value={formData.subtype_id || ''}
                                 onChange={handleSubtypeChange}
-                                className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none appearance-none capitalize"
+                                className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none appearance-none capitalize"
                                 required
                                 disabled={!subtypes.length}
                             >
@@ -226,11 +226,11 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
 
                     <div className="grid grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Status</label>
+                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Status</label>
                             <select
                                 value={formData.status}
                                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                                className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none appearance-none"
+                                className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none appearance-none"
                             >
                                 <option value="active">Active</option>
                                 <option value="suspended">Suspended</option>
@@ -238,11 +238,11 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
                             </select>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Subscription Plan</label>
+                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Subscription Plan</label>
                             <select
                                 value={formData.subscription_type}
                                 onChange={(e) => setFormData({ ...formData, subscription_type: e.target.value })}
-                                className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none appearance-none"
+                                className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none appearance-none"
                             >
                                 <option value="basic">Basic</option>
                                 <option value="pro">Pro</option>
@@ -252,7 +252,7 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Admin Rating (Stars)</label>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary px-1">Admin Rating (Stars)</label>
                         <input
                             type="number"
                             min="1"
@@ -260,29 +260,29 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
                             step="0.1"
                             value={formData.rating}
                             onChange={(e) => setFormData({ ...formData, rating: parseFloat(e.target.value) })}
-                            className="w-full p-4 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-teal-500 font-bold text-slate-700 transition-all outline-none"
+                            className="w-full p-4 bg-surface-secondary border-2 border-transparent rounded-2xl focus:bg-surface-elevated focus:border-teal-500 font-bold text-ink-secondary transition-all outline-none"
                         />
                     </div>
 
-                    <div className="space-y-4 pt-4 border-t border-slate-50">
+                    <div className="space-y-4 pt-4 border-t border-border-primary">
                         <BadgeSelector
                             selectedBadges={formData.badges || []}
                             onChange={(badges) => setFormData({ ...formData, badges })}
                         />
                     </div>
 
-                    <div className="pt-6 border-t border-slate-50 flex gap-4">
+                    <div className="pt-6 border-t border-border-primary flex gap-4">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all"
+                            className="flex-1 py-4 bg-surface-secondary text-ink-secondary rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-surface-tertiary transition-all"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
                             disabled={loading || !formData.category_id}
-                            className="flex-2 py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-teal-600 disabled:bg-slate-200 disabled:text-slate-400 transition-all shadow-xl shadow-slate-200"
+                            className="flex-2 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-accent-500 disabled:bg-surface-tertiary disabled:text-ink-tertiary transition-all shadow-xl shadow-black/10"
                         >
                             {loading ? 'Processing...' : 'Save Configuration'}
                         </button>

@@ -34,7 +34,7 @@ export default function ContactPage() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/100/10 rounded-full blur-[100px]" />
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Get in Touch</h1>
-          <p className="text-xl text-teal-50/80">Questions? Feedback? We're here to help islanders succeed.</p>
+          <p className="text-xl text-accent-50/80">Questions? Feedback? We're here to help islanders succeed.</p>
         </div>
       </section>
 
@@ -70,7 +70,7 @@ export default function ContactPage() {
                 <label className="block text-xs font-black text-ink-tertiary uppercase tracking-widest mb-2">Message</label>
                 <textarea rows={5} required className="w-full px-4 py-4 rounded-2xl border border-border-primary focus:border-teal-500 focus:ring-0 bg-surface-primary" placeholder="How can we help?" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} />
               </div>
-              <button type="submit" className="w-full py-5 bg-accent-500 hover:bg-accent-600 text-white font-black rounded-2xl shadow-xl shadow-teal-100 transition-all hover:scale-[1.02]">
+              <button type="submit" className="w-full py-5 bg-accent-500 hover:bg-accent-600 text-white font-black rounded-2xl shadow-xl shadow-accent-500/10 transition-all hover:scale-[1.02]">
                 Send Message
               </button>
             </form>
@@ -112,14 +112,14 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-teal-900 p-10 rounded-[3rem] text-white">
+            <div className="bg-accent-800 p-10 rounded-[3rem] text-white">
               <h3 className="text-xl font-black mb-4">Need Immediate Help?</h3>
-              <p className="text-teal-100 mb-6">Check our FAQ or browse help articles for quick answers.</p>
+              <p className="text-accent-100 mb-6">Check our FAQ or browse help articles for quick answers.</p>
               <div className="flex flex-col gap-3">
-                <Link href="/how-it-works" className="px-6 py-3 bg-teal-800 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-accent-600 transition-colors text-center">
+                <Link href="/how-it-works" className="px-6 py-3 bg-accent-700 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-accent-600 transition-colors text-center">
                   How It Works
                 </Link>
-                <Link href="/faq" className="px-6 py-3 bg-transparent border border-teal-600 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-teal-800 transition-colors text-center">
+                <Link href="/faq" className="px-6 py-3 bg-transparent border border-teal-600 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-accent-700 transition-colors text-center">
                   View FAQ
                 </Link>
               </div>

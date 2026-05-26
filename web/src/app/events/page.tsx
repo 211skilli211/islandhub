@@ -44,7 +44,7 @@ export default function EventsHubPage() {
       <div className="relative bg-gradient-to-br from-purple-900 via-indigo-900 to-ocean-800 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-72 h-72 bg-purple-500 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#818cf8]/100 rounded-full blur-3xl" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-24">
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight">Events Hub</h1>
@@ -111,7 +111,7 @@ export default function EventsHubPage() {
         ) : events.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-6xl mb-4">🎪</p>
-            <h3 className="text-2xl font-black text-slate-800 dark:text-sand-50">No events found</h3>
+            <h3 className="text-2xl font-black text-ink-primary dark:text-sand-50">No events found</h3>
             <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Check back later or create your own event!</p>
           </div>
         ) : (

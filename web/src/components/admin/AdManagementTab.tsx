@@ -113,33 +113,33 @@ export default function AdManagementTab() {
         {
             header: 'Preview',
             accessor: (ad) => (
-                <div className="w-20 h-10 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
+                <div className="w-20 h-10 rounded-lg overflow-hidden bg-surface-secondary border border-border-primary shadow-sm">
                     <img src={getImageUrl(ad.image_url)} className="w-full h-full object-cover" alt="" />
                 </div>
             )
         },
-        { header: 'Title', accessor: 'title', className: 'font-bold text-slate-900' },
-        { header: 'Space', accessor: 'space_name', className: 'text-[10px] font-black uppercase tracking-widest text-teal-600' },
+        { header: 'Title', accessor: 'title', className: 'font-bold text-ink-primary' },
+        { header: 'Space', accessor: 'space_name', className: 'text-[10px] font-black uppercase tracking-widest text-accent-400' },
         {
             header: 'Analytics',
             accessor: (ad) => (
                 <div className="flex gap-4 text-[10px] font-black uppercase tracking-widest">
-                    <div className="text-slate-400">👁 {ad.impressions || 0}</div>
-                    <div className="text-indigo-500">🖱 {ad.clicks || 0}</div>
-                    <div className="text-emerald-500">📈 {ad.impressions > 0 ? ((ad.clicks / ad.impressions) * 100).toFixed(1) : 0}%</div>
+                    <div className="text-ink-tertiary">👁 {ad.impressions || 0}</div>
+                    <div className="text-[#a5b4fc]0">🖱 {ad.clicks || 0}</div>
+                    <div className="text-emerald-400">📈 {ad.impressions > 0 ? ((ad.clicks / ad.impressions) * 100).toFixed(1) : 0}%</div>
                 </div>
             )
         },
         {
             header: 'Status',
             accessor: (ad) => (
-                <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${ad.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'
+                <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${ad.is_active ? 'bg-emerald-500/10 text-emerald-400' : 'bg-surface-secondary text-ink-tertiary'
                     }`}>
                     {ad.is_active ? 'Active' : 'Inactive'}
                 </span>
             )
         },
-        { header: 'Link', accessor: (ad) => <a href={ad.target_url} target="_blank" className="text-slate-400 hover:text-teal-600 transition-colors"><ExternalLink size={14} /></a> }
+        { header: 'Link', accessor: (ad) => <a href={ad.target_url} target="_blank" className="text-ink-tertiary hover:text-accent-400 transition-colors"><ExternalLink size={14} /></a> }
     ];
 
     // Columns for Promotions Table
@@ -148,42 +148,42 @@ export default function AdManagementTab() {
             header: 'Vendor / Store',
             accessor: (p) => (
                 <div>
-                    <div className="font-bold text-slate-900">{p.store_name}</div>
-                    <div className="text-[10px] text-slate-400 font-medium">{p.vendor_email}</div>
+                    <div className="font-bold text-ink-primary">{p.store_name}</div>
+                    <div className="text-[10px] text-ink-tertiary font-medium">{p.vendor_email}</div>
                 </div>
             )
         },
-        { header: 'Offer', accessor: (p) => <span className="font-black text-rose-500">{p.discount_percent}% OFF</span> },
-        { header: 'Promo Code', accessor: (p) => <span className="font-mono text-[10px] bg-slate-100 px-2 py-1 rounded">{p.promo_code || 'AUTOPLY'}</span> },
-        { header: 'Title', accessor: 'title', className: 'italic font-medium text-slate-700' },
-        { header: 'Submitted', accessor: (p) => <span className="text-xs text-slate-400">{new Date(p.created_at).toLocaleDateString()}</span> }
+        { header: 'Offer', accessor: (p) => <span className="font-black text-[#e11d48]">{p.discount_percent}% OFF</span> },
+        { header: 'Promo Code', accessor: (p) => <span className="font-mono text-[10px] bg-surface-secondary px-2 py-1 rounded">{p.promo_code || 'AUTOPLY'}</span> },
+        { header: 'Title', accessor: 'title', className: 'italic font-medium text-ink-secondary' },
+        { header: 'Submitted', accessor: (p) => <span className="text-xs text-ink-tertiary">{new Date(p.created_at).toLocaleDateString()}</span> }
     ];
 
     return (
         <div className="space-y-8">
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight uppercase italic">Advertising Hub</h2>
-                    <p className="text-slate-500 font-medium">Control site-wide visibility and approve merchant offers</p>
+                    <h2 className="text-3xl font-black text-ink-primary tracking-tight uppercase italic">Advertising Hub</h2>
+                    <p className="text-ink-tertiary0 font-medium">Control site-wide visibility and approve merchant offers</p>
                 </div>
-                <div className="flex gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200">
+                <div className="flex gap-2 p-1 bg-surface-secondary rounded-2xl border border-border-primary">
                     <button
                         onClick={() => setSubTab('site_ads')}
-                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${subTab === 'site_ads' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400 hover:text-slate-600'
+                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${subTab === 'site_ads' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary hover:text-ink-secondary'
                             }`}
                     >
                         Site Advertisements
                     </button>
                     <button
                         onClick={() => setSubTab('promotions')}
-                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${subTab === 'promotions' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400 hover:text-slate-600'
+                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${subTab === 'promotions' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary hover:text-ink-secondary'
                             }`}
                     >
                         Vendor Promotions
                     </button>
                     <button
                         onClick={() => setSubTab('visual_manager')}
-                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${subTab === 'visual_manager' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400 hover:text-slate-600'
+                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${subTab === 'visual_manager' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary hover:text-ink-secondary'
                             }`}
                     >
                         Visual Manager
@@ -195,29 +195,29 @@ export default function AdManagementTab() {
                 <div className="space-y-8">
                     {/* Activity Overview */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm">
+                        <div className="p-8 bg-surface-elevated border border-border-primary rounded-[2.5rem] shadow-sm">
                             <div className="flex items-center gap-4 mb-4">
-                                <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl"><Monitor size={24} /></div>
-                                <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest">Active Ad Spaces</h3>
+                                <div className="p-3 bg-accent-500/10 text-accent-400 rounded-2xl"><Monitor size={24} /></div>
+                                <h3 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Active Ad Spaces</h3>
                             </div>
-                            <p className="text-4xl font-black text-slate-900">{adSpaces.length}</p>
+                            <p className="text-4xl font-black text-ink-primary">{adSpaces.length}</p>
                         </div>
-                        <div className="p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm">
+                        <div className="p-8 bg-surface-elevated border border-border-primary rounded-[2.5rem] shadow-sm">
                             <div className="flex items-center gap-4 mb-4">
-                                <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl"><BarChart2 size={24} /></div>
-                                <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest">Global Reach</h3>
+                                <div className="p-3 bg-[#818cf8]/10 text-[#818cf8] rounded-2xl"><BarChart2 size={24} /></div>
+                                <h3 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Global Reach</h3>
                             </div>
-                            <p className="text-4xl font-black text-slate-900">24.5k</p>
-                            <p className="text-[9px] text-emerald-500 font-black uppercase tracking-widest mt-2">↑ 12% This month</p>
+                            <p className="text-4xl font-black text-ink-primary">24.5k</p>
+                            <p className="text-[9px] text-emerald-400 font-black uppercase tracking-widest mt-2">↑ 12% This month</p>
                         </div>
                         <div className="p-8 bg-slate-950 rounded-[2.5rem] shadow-xl text-white">
                             <div className="flex items-center gap-4 mb-4">
-                                <div className="p-3 bg-white/10 text-white rounded-2xl"><Plus size={24} /></div>
+                                <div className="p-3 bg-surface-elevated/10 text-white rounded-2xl"><Plus size={24} /></div>
                                 <h3 className="text-sm font-black text-white/50 uppercase tracking-widest">Quick Deploy</h3>
                             </div>
                             <button
                                 onClick={() => setIsAdModalOpen(true)}
-                                className="w-full py-3 bg-white text-slate-950 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
+                                className="w-full py-3 bg-surface-elevated text-slate-950 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
                             >
                                 Launch New Campaign
                             </button>
@@ -225,12 +225,12 @@ export default function AdManagementTab() {
                     </div>
 
                     {/* Spaces Breakdown */}
-                    <div className="bg-white rounded-[3rem] border border-slate-100 overflow-hidden">
-                        <div className="p-8 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                            <h3 className="text-xl font-black text-slate-900 italic uppercase">Site Ads Management</h3>
+                    <div className="bg-surface-elevated rounded-[3rem] border border-border-primary overflow-hidden">
+                        <div className="p-8 bg-surface-secondary border-b border-border-primary flex items-center justify-between">
+                            <h3 className="text-xl font-black text-ink-primary italic uppercase">Site Ads Management</h3>
                             <div className="flex gap-2">
-                                <button className="p-2 bg-white rounded-xl border border-slate-200 text-slate-400"><Filter size={18} /></button>
-                                <button className="p-2 bg-white rounded-xl border border-slate-200 text-slate-400"><Search size={18} /></button>
+                                <button className="p-2 bg-surface-elevated rounded-xl border border-border-primary text-ink-tertiary"><Filter size={18} /></button>
+                                <button className="p-2 bg-surface-elevated rounded-xl border border-border-primary text-ink-tertiary"><Search size={18} /></button>
                             </div>
                         </div>
                         <AdminTable<Advertisement>
@@ -240,7 +240,7 @@ export default function AdManagementTab() {
                             rowActions={[
                                 { label: 'Edit Asset', action: 'edit' },
                                 { label: 'Toggle State', action: 'toggle' },
-                                { label: 'Delete', action: 'delete', className: 'text-rose-500' }
+                                { label: 'Delete', action: 'delete', className: 'text-[#e11d48]' }
                             ]}
                             onRowAction={(action, item) => {
                                 if (action === 'edit') { setSelectedAd(item); setIsAdModalOpen(true); }
@@ -252,21 +252,21 @@ export default function AdManagementTab() {
             ) : subTab === 'promotions' ? (
                 <div className="space-y-8">
                     {/* Pending Promotions interface */}
-                    <div className="bg-white rounded-[3rem] border border-slate-100 overflow-hidden">
-                        <div className="p-10 bg-rose-50 border-b border-rose-100 flex items-center justify-between">
+                    <div className="bg-surface-elevated rounded-[3rem] border border-border-primary overflow-hidden">
+                        <div className="p-10 bg-[#e11d48]/5 border-b border-[#e11d48]/20 flex items-center justify-between">
                             <div>
                                 <h3 className="text-xl font-black text-rose-900 italic uppercase">Pending Approval Queue</h3>
-                                <p className="text-rose-600 text-xs font-medium mt-1">Review and verify vendor promotions before they go live</p>
+                                <p className="text-[#e11d48] text-xs font-medium mt-1">Review and verify vendor promotions before they go live</p>
                             </div>
-                            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-rose-100">⚖️</div>
+                            <div className="w-16 h-16 bg-surface-elevated rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-rose-100">⚖️</div>
                         </div>
                         <AdminTable<PendingPromotion>
                             endpoint="/advertisements/admin/promotions/pending"
                             keyName="promotions"
                             columns={promoColumns}
                             rowActions={[
-                                { label: 'Approve & Deploy', action: 'approve', className: 'text-emerald-600' },
-                                { label: 'Reject / Feedback', action: 'reject', className: 'text-rose-600' }
+                                { label: 'Approve & Deploy', action: 'approve', className: 'text-emerald-400' },
+                                { label: 'Reject / Feedback', action: 'reject', className: 'text-[#e11d48]' }
                             ]}
                             onRowAction={(action, item) => {
                                 if (action === 'approve') handleApprovePromo(item.promo_id);
@@ -282,20 +282,20 @@ export default function AdManagementTab() {
             {/* Campaign Launch Modal */}
             <AnimatePresence>
                 {isAdModalOpen && (
-                    <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                    <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-ink-primary/60 backdrop-blur-sm">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                            className="bg-surface-elevated w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
                         >
-                            <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                            <div className="p-8 border-b border-border-primary flex justify-between items-center bg-surface-secondary">
                                 <div>
-                                    <h3 className="text-2xl font-black text-slate-900 uppercase italic">Creative Campaign Deploy</h3>
-                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Global Site Visibility</p>
+                                    <h3 className="text-2xl font-black text-ink-primary uppercase italic">Creative Campaign Deploy</h3>
+                                    <p className="text-xs text-ink-tertiary font-bold uppercase tracking-widest">Global Site Visibility</p>
                                 </div>
-                                <button onClick={() => { setIsAdModalOpen(false); setSelectedAd(null); }} className="p-3 bg-white border border-slate-100 rounded-2xl hover:bg-slate-50 transition-colors">
-                                    <XCircle size={20} className="text-slate-400" />
+                                <button onClick={() => { setIsAdModalOpen(false); setSelectedAd(null); }} className="p-3 bg-surface-elevated border border-border-primary rounded-2xl hover:bg-surface-secondary transition-colors">
+                                    <XCircle size={20} className="text-ink-tertiary" />
                                 </button>
                             </div>
 
@@ -324,21 +324,21 @@ export default function AdManagementTab() {
                             }}>
                                 <div className="grid grid-cols-2 gap-8">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Campaign Title</label>
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Campaign Title</label>
                                         <input
                                             name="title"
                                             defaultValue={selectedAd?.title}
                                             required
-                                            className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
+                                            className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
                                             placeholder="e.g. Summer Festival 2024"
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Space</label>
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Target Space</label>
                                         <select
                                             name="ad_space_id"
                                             defaultValue={selectedAd?.space_name}
-                                            className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
+                                            className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
                                         >
                                             {adSpaces.map(s => <option key={s.space_id} value={s.space_id}>{s.display_name} ({s.location})</option>)}
                                         </select>
@@ -346,42 +346,42 @@ export default function AdManagementTab() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Creative Asset URL</label>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Creative Asset URL</label>
                                     <input
                                         name="image_url"
                                         defaultValue={selectedAd?.image_url}
                                         required
-                                        className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
+                                        className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
                                         placeholder="https://..."
                                     />
-                                    <p className="text-[9px] text-slate-400 font-medium">Recommended: High Resolution PNG or WebP</p>
+                                    <p className="text-[9px] text-ink-tertiary font-medium">Recommended: High Resolution PNG or WebP</p>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Destination URL</label>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Destination URL</label>
                                     <input
                                         name="target_url"
                                         defaultValue={selectedAd?.target_url}
                                         required
-                                        className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
+                                        className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
                                         placeholder="https://..."
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-8">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Start Date</label>
-                                        <input type="date" name="start_date" className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold" />
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Start Date</label>
+                                        <input type="date" name="start_date" className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold" />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">End Date</label>
-                                        <input type="date" name="end_date" className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold" />
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">End Date</label>
+                                        <input type="date" name="end_date" className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold" />
                                     </div>
                                 </div>
 
                                 <button
                                     type="submit"
-                                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase text-[12px] tracking-widest shadow-2xl shadow-slate-200 hover:scale-[1.02] transition-all"
+                                    className="w-full py-5 bg-ink-primary text-white rounded-2xl font-black uppercase text-[12px] tracking-widest shadow-2xl shadow-black/10 hover:scale-[1.02] transition-all"
                                 >
                                     {selectedAd ? 'Update Campaign' : 'Deploy Campaign Now'}
                                 </button>

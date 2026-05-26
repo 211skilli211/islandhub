@@ -103,19 +103,19 @@ export default function SmartSearch() {
                     onFocus={() => query.length >= 2 && setShowDropdown(true)}
                     onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
                     placeholder="Search for restaurants, items, services, or rentals..."
-                    className="w-full px-6 py-4 bg-white/90 backdrop-blur-md border border-slate-200 rounded-4xl text-slate-800 text-lg placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
+                    className="w-full px-6 py-4 bg-surface-elevated/90 backdrop-blur-md border border-border-primary rounded-4xl text-ink-primary text-lg placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
                 />
 
                 <button
                     onClick={() => handleSearch()}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-teal-600 text-white rounded-xl font-bold text-sm uppercase tracking-wide hover:bg-teal-700 transition-all shadow-md shadow-teal-200"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-accent-500 text-white rounded-xl font-bold text-sm uppercase tracking-wide hover:bg-accent-600 transition-all shadow-md shadow-accent-500/15"
                 >
                     Search
                 </button>
 
                 {isLoading && (
                     <div className="absolute right-28 top-1/2 -translate-y-1/2">
-                        <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full" />
+                        <div className="animate-spin h-5 w-5 border-2 border-accent-400 border-t-transparent rounded-full" />
                     </div>
                 )}
             </div>
@@ -126,20 +126,20 @@ export default function SmartSearch() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
+                        className="absolute top-full left-0 right-0 mt-2 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
                     >
                         {/* Quick Actions */}
-                        <div className="px-4 py-2 bg-slate-50 border-b border-slate-100">
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <div className="px-4 py-2 bg-surface-secondary border-b border-border-primary">
+                            <span className="text-xs font-bold text-ink-tertiary uppercase tracking-wider">
                                 Suggestions
                             </span>
                         </div>
 
                         {/* Type Suggestions */}
                         {Object.entries(groupedSuggestions).map(([type, items]) => (
-                            <div key={type} className="border-b border-slate-100 last:border-0">
-                                <div className="px-4 py-2 bg-slate-50/50">
-                                    <span className="text-xs font-bold text-teal-600 uppercase tracking-wider">
+                            <div key={type} className="border-b border-border-primary last:border-0">
+                                <div className="px-4 py-2 bg-surface-secondary/50">
+                                    <span className="text-xs font-bold text-accent-400 uppercase tracking-wider">
                                         {type}s
                                     </span>
                                 </div>
@@ -152,11 +152,11 @@ export default function SmartSearch() {
                                             key={suggestion.id}
                                             onClick={() => window.location.href = suggestion.url}
                                             onMouseEnter={() => setSelectedIndex(globalIndex)}
-                                            className={`w-full px-4 py-3 flex items-center gap-4 text-left hover:bg-slate-50 transition-colors ${isSelected ? 'bg-teal-50' : ''
+                                            className={`w-full px-4 py-3 flex items-center gap-4 text-left hover:bg-surface-secondary transition-colors ${isSelected ? 'bg-accent-500/10' : ''
                                                 }`}
                                         >
                                             {suggestion.image ? (
-                                                <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-200 shrink-0">
+                                                <div className="w-10 h-10 rounded-lg overflow-hidden bg-surface-tertiary shrink-0">
                                                     <img
                                                         src={suggestion.image}
                                                         alt=""
@@ -165,20 +165,20 @@ export default function SmartSearch() {
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400">?</div>
+                                                <div className="w-10 h-10 rounded-lg bg-surface-secondary flex items-center justify-center text-ink-tertiary">?</div>
                                             )}
 
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-medium text-slate-900 truncate">
+                                                <p className="font-medium text-ink-primary truncate">
                                                     {suggestion.title}
                                                 </p>
                                                 {suggestion.subtitle && (
-                                                    <p className="text-sm text-slate-400 truncate">
+                                                    <p className="text-sm text-ink-tertiary truncate">
                                                         {suggestion.subtitle}
                                                     </p>
                                                 )}
                                             </div>
-                                            <span className="text-[10px] uppercase font-bold bg-slate-100 text-slate-500 px-2 py-1 rounded">
+                                            <span className="text-[10px] uppercase font-bold bg-surface-secondary text-ink-tertiary px-2 py-1 rounded">
                                                 {type}
                                             </span>
                                         </button>
@@ -190,7 +190,7 @@ export default function SmartSearch() {
                         {/* Search All Results */}
                         <button
                             onClick={() => handleSearch()}
-                            className="w-full p-4 bg-slate-50 text-teal-700 font-bold text-center hover:bg-slate-100 transition-colors flex items-center justify-center gap-2 border-t border-slate-100"
+                            className="w-full p-4 bg-surface-secondary text-accent-500 font-bold text-center hover:bg-surface-secondary transition-colors flex items-center justify-center gap-2 border-t border-border-primary"
                         >
                             <span>Search all results for "{query}"</span>
                             <span className="text-sm opacity-75">→</span>

@@ -84,8 +84,8 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setIsOpen(!isOpen)}
                     className={`fixed bottom-24 lg:bottom-6 right-6 z-9999 flex items-center gap-2 px-5 py-3 rounded-2xl shadow-xl border-2 transition-all ${isOpen
-                        ? 'bg-indigo-700 text-white border-indigo-500'
-                        : 'bg-indigo-600 text-white border-white/20 hover:bg-indigo-700'
+                        ? 'bg-[#6366f1] text-white border-[#818cf8]'
+                        : 'bg-[#818cf8] text-white border-white/20 hover:bg-[#6366f1]'
                         }`}
                 >
                     <span className="text-lg">{profile.icon}</span>
@@ -102,13 +102,13 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: 400, opacity: 0 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className={`fixed top-0 right-0 bottom-0 w-96 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col ${hubMode ? 'z-10002' : 'z-40'}`}
+                        className={`fixed top-0 right-0 bottom-0 w-96 bg-surface-elevated dark:bg-ink-primary border-l border-border-primary dark:border-border-primary shadow-2xl flex flex-col ${hubMode ? 'z-10002' : 'z-40'}`}
                     >
                         {/* Header */}
-                        <div className="p-5 bg-indigo-600 text-white">
+                        <div className="p-5 bg-[#818cf8] text-white">
                             <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl border border-white/30">
+                                    <div className="w-10 h-10 bg-surface-elevated/20 rounded-xl flex items-center justify-center text-xl border border-white/30">
                                         {profile.icon}
                                     </div>
                                     <div>
@@ -118,7 +118,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                                 </div>
                                 <button
                                     onClick={() => hubMode && onHubClose ? onHubClose() : setIsOpen(false)}
-                                    className="p-2 hover:bg-white/10 rounded-xl transition-colors"
+                                    className="p-2 hover:bg-surface-elevated/10 rounded-xl transition-colors"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
@@ -132,7 +132,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                                     <button
                                         key={qa.label}
                                         onClick={() => sendMessage(qa.prompt)}
-                                        className="px-2.5 py-1 bg-white/15 hover:bg-white/25 rounded-lg text-[10px] font-bold transition-colors"
+                                        className="px-2.5 py-1 bg-surface-elevated/15 hover:bg-surface-elevated/25 rounded-lg text-[10px] font-bold transition-colors"
                                     >
                                         {qa.label}
                                     </button>
@@ -141,12 +141,12 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                         </div>
 
                         {/* Messages */}
-                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 dark:bg-slate-800/50">
+                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-surface-secondary dark:bg-surface-tertiary/50">
                             {messages.map((m, i) => (
                                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     <div className={`max-w-[85%] p-3 rounded-2xl text-sm font-medium ${m.role === 'user'
-                                        ? 'bg-indigo-600 text-white rounded-tr-none'
-                                        : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-100 dark:border-slate-600 rounded-tl-none shadow-sm'
+                                        ? 'bg-[#818cf8] text-white rounded-tr-none'
+                                        : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-border-primary rounded-tl-none shadow-sm'
                                         }`}>
                                         {m.content}
                                     </div>
@@ -154,29 +154,29 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                             ))}
                             {isTyping && (
                                 <div className="flex justify-start">
-                                    <div className="bg-white dark:bg-slate-700 p-3 rounded-2xl rounded-tl-none border border-slate-100 dark:border-slate-600 flex gap-1">
-                                        <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" />
-                                        <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                                        <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:0.4s]" />
+                                    <div className="bg-surface-elevated dark:bg-surface-tertiary p-3 rounded-2xl rounded-tl-none border border-border-primary dark:border-border-primary flex gap-1">
+                                        <span className="w-1.5 h-1.5 bg-surface-tertiary rounded-full animate-bounce" />
+                                        <span className="w-1.5 h-1.5 bg-surface-tertiary rounded-full animate-bounce [animation-delay:0.2s]" />
+                                        <span className="w-1.5 h-1.5 bg-surface-tertiary rounded-full animate-bounce [animation-delay:0.4s]" />
                                     </div>
                                 </div>
                             )}
                         </div>
 
                         {/* Input */}
-                        <form onSubmit={handleSend} className="p-4 border-t border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900">
+                        <form onSubmit={handleSend} className="p-4 border-t border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-ink-primary">
                             <div className="flex gap-2">
                                 <input
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder={profile.placeholder}
-                                    className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm font-medium border-transparent focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all dark:text-white"
+                                    className="flex-1 px-4 py-3 bg-surface-secondary dark:bg-surface-tertiary rounded-xl text-sm font-medium border-transparent focus:ring-2 focus:ring-indigo-100 focus:border-[#818cf8] transition-all dark:text-white"
                                 />
                                 <button
                                     type="submit"
                                     disabled={!input.trim()}
-                                    className="p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                                    className="p-3 bg-[#818cf8] text-white rounded-xl hover:bg-[#6366f1] transition-colors disabled:opacity-50"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

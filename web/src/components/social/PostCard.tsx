@@ -91,7 +91,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
         <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-[3rem] shadow-sm border border-slate-100 overflow-hidden"
+            className="bg-surface-elevated rounded-[3rem] shadow-sm border border-border-primary overflow-hidden"
         >
             {/* Header */}
             <div className="p-8 pb-0">
@@ -105,13 +105,13 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
                             )}
                         </div>
                         <div>
-                            <h3 className="font-black text-slate-900 text-lg">{post.user_name}</h3>
-                            <p className="text-sm text-slate-400">{formatDate(post.created_at)}</p>
+                            <h3 className="font-black text-ink-primary text-lg">{post.user_name}</h3>
+                            <p className="text-sm text-ink-tertiary">{formatDate(post.created_at)}</p>
                         </div>
                     </Link>
 
                     {post.category && (
-                        <span className="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-xs font-bold uppercase tracking-wider">
+                        <span className="px-3 py-1 bg-accent-500/10 text-accent-400 rounded-full text-xs font-bold uppercase tracking-wider">
                             {post.category}
                         </span>
                     )}
@@ -121,10 +121,10 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
             {/* Content */}
             <div className="p-8">
                 {post.title && (
-                    <h2 className="text-2xl font-black text-slate-900 mb-4">{post.title}</h2>
+                    <h2 className="text-2xl font-black text-ink-primary mb-4">{post.title}</h2>
                 )}
 
-                <p className={`text-slate-600 leading-relaxed ${!showFullContent && 'line-clamp-4'}`}>
+                <p className={`text-ink-secondary leading-relaxed ${!showFullContent && 'line-clamp-4'}`}>
                     {post.content}
                 </p>
 
@@ -149,7 +149,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
             </div>
 
             {/* Actions */}
-            <div className="px-8 pb-6 border-t border-slate-100 pt-6">
+            <div className="px-8 pb-6 border-t border-border-primary pt-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <LikeButton
@@ -160,7 +160,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
 
                         <button
                             onClick={handleToggleComments}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary transition-all"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -168,7 +168,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
                             <span className="font-medium">{post.comments_count}</span>
                         </button>
 
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">
+                        <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary transition-all">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                             </svg>
@@ -185,7 +185,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
 
             {/* Comments Section */}
             {showComments && (
-                <div className="px-8 pb-8 border-t border-slate-100 pt-8">
+                <div className="px-8 pb-8 border-t border-border-primary pt-8">
                     <CommentThread
                         postId={post.post_id}
                         comments={comments}

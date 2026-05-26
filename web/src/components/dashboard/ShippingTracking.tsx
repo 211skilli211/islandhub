@@ -49,9 +49,9 @@ export default function ShippingTracking() {
         switch (status) {
             case 'pending': return 'bg-gray-100 text-gray-700';
             case 'picked_up': return 'bg-blue-100 text-blue-700';
-            case 'in_transit': return 'bg-amber-100 text-amber-700';
+            case 'in_transit': return 'bg-sand-500/10 text-sand-500';
             case 'out_for_delivery': return 'bg-purple-100 text-purple-700';
-            case 'delivered': return 'bg-emerald-100 text-emerald-700';
+            case 'delivered': return 'bg-emerald-500/15 text-emerald-500';
             case 'exception': return 'bg-red-100 text-red-700';
             default: return 'bg-gray-100 text-gray-700';
         }
@@ -76,13 +76,13 @@ export default function ShippingTracking() {
                     <h2 className="text-2xl font-bold text-gray-900">International Shipping & Tracking</h2>
                     <p className="text-gray-600">Track shipments and manage international deliveries</p>
                 </div>
-                <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                <button className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1] transition-colors">
                     + New Shipment
                 </button>
             </div>
 
             {/* Tracking Search */}
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">Track Your Package</h3>
                 <div className="flex gap-4">
                     <input
@@ -94,7 +94,7 @@ export default function ShippingTracking() {
                     />
                     <button
                         onClick={handleTrack}
-                        className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                        className="px-6 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1] transition-colors"
                     >
                         Track
                     </button>
@@ -151,12 +151,12 @@ export default function ShippingTracking() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-amber-50 rounded-xl p-4 border border-amber-200"
+                    className="bg-sand-500/5 rounded-xl p-4 border border-sand-500/20"
                 >
-                    <div className="text-2xl font-bold text-amber-600">
+                    <div className="text-2xl font-bold text-sand-500">
                         {shipments.filter(s => s.status === 'in_transit').length}
                     </div>
-                    <div className="text-sm text-amber-700">In Transit</div>
+                    <div className="text-sm text-sand-500">In Transit</div>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -173,17 +173,17 @@ export default function ShippingTracking() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-emerald-50 rounded-xl p-4 border border-emerald-200"
+                    className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20"
                 >
-                    <div className="text-2xl font-bold text-emerald-600">
+                    <div className="text-2xl font-bold text-emerald-400">
                         {shipments.filter(s => s.status === 'delivered').length}
                     </div>
-                    <div className="text-sm text-emerald-700">Delivered</div>
+                    <div className="text-sm text-emerald-500">Delivered</div>
                 </motion.div>
             </div>
 
             {/* Shipments List */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-200">
                     <h3 className="font-semibold text-gray-900">All Shipments</h3>
                 </div>
@@ -225,15 +225,15 @@ export default function ShippingTracking() {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="p-4 bg-white rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-[#818cf8]/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Schedule Pickup</div>
                     <div className="text-sm text-gray-500">Arrange courier collection</div>
                 </button>
-                <button className="p-4 bg-white rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-[#818cf8]/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Customs Documents</div>
                     <div className="text-sm text-gray-500">Upload & manage paperwork</div>
                 </button>
-                <button className="p-4 bg-white rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-[#818cf8]/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Insurance</div>
                     <div className="text-sm text-gray-500">Add shipment protection</div>
                 </button>

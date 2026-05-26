@@ -66,47 +66,47 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+            <div className="bg-surface-elevated rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
                 {/* Header */}
-                <div className="p-6 border-b border-slate-100 flex justify-between items-start">
+                <div className="p-6 border-b border-border-primary flex justify-between items-start">
                     <div>
-                        <h3 className="text-xl font-black text-slate-800">KYC Review</h3>
-                        <p className="text-sm text-slate-500">{submission.business_name}</p>
-                        <p className="text-xs text-slate-400">{submission.email}</p>
+                        <h3 className="text-xl font-black text-ink-primary">KYC Review</h3>
+                        <p className="text-sm text-ink-tertiary0">{submission.business_name}</p>
+                        <p className="text-xs text-ink-tertiary">{submission.email}</p>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-lg">✕</button>
+                    <button onClick={onClose} className="p-2 hover:bg-surface-secondary rounded-lg">✕</button>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 overflow-auto max-h-[50vh]">
                     {/* Submitted Info */}
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="p-4 bg-slate-50 rounded-xl">
-                            <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Submitted</p>
-                            <p className="font-bold text-slate-700">{new Date(submission.submitted_at).toLocaleString()}</p>
+                        <div className="p-4 bg-surface-secondary rounded-xl">
+                            <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">Submitted</p>
+                            <p className="font-bold text-ink-secondary">{new Date(submission.submitted_at).toLocaleString()}</p>
                         </div>
-                        <div className="p-4 bg-slate-50 rounded-xl">
-                            <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Status</p>
-                            <p className="font-bold text-amber-600 uppercase">{submission.status}</p>
+                        <div className="p-4 bg-surface-secondary rounded-xl">
+                            <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">Status</p>
+                            <p className="font-bold text-sand-500 uppercase">{submission.status}</p>
                         </div>
                     </div>
 
                     {/* Documents */}
                     <div className="mb-4">
-                        <h4 className="font-black text-slate-700 mb-3 uppercase text-xs tracking-widest">Submitted Documents</h4>
+                        <h4 className="font-black text-ink-secondary mb-3 uppercase text-xs tracking-widest">Submitted Documents</h4>
                         {documentEntries.length === 0 ? (
-                            <p className="text-slate-400 text-sm">No documents submitted</p>
+                            <p className="text-ink-tertiary text-sm">No documents submitted</p>
                         ) : (
                             <div className="grid grid-cols-2 gap-4">
                                 {documentEntries.map(([key, url]) => (
-                                    <div key={key} className="bg-slate-50 rounded-xl p-4">
-                                        <p className="text-xs font-bold text-slate-500 uppercase mb-2">{key.replace(/_/g, ' ')}</p>
+                                    <div key={key} className="bg-surface-secondary rounded-xl p-4">
+                                        <p className="text-xs font-bold text-ink-tertiary0 uppercase mb-2">{key.replace(/_/g, ' ')}</p>
                                         {url && (String(url).startsWith('http') || String(url).includes('uploads')) ? (
                                             <a 
                                                 href={getImageUrl(url as string)} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
-                                                className="block aspect-video bg-white rounded-lg border border-slate-200 overflow-hidden hover:opacity-90 transition-opacity"
+                                                className="block aspect-video bg-surface-elevated rounded-lg border border-border-primary overflow-hidden hover:opacity-90 transition-opacity"
                                             >
                                                 <img 
                                                     src={getImageUrl(url as string)} 
@@ -115,7 +115,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                                                 />
                                             </a>
                                         ) : (
-                                            <div className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center text-slate-400">
+                                            <div className="aspect-video bg-surface-secondary rounded-lg flex items-center justify-center text-ink-tertiary">
                                                 No preview
                                             </div>
                                         )}
@@ -135,7 +135,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                                 value={rejectReason}
                                 onChange={(e) => setRejectReason(e.target.value)}
                                 placeholder="Explain why this KYC was rejected..."
-                                className="w-full px-4 py-3 bg-white border border-red-200 rounded-xl text-sm focus:border-red-400 focus:ring-0"
+                                className="w-full px-4 py-3 bg-surface-elevated border border-red-200 rounded-xl text-sm focus:border-red-400 focus:ring-0"
                                 rows={3}
                             />
                             <p className="text-xs text-red-500 mt-2">
@@ -146,10 +146,10 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-slate-100 flex justify-between gap-3">
+                <div className="p-6 border-t border-border-primary flex justify-between gap-3">
                     <button 
                         onClick={onClose}
-                        className="px-6 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold text-sm hover:bg-slate-200"
+                        className="px-6 py-3 bg-surface-secondary text-ink-secondary rounded-xl font-bold text-sm hover:bg-surface-tertiary"
                     >
                         Cancel
                     </button>
@@ -165,7 +165,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                                 <button 
                                     onClick={handleApprove}
                                     disabled={loading}
-                                    className="px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 disabled:opacity-50"
+                                    className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 disabled:opacity-50"
                                 >
                                     Approve
                                 </button>
@@ -174,7 +174,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                             <>
                                 <button 
                                     onClick={() => { setShowRejectForm(false); setRejectReason(''); }}
-                                    className="px-6 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold text-sm"
+                                    className="px-6 py-3 bg-surface-secondary text-ink-secondary rounded-xl font-bold text-sm"
                                 >
                                     Back
                                 </button>

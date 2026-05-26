@@ -58,7 +58,7 @@ export default function InlineEdit({ value, onSave, placeholder, className = '',
                     autoFocus
                     disabled={loading}
                     placeholder={placeholder}
-                    className={`w-full px-2 py-1 bg-white border border-teal-500 rounded text-xs font-medium outline-none shadow-sm ${loading ? 'opacity-50' : ''}`}
+                    className={`w-full px-2 py-1 bg-surface-elevated border border-teal-500 rounded text-xs font-medium outline-none shadow-sm ${loading ? 'opacity-50' : ''}`}
                 />
                 {loading && (
                     <div className="w-3 h-3 border-2 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
@@ -76,12 +76,12 @@ export default function InlineEdit({ value, onSave, placeholder, className = '',
                 // If renderView contains specific interactive elements, they should stop propagation.
                 setIsEditing(true);
             }}
-            className={`cursor-pointer hover:bg-slate-50 px-1 -ml-1 rounded transition-colors group relative flex items-center gap-2 ${className}`}
+            className={`cursor-pointer hover:bg-surface-secondary px-1 -ml-1 rounded transition-colors group relative flex items-center gap-2 ${className}`}
         >
             <span className="truncate max-w-[150px]">
-                {renderView ? renderView() : (value || <span className="text-slate-300 italic">None</span>)}
+                {renderView ? renderView() : (value || <span className="text-ink-tertiary italic">None</span>)}
             </span>
-            <span className="opacity-0 group-hover:opacity-100 text-[10px] text-teal-500 font-black uppercase tracking-widest transition-opacity shrink-0">Edit</span>
+            <span className="opacity-0 group-hover:opacity-100 text-[10px] text-accent-500 font-black uppercase tracking-widest transition-opacity shrink-0">Edit</span>
         </div>
     );
 }

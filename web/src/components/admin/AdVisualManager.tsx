@@ -237,23 +237,23 @@ export default function AdVisualManager() {
         }
     };
 
-    if (loading) return <div className="p-20 text-center animate-pulse text-slate-400 font-black uppercase tracking-[0.3em]">Initializing Creative Engine...</div>;
+    if (loading) return <div className="p-20 text-center animate-pulse text-ink-tertiary font-black uppercase tracking-[0.3em]">Initializing Creative Engine...</div>;
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Sidebar Controls */}
             <div className="lg:col-span-4 space-y-6">
-                <div className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-xl shadow-slate-100/50">
-                    <div className="flex p-1 bg-slate-50 border-b border-slate-100">
+                <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden shadow-xl shadow-slate-100/50">
+                    <div className="flex p-1 bg-surface-secondary border-b border-border-primary">
                         <button
                             onClick={() => { setActiveTab('spaces'); setSelectedSection(null); }}
-                            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'spaces' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
+                            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'spaces' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}
                         >
                             <Grid size={14} /> Ad Banners
                         </button>
                         <button
                             onClick={() => { setActiveTab('sections'); setSelectedSpace(null); }}
-                            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'sections' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
+                            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'sections' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}
                         >
                             <Layout size={14} /> Site Sections
                         </button>
@@ -266,13 +266,13 @@ export default function AdVisualManager() {
                                     <button
                                         key={space.space_id}
                                         onClick={() => setSelectedSpace(space)}
-                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group ${selectedSpace?.space_id === space.space_id ? 'border-teal-500 bg-teal-50/20' : 'border-slate-100 hover:border-slate-200 bg-white'}`}
+                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group ${selectedSpace?.space_id === space.space_id ? 'border-teal-500 bg-accent-500/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
                                     >
                                         <div>
-                                            <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:text-teal-600 mb-1">{space.location}</div>
-                                            <div className="font-bold text-slate-900 text-sm">{space.display_name}</div>
+                                            <div className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary group-hover:text-accent-400 mb-1">{space.location}</div>
+                                            <div className="font-bold text-ink-primary text-sm">{space.display_name}</div>
                                         </div>
-                                        <ChevronRight size={16} className={selectedSpace?.space_id === space.space_id ? 'text-teal-500' : 'text-slate-300'} />
+                                        <ChevronRight size={16} className={selectedSpace?.space_id === space.space_id ? 'text-accent-500' : 'text-ink-tertiary'} />
                                     </button>
                                 ))}
                             </div>
@@ -282,25 +282,25 @@ export default function AdVisualManager() {
                                     <div
                                         key={section.id}
                                         onClick={() => setSelectedSection(section)}
-                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group cursor-pointer ${selectedSection?.id === section.id ? 'border-indigo-500 bg-indigo-50/20' : 'border-slate-100 hover:border-slate-200 bg-white'}`}
+                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group cursor-pointer ${selectedSection?.id === section.id ? 'border-[#818cf8] bg-[#818cf8]/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
                                     >
                                         <div className="flex-1">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${section.section_type === 'homepage' ? 'bg-orange-100 text-orange-600' : 'bg-indigo-100 text-indigo-600'}`}>
+                                                <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${section.section_type === 'homepage' ? 'bg-orange-100 text-orange-600' : 'bg-[#818cf8]/15 text-[#818cf8]'}`}>
                                                     {section.section_type === 'homepage' ? 'Homepage' : 'Store'}
                                                 </span>
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">/{section.name}</span>
+                                                <span className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">/{section.name}</span>
                                             </div>
-                                            <div className="font-bold text-slate-900 text-sm truncate">{section.title}</div>
+                                            <div className="font-bold text-ink-primary text-sm truncate">{section.title}</div>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); handleDeleteSection(section.id!); }}
-                                                className="p-2 text-slate-300 hover:text-red-500 transition-colors"
+                                                className="p-2 text-ink-tertiary hover:text-red-500 transition-colors"
                                             >
                                                 <Trash2 size={14} />
                                             </button>
-                                            <ChevronRight size={16} className={selectedSection?.id === section.id ? 'text-indigo-500' : 'text-slate-300'} />
+                                            <ChevronRight size={16} className={selectedSection?.id === section.id ? 'text-[#a5b4fc]0' : 'text-ink-tertiary'} />
                                         </div>
                                     </div>
                                 ))}
@@ -317,7 +317,7 @@ export default function AdVisualManager() {
                                         style_config: {},
                                         is_active: true
                                     })}
-                                    className="w-full p-5 rounded-3xl border-2 border-dashed border-slate-200 text-slate-400 font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 hover:border-slate-300 hover:text-slate-500 transition-all bg-slate-50/50"
+                                    className="w-full p-5 rounded-3xl border-2 border-dashed border-border-primary text-ink-tertiary font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 hover:border-border-primary hover:text-ink-tertiary0 transition-all bg-surface-secondary/50"
                                 >
                                     <Plus size={18} /> New Section
                                 </button>
@@ -331,16 +331,16 @@ export default function AdVisualManager() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-xl shadow-slate-100/50 space-y-8"
+                        className="bg-surface-elevated rounded-[2.5rem] border border-border-primary p-8 shadow-xl shadow-slate-100/50 space-y-8"
                     >
                         <div className="flex items-center justify-between">
-                            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] flex items-center gap-2">
-                                <Palette size={18} className="text-teal-500" />
+                            <h3 className="text-[10px] font-black text-ink-primary uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Palette size={18} className="text-accent-500" />
                                 {selectedSpace ? 'Banner Presets' : 'Section Settings'}
                             </h3>
                             <button
                                 onClick={() => selectedSpace ? setSelectedSpace(null) : setSelectedSection(null)}
-                                className="text-slate-300 hover:text-slate-500 transition-colors"
+                                className="text-ink-tertiary hover:text-ink-tertiary0 transition-colors"
                             >
                                 ✕
                             </button>
@@ -365,7 +365,7 @@ export default function AdVisualManager() {
                                                     bgAssetUrl: null
                                                 });
                                             }}
-                                            className={`p-2 sm:p-3 rounded-xl border transition-all flex flex-col items-center gap-1 ${selectedSpace.style_config?.preset === p.id ? 'bg-teal-600 border-teal-600 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-slate-200'}`}
+                                            className={`p-2 sm:p-3 rounded-xl border transition-all flex flex-col items-center gap-1 ${selectedSpace.style_config?.preset === p.id ? 'bg-accent-500 border-teal-600 text-white' : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'}`}
                                         >
                                             <div
                                                 className="w-6 h-6 rounded-full mb-1"
@@ -376,40 +376,40 @@ export default function AdVisualManager() {
                                     ))}
                                 </div>
 
-                                <div className="space-y-4 pt-4 border-t border-slate-100">
-                                    <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Content & Typography</h4>
+                                <div className="space-y-4 pt-4 border-t border-border-primary">
+                                    <h4 className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Content & Typography</h4>
                                     <div className="space-y-3">
                                         <input
                                             type="text"
                                             value={selectedSpace.style_config?.defaultTitle || ''}
                                             onChange={(e) => updateSpaceStyle({ defaultTitle: e.target.value })}
-                                            className="w-full p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs font-bold"
+                                            className="w-full p-3 bg-surface-secondary rounded-xl border border-border-primary text-xs font-bold"
                                             placeholder="Banner Title"
                                         />
                                         <textarea
                                             rows={2}
                                             value={selectedSpace.style_config?.defaultBody || ''}
                                             onChange={(e) => updateSpaceStyle({ defaultBody: e.target.value })}
-                                            className="w-full p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs font-medium"
+                                            className="w-full p-3 bg-surface-secondary rounded-xl border border-border-primary text-xs font-medium"
                                             placeholder="Banner Subtitle"
                                         />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                        <div className="flex items-center gap-3 p-3 bg-surface-secondary rounded-xl border border-border-primary">
                                             <input
                                                 type="color"
                                                 value={selectedSpace.style_config?.textColor || '#ffffff'}
                                                 onChange={(e) => updateSpaceStyle({ textColor: e.target.value })}
                                                 className="w-8 h-8 rounded-lg cursor-pointer border-none"
                                             />
-                                            <span className="text-[8px] font-mono text-slate-400 uppercase">{selectedSpace.style_config?.textColor || '#FFFFFF'}</span>
+                                            <span className="text-[8px] font-mono text-ink-tertiary uppercase">{selectedSpace.style_config?.textColor || '#FFFFFF'}</span>
                                         </div>
-                                        <div className="flex gap-1 p-1 bg-slate-50 rounded-xl">
+                                        <div className="flex gap-1 p-1 bg-surface-secondary rounded-xl">
                                             {['font-sans', 'font-serif', 'font-mono'].map(font => (
                                                 <button
                                                     key={font}
                                                     onClick={() => updateSpaceStyle({ fontPrimary: font })}
-                                                    className={`flex-1 py-1 rounded-lg text-[8px] font-black uppercase ${selectedSpace.style_config?.fontPrimary === font ? 'bg-white text-teal-600' : 'text-slate-400'}`}
+                                                    className={`flex-1 py-1 rounded-lg text-[8px] font-black uppercase ${selectedSpace.style_config?.fontPrimary === font ? 'bg-surface-elevated text-accent-400' : 'text-ink-tertiary'}`}
                                                 >
                                                     {font.split('-')[1]}
                                                 </button>
@@ -418,29 +418,29 @@ export default function AdVisualManager() {
                                     </div>
                                 </div>
 
-                                <div className="pt-6 border-t border-slate-100 space-y-4">
+                                <div className="pt-6 border-t border-border-primary space-y-4">
                                     <div className="flex items-center justify-between">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Background mode</label>
-                                        <div className="flex bg-slate-100 p-1 rounded-lg">
-                                            <button onClick={() => updateSpaceStyle({ bgMode: 'color' })} className={`px-3 py-1 rounded-md text-[8px] font-black uppercase ${selectedSpace.style_config?.bgMode !== 'asset' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-400'}`}>Color</button>
-                                            <button onClick={() => updateSpaceStyle({ bgMode: 'asset' })} className={`px-3 py-1 rounded-md text-[8px] font-black uppercase ${selectedSpace.style_config?.bgMode === 'asset' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-400'}`}>Asset</button>
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Background mode</label>
+                                        <div className="flex bg-surface-secondary p-1 rounded-lg">
+                                            <button onClick={() => updateSpaceStyle({ bgMode: 'color' })} className={`px-3 py-1 rounded-md text-[8px] font-black uppercase ${selectedSpace.style_config?.bgMode !== 'asset' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary'}`}>Color</button>
+                                            <button onClick={() => updateSpaceStyle({ bgMode: 'asset' })} className={`px-3 py-1 rounded-md text-[8px] font-black uppercase ${selectedSpace.style_config?.bgMode === 'asset' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary'}`}>Asset</button>
                                         </div>
                                     </div>
 
                                     {selectedSpace.style_config?.bgMode === 'asset' ? (
                                         <div className="space-y-4">
-                                            <div className="relative group overflow-hidden bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl h-24 flex flex-col items-center justify-center gap-1 hover:border-teal-500 transition-all cursor-pointer">
-                                                <ImageIcon size={20} className="text-slate-300" />
-                                                <span className="text-[9px] font-black uppercase text-slate-400">Upload Content</span>
+                                            <div className="relative group overflow-hidden bg-surface-secondary border-2 border-dashed border-border-primary rounded-2xl h-24 flex flex-col items-center justify-center gap-1 hover:border-teal-500 transition-all cursor-pointer">
+                                                <ImageIcon size={20} className="text-ink-tertiary" />
+                                                <span className="text-[9px] font-black uppercase text-ink-tertiary">Upload Content</span>
                                                 <input type="file" onChange={handleBackgroundUpload} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*,video/*" />
                                             </div>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="space-y-1">
-                                                    <label className="text-[8px] font-black uppercase text-slate-400">Fit Mode</label>
+                                                    <label className="text-[8px] font-black uppercase text-ink-tertiary">Fit Mode</label>
                                                     <select
                                                         value={selectedSpace.style_config?.bgAssetFit || 'cover'}
                                                         onChange={(e) => updateSpaceStyle({ bgAssetFit: e.target.value })}
-                                                        className="w-full p-2 bg-slate-50 rounded-lg border border-slate-100 text-[10px] font-bold"
+                                                        className="w-full p-2 bg-surface-secondary rounded-lg border border-border-primary text-[10px] font-bold"
                                                     >
                                                         <option value="cover">Crop (Cover)</option>
                                                         <option value="contain">Contain</option>
@@ -448,11 +448,11 @@ export default function AdVisualManager() {
                                                     </select>
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <label className="text-[8px] font-black uppercase text-slate-400">Position</label>
+                                                    <label className="text-[8px] font-black uppercase text-ink-tertiary">Position</label>
                                                     <select
                                                         value={selectedSpace.style_config?.bgAssetPosition || 'center'}
                                                         onChange={(e) => updateSpaceStyle({ bgAssetPosition: e.target.value })}
-                                                        className="w-full p-2 bg-slate-50 rounded-lg border border-slate-100 text-[10px] font-bold"
+                                                        className="w-full p-2 bg-surface-secondary rounded-lg border border-border-primary text-[10px] font-bold"
                                                     >
                                                         <option value="center">Center</option>
                                                         <option value="top">Top</option>
@@ -466,7 +466,7 @@ export default function AdVisualManager() {
                                                 type="text"
                                                 value={selectedSpace.style_config?.bgAssetUrl || ''}
                                                 onChange={(e) => updateSpaceStyle({ bgAssetUrl: e.target.value })}
-                                                className="w-full p-3 bg-slate-50 rounded-xl border border-slate-100 text-[10px] font-bold"
+                                                className="w-full p-3 bg-surface-secondary rounded-xl border border-border-primary text-[10px] font-bold"
                                                 placeholder="Or paste direct URL..."
                                             />
                                         </div>
@@ -478,7 +478,7 @@ export default function AdVisualManager() {
                                     )}
 
                                     <div className="space-y-3 pt-2">
-                                        <div className="flex justify-between text-[8px] font-black text-slate-400 uppercase">
+                                        <div className="flex justify-between text-[8px] font-black text-ink-tertiary uppercase">
                                             <span>BG Opacity</span>
                                             <span>{Math.round((selectedSpace.style_config?.bgOpacity ?? 1) * 100)}%</span>
                                         </div>
@@ -494,14 +494,14 @@ export default function AdVisualManager() {
                                     </div>
                                 </div>
 
-                                <div className="pt-6 border-t border-slate-100 space-y-4">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Texture Effect</label>
+                                <div className="pt-6 border-t border-border-primary space-y-4">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Texture Effect</label>
                                     <div className="flex flex-wrap gap-2">
                                         {Object.keys(TEXTURE_STYLES).map(texture => (
                                             <button
                                                 key={texture}
                                                 onClick={() => updateSpaceStyle({ texture, textureOpacity: selectedSpace.style_config?.textureOpacity || 0.3 })}
-                                                className={`p-2 rounded-lg border text-[10px] ${selectedSpace.style_config?.texture === texture ? 'bg-teal-600 border-teal-600 text-white' : 'bg-white border-slate-100 text-slate-400'}`}
+                                                className={`p-2 rounded-lg border text-[10px] ${selectedSpace.style_config?.texture === texture ? 'bg-accent-500 border-teal-600 text-white' : 'bg-surface-elevated border-border-primary text-ink-tertiary'}`}
                                             >
                                                 {texture === 'none' ? '🚫' : texture[0].toUpperCase()}
                                             </button>
@@ -511,19 +511,19 @@ export default function AdVisualManager() {
                                         <div className="space-y-4 pt-2">
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="space-y-1">
-                                                    <label className="text-[8px] font-black uppercase text-slate-400">Pattern Color</label>
-                                                    <div className="flex items-center gap-2 p-2 bg-slate-50 border border-slate-100 rounded-lg">
+                                                    <label className="text-[8px] font-black uppercase text-ink-tertiary">Pattern Color</label>
+                                                    <div className="flex items-center gap-2 p-2 bg-surface-secondary border border-border-primary rounded-lg">
                                                         <input
                                                             type="color"
                                                             value={selectedSpace.style_config?.textureColor || '#ffffff'}
                                                             onChange={(e) => updateSpaceStyle({ textureColor: e.target.value })}
                                                             className="w-6 h-6 rounded-md cursor-pointer border-none"
                                                         />
-                                                        <span className="text-[9px] font-mono text-slate-400 uppercase">{selectedSpace.style_config?.textureColor || '#FFFFFF'}</span>
+                                                        <span className="text-[9px] font-mono text-ink-tertiary uppercase">{selectedSpace.style_config?.textureColor || '#FFFFFF'}</span>
                                                     </div>
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <label className="text-[8px] font-black uppercase text-slate-400">Scale: {Math.round((selectedSpace.style_config?.textureScale || 1) * 100)}%</label>
+                                                    <label className="text-[8px] font-black uppercase text-ink-tertiary">Scale: {Math.round((selectedSpace.style_config?.textureScale || 1) * 100)}%</label>
                                                     <input
                                                         type="range"
                                                         min="0.1"
@@ -536,7 +536,7 @@ export default function AdVisualManager() {
                                                 </div>
                                             </div>
                                             <div className="space-y-1">
-                                                <div className="flex justify-between text-[8px] font-black text-slate-400 uppercase">
+                                                <div className="flex justify-between text-[8px] font-black text-ink-tertiary uppercase">
                                                     <span>Pattern Opacity</span>
                                                     <span>{Math.round((selectedSpace.style_config.textureOpacity || 0.3) * 100)}%</span>
                                                 </div>
@@ -556,7 +556,7 @@ export default function AdVisualManager() {
 
                                 <button
                                     onClick={handleSaveSpace}
-                                    className="w-full py-4 bg-teal-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-teal-500 shadow-xl shadow-teal-900/10 transition-all flex items-center justify-center gap-3"
+                                    className="w-full py-4 bg-accent-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-accent-500/100 shadow-xl shadow-teal-900/10 transition-all flex items-center justify-center gap-3"
                                 >
                                     <Save size={16} /> Save Banner Config
                                 </button>
@@ -566,17 +566,17 @@ export default function AdVisualManager() {
                         {selectedSection && (
                             <div className="space-y-6">
                                 <div className="space-y-4">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Section Content</label>
-                                    <input type="text" value={selectedSection.title} onChange={e => setSelectedSection({ ...selectedSection, title: e.target.value })} className="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black italic uppercase tracking-tighter" placeholder="Section Title" />
-                                    <textarea rows={4} value={selectedSection.body} onChange={e => setSelectedSection({ ...selectedSection, body: e.target.value })} className="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-medium" placeholder="Section Body" />
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Section Content</label>
+                                    <input type="text" value={selectedSection.title} onChange={e => setSelectedSection({ ...selectedSection, title: e.target.value })} className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary font-black italic uppercase tracking-tighter" placeholder="Section Title" />
+                                    <textarea rows={4} value={selectedSection.body} onChange={e => setSelectedSection({ ...selectedSection, body: e.target.value })} className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary text-sm font-medium" placeholder="Section Body" />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <input type="text" value={selectedSection.cta_text} onChange={e => setSelectedSection({ ...selectedSection, cta_text: e.target.value })} className="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 text-[10px] font-black uppercase tracking-widest" placeholder="Button Label" />
-                                    <input type="text" value={selectedSection.cta_link} onChange={e => setSelectedSection({ ...selectedSection, cta_link: e.target.value })} className="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs font-medium" placeholder="Link URL" />
+                                    <input type="text" value={selectedSection.cta_text} onChange={e => setSelectedSection({ ...selectedSection, cta_text: e.target.value })} className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary text-[10px] font-black uppercase tracking-widest" placeholder="Button Label" />
+                                    <input type="text" value={selectedSection.cta_link} onChange={e => setSelectedSection({ ...selectedSection, cta_link: e.target.value })} className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary text-xs font-medium" placeholder="Link URL" />
                                 </div>
                                 <button
                                     onClick={handleSaveSection}
-                                    className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-indigo-500 shadow-xl shadow-indigo-900/10 transition-all flex items-center justify-center gap-3"
+                                    className="w-full py-5 bg-[#818cf8] text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-[#818cf8]/100 shadow-xl shadow-indigo-900/10 transition-all flex items-center justify-center gap-3"
                                 >
                                     <Save size={16} /> Deploy Site Section
                                 </button>
@@ -588,34 +588,34 @@ export default function AdVisualManager() {
 
             {/* Preview Area */}
             <div className="lg:col-span-8 flex flex-col gap-6">
-                <div className="flex items-center justify-between px-6 bg-white p-4 rounded-4xl border border-slate-100">
-                    <div className="flex gap-2 p-1 bg-slate-50 rounded-xl">
-                        <button onClick={() => setViewMode('desktop')} className={`p-3 rounded-lg transition-all ${viewMode === 'desktop' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}><Monitor size={20} /></button>
-                        <button onClick={() => setViewMode('mobile')} className={`p-3 rounded-lg transition-all ${viewMode === 'mobile' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}><Smartphone size={20} /></button>
+                <div className="flex items-center justify-between px-6 bg-surface-elevated p-4 rounded-4xl border border-border-primary">
+                    <div className="flex gap-2 p-1 bg-surface-secondary rounded-xl">
+                        <button onClick={() => setViewMode('desktop')} className={`p-3 rounded-lg transition-all ${viewMode === 'desktop' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}><Monitor size={20} /></button>
+                        <button onClick={() => setViewMode('mobile')} className={`p-3 rounded-lg transition-all ${viewMode === 'mobile' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}><Smartphone size={20} /></button>
                     </div>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">Creative Sandbox Preview</div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary italic">Creative Sandbox Preview</div>
                 </div>
 
-                <div className={`flex-1 bg-slate-50 rounded-[4rem] border-8 border-white shadow-inner overflow-y-auto custom-scrollbar relative min-h-[700px] flex flex-col items-center ${viewMode === 'mobile' ? 'max-w-[420px] mx-auto p-0 pt-12 pb-24' : 'p-12 w-full'} transition-all duration-700`}>
+                <div className={`flex-1 bg-surface-secondary rounded-[4rem] border-8 border-white shadow-inner overflow-y-auto custom-scrollbar relative min-h-[700px] flex flex-col items-center ${viewMode === 'mobile' ? 'max-w-[420px] mx-auto p-0 pt-12 pb-24' : 'p-12 w-full'} transition-all duration-700`}>
                     {activeTab === 'spaces' ? (
                         <div className={`w-full ${selectedSpace ? 'max-w-2xl' : 'max-w-5xl'} space-y-12`}>
                             {!selectedSpace ? (
                                 <div className="space-y-10 w-full">
                                     <div className="text-center">
-                                        <h4 className="text-2xl font-black text-slate-900 tracking-tighter italic uppercase">{spaces.length} Active Ad Spaces</h4>
+                                        <h4 className="text-2xl font-black text-ink-primary tracking-tighter italic uppercase">{spaces.length} Active Ad Spaces</h4>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {spaces.map(space => (
-                                            <button key={space.space_id} onClick={() => setSelectedSpace(space)} className="text-left p-6 rounded-3xl border border-slate-100 bg-white/50 hover:border-slate-200 transition-all group">
-                                                <div className="text-[9px] font-black uppercase text-slate-400 group-hover:text-teal-600">{space.location}</div>
-                                                <div className="mt-2 font-bold text-slate-900">{space.display_name}</div>
+                                            <button key={space.space_id} onClick={() => setSelectedSpace(space)} className="text-left p-6 rounded-3xl border border-border-primary bg-surface-elevated/50 hover:border-border-primary transition-all group">
+                                                <div className="text-[9px] font-black uppercase text-ink-tertiary group-hover:text-accent-400">{space.location}</div>
+                                                <div className="mt-2 font-bold text-ink-primary">{space.display_name}</div>
                                             </button>
                                         ))}
                                     </div>
                                 </div>
                             ) : (
                                 <div className="space-y-8">
-                                    <button onClick={() => setSelectedSpace(null)} className="flex items-center gap-2 text-[10px] font-black uppercase text-slate-400 hover:text-teal-600 transition-colors">
+                                    <button onClick={() => setSelectedSpace(null)} className="flex items-center gap-2 text-[10px] font-black uppercase text-ink-tertiary hover:text-accent-400 transition-colors">
                                         <ChevronRight size={16} className="rotate-180" /> Back to Overview
                                     </button>
                                     <div className="w-full overflow-hidden rounded-[2.5rem] border-4 border-white shadow-2xl relative">
@@ -683,15 +683,15 @@ export default function AdVisualManager() {
                     ) : (
                         <div className="w-full max-w-5xl">
                             {!selectedSection ? (
-                                <div className="text-center py-20 bg-white rounded-[3rem] border border-slate-100">
-                                    <h4 className="text-2xl font-black text-slate-900 uppercase">Section Preview Mode</h4>
+                                <div className="text-center py-20 bg-surface-elevated rounded-[3rem] border border-border-primary">
+                                    <h4 className="text-2xl font-black text-ink-primary uppercase">Section Preview Mode</h4>
                                 </div>
                             ) : (
-                                <div className="relative w-full rounded-[4rem] overflow-hidden border-8 border-white shadow-2xl bg-white min-h-[500px] flex items-center p-12 lg:p-20">
+                                <div className="relative w-full rounded-[4rem] overflow-hidden border-8 border-white shadow-2xl bg-surface-elevated min-h-[500px] flex items-center p-12 lg:p-20">
                                     <div className="relative z-10 max-w-2xl">
                                         <h2 className="text-6xl font-black mb-6 leading-tight uppercase italic">{selectedSection.title}</h2>
-                                        <p className="text-lg text-slate-600 mb-10 leading-relaxed">{selectedSection.body}</p>
-                                        <button className="px-10 py-5 bg-indigo-600 text-white rounded-3xl font-black uppercase text-xs tracking-widest">
+                                        <p className="text-lg text-ink-secondary mb-10 leading-relaxed">{selectedSection.body}</p>
+                                        <button className="px-10 py-5 bg-[#818cf8] text-white rounded-3xl font-black uppercase text-xs tracking-widest">
                                             {selectedSection.cta_text}
                                         </button>
                                     </div>

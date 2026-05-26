@@ -79,7 +79,7 @@ export default function RequestRidePage() {
         <Suspense fallback={
             <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mx-auto mb-4"></div>
                     <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading Taxi Hub...</p>
                 </div>
             </div>
@@ -367,9 +367,9 @@ function RequestRideContent() {
                                     if (pickupLocation.address.length >= 3) setShowSuggestions(true);
                                 }}
                                 placeholder="Search pickup location..."
-                                className={`w-full bg-surface-primary border-2 rounded-2xl py-4 pl-12 pr-4 font-bold text-slate-800 outline-none transition-all ${activeInput === 'pickup' ? 'border-teal-500 bg-surface-elevated' : 'border-border-primary'}`}
+                                className={`w-full bg-surface-primary border-2 rounded-2xl py-4 pl-12 pr-4 font-bold text-ink-primary outline-none transition-all ${activeInput === 'pickup' ? 'border-teal-500 bg-surface-elevated' : 'border-border-primary'}`}
                             />
-                            <div className={`absolute left-4 top-9 text-lg ${activeInput === 'pickup' ? 'text-teal-500' : 'text-slate-300'}`}>📍</div>
+                            <div className={`absolute left-4 top-9 text-lg ${activeInput === 'pickup' ? 'text-accent-500' : 'text-ink-tertiary'}`}>📍</div>
 
                             {/* Autocomplete Dropdown */}
                             {showSuggestions && suggestions.length > 0 && activeInput === 'pickup' && (
@@ -379,9 +379,9 @@ function RequestRideContent() {
                                             key={i}
                                             type="button"
                                             onClick={() => handleSelectSuggestion(place)}
-                                            className="w-full text-left px-4 py-3 hover:bg-surface-primary border-b border-slate-50 last:border-0"
+                                            className="w-full text-left px-4 py-3 hover:bg-surface-primary border-b border-border-primary last:border-0"
                                         >
-                                            <p className="text-sm font-bold text-slate-800 truncate">{place.display_name.split(',')[0]}</p>
+                                            <p className="text-sm font-bold text-ink-primary truncate">{place.display_name.split(',')[0]}</p>
                                             <p className="text-xs text-ink-tertiary truncate">{place.display_name}</p>
                                         </button>
                                     ))}
@@ -399,9 +399,9 @@ function RequestRideContent() {
                                     if (dropoffLocation.address.length >= 3) setShowSuggestions(true);
                                 }}
                                 placeholder="Where to?"
-                                className={`w-full bg-surface-primary border-2 rounded-2xl py-4 pl-12 pr-4 font-bold text-slate-800 outline-none transition-all ${activeInput === 'dropoff' ? 'border-indigo-500 bg-surface-elevated' : 'border-border-primary'}`}
+                                className={`w-full bg-surface-primary border-2 rounded-2xl py-4 pl-12 pr-4 font-bold text-ink-primary outline-none transition-all ${activeInput === 'dropoff' ? 'border-[#818cf8] bg-surface-elevated' : 'border-border-primary'}`}
                             />
-                            <div className={`absolute left-4 top-9 text-lg ${activeInput === 'dropoff' ? 'text-indigo-500' : 'text-slate-300'}`}>🏁</div>
+                            <div className={`absolute left-4 top-9 text-lg ${activeInput === 'dropoff' ? 'text-[#a5b4fc]0' : 'text-ink-tertiary'}`}>🏁</div>
 
                             {/* Autocomplete Dropdown */}
                             {showSuggestions && suggestions.length > 0 && activeInput === 'dropoff' && (
@@ -411,9 +411,9 @@ function RequestRideContent() {
                                             key={i}
                                             type="button"
                                             onClick={() => handleSelectSuggestion(place)}
-                                            className="w-full text-left px-4 py-3 hover:bg-surface-primary border-b border-slate-50 last:border-0"
+                                            className="w-full text-left px-4 py-3 hover:bg-surface-primary border-b border-border-primary last:border-0"
                                         >
-                                            <p className="text-sm font-bold text-slate-800 truncate">{place.display_name.split(',')[0]}</p>
+                                            <p className="text-sm font-bold text-ink-primary truncate">{place.display_name.split(',')[0]}</p>
                                             <p className="text-xs text-ink-tertiary truncate">{place.display_name}</p>
                                         </button>
                                     ))}
@@ -426,11 +426,11 @@ function RequestRideContent() {
                     {distance > 0 && (
                         <div className="flex gap-4 p-4 bg-accent-500/10/50 rounded-2xl border border-teal-100/50">
                             <div>
-                                <p className="text-[9px] font-black text-teal-400 uppercase tracking-widest">Est. Distance</p>
+                                <p className="text-[9px] font-black text-accent-400 uppercase tracking-widest">Est. Distance</p>
                                 <p className="text-xl font-black text-accent-500">{distance.toFixed(1)} km</p>
                             </div>
                             <div>
-                                <p className="text-[9px] font-black text-teal-400 uppercase tracking-widest">Est. Fare</p>
+                                <p className="text-[9px] font-black text-accent-400 uppercase tracking-widest">Est. Fare</p>
                                 <p className="text-xl font-black text-accent-500">${estimatedPrice}</p>
                             </div>
                         </div>
@@ -450,13 +450,13 @@ function RequestRideContent() {
                                         type="button"
                                         onClick={() => setVehicleCategory(v)}
                                         className={`p-3 rounded-2xl border-2 text-left transition-all relative overflow-hidden group ${isSelected
-                                            ? 'border-indigo-500 bg-indigo-50/20'
+                                            ? 'border-[#818cf8] bg-[#818cf8]/10/20'
                                             : 'border-border-primary bg-surface-elevated hover:border-border-primary'
                                             }`}
                                     >
                                         <div className="flex justify-between items-start z-10 relative">
                                             <div>
-                                                <div className={`text-xs font-black uppercase tracking-wider ${isSelected ? 'text-indigo-700' : 'text-ink-secondary'}`}>
+                                                <div className={`text-xs font-black uppercase tracking-wider ${isSelected ? 'text-[#6366f1]' : 'text-ink-secondary'}`}>
                                                     {details.label}
                                                 </div>
                                                 <div className="text-[10px] text-ink-tertiary">
@@ -488,7 +488,7 @@ function RequestRideContent() {
                                 max="8"
                                 value={passengerCount}
                                 onChange={(e) => setPassengerCount(parseInt(e.target.value))}
-                                className="w-full bg-surface-primary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-slate-800 outline-none focus:border-indigo-500"
+                                className="w-full bg-surface-primary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8]"
                             />
                         </div>
                         <div>
@@ -498,7 +498,7 @@ function RequestRideContent() {
                             <select
                                 value={luggageSize}
                                 onChange={(e: any) => setLuggageSize(e.target.value)}
-                                className="w-full bg-surface-primary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-slate-800 outline-none focus:border-indigo-500 appearance-none"
+                                className="w-full bg-surface-primary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8] appearance-none"
                             >
                                 {serviceType === 'delivery' ? (
                                     <>
@@ -525,7 +525,7 @@ function RequestRideContent() {
                             onChange={(e) => setNotes(e.target.value)}
                             placeholder="Gate code, white shirt, etc."
                             rows={2}
-                            className="w-full bg-surface-primary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-slate-800 outline-none focus:border-indigo-500 resize-none"
+                            className="w-full bg-surface-primary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8] resize-none"
                         />
                     </div>
 
@@ -537,14 +537,14 @@ function RequestRideContent() {
                             <div className="flex items-center gap-2">
                                 <span className="text-xl">📅</span>
                                 <div>
-                                    <p className="text-xs font-black text-slate-800 uppercase tracking-widest leading-none">Schedule for later</p>
+                                    <p className="text-xs font-black text-ink-primary uppercase tracking-widest leading-none">Schedule for later</p>
                                     <p className="text-[9px] font-medium text-ink-tertiary">Book in advance</p>
                                 </div>
                             </div>
                             <button
                                 type="button"
                                 onClick={() => setIsScheduled(!isScheduled)}
-                                className={`w-12 h-6 rounded-full transition-colors relative ${isScheduled ? 'bg-indigo-500' : 'bg-surface-tertiary'}`}
+                                className={`w-12 h-6 rounded-full transition-colors relative ${isScheduled ? 'bg-[#818cf8]/100' : 'bg-surface-tertiary'}`}
                             >
                                 <div className={`absolute top-1 w-4 h-4 bg-surface-elevated rounded-full transition-all ${isScheduled ? 'left-7' : 'left-1'}`} />
                             </button>
@@ -560,7 +560,7 @@ function RequestRideContent() {
                                     type="datetime-local"
                                     value={scheduledTime}
                                     onChange={(e) => setScheduledTime(e.target.value)}
-                                    className="w-full bg-surface-primary border-2 border-border-primary rounded-xl py-3 px-4 font-bold text-slate-800 outline-none focus:border-indigo-500"
+                                    className="w-full bg-surface-primary border-2 border-border-primary rounded-xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8]"
                                     min={new Date().toISOString().slice(0, 16)}
                                 />
                             </motion.div>
@@ -604,7 +604,7 @@ function RequestRideContent() {
                     {/* Floating Close Button - Outside map container */}
                     <button
                         onClick={() => setMapExpanded(false)}
-                        className="lg:hidden fixed top-6 right-6 z-9999 w-16 h-16 bg-surface-elevated text-ink-primary rounded-full shadow-2xl flex items-center justify-center font-black text-3xl hover:bg-rose-50 hover:text-rose-500 transition-all border-4 border-border-primary"
+                        className="lg:hidden fixed top-6 right-6 z-9999 w-16 h-16 bg-surface-elevated text-ink-primary rounded-full shadow-2xl flex items-center justify-center font-black text-3xl hover:bg-[#e11d48]/5 hover:text-[#e11d48] transition-all border-4 border-border-primary"
                         style={{ pointerEvents: 'auto' }}
                     >
                         ✕

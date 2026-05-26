@@ -36,9 +36,9 @@ export default function MobileConnect() {
                         <br />
                         <span className="text-sm text-gray-400">(Ensure your phone is on the same Wi-Fi)</span>
                     </p>
-                    <a href={url} className="block mt-4 text-teal-400 hover:underline">{url}</a>
+                    <a href={url} className="block mt-4 text-accent-400 hover:underline">{url}</a>
                 </div>
-                <div className="p-4 bg-white rounded-lg">
+                <div className="p-4 bg-surface-elevated rounded-lg">
                     <QRCodeSVG value={url} size={150} />
                 </div>
             </div>

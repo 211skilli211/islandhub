@@ -76,13 +76,13 @@ export function withErrorBoundary<P extends object>(
 
 // Generic error fallback for dynamic imports
 export const dynamicImportErrorFallback = (error: Error, reset: () => void) => (
-    <div className="p-8 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 text-center">
+    <div className="p-8 rounded-2xl bg-surface-secondary border-2 border-dashed border-border-primary text-center">
         <div className="text-4xl mb-4">💥</div>
-        <p className="text-slate-600 font-medium mb-2">Failed to load component</p>
-        <p className="text-slate-400 text-xs mb-4">{error.message}</p>
+        <p className="text-ink-secondary font-medium mb-2">Failed to load component</p>
+        <p className="text-ink-tertiary text-xs mb-4">{error.message}</p>
         <button
             onClick={reset}
-            className="px-4 py-2 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors"
+            className="px-4 py-2 bg-ink-primary text-white rounded-xl font-bold hover:bg-surface-tertiary transition-colors"
         >
             Retry
         </button>

@@ -79,15 +79,15 @@ export default function AvailabilityCalendar({ listingId, onDateSelect, selected
     };
 
     return (
-        <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+        <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary">
             <div className="flex items-center justify-between mb-6">
-                <h3 className="text-sm font-black uppercase tracking-widest text-slate-400">Availability</h3>
+                <h3 className="text-sm font-black uppercase tracking-widest text-ink-tertiary">Availability</h3>
                 <div className="flex items-center gap-4">
-                    <button onClick={prevMonth} className="p-2 hover:bg-white rounded-full transition-colors">
+                    <button onClick={prevMonth} className="p-2 hover:bg-surface-secondary rounded-full transition-colors">
                         <span className="text-lg">←</span>
                     </button>
-                    <span className="text-sm font-black text-slate-900">{monthName}</span>
-                    <button onClick={nextMonth} className="p-2 hover:bg-white rounded-full transition-colors">
+                    <span className="text-sm font-black text-ink-primary">{monthName}</span>
+                    <button onClick={nextMonth} className="p-2 hover:bg-surface-secondary rounded-full transition-colors">
                         <span className="text-lg">→</span>
                     </button>
                 </div>
@@ -95,7 +95,7 @@ export default function AvailabilityCalendar({ listingId, onDateSelect, selected
 
             <div className="grid grid-cols-7 gap-1 mb-2">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                    <div key={d} className="text-center text-[10px] font-bold text-slate-400 uppercase">{d}</div>
+                    <div key={d} className="text-center text-[10px] font-bold text-ink-tertiary uppercase">{d}</div>
                 ))}
             </div>
 
@@ -106,15 +106,15 @@ export default function AvailabilityCalendar({ listingId, onDateSelect, selected
                 {Array.from({ length: days }).map((_, i) => {
                     const day = i + 1;
                     const status = getDateStatus(day);
-                    let bgClass = 'bg-white text-slate-900';
+                    let bgClass = 'bg-surface-elevated text-ink-primary';
 
                     if (status === 'blocked') {
-                        bgClass = 'bg-slate-200 text-slate-400 line-through cursor-not-allowed';
+                        bgClass = 'bg-surface-tertiary text-ink-tertiary line-through cursor-not-allowed';
                     } else if (status === 'available') {
-                        bgClass = 'bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-100 cursor-pointer';
+                        bgClass = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/15 cursor-pointer';
                     } else {
                         // Unknown/Default - assume available but neutral
-                        bgClass = 'bg-white hover:bg-slate-100 cursor-pointer border border-transparent';
+                        bgClass = 'bg-surface-elevated hover:bg-surface-secondary cursor-pointer border border-transparent';
                     }
 
                     return (
@@ -127,12 +127,12 @@ export default function AvailabilityCalendar({ listingId, onDateSelect, selected
                     );
                 })}
             </div>
-            <div className="mt-4 flex gap-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <div className="mt-4 flex gap-4 text-[10px] font-bold uppercase tracking-widest text-ink-tertiary">
                 <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500" /> Available
+                    <div className="w-2 h-2 rounded-full bg-emerald-500/100" /> Available
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-slate-300" /> Booked
+                    <div className="w-2 h-2 rounded-full bg-surface-tertiary" /> Booked
                 </div>
             </div>
         </div>

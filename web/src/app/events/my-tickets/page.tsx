@@ -58,7 +58,7 @@ export default function MyTicketsPage() {
         ) : tickets.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-6xl mb-4">🎫</p>
-            <h3 className="text-2xl font-black text-slate-800 dark:text-sand-50">No tickets yet</h3>
+            <h3 className="text-2xl font-black text-ink-primary dark:text-sand-50">No tickets yet</h3>
             <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Browse events and grab your first ticket!</p>
             <Link href="/events" className="mt-6 inline-block px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
               Browse Events
@@ -116,7 +116,7 @@ export default function MyTicketsPage() {
                                 <p className="text-xs text-ink-tertiary mt-2 font-mono">Token: {ticket.qr_token}</p>
                                 <div className="mt-4 flex gap-2">
                                   <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-xs font-bold">{ticket.holder_name}</span>
-                                  <span className="px-2 py-1 bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-slate-300 rounded text-xs">{ticket.holder_email}</span>
+                                  <span className="px-2 py-1 bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-ink-tertiary rounded text-xs">{ticket.holder_email}</span>
                                 </div>
                               </div>
                             </div>
@@ -138,11 +138,11 @@ export default function MyTicketsPage() {
                     <div key={ticket.ticket_id} className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 border border-border-primary dark:border-ocean-700 opacity-60">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-bold text-ink-secondary dark:text-slate-200">{ticket.event?.title || 'Event'} — {ticket.tier?.name || 'Ticket'}</p>
+                          <p className="font-bold text-ink-secondary dark:text-ink-tertiary">{ticket.event?.title || 'Event'} — {ticket.tier?.name || 'Ticket'}</p>
                           <p className="text-xs text-ink-tertiary">#{ticket.ticket_id} · {ticket.status}</p>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          ticket.status === 'used' ? 'bg-surface-secondary text-ink-secondary dark:bg-ocean-700 dark:text-slate-300' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+                          ticket.status === 'used' ? 'bg-surface-secondary text-ink-secondary dark:bg-ocean-700 dark:text-ink-tertiary' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
                         }`}>{ticket.status}</span>
                       </div>
                     </div>

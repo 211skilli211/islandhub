@@ -69,18 +69,18 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
 
     const getThemeColors = (theme: string, type: string) => {
         const themes: Record<string, { gradient: string; button: string; text: string; iconBg: string }> = {
-            teal: { gradient: 'from-teal-500 to-emerald-500', button: 'bg-teal-600 hover:bg-teal-700', text: 'text-teal-100', iconBg: 'bg-teal-400/20' },
-            indigo: { gradient: 'from-indigo-600 to-blue-700', button: 'bg-indigo-800 hover:bg-black', text: 'text-indigo-100', iconBg: 'bg-indigo-400/20' },
+            teal: { gradient: 'from-teal-500 to-emerald-500', button: 'bg-accent-500 hover:bg-accent-600', text: 'text-accent-100', iconBg: 'bg-accent-400/20' },
+            indigo: { gradient: 'from-indigo-600 to-blue-700', button: 'bg-indigo-800 hover:bg-black', text: 'text-[#a5b4fc]', iconBg: 'bg-indigo-400/20' },
             rose: { gradient: 'from-rose-600 to-red-700', button: 'bg-rose-800 hover:bg-black', text: 'text-rose-100', iconBg: 'bg-rose-400/20' },
-            amber: { gradient: 'from-amber-500 to-orange-600', button: 'bg-amber-700 hover:bg-black', text: 'text-amber-100', iconBg: 'bg-amber-400/20' },
+            amber: { gradient: 'from-amber-500 to-orange-600', button: 'bg-sand-600 hover:bg-black', text: 'text-sand-100', iconBg: 'bg-sand-400/20' },
             emerald: { gradient: 'from-emerald-600 to-green-700', button: 'bg-emerald-800 hover:bg-black', text: 'text-emerald-100', iconBg: 'bg-emerald-400/20' },
             blue: { gradient: 'from-blue-600 to-cyan-700', button: 'bg-blue-800 hover:bg-black', text: 'text-blue-100', iconBg: 'bg-blue-400/20' },
             purple: { gradient: 'from-purple-600 to-indigo-700', button: 'bg-purple-800 hover:bg-black', text: 'text-purple-100', iconBg: 'bg-purple-400/20' },
-            urgency: { gradient: 'from-red-600 to-orange-700', button: 'bg-white text-red-600 hover:bg-white/90', text: 'text-red-50', iconBg: 'bg-white/20' },
-            community: { gradient: 'from-blue-600 to-indigo-700', button: 'bg-white text-blue-600 hover:bg-white/90', text: 'text-blue-50', iconBg: 'bg-white/20' },
-            promotion: { gradient: 'from-yellow-400 to-orange-500', button: 'bg-black text-white hover:bg-slate-900', text: 'text-orange-900/70', iconBg: 'bg-black/10' },
-            high_impact: { gradient: 'from-fuchsia-600 via-purple-600 to-indigo-600', button: 'bg-white text-fuchsia-600 hover:shadow-fuchsia-500/50 hover:shadow-lg', text: 'text-white/80', iconBg: 'bg-white/30' },
-            minimal: { gradient: 'from-slate-50 to-slate-200', button: 'bg-slate-900 text-white', text: 'text-slate-500', iconBg: 'bg-slate-200' },
+            urgency: { gradient: 'from-red-600 to-orange-700', button: 'bg-surface-elevated text-red-600 hover:bg-surface-elevated/90', text: 'text-red-50', iconBg: 'bg-surface-elevated/20' },
+            community: { gradient: 'from-blue-600 to-indigo-700', button: 'bg-surface-elevated text-blue-600 hover:bg-surface-elevated/90', text: 'text-blue-50', iconBg: 'bg-surface-elevated/20' },
+            promotion: { gradient: 'from-yellow-400 to-orange-500', button: 'bg-black text-white hover:bg-ink-primary', text: 'text-orange-900/70', iconBg: 'bg-black/10' },
+            high_impact: { gradient: 'from-fuchsia-600 via-purple-600 to-indigo-600', button: 'bg-surface-elevated text-fuchsia-600 hover:shadow-fuchsia-500/50 hover:shadow-lg', text: 'text-white/80', iconBg: 'bg-surface-elevated/30' },
+            minimal: { gradient: 'from-slate-50 to-slate-200', button: 'bg-ink-primary text-white', text: 'text-ink-tertiary', iconBg: 'bg-surface-tertiary' },
         };
 
         if (type === 'urgency') return themes.urgency;
@@ -105,12 +105,12 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                     transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                     className="fixed bottom-4 left-4 right-4 z-50 lg:hidden"
                 >
-                    <div className={`bg-gradient-to-r ${colors.gradient} rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/30 backdrop-blur-2xl overflow-hidden`}>
+                    <div className={`bg-gradient-to-r ${colors.gradient} rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-surface-elevated/30 backdrop-blur-2xl overflow-hidden`}>
                         {/* Close Button */}
 
                         <button
                             onClick={handleDismiss}
-                            className="absolute top-2 right-2 p-1.5 bg-white/20 hover:bg-white/30 rounded-full transition-colors z-10"
+                            className="absolute top-2 right-2 p-1.5 bg-surface-elevated/20 hover:bg-surface-elevated/30 rounded-full transition-colors z-10"
                             aria-label="Dismiss banner"
                         >
                             <X size={16} className="text-white" />
@@ -119,7 +119,7 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                         <div className={`p-5 flex items-center gap-4 ${alignment === 'center' ? 'flex-col text-center' : alignment === 'right' ? 'flex-row-reverse text-right' : ''}`}>
                             {/* Icon or Image */}
                             {banner.image_url ? (
-                                <div className={`${alignment === 'center' ? 'w-24 h-24' : 'w-16 h-16'} rounded-2xl overflow-hidden shrink-0 shadow-lg border-2 border-white/20`}>
+                                <div className={`${alignment === 'center' ? 'w-24 h-24' : 'w-16 h-16'} rounded-2xl overflow-hidden shrink-0 shadow-lg border-2 border-surface-elevated/20`}>
                                     <img
                                         src={banner.image_url}
                                         alt={banner.title}

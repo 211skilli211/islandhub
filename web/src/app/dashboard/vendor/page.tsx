@@ -36,13 +36,13 @@ const orders = [
 
 function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
-    active: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    active: 'bg-emerald-500/100/10 text-emerald-400 dark:text-emerald-400',
     out_of_stock: 'bg-red-500/10 text-red-600 dark:text-red-400',
-    low_stock: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-    pending: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+    low_stock: 'bg-sand-500/50/10 text-sand-500 dark:text-sand-400',
+    pending: 'bg-sand-500/50/10 text-sand-500 dark:text-sand-400',
     processing: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
     shipped: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-    delivered: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+    delivered: 'bg-emerald-500/100/10 text-emerald-400 dark:text-emerald-400',
     cancelled: 'bg-red-500/10 text-red-600 dark:text-red-400',
   };
   return (
@@ -57,7 +57,7 @@ function KPICard({ label, value, change, up }: { label: string; value: string; c
     <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 border border-border-primary dark:border-ocean-700">
       <p className="text-xs font-medium text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider">{label}</p>
       <p className="text-2xl font-bold text-ink-primary dark:text-sand-50 mt-1">{value}</p>
-      <p className={`text-xs mt-1.5 font-medium ${up ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>{change}</p>
+      <p className={`text-xs mt-1.5 font-medium ${up ? 'text-emerald-400 dark:text-emerald-400' : 'text-sand-500 dark:text-sand-400'}`}>{change}</p>
     </div>
   );
 }
@@ -182,7 +182,7 @@ export default function VendorDashboard() {
                       <td className="px-3 py-3">
                         <span className={`text-sm font-medium ${
                           p.stock === 0 ? 'text-red-600 dark:text-red-400' :
-                          p.stock < 20 ? 'text-amber-600 dark:text-amber-400' :
+                          p.stock < 20 ? 'text-sand-500 dark:text-sand-400' :
                           'text-ink-primary dark:text-sand-50'
                         }`}>{p.stock}</span>
                       </td>
@@ -286,7 +286,7 @@ export default function VendorDashboard() {
                   return (
                     <div key={p.id}>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-ink-secondary dark:text-slate-300 truncate mr-2">{p.name}</span>
+                        <span className="text-xs text-ink-secondary dark:text-ink-tertiary truncate mr-2">{p.name}</span>
                         <span className="text-xs font-medium text-ink-primary dark:text-sand-50 flex-shrink-0">{widths[i]}%</span>
                       </div>
                       <div className="h-2 bg-surface-secondary dark:bg-ocean-700 rounded-full overflow-hidden">
@@ -305,13 +305,13 @@ export default function VendorDashboard() {
                   { source: 'Direct', pct: 42, color: 'bg-ocean-500' },
                   { source: 'Search', pct: 28, color: 'bg-sunset-500' },
                   { source: 'Social', pct: 18, color: 'bg-purple-500' },
-                  { source: 'Referral', pct: 12, color: 'bg-amber-500' },
+                  { source: 'Referral', pct: 12, color: 'bg-sand-500/50' },
                 ].map(item => (
                   <div key={item.source}>
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         <div className={`w-2.5 h-2.5 rounded-full ${item.color}`} />
-                        <span className="text-xs text-ink-secondary dark:text-slate-300">{item.source}</span>
+                        <span className="text-xs text-ink-secondary dark:text-ink-tertiary">{item.source}</span>
                       </div>
                       <span className="text-xs font-medium text-ink-primary dark:text-sand-50">{item.pct}%</span>
                     </div>

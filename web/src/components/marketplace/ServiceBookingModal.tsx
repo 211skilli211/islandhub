@@ -83,7 +83,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity" />
+                    <div className="fixed inset-0 bg-ink-primary/40 backdrop-blur-md transition-opacity" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -97,11 +97,11 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-[2.5rem] bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-[2.5rem] bg-surface-elevated text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
                                 <div className="absolute top-6 right-6 z-10">
                                     <button
                                         onClick={onClose}
-                                        className="p-3 bg-slate-100 text-slate-500 rounded-2xl hover:bg-slate-200 transition-colors"
+                                        className="p-3 bg-surface-secondary text-ink-tertiary0 rounded-2xl hover:bg-surface-tertiary transition-colors"
                                     >
                                         <XMarkIcon className="w-6 h-6" />
                                     </button>
@@ -111,17 +111,17 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                     <div className="mb-10">
                                         <div className="flex flex-col md:flex-row gap-8">
                                             {service.image_url && (
-                                                <div className="w-full md:w-48 h-48 rounded-3xl overflow-hidden flex-shrink-0 border-4 border-slate-50 shadow-xl">
+                                                <div className="w-full md:w-48 h-48 rounded-3xl overflow-hidden flex-shrink-0 border-4 border-border-primary shadow-xl">
                                                     <img src={getImageUrl(service.image_url)} className="w-full h-full object-cover" alt={service.service_name} />
                                                 </div>
                                             )}
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
-                                                    <span className="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-[10px] font-black uppercase tracking-widest">Service Booking</span>
-                                                    <span className="text-slate-400 font-medium text-sm">⏱️ {service.duration}</span>
+                                                    <span className="px-3 py-1 bg-[#818cf8]/15 text-[#818cf8] rounded-full text-[10px] font-black uppercase tracking-widest">Service Booking</span>
+                                                    <span className="text-ink-tertiary font-medium text-sm">⏱️ {service.duration}</span>
                                                 </div>
-                                                <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter italic leading-none">{service.service_name}</h2>
-                                                <p className="mt-4 text-slate-500 font-medium text-lg leading-relaxed">{service.description}</p>
+                                                <h2 className="text-4xl font-black text-ink-primary uppercase tracking-tighter italic leading-none">{service.service_name}</h2>
+                                                <p className="mt-4 text-ink-tertiary0 font-medium text-lg leading-relaxed">{service.description}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                         <div className="space-y-12">
                                             <div className="space-y-8">
                                                 <div>
-                                                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 ml-1">
+                                                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-4 ml-1">
                                                         <CalendarIcon className="w-4 h-4" /> Pick a Date
                                                     </label>
                                                     <input
@@ -139,12 +139,12 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                         value={bookingDate}
                                                         onChange={(e) => setBookingDate(e.target.value)}
                                                         min={new Date().toISOString().split('T')[0]}
-                                                        className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 font-bold text-slate-900 focus:border-indigo-500 focus:outline-none transition-all"
+                                                        className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl px-6 py-4 font-bold text-ink-primary focus:border-[#818cf8] focus:outline-none transition-all"
                                                     />
                                                 </div>
 
                                                 <div>
-                                                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 ml-1">
+                                                    <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-4 ml-1">
                                                         <ClockIcon className="w-4 h-4" /> Select Time Slot
                                                     </label>
                                                     <div className="grid grid-cols-2 gap-2">
@@ -153,8 +153,8 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                                 key={slot}
                                                                 onClick={() => setSelectedSlot(slot)}
                                                                 className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedSlot === slot
-                                                                    ? 'bg-indigo-600 text-white shadow-lg scale-[1.02]'
-                                                                    : 'bg-white border-2 border-slate-100 text-slate-500 hover:border-indigo-200'
+                                                                    ? 'bg-[#818cf8] text-white shadow-lg scale-[1.02]'
+                                                                    : 'bg-surface-elevated border-2 border-border-primary text-ink-tertiary0 hover:border-[#818cf8]/20'
                                                                     }`}
                                                             >
                                                                 {slot}
@@ -166,15 +166,15 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
 
                                             {/* Service FAQs */}
                                             {service.faqs && service.faqs.length > 0 && (
-                                                <div className="space-y-6 pt-6 border-t border-slate-100">
-                                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 ml-1 block">
+                                                <div className="space-y-6 pt-6 border-t border-border-primary">
+                                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-4 ml-1 block">
                                                         Frequently Asked Questions
                                                     </label>
                                                     <div className="space-y-4">
                                                         {service.faqs.map((faq: any, idx: number) => (
-                                                            <div key={idx} className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-                                                                <p className="text-[10px] font-black uppercase text-slate-900 mb-2">Q: {faq.question}</p>
-                                                                <p className="text-[11px] font-medium text-slate-500 leading-relaxed">
+                                                            <div key={idx} className="bg-surface-secondary rounded-2xl p-5 border border-border-primary">
+                                                                <p className="text-[10px] font-black uppercase text-ink-primary mb-2">Q: {faq.question}</p>
+                                                                <p className="text-[11px] font-medium text-ink-tertiary0 leading-relaxed">
                                                                     {faq.answer}
                                                                 </p>
                                                             </div>
@@ -185,8 +185,8 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                         </div>
 
                                         {/* Right Column: Addons Selection */}
-                                        <div className="bg-slate-50 rounded-[2rem] p-8 border border-slate-100 h-fit">
-                                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6 block">
+                                        <div className="bg-surface-secondary rounded-[2rem] p-8 border border-border-primary h-fit">
+                                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-6 block">
                                                 Recommended Addons
                                             </label>
                                             <div className="space-y-3">
@@ -197,15 +197,15 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                             key={addon.name}
                                                             onClick={() => toggleAddon(addon)}
                                                             className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all ${isSelected
-                                                                ? 'bg-indigo-600 text-white shadow-md'
-                                                                : 'bg-white text-slate-700 hover:bg-white hover:shadow-sm'
+                                                                ? 'bg-[#818cf8] text-white shadow-md'
+                                                                : 'bg-surface-elevated text-ink-secondary hover:bg-surface-elevated hover:shadow-sm'
                                                                 }`}
                                                         >
                                                             <div className="flex items-center gap-2">
-                                                                {isSelected ? <CheckIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4 text-slate-300" />}
+                                                                {isSelected ? <CheckIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4 text-ink-tertiary" />}
                                                                 <span className="font-bold text-[11px] uppercase tracking-tight">{addon.name}</span>
                                                             </div>
-                                                            <span className={`text-[11px] font-black ${isSelected ? 'text-white' : 'text-slate-400'}`}>
+                                                            <span className={`text-[11px] font-black ${isSelected ? 'text-white' : 'text-ink-tertiary'}`}>
                                                                 +${addon.price}
                                                             </span>
                                                         </button>
@@ -213,14 +213,14 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                 })}
                                             </div>
 
-                                            <div className="mt-8 pt-6 border-t border-slate-200/50">
+                                            <div className="mt-8 pt-6 border-t border-border-primary/50">
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Subtotal</span>
-                                                    <span className="font-bold text-slate-900">${service.price}</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Subtotal</span>
+                                                    <span className="font-bold text-ink-primary">${service.price}</span>
                                                 </div>
                                                 <div className="flex items-center justify-between">
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Due</span>
-                                                    <span className="text-2xl font-black text-slate-900">${calculateTotal().toFixed(2)}</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Total Due</span>
+                                                    <span className="text-2xl font-black text-ink-primary">${calculateTotal().toFixed(2)}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,11 +230,11 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                         <button
                                             onClick={handleBooking}
                                             disabled={loading}
-                                            className="w-full py-6 bg-slate-900 text-white font-black uppercase tracking-[0.3em] text-sm rounded-[2rem] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
+                                            className="w-full py-6 bg-ink-primary text-white font-black uppercase tracking-[0.3em] text-sm rounded-[2rem] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
                                         >
                                             {loading ? 'Adding to Cart...' : 'Confirm & Add Booking'}
                                         </button>
-                                        <p className="text-center mt-6 text-[10px] font-black uppercase tracking-widest text-slate-400 italic">
+                                        <p className="text-center mt-6 text-[10px] font-black uppercase tracking-widest text-ink-tertiary italic">
                                             IslandHub Secure Booking Protocol Enabled
                                         </p>
                                     </div>

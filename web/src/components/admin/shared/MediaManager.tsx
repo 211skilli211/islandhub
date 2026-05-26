@@ -32,7 +32,7 @@ const SortablePhoto = ({ photo, onRemove, onSetPrimary, isOverlay = false }: any
             style={style}
             {...attributes}
             {...listeners}
-            className={`relative group aspect-square rounded-xl overflow-hidden border-2 ${photo.is_primary ? 'border-teal-500 ring-2 ring-teal-500 ring-offset-2' : 'border-slate-200'} bg-slate-50 shadow-sm hover:shadow-md transition-all cursor-grab active:cursor-grabbing ${isOverlay ? 'z-50 shadow-xl scale-105' : ''}`}
+            className={`relative group aspect-square rounded-xl overflow-hidden border-2 ${photo.is_primary ? 'border-teal-500 ring-2 ring-teal-500 ring-offset-2' : 'border-border-primary'} bg-surface-secondary shadow-sm hover:shadow-md transition-all cursor-grab active:cursor-grabbing ${isOverlay ? 'z-50 shadow-xl scale-105' : ''}`}
         >
             <img
                 src={getImageUrl(photo.url)}
@@ -42,7 +42,7 @@ const SortablePhoto = ({ photo, onRemove, onSetPrimary, isOverlay = false }: any
 
             {/* Primary Badge */}
             {photo.is_primary && (
-                <div className="absolute top-2 left-2 bg-teal-500 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded shadow-sm">
+                <div className="absolute top-2 left-2 bg-accent-500/100 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded shadow-sm">
                     Primary
                 </div>
             )}
@@ -52,7 +52,7 @@ const SortablePhoto = ({ photo, onRemove, onSetPrimary, isOverlay = false }: any
                 <div className="flex justify-end">
                     <button
                         onPointerDown={(e) => { e.stopPropagation(); onRemove(photo.id); }}
-                        className="p-1.5 bg-white/20 hover:bg-red-500 text-white rounded-lg backdrop-blur-sm transition-colors"
+                        className="p-1.5 bg-surface-elevated/20 hover:bg-red-500 text-white rounded-lg backdrop-blur-sm transition-colors"
                         title="Remove Image"
                     >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -62,7 +62,7 @@ const SortablePhoto = ({ photo, onRemove, onSetPrimary, isOverlay = false }: any
                     {!photo.is_primary && (
                         <button
                             onPointerDown={(e) => { e.stopPropagation(); onSetPrimary(photo.id); }}
-                            className="px-3 py-1.5 bg-white text-slate-900 text-[10px] font-black uppercase rounded-lg shadow-sm hover:bg-teal-50 hover:text-teal-600 transition-colors"
+                            className="px-3 py-1.5 bg-surface-elevated text-ink-primary text-[10px] font-black uppercase rounded-lg shadow-sm hover:bg-accent-500/10 hover:text-accent-400 transition-colors"
                         >
                             Set Primary
                         </button>
@@ -190,7 +190,7 @@ export default function MediaManager({ initialMedia = [], onChange, maxFiles = 1
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
-                <label className="block text-sm font-bold text-slate-700">Gallery ({media.length}/{maxFiles})</label>
+                <label className="block text-sm font-bold text-ink-secondary">Gallery ({media.length}/{maxFiles})</label>
                 <div className="relative">
                     <input
                         type="file"
@@ -200,7 +200,7 @@ export default function MediaManager({ initialMedia = [], onChange, maxFiles = 1
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         disabled={uploading}
                     />
-                    <button disabled={uploading} className="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors disabled:opacity-50">
+                    <button disabled={uploading} className="px-4 py-2 bg-ink-primary text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary transition-colors disabled:opacity-50">
                         {uploading ? 'Uploading...' : '+ Add Photos'}
                     </button>
                 </div>
@@ -230,9 +230,9 @@ export default function MediaManager({ initialMedia = [], onChange, maxFiles = 1
             </DndContext>
 
             {media.length === 0 && (
-                <div className="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50/50">
+                <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center bg-surface-secondary/50">
                     <span className="text-4xl block mb-2">📷</span>
-                    <p className="text-slate-400 text-sm font-medium">No images yet. Upload some to get started.</p>
+                    <p className="text-ink-tertiary text-sm font-medium">No images yet. Upload some to get started.</p>
                 </div>
             )}
         </div>

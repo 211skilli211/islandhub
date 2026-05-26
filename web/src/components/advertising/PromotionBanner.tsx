@@ -63,7 +63,7 @@ export default function PromotionBanner({ storeId, className = '' }: PromotionBa
                     key={promo.promo_id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="relative overflow-hidden rounded-2xl shadow-sm border border-slate-100 group"
+                    className="relative overflow-hidden rounded-2xl shadow-sm border border-border-primary group"
                     style={{
                         backgroundColor: promo.background_color || '#f8fafc',
                         color: promo.text_color || '#0f172a'
@@ -104,7 +104,7 @@ export default function PromotionBanner({ storeId, className = '' }: PromotionBa
 
                             <div className="flex flex-wrap items-center gap-4 mt-auto">
                                 {promo.promo_code && (
-                                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30">
+                                    <div className="flex items-center gap-2 bg-surface-elevated/20 backdrop-blur-md px-4 py-2 rounded-xl border border-surface-elevated/30">
                                         <span className="text-xs font-bold uppercase opacity-70">Code:</span>
                                         <span className="font-mono font-bold tracking-wider">{promo.promo_code}</span>
                                     </div>
@@ -114,7 +114,7 @@ export default function PromotionBanner({ storeId, className = '' }: PromotionBa
                                     <a
                                         href={promo.target_url}
                                         onClick={() => trackClick(promo.promo_id)}
-                                        className="flex items-center gap-2 bg-primary text-white dark:text-slate-900 px-6 py-2.5 rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 dark:shadow-primary/40"
+                                        className="flex items-center gap-2 bg-primary text-white dark:text-ink-primary px-6 py-2.5 rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 dark:shadow-primary/40"
                                     >
                                         Claim Offer
                                         <ArrowRight size={18} />

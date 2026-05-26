@@ -38,20 +38,20 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                     { label: 'Listing Views', value: stats.total_views || 0, icon: '👁️', color: 'indigo' },
                     { label: 'Conversion Rate', value: `${conversionRate}%`, icon: '📈', color: 'rose' },
                 ].map((stat, i) => (
-                    <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-100/50">
+                    <div key={i} className="bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-sm shadow-slate-100/50">
                         <div className="text-2xl mb-4">{stat.icon}</div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">{stat.label}</p>
-                        <h4 className="text-3xl font-black text-slate-900 tracking-tight">{stat.value}</h4>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-1">{stat.label}</p>
+                        <h4 className="text-3xl font-black text-ink-primary tracking-tight">{stat.value}</h4>
                     </div>
                 ))}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Revenue Trend */}
-                <div className="lg:col-span-2 bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-100/50">
+                <div className="lg:col-span-2 bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-xl shadow-slate-100/50">
                     <div className="flex items-center justify-between mb-8">
-                        <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Revenue Trend</h3>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Last 6 Months</span>
+                        <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Revenue Trend</h3>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Last 6 Months</span>
                     </div>
                     <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
@@ -86,8 +86,8 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                 </div>
 
                 {/* Category Split */}
-                <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-100/50">
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tight italic mb-8">Category Split</h3>
+                <div className="bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-xl shadow-slate-100/50">
+                    <h3 className="text-2xl font-black text-ink-primary tracking-tight italic mb-8">Category Split</h3>
                     <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
@@ -112,9 +112,9 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                             <div key={index} className="flex justify-between items-center text-xs">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
-                                    <span className="font-bold text-slate-500 uppercase tracking-widest">{entry.type}</span>
+                                    <span className="font-bold text-ink-tertiary0 uppercase tracking-widest">{entry.type}</span>
                                 </div>
-                                <span className="font-black text-slate-900">{entry.units} Sold</span>
+                                <span className="font-black text-ink-primary">{entry.units} Sold</span>
                             </div>
                         ))}
                     </div>
@@ -122,28 +122,28 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
             </div>
 
             {/* Listing Performance */}
-            <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-100/50">
+            <div className="bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-xl shadow-slate-100/50">
                 <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Top Listings Performance</h3>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Views vs Sales</p>
+                    <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Top Listings Performance</h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Views vs Sales</p>
                 </div>
                 <div className="space-y-6">
                     {performance.map((item, i) => (
                         <div key={i} className="group">
                             <div className="flex justify-between items-end mb-2">
-                                <span className="text-sm font-black text-slate-900 truncate max-w-[200px]">{item.title}</span>
+                                <span className="text-sm font-black text-ink-primary truncate max-w-[200px]">{item.title}</span>
                                 <div className="flex gap-4 text-[10px] font-black uppercase tracking-widest">
-                                    <span className="text-slate-400">{item.views} Views</span>
-                                    <span className="text-teal-600">{item.sales} Sales</span>
+                                    <span className="text-ink-tertiary">{item.views} Views</span>
+                                    <span className="text-accent-400">{item.sales} Sales</span>
                                 </div>
                             </div>
-                            <div className="w-full bg-slate-50 rounded-full h-3 overflow-hidden flex">
+                            <div className="w-full bg-surface-secondary rounded-full h-3 overflow-hidden flex">
                                 <div
-                                    className="h-full bg-slate-200 transition-all duration-500 group-hover:bg-indigo-100"
+                                    className="h-full bg-surface-tertiary transition-all duration-500 group-hover:bg-[#818cf8]/15"
                                     style={{ width: `${Math.min(100, (Number(item.views) / Math.max(...performance.map(p => Number(p.views)))) * 100)}%` }}
                                 />
                                 <div
-                                    className="h-full bg-teal-500 -ml-1 rounded-r-full"
+                                    className="h-full bg-accent-500/100 -ml-1 rounded-r-full"
                                     style={{ width: `${(Number(item.sales) / Math.max(1, Number(item.views))) * 100}%` }}
                                 />
                             </div>

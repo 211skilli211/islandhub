@@ -137,12 +137,12 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[600px]">
+        <div className="bg-surface-elevated dark:bg-ink-primary rounded-3xl border border-border-primary dark:border-border-primary shadow-2xl overflow-hidden flex flex-col h-[600px]">
             {/* Header */}
-            <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
-                <h3 className="text-lg font-black text-slate-900 dark:text-white">Messages</h3>
+            <div className="p-6 border-b border-border-primary dark:border-border-primary flex items-center justify-between bg-surface-secondary dark:bg-surface-tertiary/50">
+                <h3 className="text-lg font-black text-ink-primary dark:text-white">Messages</h3>
                 {onClose && (
-                    <button onClick={onClose} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl">
+                    <button onClick={onClose} className="p-2 hover:bg-surface-tertiary dark:hover:bg-surface-tertiary rounded-xl">
                         <span className="text-xl">✕</span>
                     </button>
                 )}
@@ -150,43 +150,43 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
 
             <div className="flex flex-1 overflow-hidden">
                 {/* Conversation List */}
-                <div className="w-1/3 border-r border-slate-100 dark:border-slate-800 overflow-y-auto">
+                <div className="w-1/3 border-r border-border-primary dark:border-border-primary overflow-y-auto">
                     {listingId && sellerId && (
                         <button
                             onClick={startNewConversation}
-                            className="w-full p-4 mx-auto m-4 bg-teal-600 hover:bg-teal-500 text-white rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2"
+                            className="w-full p-4 mx-auto m-4 bg-accent-500 hover:bg-accent-500/100 text-white rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2"
                         >
                             <span>💬</span> New Conversation
                         </button>
                     )}
                     
                     {conversations.length === 0 ? (
-                        <div className="p-8 text-center text-slate-400 text-sm">No conversations yet</div>
+                        <div className="p-8 text-center text-ink-tertiary text-sm">No conversations yet</div>
                     ) : (
                         conversations.map(conv => (
                             <button
                                 key={conv.conversation_id}
                                 onClick={() => setActiveConversation(conv.conversation_id)}
-                                className={`w-full p-4 text-left border-b border-slate-50 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${
-                                    activeConversation === conv.conversation_id ? 'bg-teal-50 dark:bg-teal-900/20 border-l-4 border-l-teal-500' : ''
+                                className={`w-full p-4 text-left border-b border-border-primary dark:border-border-primary hover:bg-surface-secondary dark:hover:bg-surface-tertiary/50 transition-colors ${
+                                    activeConversation === conv.conversation_id ? 'bg-accent-500/10 dark:bg-accent-800/20 border-l-4 border-l-teal-500' : ''
                                 }`}
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center text-sm font-bold text-slate-600 dark:text-slate-300">
+                                    <div className="w-10 h-10 bg-surface-tertiary dark:bg-surface-tertiary rounded-full flex items-center justify-center text-sm font-bold text-ink-secondary dark:text-ink-tertiary">
                                         {conv.participant_name?.charAt(0).toUpperCase() || '?'}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center justify-between">
-                                            <span className="font-bold text-slate-900 dark:text-white text-sm truncate">{conv.participant_name}</span>
+                                            <span className="font-bold text-ink-primary dark:text-white text-sm truncate">{conv.participant_name}</span>
                                             {conv.unread_count > 0 && (
-                                                <span className="bg-teal-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">{conv.unread_count}</span>
+                                                <span className="bg-accent-500/100 text-white text-[10px] font-black px-2 py-0.5 rounded-full">{conv.unread_count}</span>
                                             )}
                                         </div>
                                         {conv.listing_title && (
-                                            <p className="text-[10px] text-slate-500 truncate">{conv.listing_title}</p>
+                                            <p className="text-[10px] text-ink-tertiary0 truncate">{conv.listing_title}</p>
                                         )}
                                         {conv.last_message && (
-                                            <p className="text-xs text-slate-400 truncate mt-1">{conv.last_message}</p>
+                                            <p className="text-xs text-ink-tertiary truncate mt-1">{conv.last_message}</p>
                                         )}
                                     </div>
                                 </div>
@@ -205,12 +205,12 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                                         <div className={`max-w-[70%] ${msg.sender_id === user?.id ? 'order-2' : 'order-1'}`}>
                                             <div className={`px-5 py-3 rounded-3xl ${
                                                 msg.sender_id === user?.id 
-                                                    ? 'bg-teal-600 text-white rounded-br-md' 
-                                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-bl-md'
+                                                    ? 'bg-accent-500 text-white rounded-br-md' 
+                                                    : 'bg-surface-secondary dark:bg-surface-tertiary text-ink-primary dark:text-white rounded-bl-md'
                                             }`}>
                                                 <p className="text-sm">{msg.content}</p>
                                             </div>
-                                            <p className={`text-[10px] text-slate-400 mt-2 ${msg.sender_id === user?.id ? 'text-right' : 'text-left'}`}>
+                                            <p className={`text-[10px] text-ink-tertiary mt-2 ${msg.sender_id === user?.id ? 'text-right' : 'text-left'}`}>
                                                 {formatTime(msg.created_at)}
                                             </p>
                                         </div>
@@ -220,19 +220,19 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                             </div>
 
                             {/* Input */}
-                            <form onSubmit={sendMessage} className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+                            <form onSubmit={sendMessage} className="p-4 border-t border-border-primary dark:border-border-primary bg-surface-secondary dark:bg-surface-tertiary/50">
                                 <div className="flex gap-3">
                                     <input
                                         type="text"
                                         value={newMessage}
                                         onChange={(e) => setNewMessage(e.target.value)}
                                         placeholder="Type a message..."
-                                        className="flex-1 px-5 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm outline-none focus:border-teal-500"
+                                        className="flex-1 px-5 py-3 bg-surface-elevated dark:bg-ink-primary border border-border-primary dark:border-border-primary rounded-2xl text-sm outline-none focus:border-teal-500"
                                     />
                                     <button
                                         type="submit"
                                         disabled={sending || !newMessage.trim()}
-                                        className="px-6 py-3 bg-teal-600 hover:bg-teal-500 disabled:opacity-50 text-white rounded-2xl text-xs font-black uppercase tracking-widest"
+                                        className="px-6 py-3 bg-accent-500 hover:bg-accent-500/100 disabled:opacity-50 text-white rounded-2xl text-xs font-black uppercase tracking-widest"
                                     >
                                         Send
                                     </button>
@@ -240,7 +240,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                             </form>
                         </>
                     ) : (
-                        <div className="flex-1 flex items-center justify-center text-slate-400">
+                        <div className="flex-1 flex items-center justify-center text-ink-tertiary">
                             Select a conversation
                         </div>
                     )}

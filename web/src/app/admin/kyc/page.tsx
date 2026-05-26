@@ -89,7 +89,7 @@ export default function AdminKYCPage() {
                     {kycList.map((kyc) => (
                         <div 
                             key={kyc.kyc_id} 
-                            className="bg-surface-elevated dark:bg-surface-tertiary p-6 rounded-2xl border border-border-primary dark:border-slate-700 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                            className="bg-surface-elevated dark:bg-surface-tertiary p-6 rounded-2xl border border-border-primary dark:border-border-primary shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
                             onClick={() => setSelectedKYC(kyc)}
                         >
                             <div className="flex items-start justify-between mb-4">

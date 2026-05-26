@@ -182,7 +182,7 @@ function ProductsContent() {
                 <button
                     onClick={() => setSelectedStore('all')}
                     className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                        selectedStore === 'all' ? 'bg-accent-500/100 text-white' : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-slate-700'
+                        selectedStore === 'all' ? 'bg-accent-500/100 text-white' : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-border-primary'
                     }`}
                 >
                     All Stores ({products.length})
@@ -194,7 +194,7 @@ function ProductsContent() {
                             key={store.id}
                             onClick={() => setSelectedStore(String(store.id))}
                             className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                                selectedStore === String(store.id) ? 'bg-accent-500/100 text-white' : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-slate-700'
+                                selectedStore === String(store.id) ? 'bg-accent-500/100 text-white' : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-border-primary'
                             }`}
                         >
                             {store.name} ({count})
@@ -216,7 +216,7 @@ function ProductsContent() {
                                 <select
                                     value={formData.store_id}
                                     onChange={e => setFormData(prev => ({ ...prev, store_id: e.target.value }))}
-                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-border-primary rounded-xl font-bold text-ink-secondary dark:text-ink-tertiary outline-none focus:border-teal-500"
                                 >
                                     <option value="">Select store...</option>
                                     {stores.map(s => (
@@ -231,7 +231,7 @@ function ProductsContent() {
                                     value={formData.title}
                                     onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
                                     placeholder="e.g. Fine Sea Salt 500g"
-                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-border-primary rounded-xl font-bold text-ink-secondary dark:text-ink-tertiary outline-none focus:border-teal-500"
                                 />
                             </div>
                             <div>
@@ -241,7 +241,7 @@ function ProductsContent() {
                                     onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
                                     placeholder="Product description..."
                                     rows={3}
-                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500 resize-none"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-border-primary rounded-xl font-bold text-ink-secondary dark:text-ink-tertiary outline-none focus:border-teal-500 resize-none"
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
@@ -253,7 +253,7 @@ function ProductsContent() {
                                         value={formData.price}
                                         onChange={e => setFormData(prev => ({ ...prev, price: e.target.value }))}
                                         placeholder="0.00"
-                                        className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
+                                        className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-border-primary rounded-xl font-bold text-ink-secondary dark:text-ink-tertiary outline-none focus:border-teal-500"
                                     />
                                 </div>
                                 <div>
@@ -261,7 +261,7 @@ function ProductsContent() {
                                     <select
                                         value={formData.category}
                                         onChange={e => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                        className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
+                                        className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-border-primary rounded-xl font-bold text-ink-secondary dark:text-ink-tertiary outline-none focus:border-teal-500"
                                     >
                                         <option value="product">Product</option>
                                         <option value="food">Food</option>
@@ -276,14 +276,14 @@ function ProductsContent() {
                                     value={formData.image_url}
                                     onChange={e => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
                                     placeholder="https://..."
-                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-border-primary rounded-xl font-bold text-ink-secondary dark:text-ink-tertiary outline-none focus:border-teal-500"
                                 />
                             </div>
                         </div>
                         <div className="flex gap-3 mt-6">
                             <button
                                 onClick={() => { setShowForm(false); setEditingProduct(null); }}
-                                className="flex-1 py-3 text-ink-tertiary font-bold rounded-xl hover:bg-surface-secondary dark:hover:bg-slate-700 transition-colors"
+                                className="flex-1 py-3 text-ink-tertiary font-bold rounded-xl hover:bg-surface-secondary dark:hover:bg-surface-tertiary transition-colors"
                             >
                                 Cancel
                             </button>
@@ -307,8 +307,8 @@ function ProductsContent() {
                     ))}
                 </div>
             ) : filteredProducts.length === 0 ? (
-                <div className="text-center py-16 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700">
-                    <Package className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                <div className="text-center py-16 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary">
+                    <Package className="w-12 h-12 text-ink-tertiary mx-auto mb-4" />
                     <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-2">No Products</h3>
                     <p className="text-ink-tertiary mb-6">Add products to your partner stores.</p>
                     <button
@@ -322,13 +322,13 @@ function ProductsContent() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredProducts.map(product => (
-                        <div key={product.id} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 overflow-hidden hover:shadow-lg transition-shadow">
-                            <div className="h-40 bg-surface-secondary dark:bg-slate-700 overflow-hidden">
+                        <div key={product.id} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary overflow-hidden hover:shadow-lg transition-shadow">
+                            <div className="h-40 bg-surface-secondary dark:bg-surface-tertiary overflow-hidden">
                                 {getProductImage(product) ? (
                                     <img src={getProductImage(product)!} alt={product.title} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <ImageIcon className="w-8 h-8 text-slate-300" />
+                                        <ImageIcon className="w-8 h-8 text-ink-tertiary" />
                                     </div>
                                 )}
                             </div>
@@ -343,14 +343,14 @@ function ProductsContent() {
                                     <a
                                         href={`/store/${stores.find(s => s.id === product.store_id)?.slug || ''}`}
                                         target="_blank"
-                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-surface-secondary dark:bg-slate-700 text-ink-secondary dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-surface-tertiary dark:hover:bg-slate-600 transition-colors"
+                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary rounded-lg text-xs font-bold hover:bg-surface-tertiary dark:hover:bg-surface-tertiary transition-colors"
                                     >
                                         <Eye className="w-3 h-3" />
                                         View
                                     </a>
                                     <button
                                         onClick={() => handleEdit(product)}
-                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-sand-500/10 text-sand-500 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
+                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-sand-500/10 text-sand-500 rounded-lg text-xs font-bold hover:bg-sand-500/15 transition-colors"
                                     >
                                         <Edit className="w-3 h-3" />
                                         Edit

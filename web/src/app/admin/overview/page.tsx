@@ -16,7 +16,7 @@ function StatCard({ label, value, change, trend, icon, color }: {
           <p className="text-2xl font-bold text-ink-primary dark:text-sand-50">{value}</p>
           {change && (
             <div className={`flex items-center gap-1 mt-1.5 text-xs font-medium ${
-              trend === 'up' ? 'text-emerald-600 dark:text-emerald-400' :
+              trend === 'up' ? 'text-emerald-400 dark:text-emerald-400' :
               trend === 'down' ? 'text-red-600 dark:text-red-400' :
               'text-ink-tertiary dark:text-ink-tertiary'
             }`}>
@@ -146,7 +146,7 @@ export default function OverviewPage() {
             {(['7d', '30d', '90d'] as const).map(p => (
               <button key={p} onClick={() => setChartPeriod(p)}
                 className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
-                  chartPeriod === p ? 'bg-surface-elevated dark:bg-ocean-700 text-ink-primary dark:text-sand-50 shadow-sm' : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-slate-300'
+                  chartPeriod === p ? 'bg-surface-elevated dark:bg-ocean-700 text-ink-primary dark:text-sand-50 shadow-sm' : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
                 }`}>
                 {p === '7d' ? '7 Days' : p === '30d' ? '30 Days' : '90 Days'}
               </button>
@@ -162,7 +162,7 @@ export default function OverviewPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard label="Total Revenue" value="$18,420" change="+12.5% vs last" trend="up" color="bg-ocean-500/10 text-ocean-600 dark:text-ocean-400" icon={<DollarSign size={20} />} />
         <StatCard label="Total Orders" value="1,284" change="+8.2% vs last" trend="up" color="bg-sunset-500/10 text-sunset-600 dark:text-sunset-400" icon={<ShoppingCart size={20} />} />
-        <StatCard label="Active Stores" value="12" change="+2 new this week" trend="up" color="bg-amber-500/10 text-amber-600 dark:text-amber-400" icon={<Store size={20} />} />
+        <StatCard label="Active Stores" value="12" change="+2 new this week" trend="up" color="bg-sand-500/50/10 text-sand-500 dark:text-sand-400" icon={<Store size={20} />} />
         <StatCard label="Active Users" value="892" change="+3.1% vs last" trend="up" color="bg-purple-500/10 text-purple-600 dark:text-purple-400" icon={<Users size={20} />} />
       </div>
 
@@ -209,21 +209,21 @@ export default function OverviewPage() {
             <a href="/admin/broadcasts" className="flex items-center justify-between p-3 rounded-xl bg-surface-primary dark:bg-ocean-700/30 hover:bg-ocean-50 dark:hover:bg-ocean-700/50 transition-colors group">
               <div className="flex items-center gap-2">
                 <Radio size={14} className="text-ocean-500" />
-                <span className="text-xs font-medium text-ink-secondary dark:text-slate-300">Text Marquee</span>
+                <span className="text-xs font-medium text-ink-secondary dark:text-ink-tertiary">Text Marquee</span>
               </div>
-              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-500/10 px-2 py-0.5 rounded-full">Active</span>
+              <span className="text-[10px] text-emerald-400 dark:text-emerald-400 font-medium bg-emerald-500/100/10 px-2 py-0.5 rounded-full">Active</span>
             </a>
             <a href="/admin/marquee" className="flex items-center justify-between p-3 rounded-xl bg-surface-primary dark:bg-ocean-700/30 hover:bg-ocean-50 dark:hover:bg-ocean-700/50 transition-colors group">
               <div className="flex items-center gap-2">
                 <Activity size={14} className="text-sunset-500" />
-                <span className="text-xs font-medium text-ink-secondary dark:text-slate-300">Brand Marquee</span>
+                <span className="text-xs font-medium text-ink-secondary dark:text-ink-tertiary">Brand Marquee</span>
               </div>
               <span className="text-[10px] text-ink-tertiary dark:text-ink-tertiary font-medium">3 brands</span>
             </a>
             <a href="/admin/notifications" className="flex items-center justify-between p-3 rounded-xl bg-surface-primary dark:bg-ocean-700/30 hover:bg-ocean-50 dark:hover:bg-ocean-700/50 transition-colors group">
               <div className="flex items-center gap-2">
                 <Megaphone size={14} className="text-purple-500" />
-                <span className="text-xs font-medium text-ink-secondary dark:text-slate-300">Push Broadcast</span>
+                <span className="text-xs font-medium text-ink-secondary dark:text-ink-tertiary">Push Broadcast</span>
               </div>
               <span className="text-[10px] text-ink-tertiary dark:text-ink-tertiary font-medium">Send</span>
             </a>
@@ -245,14 +245,14 @@ export default function OverviewPage() {
             <a href="/admin/ads" className="flex items-center justify-between p-3 rounded-xl bg-surface-primary dark:bg-ocean-700/30 hover:bg-ocean-50 dark:hover:bg-ocean-700/50 transition-colors">
               <div className="flex items-center gap-2">
                 <Eye size={14} className="text-ocean-500" />
-                <span className="text-xs font-medium text-ink-secondary dark:text-slate-300">Active Ads</span>
+                <span className="text-xs font-medium text-ink-secondary dark:text-ink-tertiary">Active Ads</span>
               </div>
-              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-500/10 px-2 py-0.5 rounded-full">5 live</span>
+              <span className="text-[10px] text-emerald-400 dark:text-emerald-400 font-medium bg-emerald-500/100/10 px-2 py-0.5 rounded-full">5 live</span>
             </a>
             <a href="/admin/ads?tab=spaces" className="flex items-center justify-between p-3 rounded-xl bg-surface-primary dark:bg-ocean-700/30 hover:bg-ocean-50 dark:hover:bg-ocean-700/50 transition-colors">
               <div className="flex items-center gap-2">
-                <Target size={14} className="text-amber-500" />
-                <span className="text-xs font-medium text-ink-secondary dark:text-slate-300">Ad Spaces</span>
+                <Target size={14} className="text-sand-500" />
+                <span className="text-xs font-medium text-ink-secondary dark:text-ink-tertiary">Ad Spaces</span>
               </div>
               <span className="text-[10px] text-ink-tertiary dark:text-ink-tertiary font-medium">8 spaces</span>
             </a>
@@ -269,7 +269,7 @@ export default function OverviewPage() {
         {/* System Health */}
         <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl border border-border-primary dark:border-ocean-700 p-5">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/100/10 text-emerald-400 dark:text-emerald-400 flex items-center justify-center">
               <Activity size={18} />
             </div>
             <div>
@@ -287,13 +287,13 @@ export default function OverviewPage() {
             ].map(item => (
               <div key={item.label} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${item.status === 'operational' ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                  <div className={`w-2 h-2 rounded-full ${item.status === 'operational' ? 'bg-emerald-500/100' : 'bg-sand-500/50'}`} />
                   <span className="text-xs text-ink-secondary dark:text-ink-tertiary">{item.label}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] text-ink-tertiary dark:text-ink-tertiary">{item.uptime}</span>
                   <span className={`text-[10px] font-medium capitalize px-1.5 py-0.5 rounded ${
-                    item.status === 'operational' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10' : 'text-amber-600 dark:text-amber-400 bg-amber-500/10'
+                    item.status === 'operational' ? 'text-emerald-400 dark:text-emerald-400 bg-emerald-500/100/10' : 'text-sand-500 dark:text-sand-400 bg-sand-500/50/10'
                   }`}>{item.status}</span>
                 </div>
               </div>
@@ -341,7 +341,7 @@ export default function OverviewPage() {
                     <td className="px-3 py-3 text-sm text-ink-secondary dark:text-ink-tertiary">{store.orders}</td>
                     <td className="px-3 py-3 text-sm font-medium text-ink-primary dark:text-sand-50">{store.revenue}</td>
                     <td className="px-5 py-3 text-right">
-                      <span className={`text-xs font-medium ${store.growth.startsWith('+') ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>{store.growth}</span>
+                      <span className={`text-xs font-medium ${store.growth.startsWith('+') ? 'text-emerald-400 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>{store.growth}</span>
                     </td>
                   </tr>
                 ))}
@@ -367,9 +367,9 @@ export default function OverviewPage() {
             ].map((item, i) => {
               const colors: Record<string, string> = {
                 order: 'bg-ocean-500/10 text-ocean-600 dark:text-ocean-400',
-                store: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+                store: 'bg-emerald-500/100/10 text-emerald-400 dark:text-emerald-400',
                 user: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-                payout: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+                payout: 'bg-sand-500/50/10 text-sand-500 dark:text-sand-400',
                 delivery: 'bg-accent-500/10 text-accent-600 dark:text-accent-400',
                 report: 'bg-red-500/10 text-red-600 dark:text-red-400',
               };

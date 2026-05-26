@@ -127,17 +127,17 @@ export default function NotificationCenter() {
             {/* Toast */}
             {toast && (
                 <div className="fixed bottom-6 right-4 z-9999 animate-in fade-in slide-in-from-bottom-4 duration-300 max-w-[calc(100vw-32px)]">
-                    <div className="flex items-start gap-3 bg-white border border-slate-200 rounded-2xl shadow-2xl px-4 py-3 min-w-[260px] max-w-[340px]">
+                    <div className="flex items-start gap-3 bg-surface-elevated border border-border-primary rounded-2xl shadow-2xl px-4 py-3 min-w-[260px] max-w-[340px]">
                         <span className="text-2xl mt-0.5">{typeIcon[toast.type] || '🔔'}</span>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-black text-slate-900 truncate">{toast.title}</p>
+                            <p className="text-sm font-black text-ink-primary truncate">{toast.title}</p>
                             {toast.message && (
-                                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{toast.message}</p>
+                                <p className="text-xs text-ink-tertiary mt-0.5 line-clamp-2">{toast.message}</p>
                             )}
                         </div>
                         <button
                             onClick={() => setToast(null)}
-                            className="text-slate-300 hover:text-slate-500 shrink-0"
+                            className="text-ink-tertiary hover:text-ink-tertiary shrink-0"
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
@@ -152,14 +152,14 @@ export default function NotificationCenter() {
                 <button
                     id="notification-bell"
                     onClick={() => { setIsOpen(!isOpen); if (!isOpen) fetchNotifications(); }}
-                    className="relative text-slate-400 hover:text-teal-600 transition-colors p-2 hover:bg-slate-50 rounded-lg"
+                    className="relative text-ink-tertiary hover:text-accent-400 transition-colors p-2 hover:bg-surface-secondary rounded-lg"
                     aria-label="Notifications"
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                     {unreadCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-xs font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none">
+                        <span className="absolute -top-1 -right-1 bg-[#e11d48]/50 text-white text-xs font-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none">
                             {unreadCount > 99 ? '99+' : unreadCount}
                         </span>
                     )}
@@ -176,22 +176,22 @@ export default function NotificationCenter() {
                   - top-[68px]: just below the navbar (adjust if navbar height changes)
                 */}
                 {isOpen && (
-                    <div className="fixed left-1/2 -translate-x-1/2 top-[68px] w-[calc(100vw-32px)] max-w-sm sm:absolute sm:left-auto sm:translate-x-0 sm:right-0 sm:top-[52px] sm:w-80 sm:transform-none bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 z-1100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed left-1/2 -translate-x-1/2 top-[68px] w-[calc(100vw-32px)] max-w-sm sm:absolute sm:left-auto sm:translate-x-0 sm:right-0 sm:top-[52px] sm:w-80 sm:transform-none bg-surface-elevated rounded-2xl shadow-2xl ring-1 ring-black/5 z-1100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                         {/* Header */}
-                        <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-                            <h3 className="font-black text-slate-900 text-sm">Notifications</h3>
+                        <div className="px-4 py-3 border-b border-border-primary flex items-center justify-between">
+                            <h3 className="font-black text-ink-primary text-sm">Notifications</h3>
                             <div className="flex items-center gap-3">
                                 {unreadCount > 0 && (
                                     <button
                                         onClick={markAllRead}
-                                        className="text-xs font-bold text-teal-600 hover:text-teal-700 transition-colors"
+                                        className="text-xs font-bold text-accent-400 hover:text-accent-500 transition-colors"
                                     >
                                         Mark all read
                                     </button>
                                 )}
                                 <a
                                     href="/notifications"
-                                    className="text-xs font-bold text-slate-400 hover:text-slate-600 transition-colors"
+                                    className="text-xs font-bold text-ink-tertiary hover:text-ink-secondary transition-colors"
                                 >
                                     View all
                                 </a>
@@ -202,34 +202,34 @@ export default function NotificationCenter() {
                         <div className="max-h-[360px] overflow-y-auto divide-y divide-slate-50">
                             {loading ? (
                                 <div className="flex items-center justify-center py-10">
-                                    <div className="w-6 h-6 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+                                    <div className="w-6 h-6 border-2 border-accent-400 border-t-transparent rounded-full animate-spin" />
                                 </div>
                             ) : notifications.length === 0 ? (
                                 <div className="py-10 text-center">
                                     <p className="text-3xl mb-2">🔔</p>
-                                    <p className="text-sm font-bold text-slate-400">No notifications yet</p>
+                                    <p className="text-sm font-bold text-ink-tertiary">No notifications yet</p>
                                 </div>
                             ) : (
                                 notifications.slice(0, 10).map((notif) => (
                                     <button
                                         key={String(notif.id)}
                                         onClick={() => !notif.is_read && markOneRead(notif.id)}
-                                        className={`w-full text-left px-4 py-3 hover:bg-slate-50 transition-colors flex items-start gap-3 ${!notif.is_read ? 'bg-teal-50/40' : ''}`}
+                                        className={`w-full text-left px-4 py-3 hover:bg-surface-secondary transition-colors flex items-start gap-3 ${!notif.is_read ? 'bg-accent-500/10/40' : ''}`}
                                     >
                                         <span className="text-xl shrink-0 mt-0.5">{typeIcon[notif.type] || '🔔'}</span>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-start justify-between gap-2">
-                                                <p className={`text-sm leading-tight ${notif.is_read ? 'font-semibold text-slate-600' : 'font-black text-slate-900'}`}>
+                                                <p className={`text-sm leading-tight ${notif.is_read ? 'font-semibold text-ink-secondary' : 'font-black text-ink-primary'}`}>
                                                     {notif.title}
                                                 </p>
                                                 {!notif.is_read && (
-                                                    <span className="w-2 h-2 rounded-full bg-teal-500 shrink-0 mt-1.5" />
+                                                    <span className="w-2 h-2 rounded-full bg-accent-500/100 shrink-0 mt-1.5" />
                                                 )}
                                             </div>
                                             {notif.message && (
-                                                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{notif.message}</p>
+                                                <p className="text-xs text-ink-tertiary mt-0.5 line-clamp-2">{notif.message}</p>
                                             )}
-                                            <p className="text-[10px] text-slate-400 mt-1 font-bold">{timeAgo(notif.created_at)}</p>
+                                            <p className="text-[10px] text-ink-tertiary mt-1 font-bold">{timeAgo(notif.created_at)}</p>
                                         </div>
                                     </button>
                                 ))
@@ -238,10 +238,10 @@ export default function NotificationCenter() {
 
                         {/* Footer */}
                         {notifications.length > 0 && (
-                            <div className="p-3 border-t border-slate-100">
+                            <div className="p-3 border-t border-border-primary">
                                 <a
                                     href="/notifications"
-                                    className="block text-center text-xs font-black text-teal-600 hover:text-teal-700 py-2 hover:bg-teal-50 rounded-xl transition-colors"
+                                    className="block text-center text-xs font-black text-accent-400 hover:text-accent-500 py-2 hover:bg-accent-500/10 rounded-xl transition-colors"
                                 >
                                     See all notifications →
                                 </a>

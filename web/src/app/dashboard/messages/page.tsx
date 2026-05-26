@@ -15,7 +15,7 @@ const ChatWindow = dynamicImport(
     {
         loading: () => (
             <div className="h-full flex flex-col items-center justify-center bg-surface-primary">
-                <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading Chat...</p>
             </div>
         ),
@@ -97,7 +97,7 @@ function MessageCenterPage() {
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-surface-primary">
             <div className="text-center">
-                <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Opening Secure Channel...</p>
             </div>
         </div>
@@ -137,7 +137,7 @@ function MessageCenterPage() {
                         {/* New Chat Modal */}
                         {showNewChat && (
                             <div className="p-4 border-b border-border-primary bg-accent-500/10">
-                                <p className="text-sm font-bold text-teal-800 mb-3">Start New Conversation</p>
+                                <p className="text-sm font-bold text-accent-600 mb-3">Start New Conversation</p>
                                 <input
                                     type="text"
                                     value={newChatUser}
@@ -183,7 +183,7 @@ function MessageCenterPage() {
                                     {initialOtherUserId && !conversations.find(c => c.other_user_id === parseInt(initialOtherUserId)) && (
                                         <button
                                             onClick={() => setSelectedUser({ other_user_id: parseInt(initialOtherUserId), other_user_name: initialOtherUserName })}
-                                            className={`w-full p-8 text-left transition-all ${selectedUser?.other_user_id === parseInt(initialOtherUserId) ? 'bg-indigo-50/50 border-r-4 border-indigo-500' : ''}`}
+                                            className={`w-full p-8 text-left transition-all ${selectedUser?.other_user_id === parseInt(initialOtherUserId) ? 'bg-[#818cf8]/10/50 border-r-4 border-[#818cf8]' : ''}`}
                                         >
                                             <div className="flex items-center gap-4">
                                                 <div className="w-12 h-12 bg-[#818cf8] rounded-2xl flex items-center justify-center text-white font-black">
@@ -191,7 +191,7 @@ function MessageCenterPage() {
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <h3 className="font-black text-ink-primary truncate">{initialOtherUserName}</h3>
-                                                    <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mt-1">Starting New Chat</p>
+                                                    <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mt-1">Starting New Chat</p>
                                                 </div>
                                             </div>
                                         </button>
@@ -251,7 +251,7 @@ function MessageCenterPage() {
                             />
                         ) : (
                             <div className="h-full flex flex-col items-center justify-center p-20 text-center">
-                                <div className="w-24 h-24 bg-surface-elevated rounded-full flex items-center justify-center text-4xl shadow-xl shadow-black/10/50 mb-8 border border-slate-50">
+                                <div className="w-24 h-24 bg-surface-elevated rounded-full flex items-center justify-center text-4xl shadow-xl shadow-black/10/50 mb-8 border border-border-primary">
                                     💬
                                 </div>
                                 <h3 className="text-3xl font-black text-ink-primary tracking-tight mb-4">Secure Island Messaging</h3>
@@ -273,7 +273,7 @@ export default function MessagesPage() {
         <Suspense
             fallback={
                 <div className="h-full flex flex-col items-center justify-center bg-surface-primary">
-                    <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mb-4"></div>
+                    <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mb-4"></div>
                     <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading Messages...</p>
                 </div>
             }

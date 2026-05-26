@@ -109,7 +109,7 @@ export default function CategoryHero({
             {/* Abstract Decorative Elements */}
             {!assetUrl && !banner && (
                 <>
-                    <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-surface-elevated/10 rounded-full blur-3xl"></div>
                     <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
                 </>
             )}
@@ -124,7 +124,7 @@ export default function CategoryHero({
                         ) : icon}
                     </div>
                     <div className="flex-1 text-center md:text-left">
-                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                        <div className="inline-block px-3 py-1 bg-surface-elevated/20 backdrop-blur-sm rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">
                             {displaySubtitle}
                         </div>
                         <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight drop-shadow-md">

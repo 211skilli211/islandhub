@@ -67,9 +67,9 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'approved': return 'bg-green-100 text-green-700 border-green-200';
-            case 'submitted': return 'bg-amber-100 text-amber-700 border-amber-200';
+            case 'submitted': return 'bg-sand-500/10 text-sand-500 border-sand-500/20';
             case 'rejected': return 'bg-red-100 text-red-700 border-red-200';
-            default: return 'bg-slate-100 text-slate-500 border-slate-200';
+            default: return 'bg-surface-secondary text-ink-tertiary0 border-border-primary';
         }
     };
 
@@ -84,9 +84,9 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
 
     if (loading) {
         return (
-            <div className="bg-white rounded-2xl border border-slate-100 p-6 animate-pulse">
-                <div className="h-4 bg-slate-200 rounded w-1/3 mb-4"></div>
-                <div className="h-2 bg-slate-200 rounded w-full"></div>
+            <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6 animate-pulse">
+                <div className="h-4 bg-surface-tertiary rounded w-1/3 mb-4"></div>
+                <div className="h-2 bg-surface-tertiary rounded w-full"></div>
             </div>
         );
     }
@@ -95,22 +95,22 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
 
     if (compact) {
         return (
-            <div className="bg-white rounded-2xl border border-slate-100 p-4">
+            <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4">
                 <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-bold text-slate-700">Compliance</span>
+                    <span className="text-sm font-bold text-ink-secondary">Compliance</span>
                     <span className={`text-xs font-black uppercase px-2 py-1 rounded-full ${
-                        summary.isCompliant ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                        summary.isCompliant ? 'bg-green-100 text-green-700' : 'bg-sand-500/10 text-sand-500'
                     }`}>
                         {summary.isCompliant ? 'Complete' : 'Incomplete'}
                     </span>
                 </div>
-                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-surface-secondary rounded-full overflow-hidden">
                     <div 
-                        className="h-full bg-teal-500 rounded-full transition-all"
+                        className="h-full bg-accent-500/100 rounded-full transition-all"
                         style={{ width: `${summary.percentage}%` }}
                     />
                 </div>
-                <p className="text-xs text-slate-400 mt-2">{summary.approved}/{summary.total} requirements met</p>
+                <p className="text-xs text-ink-tertiary mt-2">{summary.approved}/{summary.total} requirements met</p>
             </div>
         );
     }
@@ -118,25 +118,25 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
     return (
         <div className="space-y-6">
             {/* Summary Card */}
-            <div className="bg-white rounded-2xl border border-slate-100 p-6">
+            <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h3 className="text-lg font-black text-slate-800">Vendor Compliance</h3>
-                        <p className="text-sm text-slate-500">Complete all requirements to verify your business</p>
+                        <h3 className="text-lg font-black text-ink-primary">Vendor Compliance</h3>
+                        <p className="text-sm text-ink-tertiary0">Complete all requirements to verify your business</p>
                     </div>
                     <div className={`text-center px-4 py-2 rounded-xl ${
-                        summary.isCompliant ? 'bg-green-50 border border-green-200' : 'bg-amber-50 border border-amber-200'
+                        summary.isCompliant ? 'bg-green-50 border border-green-200' : 'bg-sand-500/5 border border-sand-500/20'
                     }`}>
-                        <p className="text-2xl font-black text-slate-800">{summary.percentage}%</p>
-                        <p className="text-xs text-slate-500">Complete</p>
+                        <p className="text-2xl font-black text-ink-primary">{summary.percentage}%</p>
+                        <p className="text-xs text-ink-tertiary0">Complete</p>
                     </div>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="h-3 bg-slate-100 rounded-full overflow-hidden mb-4">
+                <div className="h-3 bg-surface-secondary rounded-full overflow-hidden mb-4">
                     <div 
                         className={`h-full rounded-full transition-all ${
-                            summary.isCompliant ? 'bg-green-500' : 'bg-teal-500'
+                            summary.isCompliant ? 'bg-green-500' : 'bg-accent-500/100'
                         }`}
                         style={{ width: `${summary.percentage}%` }}
                     />
@@ -144,48 +144,48 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
 
                 {/* Stats */}
                 <div className="grid grid-cols-4 gap-4 text-center">
-                    <div className="p-3 bg-slate-50 rounded-xl">
+                    <div className="p-3 bg-surface-secondary rounded-xl">
                         <p className="text-lg font-black text-green-600">{summary.approved}</p>
-                        <p className="text-xs text-slate-400">Approved</p>
+                        <p className="text-xs text-ink-tertiary">Approved</p>
                     </div>
-                    <div className="p-3 bg-slate-50 rounded-xl">
-                        <p className="text-lg font-black text-amber-600">{summary.pending}</p>
-                        <p className="text-xs text-slate-400">Pending</p>
+                    <div className="p-3 bg-surface-secondary rounded-xl">
+                        <p className="text-lg font-black text-sand-500">{summary.pending}</p>
+                        <p className="text-xs text-ink-tertiary">Pending</p>
                     </div>
-                    <div className="p-3 bg-slate-50 rounded-xl">
+                    <div className="p-3 bg-surface-secondary rounded-xl">
                         <p className="text-lg font-black text-red-600">{summary.rejected}</p>
-                        <p className="text-xs text-slate-400">Rejected</p>
+                        <p className="text-xs text-ink-tertiary">Rejected</p>
                     </div>
-                    <div className="p-3 bg-slate-50 rounded-xl">
-                        <p className="text-lg font-black text-slate-600">{summary.notStarted}</p>
-                        <p className="text-xs text-slate-400">Not Started</p>
+                    <div className="p-3 bg-surface-secondary rounded-xl">
+                        <p className="text-lg font-black text-ink-secondary">{summary.notStarted}</p>
+                        <p className="text-xs text-ink-tertiary">Not Started</p>
                     </div>
                 </div>
             </div>
 
             {/* Requirements List */}
-            <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
-                <div className="p-4 bg-slate-50 border-b border-slate-100">
-                    <h3 className="font-black text-slate-700">Requirements</h3>
+            <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+                <div className="p-4 bg-surface-secondary border-b border-border-primary">
+                    <h3 className="font-black text-ink-secondary">Requirements</h3>
                 </div>
                 <div className="divide-y divide-slate-100">
                     {items.map((item) => (
-                        <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50">
+                        <div key={item.id} className="p-4 flex items-center justify-between hover:bg-surface-secondary">
                             <div className="flex items-center gap-4">
                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
                                     item.status === 'approved' ? 'bg-green-100 text-green-600' :
-                                    item.status === 'submitted' ? 'bg-amber-100 text-amber-600' :
+                                    item.status === 'submitted' ? 'bg-sand-500/10 text-sand-500' :
                                     item.status === 'rejected' ? 'bg-red-100 text-red-600' :
-                                    'bg-slate-100 text-slate-400'
+                                    'bg-surface-secondary text-ink-tertiary'
                                 }`}>
                                     {getStatusIcon(item.status)}
                                 </div>
                                 <div>
-                                    <p className="font-bold text-slate-700">
+                                    <p className="font-bold text-ink-secondary">
                                         {item.name}
                                         {item.is_required && <span className="text-red-500 ml-1">*</span>}
                                     </p>
-                                    <p className="text-xs text-slate-400">{item.description}</p>
+                                    <p className="text-xs text-ink-tertiary">{item.description}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -195,7 +195,7 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
                                 {item.status === 'pending' && (
                                     <Link 
                                         href={`/dashboard?tab=compliance&requirement=${item.requirement_id}`}
-                                        className="px-4 py-2 bg-teal-600 text-white text-xs font-bold rounded-lg hover:bg-teal-700"
+                                        className="px-4 py-2 bg-accent-500 text-white text-xs font-bold rounded-lg hover:bg-accent-600"
                                     >
                                         Start
                                     </Link>

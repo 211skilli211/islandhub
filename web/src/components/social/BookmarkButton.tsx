@@ -61,8 +61,8 @@ export default function BookmarkButton({
             className={`
                 inline-flex items-center justify-center rounded-full transition-all
                 ${bookmarked
-                    ? 'bg-teal-100 text-teal-600'
-                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                    ? 'bg-accent-500/15 text-accent-400'
+                    : 'bg-surface-secondary text-ink-tertiary0 hover:bg-surface-tertiary'
                 }
                 ${sizeClasses[size]}
             `}

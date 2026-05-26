@@ -26,24 +26,24 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[6000] flex items-center justify-center p-4"
+                    className="fixed inset-0 bg-ink-primary/40 backdrop-blur-sm z-[6000] flex items-center justify-center p-4"
                     onClick={onClose}
                 >
                     <motion.div
                         initial={{ scale: 0.95, y: 20 }}
                         animate={{ scale: 1, y: 0 }}
                         exit={{ scale: 0.95, y: 20 }}
-                        className="bg-white rounded-[2.5rem] w-full max-w-lg shadow-2xl overflow-hidden"
+                        className="bg-surface-elevated rounded-[2.5rem] w-full max-w-lg shadow-2xl overflow-hidden"
                         onClick={e => e.stopPropagation()}
                     >
-                        <div className="p-8 border-b border-slate-100">
-                            <h3 className="text-2xl font-black text-slate-800 uppercase italic">Assign Driver 🛰️</h3>
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">FOR MISSION: {jobTitle}</p>
+                        <div className="p-8 border-b border-border-primary">
+                            <h3 className="text-2xl font-black text-ink-primary uppercase italic">Assign Driver 🛰️</h3>
+                            <p className="text-xs font-bold text-ink-tertiary uppercase tracking-widest mt-1">FOR MISSION: {jobTitle}</p>
                         </div>
 
                         <div className="p-6 max-h-[400px] overflow-y-auto space-y-3">
                             {drivers.length === 0 ? (
-                                <div className="py-12 text-center text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                                <div className="py-12 text-center text-ink-tertiary font-bold uppercase text-[10px] tracking-widest">
                                     No online drivers available
                                 </div>
                             ) : (
@@ -51,18 +51,18 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                                     <button
                                         key={driver.user_id}
                                         onClick={() => onAssign(driver.user_id)}
-                                        className="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between group hover:border-indigo-600 hover:bg-indigo-50 transition-all"
+                                        className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary flex items-center justify-between group hover:border-[#818cf8] hover:bg-[#818cf8]/10 transition-all"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-2xl shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                            <div className="w-12 h-12 bg-surface-elevated rounded-xl flex items-center justify-center text-2xl shadow-sm group-hover:bg-[#818cf8] group-hover:text-white transition-colors">
                                                 {driver.vehicle_category === 'scooter' ? '🛵' : driver.vehicle_category === 'van' ? '🚐' : '🚗'}
                                             </div>
                                             <div className="text-left">
-                                                <p className="font-black text-slate-800 group-hover:text-indigo-900">{driver.name}</p>
-                                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">{driver.make} {driver.model}</p>
+                                                <p className="font-black text-ink-primary group-hover:text-indigo-900">{driver.name}</p>
+                                                <p className="text-[10px] text-ink-tertiary0 font-bold uppercase tracking-tight">{driver.make} {driver.model}</p>
                                             </div>
                                         </div>
-                                        <div className="px-4 py-2 bg-white rounded-xl text-[9px] font-black uppercase text-indigo-600 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all">
+                                        <div className="px-4 py-2 bg-surface-elevated rounded-xl text-[9px] font-black uppercase text-[#818cf8] border border-[#818cf8]/20 group-hover:bg-[#818cf8] group-hover:text-white group-hover:border-[#818cf8] transition-all">
                                             Select
                                         </div>
                                     </button>
@@ -70,10 +70,10 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                             )}
                         </div>
 
-                        <div className="p-8 bg-slate-50 flex justify-end">
+                        <div className="p-8 bg-surface-secondary flex justify-end">
                             <button
                                 onClick={onClose}
-                                className="px-6 py-3 bg-white text-slate-400 rounded-xl font-black text-[10px] uppercase tracking-widest hover:text-slate-600 transition-colors"
+                                className="px-6 py-3 bg-surface-elevated text-ink-tertiary rounded-xl font-black text-[10px] uppercase tracking-widest hover:text-ink-secondary transition-colors"
                             >
                                 Cancel
                             </button>

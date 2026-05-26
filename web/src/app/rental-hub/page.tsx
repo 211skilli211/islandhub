@@ -66,7 +66,7 @@ export default function RentalHubPage() {
             {/* Category Grid */}
             <section id="explore" className="max-w-7xl mx-auto px-6 py-24">
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 rounded-full text-[#818cf8] text-[10px] font-black uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#818cf8]/10 rounded-full text-[#818cf8] text-[10px] font-black uppercase tracking-widest mb-4">
                         📍 Select Your Sector
                     </div>
                     <h2 className="text-4xl md:text-6xl font-black text-ink-primary mb-4 tracking-tighter italic">
@@ -117,7 +117,7 @@ export default function RentalHubPage() {
                     <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter italic uppercase">
                         Ready to Explore?
                     </h2>
-                    <p className="text-xl text-slate-300 font-medium mb-12 italic">
+                    <p className="text-xl text-ink-tertiary font-medium mb-12 italic">
                         Access the full Caribbean marketplace through our unified directory
                     </p>
                     <Link

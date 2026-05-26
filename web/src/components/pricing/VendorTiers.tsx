@@ -70,23 +70,23 @@ export default function VendorTiers() {
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
                     className={`relative p-8 rounded-[2.5rem] border-2 transition-all ${tier.highlighted
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-2xl scale-105 z-10'
-                            : 'bg-white text-slate-900 border-slate-100 hover:border-slate-300'
+                            ? 'bg-ink-primary text-white border-border-primary shadow-2xl scale-105 z-10'
+                            : 'bg-surface-elevated text-ink-primary border-border-primary hover:border-border-primary'
                         }`}
                 >
                     {tier.highlighted && (
-                        <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-teal-500 text-white text-xs font-black uppercase tracking-widest rounded-full">
+                        <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent-500/100 text-white text-xs font-black uppercase tracking-widest rounded-full">
                             Most Popular
                         </span>
                     )}
 
                     <div className="mb-8">
-                        <h3 className={`text-xl font-black mb-2 ${tier.highlighted ? 'text-white' : 'text-slate-900'}`}>
+                        <h3 className={`text-xl font-black mb-2 ${tier.highlighted ? 'text-white' : 'text-ink-primary'}`}>
                             {tier.name}
                         </h3>
                         <div className="flex items-baseline gap-1">
                             <span className="text-4xl font-black">${tier.price}</span>
-                            <span className={`text-sm font-bold ${tier.highlighted ? 'text-slate-400' : 'text-slate-400'}`}>
+                            <span className={`text-sm font-bold ${tier.highlighted ? 'text-ink-tertiary' : 'text-ink-tertiary'}`}>
                                 /{tier.period}
                             </span>
                         </div>
@@ -95,8 +95,8 @@ export default function VendorTiers() {
                     <ul className="space-y-4 mb-8">
                         {tier.features.map((feature) => (
                             <li key={feature} className="flex items-start gap-3 text-sm font-medium">
-                                <span className={tier.highlighted ? 'text-teal-400' : 'text-teal-600'}>✓</span>
-                                <span className={tier.highlighted ? 'text-slate-300' : 'text-slate-600'}>
+                                <span className={tier.highlighted ? 'text-accent-400' : 'text-accent-400'}>✓</span>
+                                <span className={tier.highlighted ? 'text-ink-tertiary' : 'text-ink-secondary'}>
                                     {feature}
                                 </span>
                             </li>
@@ -106,8 +106,8 @@ export default function VendorTiers() {
                     <Link
                         href={`/register?tier=${tier.id}`}
                         className={`block w-full py-4 rounded-xl font-black text-center transition-all ${tier.highlighted
-                                ? 'bg-teal-500 hover:bg-teal-400 text-white'
-                                : 'bg-slate-100 hover:bg-slate-200 text-slate-900'
+                                ? 'bg-accent-500/100 hover:bg-accent-400 text-white'
+                                : 'bg-surface-secondary hover:bg-surface-tertiary text-ink-primary'
                             }`}
                     >
                         Choose {tier.name}

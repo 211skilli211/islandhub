@@ -59,14 +59,14 @@ export default function FollowButton({
 
     const variantClasses = {
         primary: following
-            ? 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-            : 'bg-teal-600 text-white hover:bg-teal-700',
+            ? 'bg-surface-tertiary text-ink-secondary hover:bg-surface-tertiary'
+            : 'bg-accent-500 text-white hover:bg-accent-600',
         outline: following
-            ? 'border-2 border-slate-300 text-slate-600 hover:border-slate-400'
-            : 'border-2 border-teal-600 text-teal-600 hover:bg-teal-50',
+            ? 'border-2 border-border-primary text-ink-secondary hover:border-border-primary'
+            : 'border-2 border-teal-600 text-accent-400 hover:bg-accent-500/10',
         ghost: following
-            ? 'text-slate-600 hover:bg-slate-100'
-            : 'text-teal-600 hover:bg-teal-50'
+            ? 'text-ink-secondary hover:bg-surface-secondary'
+            : 'text-accent-400 hover:bg-accent-500/10'
     };
 
     return (

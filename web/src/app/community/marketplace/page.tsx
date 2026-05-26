@@ -32,10 +32,10 @@ export default function MarketplacePage() {
                     <input 
                         type="text" 
                         placeholder="Search listings..." 
-                        className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
+                        className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
                     />
                 </div>
-                <button className="px-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl text-ink-secondary dark:text-slate-300 hover:border-teal-500">
+                <button className="px-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl text-ink-secondary dark:text-ink-tertiary hover:border-teal-500">
                     <Filter className="w-5 h-5" />
                 </button>
             </div>
@@ -43,7 +43,7 @@ export default function MarketplacePage() {
             {/* Categories */}
             <div className="flex flex-wrap gap-2">
                 {categories.map((cat) => (
-                    <button key={cat} className="px-4 py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-secondary dark:text-slate-300 rounded-xl font-bold text-sm hover:bg-accent-500 hover:text-white transition-all">
+                    <button key={cat} className="px-4 py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary rounded-xl font-bold text-sm hover:bg-accent-500 hover:text-white transition-all">
                         {cat}
                     </button>
                 ))}
@@ -52,11 +52,11 @@ export default function MarketplacePage() {
             {/* Listings Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {listings.map((item, idx) => (
-                    <div key={idx} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl overflow-hidden border border-border-primary dark:border-slate-700 hover:border-teal-500 transition-all cursor-pointer">
-                        <div className="aspect-square bg-surface-secondary dark:bg-slate-700"></div>
+                    <div key={idx} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl overflow-hidden border border-border-primary dark:border-border-primary hover:border-teal-500 transition-all cursor-pointer">
+                        <div className="aspect-square bg-surface-secondary dark:bg-surface-tertiary"></div>
                         <div className="p-4">
                             <h3 className="font-bold text-ink-primary dark:text-white">{item.title}</h3>
-                            <p className="text-accent-400 dark:text-teal-400 font-black text-xl mt-1">
+                            <p className="text-accent-400 dark:text-accent-400 font-black text-xl mt-1">
                                 {typeof item.price === 'number' ? `$${item.price}` : item.price}
                             </p>
                             <div className="flex items-center justify-between mt-3 text-sm text-ink-tertiary dark:text-ink-tertiary">

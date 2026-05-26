@@ -159,14 +159,14 @@ export default function DriverApp() {
             <div className="bg-surface-tertiary p-4 sticky top-0 z-50">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-xl font-black text-teal-400">🚕 Driver</h1>
+                        <h1 className="text-xl font-black text-accent-400">🚕 Driver</h1>
                         <p className="text-xs text-ink-tertiary">{user?.name}</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <button 
                             onClick={updateLocation}
                             disabled={locationUpdating}
-                            className={`p-2 rounded-full ${locationUpdating ? 'bg-slate-700' : 'bg-slate-700 hover:bg-slate-600'}`}
+                            className={`p-2 rounded-full ${locationUpdating ? 'bg-surface-tertiary' : 'bg-surface-tertiary hover:bg-surface-tertiary'}`}
                         >
                             <span className="text-lg">📍</span>
                         </button>
@@ -174,7 +174,7 @@ export default function DriverApp() {
                             onClick={toggleOnline}
                             className={`px-6 py-3 rounded-2xl font-black uppercase text-sm ${
                                 status.is_online 
-                                    ? 'bg-rose-500 hover:bg-rose-600' 
+                                    ? 'bg-[#e11d48]/50 hover:bg-[#e11d48]' 
                                     : 'bg-accent-500/100 hover:bg-accent-500'
                             }`}
                         >
@@ -197,7 +197,7 @@ export default function DriverApp() {
                 <div className="p-4 bg-gradient-to-r from-teal-600 to-teal-700">
                     <div className="bg-surface-tertiary/50 rounded-2xl p-4">
                         <div className="flex justify-between items-start mb-3">
-                            <span className="px-3 py-1 bg-accent-500/100/20 text-teal-300 rounded-full text-xs font-bold uppercase">
+                            <span className="px-3 py-1 bg-accent-500/100/20 text-accent-300 rounded-full text-xs font-bold uppercase">
                                 {currentTrip.status.replace('_', ' ')}
                             </span>
                             <span className="text-xl font-black">${currentTrip.fare_amount}</span>
@@ -205,11 +205,11 @@ export default function DriverApp() {
                         
                         <div className="space-y-2 mb-4">
                             <div className="flex items-start gap-2">
-                                <span className="text-teal-400 mt-1">●</span>
+                                <span className="text-accent-400 mt-1">●</span>
                                 <p className="text-sm">{currentTrip.pickup_address}</p>
                             </div>
                             <div className="flex items-start gap-2">
-                                <span className="text-rose-400 mt-1">●</span>
+                                <span className="text-[#fb7185] mt-1">●</span>
                                 <p className="text-sm">{currentTrip.dropoff_address}</p>
                             </div>
                         </div>
@@ -279,7 +279,7 @@ export default function DriverApp() {
             <div className="p-4 grid grid-cols-2 gap-4">
                 <div className="bg-surface-tertiary rounded-2xl p-4">
                     <p className="text-xs text-ink-tertiary uppercase font-bold mb-1">Today&apos;s Trips</p>
-                    <p className="text-2xl font-black text-teal-400">{earnings?.total_trips || 0}</p>
+                    <p className="text-2xl font-black text-accent-400">{earnings?.total_trips || 0}</p>
                 </div>
                 <div className="bg-surface-tertiary rounded-2xl p-4">
                     <p className="text-xs text-ink-tertiary uppercase font-bold mb-1">Earnings</p>
@@ -306,7 +306,7 @@ export default function DriverApp() {
             </div>
 
             {/* Bottom Navigation */}
-            <div className="fixed bottom-0 left-0 right-0 bg-surface-tertiary border-t border-slate-700 p-2 flex justify-around">
+            <div className="fixed bottom-0 left-0 right-0 bg-surface-tertiary border-t border-border-primary p-2 flex justify-around">
                 {[
                     { id: 'home', icon: '🏠', label: 'Home' },
                     { id: 'trips', icon: '📋', label: 'Trips' },
@@ -317,7 +317,7 @@ export default function DriverApp() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
                         className={`flex flex-col items-center p-2 rounded-xl ${
-                            activeTab === tab.id ? 'text-teal-400' : 'text-ink-tertiary'
+                            activeTab === tab.id ? 'text-accent-400' : 'text-ink-tertiary'
                         }`}
                     >
                         <span className="text-xl">{tab.icon}</span>

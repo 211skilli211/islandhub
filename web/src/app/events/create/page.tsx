@@ -221,14 +221,14 @@ export default function CreateEventPage() {
               <h2 className="text-lg font-black text-ink-primary dark:text-sand-50">Event Details</h2>
 
               <div>
-                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Event Title *</label>
+                <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Event Title *</label>
                 <input type="text" value={title} onChange={e => setTitle(e.target.value)}
                   placeholder="e.g. Caribbean Music Festival 2026"
                   className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Description</label>
+                <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Description</label>
                 <textarea value={description} onChange={e => setDescription(e.target.value)}
                   placeholder="Tell people what your event is about..." rows={4}
                   className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50 resize-none" />
@@ -236,28 +236,28 @@ export default function CreateEventPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Category</label>
+                  <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Category</label>
                   <select value={category} onChange={e => setCategory(e.target.value)}
                     className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50">
                     {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Total Capacity</label>
+                  <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Total Capacity</label>
                   <input type="number" value={totalCapacity} onChange={e => setTotalCapacity(e.target.value)} min="1"
                     className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Venue *</label>
+                <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Venue *</label>
                 <input type="text" value={venue} onChange={e => setVenue(e.target.value)}
                   placeholder="e.g. Warner Park Sporting Complex"
                   className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Address</label>
+                <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Address</label>
                 <input type="text" value={address} onChange={e => setAddress(e.target.value)}
                   placeholder="e.g. Basseterre, St. Kitts"
                   className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
@@ -265,12 +265,12 @@ export default function CreateEventPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Start Date *</label>
+                  <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Start Date *</label>
                   <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}
                     className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">Start Time</label>
+                  <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Start Time</label>
                   <input type="time" value={startTime} onChange={e => setStartTime(e.target.value)}
                     className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
                 </div>
@@ -278,12 +278,12 @@ export default function CreateEventPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">End Date</label>
+                  <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">End Date</label>
                   <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
                     className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-1">End Time</label>
+                  <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">End Time</label>
                   <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)}
                     className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
                 </div>
@@ -291,7 +291,7 @@ export default function CreateEventPage() {
 
               {/* Image Uploads */}
               <div className="border-t border-border-primary dark:border-ocean-700 pt-5">
-                <h3 className="text-sm font-bold text-ink-secondary dark:text-slate-300 mb-3">Event Images</h3>
+                <h3 className="text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-3">Event Images</h3>
 
                 {/* Cover Image */}
                 <div className="mb-4">
@@ -390,7 +390,7 @@ export default function CreateEventPage() {
                   </div>
                   <div className="mt-4 p-3 bg-surface-primary dark:bg-ocean-900 rounded-lg flex items-center justify-between">
                     <div>
-                      <span className="font-bold text-sm text-slate-800 dark:text-sand-50">{tier.name || 'Unnamed Tier'}</span>
+                      <span className="font-bold text-sm text-ink-primary dark:text-sand-50">{tier.name || 'Unnamed Tier'}</span>
                       {tier.description && <span className="text-xs text-ink-tertiary ml-2">— {tier.description}</span>}
                     </div>
                     <span className="font-black text-purple-600 dark:text-purple-400">${tier.price || '0'} XCD</span>
@@ -406,7 +406,7 @@ export default function CreateEventPage() {
 
             <div className="flex gap-3">
               <button onClick={() => goToStep(1)}
-                className="flex-1 py-3 bg-surface-secondary dark:bg-ocean-800 text-ink-secondary dark:text-slate-300 rounded-xl font-bold hover:bg-surface-tertiary dark:hover:bg-ocean-700 transition-colors">
+                className="flex-1 py-3 bg-surface-secondary dark:bg-ocean-800 text-ink-secondary dark:text-ink-tertiary rounded-xl font-bold hover:bg-surface-tertiary dark:hover:bg-ocean-700 transition-colors">
                 ← Back
               </button>
               <button onClick={() => goToStep(3)}
@@ -444,37 +444,37 @@ export default function CreateEventPage() {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-tertiary">Title</span>
-                  <span className="font-bold text-slate-800 dark:text-sand-50">{title || '—'}</span>
+                  <span className="font-bold text-ink-primary dark:text-sand-50">{title || '—'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-tertiary">Category</span>
-                  <span className="font-bold text-slate-800 dark:text-sand-50">{CATEGORIES.find(c => c.value === category)?.label}</span>
+                  <span className="font-bold text-ink-primary dark:text-sand-50">{CATEGORIES.find(c => c.value === category)?.label}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-tertiary">Venue</span>
-                  <span className="font-bold text-slate-800 dark:text-sand-50">{venue || '—'}</span>
+                  <span className="font-bold text-ink-primary dark:text-sand-50">{venue || '—'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-tertiary">Start</span>
-                  <span className="font-bold text-slate-800 dark:text-sand-50">{startDate ? `${startDate} at ${startTime}` : '—'}</span>
+                  <span className="font-bold text-ink-primary dark:text-sand-50">{startDate ? `${startDate} at ${startTime}` : '—'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-tertiary">End</span>
-                  <span className="font-bold text-slate-800 dark:text-sand-50">{endDate ? `${endDate} at ${endTime}` : '—'}</span>
+                  <span className="font-bold text-ink-primary dark:text-sand-50">{endDate ? `${endDate} at ${endTime}` : '—'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink-tertiary">Capacity</span>
-                  <span className="font-bold text-slate-800 dark:text-sand-50">{totalCapacity}</span>
+                  <span className="font-bold text-ink-primary dark:text-sand-50">{totalCapacity}</span>
                 </div>
               </div>
 
               <div className="border-t border-border-primary dark:border-ocean-700 pt-4">
-                <h3 className="font-bold text-sm text-ink-secondary dark:text-slate-300 mb-3">Ticket Tiers ({tiers.filter(t => t.name.trim()).length})</h3>
+                <h3 className="font-bold text-sm text-ink-secondary dark:text-ink-tertiary mb-3">Ticket Tiers ({tiers.filter(t => t.name.trim()).length})</h3>
                 <div className="space-y-2">
                   {tiers.filter(t => t.name.trim()).map((tier, idx) => (
                     <div key={idx} className="flex items-center justify-between p-3 bg-surface-primary dark:bg-ocean-900 rounded-lg">
                       <div>
-                        <span className="font-bold text-sm text-slate-800 dark:text-sand-50">{tier.name}</span>
+                        <span className="font-bold text-sm text-ink-primary dark:text-sand-50">{tier.name}</span>
                         <span className="text-xs text-ink-tertiary ml-2">× {tier.quantity} tickets</span>
                       </div>
                       <span className="font-black text-purple-600 dark:text-purple-400">${tier.price} XCD</span>
@@ -495,7 +495,7 @@ export default function CreateEventPage() {
 
             <div className="flex gap-3">
               <button onClick={() => goToStep(2)}
-                className="flex-1 py-3 bg-surface-secondary dark:bg-ocean-800 text-ink-secondary dark:text-slate-300 rounded-xl font-bold hover:bg-surface-tertiary dark:hover:bg-ocean-700 transition-colors">
+                className="flex-1 py-3 bg-surface-secondary dark:bg-ocean-800 text-ink-secondary dark:text-ink-tertiary rounded-xl font-bold hover:bg-surface-tertiary dark:hover:bg-ocean-700 transition-colors">
                 ← Edit Tickets
               </button>
               <button onClick={handleSubmit} disabled={uploading}

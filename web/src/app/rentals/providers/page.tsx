@@ -67,7 +67,7 @@ export default function RentalProvidersPage() {
                             placeholder="Find a rental provider..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full px-8 py-5 bg-surface-primary border-2 border-border-primary rounded-4xl text-ink-primary focus:outline-none focus:border-indigo-500 transition-all font-bold placeholder-slate-300 shadow-sm"
+                            className="w-full px-8 py-5 bg-surface-primary border-2 border-border-primary rounded-4xl text-ink-primary focus:outline-none focus:border-[#818cf8] transition-all font-bold placeholder-slate-300 shadow-sm"
                         />
                     </div>
                     <Link href="/rentals" className="px-8 py-5 bg-surface-tertiary text-white rounded-4xl font-black uppercase tracking-widest text-[10px] hover:bg-surface-tertiary transition-all">
@@ -108,13 +108,13 @@ export default function RentalProvidersPage() {
                                         {vendor.logo_url ? (
                                             <img src={getImageUrl(vendor.logo_url)} alt={vendor.name} className="w-full h-full object-cover" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-3xl font-black text-slate-300 uppercase">
+                                            <div className="w-full h-full flex items-center justify-center text-3xl font-black text-ink-tertiary uppercase">
                                                 {vendor.name.charAt(0)}
                                             </div>
                                         )}
                                     </div>
                                     <h3 className="text-xl font-black text-ink-primary mb-1 group-hover:text-[#818cf8] transition-colors uppercase tracking-tight">{vendor.name}</h3>
-                                    <p className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-4">{vendor.subtype || vendor.category}</p>
+                                    <p className="text-[10px] font-black text-[#a5b4fc]0 uppercase tracking-widest mb-4">{vendor.subtype || vendor.category}</p>
                                     <div className="flex items-center gap-2">
                                         <span className="text-yellow-400">★</span>
                                         <span className="text-sm font-black text-ink-primary">{vendor.rating || '4.9'}</span>

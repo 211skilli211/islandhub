@@ -247,7 +247,7 @@ function DashboardPageContent() {
                                             key !== 'image' && (
                                                 <div key={key}>
                                                     <p className="text-[8px] font-black text-ink-tertiary uppercase tracking-widest">{key.replace('_', ' ')}</p>
-                                                    <p className="text-[10px] font-bold text-slate-800">{String(val)}</p>
+                                                    <p className="text-[10px] font-bold text-ink-primary">{String(val)}</p>
                                                 </div>
                                             )
                                         ))}
@@ -276,7 +276,7 @@ function DashboardPageContent() {
             </AnimatePresence>
 
             {/* Header */}
-            <div className="bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-slate-700 pt-12 pb-16">
+            <div className="bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary pt-12 pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                         <div>
@@ -285,7 +285,7 @@ function DashboardPageContent() {
                                 {subscription && subscription.status === 'active' && (
                                     <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${subscription.tier_name === 'enterprise' ? 'bg-[#818cf8] text-white' :
                                         subscription.tier_name === 'premium' ? 'bg-accent-500 text-white' :
-                                            subscription.tier_name === 'vip' ? 'bg-amber-500 text-white' :
+                                            subscription.tier_name === 'vip' ? 'bg-sand-500/50 text-white' :
                                                 'bg-surface-tertiary text-ink-secondary'
                                         }`}>
                                         {subscription.tier_name}
@@ -298,7 +298,7 @@ function DashboardPageContent() {
                                 )}
                             </div>
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mt-4">
-                                <p className="text-ink-tertiary dark:text-slate-300 font-medium">Welcome back, {user?.name} 👋</p>
+                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Welcome back, {user?.name} 👋</p>
                                 {viewMode === 'vendor' && stores.length > 0 && (
                                     <div className="flex flex-wrap items-center gap-4">
                                         {/* Store Selector */}
@@ -306,7 +306,7 @@ function DashboardPageContent() {
                                             <select
                                                 value={activeStoreId || ''}
                                                 onChange={(e) => setActiveStoreId(Number(e.target.value))}
-                                                className="appearance-none bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-xl px-4 py-2 pr-10 text-[10px] font-black uppercase tracking-widest hover:border-teal-500 focus:outline-none transition-all shadow-sm cursor-pointer"
+                                                className="appearance-none bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-xl px-4 py-2 pr-10 text-[10px] font-black uppercase tracking-widest hover:border-teal-500 focus:outline-none transition-all shadow-sm cursor-pointer"
                                             >
                                                 {stores.map(s => {
                                                     const sid = s.store_id || s.id;
@@ -358,27 +358,27 @@ function DashboardPageContent() {
                         className="grid grid-cols-2 md:grid-cols-4 gap-4"
                     >
                         <Link href="/create?type=product" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-amber-50 rounded-2xl group-hover:scale-110 transition-all">📦</span>
+                            <span className="text-3xl p-3 bg-sand-500/5 rounded-2xl group-hover:scale-110 transition-all">📦</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-slate-800 tracking-widest">Add Product</p>
+                                <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Add Product</p>
                                 <p className="text-[9px] text-ink-tertiary font-medium">List a new item</p>
                             </div>
                         </Link>
                         <Link href="/create?type=service" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-indigo-50 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
+                            <span className="text-3xl p-3 bg-[#818cf8]/10 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-slate-800 tracking-widest">Post Service</p>
+                                <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Post Service</p>
                                 <p className="text-[9px] text-ink-tertiary font-medium">Offer your skills</p>
                             </div>
                         </Link>
                         <Link href="/campaigns/new" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-rose-50 rounded-2xl group-hover:scale-110 transition-all">📣</span>
+                            <span className="text-3xl p-3 bg-[#e11d48]/5 rounded-2xl group-hover:scale-110 transition-all">📣</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-slate-800 tracking-widest">Start Campaign</p>
+                                <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Start Campaign</p>
                                 <p className="text-[9px] text-ink-tertiary font-medium">Raise island funds</p>
                             </div>
                         </Link>
-                        <Link href="/start" className="p-6 bg-surface-tertiary rounded-4xl shadow-xl shadow-black/10 border border-slate-800 hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-3 group text-center">
+                        <Link href="/start" className="p-6 bg-surface-tertiary rounded-4xl shadow-xl shadow-black/10 border border-border-primary hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-3 group text-center">
                             <span className="text-3xl p-3 bg-surface-tertiary rounded-2xl group-hover:rotate-12 transition-all">✨</span>
                             <div>
                                 <p className="text-[10px] font-black uppercase text-white tracking-widest">Creation Hub</p>
@@ -450,14 +450,14 @@ function DashboardPageContent() {
 
                 {/* Subscription Management Banner */}
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
-                    <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-4xl border border-indigo-100 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-4xl border border-[#818cf8]/20 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-6">
                             <div className="w-16 h-16 bg-surface-elevated rounded-2xl shadow-sm flex items-center justify-center text-3xl">🎫</div>
                             <div>
-                                <h3 className="text-xl font-black text-slate-800 dark:text-white">You're on the <span className="text-[#818cf8] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
-                                <p className="text-ink-tertiary dark:text-slate-300 font-medium">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
+                                <h3 className="text-xl font-black text-ink-primary dark:text-white">You're on the <span className="text-[#818cf8] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
+                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
                                 {subscription.cancel_at_period_end && (
-                                    <p className="text-rose-500 text-xs font-black uppercase mt-1">Pending Cancellation</p>
+                                    <p className="text-[#e11d48] text-xs font-black uppercase mt-1">Pending Cancellation</p>
                                 )}
                             </div>
                         </div>
@@ -480,7 +480,7 @@ function DashboardPageContent() {
                                             }
                                         }
                                     }}
-                                    className="px-6 py-3 bg-rose-50 text-rose-600 rounded-xl font-bold hover:bg-[#e11d48]/10 transition-all"
+                                    className="px-6 py-3 bg-[#e11d48]/5 text-[#e11d48] rounded-xl font-bold hover:bg-[#e11d48]/10 transition-all"
                                 >
                                     Cancel
                                 </button>
@@ -505,13 +505,13 @@ function DashboardPageContent() {
                         {activeTab === 'activity' && viewMode !== 'buyer' && (
                             <>
                                 <div className="flex justify-between items-center mb-8">
-                                    <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">
+                                    <h2 className="text-2xl font-black text-ink-primary dark:text-white tracking-tight">
                                         {viewMode === 'vendor' ? 'My Active Listings' : 'Transaction History'}
                                     </h2>
                                     {viewMode === 'vendor' && (
                                         <Link
                                             href="/create"
-                                            className="px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white rounded-xl font-black uppercase text-[10px] tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-teal-100"
+                                            className="px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white rounded-xl font-black uppercase text-[10px] tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-accent-500/10"
                                         >
                                             <span>+</span> Create New Listing
                                         </Link>
@@ -537,13 +537,13 @@ function DashboardPageContent() {
                                                 />
                                             ))
                                         ) : (
-                                            <div className="col-span-full py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-slate-700">
+                                            <div className="col-span-full py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-border-primary">
                                                 <div className="text-5xl mb-4">✨</div>
-                                                <h3 className="text-xl font-black text-slate-800 dark:text-white">No Listings Found</h3>
-                                                <p className="text-ink-tertiary dark:text-slate-300 font-medium mb-8">Start your journey by creating your first showcase.</p>
+                                                <h3 className="text-xl font-black text-ink-primary dark:text-white">No Listings Found</h3>
+                                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium mb-8">Start your journey by creating your first showcase.</p>
                                                 <Link
                                                     href="/create"
-                                                    className="px-8 py-4 bg-accent-500 text-white dark:bg-accent-500/100 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20 shadow-teal-100"
+                                                    className="px-8 py-4 bg-accent-500 text-white dark:bg-accent-500/100 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20 shadow-accent-500/10"
                                                 >
                                                     Deploy Listing
                                                 </Link>
@@ -560,22 +560,22 @@ function DashboardPageContent() {
                                                     const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
                                                         pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
                                                         accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
-                                                        in_progress: { icon: '🚚', color: 'bg-indigo-100 text-indigo-700', label: 'In Transit' },
+                                                        in_progress: { icon: '🚚', color: 'bg-[#818cf8]/15 text-[#6366f1]', label: 'In Transit' },
                                                         completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
-                                                        cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-rose-700', label: 'Cancelled' }
+                                                        cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                                                     };
                                                     const status = statusConfig[request.transport_status] || statusConfig.pending;
                                                     const serviceIcon = request.service_type === 'taxi' ? '🚖' : request.service_type === 'pickup' ? '🛻' : '📦';
 
                                                     return (
-                                                        <div key={request.id} className="p-6 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                                                        <div key={request.id} className="p-6 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl shadow-sm hover:shadow-md transition-all">
                                                             <div className="flex justify-between items-start">
                                                                 <div className="flex items-center gap-4">
                                                                     <div className="w-14 h-14 bg-surface-primary rounded-xl flex items-center justify-center text-2xl">
                                                                         {serviceIcon}
                                                                     </div>
                                                                     <div>
-                                                                        <div className="font-black text-slate-800">{request.title}</div>
+                                                                        <div className="font-black text-ink-primary">{request.title}</div>
                                                                         <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">
                                                                             {new Date(request.created_at).toLocaleString()}
                                                                         </div>
@@ -592,7 +592,7 @@ function DashboardPageContent() {
                                                             {request.driver_id && ['accepted', 'in_progress'].includes(request.transport_status) && (
                                                                 <button
                                                                     onClick={() => setChatRequest(request)}
-                                                                    className="mt-4 w-full py-3 bg-indigo-50 text-[#818cf8] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-100 transition-all flex items-center justify-center gap-2"
+                                                                    className="mt-4 w-full py-3 bg-[#818cf8]/10 text-[#818cf8] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#818cf8]/15 transition-all flex items-center justify-center gap-2"
                                                                 >
                                                                     💬 Chat with Driver
                                                                 </button>
@@ -601,7 +601,7 @@ function DashboardPageContent() {
                                                             {request.transport_status === 'completed' && !request.is_rated && (
                                                                 <button
                                                                     onClick={() => setRatingRequest(request)}
-                                                                    className="mt-4 w-full py-3 bg-amber-50 text-amber-600 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-sand-500/10 transition-all flex items-center justify-center gap-2"
+                                                                    className="mt-4 w-full py-3 bg-sand-500/5 text-sand-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-sand-500/10 transition-all flex items-center justify-center gap-2"
                                                                 >
                                                                     ⭐ Rate Driver
                                                                 </button>
@@ -627,7 +627,7 @@ function DashboardPageContent() {
                                                             preparing: { icon: '👨‍🍳', color: 'bg-blue-100 text-blue-700', label: 'Preparing' },
                                                             ready: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Ready' },
                                                             fulfilled: { icon: '🎉', color: 'bg-purple-100 text-purple-700', label: 'Completed' },
-                                                            cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-rose-700', label: 'Cancelled' }
+                                                            cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                                                         };
                                                         const status = statusConfig[order.status] || statusConfig.pending;
                                                         const itemCount = order.items ? order.items.length : 0;
@@ -638,7 +638,7 @@ function DashboardPageContent() {
                                                                     <div className="flex items-center gap-4">
                                                                         <div className="w-12 h-12 bg-accent-500/10 rounded-xl flex items-center justify-center text-xl">🛒</div>
                                                                         <div>
-                                                                            <div className="font-black text-slate-800">Order #{order.order_id}</div>
+                                                                            <div className="font-black text-ink-primary">Order #{order.order_id}</div>
                                                                             <div className="text-xs text-ink-tertiary">
                                                                                 {itemCount} item{itemCount !== 1 ? 's' : ''} • {new Date(order.created_at).toLocaleDateString()}
                                                                             </div>
@@ -665,9 +665,9 @@ function DashboardPageContent() {
                                                         const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
                                                             pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
                                                             accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
-                                                            in_progress: { icon: '🚚', color: 'bg-indigo-100 text-indigo-700', label: 'In Transit' },
+                                                            in_progress: { icon: '🚚', color: 'bg-[#818cf8]/15 text-[#6366f1]', label: 'In Transit' },
                                                             completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
-                                                            cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-rose-700', label: 'Cancelled' }
+                                                            cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                                                         };
                                                         const status = statusConfig[request.transport_status] || statusConfig.pending;
                                                         const serviceIcon = request.service_type === 'taxi' ? '🚖' : request.service_type === 'pickup' ? '🛻' : '📦';
@@ -677,7 +677,7 @@ function DashboardPageContent() {
                                                                 <div className="flex items-center gap-4">
                                                                     <div className="w-12 h-12 bg-surface-primary rounded-xl flex items-center justify-center text-xl shadow-sm">{serviceIcon}</div>
                                                                     <div>
-                                                                        <div className="font-black text-slate-800 dark:text-white capitalize">{request.service_type} Request</div>
+                                                                        <div className="font-black text-ink-primary dark:text-white capitalize">{request.service_type} Request</div>
                                                                         <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">#{request.id} • {new Date(request.created_at).toLocaleDateString()}</div>
                                                                     </div>
                                                                 </div>
@@ -698,11 +698,11 @@ function DashboardPageContent() {
                                                 <div className="space-y-3 mt-6">
                                                     <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Donations</p>
                                                     {donations.map((donation: any) => (
-                                                        <div key={donation.transaction_id || donation.id} className="p-6 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl flex justify-between items-center hover:bg-surface-elevated transition-colors">
+                                                        <div key={donation.transaction_id || donation.id} className="p-6 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl flex justify-between items-center hover:bg-surface-elevated transition-colors">
                                                             <div className="flex items-center gap-4">
-                                                                <div className="w-12 h-12 bg-surface-elevated dark:bg-slate-700 rounded-xl shadow-sm flex items-center justify-center text-xl">🎁</div>
+                                                                <div className="w-12 h-12 bg-surface-elevated dark:bg-surface-tertiary rounded-xl shadow-sm flex items-center justify-center text-xl">🎁</div>
                                                                 <div>
-                                                                    <div className="font-black text-slate-800">{donation.campaign_title || 'Community Contribution'}</div>
+                                                                    <div className="font-black text-ink-primary">{donation.campaign_title || 'Community Contribution'}</div>
                                                                     <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">{new Date(donation.created_at).toLocaleDateString()}</div>
                                                                 </div>
                                                             </div>
@@ -714,10 +714,10 @@ function DashboardPageContent() {
 
                                             {/* Empty State */}
                                             {orders.length === 0 && donations.length === 0 && myRequests.length === 0 && (
-                                                <div className="py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-slate-700">
+                                                <div className="py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-border-primary">
                                                     <div className="text-5xl mb-4">🏝️</div>
-                                                    <h3 className="text-xl font-black text-slate-800 dark:text-white">Quiet Waters...</h3>
-                                                    <p className="text-ink-tertiary dark:text-slate-300 font-medium">Support a cause or shop to see your activity history here.</p>
+                                                    <h3 className="text-xl font-black text-ink-primary dark:text-white">Quiet Waters...</h3>
+                                                    <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Support a cause or shop to see your activity history here.</p>
                                                     <Link href="/listings" className="mt-6 inline-block px-8 py-4 bg-accent-500 text-white dark:bg-accent-500/100 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20">
                                                         Browse Hub
                                                     </Link>

@@ -37,7 +37,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
     automotive: { bg: 'bg-surface-secondary', text: 'text-ink-secondary', border: 'border-border-primary' },
     health: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-200' },
     marine: { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200' },
-    events: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200' },
+    events: { bg: 'bg-[#818cf8]/10', text: 'text-[#6366f1]', border: 'border-[#818cf8]/20' },
     digital: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200' },
 };
 
@@ -66,7 +66,7 @@ function StarRating({ rating }: { rating: string }) {
             {[...Array(5)].map((_, i) => (
                 <svg
                     key={i}
-                    className={`w-3.5 h-3.5 ${i < fullStars ? 'text-amber-400' : (i === fullStars && hasHalf) ? 'text-amber-400' : 'text-slate-200'}`}
+                    className={`w-3.5 h-3.5 ${i < fullStars ? 'text-sand-400' : (i === fullStars && hasHalf) ? 'text-sand-400' : 'text-ink-tertiary'}`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                 >
@@ -137,7 +137,7 @@ function ServiceCard({ store, index }: { store: Store; index: number }) {
                     {/* Trust signals */}
                     <div className="flex items-center gap-3 mb-4 text-[10px] text-ink-tertiary font-medium">
                         <span className="inline-flex items-center gap-1">
-                            <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                             Verified
@@ -161,8 +161,8 @@ function ServiceCard({ store, index }: { store: Store; index: number }) {
 
                     {/* CTA footer */}
                     <div className="flex items-center justify-between pt-4 border-t border-border-primary">
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/100 animate-pulse" />
                             Available
                         </span>
                         <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl group-hover:bg-blue-700 transition-colors shadow-sm group-hover:shadow-md group-hover:shadow-blue-500/20">
@@ -367,7 +367,7 @@ export default function ServicesHubPage() {
                 {!loading && totalStores === 0 && (
                     <div className="text-center py-24">
                         <div className="w-20 h-20 mx-auto mb-6 bg-surface-secondary rounded-2xl flex items-center justify-center">
-                            <svg className="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <svg className="w-10 h-10 text-ink-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
@@ -527,7 +527,7 @@ export default function ServicesHubPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-slate-800" />
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-slate-600/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-surface-tertiary/20 rounded-full blur-3xl" />
 
                 <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
                     <motion.div

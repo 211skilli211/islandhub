@@ -530,7 +530,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             <span>{theme.icon}</span>
                                         )}
                                     </div>
-                                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-surface-elevated">
+                                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500/100 rounded-full flex items-center justify-center border-2 border-surface-elevated">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -699,7 +699,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             </div>
                                                             <span className="text-sm font-medium">{addon.name}</span>
                                                         </div>
-                                                        <span className={`text-sm font-medium ${isSelected ? 'text-slate-300' : 'text-ink-tertiary'}`}>+${addon.price}</span>
+                                                        <span className={`text-sm font-medium ${isSelected ? 'text-ink-tertiary' : 'text-ink-tertiary'}`}>+${addon.price}</span>
                                                     </button>
                                                 );
                                             })}
@@ -715,7 +715,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => {
                                                 const isAvailable = listing.metadata?.appointment_config?.days?.includes(day);
                                                 return (
-                                                    <span key={day} className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${isAvailable ? 'bg-emerald-500 text-white' : 'bg-surface-tertiary text-ink-tertiary'}`}>
+                                                    <span key={day} className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${isAvailable ? 'bg-emerald-500/100 text-white' : 'bg-surface-tertiary text-ink-tertiary'}`}>
                                                         {day.charAt(0)}
                                                     </span>
                                                 );
@@ -768,7 +768,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         <p className="text-xs text-ink-tertiary mb-1">Rating</p>
                                         <div className="flex items-center justify-center gap-1">
                                             <span className="text-sm font-semibold text-ink-primary">{(listing.metadata as any)?.client_rating || '4.9'}</span>
-                                            <span className="text-amber-500 text-sm">★</span>
+                                            <span className="text-sand-500 text-sm">★</span>
                                         </div>
                                     </div>
                                 </div>
@@ -789,7 +789,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 {listing.type === 'service' && (
                                     <button
                                         onClick={() => setIsBookingModalOpen(true)}
-                                        className={`w-full p-4 rounded-xl border transition-all text-left ${selectedDate && selectedSlot ? 'bg-indigo-50 border-indigo-200' : 'bg-surface-secondary border-border-primary hover:border-border-primary'}`}
+                                        className={`w-full p-4 rounded-xl border transition-all text-left ${selectedDate && selectedSlot ? 'bg-[#818cf8]/10 border-[#818cf8]/20' : 'bg-surface-secondary border-border-primary hover:border-border-primary'}`}
                                     >
                                         {selectedDate && selectedSlot ? (
                                             <div>
@@ -837,7 +837,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 <h3 className="text-lg font-semibold text-ink-primary mb-4">Our Specialties</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {Array.isArray(listing.metadata.specialties) && listing.metadata.specialties.map((spec: any, idx: number) => (
-                                        <div key={idx} className="p-3 bg-indigo-50 rounded-xl">
+                                        <div key={idx} className="p-3 bg-[#818cf8]/10 rounded-xl">
                                             <p className="font-medium text-indigo-900 text-sm">{spec.name || spec}</p>
                                             {spec.description && <p className="text-xs text-[#a78bfa]/70 mt-1">{spec.description}</p>}
                                         </div>
@@ -929,7 +929,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         }
                                     }}
                                     disabled={!selectedDate || !selectedSlot}
-                                    className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-500/100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     Confirm & Request
                                 </button>
@@ -982,15 +982,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                         key={idx}
                                                         onClick={() => isSelected ? setSelectedAddons(prev => prev.filter((a: any) => a.name !== addon.name)) : setSelectedAddons(prev => [...prev, { name: addon.name, price: addon.price }])}
                                                         className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all ${isSelected
-                                                                ? 'border-rose-500 bg-rose-50'
+                                                                ? 'border-[#e11d48] bg-[#e11d48]/5'
                                                                 : 'border-border-primary hover:border-border-primary'
                                                             }`}
                                                     >
                                                         <div className="flex items-center gap-3">
-                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-[#e11d48] border-rose-500' : 'border-border-primary'}`}>
+                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-[#e11d48] border-[#e11d48]' : 'border-border-primary'}`}>
                                                                 {isSelected && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}
                                                             </div>
-                                                            <span className={`text-sm font-medium ${isSelected ? 'text-rose-700' : 'text-ink-secondary'}`}>{addon.name}</span>
+                                                            <span className={`text-sm font-medium ${isSelected ? 'text-[#be123c]' : 'text-ink-secondary'}`}>{addon.name}</span>
                                                         </div>
                                                         <span className="text-sm font-medium text-ink-tertiary">+${addon.price}</span>
                                                     </button>

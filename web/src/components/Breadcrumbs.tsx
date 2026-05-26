@@ -23,20 +23,20 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         <nav className="flex mb-4 text-xs font-bold uppercase tracking-widest overflow-x-auto whitespace-nowrap scrollbar-hide" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
                 <li>
-                    <Link href="/" className="text-slate-400 hover:text-teal-600 transition-colors">
+                    <Link href="/" className="text-ink-tertiary hover:text-accent-400 transition-colors">
                         Home
                     </Link>
                 </li>
 
                 {defaultItems.map((item, index) => (
                     <li key={index} className="flex items-center space-x-2">
-                        <span className="text-slate-300">/</span>
+                        <span className="text-ink-tertiary">/</span>
                         {item.href && index < defaultItems.length - 1 ? (
-                            <Link href={item.href} className="text-slate-400 hover:text-teal-600 transition-colors">
+                            <Link href={item.href} className="text-ink-tertiary hover:text-accent-400 transition-colors">
                                 {item.label}
                             </Link>
                         ) : (
-                            <span className="text-teal-600">
+                            <span className="text-accent-400">
                                 {item.label}
                             </span>
                         )}

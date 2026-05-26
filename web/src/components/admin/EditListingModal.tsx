@@ -90,7 +90,7 @@ export default function EditListingModal({ listing, onClose, onSuccess }: EditLi
     if (!listing) return null;
 
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 bg-ink-primary/60 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200">
             <div className="bg-(--bg-primary) w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col" style={{ boxShadow: 'var(--shadow)' }}>
                 <div className="p-4 sm:p-6 border-b border-(--border) flex justify-between items-center bg-(--bg-secondary)">
                     <div>
@@ -180,7 +180,7 @@ export default function EditListingModal({ listing, onClose, onSuccess }: EditLi
                         )}
 
                         {/* Photos Section */}
-                        <div className="pt-6 border-t border-slate-100">
+                        <div className="pt-6 border-t border-border-primary">
                             <MediaManager
                                 initialMedia={files}
                                 onChange={setFiles}
@@ -191,7 +191,7 @@ export default function EditListingModal({ listing, onClose, onSuccess }: EditLi
 
                     {/* Metadata Dynamic Section */}
                     {subType && (
-                        <div className="pt-4 border-t border-slate-100 mt-6">
+                        <div className="pt-4 border-t border-border-primary mt-6">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="text-xl">🛠️</span>
                                 <h3 className="text-sm font-bold text-(--text-primary)">Specific Details ({subType})</h3>

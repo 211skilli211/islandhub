@@ -29,9 +29,9 @@ const PLACEHOLDER_HERO = '/placeholders/food-hero.jpg';
 const DIETARY_BADGES: Record<string, { label: string; emoji: string; color: string; darkColor: string }> = {
     vegan: { label: 'Vegan', emoji: '🌱', color: 'bg-green-100 text-green-700 border-green-200', darkColor: 'dark:bg-green-900/40 dark:text-green-300 dark:border-green-700' },
     vegetarian: { label: 'Vegetarian', emoji: '🥬', color: 'bg-lime-100 text-lime-700 border-lime-200', darkColor: 'dark:bg-lime-900/40 dark:text-lime-300 dark:border-lime-700' },
-    gf: { label: 'Gluten-Free', emoji: '🌾', color: 'bg-amber-100 text-amber-700 border-amber-200', darkColor: 'dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700' },
-    gluten_free: { label: 'Gluten-Free', emoji: '🌾', color: 'bg-amber-100 text-amber-700 border-amber-200', darkColor: 'dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700' },
-    halal: { label: 'Halal', emoji: '☪️', color: 'bg-teal-100 text-teal-700 border-teal-200', darkColor: 'dark:bg-teal-900/40 dark:text-teal-300 dark:border-teal-700' },
+    gf: { label: 'Gluten-Free', emoji: '🌾', color: 'bg-sand-500/10 text-sand-500 border-sand-500/20', darkColor: 'dark:bg-sand-800/40 dark:text-sand-300 dark:border-amber-700' },
+    gluten_free: { label: 'Gluten-Free', emoji: '🌾', color: 'bg-sand-500/10 text-sand-500 border-sand-500/20', darkColor: 'dark:bg-sand-800/40 dark:text-sand-300 dark:border-amber-700' },
+    halal: { label: 'Halal', emoji: '☪️', color: 'bg-accent-500/15 text-accent-500 border-teal-200', darkColor: 'dark:bg-accent-800/40 dark:text-accent-300 dark:border-teal-700' },
     spicy: { label: 'Spicy', emoji: '🌶️', color: 'bg-red-100 text-red-700 border-red-200', darkColor: 'dark:bg-red-900/40 dark:text-red-300 dark:border-red-700' },
     df: { label: 'Dairy-Free', emoji: '🥛', color: 'bg-blue-100 text-blue-700 border-blue-200', darkColor: 'dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700' },
     dairy_free: { label: 'Dairy-Free', emoji: '🥛', color: 'bg-blue-100 text-blue-700 border-blue-200', darkColor: 'dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700' },
@@ -252,7 +252,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 >
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 bg-black/30 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-white/10 mt-6 md:mt-8 w-full md:w-fit pointer-events-auto">
                         {/* Logo and BadgeList */}
-                        <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-surface-elevated/20 shadow-lg bg-white p-1 overflow-hidden shrink-0">
+                        <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-surface-elevated/20 shadow-lg bg-surface-elevated p-1 overflow-hidden shrink-0">
                             <img
                                 src={store.logo_url ? getImageUrl(store.logo_url) : getImageUrl(PLACEHOLDER_LOGO)}
                                 className="w-full h-full object-cover rounded-lg"
@@ -263,7 +263,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 text-white/90 text-sm">
                                 <span>📍 {store.location || 'St. Kitts'}</span>
                                 <span className="hidden md:inline text-white/50">•</span>
-                                <span className="text-amber-400">Authentic Food Hub</span>
+                                <span className="text-sand-400">Authentic Food Hub</span>
                             </div>
                             <div className="mt-2 flex justify-center md:justify-start">
                                 <BadgeList badges={store.badges || ['Vegan Friendly', 'Local Source', 'Fresh']} />
@@ -449,7 +449,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 <h2 className="text-xl md:text-2xl font-semibold text-ink-primary">
                                     {section.name}
                                 </h2>
-                                <div className="flex-1 h-px bg-slate-100 dark:bg-[var(--border-primary)]" />
+                                <div className="flex-1 h-px bg-surface-secondary dark:bg-[var(--border-primary)]" />
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 {section.items?.map((item: any, idx: number) => {
@@ -479,7 +479,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                 whileHover={{ scale: 1.02 }}
                                                 className={`relative bg-surface-elevated p-4 rounded-xl border ${isSoupKitchen ? 'border-sand-500/20 hover:border-sand-500' : 'border-border-primary hover:border-border-primary'} group-hover:shadow-md dark:group-hover:shadow-lg transition-all flex gap-4`}
                                             >
-                                                <div className="w-20 h-20 md:w-24 md:h-24 shrink-0 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded-lg overflow-hidden">
+                                                <div className="w-20 h-20 md:w-24 md:h-24 shrink-0 bg-surface-secondary dark:bg-[var(--surface-tertiary)] rounded-lg overflow-hidden">
                                                     {item.image_url ? (
                                                         <img
                                                             src={getImageUrl(item.image_url)}
@@ -563,7 +563,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                                 ) : (
                                                                     <div className="w-full h-full flex items-center justify-center text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
                                                                 )}
-                                                                <div className="absolute top-3 right-3 bg-white/95 dark:bg-[var(--surface-elevated)]/95 backdrop-blur px-2 py-1 rounded-lg font-semibold text-sm text-ink-primary shadow-sm">
+                                                                <div className="absolute top-3 right-3 bg-surface-elevated/95 dark:bg-[var(--surface-elevated)]/95 backdrop-blur px-2 py-1 rounded-lg font-semibold text-sm text-ink-primary shadow-sm">
                                                                     ${item.price}
                                                                 </div>
                                                             </div>
@@ -584,13 +584,13 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                                             );
                                                                         }
                                                                         return (
-                                                                            <span key={tag} className="px-2 py-0.5 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded text-xs font-medium text-ink-tertiary border border-slate-100 dark:border-[var(--border-secondary)]">
+                                                                            <span key={tag} className="px-2 py-0.5 bg-surface-secondary dark:bg-[var(--surface-tertiary)] rounded text-xs font-medium text-ink-tertiary border border-border-primary dark:border-[var(--border-secondary)]">
                                                                                 {tag}
                                                                             </span>
                                                                         );
                                                                     })}
                                                                 </div>
-                                                                <div className="flex items-center gap-2 py-3 border-t border-slate-50 dark:border-[var(--border-primary)]">
+                                                                <div className="flex items-center gap-2 py-3 border-t border-border-primary dark:border-[var(--border-primary)]">
                                                                     <div className="w-6 h-6 rounded-full flex items-center justify-center text-sm" style={{ backgroundColor: `${brandingColor}15` }}>👨‍🍳</div>
                                                                     <p className="text-xs font-medium text-ink-tertiary">Chef&apos;s Special</p>
                                                                 </div>
@@ -660,7 +660,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                             <div className="space-y-4">
                                                 {section.list_items.map((item: any, i: number) => (
                                                     <div key={i} className="flex items-center gap-4 group">
-                                                        <div className="w-10 h-10 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded-lg flex items-center justify-center text-xl group-hover:scale-105 transition-transform">
+                                                        <div className="w-10 h-10 bg-surface-secondary dark:bg-[var(--surface-tertiary)] rounded-lg flex items-center justify-center text-xl group-hover:scale-105 transition-transform">
                                                             {item.icon}
                                                         </div>
                                                         <div>
@@ -673,7 +673,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         )}
 
                                         {section.cta_text && (
-                                            <Link href={section.cta_link || '#'} className="inline-block mt-6 px-6 py-3 bg-slate-900 dark:bg-[var(--ink-primary)] text-white dark:text-[var(--surface-primary)] rounded-lg font-medium text-sm hover:bg-slate-800 dark:hover:bg-[var(--ink-secondary)] transition-colors">
+                                            <Link href={section.cta_link || '#'} className="inline-block mt-6 px-6 py-3 bg-ink-primary dark:bg-[var(--ink-primary)] text-white dark:text-[var(--surface-primary)] rounded-lg font-medium text-sm hover:bg-surface-tertiary dark:hover:bg-[var(--ink-secondary)] transition-colors">
                                                 {section.cta_text}
                                             </Link>
                                         )}
@@ -709,7 +709,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 {store.aims && (
                                     <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center text-lg">🎯</span>
+                                            <span className="w-8 h-8 bg-[#818cf8]/10 dark:bg-indigo-900/30 text-[#818cf8] dark:text-[#818cf8] rounded-lg flex items-center justify-center text-lg">🎯</span>
                                             <h3 className="text-base font-semibold text-ink-primary">Strategic Aims</h3>
                                         </div>
                                         <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
@@ -718,7 +718,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 {store.objectives && (
                                     <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg flex items-center justify-center text-lg">🚀</span>
+                                            <span className="w-8 h-8 bg-emerald-500/10 dark:bg-emerald-900/30 text-emerald-400 dark:text-emerald-400 rounded-lg flex items-center justify-center text-lg">🚀</span>
                                             <h3 className="text-base font-semibold text-ink-primary">Key Objectives</h3>
                                         </div>
                                         <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.objectives}&rdquo;</p>
@@ -757,7 +757,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         {section.body}
                                     </p>
                                     {section.cta_text && (
-                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-white text-center rounded-lg font-medium text-sm transition-colors hover:bg-slate-50" style={{ color: brandingColor }}>
+                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-surface-elevated text-center rounded-lg font-medium text-sm transition-colors hover:bg-surface-secondary" style={{ color: brandingColor }}>
                                             {section.cta_text}
                                         </Link>
                                     )}
@@ -777,7 +777,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 <p className="text-sm mb-5 opacity-90 leading-relaxed">
                                     {store.promo_text || "Visit us to discover our latest island-inspired specialties and seasonal treats."}
                                 </p>
-                                <button className="w-full py-3 bg-white rounded-lg font-medium text-sm transition-colors hover:bg-slate-50 active:scale-95" style={{ color: brandingColor }}>
+                                <button className="w-full py-3 bg-surface-elevated rounded-lg font-medium text-sm transition-colors hover:bg-surface-secondary active:scale-95" style={{ color: brandingColor }}>
                                     {store.promo_cta_text || 'Learn More'}
                                 </button>
                             </motion.div>
@@ -787,7 +787,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         {siteSections.find(s => s.name === 'connect_with_us') ? (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
-                                <div className="bg-slate-900 dark:bg-[var(--surface-secondary)] p-6 rounded-xl text-white shadow-sm">
+                                <div className="bg-ink-primary dark:bg-[var(--surface-secondary)] p-6 rounded-xl text-white shadow-sm">
                                     <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                                         <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                         {section.title}
@@ -799,21 +799,21 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
                                                     <p className="text-ink-tertiary text-xs mb-0.5">{item.title}</p>
-                                                    <p className="font-medium text-sm text-slate-200 dark:text-[var(--ink-secondary)]">{item.desc}</p>
+                                                    <p className="font-medium text-sm text-ink-tertiary dark:text-[var(--ink-secondary)]">{item.desc}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
 
                                     {section.cta_text && (
-                                        <Link href={section.cta_link || '#'} className="block w-full mt-5 py-3 bg-white text-center rounded-lg font-medium text-sm text-slate-900 hover:bg-slate-100 transition-colors">
+                                        <Link href={section.cta_link || '#'} className="block w-full mt-5 py-3 bg-surface-elevated text-center rounded-lg font-medium text-sm text-ink-primary hover:bg-surface-secondary transition-colors">
                                             {section.cta_text}
                                         </Link>
                                     )}
                                 </div>
                             );
                         })() : (
-                            <div className="bg-slate-900 dark:bg-[var(--surface-secondary)] p-6 rounded-xl text-white shadow-sm">
+                            <div className="bg-ink-primary dark:bg-[var(--surface-secondary)] p-6 rounded-xl text-white shadow-sm">
                                 <h3 className="text-base font-semibold mb-6 flex items-center gap-2">
                                     <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                     Connect With Us
@@ -824,7 +824,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                             <span className="text-xl group-hover:scale-110 transition-transform">🌐</span>
                                             <div>
                                                 <p className="text-ink-tertiary text-xs mb-0.5">Official Website</p>
-                                                <p className="font-medium text-white group-hover:text-indigo-400 transition-colors">Visit Official Site →</p>
+                                                <p className="font-medium text-white group-hover:text-[#818cf8] transition-colors">Visit Official Site →</p>
                                             </div>
                                         </a>
                                     )}
@@ -832,7 +832,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         <span className="text-xl">📍</span>
                                         <div>
                                             <p className="text-ink-tertiary text-xs mb-0.5">Location</p>
-                                            <p className="font-medium text-slate-200 dark:text-[var(--ink-secondary)]">{store.business_address || store.location || 'Verified Island Merchant'}</p>
+                                            <p className="font-medium text-ink-tertiary dark:text-[var(--ink-secondary)]">{store.business_address || store.location || 'Verified Island Merchant'}</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-3 items-start">
@@ -840,13 +840,13 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         <div>
                                             <p className="text-ink-tertiary text-xs mb-0.5">Status</p>
                                             <div className="flex items-center gap-2">
-                                                <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                                                <p className="font-medium text-slate-200 dark:text-[var(--ink-secondary)]">Accepting Orders</p>
+                                                <div className="w-2 h-2 rounded-full bg-emerald-500/100" />
+                                                <p className="font-medium text-ink-tertiary dark:text-[var(--ink-secondary)]">Accepting Orders</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button className="w-full mt-5 py-3 bg-white text-slate-900 rounded-lg font-medium text-sm hover:bg-slate-100 transition-colors active:scale-95">
+                                <button className="w-full mt-5 py-3 bg-surface-elevated text-ink-primary rounded-lg font-medium text-sm hover:bg-surface-secondary transition-colors active:scale-95">
                                     Get Directions
                                 </button>
                             </div>
@@ -874,17 +874,17 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     <div>
                         <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-primary mb-4">Explore</h4>
                         <nav className="flex flex-col gap-2 text-sm text-ink-tertiary">
-                            <Link href="/food" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Food Hub</Link>
-                            <Link href="/listings" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Marketplace</Link>
-                            <Link href="/about" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Our Charter</Link>
+                            <Link href="/food" className="hover:text-ink-primary dark:hover:text-[var(--ink-primary)] transition-colors">Food Hub</Link>
+                            <Link href="/listings" className="hover:text-ink-primary dark:hover:text-[var(--ink-primary)] transition-colors">Marketplace</Link>
+                            <Link href="/about" className="hover:text-ink-primary dark:hover:text-[var(--ink-primary)] transition-colors">Our Charter</Link>
                         </nav>
                     </div>
                     <div>
                         <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-primary mb-4">Support</h4>
                         <nav className="flex flex-col gap-2 text-sm text-ink-tertiary">
-                            <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Contact Vendor</a>
-                            <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Report Issue</a>
-                            <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Help Center</a>
+                            <a href="#" className="hover:text-ink-primary dark:hover:text-[var(--ink-primary)] transition-colors">Contact Vendor</a>
+                            <a href="#" className="hover:text-ink-primary dark:hover:text-[var(--ink-primary)] transition-colors">Report Issue</a>
+                            <a href="#" className="hover:text-ink-primary dark:hover:text-[var(--ink-primary)] transition-colors">Help Center</a>
                         </nav>
                     </div>
                 </div>

@@ -109,14 +109,14 @@ export default function ProductListing({ initialListings = [], category = 'marke
             {/* Results Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-4">
-                    <h2 className="text-lg font-black text-slate-900">
+                    <h2 className="text-lg font-black text-ink-primary">
                         {filterConfig.title}
                     </h2>
-                    <span className="text-sm text-slate-500">
+                    <span className="text-sm text-ink-tertiary0">
                         {sortedListings.length} {sortedListings.length === 1 ? 'result' : 'results'}
                     </span>
                     {activeFilterCount > 0 && (
-                        <span className="px-2 py-0.5 bg-teal-100 text-teal-700 rounded-full text-xs font-bold">
+                        <span className="px-2 py-0.5 bg-accent-500/15 text-accent-500 rounded-full text-xs font-bold">
                             {activeFilterCount} filter{activeFilterCount > 1 ? 's' : ''}
                         </span>
                     )}
@@ -128,7 +128,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         <select
                             value={currentSort}
                             onChange={(e) => handleSortChange(e.target.value)}
-                            className="appearance-none bg-white border border-slate-200 rounded-xl px-4 py-2 pr-10 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+                            className="appearance-none bg-surface-elevated border border-border-primary rounded-xl px-4 py-2 pr-10 text-sm font-bold text-ink-secondary focus:outline-none focus:ring-2 focus:ring-accent-400 cursor-pointer"
                         >
                             {SORT_OPTIONS.map(option => (
                                 <option key={option.value} value={option.value}>
@@ -136,16 +136,16 @@ export default function ProductListing({ initialListings = [], category = 'marke
                                 </option>
                             ))}
                         </select>
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-tertiary">
                             ▼
                         </div>
                     </div>
 
                     {/* View Mode Toggle */}
-                    <div className="hidden md:flex items-center bg-slate-100 rounded-xl p-1">
+                    <div className="hidden md:flex items-center bg-surface-secondary rounded-xl p-1">
                         <button
                             onClick={() => handleViewModeChange('grid')}
-                            className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
+                            className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}
                             title="Grid view"
                         >
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
@@ -157,7 +157,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         </button>
                         <button
                             onClick={() => handleViewModeChange('list')}
-                            className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
+                            className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}
                             title="List view"
                         >
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
@@ -171,14 +171,14 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     {/* Mobile Filter Toggle */}
                     <button
                         onClick={() => setShowFilters(!showFilters)}
-                        className="md:hidden flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-700"
+                        className="md:hidden flex items-center gap-2 px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-sm font-bold text-ink-secondary"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                         </svg>
                         Filters
                         {activeFilterCount > 0 && (
-                            <span className="px-1.5 py-0.5 bg-teal-100 text-teal-700 rounded-full text-xs">
+                            <span className="px-1.5 py-0.5 bg-accent-500/15 text-accent-500 rounded-full text-xs">
                                 {activeFilterCount}
                             </span>
                         )}
@@ -197,7 +197,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         return (
                             <span
                                 key={key}
-                                className="inline-flex items-center gap-1 px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-xs font-bold"
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-accent-500/10 text-accent-500 rounded-full text-xs font-bold"
                             >
                                 {filterLabel}: {optionLabel}
                                 <button
@@ -206,7 +206,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                                         delete newFilters[key];
                                         handleFilterChange(newFilters);
                                     }}
-                                    className="ml-1 hover:text-teal-900"
+                                    className="ml-1 hover:text-accent-700"
                                 >
                                     ×
                                 </button>
@@ -215,7 +215,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     })}
                     <button
                         onClick={() => handleFilterChange({})}
-                        className="px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700"
+                        className="px-3 py-1 text-xs font-bold text-ink-tertiary0 hover:text-ink-secondary"
                     >
                         Clear all
                     </button>
@@ -240,7 +240,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     {loading ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {[1, 2, 3, 4, 5, 6].map(i => (
-                                <div key={i} className="bg-slate-100 rounded-2xl h-80 animate-pulse" />
+                                <div key={i} className="bg-surface-secondary rounded-2xl h-80 animate-pulse" />
                             ))}
                         </div>
                     ) : sortedListings.length > 0 ? (
@@ -255,11 +255,11 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     ) : (
                         <div className="text-center py-20">
                             <div className="text-6xl mb-4">🔍</div>
-                            <h3 className="text-xl font-black text-slate-900 mb-2">No results found</h3>
-                            <p className="text-slate-500 mb-6">Try adjusting your filters or search terms</p>
+                            <h3 className="text-xl font-black text-ink-primary mb-2">No results found</h3>
+                            <p className="text-ink-tertiary0 mb-6">Try adjusting your filters or search terms</p>
                             <button
                                 onClick={() => handleFilterChange({})}
-                                className="px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors"
+                                className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors"
                             >
                                 Clear All Filters
                             </button>

@@ -143,7 +143,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-block px-4 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-accent-400 text-[10px] font-black uppercase tracking-[0.3em] mb-10"
+              className="inline-block px-4 py-2 bg-surface-elevated/5 backdrop-blur-xl border border-white/10 rounded-full text-accent-400 text-[10px] font-black uppercase tracking-[0.3em] mb-10"
             >
               🏝 Welcome to the Heart of the Islands
             </motion.div>
@@ -168,7 +168,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-teal-50 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed opacity-80"
+              className="text-accent-50 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed opacity-80"
             >
               Connected directly to local artisans, restaurants, and community causes.
               Support the islands with every purchase.
@@ -194,7 +194,7 @@ export default function Home() {
               <Link href="/listings" className={cnTheme(getButtonClasses('primary'))}>
                 Browse Marketplace 🛒
               </Link>
-              <Link href="/community" className={cnTheme(getButtonClasses('outline'), 'text-white border-white/20 hover:bg-white/10')}>
+              <Link href="/community" className={cnTheme(getButtonClasses('outline'), 'text-white border-white/20 hover:bg-surface-elevated/10')}>
                 Join Community 🏝
               </Link>
             </motion.div>
@@ -587,7 +587,7 @@ export default function Home() {
               background: `linear-gradient(135deg, ${section.style_config?.from || 'var(--accent-primary)'}, ${section.style_config?.to || 'var(--success-primary)'})`
             }}
           >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-surface-elevated/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
 
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
@@ -614,7 +614,7 @@ export default function Home() {
                 )}
 
                 {section.cta_text && (
-                  <Link href={section.cta_link || '#'} className="inline-flex items-center justify-center px-6 py-3 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 theme-transition shadow-2xl bg-white text-accent-500 hover:bg-surface-secondary focus:ring-accent-400">
+                  <Link href={section.cta_link || '#'} className="inline-flex items-center justify-center px-6 py-3 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 theme-transition shadow-2xl bg-surface-elevated text-accent-500 hover:bg-surface-secondary focus:ring-accent-400">
                     {section.cta_text}
                   </Link>
                 )}

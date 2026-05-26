@@ -88,35 +88,35 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-4 right-4 w-96 h-[500px] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden z-50"
+            className="fixed bottom-4 right-4 w-96 h-[500px] bg-surface-elevated rounded-3xl shadow-2xl border border-border-primary flex flex-col overflow-hidden z-50"
         >
             {/* Header */}
             <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center text-white font-black">
+                    <div className="w-10 h-10 bg-accent-500/100 rounded-full flex items-center justify-center text-white font-black">
                         {otherUserName?.charAt(0).toUpperCase()}
                     </div>
                     <div>
                         <h3 className="text-white font-black">{otherUserName}</h3>
-                        <p className="text-slate-400 text-[10px] uppercase tracking-widest">Delivery Chat</p>
+                        <p className="text-ink-tertiary text-[10px] uppercase tracking-widest">Delivery Chat</p>
                     </div>
                 </div>
                 <button
                     onClick={onClose}
-                    className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                    className="w-8 h-8 bg-surface-elevated/10 rounded-full flex items-center justify-center text-white hover:bg-surface-elevated/20 transition-all"
                 >
                     ✕
                 </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-surface-secondary">
                 {loading ? (
                     <div className="flex items-center justify-center h-full">
-                        <div className="animate-spin rounded-full h-8 w-8 border-2 border-slate-200 border-t-teal-600" />
+                        <div className="animate-spin rounded-full h-8 w-8 border-2 border-border-primary border-t-teal-600" />
                     </div>
                 ) : messages.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-full text-slate-400">
+                    <div className="flex flex-col items-center justify-center h-full text-ink-tertiary">
                         <div className="text-4xl mb-2">💬</div>
                         <p className="text-sm font-medium">No messages yet</p>
                         <p className="text-xs">Start the conversation!</p>
@@ -131,12 +131,12 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
                             >
                                 <div
                                     className={`max-w-[75%] rounded-2xl px-4 py-2 ${isMe
-                                            ? 'bg-teal-600 text-white rounded-br-md'
-                                            : 'bg-white text-slate-800 rounded-bl-md border border-slate-100'
+                                            ? 'bg-accent-500 text-white rounded-br-md'
+                                            : 'bg-surface-elevated text-ink-primary rounded-bl-md border border-border-primary'
                                         }`}
                                 >
                                     <p className="text-sm">{msg.content}</p>
-                                    <p className={`text-[9px] mt-1 ${isMe ? 'text-teal-100' : 'text-slate-400'}`}>
+                                    <p className={`text-[9px] mt-1 ${isMe ? 'text-accent-100' : 'text-ink-tertiary'}`}>
                                         {formatTime(msg.created_at)}
                                     </p>
                                 </div>
@@ -148,7 +148,7 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSend} className="p-4 bg-white border-t border-slate-100">
+            <form onSubmit={handleSend} className="p-4 bg-surface-elevated border-t border-border-primary">
                 <div className="flex gap-2">
                     <input
                         ref={inputRef}
@@ -156,13 +156,13 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         placeholder="Type a message..."
-                        className="flex-1 px-4 py-3 bg-slate-50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                        className="flex-1 px-4 py-3 bg-surface-secondary rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-accent-400"
                         disabled={sending}
                     />
                     <button
                         type="submit"
                         disabled={!newMessage.trim() || sending}
-                        className="px-6 py-3 bg-teal-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        className="px-6 py-3 bg-accent-500 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                         {sending ? '...' : 'Send'}
                     </button>

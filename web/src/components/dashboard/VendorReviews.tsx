@@ -57,20 +57,20 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
         }
     };
 
-    if (loading) return <div className="py-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-4 border-slate-200 border-t-teal-600 mx-auto" /></div>;
+    if (loading) return <div className="py-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-4 border-border-primary border-t-teal-600 mx-auto" /></div>;
 
     return (
         <div className="space-y-8">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 tracking-tight">Reputation Manager</h2>
-                <p className="text-slate-500 font-medium">Hear what your customers are saying and respond to feedback</p>
+                <h2 className="text-2xl font-black text-ink-primary tracking-tight">Reputation Manager</h2>
+                <p className="text-ink-tertiary0 font-medium">Hear what your customers are saying and respond to feedback</p>
             </div>
 
             {reviews.length === 0 ? (
-                <div className="py-20 text-center bg-slate-50/50 rounded-[3rem] border-2 border-dashed border-slate-200">
-                    <Star size={48} className="mx-auto text-slate-300 mb-4" />
-                    <h3 className="text-xl font-black text-slate-800">No Reviews Yet</h3>
-                    <p className="text-slate-500 font-medium max-w-xs mx-auto">Great service leads to great reviews. Keep up the good work!</p>
+                <div className="py-20 text-center bg-surface-secondary/50 rounded-[3rem] border-2 border-dashed border-border-primary">
+                    <Star size={48} className="mx-auto text-ink-tertiary mb-4" />
+                    <h3 className="text-xl font-black text-ink-primary">No Reviews Yet</h3>
+                    <p className="text-ink-tertiary0 font-medium max-w-xs mx-auto">Great service leads to great reviews. Keep up the good work!</p>
                 </div>
             ) : (
                 <div className="space-y-6">
@@ -79,23 +79,23 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
                             key={review.id}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all"
+                            className="bg-surface-elevated rounded-[2.5rem] p-8 border border-border-primary shadow-sm hover:shadow-md transition-all"
                         >
                             <div className="flex flex-col md:flex-row justify-between gap-6 mb-6">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-slate-400">
+                                    <div className="w-12 h-12 bg-surface-secondary rounded-full flex items-center justify-center text-ink-tertiary">
                                         <User size={24} />
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-2">
-                                            <h4 className="font-black text-slate-900">{review.reviewer_name}</h4>
+                                            <h4 className="font-black text-ink-primary">{review.reviewer_name}</h4>
                                             {review.verified && (
-                                                <span className="flex items-center gap-1 text-[8px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">
+                                                <span className="flex items-center gap-1 text-[8px] font-black uppercase text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded-full">
                                                     <CheckCircle size={10} /> Verified Purchase
                                                 </span>
                                             )}
                                         </div>
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                        <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest flex items-center gap-2">
                                             <Calendar size={12} /> {new Date(review.created_at).toLocaleDateString()}
                                             {review.product_name && <span>• For: {review.product_name}</span>}
                                         </p>
@@ -106,25 +106,25 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
                                         <Star
                                             key={s}
                                             size={18}
-                                            className={s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}
+                                            className={s <= review.rating ? 'fill-amber-400 text-sand-400' : 'text-ink-tertiary'}
                                         />
                                     ))}
                                 </div>
                             </div>
 
-                            <p className="text-slate-600 font-medium text-lg leading-relaxed italic mb-8">
+                            <p className="text-ink-secondary font-medium text-lg leading-relaxed italic mb-8">
                                 "{review.comment}"
                             </p>
 
                             {review.reply_text ? (
-                                <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100 relative">
-                                    <div className="absolute -top-3 left-8 px-3 py-1 bg-white border border-slate-100 rounded-full text-[8px] font-black uppercase tracking-widest text-slate-400">
+                                <div className="bg-surface-secondary rounded-3xl p-6 border border-border-primary relative">
+                                    <div className="absolute -top-3 left-8 px-3 py-1 bg-surface-elevated border border-border-primary rounded-full text-[8px] font-black uppercase tracking-widest text-ink-tertiary">
                                         Your Response
                                     </div>
-                                    <p className="text-slate-500 font-bold text-sm leading-relaxed">
+                                    <p className="text-ink-tertiary0 font-bold text-sm leading-relaxed">
                                         {review.reply_text}
                                     </p>
-                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-4">
+                                    <p className="text-[8px] font-black text-ink-tertiary uppercase tracking-widest mt-4">
                                         Replied on {new Date(review.replied_at!).toLocaleDateString()}
                                     </p>
                                 </div>
@@ -135,18 +135,18 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
                                         value={replyText}
                                         onChange={(e) => setReplyText(e.target.value)}
                                         placeholder="Write your response here..."
-                                        className="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 focus:border-teal-500 outline-none transition-all font-medium text-sm min-h-[120px]"
+                                        className="w-full p-6 bg-surface-secondary rounded-3xl border-2 border-border-primary focus:border-teal-500 outline-none transition-all font-medium text-sm min-h-[120px]"
                                     />
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => handleReply(review.id)}
-                                            className="px-6 py-3 bg-slate-900 text-white rounded-xl font-black uppercase text-[10px] tracking-widest"
+                                            className="px-6 py-3 bg-ink-primary text-white rounded-xl font-black uppercase text-[10px] tracking-widest"
                                         >
                                             Post Response
                                         </button>
                                         <button
                                             onClick={() => setReplyingTo(null)}
-                                            className="px-6 py-3 bg-white text-slate-400 border border-slate-200 rounded-xl font-black uppercase text-[10px] tracking-widest"
+                                            className="px-6 py-3 bg-surface-elevated text-ink-tertiary border border-border-primary rounded-xl font-black uppercase text-[10px] tracking-widest"
                                         >
                                             Cancel
                                         </button>
@@ -155,7 +155,7 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
                             ) : (
                                 <button
                                     onClick={() => setReplyingTo(review.id)}
-                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-teal-600 hover:text-teal-700 transition-colors"
+                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-accent-400 hover:text-accent-500 transition-colors"
                                 >
                                     <Reply size={14} /> Respond to this review
                                 </button>

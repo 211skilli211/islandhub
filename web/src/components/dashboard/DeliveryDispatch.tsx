@@ -104,10 +104,10 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'pending': return 'bg-amber-100 text-amber-700 border-amber-200';
+            case 'pending': return 'bg-sand-500/10 text-sand-500 border-sand-500/20';
             case 'assigned': return 'bg-blue-100 text-blue-700 border-blue-200';
             case 'picked_up': return 'bg-purple-100 text-purple-700 border-purple-200';
-            case 'delivered': return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+            case 'delivered': return 'bg-emerald-500/15 text-emerald-500 border-emerald-500/20';
             case 'cancelled': return 'bg-red-100 text-red-700 border-red-200';
             default: return 'bg-gray-100 text-gray-700 border-gray-200';
         }
@@ -115,10 +115,10 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
 
     const getStatusDot = (status: string) => {
         switch (status) {
-            case 'pending': return 'bg-amber-500';
+            case 'pending': return 'bg-sand-500/50';
             case 'assigned': return 'bg-blue-500';
             case 'picked_up': return 'bg-purple-500';
-            case 'delivered': return 'bg-emerald-500';
+            case 'delivered': return 'bg-emerald-500/100';
             case 'cancelled': return 'bg-red-500';
             default: return 'bg-gray-500';
         }
@@ -153,10 +153,10 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-amber-50 rounded-xl p-4 border border-amber-200"
+                    className="bg-sand-500/5 rounded-xl p-4 border border-sand-500/20"
                 >
-                    <div className="text-2xl font-bold text-amber-600">{pendingCount}</div>
-                    <div className="text-sm text-amber-700">Pending</div>
+                    <div className="text-2xl font-bold text-sand-500">{pendingCount}</div>
+                    <div className="text-sm text-sand-500">Pending</div>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -180,10 +180,10 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-emerald-50 rounded-xl p-4 border border-emerald-200"
+                    className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20"
                 >
-                    <div className="text-2xl font-bold text-emerald-600">{deliveredCount}</div>
-                    <div className="text-sm text-emerald-700">Delivered</div>
+                    <div className="text-2xl font-bold text-emerald-400">{deliveredCount}</div>
+                    <div className="text-sm text-emerald-500">Delivered</div>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -220,7 +220,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
             )}
 
             {/* Delivery List */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
                     <h3 className="font-semibold text-gray-900">Active Deliveries</h3>
                     <span className="text-sm text-gray-500">{filteredJobs.length} jobs</span>
@@ -281,15 +281,15 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="p-4 bg-white rounded-xl border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-emerald-300 hover:bg-emerald-500/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Assign Driver</div>
                     <div className="text-sm text-gray-500">Match pending orders to available drivers</div>
                 </button>
-                <button className="p-4 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all text-left">
                     <div className="font-medium text-gray-900">Track Live</div>
                     <div className="text-sm text-gray-500">View real-time driver locations</div>
                 </button>
-                <button className="p-4 bg-white rounded-xl border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-left">
                     <div className="font-medium text-gray-900">Delivery History</div>
                     <div className="text-sm text-gray-500">View completed deliveries</div>
                 </button>

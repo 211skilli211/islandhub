@@ -194,11 +194,11 @@ export default function BuyerDashboard() {
         <h2 className="text-headline-lg font-black mb-2">Explore the Marketplace</h2>
         <p className="text-body-sm opacity-80 mb-6">Discover local products, services, and experiences across the Caribbean.</p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/food" className="px-5 py-2.5 bg-white/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-white/30 transition-colors">🍽️ Food</Link>
-          <Link href="/products" className="px-5 py-2.5 bg-white/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-white/30 transition-colors">🛍️ Shop</Link>
-          <Link href="/services" className="px-5 py-2.5 bg-white/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-white/30 transition-colors">🛠️ Services</Link>
-          <Link href="/rentals" className="px-5 py-2.5 bg-white/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-white/30 transition-colors">🏠 Stays</Link>
-          <Link href="/tours" className="px-5 py-2.5 bg-white/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-white/30 transition-colors">🗺️ Tours</Link>
+          <Link href="/food" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🍽️ Food</Link>
+          <Link href="/products" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🛍️ Shop</Link>
+          <Link href="/services" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🛠️ Services</Link>
+          <Link href="/rentals" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🏠 Stays</Link>
+          <Link href="/tours" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🗺️ Tours</Link>
         </div>
       </div>
     </div>

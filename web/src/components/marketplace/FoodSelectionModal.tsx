@@ -88,38 +88,38 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+                        className="absolute inset-0 bg-ink-primary/60 backdrop-blur-sm"
                     />
                     <motion.div
                         initial={{ scale: 0.9, y: 20, opacity: 0 }}
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.9, y: 20, opacity: 0 }}
-                        className="relative bg-white w-full max-w-xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                        className="relative bg-surface-elevated w-full max-w-xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
                     >
                         <div className="absolute top-6 right-6 z-10">
-                            <button onClick={onClose} className="w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-900 hover:bg-white transition-all shadow-sm">✕</button>
+                            <button onClick={onClose} className="w-10 h-10 bg-surface-elevated/80 backdrop-blur rounded-full flex items-center justify-center text-ink-primary hover:bg-surface-elevated transition-all shadow-sm">✕</button>
                         </div>
 
                         <div className="overflow-y-auto">
-                            <div className="h-64 relative bg-slate-100">
+                            <div className="h-64 relative bg-surface-secondary">
                                 {item.image_url ? (
                                     <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.name} />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-6xl bg-slate-50">🥘</div>
+                                    <div className="w-full h-full flex items-center justify-center text-6xl bg-surface-secondary">🥘</div>
                                 )}
                                 <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
                             </div>
 
                             <div className="px-10 pb-10 space-y-8">
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-900 tracking-tight italic uppercase">{item.name}</h2>
-                                    <p className="text-slate-500 font-medium mt-2 leading-relaxed">{item.description}</p>
+                                    <h2 className="text-3xl font-black text-ink-primary tracking-tight italic uppercase">{item.name}</h2>
+                                    <p className="text-ink-tertiary0 font-medium mt-2 leading-relaxed">{item.description}</p>
                                 </div>
 
                                 {/* Variants */}
                                 {item.variants && Object.entries(item.variants).map(([category, options]: [string, any]) => (
                                     <div key={category} className="space-y-4">
-                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{category}</h3>
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary">{category}</h3>
                                         <div className="grid grid-cols-2 gap-3">
                                             {Array.isArray(options) && options.map(opt => (
                                                 <button
@@ -127,8 +127,8 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                                     onClick={() => setSelectedVariant({ ...selectedVariant, [category]: opt })}
                                                     className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border-2 text-left
                                                         ${selectedVariant[category] === opt
-                                                            ? 'bg-slate-900 border-slate-900 text-white shadow-lg'
-                                                            : 'bg-slate-50 border-transparent text-slate-500 hover:bg-slate-100'}`}
+                                                            ? 'bg-ink-primary border-border-primary text-white shadow-lg'
+                                                            : 'bg-surface-secondary border-transparent text-ink-tertiary0 hover:bg-surface-secondary'}`}
                                                 >
                                                     {opt}
                                                 </button>
@@ -140,7 +140,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                 {/* Addons */}
                                 {item.addons && item.addons.length > 0 && (
                                     <div className="space-y-4">
-                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Addons & Extras</h3>
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary">Addons & Extras</h3>
                                         <div className="space-y-2">
                                             {item.addons.map((addon: any) => (
                                                 <button
@@ -148,8 +148,8 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                                     onClick={() => toggleAddon(addon)}
                                                     className={`w-full px-6 py-4 rounded-2xl flex items-center justify-between transition-all border-2
                                                         ${selectedAddons.find(a => a.name === addon.name)
-                                                            ? 'bg-emerald-50 border-emerald-500 text-emerald-700'
-                                                            : 'bg-slate-50 border-transparent text-slate-600 hover:bg-slate-100'}`}
+                                                            ? 'bg-emerald-500/10 border-emerald-500 text-emerald-500'
+                                                            : 'bg-surface-secondary border-transparent text-ink-secondary hover:bg-surface-secondary'}`}
                                                 >
                                                     <span className="text-[10px] font-black uppercase tracking-widest">{addon.name}</span>
                                                     <span className="font-bold text-xs">+${addon.price}</span>
@@ -161,16 +161,16 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
 
                                 {/* Quantity */}
                                 <div className="pt-4 flex items-center justify-between">
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">How many?</h3>
-                                    <div className="flex items-center gap-6 bg-slate-50 p-2 rounded-2xl">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary">How many?</h3>
+                                    <div className="flex items-center gap-6 bg-surface-secondary p-2 rounded-2xl">
                                         <button
                                             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                            className="w-10 h-10 bg-white rounded-xl shadow-sm text-slate-900 font-bold hover:bg-slate-100"
+                                            className="w-10 h-10 bg-surface-elevated rounded-xl shadow-sm text-ink-primary font-bold hover:bg-surface-secondary"
                                         >-</button>
                                         <span className="font-black text-xl">{quantity}</span>
                                         <button
                                             onClick={() => setQuantity(quantity + 1)}
-                                            className="w-10 h-10 bg-white rounded-xl shadow-sm text-slate-900 font-bold hover:bg-slate-100"
+                                            className="w-10 h-10 bg-surface-elevated rounded-xl shadow-sm text-ink-primary font-bold hover:bg-surface-secondary"
                                         >+</button>
                                     </div>
                                 </div>
@@ -178,14 +178,14 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                         </div>
 
                         {/* Order Sticky Footer */}
-                        <div className="p-8 bg-slate-900 text-white flex items-center gap-6">
+                        <div className="p-8 bg-ink-primary text-white flex items-center gap-6">
                             <div className="flex-1">
                                 <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50 mb-1">Total Amount</p>
                                 <p className="text-3xl font-black italic tracking-tighter">${totalPrice.toFixed(2)}</p>
                             </div>
                             <button
                                 onClick={handleAdd}
-                                className="px-10 py-5 bg-white text-slate-900 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl"
+                                className="px-10 py-5 bg-surface-elevated text-ink-primary rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl"
                             >
                                 Add to Selection ➔
                             </button>

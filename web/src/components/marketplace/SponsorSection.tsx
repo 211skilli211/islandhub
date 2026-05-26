@@ -25,11 +25,11 @@ export default function SponsorSection() {
         <section className="py-20">
             <div className="flex items-center justify-between mb-12">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                        <span className="text-amber-500 text-4xl">✨</span>
+                    <h2 className="text-3xl font-black text-ink-primary tracking-tight flex items-center gap-3">
+                        <span className="text-sand-500 text-4xl">✨</span>
                         Featured Partners
                     </h2>
-                    <p className="text-slate-500 font-medium mt-2">Verified local businesses we highly recommend.</p>
+                    <p className="text-ink-tertiary0 font-medium mt-2">Verified local businesses we highly recommend.</p>
                 </div>
             </div>
 
@@ -63,18 +63,18 @@ export default function SponsorSection() {
                         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)' }} />
 
                         <div className="absolute inset-0 p-12 flex flex-col justify-end">
-                            <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white w-fit mb-4">
+                            <div className="bg-surface-elevated/10 backdrop-blur-xl border border-white/20 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white w-fit mb-4">
                                 Partner Spotlight
                             </div>
                             <h3 className="text-4xl font-black text-white mb-4 tracking-tighter leading-none italic uppercase">
                                 {sponsor.name}
                             </h3>
-                            <p className="text-slate-200 font-medium mb-8 max-w-sm line-clamp-2">
+                            <p className="text-ink-tertiary font-medium mb-8 max-w-sm line-clamp-2">
                                 {sponsor.description}
                             </p>
                             <a
                                 href={sponsor.cta_link}
-                                className={`px-10 py-5 bg-white text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest text-center shadow-xl hover:bg-${sponsor.color_theme}-500 hover:text-white transition-all transform group-hover:-translate-y-1`}
+                                className={`px-10 py-5 bg-surface-elevated text-ink-primary rounded-2xl font-black text-xs uppercase tracking-widest text-center shadow-xl hover:bg-${sponsor.color_theme}-500 hover:text-white transition-all transform group-hover:-translate-y-1`}
                             >
                                 {sponsor.cta_text} →
                             </a>

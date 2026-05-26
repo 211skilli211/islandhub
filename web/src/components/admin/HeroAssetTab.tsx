@@ -445,24 +445,24 @@ export default function HeroAssetTab() {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Controls Panel */}
-            <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-100/50">
+            <div className="bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-xl shadow-slate-100/50">
                 <div className="mb-8">
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase mb-2">Asset Configuration</h2>
-                    <p className="text-slate-400 font-medium">Select a hub and configure its hero background.</p>
+                    <h2 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase mb-2">Asset Configuration</h2>
+                    <p className="text-ink-tertiary font-medium">Select a hub and configure its hero background.</p>
                 </div>
 
                 <div className="space-y-4">
                     {/* Section: Background */}
-                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                    <div className="border border-border-primary rounded-4xl overflow-hidden">
                         <button
                             onClick={() => toggleSection('background')}
-                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                            className="w-full flex items-center justify-between p-6 bg-surface-secondary/50 hover:bg-surface-secondary transition-colors"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-sm">🖼️</span>
+                            <span className="text-xs font-black uppercase tracking-widest text-ink-secondary flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-xl bg-accent-500/15 text-accent-400 flex items-center justify-center text-sm">🖼️</span>
                                 Visual Background
                             </span>
-                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('background') ? 'rotate-180' : ''}`}>▼</span>
+                            <span className={`text-ink-tertiary transition-transform ${expandedSections.includes('background') ? 'rotate-180' : ''}`}>▼</span>
                         </button>
 
                         <AnimatePresence>
@@ -475,11 +475,11 @@ export default function HeroAssetTab() {
                                 >
                                     {/* Page Selector */}
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Target Hub / Page</label>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Target Hub / Page</label>
                                         <select
                                             value={selectedPage}
                                             onChange={(e) => setSelectedPage(e.target.value)}
-                                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all"
+                                            className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all"
                                         >
                                             {PAGES.map(p => (
                                                 <option key={p.key} value={p.key}>{p.label}</option>
@@ -489,8 +489,8 @@ export default function HeroAssetTab() {
 
                                     {/* Local Upload */}
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Local Asset Upload</label>
-                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploading ? 'bg-slate-50 border-slate-200' : 'hover:border-teal-500 bg-slate-50 border-slate-100'}`}>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Local Asset Upload</label>
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploading ? 'bg-surface-secondary border-border-primary' : 'hover:border-teal-500 bg-surface-secondary border-border-primary'}`}>
                                             <input
                                                 type="file"
                                                 onChange={handleFileUpload}
@@ -501,13 +501,13 @@ export default function HeroAssetTab() {
                                             {uploading ? (
                                                 <div className="flex flex-col items-center">
                                                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500 mb-2" />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-teal-600">Uploading Magic...</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-accent-400">Uploading Magic...</span>
                                                 </div>
                                             ) : (
                                                 <div className="flex flex-col items-center">
                                                     <span className="text-3xl mb-2">📁</span>
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click or Drag Image/Video</span>
-                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">Supports MP4, JPG, PNG (Max 50MB)</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary">Click or Drag Image/Video</span>
+                                                    <span className="text-[10px] text-ink-tertiary font-medium mt-1">Supports MP4, JPG, PNG (Max 50MB)</span>
                                                 </div>
                                             )}
                                         </div>
@@ -515,8 +515,8 @@ export default function HeroAssetTab() {
 
                                     {/* PDF Document Upload */}
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Upload Document (PDF)</label>
-                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingPdf ? 'bg-slate-50 border-slate-200' : 'hover:border-red-400 bg-slate-50 border-slate-100'}`}>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Upload Document (PDF)</label>
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingPdf ? 'bg-surface-secondary border-border-primary' : 'hover:border-red-400 bg-surface-secondary border-border-primary'}`}>
                                             <input
                                                 type="file"
                                                 onChange={handlePdfUpload}
@@ -532,8 +532,8 @@ export default function HeroAssetTab() {
                                             ) : (
                                                 <div className="flex flex-col items-center">
                                                     <span className="text-3xl mb-2">📄</span>
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click to Upload PDF</span>
-                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">For contracts, reports, guides (Max 25MB)</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary">Click to Upload PDF</span>
+                                                    <span className="text-[10px] text-ink-tertiary font-medium mt-1">For contracts, reports, guides (Max 25MB)</span>
                                                 </div>
                                             )}
                                         </div>
@@ -541,8 +541,8 @@ export default function HeroAssetTab() {
 
                                     {/* Hero Background Type */}
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Background Type</label>
-                                        <div className="grid grid-cols-3 gap-2 p-1 bg-slate-50 rounded-2xl border border-slate-100">
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Background Type</label>
+                                        <div className="grid grid-cols-3 gap-2 p-1 bg-surface-secondary rounded-2xl border border-border-primary">
                                             {[
                                                 { key: 'image', label: '📷 Image' },
                                                 { key: 'video', label: '🎬 Video' },
@@ -552,7 +552,7 @@ export default function HeroAssetTab() {
                                                 <button
                                                     key={t.key}
                                                     onClick={() => setAssetType(t.key as any)}
-                                                    className={`py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${assetType === t.key ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                    className={`py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${assetType === t.key ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                                 >
                                                     {t.label}
                                                 </button>
@@ -572,7 +572,7 @@ export default function HeroAssetTab() {
                                                         className={`p-3 rounded-xl text-xs font-bold transition-all text-left ${
                                                             (styleConfig.shader || styleConfig.shaderName) === s.key
                                                                 ? 'bg-purple-600 text-white shadow-lg'
-                                                                : 'bg-white text-slate-700 border border-slate-200 hover:border-purple-300'
+                                                                : 'bg-surface-elevated text-ink-secondary border border-border-primary hover:border-purple-300'
                                                         }`}
                                                     >
                                                         <div>{s.name}</div>
@@ -583,7 +583,7 @@ export default function HeroAssetTab() {
 
                                             {/* Shader Colors */}
                                             <div>
-                                                <label className="block text-[9px] font-bold uppercase text-slate-500 mb-2">Shader Colors</label>
+                                                <label className="block text-[9px] font-bold uppercase text-ink-tertiary0 mb-2">Shader Colors</label>
                                                 <div className="flex gap-2">
                                                     {[0, 1, 2, 3].map(i => (
                                                         <div key={i} className="flex-1">
@@ -605,7 +605,7 @@ export default function HeroAssetTab() {
                                             {/* Animation Speed */}
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Animation Speed</label>
+                                                    <label className="text-[9px] font-bold uppercase text-ink-tertiary0">Animation Speed</label>
                                                     <span className="text-[10px] font-black text-purple-600">{(styleConfig.shaderSpeed as number) || 1}x</span>
                                                 </div>
                                                 <input
@@ -617,7 +617,7 @@ export default function HeroAssetTab() {
                                                     onChange={(e) => setStyleConfig(prev => ({ ...prev, shaderSpeed: parseFloat(e.target.value) }))}
                                                     className="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
                                                 />
-                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                <div className="flex justify-between text-[8px] text-ink-tertiary font-bold mt-1">
                                                     <span>Slow</span>
                                                     <span>Normal</span>
                                                     <span>Fast</span>
@@ -625,18 +625,18 @@ export default function HeroAssetTab() {
                                             </div>
 
                                             {/* Mouse Interactivity Toggle */}
-                                            <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-purple-200">
+                                            <div className="flex items-center justify-between p-3 bg-surface-elevated rounded-xl border border-purple-200">
                                                 <div>
-                                                    <div className="text-[10px] font-bold text-slate-700">Mouse Interaction</div>
-                                                    <div className="text-[8px] text-slate-400">Shader follows cursor movement</div>
+                                                    <div className="text-[10px] font-bold text-ink-secondary">Mouse Interaction</div>
+                                                    <div className="text-[8px] text-ink-tertiary">Shader follows cursor movement</div>
                                                 </div>
                                                 <button
                                                     onClick={() => setStyleConfig(prev => ({ ...prev, shaderInteractive: !prev.shaderInteractive }))}
                                                     className={`relative w-12 h-6 rounded-full transition-all ${
-                                                        styleConfig.shaderInteractive ? 'bg-purple-600' : 'bg-slate-300'
+                                                        styleConfig.shaderInteractive ? 'bg-purple-600' : 'bg-surface-tertiary'
                                                     }`}
                                                 >
-                                                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all ${
+                                                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-surface-elevated shadow-md transition-all ${
                                                         styleConfig.shaderInteractive ? 'left-6' : 'left-0.5'
                                                     }`} />
                                                 </button>
@@ -652,7 +652,7 @@ export default function HeroAssetTab() {
                                             {/* Particle Count */}
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Count</label>
+                                                    <label className="text-[9px] font-bold uppercase text-ink-tertiary0">Count</label>
                                                     <span className="text-[10px] font-black text-cyan-600">{(styleConfig.particleCount as number) || 80}</span>
                                                 </div>
                                                 <input
@@ -664,7 +664,7 @@ export default function HeroAssetTab() {
                                                     onChange={(e) => setStyleConfig(prev => ({ ...prev, particleCount: parseInt(e.target.value) }))}
                                                     className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                                                 />
-                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                <div className="flex justify-between text-[8px] text-ink-tertiary font-bold mt-1">
                                                     <span>Few</span>
                                                     <span>Default</span>
                                                     <span>Many</span>
@@ -674,7 +674,7 @@ export default function HeroAssetTab() {
                                             {/* Particle Speed */}
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Speed</label>
+                                                    <label className="text-[9px] font-bold uppercase text-ink-tertiary0">Speed</label>
                                                     <span className="text-[10px] font-black text-cyan-600">{(styleConfig.particleSpeed as number) || 0.5}x</span>
                                                 </div>
                                                 <input
@@ -686,7 +686,7 @@ export default function HeroAssetTab() {
                                                     onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSpeed: parseFloat(e.target.value) }))}
                                                     className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                                                 />
-                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                <div className="flex justify-between text-[8px] text-ink-tertiary font-bold mt-1">
                                                     <span>Still</span>
                                                     <span>Normal</span>
                                                     <span>Fast</span>
@@ -696,7 +696,7 @@ export default function HeroAssetTab() {
                                             {/* Particle Size */}
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Size</label>
+                                                    <label className="text-[9px] font-bold uppercase text-ink-tertiary0">Size</label>
                                                     <span className="text-[10px] font-black text-cyan-600">{(styleConfig.particleSize as number) || 2}px</span>
                                                 </div>
                                                 <input
@@ -708,7 +708,7 @@ export default function HeroAssetTab() {
                                                     onChange={(e) => setStyleConfig(prev => ({ ...prev, particleSize: parseFloat(e.target.value) }))}
                                                     className="w-full h-2 bg-cyan-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                                                 />
-                                                <div className="flex justify-between text-[8px] text-slate-400 font-bold mt-1">
+                                                <div className="flex justify-between text-[8px] text-ink-tertiary font-bold mt-1">
                                                     <span>Tiny</span>
                                                     <span>Normal</span>
                                                     <span>Large</span>
@@ -718,7 +718,7 @@ export default function HeroAssetTab() {
                                             {/* Connection Distance */}
                                             <div>
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <label className="text-[9px] font-bold uppercase text-slate-500">Connection Distance</label>
+                                                    <label className="text-[9px] font-bold uppercase text-ink-tertiary0">Connection Distance</label>
                                                     <span className="text-[10px] font-black text-cyan-600">{(styleConfig.connectionDistance as number) || 120}px</span>
                                                 </div>
                                                 <input
@@ -734,7 +734,7 @@ export default function HeroAssetTab() {
 
                                             {/* Particle Color */}
                                             <div>
-                                                <label className="text-[9px] font-bold uppercase text-slate-500 mb-2 block">Particle Color</label>
+                                                <label className="text-[9px] font-bold uppercase text-ink-tertiary0 mb-2 block">Particle Color</label>
                                                 <div className="flex gap-2">
                                                     <input
                                                         type="color"
@@ -748,7 +748,7 @@ export default function HeroAssetTab() {
                                                                 key={c}
                                                                 onClick={() => setStyleConfig(prev => ({ ...prev, particleColor: c }))}
                                                                 className={`h-10 rounded-lg border-2 transition-all ${
-                                                                    (styleConfig.particleColor || '#06b6d4') === c ? 'border-slate-900 scale-110' : 'border-transparent hover:border-slate-300'
+                                                                    (styleConfig.particleColor || '#06b6d4') === c ? 'border-border-primary scale-110' : 'border-transparent hover:border-border-primary'
                                                                 }`}
                                                                 style={{ backgroundColor: c }}
                                                             />
@@ -758,18 +758,18 @@ export default function HeroAssetTab() {
                                             </div>
 
                                             {/* Mouse Interactivity Toggle */}
-                                            <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-cyan-200">
+                                            <div className="flex items-center justify-between p-3 bg-surface-elevated rounded-xl border border-cyan-200">
                                                 <div>
-                                                    <div className="text-[10px] font-bold text-slate-700">Mouse Repulsion</div>
-                                                    <div className="text-[8px] text-slate-400">Particles react to cursor movement</div>
+                                                    <div className="text-[10px] font-bold text-ink-secondary">Mouse Repulsion</div>
+                                                    <div className="text-[8px] text-ink-tertiary">Particles react to cursor movement</div>
                                                 </div>
                                                 <button
                                                     onClick={() => setStyleConfig(prev => ({ ...prev, particleInteractive: !prev.particleInteractive }))}
                                                     className={`relative w-12 h-6 rounded-full transition-all ${
-                                                        styleConfig.particleInteractive ? 'bg-cyan-600' : 'bg-slate-300'
+                                                        styleConfig.particleInteractive ? 'bg-cyan-600' : 'bg-surface-tertiary'
                                                     }`}
                                                 >
-                                                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all ${
+                                                    <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-surface-elevated shadow-md transition-all ${
                                                         styleConfig.particleInteractive ? 'left-6' : 'left-0.5'
                                                     }`} />
                                                 </button>
@@ -779,7 +779,7 @@ export default function HeroAssetTab() {
                                             {styleConfig.particleInteractive && (
                                                 <div>
                                                     <div className="flex items-center justify-between mb-2">
-                                                        <label className="text-[9px] font-bold uppercase text-slate-500">Mouse Radius</label>
+                                                        <label className="text-[9px] font-bold uppercase text-ink-tertiary0">Mouse Radius</label>
                                                         <span className="text-[10px] font-black text-cyan-600">{(styleConfig.mouseRadius as number) || 150}px</span>
                                                     </div>
                                                     <input
@@ -799,13 +799,13 @@ export default function HeroAssetTab() {
                                     {/* Asset URL — only for image/video */}
                                     {['image', 'video'].includes(assetType) && (
                                     <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Direct Asset URL</label>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Direct Asset URL</label>
                                         <input
                                             type="text"
                                             value={assetUrl}
                                             onChange={(e) => setAssetUrl(e.target.value)}
                                             placeholder="https://..."
-                                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all"
+                                            className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all"
                                         />
                                     </div>
                                     )}
@@ -813,19 +813,19 @@ export default function HeroAssetTab() {
                                     {/* Color Overlays */}
                                     <div className="grid grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Overlay</label>
-                                            <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Overlay</label>
+                                            <div className="flex items-center gap-3 p-3 bg-surface-secondary border border-border-primary rounded-2xl">
                                                 <input
                                                     type="color"
                                                     value={overlayColor}
                                                     onChange={(e) => setOverlayColor(e.target.value)}
                                                     className="w-8 h-8 rounded-lg overflow-hidden border-none bg-transparent cursor-pointer"
                                                 />
-                                                <span className="font-mono text-[10px] font-bold text-slate-600 uppercase">{overlayColor}</span>
+                                                <span className="font-mono text-[10px] font-bold text-ink-secondary uppercase">{overlayColor}</span>
                                             </div>
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Opacity: {Math.round(overlayOpacity * 100)}%</label>
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Opacity: {Math.round(overlayOpacity * 100)}%</label>
                                             <div className="pt-3">
                                                 <input
                                                     type="range"
@@ -834,16 +834,16 @@ export default function HeroAssetTab() {
                                                     step="0.05"
                                                     value={overlayOpacity}
                                                     onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
-                                                    className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                    className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Layout & Resizing */}
-                                    <div className="pt-6 border-t border-slate-100">
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Hero Layout Type</label>
-                                        <div className="grid grid-cols-3 gap-2 p-1 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+                                    <div className="pt-6 border-t border-border-primary">
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Hero Layout Type</label>
+                                        <div className="grid grid-cols-3 gap-2 p-1 bg-surface-secondary rounded-2xl border border-border-primary mb-6">
                                             {[
                                                 { id: 'standard', label: 'Full', icon: '📺' },
                                                 { id: 'split', label: 'Split', icon: '🌓' },
@@ -852,7 +852,7 @@ export default function HeroAssetTab() {
                                                 <button
                                                     key={t.id}
                                                     onClick={() => setLayoutTemplate(t.id)}
-                                                    className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest flex flex-col items-center gap-1 transition-all ${layoutTemplate === t.id ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                    className={`py-3 rounded-xl text-[10px] font-black uppercase tracking-widest flex flex-col items-center gap-1 transition-all ${layoutTemplate === t.id ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                                 >
                                                     <span className="text-lg">{t.icon}</span>
                                                     {t.label}
@@ -864,7 +864,7 @@ export default function HeroAssetTab() {
                                             {/* Mode Specific Controls */}
                                             {layoutTemplate === 'standard' && (
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">View Scale: {styleConfig.scale || 100}%</label>
+                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">View Scale: {styleConfig.scale || 100}%</label>
                                                     <input
                                                         type="range"
                                                         min="100"
@@ -872,16 +872,16 @@ export default function HeroAssetTab() {
                                                         step="1"
                                                         value={styleConfig.scale || 100}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, scale: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                     />
-                                                    <p className="text-[8px] text-slate-400 mt-2 font-bold uppercase tracking-tighter italic">* Fullscreen mode scale is limited to 100-125% for visual integrity.</p>
+                                                    <p className="text-[8px] text-ink-tertiary mt-2 font-bold uppercase tracking-tighter italic">* Fullscreen mode scale is limited to 100-125% for visual integrity.</p>
                                                 </div>
                                             )}
 
                                             {layoutTemplate === 'split' && (
                                                 <div className="space-y-6">
                                                     <div>
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Split Divide: {styleConfig.splitDivide || 50}%</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Split Divide: {styleConfig.splitDivide || 50}%</label>
                                                         <input
                                                             type="range"
                                                             min="30"
@@ -889,11 +889,11 @@ export default function HeroAssetTab() {
                                                             step="1"
                                                             value={styleConfig.splitDivide || 50}
                                                             onChange={(e) => setStyleConfig({ ...styleConfig, splitDivide: parseInt(e.target.value) })}
-                                                            className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                            className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Media Scale: {styleConfig.scale || 100}%</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Media Scale: {styleConfig.scale || 100}%</label>
                                                         <input
                                                             type="range"
                                                             min="100"
@@ -901,7 +901,7 @@ export default function HeroAssetTab() {
                                                             step="1"
                                                             value={styleConfig.scale || 100}
                                                             onChange={(e) => setStyleConfig({ ...styleConfig, scale: parseInt(e.target.value) })}
-                                                            className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                                            className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-indigo-500"
                                                         />
                                                     </div>
                                                 </div>
@@ -910,7 +910,7 @@ export default function HeroAssetTab() {
                                             {layoutTemplate === 'overlay' && (
                                                 <div className="space-y-6">
                                                     <div>
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Overlay Scale: {styleConfig.overlayScale || 100}%</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Overlay Scale: {styleConfig.overlayScale || 100}%</label>
                                                         <input
                                                             type="range"
                                                             min="70"
@@ -918,17 +918,17 @@ export default function HeroAssetTab() {
                                                             step="5"
                                                             value={styleConfig.overlayScale || 100}
                                                             onChange={(e) => setStyleConfig({ ...styleConfig, overlayScale: parseInt(e.target.value) })}
-                                                            className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                            className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Overlay Alignment</label>
-                                                        <div className="flex gap-2 p-1 bg-slate-50 border border-slate-100 rounded-xl">
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Overlay Alignment</label>
+                                                        <div className="flex gap-2 p-1 bg-surface-secondary border border-border-primary rounded-xl">
                                                             {['left', 'center', 'right'].map(align => (
                                                                 <button
                                                                     key={align}
                                                                     onClick={() => setStyleConfig({ ...styleConfig, overlayAlign: align })}
-                                                                    className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${(styleConfig.overlayAlign || 'center') === align ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                                    className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${(styleConfig.overlayAlign || 'center') === align ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                                                 >
                                                                     {align}
                                                                 </button>
@@ -939,7 +939,7 @@ export default function HeroAssetTab() {
                                             )}
 
                                             <div>
-                                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Vertical Offset</label>
+                                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Vertical Offset</label>
                                                 <input
                                                     type="range"
                                                     min="-100"
@@ -947,7 +947,7 @@ export default function HeroAssetTab() {
                                                     step="5"
                                                     value={styleConfig.offsetY || 0}
                                                     onChange={(e) => setStyleConfig({ ...styleConfig, offsetY: parseInt(e.target.value) })}
-                                                    className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                                    className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-indigo-500"
                                                 />
                                             </div>
                                         </div>
@@ -958,16 +958,16 @@ export default function HeroAssetTab() {
                     </div>
 
                     {/* Section: Content */}
-                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                    <div className="border border-border-primary rounded-4xl overflow-hidden">
                         <button
                             onClick={() => toggleSection('content')}
-                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                            className="w-full flex items-center justify-between p-6 bg-surface-secondary/50 hover:bg-surface-secondary transition-colors"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">📝</span>
+                            <span className="text-xs font-black uppercase tracking-widest text-ink-secondary flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-xl bg-[#818cf8]/15 text-[#818cf8] flex items-center justify-center text-sm">📝</span>
                                 Hero Content & CTAs
                             </span>
-                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('content') ? 'rotate-180' : ''}`}>▼</span>
+                            <span className={`text-ink-tertiary transition-transform ${expandedSections.includes('content') ? 'rotate-180' : ''}`}>▼</span>
                         </button>
 
                         <AnimatePresence>
@@ -980,62 +980,62 @@ export default function HeroAssetTab() {
                                 >
                                     <div className="grid grid-cols-1 gap-6">
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Hero Title</label>
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Hero Title</label>
                                             <input
                                                 type="text"
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
                                                 placeholder="Main Heading"
-                                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all"
+                                                className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all"
                                             />
                                         </div>
 
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Subtitle / Description</label>
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Subtitle / Description</label>
                                             <textarea
                                                 value={subtitle}
                                                 onChange={(e) => setSubtitle(e.target.value)}
                                                 placeholder="Hero description text..."
-                                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all h-24 resize-none"
+                                                className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all h-24 resize-none"
                                             />
                                         </div>
                                     </div>
 
                                     {/* CTAs Section */}
-                                    <div className="space-y-6 pt-4 border-t border-slate-100">
+                                    <div className="space-y-6 pt-4 border-t border-border-primary">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Primary CTA Text</label>
+                                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Primary CTA Text</label>
                                                 <input
                                                     type="text"
                                                     value={ctaText}
                                                     onChange={(e) => setCtaText(e.target.value)}
                                                     placeholder="Explore Now"
-                                                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all text-sm"
+                                                    className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all text-sm"
                                                 />
                                             </div>
                                             <div>
-                                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Primary Link</label>
+                                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Primary Link</label>
                                                 <input
                                                     type="text"
                                                     value={ctaLink}
                                                     onChange={(e) => setCtaLink(e.target.value)}
                                                     placeholder="/marketplace"
-                                                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all text-sm"
+                                                    className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all text-sm"
                                                 />
                                             </div>
                                         </div>
 
-                                        <div className="pt-4 border-t border-slate-100">
+                                        <div className="pt-4 border-t border-border-primary">
                                             <div className="flex items-center justify-between mb-6">
                                                 <label className="flex items-center gap-3 cursor-pointer group">
                                                     <div
                                                         onClick={() => setShowCta2(!showCta2)}
-                                                        className={`w-6 h-6 rounded-lg border-2 transition-all flex items-center justify-center ${showCta2 ? 'bg-teal-600 border-teal-600 shadow-lg shadow-teal-500/30' : 'bg-white border-slate-200 group-hover:border-teal-500'}`}
+                                                        className={`w-6 h-6 rounded-lg border-2 transition-all flex items-center justify-center ${showCta2 ? 'bg-accent-500 border-teal-600 shadow-lg shadow-teal-500/30' : 'bg-surface-elevated border-border-primary group-hover:border-teal-500'}`}
                                                     >
                                                         {showCta2 && <span className="text-white text-xs">✓</span>}
                                                     </div>
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-700">Add Secondary CTA Button</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary">Add Secondary CTA Button</span>
                                                 </label>
                                             </div>
 
@@ -1046,7 +1046,7 @@ export default function HeroAssetTab() {
                                                     className="grid grid-cols-1 md:grid-cols-2 gap-4"
                                                 >
                                                     <div>
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Secondary CTA Text</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Secondary CTA Text</label>
                                                         <input
                                                             type="text"
                                                             value={cta2Text}
@@ -1055,17 +1055,17 @@ export default function HeroAssetTab() {
                                                                 if (e.target.value && !showCta2) setShowCta2(true);
                                                             }}
                                                             placeholder="Contact Us"
-                                                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all text-sm"
+                                                            className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all text-sm"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Secondary Link</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Secondary Link</label>
                                                         <input
                                                             type="text"
                                                             value={cta2Link}
                                                             onChange={(e) => setCta2Link(e.target.value)}
                                                             placeholder="/contact"
-                                                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all text-sm"
+                                                            className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all text-sm"
                                                         />
                                                     </div>
                                                 </motion.div>
@@ -1078,16 +1078,16 @@ export default function HeroAssetTab() {
                     </div>
 
                     {/* Section: Graphic Overlay & Icon (Separate Section) */}
-                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                    <div className="border border-border-primary rounded-4xl overflow-hidden">
                         <button
                             onClick={() => toggleSection('icon')}
-                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                            className="w-full flex items-center justify-between p-6 bg-surface-secondary/50 hover:bg-surface-secondary transition-colors"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
+                            <span className="text-xs font-black uppercase tracking-widest text-ink-secondary flex items-center gap-3">
                                 <span className="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-sm">🎨</span>
                                 Graphic Overlay & Icon
                             </span>
-                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('icon') ? 'rotate-180' : ''}`}>▼</span>
+                            <span className={`text-ink-tertiary transition-transform ${expandedSections.includes('icon') ? 'rotate-180' : ''}`}>▼</span>
                         </button>
 
                         <AnimatePresence>
@@ -1100,10 +1100,10 @@ export default function HeroAssetTab() {
                                 >
                                     {/* Description and Upload Button */}
                                     <div className="flex flex-col gap-4">
-                                        <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+                                        <p className="text-xs sm:text-sm text-ink-tertiary0 font-medium leading-relaxed">
                                             Add an icon or emoji that displays above the title in the hero section.
                                         </p>
-                                        <label className="w-fit px-5 py-3 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-600 hover:border-teal-500 hover:bg-teal-50 transition-all cursor-pointer">
+                                        <label className="w-fit px-5 py-3 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-secondary hover:border-teal-500 hover:bg-accent-500/10 transition-all cursor-pointer">
                                             {uploadingIcon ? 'Uploading...' : '📤 Upload Custom Icon'}
                                             <input type="file" className="hidden" accept="image/*" onChange={handleIconUpload} disabled={uploadingIcon} />
                                         </label>
@@ -1112,12 +1112,12 @@ export default function HeroAssetTab() {
                                     {/* Preset Icons Grid */}
                                     <div className="space-y-4">
                                         <div className="flex items-center justify-between mb-2">
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400">
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary">
                                                 Icon Library & Presets
                                             </label>
-                                            <span className="text-[9px] font-bold text-teal-600 animate-pulse bg-teal-50 px-2 py-0.5 rounded-full">✨ Supports GIFs & Animated Icons</span>
+                                            <span className="text-[9px] font-bold text-accent-400 animate-pulse bg-accent-500/10 px-2 py-0.5 rounded-full">✨ Supports GIFs & Animated Icons</span>
                                         </div>
-                                        <div className="grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-10 gap-3 max-h-64 overflow-y-auto p-2 bg-slate-50/50 rounded-2xl border border-slate-100">
+                                        <div className="grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-10 gap-3 max-h-64 overflow-y-auto p-2 bg-surface-secondary/50 rounded-2xl border border-border-primary">
                                             {[
                                                 // Essentials & Vibe
                                                 '✨', '🏝️', '🔥', '💎', '🎉', '🎁', '📣', '🛡️', '🌿', '🌊', '☀️', '⭐', '🥘', '⚓', '🚙', '🏡', '🏨', '🛍️', '⚙️', '🎯',
@@ -1136,7 +1136,7 @@ export default function HeroAssetTab() {
                                                     key={icon}
                                                     type="button"
                                                     onClick={() => setIconUrl(icon)}
-                                                    className={`aspect-square min-h-[48px] rounded-xl text-2xl flex items-center justify-center transition-all ${iconUrl === icon ? 'bg-teal-600 text-white shadow-lg scale-105 ring-2 ring-teal-400 ring-offset-2' : 'bg-white border border-slate-200 hover:border-teal-400 hover:scale-105'}`}
+                                                    className={`aspect-square min-h-[48px] rounded-xl text-2xl flex items-center justify-center transition-all ${iconUrl === icon ? 'bg-accent-500 text-white shadow-lg scale-105 ring-2 ring-teal-400 ring-offset-2' : 'bg-surface-elevated border border-border-primary hover:border-teal-400 hover:scale-105'}`}
                                                 >
                                                     {icon}
                                                 </button>
@@ -1146,7 +1146,7 @@ export default function HeroAssetTab() {
 
                                     {/* Custom Input and Preview */}
                                     <div className="space-y-4">
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400">
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary">
                                             Custom URL or Emoji
                                         </label>
                                         <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
@@ -1156,12 +1156,12 @@ export default function HeroAssetTab() {
                                                     value={iconUrl}
                                                     onChange={(e) => setIconUrl(e.target.value)}
                                                     placeholder="Enter URL or paste an emoji..."
-                                                    className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-bold text-sm"
+                                                    className="w-full px-5 py-4 bg-surface-elevated border border-border-primary rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-bold text-sm"
                                                 />
                                             </div>
                                             {iconUrl && (
                                                 <div className="flex items-center gap-4 sm:gap-0">
-                                                    <div className="w-16 h-16 bg-white border-2 border-slate-200 rounded-2xl flex items-center justify-center text-3xl shadow-sm overflow-hidden p-2 shrink-0">
+                                                    <div className="w-16 h-16 bg-surface-elevated border-2 border-border-primary rounded-2xl flex items-center justify-center text-3xl shadow-sm overflow-hidden p-2 shrink-0">
                                                         {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads')) ? (
                                                             <img src={getImageUrl(iconUrl)} className="w-full h-full object-contain" />
                                                         ) : (
@@ -1196,16 +1196,16 @@ export default function HeroAssetTab() {
                     </div>
 
                     {/* Section: Typography */}
-                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                    <div className="border border-border-primary rounded-4xl overflow-hidden">
                         <button
                             onClick={() => toggleSection('styling')}
-                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                            className="w-full flex items-center justify-between p-6 bg-surface-secondary/50 hover:bg-surface-secondary transition-colors"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-sm">✨</span>
+                            <span className="text-xs font-black uppercase tracking-widest text-ink-secondary flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-xl bg-sand-500/10 text-sand-500 flex items-center justify-center text-sm">✨</span>
                                 Style & Typography
                             </span>
-                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('styling') ? 'rotate-180' : ''}`}>▼</span>
+                            <span className={`text-ink-tertiary transition-transform ${expandedSections.includes('styling') ? 'rotate-180' : ''}`}>▼</span>
                         </button>
 
                         <AnimatePresence>
@@ -1217,9 +1217,9 @@ export default function HeroAssetTab() {
                                     className="p-6 space-y-6 overflow-hidden"
                                 >
                                     {/* Heading Styling Section */}
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                    <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary space-y-4">
                                         <div className="flex justify-between items-center">
-                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Heading Styles</h4>
+                                            <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">Heading Styles</h4>
                                             <div className="flex items-center gap-2">
                                                 <input
                                                     type="color"
@@ -1227,17 +1227,17 @@ export default function HeroAssetTab() {
                                                     onChange={(e) => setTypography({ ...typography, heading: { ...typography.heading, color: e.target.value } })}
                                                     className="w-6 h-6 rounded-full overflow-hidden border-none cursor-pointer"
                                                 />
-                                                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">{typography.heading?.color || '#FFFFFF'}</span>
+                                                <span className="text-[10px] font-mono font-bold text-ink-tertiary uppercase">{typography.heading?.color || '#FFFFFF'}</span>
                                             </div>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Aesthetic Model</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Aesthetic Model</label>
                                                 <select
                                                     value={typography.heading?.model || 'classic'}
                                                     onChange={(e) => setTypography({ ...typography, heading: { ...typography.heading, model: e.target.value } })}
-                                                    className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
+                                                    className="w-full p-2 bg-surface-elevated border border-border-primary rounded-lg text-xs font-bold"
                                                 >
                                                     <option value="classic">Classic</option>
                                                     <option value="modern">Modern</option>
@@ -1246,22 +1246,22 @@ export default function HeroAssetTab() {
                                                 </select>
                                             </div>
                                             <div>
-                                                <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Font Size (px)</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Font Size (px)</label>
                                                 <input
                                                     type="number"
                                                     value={typography.heading?.size || 72}
                                                     onChange={(e) => setTypography({ ...typography, heading: { ...typography.heading, size: parseInt(e.target.value) } })}
-                                                    className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
+                                                    className="w-full p-2 bg-surface-elevated border border-border-primary rounded-lg text-xs font-bold"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="flex flex-col gap-4">
                                             <div className="flex justify-between items-center mb-2">
-                                                <label className="block text-[8px] font-black uppercase text-slate-400">Visual Effects</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary">Visual Effects</label>
                                                 <button
                                                     onClick={() => setTypography({ ...typography, heading: { ...typography.heading, useGradient: !typography.heading?.useGradient } })}
-                                                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${typography.heading?.useGradient ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'}`}
+                                                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${typography.heading?.useGradient ? 'bg-[#818cf8] text-white' : 'bg-surface-tertiary text-ink-tertiary0'}`}
                                                 >
                                                     Gradient: {typography.heading?.useGradient ? 'ON' : 'OFF'}
                                                 </button>
@@ -1272,16 +1272,16 @@ export default function HeroAssetTab() {
                                                         <button
                                                             key={effect}
                                                             onClick={() => setTypography({ ...typography, heading: { ...typography.heading, effect } })}
-                                                            className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${typography.heading?.effect === effect ? 'bg-teal-600 text-white shadow-sm' : 'bg-white border border-slate-200 text-slate-400'}`}
+                                                            className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${typography.heading?.effect === effect ? 'bg-accent-500 text-white shadow-sm' : 'bg-surface-elevated border border-border-primary text-ink-tertiary'}`}
                                                         >
                                                             {effect || 'None'}
                                                         </button>
                                                     ))}
                                                 </div>
                                             ) : (
-                                                <div className="grid grid-cols-2 gap-4 bg-white p-4 rounded-2xl border border-slate-100">
+                                                <div className="grid grid-cols-2 gap-4 bg-surface-elevated p-4 rounded-2xl border border-border-primary">
                                                     <div>
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Start Color</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Start Color</label>
                                                         <input
                                                             type="color"
                                                             value={typography.heading?.gradientStart || '#ffffff'}
@@ -1290,7 +1290,7 @@ export default function HeroAssetTab() {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">End Color</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">End Color</label>
                                                         <input
                                                             type="color"
                                                             value={typography.heading?.gradientEnd || '#14b8a6'}
@@ -1299,13 +1299,13 @@ export default function HeroAssetTab() {
                                                         />
                                                     </div>
                                                     <div className="col-span-2">
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Angle: {typography.heading?.gradientAngle || 135}°</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Angle: {typography.heading?.gradientAngle || 135}°</label>
                                                         <input
                                                             type="range"
                                                             min="0" max="360" step="15"
                                                             value={typography.heading?.gradientAngle || 135}
                                                             onChange={(e) => setTypography({ ...typography, heading: { ...typography.heading, gradientAngle: parseInt(e.target.value) } })}
-                                                            className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                                            className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-indigo-500"
                                                         />
                                                     </div>
                                                 </div>
@@ -1315,9 +1315,9 @@ export default function HeroAssetTab() {
 
 
                                     {/* Subtitle Styling Section */}
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                    <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary space-y-4">
                                         <div className="flex justify-between items-center">
-                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Subtitle Styles</h4>
+                                            <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">Subtitle Styles</h4>
                                             <div className="flex items-center gap-2">
                                                 <input
                                                     type="color"
@@ -1325,17 +1325,17 @@ export default function HeroAssetTab() {
                                                     onChange={(e) => setTypography({ ...typography, subtitle: { ...typography.subtitle, color: e.target.value } })}
                                                     className="w-6 h-6 rounded-full overflow-hidden border-none cursor-pointer"
                                                 />
-                                                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">{typography.subtitle?.color || '#FFFFFFCC'}</span>
+                                                <span className="text-[10px] font-mono font-bold text-ink-tertiary uppercase">{typography.subtitle?.color || '#FFFFFFCC'}</span>
                                             </div>
                                         </div>
 
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Aesthetic Model</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Aesthetic Model</label>
                                                 <select
                                                     value={typography.subtitle?.model || 'classic'}
                                                     onChange={(e) => setTypography({ ...typography, subtitle: { ...typography.subtitle, model: e.target.value } })}
-                                                    className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
+                                                    className="w-full p-2 bg-surface-elevated border border-border-primary rounded-lg text-xs font-bold"
                                                 >
                                                     <option value="classic">Classic</option>
                                                     <option value="modern">Modern</option>
@@ -1343,30 +1343,30 @@ export default function HeroAssetTab() {
                                                 </select>
                                             </div>
                                             <div>
-                                                <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Font Size (px)</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Font Size (px)</label>
                                                 <input
                                                     type="number"
                                                     value={typography.subtitle?.size || 24}
                                                     onChange={(e) => setTypography({ ...typography, subtitle: { ...typography.subtitle, size: parseInt(e.target.value) } })}
-                                                    className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
+                                                    className="w-full p-2 bg-surface-elevated border border-border-primary rounded-lg text-xs font-bold"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="flex flex-col gap-4">
                                             <div className="flex justify-between items-center mb-2">
-                                                <label className="block text-[8px] font-black uppercase text-slate-400">Subtitle Effects</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary">Subtitle Effects</label>
                                                 <button
                                                     onClick={() => setTypography({ ...typography, subtitle: { ...typography.subtitle, useGradient: !typography.subtitle?.useGradient } })}
-                                                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${typography.subtitle?.useGradient ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'}`}
+                                                    className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${typography.subtitle?.useGradient ? 'bg-[#818cf8] text-white' : 'bg-surface-tertiary text-ink-tertiary0'}`}
                                                 >
                                                     Gradient: {typography.subtitle?.useGradient ? 'ON' : 'OFF'}
                                                 </button>
                                             </div>
                                             {typography.subtitle?.useGradient && (
-                                                <div className="grid grid-cols-2 gap-4 bg-white p-4 rounded-2xl border border-slate-100">
+                                                <div className="grid grid-cols-2 gap-4 bg-surface-elevated p-4 rounded-2xl border border-border-primary">
                                                     <div>
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Start Color</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Start Color</label>
                                                         <input
                                                             type="color"
                                                             value={typography.subtitle?.gradientStart || '#ffffff'}
@@ -1375,7 +1375,7 @@ export default function HeroAssetTab() {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">End Color</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">End Color</label>
                                                         <input
                                                             type="color"
                                                             value={typography.subtitle?.gradientEnd || '#14b8a6'}
@@ -1390,13 +1390,13 @@ export default function HeroAssetTab() {
 
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Alignment</label>
-                                            <div className="flex gap-2 p-1 bg-slate-50 rounded-xl border border-slate-100">
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Alignment</label>
+                                            <div className="flex gap-2 p-1 bg-surface-secondary rounded-xl border border-border-primary">
                                                 {['left', 'center', 'right'].map(align => (
                                                     <button
                                                         key={align}
                                                         onClick={() => setTypography({ ...typography, align })}
-                                                        className={`flex-1 py-3 rounded-lg text-[10px] font-black uppercase transition-all ${typography?.align === align ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                        className={`flex-1 py-3 rounded-lg text-[10px] font-black uppercase transition-all ${typography?.align === align ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                                     >
                                                         {align}
                                                     </button>
@@ -1404,11 +1404,11 @@ export default function HeroAssetTab() {
                                             </div>
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Overall Tone</label>
+                                            <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Overall Tone</label>
                                             <select
                                                 value={typography?.model || 'classic'}
                                                 onChange={(e) => setTypography({ ...typography, model: e.target.value })}
-                                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-teal-500 transition-all text-sm"
+                                                className="w-full p-4 bg-surface-secondary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-teal-500 transition-all text-sm"
                                             >
                                                 <option value="classic">Premium</option>
                                                 <option value="modern">Bold</option>
@@ -1423,16 +1423,16 @@ export default function HeroAssetTab() {
                     </div>
 
                     {/* Section: Background Media */}
-                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                    <div className="border border-border-primary rounded-4xl overflow-hidden">
                         <button
                             onClick={() => toggleSection('background')}
-                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                            className="w-full flex items-center justify-between p-6 bg-surface-secondary/50 hover:bg-surface-secondary transition-colors"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
+                            <span className="text-xs font-black uppercase tracking-widest text-ink-secondary flex items-center gap-3">
                                 <span className="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-sm">🏞️</span>
                                 Background Media
                             </span>
-                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('background') ? 'rotate-180' : ''}`}>▼</span>
+                            <span className={`text-ink-tertiary transition-transform ${expandedSections.includes('background') ? 'rotate-180' : ''}`}>▼</span>
                         </button>
 
                         <AnimatePresence>
@@ -1444,30 +1444,30 @@ export default function HeroAssetTab() {
                                     className="p-6 space-y-6 overflow-hidden"
                                 >
                                     {/* Asset Upload */}
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
-                                        <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Media Asset</h4>
+                                    <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary space-y-4">
+                                        <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">Media Asset</h4>
                                         <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
                                             <div className="flex-1">
-                                                <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Image or Video URL</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Image or Video URL</label>
                                                 <input
                                                     type="text"
                                                     value={assetUrl}
                                                     onChange={(e) => setAssetUrl(e.target.value)}
                                                     placeholder="Enter URL or upload..."
-                                                    className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-bold text-sm"
+                                                    className="w-full px-5 py-4 bg-surface-elevated border border-border-primary rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent-400 font-bold text-sm"
                                                 />
                                             </div>
                                             <button
                                                 type="button"
                                                 onClick={() => openMediaLibrary('asset')}
-                                                className="px-6 py-4 bg-teal-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-teal-600 transition-all shrink-0"
+                                                className="px-6 py-4 bg-accent-500/100 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-accent-500 transition-all shrink-0"
                                             >
                                                 Upload
                                             </button>
                                         </div>
                                         {assetUrl && (
                                             <div className="flex items-center gap-4">
-                                                <div className="w-24 h-16 bg-white border-2 border-slate-200 rounded-2xl flex items-center justify-center text-3xl shadow-sm overflow-hidden shrink-0">
+                                                <div className="w-24 h-16 bg-surface-elevated border-2 border-border-primary rounded-2xl flex items-center justify-center text-3xl shadow-sm overflow-hidden shrink-0">
                                                     {assetType === 'video' ? (
                                                         <video src={getImageUrl(assetUrl)} className="w-full h-full object-cover" muted autoPlay loop />
                                                     ) : (
@@ -1475,11 +1475,11 @@ export default function HeroAssetTab() {
                                                     )}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Media Type</label>
+                                                    <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Media Type</label>
                                                     <select
                                                         value={assetType}
                                                         onChange={(e) => setAssetType(e.target.value as 'image' | 'video')}
-                                                        className="w-full p-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
+                                                        className="w-full p-2 bg-surface-elevated border border-border-primary rounded-lg text-xs font-bold"
                                                     >
                                                         <option value="image">Image</option>
                                                         <option value="video">Video</option>
@@ -1497,13 +1497,13 @@ export default function HeroAssetTab() {
                                     </div>
 
                                     {/* Overlay & Background Controls */}
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                    <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary space-y-4">
                                         <div className="flex items-center justify-between mb-2">
-                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Background & Overlay</h4>
+                                            <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">Background & Overlay</h4>
                                             <button
                                                 type="button"
                                                 onClick={() => setStyleConfig({ ...styleConfig, showOverlay: !showOverlay })}
-                                                className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${showOverlay ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-500'}`}
+                                                className={`px-3 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${showOverlay ? 'bg-accent-500 text-white' : 'bg-surface-tertiary text-ink-tertiary0'}`}
                                             >
                                                 {showOverlay ? 'Overlay: ON' : 'Overlay: OFF'}
                                             </button>
@@ -1512,7 +1512,7 @@ export default function HeroAssetTab() {
                                             <>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div>
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Overlay Color</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Overlay Color</label>
                                                         <input
                                                             type="color"
                                                             value={overlayColor}
@@ -1521,7 +1521,7 @@ export default function HeroAssetTab() {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">BG Color (Behind Media)</label>
+                                                        <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">BG Color (Behind Media)</label>
                                                         <input
                                                             type="color"
                                                             value={styleConfig.bgColor || '#000000'}
@@ -1531,7 +1531,7 @@ export default function HeroAssetTab() {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">Overlay Opacity: {Math.round(overlayOpacity * 100)}%</label>
+                                                    <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">Overlay Opacity: {Math.round(overlayOpacity * 100)}%</label>
                                                     <input
                                                         type="range"
                                                         min="0"
@@ -1539,14 +1539,14 @@ export default function HeroAssetTab() {
                                                         step="0.05"
                                                         value={overlayOpacity}
                                                         onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
-                                                        className="w-full h-10 bg-white rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                        className="w-full h-10 bg-surface-elevated rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                     />
                                                 </div>
                                             </>
                                         )}
                                         {!showOverlay && (
                                             <div>
-                                                <label className="block text-[8px] font-black uppercase text-slate-400 mb-2">BG Color (Behind Media)</label>
+                                                <label className="block text-[8px] font-black uppercase text-ink-tertiary mb-2">BG Color (Behind Media)</label>
                                                 <input
                                                     type="color"
                                                     value={styleConfig.bgColor || '#000000'}
@@ -1558,12 +1558,12 @@ export default function HeroAssetTab() {
                                     </div>
 
                                     {/* Mode Specific Controls */}
-                                    <div className="grid grid-cols-1 gap-6 bg-slate-50 p-6 rounded-3xl border border-slate-200">
-                                        <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Layout Specific Controls</h4>
+                                    <div className="grid grid-cols-1 gap-6 bg-surface-secondary p-6 rounded-3xl border border-border-primary">
+                                        <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">Layout Specific Controls</h4>
                                         {layoutTemplate === 'standard' && (
                                             <div className="space-y-6">
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">View Scale: {styleConfig.scale || 100}%</label>
+                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">View Scale: {styleConfig.scale || 100}%</label>
                                                     <input
                                                         type="range"
                                                         min="100"
@@ -1571,17 +1571,17 @@ export default function HeroAssetTab() {
                                                         step="1"
                                                         value={styleConfig.scale || 100}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, scale: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                     />
                                                 </div>
                                                 <div>
                                                     <div className="flex justify-between items-center mb-3 ml-1">
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400">Vertical Offset: {styleConfig.offsetY || 0}px</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Vertical Offset: {styleConfig.offsetY || 0}px</label>
                                                         {styleConfig.offsetY !== 0 && (
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setStyleConfig({ ...styleConfig, offsetY: 0 })}
-                                                                className="text-[8px] font-black uppercase text-teal-500"
+                                                                className="text-[8px] font-black uppercase text-accent-500"
                                                             >
                                                                 Reset
                                                             </button>
@@ -1594,7 +1594,7 @@ export default function HeroAssetTab() {
                                                         step="5"
                                                         value={styleConfig.offsetY || 0}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, offsetY: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-slate-400"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-slate-400"
                                                     />
                                                 </div>
                                             </div>
@@ -1603,7 +1603,7 @@ export default function HeroAssetTab() {
                                         {layoutTemplate === 'split' && (
                                             <div className="space-y-6">
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Split Divide: {styleConfig.splitDivide || 50}%</label>
+                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Split Divide: {styleConfig.splitDivide || 50}%</label>
                                                     <input
                                                         type="range"
                                                         min="30"
@@ -1611,11 +1611,11 @@ export default function HeroAssetTab() {
                                                         step="1"
                                                         value={styleConfig.splitDivide || 50}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, splitDivide: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Media Scale: {styleConfig.scale || 100}%</label>
+                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Media Scale: {styleConfig.scale || 100}%</label>
                                                     <input
                                                         type="range"
                                                         min="100"
@@ -1623,17 +1623,17 @@ export default function HeroAssetTab() {
                                                         step="1"
                                                         value={styleConfig.scale || 100}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, scale: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-indigo-500"
                                                     />
                                                 </div>
                                                 <div>
                                                     <div className="flex justify-between items-center mb-3 ml-1">
-                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400">Horizontal Offset: {styleConfig.offsetX || 0}px</label>
+                                                        <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Horizontal Offset: {styleConfig.offsetX || 0}px</label>
                                                         {styleConfig.offsetX !== 0 && (
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setStyleConfig({ ...styleConfig, offsetX: 0 })}
-                                                                className="text-[8px] font-black uppercase text-teal-500"
+                                                                className="text-[8px] font-black uppercase text-accent-500"
                                                             >
                                                                 Reset
                                                             </button>
@@ -1646,7 +1646,7 @@ export default function HeroAssetTab() {
                                                         step="5"
                                                         value={styleConfig.offsetX || 0}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, offsetX: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-slate-400"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-slate-400"
                                                     />
                                                 </div>
                                             </div>
@@ -1655,7 +1655,7 @@ export default function HeroAssetTab() {
                                         {layoutTemplate === 'overlay' && (
                                             <div className="space-y-6">
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Overlay Scale: {styleConfig.overlayScale || 100}%</label>
+                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Overlay Scale: {styleConfig.overlayScale || 100}%</label>
                                                     <input
                                                         type="range"
                                                         min="70"
@@ -1663,18 +1663,18 @@ export default function HeroAssetTab() {
                                                         step="5"
                                                         value={styleConfig.overlayScale || 100}
                                                         onChange={(e) => setStyleConfig({ ...styleConfig, overlayScale: parseInt(e.target.value) })}
-                                                        className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                                        className="w-full h-2 bg-surface-secondary rounded-lg appearance-none cursor-pointer accent-teal-500"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">Overlay Alignment</label>
-                                                    <div className="flex gap-2 p-1 bg-slate-50 border border-slate-100 rounded-xl">
+                                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-3 ml-1">Overlay Alignment</label>
+                                                    <div className="flex gap-2 p-1 bg-surface-secondary border border-border-primary rounded-xl">
                                                         {['left', 'center', 'right'].map(align => (
                                                             <button
                                                                 key={align}
                                                                 type="button"
                                                                 onClick={() => setStyleConfig({ ...styleConfig, overlayAlign: align })}
-                                                                className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${(styleConfig.overlayAlign || 'center') === align ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                                className={`flex-1 py-1.5 rounded-lg text-[8px] font-black uppercase transition-all ${(styleConfig.overlayAlign || 'center') === align ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                                                             >
                                                                 {align}
                                                             </button>
@@ -1692,16 +1692,16 @@ export default function HeroAssetTab() {
                     {/* ═══════════════════════════════════════════════════════════
                         Section: Site Media
                         ═══════════════════════════════════════════════════════════ */}
-                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                    <div className="border border-border-primary rounded-4xl overflow-hidden">
                         <button
                             onClick={() => toggleSection('site-media')}
-                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                            className="w-full flex items-center justify-between p-6 bg-surface-secondary/50 hover:bg-surface-secondary transition-colors"
                         >
-                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-sm">👤</span>
+                            <span className="text-xs font-black uppercase tracking-widest text-ink-secondary flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-xl bg-[#e11d48]/10 text-[#e11d48] flex items-center justify-center text-sm">👤</span>
                                 Site Media &amp; Founder Photo
                             </span>
-                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('site-media') ? 'rotate-180' : ''}`}>▼</span>
+                            <span className={`text-ink-tertiary transition-transform ${expandedSections.includes('site-media') ? 'rotate-180' : ''}`}>▼</span>
                         </button>
 
                         <AnimatePresence>
@@ -1713,25 +1713,25 @@ export default function HeroAssetTab() {
                                     className="p-6 space-y-6 overflow-hidden"
                                 >
                                     {/* Description */}
-                                    <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                                    <p className="text-xs text-ink-tertiary0 font-medium leading-relaxed">
                                         Manage site-wide media assets like the founder photo displayed on the IBT Solutions founder page and IslandHub about page.
                                     </p>
 
                                     {/* Founder Photo */}
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                    <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary space-y-4">
                                         <div className="flex items-center justify-between">
-                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Founder Photo</h4>
-                                            <span className="text-[9px] font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Used on: IBT Founder Page · IslandHub About</span>
+                                            <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">Founder Photo</h4>
+                                            <span className="text-[9px] font-bold text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded-full">Used on: IBT Founder Page · IslandHub About</span>
                                         </div>
 
                                         {/* Current Photo Preview */}
                                         {founderPhotoUrl && (
                                             <div className="flex items-center gap-4">
-                                                <div className="w-20 h-20 rounded-2xl bg-white border-2 border-slate-200 overflow-hidden shrink-0">
+                                                <div className="w-20 h-20 rounded-2xl bg-surface-elevated border-2 border-border-primary overflow-hidden shrink-0">
                                                     <img src={getImageUrl(founderPhotoUrl)} alt="Founder" className="w-full h-full object-cover" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-[10px] font-mono text-slate-400 truncate">{founderPhotoUrl}</p>
+                                                    <p className="text-[10px] font-mono text-ink-tertiary truncate">{founderPhotoUrl}</p>
                                                     <button
                                                         type="button"
                                                         onClick={handleRemoveFounderPhoto}
@@ -1744,7 +1744,7 @@ export default function HeroAssetTab() {
                                         )}
 
                                         {/* Upload Area */}
-                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingFounder ? 'bg-slate-100 border-slate-300' : 'hover:border-teal-500 bg-white border-slate-200'}`}>
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingFounder ? 'bg-surface-secondary border-border-primary' : 'hover:border-teal-500 bg-surface-elevated border-border-primary'}`}>
                                             <input
                                                 type="file"
                                                 onChange={handleFounderPhotoUpload}
@@ -1755,32 +1755,32 @@ export default function HeroAssetTab() {
                                             {uploadingFounder ? (
                                                 <div className="flex flex-col items-center">
                                                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500 mb-2" />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-teal-600">Uploading...</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-accent-400">Uploading...</span>
                                                 </div>
                                             ) : (
                                                 <div className="flex flex-col items-center">
                                                     <span className="text-3xl mb-2">📷</span>
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click or Drag Founder Photo</span>
-                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">JPG, PNG, WebP (Max 10MB)</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary">Click or Drag Founder Photo</span>
+                                                    <span className="text-[10px] text-ink-tertiary font-medium mt-1">JPG, PNG, WebP (Max 10MB)</span>
                                                 </div>
                                             )}
                                         </div>
                                     </div>
 
                                     {/* IBT Solutions Site Logo */}
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                                    <div className="bg-surface-secondary p-6 rounded-3xl border border-border-primary space-y-4">
                                         <div className="flex items-center justify-between">
-                                            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">IBT Solutions Logo</h4>
-                                            <span className="text-[9px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">Used on: Navbar · Footer</span>
+                                            <h4 className="text-xs font-black text-ink-primary uppercase tracking-widest">IBT Solutions Logo</h4>
+                                            <span className="text-[9px] font-bold text-[#818cf8] bg-[#818cf8]/10 px-2 py-0.5 rounded-full">Used on: Navbar · Footer</span>
                                         </div>
 
                                         {ibtLogoUrl && (
                                             <div className="flex items-center gap-4">
-                                                <div className="w-20 h-20 rounded-2xl bg-white border-2 border-slate-200 overflow-hidden shrink-0 flex items-center justify-center p-2">
+                                                <div className="w-20 h-20 rounded-2xl bg-surface-elevated border-2 border-border-primary overflow-hidden shrink-0 flex items-center justify-center p-2">
                                                     <img src={getImageUrl(ibtLogoUrl)} alt="IBT Logo" className="w-full h-full object-contain" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="text-[10px] font-mono text-slate-400 truncate">{ibtLogoUrl}</p>
+                                                    <p className="text-[10px] font-mono text-ink-tertiary truncate">{ibtLogoUrl}</p>
                                                     <button
                                                         type="button"
                                                         onClick={handleRemoveIbtLogo}
@@ -1792,7 +1792,7 @@ export default function HeroAssetTab() {
                                             </div>
                                         )}
 
-                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingLogo ? 'bg-slate-100 border-slate-300' : 'hover:border-indigo-500 bg-white border-slate-200'}`}>
+                                        <div className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${uploadingLogo ? 'bg-surface-secondary border-border-primary' : 'hover:border-[#818cf8] bg-surface-elevated border-border-primary'}`}>
                                             <input
                                                 type="file"
                                                 onChange={handleIbtLogoUpload}
@@ -1802,14 +1802,14 @@ export default function HeroAssetTab() {
                                             />
                                             {uploadingLogo ? (
                                                 <div className="flex flex-col items-center">
-                                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500 mb-2" />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">Uploading...</span>
+                                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#818cf8] mb-2" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-[#818cf8]">Uploading...</span>
                                                 </div>
                                             ) : (
                                                 <div className="flex flex-col items-center">
                                                     <span className="text-3xl mb-2">🏢</span>
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Click or Drag Logo</span>
-                                                    <span className="text-[10px] text-slate-400 font-medium mt-1">PNG, SVG, WebP with transparency recommended</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary">Click or Drag Logo</span>
+                                                    <span className="text-[10px] text-ink-tertiary font-medium mt-1">PNG, SVG, WebP with transparency recommended</span>
                                                 </div>
                                             )}
                                         </div>
@@ -1821,14 +1821,14 @@ export default function HeroAssetTab() {
                                             type="button"
                                             onClick={handleSaveSiteMedia}
                                             disabled={savingSiteMedia}
-                                            className="flex-1 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-teal-700 transition-all disabled:opacity-50"
+                                            className="flex-1 py-4 bg-accent-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-accent-600 transition-all disabled:opacity-50"
                                         >
                                             {savingSiteMedia ? 'Saving...' : 'Save Site Media'}
                                         </button>
                                         <button
                                             type="button"
                                             onClick={handleResetSiteMedia}
-                                            className="px-6 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-all"
+                                            className="px-6 py-4 bg-surface-secondary text-ink-secondary rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-surface-tertiary transition-all"
                                         >
                                             Reset
                                         </button>
@@ -1844,7 +1844,7 @@ export default function HeroAssetTab() {
                             type="button"
                             onClick={handleSave}
                             disabled={saving}
-                            className="flex-1 py-5 bg-slate-900 text-white rounded-3xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-slate-200 hover:bg-teal-600 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                            className="flex-1 py-5 bg-ink-primary text-white rounded-3xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-black/10 hover:bg-accent-500 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
                         >
                             {saving ? 'Publishing...' : 'Save & Publish Hub'}
                         </button>
@@ -1863,8 +1863,8 @@ export default function HeroAssetTab() {
             <div className="relative">
                 <div className="sticky top-8">
                     <div className="mb-8">
-                        <h2 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase mb-2">Live Preview</h2>
-                        <p className="text-slate-400 font-medium">How the hero section will look on {PAGES.find(p => p.key === selectedPage)?.label}.</p>
+                        <h2 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase mb-2">Live Preview</h2>
+                        <p className="text-ink-tertiary font-medium">How the hero section will look on {PAGES.find(p => p.key === selectedPage)?.label}.</p>
                     </div>
 
             <div className="relative aspect-video rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl shadow-slate-300" style={{ backgroundColor: styleConfig.bgColor || '#000000' }}>
@@ -1885,7 +1885,7 @@ export default function HeroAssetTab() {
                                     className="absolute inset-0"
                                 />
                             ) : assetType === 'particle' ? (
-                                <div className="absolute inset-0 bg-slate-900">
+                                <div className="absolute inset-0 bg-ink-primary">
                                     <ParticleField
                                         count={styleConfig.particleCount || 80}
                                         color={styleConfig.particleColor || '#06b6d4'}
@@ -1908,8 +1908,8 @@ export default function HeroAssetTab() {
                                     )}
                                 </div>
                             ) : (
-                                <div className="absolute inset-0 flex items-center justify-center bg-slate-100">
-                                    <div className="text-center font-black italic text-slate-300 uppercase tracking-widest">
+                                <div className="absolute inset-0 flex items-center justify-center bg-surface-secondary">
+                                    <div className="text-center font-black italic text-ink-tertiary uppercase tracking-widest">
                                         <span className="text-4xl block mb-2 opacity-50">🖼️</span>
                                         No Asset Loaded
                                     </div>
@@ -1943,7 +1943,7 @@ export default function HeroAssetTab() {
                                     } : {}}
                                 >
                                     {iconUrl && (
-                                        <div className="w-12 h-12 mb-4 bg-white/10 backdrop-blur rounded-2xl p-2 border border-white/20">
+                                        <div className="w-12 h-12 mb-4 bg-surface-elevated/10 backdrop-blur rounded-2xl p-2 border border-white/20">
                                             {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads')) ? (
                                                 <img src={getImageUrl(iconUrl)} className="w-full h-full object-contain" alt="Icon" />
                                             ) : (
@@ -1974,7 +1974,7 @@ export default function HeroAssetTab() {
                                             {ctaText || 'Button'}
                                         </div>
                                         {showCta2 && cta2Text && (
-                                            <div className="px-5 py-2 bg-white/10 backdrop-blur border border-white/20 text-white rounded-xl font-black uppercase text-[8px] tracking-widest">
+                                            <div className="px-5 py-2 bg-surface-elevated/10 backdrop-blur border border-white/20 text-white rounded-xl font-black uppercase text-[8px] tracking-widest">
                                                 {cta2Text}
                                             </div>
                                         )}
@@ -1984,9 +1984,9 @@ export default function HeroAssetTab() {
                         </div>
                     </div>
 
-                    <div className="mt-6 p-6 bg-amber-50 rounded-3xl border border-amber-100 flex gap-4 items-start">
+                    <div className="mt-6 p-6 bg-sand-500/5 rounded-3xl border border-sand-500/20 flex gap-4 items-start">
                         <span className="text-xl">💡</span>
-                        <p className="text-sm font-medium text-amber-800 leading-relaxed">
+                        <p className="text-sm font-medium text-sand-600 leading-relaxed">
                             Changes saved here are <span className="font-black">live instantly</span>. Ensure high-resolution assets are used to maintain a premium feel.
                         </p>
                     </div>

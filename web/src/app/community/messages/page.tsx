@@ -247,7 +247,7 @@ export default function MessagesPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10"
+                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10"
                     >
                         Messages 💬
                     </motion.div>
@@ -305,7 +305,7 @@ export default function MessagesPage() {
                                             <button
                                                 key={conversation.id}
                                                 onClick={() => setSelectedConversation(conversation)}
-                                                className={`w-full p-4 flex items-center gap-4 hover:bg-surface-primary transition-colors border-b border-slate-50 ${selectedConversation?.id === conversation.id ? 'bg-accent-500/10' : ''
+                                                className={`w-full p-4 flex items-center gap-4 hover:bg-surface-primary transition-colors border-b border-border-primary ${selectedConversation?.id === conversation.id ? 'bg-accent-500/10' : ''
                                                     }`}
                                             >
                                                 <div className="relative">
@@ -390,7 +390,7 @@ export default function MessagesPage() {
                                                         <p className="text-xs font-black mb-1 opacity-70">{message.sender_name}</p>
                                                     )}
                                                     <p className="text-sm font-medium">{message.content}</p>
-                                                    <p className={`text-[10px] mt-1 ${message.sender_id === currentUserId ? 'text-teal-200' : 'text-ink-tertiary'
+                                                    <p className={`text-[10px] mt-1 ${message.sender_id === currentUserId ? 'text-accent-200' : 'text-ink-tertiary'
                                                         }`}>
                                                         {formatTime(message.created_at)}
                                                     </p>

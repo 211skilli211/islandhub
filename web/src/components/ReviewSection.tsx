@@ -55,14 +55,14 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
         <div className="space-y-12">
             <div className="flex justify-between items-end">
                 <div>
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-1">Customer Reviews</h3>
-                    <p className="text-slate-500 font-medium">Hear from the island community.</p>
+                    <h3 className="text-2xl font-black text-ink-primary tracking-tight mb-1">Customer Reviews</h3>
+                    <p className="text-ink-tertiary font-medium">Hear from the island community.</p>
                 </div>
             </div>
 
             {/* Submission Form */}
-            <form onSubmit={handleSubmit} className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
-                <h4 className="text-sm font-black uppercase tracking-widest text-slate-900 mb-6">Leave a Review</h4>
+            <form onSubmit={handleSubmit} className="bg-surface-secondary p-8 rounded-[2.5rem] border border-border-primary">
+                <h4 className="text-sm font-black uppercase tracking-widest text-ink-primary mb-6">Leave a Review</h4>
                 <div className="flex gap-2 mb-6">
                     {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -79,7 +79,7 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Share your experience..."
-                    className="w-full px-6 py-4 bg-white border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all h-24 mb-6"
+                    className="w-full px-6 py-4 bg-surface-elevated border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all h-24 mb-6"
                     required
                 />
                 <button
@@ -95,10 +95,10 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
             <div className="space-y-6">
                 {loading ? (
                     <div className="animate-pulse space-y-4">
-                        {[1, 2].map(i => <div key={i} className="h-32 bg-slate-50 rounded-3xl" />)}
+                        {[1, 2].map(i => <div key={i} className="h-32 bg-surface-secondary rounded-3xl" />)}
                     </div>
                 ) : reviews.length === 0 ? (
-                    <p className="text-slate-400 font-bold italic text-center py-12">No reviews yet. Be the first to share!</p>
+                    <p className="text-ink-tertiary font-bold italic text-center py-12">No reviews yet. Be the first to share!</p>
                 ) : (
                     <div className="grid grid-cols-1 gap-6">
                         {reviews.map((review, idx) => (
@@ -107,7 +107,7 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm flex gap-6"
+                                className="p-8 bg-surface-elevated border border-border-primary rounded-[2.5rem] shadow-sm flex gap-6"
                             >
                                 <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-xl shadow-inner font-black text-indigo-500 shrink-0">
                                     {review.reviewer_name?.charAt(0) || 'U'}
@@ -115,13 +115,13 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                                 <div className="flex-1">
                                     <div className="flex justify-between items-start mb-2">
                                         <div>
-                                            <h5 className="font-black text-slate-900">{review.reviewer_name}</h5>
+                                            <h5 className="font-black text-ink-primary">{review.reviewer_name}</h5>
                                             {review.verified && (
                                                 <div className="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50/50 px-2 py-0.5 rounded-full border border-emerald-100 w-fit mt-0.5">
                                                     <span>✅</span> Verified Purchase
                                                 </div>
                                             )}
-                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">
                                                 {new Date(review.created_at).toLocaleDateString()}
                                             </p>
                                         </div>
@@ -131,15 +131,15 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                                             ))}
                                         </div>
                                     </div>
-                                    <p className="text-slate-600 font-medium leading-relaxed">{review.comment}</p>
+                                    <p className="text-ink-secondary font-medium leading-relaxed">{review.comment}</p>
 
                                     {review.reply_text && (
-                                        <div className="mt-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 relative ml-4">
-                                            <div className="absolute -top-2 left-4 bg-white border border-slate-200 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest text-slate-500">
+                                        <div className="mt-4 p-5 bg-surface-secondary rounded-2xl border border-border-primary relative ml-4">
+                                            <div className="absolute -top-2 left-4 bg-surface-elevated border border-border-primary px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest text-ink-tertiary">
                                                 Response from Vendor
                                             </div>
-                                            <p className="text-slate-600/90 text-sm font-medium italic">"{review.reply_text}"</p>
-                                            <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-2">{new Date(review.replied_at).toLocaleDateString()}</p>
+                                            <p className="text-ink-secondary/90 text-sm font-medium italic">"{review.reply_text}"</p>
+                                            <p className="text-[9px] text-ink-tertiary font-bold uppercase tracking-widest mt-2">{new Date(review.replied_at).toLocaleDateString()}</p>
                                         </div>
                                     )}
                                 </div>

@@ -37,7 +37,7 @@ export default function FounderPhoto({ className = '' }: { className?: string })
   return (
     <div className={`overflow-hidden ${className}`}>
       {loading ? (
-        <div className="w-full h-full flex items-center justify-center bg-slate-100">
+        <div className="w-full h-full flex items-center justify-center bg-surface-secondary">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
         </div>
       ) : (

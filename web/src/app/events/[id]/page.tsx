@@ -37,7 +37,7 @@ export default function EventDetailPage() {
       <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center">
         <div className="text-center">
           <p className="text-6xl mb-4">🔍</p>
-          <h2 className="text-2xl font-black text-slate-800 dark:text-sand-50">Event not found</h2>
+          <h2 className="text-2xl font-black text-ink-primary dark:text-sand-50">Event not found</h2>
           <Link href="/events" className="mt-4 inline-block text-purple-600 font-bold hover:underline">← Back to Events</Link>
         </div>
       </div>
@@ -99,30 +99,30 @@ export default function EventDetailPage() {
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">📅</p>
                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Date</p>
-                <p className="font-bold text-slate-800 dark:text-sand-50 text-sm">{formatDate(event.start_date)}</p>
+                <p className="font-bold text-ink-primary dark:text-sand-50 text-sm">{formatDate(event.start_date)}</p>
               </div>
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">🕐</p>
                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Time</p>
-                <p className="font-bold text-slate-800 dark:text-sand-50 text-sm">{formatTime(event.start_date)}</p>
+                <p className="font-bold text-ink-primary dark:text-sand-50 text-sm">{formatTime(event.start_date)}</p>
               </div>
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">📍</p>
                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Venue</p>
-                <p className="font-bold text-slate-800 dark:text-sand-50 text-sm">{event.venue}</p>
+                <p className="font-bold text-ink-primary dark:text-sand-50 text-sm">{event.venue}</p>
               </div>
             </div>
 
             {/* Description */}
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 border border-border-primary dark:border-ocean-700">
               <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-3">About This Event</h2>
-              <p className="text-ink-secondary dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{event.description}</p>
+              <p className="text-ink-secondary dark:text-ink-tertiary leading-relaxed whitespace-pre-wrap">{event.description}</p>
             </div>
 
             {/* Organizer */}
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 border border-border-primary dark:border-ocean-700">
               <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-3">Organizer</h2>
-              <p className="text-ink-secondary dark:text-slate-300">{event.organizer_name}</p>
+              <p className="text-ink-secondary dark:text-ink-tertiary">{event.organizer_name}</p>
             </div>
           </div>
 
@@ -157,7 +157,7 @@ export default function EventDetailPage() {
                       >
                         <div className="flex justify-between items-start">
                           <div>
-                            <p className="font-black text-slate-800 dark:text-sand-50">{t.name}</p>
+                            <p className="font-black text-ink-primary dark:text-sand-50">{t.name}</p>
                             {t.description && <p className="text-xs text-ink-tertiary mt-1">{t.description}</p>}
                             {t.perks?.length > 0 && (
                               <div className="mt-2 flex flex-wrap gap-1">
@@ -215,15 +215,15 @@ export default function EventDetailPage() {
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
                 <span className="text-ink-tertiary">Event</span>
-                <span className="font-bold text-slate-800 dark:text-sand-50">{event.title}</span>
+                <span className="font-bold text-ink-primary dark:text-sand-50">{event.title}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-ink-tertiary">Ticket</span>
-                <span className="font-bold text-slate-800 dark:text-sand-50">{tier.name}</span>
+                <span className="font-bold text-ink-primary dark:text-sand-50">{tier.name}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-ink-tertiary">Date</span>
-                <span className="font-bold text-slate-800 dark:text-sand-50">{formatDate(event.start_date)}</span>
+                <span className="font-bold text-ink-primary dark:text-sand-50">{formatDate(event.start_date)}</span>
               </div>
               <div className="flex justify-between text-sm border-t border-border-primary dark:border-ocean-700 pt-3">
                 <span className="font-black">Total</span>

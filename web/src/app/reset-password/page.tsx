@@ -53,7 +53,7 @@ function ResetPasswordContent() {
                     <h2 className="text-2xl font-bold text-ink-primary">Invalid Link</h2>
                     <p className="mt-2 text-sm text-ink-secondary">This password reset link is invalid or has expired.</p>
                     <div className="mt-6">
-                        <a href="/forgot-password" className="text-accent-400 hover:text-teal-500 font-medium">
+                        <a href="/forgot-password" className="text-accent-400 hover:text-accent-500 font-medium">
                             Request a new reset link
                         </a>
                     </div>
@@ -78,7 +78,7 @@ function ResetPasswordContent() {
                     <div className="bg-surface-elevated dark:bg-surface-tertiary py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="password" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
+                                <label htmlFor="password" className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary">
                                     New Password
                                 </label>
                                 <div className="mt-2">
@@ -90,13 +90,13 @@ function ResetPasswordContent() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label htmlFor="confirmPassword" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
+                                <label htmlFor="confirmPassword" className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary">
                                     Confirm New Password
                                 </label>
                                 <div className="mt-2">
@@ -108,7 +108,7 @@ function ResetPasswordContent() {
                                         required
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
@@ -124,7 +124,7 @@ function ResetPasswordContent() {
                             </div>
 
                             <div className="text-center">
-                                <a href="/login" className="text-sm text-accent-400 hover:text-teal-500">
+                                <a href="/login" className="text-sm text-accent-400 hover:text-accent-500">
                                     Back to login
                                 </a>
                             </div>

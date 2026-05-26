@@ -99,11 +99,11 @@ export default function ImageUpload({
 
     return (
         <div className={`space-y-2 ${className}`}>
-            <label className="block text-sm font-bold text-slate-700">{label}</label>
+            <label className="block text-sm font-bold text-ink-secondary">{label}</label>
 
             <div
                 onClick={() => fileInputRef.current?.click()}
-                className={`relative border-2 border-dashed border-slate-200 transition-all cursor-pointer overflow-hidden flex items-center justify-center bg-slate-50/50 hover:bg-slate-100 hover:border-indigo-400 group ${containerClasses}`}
+                className={`relative border-2 border-dashed border-border-primary transition-all cursor-pointer overflow-hidden flex items-center justify-center bg-surface-secondary/50 hover:bg-surface-secondary hover:border-indigo-400 group ${containerClasses}`}
             >
                 {preview ? (
                     <>
@@ -119,18 +119,18 @@ export default function ImageUpload({
                 ) : (
                     <div className="text-center p-4">
                         <span className="text-3xl mb-2 block animate-bounce">📸</span>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Add Image</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Add Image</span>
                     </div>
                 )}
 
                 {uploading && (
-                    <div className="absolute inset-0 bg-white/90 flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
+                    <div className="absolute inset-0 bg-surface-elevated/90 flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#818cf8]"></div>
                     </div>
                 )}
             </div>
 
-            {error && <p className="text-xs text-rose-500 font-bold">{error}</p>}
+            {error && <p className="text-xs text-[#e11d48] font-bold">{error}</p>}
 
             <input
                 type="file"
@@ -152,7 +152,7 @@ export default function ImageUpload({
                 />
             )}
 
-            <p className="text-[10px] text-slate-400 text-center font-bold tracking-tighter">
+            <p className="text-[10px] text-ink-tertiary text-center font-bold tracking-tighter">
                 {presetConfig ? `${presetConfig.label} • ` : ''}Optimized Upload • Max {effectiveMaxSize}MB
             </p>
         </div>

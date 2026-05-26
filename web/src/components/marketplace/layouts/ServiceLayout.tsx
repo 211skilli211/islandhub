@@ -71,9 +71,9 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
     }, [store.store_id, store.id, listings]);
 
     return (
-        <div className="bg-white dark:bg-slate-900 min-h-screen">
+        <div className="bg-surface-elevated dark:bg-ink-primary min-h-screen">
             {/* Service Hero */}
-            <div className="relative pt-20 pb-16 overflow-hidden bg-slate-50 min-h-[400px] flex items-center">
+            <div className="relative pt-20 pb-16 overflow-hidden bg-surface-secondary min-h-[400px] flex items-center">
                 <HeroBackground
                     overrideData={{
                         asset_url: store.banner_url || undefined,
@@ -92,14 +92,14 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                         <div className="flex flex-col lg:flex-row items-center lg:items-end gap-4">
                             <img
                                 src={store.logo_url ? getImageUrl(store.logo_url) : getImageUrl(PLACEHOLDER_LOGO)}
-                                className="w-20 h-20 rounded-xl bg-white p-1.5 object-contain shadow-md border border-slate-100"
+                                className="w-20 h-20 rounded-xl bg-surface-elevated p-1.5 object-contain shadow-md border border-border-primary"
                                 alt="Logo"
                             />
                             <div className="text-center lg:text-left">
                                 <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                                     <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: `${brandingColor}15`, color: brandingColor }}>Verified</span>
                                     <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: `${brandingColor}15`, color: brandingColor }}>Professional</span>
-                                    <span className="bg-slate-900 text-white px-3 py-1 rounded-full text-xs font-medium">Local Expert</span>
+                                    <span className="bg-ink-primary text-white px-3 py-1 rounded-full text-xs font-medium">Local Expert</span>
                                 </div>
                             </div>
                         </div>
@@ -109,25 +109,25 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                             animate={{ opacity: 1, y: 0 }}
                             className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full"
                         >
-                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                            <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
                                 <span className="text-2xl mb-2">✅</span>
-                                <h4 className="text-xl font-semibold text-slate-900">100%</h4>
-                                <p className="text-xs text-slate-400">Satisfaction</p>
+                                <h4 className="text-xl font-semibold text-ink-primary">100%</h4>
+                                <p className="text-xs text-ink-tertiary">Satisfaction</p>
                             </div>
-                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                            <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
                                 <span className="text-2xl mb-2">🛡️</span>
-                                <h4 className="text-xl font-semibold text-slate-900">Verified</h4>
-                                <p className="text-xs text-slate-400">Professional</p>
+                                <h4 className="text-xl font-semibold text-ink-primary">Verified</h4>
+                                <p className="text-xs text-ink-tertiary">Professional</p>
                             </div>
-                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                            <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
                                 <span className="text-2xl mb-2">🏆</span>
-                                <h4 className="text-xl font-semibold text-slate-900">5+ Yrs</h4>
-                                <p className="text-xs text-slate-400">Experience</p>
+                                <h4 className="text-xl font-semibold text-ink-primary">5+ Yrs</h4>
+                                <p className="text-xs text-ink-tertiary">Experience</p>
                             </div>
-                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                            <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
                                 <span className="text-2xl mb-2">⭐</span>
-                                <h4 className="text-xl font-semibold text-slate-900">4.9/5</h4>
-                                <p className="text-xs text-slate-400">Avg Rating</p>
+                                <h4 className="text-xl font-semibold text-ink-primary">4.9/5</h4>
+                                <p className="text-xs text-ink-tertiary">Avg Rating</p>
                             </div>
                         </motion.div>
                     </div>
@@ -144,19 +144,19 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                 <div className="lg:col-span-8">
                     {loading ? (
                         <div className="flex items-center justify-center h-48">
-                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-slate-900"></div>
+                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-border-primary"></div>
                         </div>
                     ) : (
                         <div className="space-y-12">
                             {sections.length > 0 ? (
                                 sections.map((section: any) => (
                                     <section key={section.section_id}>
-                                        <div className="flex items-end justify-between mb-6 border-b border-slate-100 pb-4">
+                                        <div className="flex items-end justify-between mb-6 border-b border-border-primary pb-4">
                                             <div>
-                                                <h2 className="text-xl font-semibold text-slate-900">{section.section_name}</h2>
-                                                <p className="text-slate-500 dark:text-slate-400 text-sm">Professional {section.section_name.toLowerCase()} for your needs</p>
+                                                <h2 className="text-xl font-semibold text-ink-primary">{section.section_name}</h2>
+                                                <p className="text-ink-tertiary0 dark:text-ink-tertiary text-sm">Professional {section.section_name.toLowerCase()} for your needs</p>
                                             </div>
-                                            <span className="text-xs text-slate-400">Section {section.priority}</span>
+                                            <span className="text-xs text-ink-tertiary">Section {section.priority}</span>
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -172,23 +172,23 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                                                 setIsBookingModalOpen(true);
                                                             }
                                                         }}
-                                                        className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-hidden transition-all hover:shadow-md flex flex-col cursor-pointer"
+                                                        className="group bg-surface-elevated dark:bg-surface-tertiary rounded-xl border border-border-primary dark:border-border-primary overflow-hidden transition-all hover:shadow-md flex flex-col cursor-pointer"
                                                     >
-                                                        <div className="relative h-40 bg-slate-100">
+                                                        <div className="relative h-40 bg-surface-secondary">
                                                             {service.image_url ? (
                                                                 <img src={getImageUrl(service.image_url)} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" alt={service.service_name} />
                                                             ) : (
-                                                                <div className="w-full h-full flex items-center justify-center text-3xl bg-slate-50 font-semibold text-slate-300">
+                                                                <div className="w-full h-full flex items-center justify-center text-3xl bg-surface-secondary font-semibold text-ink-tertiary">
                                                                     {service.service_name.charAt(0)}
                                                                 </div>
                                                             )}
                                                         </div>
                                                         <div className="p-5 flex-1 flex flex-col">
                                                             <div className="flex justify-between items-start mb-3">
-                                                                <h3 className="text-base font-semibold text-slate-900">{service.service_name}</h3>
-                                                                <span className="bg-slate-900 dark:bg-slate-700 text-white px-2.5 py-1 rounded-lg text-xs font-medium">${service.price}</span>
+                                                                <h3 className="text-base font-semibold text-ink-primary">{service.service_name}</h3>
+                                                                <span className="bg-ink-primary dark:bg-surface-tertiary text-white px-2.5 py-1 rounded-lg text-xs font-medium">${service.price}</span>
                                                             </div>
-                                                            <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">{service.description}</p>
+                                                            <p className="text-ink-tertiary0 text-sm leading-relaxed mb-4 line-clamp-2">{service.description}</p>
                                                         </div>
                                                     </motion.div>
                                                 </div>
@@ -205,8 +205,8 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                     </div>
                                 </section>
                             ) : (
-                                <div className="text-center py-16 bg-slate-50 rounded-xl border border-dashed border-slate-200">
-                                    <h3 className="text-lg font-medium text-slate-600">No items found</h3>
+                                <div className="text-center py-16 bg-surface-secondary rounded-xl border border-dashed border-border-primary">
+                                    <h3 className="text-lg font-medium text-ink-secondary">No items found</h3>
                                 </div>
                             )}
                         </div>
@@ -229,7 +229,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                     <h3 className="text-lg font-semibold mb-3">{section.title}</h3>
                                     <p className="text-sm mb-5 opacity-90 leading-relaxed">{section.body}</p>
                                     {section.cta_text && (
-                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-white text-center rounded-lg font-medium text-sm transition-colors hover:bg-slate-50" style={{ color: brandingColor }}>
+                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-surface-elevated text-center rounded-lg font-medium text-sm transition-colors hover:bg-surface-secondary" style={{ color: brandingColor }}>
                                             {section.cta_text}
                                         </Link>
                                     )}
@@ -241,7 +241,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
-                                <div className="bg-slate-900 p-6 rounded-xl text-white shadow-sm">
+                                <div className="bg-ink-primary p-6 rounded-xl text-white shadow-sm">
                                     <h3 className="text-base font-semibold mb-5 flex items-center gap-2">
                                         <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                         {section.title}
@@ -251,8 +251,8 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                             <div key={i} className="flex gap-3 items-start group">
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
-                                                    <p className="text-slate-400 text-xs mb-0.5">{item.title}</p>
-                                                    <p className="font-medium text-sm text-slate-200">{item.desc}</p>
+                                                    <p className="text-ink-tertiary text-xs mb-0.5">{item.title}</p>
+                                                    <p className="font-medium text-sm text-ink-tertiary">{item.desc}</p>
                                                 </div>
                                             </div>
                                         ))}
@@ -271,22 +271,22 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                 storeId={store.store_id || store.id}
             />
 
-            <footer className="bg-slate-900 py-12 text-white">
+            <footer className="bg-ink-primary py-12 text-white">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-center md:text-left">
                         <h2 className="text-2xl font-semibold mb-1">{store.business_name}</h2>
-                        <p className="text-slate-400 text-sm max-w-sm">
+                        <p className="text-ink-tertiary text-sm max-w-sm">
                             Committed to delivering professional excellence and building trust through quality service.
                         </p>
                     </div>
                     <div className="flex gap-4 items-center">
                         <div className="text-right hidden md:block">
-                            <p className="text-xs text-slate-500 mb-0.5">Ready to book?</p>
+                            <p className="text-xs text-ink-tertiary0 mb-0.5">Ready to book?</p>
                             <p className="text-sm font-medium">Secure your session today</p>
                         </div>
                         <button
                             onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="px-6 py-3 bg-white text-slate-900 rounded-lg font-medium text-sm hover:bg-slate-100 active:scale-95 transition-all"
+                            className="px-6 py-3 bg-surface-elevated text-ink-primary rounded-lg font-medium text-sm hover:bg-surface-secondary active:scale-95 transition-all"
                         >
                             Get Started
                         </button>

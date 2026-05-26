@@ -24,7 +24,7 @@ export default function ListingFilters({ config, filters, setFilters, onClose }:
                     <select
                         value={filters[section.id] || ''}
                         onChange={(e) => handleChange(section.id, e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white text-sm"
+                        className="w-full px-3 py-2 border border-border-primary rounded-xl focus:ring-2 focus:ring-accent-400 focus:border-transparent bg-surface-elevated text-sm"
                     >
                         {section.options?.map(opt => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -39,14 +39,14 @@ export default function ListingFilters({ config, filters, setFilters, onClose }:
                             placeholder="Min"
                             value={filters[`min_${section.id}`] || ''}
                             onChange={(e) => handleChange(`min_${section.id}`, e.target.value)}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500"
+                            className="w-full px-3 py-2 border border-border-primary rounded-xl text-sm focus:ring-2 focus:ring-accent-400"
                         />
                         <input
                             type="number"
                             placeholder="Max"
                             value={filters[`max_${section.id}`] || ''}
                             onChange={(e) => handleChange(`max_${section.id}`, e.target.value)}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500"
+                            className="w-full px-3 py-2 border border-border-primary rounded-xl text-sm focus:ring-2 focus:ring-accent-400"
                         />
                     </div>
                 );
@@ -62,24 +62,24 @@ export default function ListingFilters({ config, filters, setFilters, onClose }:
                                         value={opt.value}
                                         checked={filters[section.id] === opt.value}
                                         onChange={(e) => handleChange(section.id, e.target.value)}
-                                        className="w-4 h-4 border-2 border-slate-300 text-teal-600 focus:ring-teal-500 rounded-full transition-all group-hover:border-teal-400"
+                                        className="w-4 h-4 border-2 border-border-primary text-accent-400 focus:ring-accent-400 rounded-full transition-all group-hover:border-teal-400"
                                     />
                                 </div>
-                                <span className="text-sm font-medium text-slate-600 group-hover:text-slate-900">{opt.label}</span>
+                                <span className="text-sm font-medium text-ink-secondary group-hover:text-ink-primary">{opt.label}</span>
                             </label>
                         ))}
                     </div>
                 );
             case 'checkbox':
                 return (
-                    <label className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100 cursor-pointer hover:bg-white hover:shadow-sm transition-all">
+                    <label className="flex items-center gap-3 p-3 bg-surface-secondary rounded-xl border border-border-primary cursor-pointer hover:bg-surface-elevated hover:shadow-sm transition-all">
                         <input
                             type="checkbox"
                             checked={!!filters[section.id]}
                             onChange={(e) => handleChange(section.id, e.target.checked)}
-                            className="w-5 h-5 border-2 border-slate-300 rounded-lg text-teal-600 focus:ring-teal-500 transition-all checked:bg-teal-500 checked:border-teal-500"
+                            className="w-5 h-5 border-2 border-border-primary rounded-lg text-accent-400 focus:ring-accent-400 transition-all checked:bg-accent-500/100 checked:border-teal-500"
                         />
-                        <span className="text-sm font-bold text-slate-700">{section.label}</span>
+                        <span className="text-sm font-bold text-ink-secondary">{section.label}</span>
                     </label>
                 );
             default:
@@ -90,23 +90,23 @@ export default function ListingFilters({ config, filters, setFilters, onClose }:
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center lg:hidden mb-4">
-                <h3 className="font-black text-xl text-slate-900">Filters</h3>
+                <h3 className="font-black text-xl text-ink-primary">Filters</h3>
                 <button
                     onClick={onClose}
-                    className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                    className="p-2 hover:bg-surface-secondary rounded-full transition-colors"
                 >
                     ✕
                 </button>
             </div>
 
             <div className="hidden lg:block">
-                <h3 className="font-black text-lg text-slate-900 mb-4">Filters</h3>
+                <h3 className="font-black text-lg text-ink-primary mb-4">Filters</h3>
             </div>
 
             {config.filters.map(section => (
                 <div key={section.id} className="space-y-2">
                     {section.type !== 'checkbox' && (
-                        <label className="block text-xs font-black uppercase tracking-widest text-slate-400">
+                        <label className="block text-xs font-black uppercase tracking-widest text-ink-tertiary">
                             {section.label}
                         </label>
                     )}
@@ -127,7 +127,7 @@ export default function ListingFilters({ config, filters, setFilters, onClose }:
                     }, {});
                     setFilters(resetFilters);
                 }}
-                className="w-full py-3 text-sm font-bold text-teal-600 hover:bg-teal-50 rounded-xl transition-all border border-teal-100"
+                className="w-full py-3 text-sm font-bold text-accent-400 hover:bg-accent-500/10 rounded-xl transition-all border border-teal-100"
             >
                 Clear All Filters
             </button>

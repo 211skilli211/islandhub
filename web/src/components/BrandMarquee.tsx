@@ -111,9 +111,9 @@ export default function BrandMarquee({
     const BrandCard = ({ item }: { item: BrandMarqueeItem }) => (
         <Link
             href={item.slug ? `/store/${item.slug}` : `/store/${item.id}`}
-            className="shrink-0 w-44 md:w-56 bg-white dark:bg-slate-800 rounded-4xl p-5 md:p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm flex flex-col items-center text-center overflow-hidden"
+            className="shrink-0 w-44 md:w-56 bg-surface-secondary rounded-4xl p-5 md:p-8 border border-border-primary hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm flex flex-col items-center text-center overflow-hidden"
         >
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-slate-50 dark:bg-slate-700/50 mb-6 overflow-hidden flex items-center justify-center border border-slate-50 dark:border-slate-600 shadow-inner shrink-0">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-surface-tertiary/50 mb-6 overflow-hidden flex items-center justify-center border border-border-primary dark:border-border-primary shadow-inner shrink-0">
                 {item.logo_url ? (
                     <img
                         src={getImageUrl(item.logo_url) || getImageUrl('file-1769965232226-73669333.jpg')}
@@ -128,12 +128,12 @@ export default function BrandMarquee({
                     </span>
                 )}
             </div>
-            <h4 className="font-black text-slate-900 dark:text-white text-base md:text-lg truncate w-full px-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors uppercase tracking-tighter mb-2">
+            <h4 className="font-black text-ink-primary text-base md:text-lg truncate w-full px-1 group-hover:text-accent-400 transition-colors uppercase tracking-tighter mb-2">
                 {item.name}
             </h4>
             <div className="flex items-center justify-center gap-2 w-full px-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse shrink-0" />
-                <p className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest truncate">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-500/100 animate-pulse shrink-0" />
+                <p className="text-[10px] md:text-xs text-ink-tertiary font-bold uppercase tracking-widest truncate">
                     {item.category || 'Island Partner'}
                 </p>
             </div>
@@ -143,9 +143,9 @@ export default function BrandMarquee({
     const ProductCard = ({ item, index }: { item: BrandMarqueeItem; index: number }) => (
         <Link
             href={item.slug ? `/listings/${item.slug}` : `/listings/${item.id}`}
-            className="shrink-0 w-40 md:w-48 bg-white dark:bg-slate-800 rounded-4xl overflow-hidden border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm"
+            className="shrink-0 w-40 md:w-48 bg-surface-secondary rounded-4xl overflow-hidden border border-border-primary hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer shadow-sm"
         >
-            <div className="aspect-square bg-slate-50 dark:bg-slate-700/50 relative overflow-hidden">
+            <div className="aspect-square bg-surface-tertiary/50 relative overflow-hidden">
                 {item.image_url || item.logo_url ? (
                     <img
                         src={getImageUrl(item.image_url || item.logo_url) || getImageUrl('file-1769965232226-73669333.jpg')}
@@ -158,18 +158,18 @@ export default function BrandMarquee({
                     </div>
                 )}
                 {item.category && (
-                    <div className="absolute top-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-900 dark:text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl border border-white/20 shadow-sm">
+                    <div className="absolute top-4 left-4 bg-surface-elevated/90 backdrop-blur-md text-ink-primary text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl border border-surface-elevated/20 shadow-sm">
                         {item.category}
                     </div>
                 )}
             </div>
             <div className="p-5 md:p-6">
-                <h4 className="font-black text-slate-900 dark:text-white text-xs md:text-sm truncate mb-1 group-hover:text-teal-600 transition-colors uppercase tracking-tight">{item.name}</h4>
+                <h4 className="font-black text-ink-primary text-xs md:text-sm truncate mb-1 group-hover:text-accent-400 transition-colors uppercase tracking-tight">{item.name}</h4>
                 <div className="flex items-center justify-between mt-4">
-                    <span className="text-teal-600 dark:text-teal-400 font-black text-base md:text-xl italic">
+                    <span className="text-accent-400 dark:text-accent-400 font-black text-base md:text-xl italic">
                         {typeof item.price === 'string' ? item.price : `$${item.price || '0.00'}`}
                     </span>
-                    <div className="w-9 h-9 rounded-2xl bg-teal-500/10 flex items-center justify-center group-hover:bg-teal-500 group-hover:text-white transition-all text-teal-600 shadow-sm">
+                    <div className="w-9 h-9 rounded-2xl bg-accent-500/100/10 flex items-center justify-center group-hover:bg-accent-500/100 group-hover:text-surface-secondary transition-all text-accent-400 shadow-sm">
                         <span className="text-lg font-black">+</span>
                     </div>
                 </div>
@@ -184,24 +184,24 @@ export default function BrandMarquee({
             onMouseLeave={() => setIsPaused(false)}
         >
             {/* Ambient Background decoration */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-64 bg-teal-500/5 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-64 bg-accent-500/100/5 blur-[120px] rounded-full pointer-events-none" />
 
             {/* Header */}
             <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 mb-16">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div className="flex items-center gap-6">
-                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-4xl bg-teal-500/10 flex items-center justify-center text-4xl shadow-inner border border-teal-500/20">
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-4xl bg-accent-500/100/10 flex items-center justify-center text-4xl shadow-inner border border-accent-400/20">
                             {emoji || (type === 'brand' ? '🏙️' : '✨')}
                         </div>
                         <div>
                             <div className="flex items-center gap-3 mb-2">
-                                <span className="w-2 h-2 rounded-full bg-teal-500" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">Verified Hub</span>
+                                <span className="w-2 h-2 rounded-full bg-accent-500/100" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent-400 dark:text-accent-400">Verified Hub</span>
                             </div>
-                            <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none mb-3 italic uppercase">
+                            <h3 className="text-3xl md:text-5xl font-black text-ink-primary tracking-tighter leading-none mb-3 italic uppercase">
                                 {type === 'brand' ? 'Premier Brands & Hosts' : 'Island Trending Now'}
                             </h3>
-                            <p className="text-sm md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-lg leading-tight italic">
+                            <p className="text-sm md:text-xl text-ink-tertiary font-medium max-w-lg leading-tight italic">
                                 {type === 'brand'
                                     ? 'Showcasing high-caliber local entrepreneurs and unique island stays.'
                                     : 'The most coveted local treasures loved by the community.'}
@@ -210,7 +210,7 @@ export default function BrandMarquee({
                     </div>
                     <Link
                         href={type === 'brand' ? '/stores' : '/listings'}
-                        className="group flex items-center gap-4 px-8 py-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 hover:border-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-500 self-start md:self-auto shadow-xl shadow-slate-200/50"
+                        className="group flex items-center gap-4 px-8 py-4 rounded-2xl bg-surface-secondary border-2 border-border-primary hover:border-accent-400 hover:bg-accent-500/100 hover:text-surface-secondary transition-all duration-500 self-start md:self-auto shadow-xl shadow-black/10/50"
                     >
                         <span className="text-xs font-black uppercase tracking-[0.2em]">
                             Explore All {type === 'brand' ? 'Stores' : 'Products'}
@@ -230,7 +230,7 @@ export default function BrandMarquee({
                 {isLoading ? (
                     <div className="flex gap-8 px-6">
                         {[1, 2, 3, 4, 5].map(i => (
-                            <div key={i} className="shrink-0 w-44 h-64 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] animate-pulse" />
+                            <div key={i} className="shrink-0 w-44 h-64 bg-surface-secondary dark:bg-surface-tertiary rounded-[2.5rem] animate-pulse" />
                         ))}
                     </div>
                 ) : (

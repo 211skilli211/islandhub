@@ -85,7 +85,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
 
     if (compact) {
         return (
-            <div className="bg-white rounded-3xl border border-slate-100 p-6">
+            <div className="bg-surface-elevated rounded-3xl border border-border-primary p-6">
                 <div className="flex gap-4">
                     <div className="w-10 h-10 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
                         U
@@ -97,7 +97,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                             onFocus={() => setIsExpanded(true)}
-                            className="w-full bg-slate-50 rounded-2xl px-4 py-3 text-sm font-medium outline-none focus:ring-2 focus:ring-teal-500/20 transition-all"
+                            className="w-full bg-surface-secondary rounded-2xl px-4 py-3 text-sm font-medium outline-none focus:ring-2 focus:ring-accent-400/20 transition-all"
                         />
                     </div>
                 </div>
@@ -107,7 +107,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="mt-4 pt-4 border-t border-slate-100"
+                        className="mt-4 pt-4 border-t border-border-primary"
                     >
                         <div className="flex justify-between items-center">
                             <div className="flex gap-2">
@@ -115,7 +115,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                                     <button
                                         key={emoji}
                                         onClick={() => insertEmoji(emoji)}
-                                        className="w-8 h-8 hover:bg-slate-100 rounded-lg flex items-center justify-center transition-colors text-lg"
+                                        className="w-8 h-8 hover:bg-surface-secondary rounded-lg flex items-center justify-center transition-colors text-lg"
                                     >
                                         {emoji}
                                     </button>
@@ -124,7 +124,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                             <button
                                 onClick={handleSubmit}
                                 disabled={isPosting}
-                                className="px-6 py-2 bg-teal-600 text-white rounded-xl font-black text-xs uppercase tracking-widest disabled:opacity-50 hover:bg-teal-700 transition-colors"
+                                className="px-6 py-2 bg-accent-500 text-white rounded-xl font-black text-xs uppercase tracking-widest disabled:opacity-50 hover:bg-accent-600 transition-colors"
                             >
                                 {isPosting ? 'Posting...' : 'Post'}
                             </button>
@@ -136,27 +136,27 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
     }
 
     return (
-        <div className="bg-white rounded-[3rem] border border-slate-100 overflow-hidden">
+        <div className="bg-surface-elevated rounded-[3rem] border border-border-primary overflow-hidden">
             {/* Header */}
-            <div className="p-8 border-b border-slate-100">
+            <div className="p-8 border-b border-border-primary">
                 <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold">
                         U
                     </div>
                     <div className="flex-1">
-                        <p className="font-black text-slate-900">Welcome to the Community!</p>
-                        <p className="text-xs text-slate-400 font-medium">Share your island story</p>
+                        <p className="font-black text-ink-primary">Welcome to the Community!</p>
+                        <p className="text-xs text-ink-tertiary font-medium">Share your island story</p>
                     </div>
 
                     {/* Visibility Toggle */}
-                    <div className="flex bg-slate-50 rounded-xl p-1">
+                    <div className="flex bg-surface-secondary rounded-xl p-1">
                         {(['public', 'followers', 'private'] as const).map((v) => (
                             <button
                                 key={v}
                                 onClick={() => setVisibility(v)}
                                 className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${visibility === v
-                                    ? 'bg-white text-teal-600 shadow-sm'
-                                    : 'text-slate-400 hover:text-slate-600'
+                                    ? 'bg-surface-elevated text-accent-400 shadow-sm'
+                                    : 'text-ink-tertiary hover:text-ink-secondary'
                                     }`}
                             >
                                 {v === 'public' && '🌎'}
@@ -176,7 +176,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                     onChange={(e) => setContent(e.target.value)}
                     placeholder={placeholder}
                     rows={isExpanded ? 4 : 2}
-                    className="w-full text-lg font-medium text-slate-700 placeholder:text-slate-300 outline-none resize-none transition-all"
+                    className="w-full text-lg font-medium text-ink-secondary placeholder:text-ink-tertiary outline-none resize-none transition-all"
                 />
 
                 {/* Media Preview */}
@@ -224,20 +224,20 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                         />
                         <button
                             onClick={() => fileInputRef.current?.click()}
-                            className="px-4 py-2 bg-slate-50 hover:bg-teal-50 text-slate-500 hover:text-teal-600 rounded-xl font-bold text-sm transition-colors"
+                            className="px-4 py-2 bg-surface-secondary hover:bg-accent-500/10 text-ink-tertiary hover:text-accent-400 rounded-xl font-bold text-sm transition-colors"
                         >
                             📷 Photo/Video
                         </button>
                         <button
                             onClick={() => insertEmoji('📍')}
-                            className="px-4 py-2 bg-slate-50 hover:bg-teal-50 text-slate-500 hover:text-teal-600 rounded-xl font-bold text-sm transition-colors"
+                            className="px-4 py-2 bg-surface-secondary hover:bg-accent-500/10 text-ink-tertiary hover:text-accent-400 rounded-xl font-bold text-sm transition-colors"
                         >
                             📍 Location
                         </button>
                         <div className="relative">
                             <button
                                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                                className="px-4 py-2 bg-slate-50 hover:bg-teal-50 text-slate-500 hover:text-teal-600 rounded-xl font-bold text-sm transition-colors"
+                                className="px-4 py-2 bg-surface-secondary hover:bg-accent-500/10 text-ink-tertiary hover:text-accent-400 rounded-xl font-bold text-sm transition-colors"
                             >
                                 😊 Emoji
                             </button>
@@ -248,14 +248,14 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
-                                        className="absolute bottom-full left-0 mb-2 bg-white rounded-2xl shadow-xl border border-slate-100 p-3 z-10"
+                                        className="absolute bottom-full left-0 mb-2 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary p-3 z-10"
                                     >
                                         <div className="grid grid-cols-4 gap-2">
                                             {emojis.map(emoji => (
                                                 <button
                                                     key={emoji}
                                                     onClick={() => insertEmoji(emoji)}
-                                                    className="w-10 h-10 hover:bg-slate-50 rounded-xl flex items-center justify-center text-xl transition-colors"
+                                                    className="w-10 h-10 hover:bg-surface-secondary rounded-xl flex items-center justify-center text-xl transition-colors"
                                                 >
                                                     {emoji}
                                                 </button>

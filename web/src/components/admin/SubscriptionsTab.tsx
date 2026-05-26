@@ -45,7 +45,7 @@ export default function SubscriptionsTab() {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Role Switcher */}
-            <div className="flex gap-4 p-1 bg-slate-100 rounded-2xl w-fit">
+            <div className="flex gap-4 p-1 bg-surface-secondary rounded-2xl w-fit">
                 {[
                     { id: 'vendor', label: 'Vendors', icon: '🛍️' },
                     { id: 'customer', label: 'Customers', icon: '✨' },
@@ -54,7 +54,7 @@ export default function SubscriptionsTab() {
                     <button
                         key={role.id}
                         onClick={() => setActiveTab(role.id as any)}
-                        className={`px-6 py-3 rounded-xl flex items-center gap-2 font-black text-xs uppercase tracking-widest transition-all ${activeTab === role.id ? 'bg-white text-teal-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`px-6 py-3 rounded-xl flex items-center gap-2 font-black text-xs uppercase tracking-widest transition-all ${activeTab === role.id ? 'bg-surface-elevated text-accent-400 shadow-md' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         <span>{role.icon}</span>
                         {role.label}
@@ -63,42 +63,42 @@ export default function SubscriptionsTab() {
             </div>
 
             {/* Table */}
-            <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+            <div className="bg-surface-elevated rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-border-primary overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
-                        <tr className="bg-slate-50/50">
-                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-slate-400">User / Entity</th>
-                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-slate-400">Current Tier</th>
-                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-slate-400">Status</th>
-                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-slate-400">Period End</th>
-                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-slate-400 text-right">Actions</th>
+                        <tr className="bg-surface-secondary/50">
+                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-ink-tertiary">User / Entity</th>
+                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-ink-tertiary">Current Tier</th>
+                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-ink-tertiary">Status</th>
+                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-ink-tertiary">Period End</th>
+                            <th className="p-6 font-black text-[10px] uppercase tracking-[0.2em] text-ink-tertiary text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
                         {loading ? (
                             <tr>
                                 <td colSpan={5} className="p-20 text-center">
-                                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-slate-200 border-t-teal-600" />
+                                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-border-primary border-t-teal-600" />
                                 </td>
                             </tr>
                         ) : subscriptions.length === 0 ? (
                             <tr>
-                                <td colSpan={5} className="p-20 text-center text-slate-300 font-bold italic">No subscriptions found for this category.</td>
+                                <td colSpan={5} className="p-20 text-center text-ink-tertiary font-bold italic">No subscriptions found for this category.</td>
                             </tr>
                         ) : (
                             subscriptions.map((sub) => (
-                                <tr key={sub.id} className="hover:bg-slate-50/30 transition-colors">
+                                <tr key={sub.id} className="hover:bg-surface-secondary/30 transition-colors">
                                     <td className="p-6">
-                                        <div className="font-black text-slate-900 leading-tight">
+                                        <div className="font-black text-ink-primary leading-tight">
                                             {activeTab === 'vendor' ? sub.business_name : sub.name}
                                         </div>
-                                        <div className="text-[10px] text-slate-400 font-bold">{sub.email}</div>
+                                        <div className="text-[10px] text-ink-tertiary font-bold">{sub.email}</div>
                                     </td>
                                     <td className="p-6">
                                         <select
                                             value={sub.tier}
                                             onChange={(e) => handleUpdate(sub, e.target.value, sub.status)}
-                                            className="bg-slate-50 border-transparent rounded-lg text-xs font-black uppercase tracking-widest text-slate-700 px-3 py-1.5 focus:ring-2 focus:ring-teal-100 focus:border-teal-500"
+                                            className="bg-surface-secondary border-transparent rounded-lg text-xs font-black uppercase tracking-widest text-ink-secondary px-3 py-1.5 focus:ring-2 focus:ring-teal-100 focus:border-teal-500"
                                         >
                                             {activeTab === 'vendor' && (
                                                 <>
@@ -124,24 +124,24 @@ export default function SubscriptionsTab() {
                                     </td>
                                     <td className="p-6">
                                         <span className={`px-2 py-1 rounded text-[10px] font-black uppercase tracking-widest ${sub.status === 'active' ? 'bg-green-100 text-green-700' :
-                                            sub.status === 'past_due' ? 'bg-amber-100 text-amber-700' :
+                                            sub.status === 'past_due' ? 'bg-sand-500/10 text-sand-500' :
                                                 'bg-red-100 text-red-700'
                                             }`}>
                                             {sub.status}
                                         </span>
                                     </td>
                                     <td className="p-6">
-                                        <div className="text-xs font-bold text-slate-500">
+                                        <div className="text-xs font-bold text-ink-tertiary0">
                                             {sub.current_period_end ? new Date(sub.current_period_end).toLocaleDateString() : 'N/A'}
                                         </div>
                                         {sub.cancel_at_period_end && (
-                                            <div className="text-[8px] font-black uppercase text-rose-500 mt-1">Pending Cancellation</div>
+                                            <div className="text-[8px] font-black uppercase text-[#e11d48] mt-1">Pending Cancellation</div>
                                         )}
                                     </td>
                                     <td className="p-6 text-right">
                                         <button
                                             onClick={() => handleUpdate(sub, sub.tier, sub.status === 'active' ? 'suspended' : 'active')}
-                                            className={`text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${sub.status === 'active' ? 'bg-rose-50 text-rose-600 hover:bg-rose-100' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
+                                            className={`text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${sub.status === 'active' ? 'bg-[#e11d48]/5 text-[#e11d48] hover:bg-[#e11d48]/10' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/15'
                                                 }`}
                                         >
                                             {sub.status === 'active' ? 'Suspend' : 'Activate'}

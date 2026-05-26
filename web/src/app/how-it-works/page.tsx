@@ -66,15 +66,15 @@ export default function HowItWorksPage() {
             {/* Hero */}
             <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 py-32 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/100/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[100px]" />
+                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-500/50/10 rounded-full blur-[100px]" />
                 <div className="max-w-5xl mx-auto text-center relative z-10">
-                    <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
+                    <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
                         Simple & Secure
                     </span>
                     <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight">
-                        How IslandHub <span className="text-teal-400">Works</span>
+                        How IslandHub <span className="text-accent-400">Works</span>
                     </h1>
-                    <p className="text-xl text-teal-50/80 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-accent-50/80 max-w-2xl mx-auto leading-relaxed">
                         The simplest way to buy, sell, rent, and fundraise in the Caribbean. 
                         Get started in minutes.
                     </p>
@@ -125,7 +125,7 @@ export default function HowItWorksPage() {
                                 onClick={() => setActiveRole(role.id)}
                                 className={`px-8 py-4 rounded-[2rem] font-black text-sm uppercase tracking-widest transition-all flex items-center gap-3 ${
                                     activeRole === role.id 
-                                        ? 'bg-accent-500 text-white shadow-xl shadow-teal-100' 
+                                        ? 'bg-accent-500 text-white shadow-xl shadow-accent-500/10' 
                                         : 'bg-surface-primary text-ink-tertiary hover:bg-surface-secondary'
                                 }`}
                             >
@@ -147,7 +147,7 @@ export default function HowItWorksPage() {
                                     <p className="text-xs text-ink-tertiary mt-1">{item.desc}</p>
                                 </div>
                                 {idx < 3 && (
-                                    <div className="hidden md:block text-3xl text-slate-200">→</div>
+                                    <div className="hidden md:block text-3xl text-ink-tertiary">→</div>
                                 )}
                             </div>
                         ))}
@@ -180,14 +180,14 @@ export default function HowItWorksPage() {
             <section className="bg-gradient-to-r from-teal-600 to-emerald-600 py-24 text-center text-white">
                 <div className="max-w-3xl mx-auto px-4">
                     <h2 className="text-3xl md:text-4xl font-black mb-6">Ready to get started?</h2>
-                    <p className="text-teal-50 text-lg mb-10 leading-relaxed">
+                    <p className="text-accent-50 text-lg mb-10 leading-relaxed">
                         Join thousands of islanders already buying, selling, and growing together.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/register" className="px-12 py-5 bg-surface-elevated text-teal-900 rounded-2xl font-black text-lg hover:shadow-xl transition-all hover:scale-105">
+                        <Link href="/register" className="px-12 py-5 bg-surface-elevated text-accent-700 rounded-2xl font-black text-lg hover:shadow-xl transition-all hover:scale-105">
                             Join Free
                         </Link>
-                        <Link href="/pricing" className="px-12 py-5 bg-teal-800 text-white rounded-2xl font-black text-lg hover:bg-teal-900 transition-all border border-teal-500/30">
+                        <Link href="/pricing" className="px-12 py-5 bg-accent-700 text-white rounded-2xl font-black text-lg hover:bg-accent-800 transition-all border border-teal-500/30">
                             View Pricing
                         </Link>
                     </div>

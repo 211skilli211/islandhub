@@ -115,13 +115,13 @@ export default function AdminDispatch() {
                     </button>
                     <button
                         onClick={() => setActiveTab('earnings')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'earnings' ? 'bg-surface-elevated text-emerald-600 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'earnings' ? 'bg-surface-elevated text-emerald-400 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Earnings
                     </button>
                     <button
                         onClick={() => setActiveTab('surge')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'surge' ? 'bg-surface-elevated text-amber-600 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'surge' ? 'bg-surface-elevated text-sand-500 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Surge Rules
                     </button>
@@ -134,8 +134,8 @@ export default function AdminDispatch() {
                     <div className="lg:col-span-4 space-y-6">
                         <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
-                                <h4 className="font-black text-slate-800 uppercase text-xs tracking-widest">Live Mission Feed</h4>
-                                <span className="px-2 py-1 bg-indigo-100 text-[#818cf8] rounded-lg text-[10px] font-black">{jobs.length} Active</span>
+                                <h4 className="font-black text-ink-primary uppercase text-xs tracking-widest">Live Mission Feed</h4>
+                                <span className="px-2 py-1 bg-[#818cf8]/15 text-[#818cf8] rounded-lg text-[10px] font-black">{jobs.length} Active</span>
                             </div>
 
                             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
@@ -152,9 +152,9 @@ export default function AdminDispatch() {
 
                             <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                                 {filteredJobs.map(job => (
-                                    <div key={job.id} className="p-4 bg-surface-primary dark:bg-ocean-900 rounded-2xl border border-border-primary group hover:border-indigo-200 hover:bg-surface-elevated transition-all">
+                                    <div key={job.id} className="p-4 bg-surface-primary dark:bg-ocean-900 rounded-2xl border border-border-primary group hover:border-[#818cf8]/20 hover:bg-surface-elevated transition-all">
                                         <div className="flex justify-between items-start mb-2">
-                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-indigo-100 text-indigo-700'}`}>
+                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-[#818cf8]/15 text-[#6366f1]'}`}>
                                                 {job.transport_status}
                                             </span>
                                             <span className="text-[10px] font-black text-ink-tertiary">#{job.id}</span>
@@ -202,11 +202,11 @@ export default function AdminDispatch() {
                             {/* Floating Map Legend */}
                             <div className="absolute bottom-8 left-8 bg-surface-elevated/90 backdrop-blur-md p-4 rounded-2xl border border-border-primary shadow-xl z-[1000] space-y-2">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-3 h-3 bg-amber-500 rounded-full" />
+                                    <div className="w-3 h-3 bg-sand-500/50 rounded-full" />
                                     <span className="text-[10px] font-black uppercase text-ink-secondary">Pending Job</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-3 h-3 bg-indigo-500 rounded-full" />
+                                    <div className="w-3 h-3 bg-[#818cf8]/100 rounded-full" />
                                     <span className="text-[10px] font-black uppercase text-ink-secondary">Active Job</span>
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -230,7 +230,7 @@ export default function AdminDispatch() {
                     {pricingRules.map(rule => (
                         <div key={rule.id} className="bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
-                                <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-2xl">
+                                <div className="w-12 h-12 bg-sand-500/5 rounded-2xl flex items-center justify-center text-2xl">
                                     {rule.service_type === 'taxi' ? '🚖' : '📦'}
                                 </div>
                                 <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${rule.is_active ? 'bg-accent-500/15 text-accent-400' : 'bg-surface-secondary text-ink-tertiary'}`}>
@@ -242,7 +242,7 @@ export default function AdminDispatch() {
                                 <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Base Multiplier: {rule.surge_multiplier}x</p>
                             </div>
 
-                            <div className="space-y-4 pt-4 border-t border-slate-50">
+                            <div className="space-y-4 pt-4 border-t border-border-primary">
                                 <div className="flex justify-between items-center text-sm font-bold">
                                     <span className="text-ink-tertiary uppercase text-[10px]">Surge Multiplier</span>
                                     <div className="flex items-center gap-3">
@@ -263,7 +263,7 @@ export default function AdminDispatch() {
 
                             <button
                                 onClick={() => handleUpdatePricing(rule.id, { ...rule, is_active: !rule.is_active })}
-                                className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${rule.is_active ? 'bg-rose-50 text-rose-600' : 'bg-accent-500 text-white shadow-lg shadow-teal-100'}`}
+                                className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${rule.is_active ? 'bg-[#e11d48]/5 text-[#e11d48]' : 'bg-accent-500 text-white shadow-lg shadow-accent-500/10'}`}
                             >
                                 {rule.is_active ? 'Deactivate Surge' : 'Activate Rules'}
                             </button>
@@ -320,8 +320,8 @@ export default function AdminDispatch() {
                                                 <td className="px-6 py-4">
                                                     <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
                                                         trip.status === 'completed' ? 'bg-accent-500/15 text-accent-500' :
-                                                        trip.status === 'cancelled' ? 'bg-[#e11d48]/10 text-rose-700' :
-                                                        trip.status === 'in_transit' ? 'bg-indigo-100 text-indigo-700' :
+                                                        trip.status === 'cancelled' ? 'bg-[#e11d48]/10 text-[#be123c]' :
+                                                        trip.status === 'in_transit' ? 'bg-[#818cf8]/15 text-[#6366f1]' :
                                                         'bg-sand-500/10 text-sand-500'
                                                     }`}>
                                                         {trip.status}

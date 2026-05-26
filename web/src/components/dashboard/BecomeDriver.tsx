@@ -50,15 +50,15 @@ export default function BecomeDriver() {
                         Join thousands of drivers earning flexible income delivering with IslandFund.
                     </p>
                     <div className="flex flex-wrap gap-4">
-                        <div className="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
+                        <div className="bg-surface-elevated/20 backdrop-blur rounded-lg px-4 py-2">
                             <div className="text-2xl font-bold">$15-25</div>
                             <div className="text-sm opacity-80">Per Hour</div>
                         </div>
-                        <div className="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
+                        <div className="bg-surface-elevated/20 backdrop-blur rounded-lg px-4 py-2">
                             <div className="text-2xl font-bold">500+</div>
                             <div className="text-sm opacity-80">Active Drivers</div>
                         </div>
-                        <div className="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
+                        <div className="bg-surface-elevated/20 backdrop-blur rounded-lg px-4 py-2">
                             <div className="text-2xl font-bold">24/7</div>
                             <div className="text-sm opacity-80">Support</div>
                         </div>
@@ -74,7 +74,7 @@ export default function BecomeDriver() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+                        className="bg-surface-elevated rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow"
                     >
                         <div className="text-3xl mb-3">{benefit.icon}</div>
                         <h4 className="font-semibold text-gray-900">{benefit.title}</h4>
@@ -84,7 +84,7 @@ export default function BecomeDriver() {
             </div>
 
             {/* Application Form */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-200">
                     <h3 className="font-semibold text-gray-900">Driver Application</h3>
                 </div>
@@ -201,7 +201,7 @@ export default function BecomeDriver() {
                                         key={vehicle.id}
                                         onClick={() => setFormData({ ...formData, vehicleType: vehicle.id })}
                                         className={`p-4 rounded-xl border-2 transition-all ${formData.vehicleType === vehicle.id
-                                            ? 'border-emerald-500 bg-emerald-50'
+                                            ? 'border-emerald-500 bg-emerald-500/10'
                                             : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                     >
@@ -296,29 +296,29 @@ export default function BecomeDriver() {
             </div>
 
             {/* Requirements */}
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="bg-surface-elevated rounded-xl border border-gray-200 p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">Driver Requirements</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-gray-600">
-                            <span className="text-emerald-500">✓</span> Must be 18+ years old
+                            <span className="text-emerald-400">✓</span> Must be 18+ years old
                         </li>
                         <li className="flex items-center gap-2 text-sm text-gray-600">
-                            <span className="text-emerald-500">✓</span> Valid government-issued ID
+                            <span className="text-emerald-400">✓</span> Valid government-issued ID
                         </li>
                         <li className="flex items-center gap-2 text-sm text-gray-600">
-                            <span className="text-emerald-500">✓</span> Smartphone with data plan
+                            <span className="text-emerald-400">✓</span> Smartphone with data plan
                         </li>
                     </ul>
                     <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-gray-600">
-                            <span className="text-emerald-500">✓</span> Clean driving record
+                            <span className="text-emerald-400">✓</span> Clean driving record
                         </li>
                         <li className="flex items-center gap-2 text-sm text-gray-600">
-                            <span className="text-emerald-500">✓</span> Vehicle insurance (if applicable)
+                            <span className="text-emerald-400">✓</span> Vehicle insurance (if applicable)
                         </li>
                         <li className="flex items-center gap-2 text-sm text-gray-600">
-                            <span className="text-emerald-500">✓</span> Background check clearance
+                            <span className="text-emerald-400">✓</span> Background check clearance
                         </li>
                     </ul>
                 </div>

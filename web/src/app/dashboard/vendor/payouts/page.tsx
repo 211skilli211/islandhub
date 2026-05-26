@@ -42,8 +42,8 @@ interface PayoutRequest {
 const statusColors: Record<string, string> = {
     pending: 'bg-sand-500/10 text-sand-500',
     processing: 'bg-blue-100 text-blue-700',
-    completed: 'bg-emerald-100 text-emerald-700',
-    rejected: 'bg-[#e11d48]/10 text-rose-700',
+    completed: 'bg-emerald-500/15 text-emerald-500',
+    rejected: 'bg-[#e11d48]/10 text-[#be123c]',
     cancelled: 'bg-surface-secondary text-ink-secondary',
 };
 
@@ -174,17 +174,17 @@ export default function VendorPayoutsPage() {
             </div>
 
             {error && (
-                <div className="bg-rose-50 border border-rose-200 rounded-2xl px-5 py-4 text-rose-700 text-sm font-bold">
+                <div className="bg-[#e11d48]/5 border border-[#e11d48]/20 rounded-2xl px-5 py-4 text-[#be123c] text-sm font-bold">
                     {error}
                 </div>
             )}
 
             {/* Wallet Card */}
             {wallet ? (
-                <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-teal-200">
+                <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-accent-500/15">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <p className="text-teal-200 text-xs font-black uppercase tracking-widest">Total Balance</p>
+                            <p className="text-accent-200 text-xs font-black uppercase tracking-widest">Total Balance</p>
                             <p className="text-4xl font-black mt-1">{formatCurrency(wallet.balance, wallet.currency)}</p>
                         </div>
                         <div className="w-14 h-14 bg-surface-elevated/20 rounded-2xl flex items-center justify-center">
@@ -193,15 +193,15 @@ export default function VendorPayoutsPage() {
                     </div>
                     <div className="grid grid-cols-3 gap-4">
                         <div className="bg-surface-elevated/10 rounded-2xl px-4 py-3">
-                            <p className="text-teal-200 text-[10px] font-black uppercase tracking-wider">Withdrawable</p>
+                            <p className="text-accent-200 text-[10px] font-black uppercase tracking-wider">Withdrawable</p>
                             <p className="text-white font-black text-lg mt-0.5">{formatCurrency(wallet.withdrawable_balance, wallet.currency)}</p>
                         </div>
                         <div className="bg-surface-elevated/10 rounded-2xl px-4 py-3">
-                            <p className="text-teal-200 text-[10px] font-black uppercase tracking-wider">Pending Payouts</p>
+                            <p className="text-accent-200 text-[10px] font-black uppercase tracking-wider">Pending Payouts</p>
                             <p className="text-white font-black text-lg mt-0.5">{formatCurrency(wallet.pending_payouts, wallet.currency)}</p>
                         </div>
                         <div className="bg-surface-elevated/10 rounded-2xl px-4 py-3">
-                            <p className="text-teal-200 text-[10px] font-black uppercase tracking-wider">Lifetime Earned</p>
+                            <p className="text-accent-200 text-[10px] font-black uppercase tracking-wider">Lifetime Earned</p>
                             <p className="text-white font-black text-lg mt-0.5">{formatCurrency(wallet.lifetime_earnings, wallet.currency)}</p>
                         </div>
                     </div>
@@ -215,7 +215,7 @@ export default function VendorPayoutsPage() {
                             Request Payout →
                         </button>
                         {Number(wallet.withdrawable_balance) <= 0 && (
-                            <p className="text-teal-200 text-xs mt-2">No withdrawable balance yet. Complete sales to earn.</p>
+                            <p className="text-accent-200 text-xs mt-2">No withdrawable balance yet. Complete sales to earn.</p>
                         )}
                     </div>
                 </div>
@@ -253,7 +253,7 @@ export default function VendorPayoutsPage() {
                                         via <span className="font-bold">{req.payout_method.replace('_', ' ')}</span> · {timeAgo(req.created_at)}
                                     </p>
                                     {req.rejection_reason && (
-                                        <p className="text-xs text-rose-500 mt-0.5">Reason: {req.rejection_reason}</p>
+                                        <p className="text-xs text-[#e11d48] mt-0.5">Reason: {req.rejection_reason}</p>
                                     )}
                                 </div>
                                 {req.processed_at && (
@@ -291,7 +291,7 @@ export default function VendorPayoutsPage() {
                                         {txn.notes && <p className="text-xs text-ink-tertiary mt-0.5">{txn.notes}</p>}
                                         <p className="text-xs text-ink-tertiary mt-0.5">{timeAgo(txn.created_at)}</p>
                                     </div>
-                                    <p className={`font-black text-base ${isPositive ? 'text-emerald-600' : 'text-rose-600'}`}>
+                                    <p className={`font-black text-base ${isPositive ? 'text-emerald-400' : 'text-[#e11d48]'}`}>
                                         {isPositive ? '+' : ''}{formatCurrency(txn.amount)}
                                     </p>
                                 </div>
@@ -324,7 +324,7 @@ export default function VendorPayoutsPage() {
                         {submitSuccess ? (
                             <div className="text-center py-6">
                                 <p className="text-5xl mb-3">✅</p>
-                                <p className="font-black text-emerald-700 text-lg">Payout requested!</p>
+                                <p className="font-black text-emerald-500 text-lg">Payout requested!</p>
                                 <p className="text-ink-tertiary text-sm mt-1">Your request is being reviewed.</p>
                             </div>
                         ) : (
@@ -382,7 +382,7 @@ export default function VendorPayoutsPage() {
                                 </div>
 
                                 {submitError && (
-                                    <div className="bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-rose-700 text-sm font-bold">
+                                    <div className="bg-[#e11d48]/5 border border-[#e11d48]/20 rounded-xl px-4 py-3 text-[#be123c] text-sm font-bold">
                                         {submitError}
                                     </div>
                                 )}

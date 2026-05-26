@@ -41,13 +41,13 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
             icon: '🛒',
             label: 'Browse Market',
             href: '/marketplace',
-            color: 'bg-teal-500 hover:bg-teal-600',
+            color: 'bg-accent-500/100 hover:bg-accent-500',
         },
         {
             icon: '📦',
             label: 'Track Order',
             href: '/dashboard/orders',
-            color: 'bg-indigo-500 hover:bg-indigo-600',
+            color: 'bg-[#818cf8]/100 hover:bg-[#818cf8]',
         },
         {
             icon: '🌴',
@@ -56,13 +56,13 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                 const marquee = document.querySelector('[data-marquee]');
                 if (marquee) marquee.scrollIntoView({ behavior: 'smooth' });
             },
-            color: 'bg-amber-500 hover:bg-amber-600',
+            color: 'bg-sand-500/50 hover:bg-sand-500',
         },
         {
             icon: '📣',
             label: 'Campaigns',
             href: '/campaigns',
-            color: 'bg-rose-500 hover:bg-rose-600',
+            color: 'bg-[#e11d48]/50 hover:bg-[#e11d48]',
         },
         {
             icon: '🏪',
@@ -133,7 +133,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                                 {hubMode && (
                                     <button
                                         onClick={onHubClose}
-                                        className="mt-2 w-full py-2 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                                        className="mt-2 w-full py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-tertiary0 dark:text-ink-tertiary rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary dark:hover:bg-surface-tertiary transition-colors"
                                     >
                                         Back to Hub
                                     </button>
@@ -150,7 +150,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-14 h-14 bg-gradient-to-br from-teal-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative z-50"
+                    className="w-14 h-14 bg-gradient-to-br from-teal-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-border-primary relative z-50"
                 >
                     <motion.div
                         animate={{ rotate: isOpen ? 45 : 0 }}

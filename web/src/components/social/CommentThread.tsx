@@ -112,13 +112,13 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                    <div className="bg-slate-50 rounded-2xl px-4 py-3">
-                        <Link href={`/community/profile/${comment.user_id}`} className="font-bold text-slate-900 hover:text-teal-600">
+                    <div className="bg-surface-secondary rounded-2xl px-4 py-3">
+                        <Link href={`/community/profile/${comment.user_id}`} className="font-bold text-ink-primary hover:text-accent-400">
                             {comment.user_name}
                         </Link>
-                        <p className="text-slate-700 mt-1 wrap-break-word">{comment.content}</p>
+                        <p className="text-ink-secondary mt-1 wrap-break-word">{comment.content}</p>
                         {comment.is_edited && (
-                            <span className="text-xs text-slate-400">(edited)</span>
+                            <span className="text-xs text-ink-tertiary">(edited)</span>
                         )}
                     </div>
 
@@ -135,13 +135,13 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                         {!isReply && (
                             <button
                                 onClick={() => setReplyingTo(replyingTo === comment.comment_id ? null : comment.comment_id)}
-                                className="text-xs font-bold text-slate-500 hover:text-teal-600 uppercase tracking-wide"
+                                className="text-xs font-bold text-ink-tertiary0 hover:text-accent-400 uppercase tracking-wide"
                             >
                                 Reply
                             </button>
                         )}
 
-                        <span className="text-xs text-slate-400">{formatDate(comment.created_at)}</span>
+                        <span className="text-xs text-ink-tertiary">{formatDate(comment.created_at)}</span>
                     </div>
 
                     {/* Reply Input */}
@@ -159,13 +159,13 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                                         value={replyContent}
                                         onChange={(e) => setReplyContent(e.target.value)}
                                         placeholder="Write a reply..."
-                                        className="flex-1 px-4 py-2 rounded-full border border-slate-200 focus:border-teal-500 focus:outline-none text-sm"
+                                        className="flex-1 px-4 py-2 rounded-full border border-border-primary focus:border-teal-500 focus:outline-none text-sm"
                                         onKeyDown={(e) => e.key === 'Enter' && handleReply(comment.comment_id)}
                                     />
                                     <button
                                         onClick={() => handleReply(comment.comment_id)}
                                         disabled={!replyContent.trim() || isSubmitting}
-                                        className="px-4 py-2 bg-teal-600 text-white rounded-full text-sm font-bold uppercase hover:bg-teal-700 disabled:opacity-50"
+                                        className="px-4 py-2 bg-accent-500 text-white rounded-full text-sm font-bold uppercase hover:bg-accent-600 disabled:opacity-50"
                                     >
                                         Reply
                                     </button>
@@ -190,12 +190,12 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write a comment..."
-                    className="flex-1 px-5 py-3 rounded-full border border-slate-200 focus:border-teal-500 focus:outline-none"
+                    className="flex-1 px-5 py-3 rounded-full border border-border-primary focus:border-teal-500 focus:outline-none"
                 />
                 <button
                     type="submit"
                     disabled={!newComment.trim() || isSubmitting}
-                    className="px-6 py-3 bg-teal-600 text-white rounded-full font-bold uppercase tracking-wider hover:bg-teal-700 disabled:opacity-50 transition-all"
+                    className="px-6 py-3 bg-accent-500 text-white rounded-full font-bold uppercase tracking-wider hover:bg-accent-600 disabled:opacity-50 transition-all"
                 >
                     {isSubmitting ? '...' : 'Post'}
                 </button>
@@ -207,7 +207,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
             </div>
 
             {comments.length === 0 && (
-                <div className="text-center py-8 text-slate-400">
+                <div className="text-center py-8 text-ink-tertiary">
                     <p>No comments yet. Be the first to comment!</p>
                 </div>
             )}

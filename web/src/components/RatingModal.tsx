@@ -41,18 +41,18 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
     };
 
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-ink-primary/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="bg-white rounded-[2.5rem] w-full max-w-md overflow-hidden shadow-2xl"
+                className="bg-surface-elevated rounded-[2.5rem] w-full max-w-md overflow-hidden shadow-2xl"
             >
                 <div className="p-8 text-center">
-                    <div className="w-20 h-20 bg-teal-50 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6">
+                    <div className="w-20 h-20 bg-accent-500/10 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6">
                         ⭐
                     </div>
-                    <h2 className="text-2xl font-black text-slate-900 uppercase tracking-widest mb-2">Rate Your Driver</h2>
-                    <p className="text-slate-500 font-medium mb-8">How was your experience with <span className="text-slate-900 font-bold">{driverName}</span>?</p>
+                    <h2 className="text-2xl font-black text-ink-primary uppercase tracking-widest mb-2">Rate Your Driver</h2>
+                    <p className="text-ink-tertiary0 font-medium mb-8">How was your experience with <span className="text-ink-primary font-bold">{driverName}</span>?</p>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Star Rating */}
@@ -66,7 +66,7 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
                                     onMouseLeave={() => setHover(0)}
                                     className="text-4xl transition-transform hover:scale-125 focus:outline-none"
                                 >
-                                    <span className={star <= (hover || rating) ? 'text-amber-400' : 'text-slate-200'}>
+                                    <span className={star <= (hover || rating) ? 'text-sand-400' : 'text-ink-tertiary'}>
                                         ★
                                     </span>
                                 </button>
@@ -75,14 +75,14 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
 
                         {/* Review Text */}
                         <div className="text-left">
-                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3 ml-2">
+                            <label className="block text-xs font-black text-ink-tertiary uppercase tracking-widest mb-3 ml-2">
                                 Write a Review (Optional)
                             </label>
                             <textarea
                                 value={review}
                                 onChange={(e) => setReview(e.target.value)}
                                 placeholder="Tell us what you liked or how we can improve..."
-                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all min-h-[120px]"
+                                className="w-full px-6 py-4 bg-surface-secondary border border-border-primary rounded-2xl text-sm focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-teal-500 transition-all min-h-[120px]"
                             />
                         </div>
 
@@ -91,14 +91,14 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all"
+                                className="flex-1 py-4 bg-surface-secondary text-ink-secondary rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-surface-tertiary transition-all"
                             >
                                 Not Now
                             </button>
                             <button
                                 type="submit"
                                 disabled={submitting || rating === 0}
-                                className="flex-1 py-4 bg-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-teal-500/20"
+                                className="flex-1 py-4 bg-accent-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-accent-500/20"
                             >
                                 {submitting ? 'Sending...' : 'Submit Review'}
                             </button>

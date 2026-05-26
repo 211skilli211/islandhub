@@ -18,7 +18,7 @@ export default function CoopsPage() {
                 <input 
                     type="text" 
                     placeholder="Search cooperatives..." 
-                    className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
+                    className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
                 />
             </div>
 
@@ -32,27 +32,27 @@ export default function CoopsPage() {
                     { name: 'Bulk Buyers Club', members: 56, category: 'General', savings: '18%' },
                     { name: 'Shared Workspace Hub', members: 12, category: 'Professional', savings: '40%' },
                 ].map((coop, idx) => (
-                    <div key={idx} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl p-6 border border-border-primary dark:border-slate-700 hover:border-teal-500 transition-all cursor-pointer">
+                    <div key={idx} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl p-6 border border-border-primary dark:border-border-primary hover:border-teal-500 transition-all cursor-pointer">
                         <div className="flex items-start justify-between">
-                            <div className="w-12 h-12 bg-accent-500/15 dark:bg-teal-900 rounded-xl flex items-center justify-center">
-                                <Building2 className="w-6 h-6 text-accent-400 dark:text-teal-400" />
+                            <div className="w-12 h-12 bg-accent-500/15 dark:bg-accent-800 rounded-xl flex items-center justify-center">
+                                <Building2 className="w-6 h-6 text-accent-400 dark:text-accent-400" />
                             </div>
-                            <span className="px-2 py-1 bg-surface-secondary dark:bg-slate-700 text-ink-secondary dark:text-slate-300 text-xs font-bold rounded-full">{coop.category}</span>
+                            <span className="px-2 py-1 bg-surface-secondary dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary text-xs font-bold rounded-full">{coop.category}</span>
                         </div>
                         <h3 className="font-bold text-ink-primary dark:text-white mt-4">{coop.name}</h3>
-                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-border-primary dark:border-slate-700">
+                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-border-primary dark:border-border-primary">
                             <div className="flex items-center gap-1 text-ink-tertiary dark:text-ink-tertiary text-sm">
                                 <Users className="w-4 h-4" />
                                 {coop.members} members
                             </div>
-                            <span className="text-accent-400 dark:text-teal-400 font-bold text-sm">Save {coop.savings}</span>
+                            <span className="text-accent-400 dark:text-accent-400 font-bold text-sm">Save {coop.savings}</span>
                         </div>
                     </div>
                 ))}
             </div>
 
             {/* Create Co-op CTA */}
-            <div className="bg-gradient-to-r from-teal-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+            <div className="bg-gradient-to-r from-teal-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-border-primary">
                 <h3 className="font-bold text-ink-primary dark:text-white mb-2">Start a Cooperative</h3>
                 <p className="text-sm text-ink-secondary dark:text-ink-tertiary mb-4">Gather neighbors, friends, or fellow entrepreneurs to unlock collective savings</p>
                 <button className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold">Create Co-op</button>

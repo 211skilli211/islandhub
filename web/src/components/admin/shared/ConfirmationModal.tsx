@@ -17,16 +17,16 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
-                <h3 className="text-lg font-black text-slate-800 mb-2">{title}</h3>
-                <p className="text-slate-500 mb-6">{message}</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink-primary/50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-surface-elevated rounded-2xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
+                <h3 className="text-lg font-black text-ink-primary mb-2">{title}</h3>
+                <p className="text-ink-tertiary0 mb-6">{message}</p>
 
                 <div className="flex justify-end gap-3">
                     <button
                         onClick={onClose}
                         disabled={loading}
-                        className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors disabled:opacity-50"
+                        className="px-4 py-2 text-sm font-bold text-ink-secondary hover:bg-surface-secondary rounded-lg transition-colors disabled:opacity-50"
                     >
                         Cancel
                     </button>
@@ -34,8 +34,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                         onClick={onConfirm}
                         disabled={loading}
                         className={`px-4 py-2 text-sm font-bold text-white rounded-lg shadow-sm transition-all flex items-center gap-2 ${isDangerous
-                                ? 'bg-rose-600 hover:bg-rose-700 shadow-rose-200'
-                                : 'bg-teal-600 hover:bg-teal-700 shadow-teal-200'
+                                ? 'bg-[#e11d48] hover:bg-[#be123c] shadow-rose-200'
+                                : 'bg-accent-500 hover:bg-accent-600 shadow-accent-500/15'
                             } disabled:opacity-70 disabled:cursor-wait`}
                     >
                         {loading && (

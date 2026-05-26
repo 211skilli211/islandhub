@@ -68,7 +68,7 @@ export default function VendorSpotlight() {
         <div className="py-24 max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-80 bg-slate-800 animate-pulse rounded-[2.5rem]" />
+                    <div key={i} className="h-80 bg-surface-tertiary animate-pulse rounded-[2.5rem]" />
                 ))}
             </div>
         </div>
@@ -77,13 +77,13 @@ export default function VendorSpotlight() {
     if (vendors.length === 0) return null;
 
     return (
-        <section className="py-12 md:py-24 bg-slate-900 rounded-4xl md:rounded-3xl my-10 md:my-20 overflow-hidden relative">
+        <section className="py-12 md:py-24 bg-ink-primary rounded-4xl md:rounded-3xl my-10 md:my-20 overflow-hidden relative">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.1),transparent_50%)]" />
 
             <div className="max-w-7xl mx-auto px-8 relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">Meet Featured Storefronts/Hosts</h2>
-                    <p className="text-slate-400 font-medium max-w-xl mx-auto">
+                    <p className="text-ink-tertiary font-medium max-w-xl mx-auto">
                         High-performing local entrepreneurs providing exceptional island experiences and quality goods.
                     </p>
                 </div>
@@ -99,10 +99,10 @@ export default function VendorSpotlight() {
                         >
                             <Link
                                 href={`/stores/${vendor.slug || vendor.id}`}
-                                className="block h-full group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2.5rem] overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2"
+                                className="block h-full group bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-[2.5rem] overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2"
                             >
                                 {/* Professional Banner Background */}
-                                <div className="h-24 w-full relative overflow-hidden bg-slate-100 dark:bg-slate-900">
+                                <div className="h-24 w-full relative overflow-hidden bg-surface-secondary dark:bg-ink-primary">
                                     {vendor.banner_url ? (
                                         <img
                                             src={getImageUrl(vendor.banner_url)}
@@ -117,7 +117,7 @@ export default function VendorSpotlight() {
 
                                 <div className="px-8 pb-10 relative z-10 -mt-8">
                                     {/* Professional Logo in Tile */}
-                                    <div className="w-16 h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-slate-800 shadow-xl mb-6 group-hover:scale-105 transition-transform bg-white">
+                                    <div className="w-16 h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-border-primary shadow-xl mb-6 group-hover:scale-105 transition-transform bg-surface-elevated">
                                         {vendor.logo_url ? (
                                             <img src={getImageUrl(vendor.logo_url)} className="w-full h-full object-cover" alt={vendor.business_name} />
                                         ) : (
@@ -130,8 +130,8 @@ export default function VendorSpotlight() {
                                         )}
                                     </div>
 
-                                    <h3 className="text-xl font-black text-slate-900 dark:text-white mb-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors uppercase tracking-tight">{vendor.business_name}</h3>
-                                    <p className="text-teal-600 dark:text-teal-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-4">{vendor.sub_type || 'Verified Vendor'}</p>
+                                    <h3 className="text-xl font-black text-ink-primary dark:text-white mb-1 group-hover:text-accent-400 dark:group-hover:text-accent-400 transition-colors uppercase tracking-tight">{vendor.business_name}</h3>
+                                    <p className="text-accent-400 dark:text-accent-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-4">{vendor.sub_type || 'Verified Vendor'}</p>
 
                                     <div className="flex items-center gap-2 mb-8">
                                         <div className="flex text-yellow-400 text-xs">
@@ -139,11 +139,11 @@ export default function VendorSpotlight() {
                                                 <span key={i}>{i < Math.floor(vendor.rating || 5) ? '★' : '☆'}</span>
                                             ))}
                                         </div>
-                                        <span className="text-slate-900 dark:text-white font-black text-sm">{vendor.rating?.toFixed(1) || '5.0'}</span>
-                                        <span className="text-slate-500 dark:text-slate-400 text-[9px] font-bold uppercase tracking-widest ml-2">Rating</span>
+                                        <span className="text-ink-primary dark:text-white font-black text-sm">{vendor.rating?.toFixed(1) || '5.0'}</span>
+                                        <span className="text-ink-tertiary0 dark:text-ink-tertiary text-[9px] font-bold uppercase tracking-widest ml-2">Rating</span>
                                     </div>
 
-                                    <div className="inline-flex items-center gap-3 text-slate-900 dark:text-white font-black text-xs uppercase tracking-widest group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                                    <div className="inline-flex items-center gap-3 text-ink-primary dark:text-white font-black text-xs uppercase tracking-widest group-hover:text-accent-400 dark:group-hover:text-accent-400 transition-colors">
                                         Enter Storefront <span className="group-hover:translate-x-2 transition-transform">→</span>
                                     </div>
                                 </div>

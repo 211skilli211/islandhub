@@ -119,8 +119,8 @@ export default function LikeButton({
                 className={`
                     inline-flex items-center gap-1.5 rounded-full transition-all
                     ${liked
-                        ? 'bg-teal-50 text-teal-600'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-accent-500/10 text-accent-400'
+                        : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'
                     }
                     ${sizeClasses[size]}
                 `}
@@ -151,7 +151,7 @@ export default function LikeButton({
                         initial={{ opacity: 0, y: 10, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                        className="absolute bottom-full left-0 mb-2 bg-white rounded-full shadow-lg border border-slate-200 p-1.5 flex gap-1 z-50"
+                        className="absolute bottom-full left-0 mb-2 bg-surface-elevated rounded-full shadow-lg border border-border-primary p-1.5 flex gap-1 z-50"
                         onMouseLeave={() => setShowPicker(false)}
                     >
                         {REACTIONS.map((r) => (
@@ -163,8 +163,8 @@ export default function LikeButton({
                                 }}
                                 className={`
                                     w-8 h-8 flex items-center justify-center text-lg rounded-full
-                                    transition-all hover:scale-125 hover:bg-slate-100
-                                    ${reaction === r.type ? 'bg-slate-100 scale-110' : ''}
+                                    transition-all hover:scale-125 hover:bg-surface-secondary
+                                    ${reaction === r.type ? 'bg-surface-secondary scale-110' : ''}
                                 `}
                                 title={r.label}
                             >

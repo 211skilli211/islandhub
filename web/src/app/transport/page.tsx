@@ -125,7 +125,7 @@ export default function TransportPage() {
                             <Link href="/request-ride" className="inline-flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-2xl transition-all shadow-lg shadow-yellow-400/20 hover:shadow-yellow-400/40 text-lg">
                                 🚕 Ride Now
                             </Link>
-                            <Link href="/become-vendor" className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-2xl transition-all border border-white/10 hover:border-yellow-400/30 text-lg">
+                            <Link href="/become-vendor" className="inline-flex items-center justify-center gap-2 bg-surface-elevated/5 hover:bg-surface-elevated/10 text-white font-bold px-8 py-4 rounded-2xl transition-all border border-white/10 hover:border-yellow-400/30 text-lg">
                                 Become a Driver
                             </Link>
                         </div>
@@ -145,9 +145,9 @@ export default function TransportPage() {
                             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
                         </div>
                         <div className="flex gap-2 flex-wrap">
-                            <button onClick={() => setSelectedType('all')} className={`px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${selectedType === 'all' ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5'}`}>All</button>
+                            <button onClick={() => setSelectedType('all')} className={`px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${selectedType === 'all' ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20' : 'bg-surface-elevated/5 text-gray-400 hover:bg-surface-elevated/10 hover:text-white border border-white/5'}`}>All</button>
                             {TRANSPORT_TYPES.map(type => (
-                                <button key={type.id} onClick={() => setSelectedType(type.id)} className={`px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${selectedType === type.id ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5'}`}>{type.icon} {type.label}</button>
+                                <button key={type.id} onClick={() => setSelectedType(type.id)} className={`px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${selectedType === type.id ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20' : 'bg-surface-elevated/5 text-gray-400 hover:bg-surface-elevated/10 hover:text-white border border-white/5'}`}>{type.icon} {type.label}</button>
                             ))}
                         </div>
                     </div>
@@ -240,7 +240,7 @@ export default function TransportPage() {
                                         <div className="h-32 overflow-hidden relative">
                                             {store.banner_url ? (<img src={getImageUrl(store.banner_url)} alt={store.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />) : (<div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900" />)}
                                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
-                                            <div className="absolute top-3 left-3"><span className="bg-white/10 text-gray-300 text-xs font-bold px-3 py-1 rounded-full border border-white/10">{store.category}</span></div>
+                                            <div className="absolute top-3 left-3"><span className="bg-surface-elevated/10 text-gray-300 text-xs font-bold px-3 py-1 rounded-full border border-white/10">{store.category}</span></div>
                                         </div>
                                         <div className="p-5">
                                             <h3 className="font-bold text-white truncate">{store.name}</h3>
@@ -267,7 +267,7 @@ export default function TransportPage() {
                         <Link href="/request-ride" className="inline-flex items-center justify-center gap-2 bg-black text-yellow-400 font-bold px-8 py-4 rounded-2xl hover:bg-gray-900 transition-all shadow-xl text-lg">
                             🚕 Book a Ride →
                         </Link>
-                        <Link href="/become-vendor" className="inline-flex items-center justify-center gap-2 bg-white/20 backdrop-blur text-black font-bold px-8 py-4 rounded-2xl hover:bg-white/30 transition-all border border-black/10 text-lg">
+                        <Link href="/become-vendor" className="inline-flex items-center justify-center gap-2 bg-surface-elevated/20 backdrop-blur text-black font-bold px-8 py-4 rounded-2xl hover:bg-surface-elevated/30 transition-all border border-black/10 text-lg">
                             Become a Driver →
                         </Link>
                     </div>

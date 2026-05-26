@@ -150,7 +150,7 @@ export default function NotificationsPage() {
                     )}
 
                     {hasMore && !loading && notifications.length > 0 && (
-                        <div className="p-4 border-t border-slate-50">
+                        <div className="p-4 border-t border-border-primary">
                             <button
                                 onClick={loadMore}
                                 className="w-full py-3 text-sm font-black text-accent-400 hover:text-accent-500 hover:bg-accent-500/10 rounded-2xl transition-colors"
@@ -161,7 +161,7 @@ export default function NotificationsPage() {
                     )}
 
                     {loading && notifications.length > 0 && (
-                        <div className="p-4 flex justify-center border-t border-slate-50">
+                        <div className="p-4 flex justify-center border-t border-border-primary">
                             <div className="w-5 h-5 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
                         </div>
                     )}

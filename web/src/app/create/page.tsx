@@ -330,7 +330,7 @@ export default function CreatePage() {
                     <div className="text-6xl mb-6 animate-bounce">🔐</div>
                     <h2 className="text-3xl font-black text-ink-primary mb-4 tracking-tight italic">Verify Your Vendor Status</h2>
                     <p className="text-ink-tertiary font-medium mb-8">Accessing the creation hub requires an active vendor subscription.</p>
-                    <button onClick={() => router.push('/become-vendor')} className="px-10 py-4 bg-(--success-primary,#10b981) text-white! rounded-2xl font-black shadow-xl shadow-teal-100 transition-all hover:scale-105 active:scale-95">Become a Vendor 🚀</button>
+                    <button onClick={() => router.push('/become-vendor')} className="px-10 py-4 bg-(--success-primary,#10b981) text-white! rounded-2xl font-black shadow-xl shadow-accent-500/10 transition-all hover:scale-105 active:scale-95">Become a Vendor 🚀</button>
                 </div>
             </main>
         );
@@ -359,7 +359,7 @@ export default function CreatePage() {
                             <button
                                 key={type.type_key}
                                 onClick={() => handleProductTypeSelect(type)}
-                                className="group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left"
+                                className="group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-accent-500/10/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left"
                             >
                                 <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {type.icon}
@@ -372,14 +372,14 @@ export default function CreatePage() {
                         {/* Custom Type Option */}
                         <button
                             onClick={() => handleProductTypeSelect(PRODUCT_TYPES.find(t => t.type_key === 'custom')!)}
-                            className="group relative bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2.5rem] shadow-xl shadow-amber-200/50 hover:shadow-2xl hover:shadow-amber-100/50 transition-all hover:-translate-y-2 border-2 border-amber-200 hover:border-amber-300 text-left"
+                            className="group relative bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2.5rem] shadow-xl shadow-amber-200/50 hover:shadow-2xl hover:shadow-amber-100/50 transition-all hover:-translate-y-2 border-2 border-sand-500/20 hover:border-amber-300 text-left"
                         >
                             <div className="w-16 h-16 bg-sand-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 ✨
                             </div>
-                            <h3 className="text-xl font-black text-amber-800 mb-2">Custom Type</h3>
-                            <p className="text-amber-600 font-medium text-sm mb-3">Request a new product category</p>
-                            <div className="inline-flex items-center gap-1 px-3 py-1 bg-amber-200 rounded-full text-xs font-bold text-sand-500">
+                            <h3 className="text-xl font-black text-sand-600 mb-2">Custom Type</h3>
+                            <p className="text-sand-500 font-medium text-sm mb-3">Request a new product category</p>
+                            <div className="inline-flex items-center gap-1 px-3 py-1 bg-sand-500/15 rounded-full text-xs font-bold text-sand-500">
                                 <span>⏳</span> Requires Admin Approval
                             </div>
                         </button>
@@ -436,11 +436,11 @@ export default function CreatePage() {
                                     />
                                 </div>
 
-                                <div className="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                                <div className="bg-sand-500/5 p-6 rounded-2xl border border-sand-500/20">
                                     <div className="flex items-start gap-3">
                                         <span className="text-2xl">⏳</span>
                                         <div>
-                                            <h4 className="font-bold text-amber-800 mb-1">Verification Required</h4>
+                                            <h4 className="font-bold text-sand-600 mb-1">Verification Required</h4>
                                             <p className="text-sm text-sand-500">Your custom type will be marked as "Pending Verification". You'll be notified once our team reviews your request.</p>
                                         </div>
                                     </div>
@@ -486,7 +486,7 @@ export default function CreatePage() {
                                 key={cat.category_id}
                                 disabled={vendorData?.category_id && vendorData.category_id !== cat.category_id}
                                 onClick={() => handleCategorySelect(cat)}
-                                className={`group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
+                                className={`group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-accent-500/10/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
                             >
                                 <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {cat.icon || '✨'}
@@ -513,7 +513,7 @@ export default function CreatePage() {
                         <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
                             <span className="text-2xl">🏪</span>
                             <span className="font-bold text-accent-500">Adding to: {storeName}</span>
-                            <span className="text-teal-400">•</span>
+                            <span className="text-accent-400">•</span>
                             <span className="text-lg">{productType.icon}</span>
                             <span className="font-bold text-accent-500">{productType.display_name}</span>
                         </div>
@@ -527,7 +527,7 @@ export default function CreatePage() {
                                 key={cat.category_id}
                                 disabled={vendorData?.category_id && vendorData.category_id !== cat.category_id}
                                 onClick={() => handleCategorySelect(cat)}
-                                className={`group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
+                                className={`group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-accent-500/10/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
                             >
                                 <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {cat.icon || '✨'}
@@ -565,7 +565,7 @@ export default function CreatePage() {
                                             </span>
                                         )}
                                         {formData.metadata?.custom_type_status === 'pending_verification' && (
-                                            <span className="ml-2 text-amber-600">
+                                            <span className="ml-2 text-sand-500">
                                                 • ⏳ Custom Type Pending
                                             </span>
                                         )}
@@ -1296,7 +1296,7 @@ export default function CreatePage() {
                                                 </label>
                                                 <div className="flex flex-wrap gap-2 px-4">
                                                     {['Gratuities/Tips', 'Personal Expenses', 'Souvenirs', 'Alcoholic Drinks', 'Optional Activities', 'Travel Insurance'].map(option => (
-                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-xl cursor-pointer hover:bg-sand-500/10 transition-colors">
+                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-sand-500/5 rounded-xl cursor-pointer hover:bg-sand-500/10 transition-colors">
                                                             <input
                                                                 type="checkbox"
                                                                 checked={metadata.tour_non_inclusions?.includes(option) || false}
@@ -1307,7 +1307,7 @@ export default function CreatePage() {
                                                                         : current.filter((d: string) => d !== option);
                                                                     setMetadata({ ...metadata, tour_non_inclusions: updated });
                                                                 }}
-                                                                className="w-4 h-4 text-amber-600 rounded"
+                                                                className="w-4 h-4 text-sand-500 rounded"
                                                             />
                                                             <span className="text-sm font-bold text-ink-secondary">{option}</span>
                                                         </label>
@@ -1425,7 +1425,7 @@ export default function CreatePage() {
                                 {selectedCategory?.layout_type === 'product' && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className="w-2 h-8 bg-amber-500 rounded-full" />
+                                            <div className="w-2 h-8 bg-sand-500/50 rounded-full" />
                                             <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Product Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1551,7 +1551,7 @@ export default function CreatePage() {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="flex-1 px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-xl shadow-2xl shadow-teal-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                                        className="flex-1 px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-xl shadow-2xl shadow-accent-500/10 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                                     >
                                         {loading ? 'Publishing...' : '🚀 Publish Now'}
                                     </button>

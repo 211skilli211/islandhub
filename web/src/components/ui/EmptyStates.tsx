@@ -16,16 +16,16 @@ interface EmptyStateProps {
 export function EmptyState({ icon, title, description, actionLabel, actionHref, secondaryActionLabel, secondaryActionHref }: EmptyStateProps) {
     return (
         <div className="text-center py-16 px-6">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-slate-100 rounded-3xl mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-surface-secondary rounded-3xl mb-6">
                 {icon}
             </div>
-            <h3 className="text-xl font-black text-slate-900 mb-2">{title}</h3>
-            <p className="text-slate-500 mb-8 max-w-md mx-auto">{description}</p>
+            <h3 className="text-xl font-black text-ink-primary mb-2">{title}</h3>
+            <p className="text-ink-tertiary0 mb-8 max-w-md mx-auto">{description}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 {actionLabel && actionHref && (
                     <Link
                         href={actionHref}
-                        className="px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors"
+                        className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors"
                     >
                         {actionLabel}
                     </Link>
@@ -33,7 +33,7 @@ export function EmptyState({ icon, title, description, actionLabel, actionHref, 
                 {secondaryActionLabel && secondaryActionHref && (
                     <Link
                         href={secondaryActionHref}
-                        className="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-50 transition-colors"
+                        className="px-6 py-3 bg-surface-elevated border border-border-primary text-ink-secondary rounded-xl font-bold text-sm hover:bg-surface-secondary transition-colors"
                     >
                         {secondaryActionLabel}
                     </Link>
@@ -47,7 +47,7 @@ export function EmptyState({ icon, title, description, actionLabel, actionHref, 
 export function EmptyOrders() {
     return (
         <EmptyState
-            icon={<ShoppingBag className="w-10 h-10 text-slate-400" />}
+            icon={<ShoppingBag className="w-10 h-10 text-ink-tertiary" />}
             title="No orders yet"
             description="When you place an order, it will appear here. Start browsing to find what you need!"
             actionLabel="Start Shopping"
@@ -59,7 +59,7 @@ export function EmptyOrders() {
 export function EmptyWallet() {
     return (
         <EmptyState
-            icon={<Wallet className="w-10 h-10 text-slate-400" />}
+            icon={<Wallet className="w-10 h-10 text-ink-tertiary" />}
             title="Your wallet is empty"
             description="Add funds to your wallet to make purchases faster and easier."
             actionLabel="Add Funds"
@@ -71,7 +71,7 @@ export function EmptyWallet() {
 export function EmptyMessages() {
     return (
         <EmptyState
-            icon={<MessageSquare className="w-10 h-10 text-slate-400" />}
+            icon={<MessageSquare className="w-10 h-10 text-ink-tertiary" />}
             title="No messages"
             description="When vendors or customers message you, conversations will appear here."
             actionLabel="Browse Stores"
@@ -83,7 +83,7 @@ export function EmptyMessages() {
 export function EmptyWishlist() {
     return (
         <EmptyState
-            icon={<Heart className="w-10 h-10 text-slate-400" />}
+            icon={<Heart className="w-10 h-10 text-ink-tertiary" />}
             title="Your wishlist is empty"
             description="Save items you love by clicking the heart icon. They'll appear here for easy access."
             actionLabel="Explore Marketplace"
@@ -95,7 +95,7 @@ export function EmptyWishlist() {
 export function EmptyActivity() {
     return (
         <EmptyState
-            icon={<FileText className="w-10 h-10 text-slate-400" />}
+            icon={<FileText className="w-10 h-10 text-ink-tertiary" />}
             title="No recent activity"
             description="Your recent activity will appear here. Start shopping to see your history!"
             actionLabel="Start Shopping"
@@ -108,7 +108,7 @@ export function EmptyActivity() {
 export function EmptyProducts() {
     return (
         <EmptyState
-            icon={<Package className="w-10 h-10 text-slate-400" />}
+            icon={<Package className="w-10 h-10 text-ink-tertiary" />}
             title="No products yet"
             description="Add your first product to start selling on IslandHub. It only takes a few minutes!"
             actionLabel="Add Product"
@@ -120,7 +120,7 @@ export function EmptyProducts() {
 export function EmptyVendorOrders() {
     return (
         <EmptyState
-            icon={<ShoppingBag className="w-10 h-10 text-slate-400" />}
+            icon={<ShoppingBag className="w-10 h-10 text-ink-tertiary" />}
             title="No orders yet"
             description="When customers place orders, they'll appear here. Make sure your products are visible!"
             actionLabel="View Products"
@@ -134,7 +134,7 @@ export function EmptyVendorOrders() {
 export function EmptyAnalytics() {
     return (
         <EmptyState
-            icon={<FileText className="w-10 h-10 text-slate-400" />}
+            icon={<FileText className="w-10 h-10 text-ink-tertiary" />}
             title="No analytics data yet"
             description="Analytics will appear here once you start getting views and sales. Check back soon!"
         />
@@ -144,7 +144,7 @@ export function EmptyAnalytics() {
 export function EmptyPayouts() {
     return (
         <EmptyState
-            icon={<CreditCard className="w-10 h-10 text-slate-400" />}
+            icon={<CreditCard className="w-10 h-10 text-ink-tertiary" />}
             title="No payouts yet"
             description="Payouts will appear here once you complete sales and the holding period ends."
         />
@@ -155,7 +155,7 @@ export function EmptyPayouts() {
 export function EmptyTrips() {
     return (
         <EmptyState
-            icon={<Car className="w-10 h-10 text-slate-400" />}
+            icon={<Car className="w-10 h-10 text-ink-tertiary" />}
             title="No trips yet"
             description="Go online to start receiving trip requests. Make sure your vehicle is registered!"
             actionLabel="Go Online"
@@ -167,7 +167,7 @@ export function EmptyTrips() {
 export function EmptyEarnings() {
     return (
         <EmptyState
-            icon={<CreditCard className="w-10 h-10 text-slate-400" />}
+            icon={<CreditCard className="w-10 h-10 text-ink-tertiary" />}
             title="No earnings yet"
             description="Complete trips to start earning. Your earnings will be displayed here."
         />
@@ -177,7 +177,7 @@ export function EmptyEarnings() {
 export function EmptyRatings() {
     return (
         <EmptyState
-            icon={<Star className="w-10 h-10 text-slate-400" />}
+            icon={<Star className="w-10 h-10 text-ink-tertiary" />}
             title="No ratings yet"
             description="After customers rate your trips, your ratings will appear here. Keep up the great work!"
         />
@@ -187,7 +187,7 @@ export function EmptyRatings() {
 export function EmptyVehicle() {
     return (
         <EmptyState
-            icon={<Truck className="w-10 h-10 text-slate-400" />}
+            icon={<Truck className="w-10 h-10 text-ink-tertiary" />}
             title="No vehicle registered"
             description="Register your vehicle to start accepting trips. You'll need your registration and insurance."
             actionLabel="Register Vehicle"

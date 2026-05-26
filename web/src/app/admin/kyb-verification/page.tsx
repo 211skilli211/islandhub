@@ -146,7 +146,7 @@ export default function KYBVerificationPage() {
             ) : (
                 <div className="grid gap-6">
                     {vendors.map((vendor) => (
-                        <div key={vendor.id} className="bg-white dark:bg-ocean-800 rounded-xl shadow-sm border border-gray-100 dark:border-ocean-700 overflow-hidden">
+                        <div key={vendor.id} className="bg-surface-elevated dark:bg-ocean-800 rounded-xl shadow-sm border border-gray-100 dark:border-ocean-700 overflow-hidden">
                             <div className="flex">
                                 {/* Store Logo */}
                                 <div className="w-48 h-48 shrink-0 bg-gray-100 relative">
@@ -268,7 +268,7 @@ export default function KYBVerificationPage() {
             {/* Reject Modal */}
             {showRejectModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white dark:bg-ocean-800 rounded-xl p-6 w-full max-w-md">
+                    <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 w-full max-w-md">
                         <h3 className="text-xl font-bold mb-4">Reject Vendor</h3>
                         <p className="text-gray-600 mb-4">
                             Please provide a reason for rejecting <strong>{selectedVendor?.store_name || selectedVendor?.business_name}</strong>
@@ -305,7 +305,7 @@ export default function KYBVerificationPage() {
             {/* Vendor Detail Modal */}
             {selectedVendor && !showRejectModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white dark:bg-ocean-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                    <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
                             <div className="flex justify-between items-start mb-6">
                                 <h2 className="text-2xl font-bold">{selectedVendor.store_name || selectedVendor.business_name}</h2>

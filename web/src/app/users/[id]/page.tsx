@@ -198,7 +198,7 @@ function PublicProfileContent() {
                                 </div>
                             ) : (
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-12 text-center">
-                                    <ShoppingBag size={48} className="mx-auto text-slate-300 mb-4" />
+                                    <ShoppingBag size={48} className="mx-auto text-ink-tertiary mb-4" />
                                     <h3 className="text-lg font-bold text-ink-primary mb-2">No listings yet</h3>
                                     <p className="text-sm text-ink-tertiary">This user hasn&apos;t listed any products or services yet.</p>
                                 </div>
@@ -269,7 +269,7 @@ function PublicProfileContent() {
                                             <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Sales</div>
                                         </div>
                                         <div className="text-center p-3 bg-surface-primary rounded-xl">
-                                            <div className="flex items-center justify-center gap-1 text-2xl font-black text-amber-500">
+                                            <div className="flex items-center justify-center gap-1 text-2xl font-black text-sand-500">
                                                 <Star size={20} fill="currentColor" /> -
                                             </div>
                                             <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Rating</div>

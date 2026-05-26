@@ -267,7 +267,7 @@ export default function StoresPage() {
                                     }`}>
                                     <span>{hub.icon}</span>
                                     <span>{hub.label}</span>
-                                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${active ? 'bg-white/20' : 'bg-surface-secondary'}`}>
+                                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${active ? 'bg-surface-elevated/20' : 'bg-surface-secondary'}`}>
                                         {loading ? '…' : hubCounts[hub.id] || 0}
                                     </span>
                                 </button>

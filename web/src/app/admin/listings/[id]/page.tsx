@@ -32,7 +32,7 @@ export default function ListingDetailPage() {
                                 </h4>
                                 <div className="space-y-3">
                                     {value.map((item: any, idx: number) => (
-                                        <div key={idx} className="p-4 bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl shadow-sm">
+                                        <div key={idx} className="p-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl shadow-sm">
                                             {renderMetadata(item, field.schema || [])}
                                         </div>
                                     ))}
@@ -42,7 +42,7 @@ export default function ListingDetailPage() {
                     }
 
                     return (
-                        <div key={field.name} className="flex justify-between items-center p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                        <div key={field.name} className="flex justify-between items-center p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                             <span className="text-[10px] font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider">{field.label}</span>
                             <span className="text-sm font-bold text-ink-primary dark:text-white truncate max-w-[200px]">
                                 {Array.isArray(value)
@@ -93,14 +93,14 @@ export default function ListingDetailPage() {
     if (loading) return (
         <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary flex items-center justify-center">
             <div className="animate-pulse flex flex-col items-center gap-4">
-                <div className="w-16 h-16 bg-surface-tertiary dark:bg-slate-700 rounded-full"></div>
-                <div className="h-4 w-32 bg-surface-tertiary dark:bg-slate-700 rounded"></div>
+                <div className="w-16 h-16 bg-surface-tertiary dark:bg-surface-tertiary rounded-full"></div>
+                <div className="h-4 w-32 bg-surface-tertiary dark:bg-surface-tertiary rounded"></div>
             </div>
         </div>
     );
     if (!listing) return (
         <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary flex items-center justify-center">
-            <div className="text-center p-8 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 shadow-lg">
+            <div className="text-center p-8 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg">
                 <div className="text-4xl mb-4">📦</div>
                 <h2 className="text-xl font-bold text-ink-primary dark:text-white mb-2">Listing not found</h2>
                 <p className="text-ink-tertiary dark:text-ink-tertiary mb-4">The listing ID may be invalid or deleted.</p>
@@ -126,14 +126,14 @@ export default function ListingDetailPage() {
                 {/* Back Button */}
                 <button
                     onClick={() => router.push('/admin')}
-                    className="flex items-center gap-2 text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-slate-200 font-bold mb-6 transition-colors"
+                    className="flex items-center gap-2 text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary font-bold mb-6 transition-colors"
                 >
                     <span className="text-xl">←</span>
                     <span>Back to Admin</span>
                 </button>
 
                 {/* Main Card */}
-                <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 shadow-lg overflow-hidden">
+                <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg overflow-hidden">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white p-6">
                         <div className="flex justify-between items-start">
@@ -141,15 +141,15 @@ export default function ListingDetailPage() {
                                 <h1 className="text-2xl font-bold">{listing.title}</h1>
                                 <div className="flex items-center gap-4 mt-2">
                                     <span className="text-sm text-ink-tertiary">ID: {listing.id}</span>
-                                    <span className="px-3 py-1 bg-accent-500/100/20 text-teal-400 text-xs font-bold rounded-full uppercase border border-teal-500/30">
+                                    <span className="px-3 py-1 bg-accent-500/100/20 text-accent-400 text-xs font-bold rounded-full uppercase border border-teal-500/30">
                                         {listing.type}
                                     </span>
-                                    <span className="px-3 py-1 bg-slate-700 text-slate-300 text-xs font-bold rounded-full uppercase">
+                                    <span className="px-3 py-1 bg-surface-tertiary text-ink-tertiary text-xs font-bold rounded-full uppercase">
                                         {listing.status || 'active'}
                                     </span>
                                 </div>
                             </div>
-                            <a href={`/listings/${listing.id}`} className="text-xs text-teal-400 hover:text-teal-300 underline bg-surface-elevated/10 px-4 py-2 rounded-full font-bold">
+                            <a href={`/listings/${listing.id}`} className="text-xs text-accent-400 hover:text-accent-300 underline bg-surface-elevated/10 px-4 py-2 rounded-full font-bold">
                                 View Public Page ↗
                             </a>
                         </div>
@@ -159,7 +159,7 @@ export default function ListingDetailPage() {
                     <div className="p-6 space-y-6">
                         {/* Price & Category */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                                 <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">
                                     {listing.type === 'campaign' ? 'Goal' : 'Price'}
                                 </label>
@@ -167,15 +167,15 @@ export default function ListingDetailPage() {
                                     {listing.type === 'campaign' ? `$${listing.goal_amount?.toLocaleString()}` : `$${listing.price?.toLocaleString()}`}
                                 </div>
                             </div>
-                            <div className="p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                                 <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">Category</label>
                                 <div className="text-lg font-bold text-ink-primary dark:text-white">{listing.category}</div>
                             </div>
-                            <div className="p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                                 <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">Vendor</label>
                                 <div className="text-lg font-bold text-ink-primary dark:text-white truncate">{listing.vendor_name || 'N/A'}</div>
                             </div>
-                            <div className="p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                                 <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">Created</label>
                                 <div className="text-lg font-bold text-ink-primary dark:text-white">
                                     {listing.created_at ? new Date(listing.created_at).toLocaleDateString() : 'N/A'}
@@ -184,9 +184,9 @@ export default function ListingDetailPage() {
                         </div>
 
                         {/* Description */}
-                        <div className="p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                        <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                             <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-2">Description</label>
-                            <p className="text-ink-secondary dark:text-slate-300">{listing.description || 'No description provided.'}</p>
+                            <p className="text-ink-secondary dark:text-ink-tertiary">{listing.description || 'No description provided.'}</p>
                         </div>
 
                         {/* Specifications */}
@@ -207,7 +207,7 @@ export default function ListingDetailPage() {
                                             if (key === 'sub_type') return null;
                                             const label = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
                                             return (
-                                                <div key={key} className="flex justify-between items-center p-4 bg-surface-primary dark:bg-slate-700/50 rounded-xl border border-border-primary dark:border-slate-600">
+                                                <div key={key} className="flex justify-between items-center p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                                                     <span className="text-[10px] font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider">{label}</span>
                                                     <span className="text-sm font-bold text-ink-primary dark:text-white truncate max-w-[150px]">
                                                         {typeof value === 'boolean' ? (value ? '✅ Yes' : '❌ No') : String(value)}
@@ -221,7 +221,7 @@ export default function ListingDetailPage() {
                         </div>
 
                         {/* Actions */}
-                        <div className="border-t border-border-primary dark:border-slate-700 pt-6 flex flex-wrap gap-4">
+                        <div className="border-t border-border-primary dark:border-border-primary pt-6 flex flex-wrap gap-4">
                             <button
                                 onClick={() => setIsEditing(true)}
                                 className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-all shadow-lg shadow-teal-600/20"

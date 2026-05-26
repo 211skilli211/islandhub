@@ -30,7 +30,7 @@ export default function AdminIBTPartnersPage() {
             description: 'Manage products and offerings for each partner store',
             icon: Package,
             href: '/admin/ibt-partners/products',
-            color: 'bg-amber-500',
+            color: 'bg-sand-500/50',
         },
         {
             id: 'hero',
@@ -56,7 +56,7 @@ export default function AdminIBTPartnersPage() {
                         <Link
                             key={section.id}
                             href={section.href}
-                            className="group bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                            className="group bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                         >
                             <div className={`w-12 h-12 ${section.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                                 <Icon className="w-6 h-6 text-white" />
@@ -69,7 +69,7 @@ export default function AdminIBTPartnersPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 p-6">
+            <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary p-6">
                 <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-4">Partner Stores</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl">
@@ -77,7 +77,7 @@ export default function AdminIBTPartnersPage() {
                         <div className="text-xs text-ink-tertiary font-bold uppercase tracking-wider mt-1">Active Stores</div>
                     </div>
                     <div className="text-center p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl">
-                        <div className="text-2xl font-black text-amber-600">4</div>
+                        <div className="text-2xl font-black text-sand-500">4</div>
                         <div className="text-xs text-ink-tertiary font-bold uppercase tracking-wider mt-1">Products</div>
                     </div>
                     <div className="text-center p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl">
@@ -85,19 +85,19 @@ export default function AdminIBTPartnersPage() {
                         <div className="text-xs text-ink-tertiary font-bold uppercase tracking-wider mt-1">Hero Assets</div>
                     </div>
                     <div className="text-center p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl">
-                        <div className="text-2xl font-black text-emerald-600">1</div>
+                        <div className="text-2xl font-black text-emerald-400">1</div>
                         <div className="text-xs text-ink-tertiary font-bold uppercase tracking-wider mt-1">Partners</div>
                     </div>
                 </div>
             </div>
 
             {/* Recent Activity */}
-            <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 p-6">
+            <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary p-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-bold text-ink-primary dark:text-white">Quick Actions</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <Link href="/admin/ibt-partners/stores" className="flex items-center gap-3 p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl hover:bg-accent-500/10 dark:hover:bg-teal-900/20 transition-colors">
+                    <Link href="/admin/ibt-partners/stores" className="flex items-center gap-3 p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl hover:bg-accent-500/10 dark:hover:bg-accent-800/20 transition-colors">
                         <div className="w-10 h-10 bg-accent-500/100 rounded-lg flex items-center justify-center">
                             <Plus className="w-5 h-5 text-white" />
                         </div>
@@ -106,8 +106,8 @@ export default function AdminIBTPartnersPage() {
                             <div className="text-xs text-ink-tertiary">Create a new partner storefront</div>
                         </div>
                     </Link>
-                    <Link href="/admin/ibt-partners/products" className="flex items-center gap-3 p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors">
-                        <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center">
+                    <Link href="/admin/ibt-partners/products" className="flex items-center gap-3 p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl hover:bg-sand-500/5 dark:hover:bg-sand-800/20 transition-colors">
+                        <div className="w-10 h-10 bg-sand-500/50 rounded-lg flex items-center justify-center">
                             <Plus className="w-5 h-5 text-white" />
                         </div>
                         <div>

@@ -183,7 +183,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                     <button
                         key={opt.type}
                         onClick={() => handleTypeSelect(opt.type as ListingType)}
-                        className="rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex flex-col items-center space-y-2 hover:border-teal-500 hover:bg-teal-50 transition-all focus:outline-none"
+                        className="rounded-lg border border-gray-300 bg-surface-elevated px-6 py-5 shadow-sm flex flex-col items-center space-y-2 hover:border-teal-500 hover:bg-accent-500/10 transition-all focus:outline-none"
                     >
                         <span className="text-4xl">{opt.icon}</span>
                         <span className="text-sm font-medium text-gray-900">{opt.label}</span>
@@ -201,7 +201,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
             {/* Common Fields */}
             <div>
                 <label className="block text-sm font-medium text-gray-700">Title</label>
-                <input required name="title" placeholder={selectedType === 'transport' ? 'e.g. Ride to Airport / Package Delivery' : ''} value={formData.title} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                <input required name="title" placeholder={selectedType === 'transport' ? 'e.g. Ride to Airport / Package Delivery' : ''} value={formData.title} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
             </div>
 
             {selectedType !== 'transport' && (
@@ -212,7 +212,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm"
                     >
                         <option value="">Select Category</option>
                         {selectedType === 'rental' && (
@@ -265,7 +265,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                         name="tour_category"
                         value={formData.tour_category}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm"
                     >
                         <option value="">Select Theme</option>
                         <option value="land">Land & Culture</option>
@@ -280,7 +280,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
 
             <div>
                 <label className="block text-sm font-medium text-gray-700">Description</label>
-                <textarea required name="description" rows={3} value={formData.description} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                <textarea required name="description" rows={3} value={formData.description} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
             </div>
 
             <div>
@@ -290,7 +290,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                     placeholder="e.g. delicious-ital-stew"
                     value={formData.slug}
                     onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') }))}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm"
                 />
                 <p className="text-[10px] text-gray-400 mt-1 italic">Leave empty to generate automatically from title.</p>
             </div>
@@ -300,17 +300,17 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Target Goal ($)</label>
-                        <input required type="number" name="goal_amount" value={formData.goal_amount} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required type="number" name="goal_amount" value={formData.goal_amount} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Beneficiary</label>
-                        <input required name="beneficiary" placeholder="e.g. Village Primary School" value={formData.beneficiary} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required name="beneficiary" placeholder="e.g. Village Primary School" value={formData.beneficiary} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                 </div>
             ) : (
                 <div>
                     <label className="block text-sm font-medium text-gray-700">{selectedType === 'transport' ? 'Offer Price / Fare ($)' : 'Price ($)'}</label>
-                    <input required type="number" name="price" value={formData.price} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                    <input required type="number" name="price" value={formData.price} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                 </div>
             )}
 
@@ -324,7 +324,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                                 name="service_type"
                                 value={formData.service_type}
                                 onChange={handleChange}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm"
                             >
                                 <option value="taxi">Taxi / Ride</option>
                                 <option value="delivery">Delivery</option>
@@ -337,7 +337,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                                 name="vehicle_category"
                                 value={formData.vehicle_category}
                                 onChange={handleChange}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm"
                             >
                                 <option value="car">Standard Car</option>
                                 <option value="suv">SUV / Minivan</option>
@@ -348,15 +348,15 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Pickup Location</label>
-                        <input required name="pickup_location" placeholder="e.g. Airport Terminal 1" value={formData.pickup_location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required name="pickup_location" placeholder="e.g. Airport Terminal 1" value={formData.pickup_location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Dropoff Location</label>
-                        <input required name="dropoff_location" placeholder="e.g. Park Hyatt St. Kitts" value={formData.dropoff_location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required name="dropoff_location" placeholder="e.g. Park Hyatt St. Kitts" value={formData.dropoff_location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Scheduled Time (Optional)</label>
-                        <input type="datetime-local" name="scheduled_time" value={formData.scheduled_time} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input type="datetime-local" name="scheduled_time" value={formData.scheduled_time} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                 </div>
             )}
@@ -366,11 +366,11 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Inventory Count</label>
-                        <input required type="number" name="inventory_count" value={formData.inventory_count} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required type="number" name="inventory_count" value={formData.inventory_count} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Shipping Info</label>
-                        <input required name="shipping_info" value={formData.shipping_info} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required name="shipping_info" value={formData.shipping_info} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                 </div>
             )}
@@ -379,11 +379,11 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Start Date</label>
-                        <input required type="date" name="start_date" value={formData.start_date} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required type="date" name="start_date" value={formData.start_date} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">End Date</label>
-                        <input required type="date" name="end_date" value={formData.end_date} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                        <input required type="date" name="end_date" value={formData.end_date} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                     </div>
                 </div>
             )}
@@ -391,7 +391,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
             {(selectedType === 'service' || selectedType === 'rental' || selectedType === 'campaign') && (
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Location</label>
-                    <input required name="location" placeholder="e.g. Basseterre, St. Kitts" value={formData.location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+                    <input required name="location" placeholder="e.g. Basseterre, St. Kitts" value={formData.location} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
                 </div>
             )}
 
@@ -409,14 +409,14 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-600 text-base font-medium text-white hover:bg-teal-700 focus:outline-none sm:col-start-2 sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent-500 text-base font-medium text-white hover:bg-accent-600 focus:outline-none sm:col-start-2 sm:text-sm"
                 >
                     {loading ? 'Creating...' : 'Create Listing'}
                 </button>
                 <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:col-start-1 sm:text-sm"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-surface-elevated text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:col-start-1 sm:text-sm"
                 >
                     Back
                 </button>
@@ -429,7 +429,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose} aria-hidden="true"></div>
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div className="inline-block align-bottom bg-surface-elevated rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                     <div>
                         {step === 1 ? renderTypeSelection() : renderForm()}
                     </div>

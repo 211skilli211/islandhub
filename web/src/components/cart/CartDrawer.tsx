@@ -40,7 +40,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" />
+                    <div className="fixed inset-0 bg-ink-primary/50 backdrop-blur-sm transition-opacity" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-hidden">
@@ -56,16 +56,16 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                 leaveTo="translate-x-full"
                             >
                                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                                    <div className="flex h-full flex-col bg-white shadow-2xl">
+                                    <div className="flex h-full flex-col bg-surface-elevated shadow-2xl">
                                         {/* Header */}
-                                        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                                            <Dialog.Title className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                                <ShoppingCartIcon className="w-6 h-6 text-teal-600" />
+                                        <div className="flex items-center justify-between border-b border-border-primary px-6 py-4">
+                                            <Dialog.Title className="text-xl font-bold text-ink-primary flex items-center gap-2">
+                                                <ShoppingCartIcon className="w-6 h-6 text-accent-400" />
                                                 Cart ({itemCount})
                                             </Dialog.Title>
                                             <button
                                                 type="button"
-                                                className="rounded-lg p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                                                className="rounded-lg p-2 text-ink-tertiary hover:text-ink-secondary hover:bg-surface-secondary transition-colors"
                                                 onClick={onClose}
                                             >
                                                 <XMarkIcon className="h-6 w-6" />
@@ -82,9 +82,9 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                 <div className="space-y-4">
                                                     {cart.items.map((item) => (
                                                         <div key={item.item_id}>
-                                                            <div className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                                            <div className="flex gap-4 p-4 bg-surface-secondary rounded-xl border border-border-primary">
                                                                 {/* Image */}
-                                                                <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-white">
+                                                                <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-surface-elevated">
                                                                     <Image
                                                                         src={getImageUrl(item.image_url)}
                                                                         alt={item.title}
@@ -92,7 +92,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                         className="object-cover"
                                                                     />
                                                                     {item.donation_suggested && (
-                                                                        <div className="absolute inset-0 bg-amber-500/10 flex items-center justify-center">
+                                                                        <div className="absolute inset-0 bg-sand-500/50/10 flex items-center justify-center">
                                                                             <span className="text-2xl">🎁</span>
                                                                         </div>
                                                                     )}
@@ -101,16 +101,16 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                 {/* Details */}
                                                                 <div className="flex-1 min-w-0">
                                                                     <div className="flex items-center gap-2">
-                                                                        <h3 className={`font-black uppercase tracking-tight truncate ${item.donation_suggested ? 'text-amber-600' : 'text-slate-900'}`}>{item.title}</h3>
-                                                                        {item.donation_suggested && <span className="text-[8px] bg-amber-100 text-amber-600 px-1.5 py-0.5 rounded font-black uppercase tracking-widest">Donation</span>}
+                                                                        <h3 className={`font-black uppercase tracking-tight truncate ${item.donation_suggested ? 'text-sand-500' : 'text-ink-primary'}`}>{item.title}</h3>
+                                                                        {item.donation_suggested && <span className="text-[8px] bg-sand-500/10 text-sand-500 px-1.5 py-0.5 rounded font-black uppercase tracking-widest">Donation</span>}
                                                                     </div>
-                                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{item.store_name}</p>
+                                                                    <p className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest truncate">{item.store_name}</p>
 
                                                                     {/* Restaurant Selections */}
                                                                     {item.selected_variant && typeof item.selected_variant === 'object' && (
                                                                         <div className="mt-2 flex flex-wrap gap-1">
                                                                             {Object.entries(item.selected_variant).map(([key, val]) => (
-                                                                                <span key={key} className="text-[9px] bg-white border border-slate-200 text-slate-500 px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
+                                                                                <span key={key} className="text-[9px] bg-surface-elevated border border-border-primary text-ink-tertiary0 px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
                                                                                     {key}: {String(val)}
                                                                                 </span>
                                                                             ))}
@@ -119,7 +119,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     {item.selected_addons && Array.isArray(item.selected_addons) && item.selected_addons.length > 0 && (
                                                                         <div className="mt-1 flex flex-wrap gap-1">
                                                                             {item.selected_addons.map((addon: any) => (
-                                                                                <span key={addon.name} className="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
+                                                                                <span key={addon.name} className="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
                                                                                     + {addon.name}
                                                                                 </span>
                                                                             ))}
@@ -128,7 +128,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     {item.selected_sides && Array.isArray(item.selected_sides) && item.selected_sides.length > 0 && (
                                                                         <div className="mt-1 flex flex-wrap gap-1">
                                                                             {item.selected_sides.map((side: any) => (
-                                                                                <span key={side.name} className="text-[9px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
+                                                                                <span key={side.name} className="text-[9px] bg-[#818cf8]/10 text-[#818cf8] px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
                                                                                     Side: {side.name}
                                                                                 </span>
                                                                             ))}
@@ -137,17 +137,17 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 
                                                                     {/* Category-specific info */}
                                                                     {item.rental_start_date && (
-                                                                        <p className="text-xs text-teal-600 mt-1">
+                                                                        <p className="text-xs text-accent-400 mt-1">
                                                                             {new Date(item.rental_start_date).toLocaleDateString()} - {new Date(item.rental_end_date!).toLocaleDateString()}
                                                                         </p>
                                                                     )}
                                                                     {item.appointment_slot && (
-                                                                        <p className="text-[10px] text-indigo-600 font-bold mt-1 uppercase tracking-wider flex items-center gap-1">
+                                                                        <p className="text-[10px] text-[#818cf8] font-bold mt-1 uppercase tracking-wider flex items-center gap-1">
                                                                             <ClockIcon className="w-3 h-3" /> {item.appointment_slot}
                                                                         </p>
                                                                     )}
                                                                     {item.service_package && (
-                                                                        <p className="text-xs text-teal-600 mt-1">Package: {item.service_package}</p>
+                                                                        <p className="text-xs text-accent-400 mt-1">Package: {item.service_package}</p>
                                                                     )}
 
                                                                     <div className="flex items-center justify-between mt-2">
@@ -155,7 +155,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                         <div className="flex items-center gap-2">
                                                                             <button
                                                                                 onClick={() => updateQuantity(item.item_id, Math.max(1, item.quantity - 1))}
-                                                                                className="w-7 h-7 rounded-lg bg-white border border-slate-300 flex items-center justify-center hover:bg-slate-50 transition-colors"
+                                                                                className="w-7 h-7 rounded-lg bg-surface-elevated border border-border-primary flex items-center justify-center hover:bg-surface-secondary transition-colors"
                                                                                 disabled={loading}
                                                                             >
                                                                                 -
@@ -163,7 +163,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                             <span className="w-8 text-center font-medium">{item.quantity}</span>
                                                                             <button
                                                                                 onClick={() => updateQuantity(item.item_id, item.quantity + 1)}
-                                                                                className="w-7 h-7 rounded-lg bg-white border border-slate-300 flex items-center justify-center hover:bg-slate-50 transition-colors"
+                                                                                className="w-7 h-7 rounded-lg bg-surface-elevated border border-border-primary flex items-center justify-center hover:bg-surface-secondary transition-colors"
                                                                                 disabled={loading}
                                                                             >
                                                                                 +
@@ -171,7 +171,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                         </div>
 
                                                                         {/* Price */}
-                                                                        <span className="font-bold text-slate-900">
+                                                                        <span className="font-bold text-ink-primary">
                                                                             ${(item.price_snapshot * item.quantity).toFixed(2)}
                                                                         </span>
                                                                     </div>
@@ -189,13 +189,13 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 
                                                             {/* Side Suggestions */}
                                                             {item.side_ids && item.side_ids.length > 0 && (!item.selected_sides || item.selected_sides.length === 0) && (
-                                                                <div className="mt-3 p-3 bg-indigo-50/50 rounded-xl border border-indigo-100/50">
+                                                                <div className="mt-3 p-3 bg-[#818cf8]/10/50 rounded-xl border border-[#818cf8]/20/50">
                                                                     <div className="flex items-center justify-between">
-                                                                        <p className="text-[10px] font-black uppercase text-indigo-600 tracking-widest">Complete your meal?</p>
+                                                                        <p className="text-[10px] font-black uppercase text-[#818cf8] tracking-widest">Complete your meal?</p>
                                                                         <Link
                                                                             href={`/store/${item.store_slug}`}
                                                                             onClick={onClose}
-                                                                            className="text-[9px] font-black uppercase text-indigo-500 hover:underline"
+                                                                            className="text-[9px] font-black uppercase text-[#a5b4fc]0 hover:underline"
                                                                         >
                                                                             Add Sides +
                                                                         </Link>
@@ -207,26 +207,26 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                 </div>
                                             ) : (
                                                 <div className="flex flex-col items-center justify-center h-full text-center">
-                                                    <ShoppingCartIcon className="w-16 h-16 text-slate-300 mb-4" />
-                                                    <p className="text-slate-600 font-medium">Your cart is empty</p>
-                                                    <p className="text-sm text-slate-500 mt-1">Add items to get started</p>
+                                                    <ShoppingCartIcon className="w-16 h-16 text-ink-tertiary mb-4" />
+                                                    <p className="text-ink-secondary font-medium">Your cart is empty</p>
+                                                    <p className="text-sm text-ink-tertiary0 mt-1">Add items to get started</p>
                                                 </div>
                                             )}
                                         </div>
 
                                         {/* Footer */}
                                         {cart && cart.items.length > 0 && (
-                                            <div className="border-t border-slate-200 px-6 py-4 space-y-4">
+                                            <div className="border-t border-border-primary px-6 py-4 space-y-4">
                                                 {/* Total */}
                                                 <div className="flex items-center justify-between text-lg font-bold">
-                                                    <span className="text-slate-700">Total</span>
-                                                    <span className="text-slate-900">${totalAmount.toFixed(2)} XCD</span>
+                                                    <span className="text-ink-secondary">Total</span>
+                                                    <span className="text-ink-primary">${totalAmount.toFixed(2)} XCD</span>
                                                 </div>
 
                                                 {/* Checkout Button */}
                                                 <button
                                                     onClick={handleCheckout}
-                                                    className="w-full py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl"
+                                                    className="w-full py-4 bg-gradient-to-r from-teal-600 to-accent-400 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl"
                                                     disabled={loading}
                                                 >
                                                     Proceed to Checkout
@@ -234,7 +234,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 
                                                 <button
                                                     onClick={onClose}
-                                                    className="w-full py-3 text-slate-600 font-medium hover:text-slate-900 transition-colors"
+                                                    className="w-full py-3 text-ink-secondary font-medium hover:text-ink-primary transition-colors"
                                                 >
                                                     Continue Shopping
                                                 </button>

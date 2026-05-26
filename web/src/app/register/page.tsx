@@ -168,7 +168,7 @@ export default function RegisterPage() {
                                     onClick={() => setSelectedRole(role.id)}
                                     className={`w-full p-5 rounded-2xl border-2 flex items-center gap-4 transition-all text-left ${
                                         selectedRole === role.id
-                                            ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-teal-100'
+                                            ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-accent-500/10'
                                             : 'border-border-primary hover:border-teal-200'
                                     }`}
                                 >
@@ -193,7 +193,7 @@ export default function RegisterPage() {
                                             onClick={() => setVendorCategory(cat.id)}
                                             className={`w-full p-5 rounded-2xl border-2 flex items-center gap-4 transition-all text-left ${
                                                 vendorCategory === cat.id
-                                                    ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-teal-100'
+                                                    ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-accent-500/10'
                                                     : 'border-border-primary hover:border-teal-200'
                                             }`}
                                         >
@@ -232,7 +232,7 @@ export default function RegisterPage() {
                                             onClick={() => setDriverCategory(cat.id)}
                                             className={`w-full p-5 rounded-2xl border-2 flex items-center gap-4 transition-all text-left ${
                                                 driverCategory === cat.id
-                                                    ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-teal-100'
+                                                    ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-accent-500/10'
                                                     : 'border-border-primary hover:border-teal-200'
                                             }`}
                                         >
@@ -274,7 +274,7 @@ export default function RegisterPage() {
                             <button
                                 onClick={() => canProceedToStep2() && setStep(2)}
                                 disabled={!canProceedToStep2()}
-                                className="flex-1 py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-teal-100 hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                className="flex-1 py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-accent-500/10 hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                             >
                                 Continue
                             </button>
@@ -304,7 +304,7 @@ export default function RegisterPage() {
                                             required
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-slate-600 bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
                                         />
                                     </div>
                                     <div>
@@ -317,13 +317,13 @@ export default function RegisterPage() {
                                             required
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-slate-600 bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
                                         />
                                     </div>
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-teal-100 hover:bg-accent-600 disabled:opacity-50 transition-all"
+                                        className="w-full py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-accent-500/10 hover:bg-accent-600 disabled:opacity-50 transition-all"
                                     >
                                         {loading ? 'Creating...' : 'Create Account'}
                                     </button>

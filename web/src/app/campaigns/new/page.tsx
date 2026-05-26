@@ -79,7 +79,7 @@ export default function NewCampaignPage() {
                     <div className="flex items-center justify-between mb-4">
                         {[1, 2, 3].map((s) => (
                             <div key={s} className="flex flex-col items-center">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${step >= s ? 'bg-accent-500 text-white shadow-lg shadow-teal-200' : 'bg-surface-elevated text-slate-300 border-2 border-border-primary'
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${step >= s ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/15' : 'bg-surface-elevated text-ink-tertiary border-2 border-border-primary'
                                     }`}>
                                     {s}
                                 </div>
@@ -180,7 +180,7 @@ export default function NewCampaignPage() {
                                         type="button"
                                         onClick={nextStep}
                                         disabled={!formData.title || !formData.goal_amount}
-                                        className="w-full py-5 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-200 transition-all transform hover:-translate-y-1 active:translate-y-0"
+                                        className="w-full py-5 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-accent-500/15 transition-all transform hover:-translate-y-1 active:translate-y-0"
                                     >
                                         Next: Tell Your Story
                                     </button>
@@ -217,7 +217,7 @@ export default function NewCampaignPage() {
                                     </div>
 
                                     <div className="bg-accent-500/10 p-6 rounded-2xl border border-teal-100">
-                                        <h4 className="text-teal-800 font-bold mb-2 flex items-center gap-2">
+                                        <h4 className="text-accent-600 font-bold mb-2 flex items-center gap-2">
                                             <span>💡</span> Pro Tip
                                         </h4>
                                         <p className="text-accent-500 text-sm italic">
@@ -238,7 +238,7 @@ export default function NewCampaignPage() {
                                         type="button"
                                         onClick={nextStep}
                                         disabled={!formData.description || wordCount < 300}
-                                        className="flex-[2] py-5 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-200 transition-all transform hover:-translate-y-1 active:translate-y-0"
+                                        className="flex-[2] py-5 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-accent-500/15 transition-all transform hover:-translate-y-1 active:translate-y-0"
                                     >
                                         Final Step
                                     </button>
@@ -269,8 +269,8 @@ export default function NewCampaignPage() {
                                     </div>
                                 </div>
 
-                                <div className="text-center p-6 bg-amber-50 rounded-2xl border border-amber-100">
-                                    <p className="text-amber-800 text-sm font-medium">
+                                <div className="text-center p-6 bg-sand-500/5 rounded-2xl border border-sand-500/20">
+                                    <p className="text-sand-600 text-sm font-medium">
                                         🔔 Your campaign will be submitted for verification. It will appear on the browse page once approved by our team.
                                     </p>
                                 </div>

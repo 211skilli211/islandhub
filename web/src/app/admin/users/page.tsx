@@ -96,9 +96,9 @@ export default function AdminUsersPage() {
             {/* Modals */}
             {roleChangeUser && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                    <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-md border border-border-primary dark:border-slate-700">
+                    <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-md border border-border-primary dark:border-border-primary">
                         <div className="text-center mb-6">
-                            <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100">Change Role</h3>
+                            <h3 className="text-2xl font-black text-ink-primary dark:text-ink-tertiary">Change Role</h3>
                             <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Update role for {roleChangeUser.name}</p>
                         </div>
                         <div className="grid grid-cols-2 gap-2 mb-6">
@@ -117,8 +117,8 @@ export default function AdminUsersPage() {
                                     }}
                                     className={`p-3 rounded-lg border-2 text-left transition-all ${
                                         roleChangeUser.role === role 
-                                            ? 'border-teal-500 bg-accent-500/10 dark:bg-teal-900/20' 
-                                            : 'border-border-primary dark:border-slate-700 hover:border-teal-500'
+                                            ? 'border-teal-500 bg-accent-500/10 dark:bg-accent-800/20' 
+                                            : 'border-border-primary dark:border-border-primary hover:border-teal-500'
                                     }`}
                                 >
                                     <span className="font-black uppercase text-xs tracking-widest block">{role}</span>

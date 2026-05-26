@@ -365,13 +365,13 @@ function ProfilePageContent() {
 
                     {activeSection === 'security' && (
                         <div className="space-y-6">
-                            <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                            <div className="p-4 bg-sand-500/5 border border-sand-500/20 rounded-xl">
                                 <div className="flex items-start gap-3">
-                                    <Shield size={20} className="text-amber-600 mt-0.5 shrink-0" />
+                                    <Shield size={20} className="text-sand-500 mt-0.5 shrink-0" />
                                     <div>
-                                        <h4 className="text-sm font-bold text-amber-900">Two-Factor Authentication</h4>
+                                        <h4 className="text-sm font-bold text-sand-700">Two-Factor Authentication</h4>
                                         <p className="text-xs text-sand-500 mt-1">Add an extra layer of security to your account</p>
-                                        <button className="mt-3 px-4 py-2 bg-amber-600 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-amber-700 transition-colors">
+                                        <button className="mt-3 px-4 py-2 bg-sand-500 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-sand-600 transition-colors">
                                             Enable 2FA
                                         </button>
                                     </div>
@@ -410,7 +410,7 @@ function ProfilePageContent() {
                                     <h4 className="text-sm font-bold text-ink-primary">SMS Notifications</h4>
                                     <p className="text-xs text-ink-tertiary">Get text alerts for important updates</p>
                                 </div>
-                                <button className="w-12 h-7 bg-slate-300 rounded-full relative transition-colors">
+                                <button className="w-12 h-7 bg-surface-tertiary rounded-full relative transition-colors">
                                     <span className="absolute left-1 top-1 w-5 h-5 bg-surface-elevated rounded-full shadow-sm" />
                                 </button>
                             </div>
@@ -419,7 +419,7 @@ function ProfilePageContent() {
                                     <h4 className="text-sm font-bold text-ink-primary">Marketing Emails</h4>
                                     <p className="text-xs text-ink-tertiary">Receive tips and feature announcements</p>
                                 </div>
-                                <button className="w-12 h-7 bg-slate-300 rounded-full relative transition-colors">
+                                <button className="w-12 h-7 bg-surface-tertiary rounded-full relative transition-colors">
                                     <span className="absolute left-1 top-1 w-5 h-5 bg-surface-elevated rounded-full shadow-sm" />
                                 </button>
                             </div>

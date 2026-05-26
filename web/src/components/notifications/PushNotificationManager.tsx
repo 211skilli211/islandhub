@@ -84,14 +84,14 @@ export default function PushNotificationManager() {
 
     if (loading) {
         return (
-            <div className="animate-pulse bg-slate-100 dark:bg-slate-800 rounded-2xl h-64"></div>
+            <div className="animate-pulse bg-surface-secondary dark:bg-surface-tertiary rounded-2xl h-64"></div>
         );
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6 space-y-6">
+        <div className="bg-surface-elevated dark:bg-ink-primary rounded-3xl border border-border-primary dark:border-border-primary p-6 space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-lg font-black text-slate-900 dark:text-white">Push Notifications</h3>
+                <h3 className="text-lg font-black text-ink-primary dark:text-white">Push Notifications</h3>
                 <label className="relative inline-flex items-center cursor-pointer">
                     <input 
                         type="checkbox" 
@@ -99,8 +99,8 @@ export default function PushNotificationManager() {
                         onChange={(e) => updateSettings({ enabled: e.target.checked })}
                         className="sr-only peer"
                     />
-                    <div className="w-14 h-7 bg-slate-200 peer-focus:ring-4 peer-focus:ring-teal-500/20 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-teal-600"></div>
-                    <span className="ml-3 text-sm font-bold text-slate-600 dark:text-slate-400">
+                    <div className="w-14 h-7 bg-surface-tertiary peer-focus:ring-4 peer-focus:ring-accent-400/20 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-surface-elevated after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-accent-500"></div>
+                    <span className="ml-3 text-sm font-bold text-ink-secondary dark:text-ink-tertiary">
                         {settings.enabled ? 'Enabled' : 'Disabled'}
                     </span>
                 </label>
@@ -110,25 +110,25 @@ export default function PushNotificationManager() {
                 <>
                     {/* Device Token */}
                     <div className="space-y-3">
-                        <label className="text-xs font-black uppercase tracking-widest text-slate-400">Device Token</label>
+                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary">Device Token</label>
                         <div className="flex gap-3">
                             <input
                                 type="text"
                                 value={deviceToken}
                                 onChange={(e) => setDeviceToken(e.target.value)}
                                 placeholder="Enter FCM device token..."
-                                className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-mono"
+                                className="flex-1 px-4 py-3 bg-surface-secondary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-xl text-sm font-mono"
                             />
                             <button
                                 onClick={registerDevice}
-                                className="px-4 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-xl text-xs font-black uppercase"
+                                className="px-4 py-3 bg-accent-500 hover:bg-accent-500/100 text-white rounded-xl text-xs font-black uppercase"
                             >
                                 Register
                             </button>
                             {deviceToken && (
                                 <button
                                     onClick={unregisterDevice}
-                                    className="px-4 py-3 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-black uppercase"
+                                    className="px-4 py-3 bg-[#e11d48] hover:bg-[#e11d48]/50 text-white rounded-xl text-xs font-black uppercase"
                                 >
                                     Remove
                                 </button>
@@ -138,7 +138,7 @@ export default function PushNotificationManager() {
 
                     {/* Notification Types */}
                     <div className="space-y-4">
-                        <p className="text-xs font-black uppercase tracking-widest text-slate-400">Notification Types</p>
+                        <p className="text-xs font-black uppercase tracking-widest text-ink-tertiary">Notification Types</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
                                 { key: 'dispatch_alerts', label: '🚗 Dispatch Alerts', desc: 'New ride requests nearby' },
@@ -146,16 +146,16 @@ export default function PushNotificationManager() {
                                 { key: 'messages', label: '💬 Messages', desc: 'New buyer/seller messages' },
                                 { key: 'promotions', label: '🎁 Promotions', desc: 'Deals and special offers' }
                             ].map(item => (
-                                <label key={item.key} className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                                <label key={item.key} className="flex items-center gap-4 p-4 bg-surface-secondary dark:bg-surface-tertiary rounded-2xl cursor-pointer hover:bg-surface-secondary dark:hover:bg-surface-tertiary transition-colors">
                                     <input
                                         type="checkbox"
                                         checked={settings[item.key as keyof PushNotificationSettings] as boolean}
                                         onChange={(e) => updateSettings({ [item.key]: e.target.checked })}
-                                        className="w-5 h-5 rounded text-teal-600 focus:ring-teal-500"
+                                        className="w-5 h-5 rounded text-accent-400 focus:ring-accent-400"
                                     />
                                     <div>
-                                        <p className="text-sm font-bold text-slate-900 dark:text-white">{item.label}</p>
-                                        <p className="text-xs text-slate-500">{item.desc}</p>
+                                        <p className="text-sm font-bold text-ink-primary dark:text-white">{item.label}</p>
+                                        <p className="text-xs text-ink-tertiary0">{item.desc}</p>
                                     </div>
                                 </label>
                             ))}
@@ -165,7 +165,7 @@ export default function PushNotificationManager() {
             )}
 
             {!settings.enabled && (
-                <div className="p-8 text-center text-slate-400">
+                <div className="p-8 text-center text-ink-tertiary">
                     Enable push notifications to receive alerts on your device
                 </div>
             )}

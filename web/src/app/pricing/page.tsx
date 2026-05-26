@@ -110,9 +110,9 @@ export default function PricingPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight italic"
                     >
-                        Choose Your <span className="text-teal-400">Island Tier</span>
+                        Choose Your <span className="text-accent-400">Island Tier</span>
                     </motion.h1>
-                    <p className="text-teal-50/70 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                    <p className="text-accent-50/70 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
                         Whether you're selling local artisans, shopping for the best deals, or raising funds for a cause, we have a plan to empower your journey.
                     </p>
                 </div>
@@ -129,7 +129,7 @@ export default function PricingPage() {
                         <button
                             key={role.id}
                             onClick={() => setActiveRole(role.id as any)}
-                            className={`flex-1 py-6 rounded-[1.8rem] flex items-center justify-center gap-3 font-black text-sm uppercase tracking-widest transition-all ${activeRole === role.id ? 'bg-accent-500 text-white shadow-xl shadow-teal-100 scale-[1.02]' : 'bg-transparent text-ink-tertiary hover:bg-surface-primary'}`}
+                            className={`flex-1 py-6 rounded-[1.8rem] flex items-center justify-center gap-3 font-black text-sm uppercase tracking-widest transition-all ${activeRole === role.id ? 'bg-accent-500 text-white shadow-xl shadow-accent-500/10 scale-[1.02]' : 'bg-transparent text-ink-tertiary hover:bg-surface-primary'}`}
                         >
                             <span className="text-xl">{role.icon}</span>
                             {role.label}
@@ -157,7 +157,7 @@ export default function PricingPage() {
 
                             <h3 className="text-2xl font-black text-ink-primary mb-2">{tier.name}</h3>
                             <div className="flex items-baseline gap-2 mb-8">
-                                <span className={`text-5xl font-black ${tier.color === 'amber' ? 'text-amber-500' : tier.color === 'indigo' ? 'text-[#818cf8]' : 'text-accent-400'}`}>
+                                <span className={`text-5xl font-black ${tier.color === 'amber' ? 'text-sand-500' : tier.color === 'indigo' ? 'text-[#818cf8]' : 'text-accent-400'}`}>
                                     {tier.price !== 'Custom' ? `$${tier.price}` : tier.price}
                                 </span>
                                 {tier.price !== 'Custom' && tier.price !== '0' && (
@@ -180,8 +180,8 @@ export default function PricingPage() {
                                 )}
 
                                 {activeRole === 'customer' && tier.discount !== '0%' && (
-                                    <div className="bg-amber-50 p-6 rounded-2xl border border-amber-100">
-                                        <p className="text-amber-900 font-black flex items-center gap-2">
+                                    <div className="bg-sand-500/5 p-6 rounded-2xl border border-sand-500/20">
+                                        <p className="text-sand-700 font-black flex items-center gap-2">
                                             <span>🎁</span> {tier.discount} Discount on All Orders
                                         </p>
                                     </div>
@@ -198,7 +198,7 @@ export default function PricingPage() {
 
                             <Link
                                 href={tier.link || '/register'}
-                                className={`w-full py-6 rounded-2xl font-black text-center transition-all ${tier.recommended ? 'bg-accent-500 text-white shadow-2xl shadow-teal-100 hover:scale-105 active:scale-95' : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'}`}
+                                className={`w-full py-6 rounded-2xl font-black text-center transition-all ${tier.recommended ? 'bg-accent-500 text-white shadow-2xl shadow-accent-500/10 hover:scale-105 active:scale-95' : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'}`}
                             >
                                 {tier.buttonText || 'Get Started'}
                             </Link>
@@ -237,7 +237,7 @@ export default function PricingPage() {
                                     <td className="p-8 font-bold text-ink-secondary">{row.name}</td>
                                     <td className="p-8 text-center text-ink-tertiary font-medium">{row.basic}</td>
                                     <td className="p-8 text-center text-accent-500 font-bold">{row.premium}</td>
-                                    <td className="p-8 text-center text-indigo-700 font-black">{row.enterprise}</td>
+                                    <td className="p-8 text-center text-[#6366f1] font-black">{row.enterprise}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -248,14 +248,14 @@ export default function PricingPage() {
             {/* FAQ Teaser */}
             <section className="bg-accent-500 py-24 text-center text-white px-4">
                 <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">Have more questions?</h2>
-                <p className="text-teal-50 text-xl font-medium mb-12 max-w-2xl mx-auto opacity-90">
+                <p className="text-accent-50 text-xl font-medium mb-12 max-w-2xl mx-auto opacity-90">
                     Our team is here to help you choose the right path for your island journey.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-6">
-                    <Link href="/contact" className="px-12 py-5 bg-surface-elevated text-teal-900 rounded-2xl font-black text-lg shadow-xl hover:scale-105 transition-all">
+                    <Link href="/contact" className="px-12 py-5 bg-surface-elevated text-accent-700 rounded-2xl font-black text-lg shadow-xl hover:scale-105 transition-all">
                         Talk to Sales
                     </Link>
-                    <Link href="/how-it-works" className="px-12 py-5 bg-teal-800 text-white rounded-2xl font-black text-lg hover:bg-teal-900 transition-all border border-teal-500/30">
+                    <Link href="/how-it-works" className="px-12 py-5 bg-accent-700 text-white rounded-2xl font-black text-lg hover:bg-accent-800 transition-all border border-teal-500/30">
                         Read FAQ
                     </Link>
                 </div>

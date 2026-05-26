@@ -32,7 +32,7 @@ export default function DriverAppLayout({
                 <meta name="theme-color" content="#0d9488" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
             </head>
-            <body className="bg-slate-900">
+            <body className="bg-ink-primary">
                 {children}
             </body>
         </html>

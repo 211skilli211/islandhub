@@ -71,7 +71,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
         : filteredListings;
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-surface-elevated min-h-screen">
             {/* Fleet Hero - Pro Rental Look */}
             <div className="relative min-h-[60vh] w-full overflow-hidden flex items-center">
                 <HeroBackground
@@ -92,7 +92,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                         <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 bg-black/30 backdrop-blur-md p-4 md:p-5 rounded-xl border border-white/10 w-full md:w-fit text-center md:text-left">
                             <img
                                 src={store.logo_url ? getImageUrl(store.logo_url) : getImageUrl(PLACEHOLDER_LOGO)}
-                                className="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-white p-1 object-contain shadow-md shrink-0"
+                                className="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-surface-elevated p-1 object-contain shadow-md shrink-0"
                                 alt="Logo"
                             />
                             <div>
@@ -111,15 +111,15 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                         </div>
 
                         <div className="grid grid-cols-2 gap-2 md:gap-4 w-full md:w-auto">
-                            <div className="bg-white/5 border border-white/10 p-3 md:p-5 rounded-xl backdrop-blur-md group hover:bg-white/10 transition-colors text-center">
+                            <div className="bg-surface-elevated/5 border border-white/10 p-3 md:p-5 rounded-xl backdrop-blur-md group hover:bg-surface-elevated/10 transition-colors text-center">
                                 <span className="text-xl md:text-3xl mb-1 block">🚙</span>
                                 <h4 className="text-white font-semibold text-base md:text-xl">Verified</h4>
-                                <p className="text-slate-400 text-xs">Active Fleet</p>
+                                <p className="text-ink-tertiary text-xs">Active Fleet</p>
                             </div>
-                            <div className="bg-white/5 border border-white/10 p-3 md:p-5 rounded-xl backdrop-blur-md group hover:bg-white/10 transition-colors text-center">
+                            <div className="bg-surface-elevated/5 border border-white/10 p-3 md:p-5 rounded-xl backdrop-blur-md group hover:bg-surface-elevated/10 transition-colors text-center">
                                 <span className="text-xl md:text-3xl mb-1 block">🛡️</span>
                                 <h4 className="text-white font-semibold text-base md:text-xl">Insured</h4>
-                                <p className="text-slate-400 text-xs">Safety First</p>
+                                <p className="text-ink-tertiary text-xs">Safety First</p>
                             </div>
                         </div>
                     </div>
@@ -135,12 +135,12 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                 <div className="lg:col-span-8">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
                         <div>
-                            <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
+                            <h2 className="text-xl md:text-2xl font-semibold text-ink-primary">
                                 {store.subtype?.includes('boat') || store.subtype?.includes('sea') ? 'Our Marine Fleet' :
                                     store.subtype?.includes('apartment') || store.subtype?.includes('villa') ? 'Available Stays' :
                                         'Our Current Fleet'}
                             </h2>
-                            <p className="text-slate-500 text-sm">Select a category to filter the inventory</p>
+                            <p className="text-ink-tertiary0 text-sm">Select a category to filter the inventory</p>
                         </div>
                         <div className="flex gap-2 flex-wrap">
                             {(store.subtype?.toLowerCase().includes('boat') || store.subtype?.toLowerCase().includes('sea')
@@ -167,7 +167,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         {loading && menu.length === 0 ? (
                             <div className="col-span-full py-16 text-center">
-                                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-slate-900 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-border-primary mx-auto"></div>
                             </div>
                         ) : allItems.map((item, idx) => (
                             <div key={item.id} className="relative">
@@ -178,9 +178,9 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                     transition={{ delay: idx * 0.05 }}
                                     onMouseEnter={() => setHoveredItem(item)}
                                     onMouseLeave={() => setHoveredItem(null)}
-                                    className="group bg-white rounded-xl overflow-hidden border border-slate-100 hover:shadow-md transition-all flex flex-col h-full cursor-pointer"
+                                    className="group bg-surface-elevated rounded-xl overflow-hidden border border-border-primary hover:shadow-md transition-all flex flex-col h-full cursor-pointer"
                                 >
-                                    <div className="relative aspect-16/10 overflow-hidden bg-slate-100">
+                                    <div className="relative aspect-16/10 overflow-hidden bg-surface-secondary">
                                         {item.images && item.images.length > 0 ? (
                                             <img
                                                 src={getImageUrl(item.images[0])}
@@ -191,22 +191,22 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                             <div className="w-full h-full flex items-center justify-center text-5xl">🏎️</div>
                                         )}
                                         <div
-                                            className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-2 rounded-lg shadow-sm space-y-0"
+                                            className="absolute top-3 left-3 bg-surface-elevated/95 backdrop-blur px-3 py-2 rounded-lg shadow-sm space-y-0"
                                             style={{ color: brandingColor }}
                                         >
                                             <p className="text-xs opacity-60">From</p>
                                             <p className="text-lg font-semibold">
                                                 ${item.price}
-                                                <span className="text-xs text-slate-400 ml-1 font-normal">{item.rental_period ? `/ ${item.rental_period.replace('Per ', '')}` : ''}</span>
+                                                <span className="text-xs text-ink-tertiary ml-1 font-normal">{item.rental_period ? `/ ${item.rental_period.replace('Per ', '')}` : ''}</span>
                                             </p>
                                         </div>
                                         {item.deposit_amount && (
-                                            <div className="absolute top-3 right-3 bg-slate-900/90 backdrop-blur text-white px-2.5 py-1 rounded-lg text-xs font-medium">
+                                            <div className="absolute top-3 right-3 bg-ink-primary/90 backdrop-blur text-white px-2.5 py-1 rounded-lg text-xs font-medium">
                                                 + ${item.deposit_amount} Dep.
                                             </div>
                                         )}
                                         {item.price_per_week && (
-                                            <div className="absolute bottom-3 left-3 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-medium">
+                                            <div className="absolute bottom-3 left-3 bg-emerald-500/100 text-white px-2.5 py-1 rounded-full text-xs font-medium">
                                                 Weekly: ${item.price_per_week}
                                             </div>
                                         )}
@@ -216,23 +216,23 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                             <span className="text-xs font-medium px-2 py-0.5 rounded" style={{ backgroundColor: `${brandingColor}15`, color: brandingColor }}>Premium Selection</span>
                                         </div>
                                         <h3
-                                            className="font-semibold text-lg text-slate-900 mb-2 transition-colors"
+                                            className="font-semibold text-lg text-ink-primary mb-2 transition-colors"
                                             style={{ color: hoveredItem?.id === item.id ? brandingColor : undefined }}
                                         >
                                             {item.title}
                                         </h3>
-                                        <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">{item.description}</p>
+                                        <p className="text-ink-tertiary0 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">{item.description}</p>
 
-                                        <div className="grid grid-cols-2 gap-3 mb-4 pt-4 border-t border-slate-50">
+                                        <div className="grid grid-cols-2 gap-3 mb-4 pt-4 border-t border-border-primary">
                                             <div className="flex items-center gap-2">
                                                 <span className="text-base">{item.metadata?.seats ? '👤' : '📦'}</span>
-                                                <span className="text-xs text-slate-500">
+                                                <span className="text-xs text-ink-tertiary0">
                                                     {item.metadata?.seats ? `${item.metadata.seats} Seats` : item.metadata?.capacity ? `${item.metadata.capacity} Capacity` : 'General Use'}
                                                 </span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <span className="text-base">{item.metadata?.transmission ? '⚙️' : '🏷️'}</span>
-                                                <span className="text-xs text-slate-500">
+                                                <span className="text-xs text-ink-tertiary0">
                                                     {item.metadata?.transmission || item.metadata?.condition || 'Standard'}
                                                 </span>
                                             </div>
@@ -268,7 +268,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                     <h3 className="text-lg font-semibold mb-3">{section.title}</h3>
                                     <p className="text-sm mb-5 opacity-90 leading-relaxed">{section.body}</p>
                                     {section.cta_text && (
-                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-white text-center rounded-lg font-medium text-sm transition-colors hover:bg-slate-50" style={{ color: brandingColor }}>
+                                        <Link href={section.cta_link || '#'} className="block w-full py-3 bg-surface-elevated text-center rounded-lg font-medium text-sm transition-colors hover:bg-surface-secondary" style={{ color: brandingColor }}>
                                             {section.cta_text}
                                         </Link>
                                     )}
@@ -280,7 +280,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
-                                <div className="bg-slate-900 p-6 rounded-xl text-white shadow-sm">
+                                <div className="bg-ink-primary p-6 rounded-xl text-white shadow-sm">
                                     <h3 className="text-base font-semibold mb-5 flex items-center gap-2">
                                         <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
                                         {section.title}
@@ -290,8 +290,8 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                             <div key={i} className="flex gap-3 items-start group">
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
-                                                    <p className="text-slate-400 text-xs mb-0.5">{item.title}</p>
-                                                    <p className="font-medium text-sm text-slate-200">{item.desc}</p>
+                                                    <p className="text-ink-tertiary text-xs mb-0.5">{item.title}</p>
+                                                    <p className="font-medium text-sm text-ink-tertiary">{item.desc}</p>
                                                 </div>
                                             </div>
                                         ))}

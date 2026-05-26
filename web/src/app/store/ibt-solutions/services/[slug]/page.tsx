@@ -92,7 +92,7 @@ export default function IBTServiceDetailPage() {
             {/* Hero */}
             <section className="bg-surface-tertiary py-16 px-6">
                 <div className="max-w-4xl mx-auto">
-                    <Link href="/store/ibt-solutions" className="inline-flex items-center gap-2 text-teal-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
+                    <Link href="/store/ibt-solutions" className="inline-flex items-center gap-2 text-accent-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
                         ← Back to IBT Solutions
                     </Link>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -102,7 +102,7 @@ export default function IBTServiceDetailPage() {
                         </h1>
                         <p className="text-white/60 text-lg max-w-2xl">{service.description}</p>
                         {service.price && (
-                            <div className="mt-6 inline-block px-6 py-3 bg-accent-500/20 text-teal-400 rounded-2xl font-black text-xl">
+                            <div className="mt-6 inline-block px-6 py-3 bg-accent-500/20 text-accent-400 rounded-2xl font-black text-xl">
                                 ${Number(service.price).toLocaleString()}{service.metadata?.pricing_model === 'monthly' ? '/mo' : ''}
                             </div>
                         )}

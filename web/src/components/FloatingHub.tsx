@@ -50,28 +50,28 @@ export default function FloatingHub() {
                         {showChat && (
                             <button
                                 onClick={() => setActiveTab('chat')}
-                                className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 hover:scale-105 transition-transform group"
+                                className="flex items-center gap-3 px-4 py-3 bg-surface-secondary text-ink-primary rounded-2xl shadow-xl border border-border-primary hover:scale-105 transition-transform group"
                             >
                                 <span className="font-bold text-sm">Talk to {profile.displayName}</span>
-                                <span className="text-xl bg-teal-500/10 p-2 rounded-xl group-hover:bg-teal-500/20 transition-colors">{profile.icon}</span>
+                                <span className="text-xl bg-accent-500/100/10 p-2 rounded-xl group-hover:bg-accent-500/100/20 transition-colors">{profile.icon}</span>
                             </button>
                         )}
                         {showVendorAssistant && (
                             <button
                                 onClick={() => setActiveTab('vendor')}
-                                className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 hover:scale-105 transition-transform group"
+                                className="flex items-center gap-3 px-4 py-3 bg-surface-secondary text-ink-primary rounded-2xl shadow-xl border border-border-primary hover:scale-105 transition-transform group"
                             >
                                 <span className="font-bold text-sm">Open Store Assistant</span>
-                                <span className="text-xl bg-indigo-500/10 p-2 rounded-xl group-hover:bg-indigo-500/20 transition-colors">{AGENT_PROFILES?.vendor?.icon || '🏪'}</span>
+                                <span className="text-xl bg-[#818cf8]/100/10 p-2 rounded-xl group-hover:bg-[#818cf8]/100/20 transition-colors">{AGENT_PROFILES?.vendor?.icon || '🏪'}</span>
                             </button>
                         )}
                         {showMenu && (
                             <button
                                 onClick={() => setActiveTab('menu')}
-                                className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 hover:scale-105 transition-transform group"
+                                className="flex items-center gap-3 px-4 py-3 bg-surface-secondary text-ink-primary rounded-2xl shadow-xl border border-border-primary hover:scale-105 transition-transform group"
                             >
                                 <span className="font-bold text-sm">Quick Actions</span>
-                                <span className="text-xl bg-indigo-500/10 p-2 rounded-xl group-hover:bg-indigo-500/20 transition-colors">⚡</span>
+                                <span className="text-xl bg-[#818cf8]/100/10 p-2 rounded-xl group-hover:bg-[#818cf8]/100/20 transition-colors">⚡</span>
                             </button>
                         )}
 
@@ -105,7 +105,7 @@ export default function FloatingHub() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={toggleHub}
-                    className="w-[52px] h-[52px] bg-gradient-to-br from-teal-500 via-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-slate-800 relative z-10001"
+                    className="w-[52px] h-[52px] bg-gradient-to-br from-teal-500 via-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-border-primary relative z-10001"
                 >
                     <AnimatePresence mode="wait">
                         {isOpen ? (
@@ -134,7 +134,7 @@ export default function FloatingHub() {
                         )}
                     </AnimatePresence>
                     {!isOpen && (
-                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-teal-400 border-2 border-white dark:border-slate-800 rounded-full animate-pulse" />
+                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent-400 border-2 border-white dark:border-border-primary rounded-full animate-pulse" />
                     )}
                 </motion.button>
             )}

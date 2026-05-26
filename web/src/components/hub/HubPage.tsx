@@ -107,7 +107,7 @@ function HubPage({ config }: { config: HubPageConfig }) {
     }, [filteredStores, config]);
 
     return (
-        <main className="min-h-screen bg-white dark:bg-ocean-900">
+        <main className="min-h-screen bg-surface-elevated dark:bg-ocean-900">
             <HubHero config={config} totalStores={filteredStores.length} searchTerm={searchTerm} onSearch={setSearchTerm} />
 
             <CategoryFilterBar
@@ -123,8 +123,8 @@ function HubPage({ config }: { config: HubPageConfig }) {
                     {searchTerm && (
                         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
                             className={`mb-6 flex items-center justify-between ${config.theme.lightBg} px-5 py-3 rounded-2xl ring-1 ${config.theme.ring}`}>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">
-                                Showing <span className="font-extrabold text-slate-800 dark:text-sand-50">{filteredStores.length}</span> results for &quot;<span className={`font-extrabold ${config.theme.lightText}`}>{searchTerm}</span>&quot;
+                            <p className="text-sm text-ink-secondary dark:text-ink-tertiary">
+                                Showing <span className="font-extrabold text-ink-primary dark:text-sand-50">{filteredStores.length}</span> results for &quot;<span className={`font-extrabold ${config.theme.lightText}`}>{searchTerm}</span>&quot;
                             </p>
                             <button onClick={() => setSearchTerm('')} className={`text-xs font-bold ${config.theme.lightText} hover:underline underline-offset-2`}>Clear</button>
                         </motion.div>
@@ -153,8 +153,8 @@ function HubPage({ config }: { config: HubPageConfig }) {
                                     <div className="flex items-center gap-3">
                                         <span className="text-3xl">{cat.icon}</span>
                                         <div>
-                                            <h2 className="text-xl font-extrabold text-slate-900 dark:text-sand-50">{cat.title}</h2>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{cat.desc}</p>
+                                            <h2 className="text-xl font-extrabold text-ink-primary dark:text-sand-50">{cat.title}</h2>
+                                            <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary font-medium">{cat.desc}</p>
                                         </div>
                                     </div>
                                     <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r ${config.theme.gradient} text-white shadow-md`}>
@@ -187,11 +187,11 @@ export default function HubTypePage() {
 
     if (!config) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-ocean-900">
+            <div className="min-h-screen flex items-center justify-center bg-surface-secondary dark:bg-ocean-900">
                 <div className="text-center">
                     <span className="text-6xl mb-4 block">🏝️</span>
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-sand-50 mb-2">Hub Not Found</h1>
-                    <p className="text-slate-500 dark:text-slate-400">The hub type &quot;{type}&quot; doesn&apos;t exist.</p>
+                    <h1 className="text-2xl font-bold text-ink-primary dark:text-sand-50 mb-2">Hub Not Found</h1>
+                    <p className="text-ink-tertiary0 dark:text-ink-tertiary">The hub type &quot;{type}&quot; doesn&apos;t exist.</p>
                 </div>
             </div>
         );

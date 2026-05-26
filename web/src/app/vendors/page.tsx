@@ -91,13 +91,13 @@ export default function VendorsPage() {
                                         {vendor.logo_url ? (
                                             <img src={getImageUrl(vendor.logo_url)} alt={vendor.name} className="w-full h-full object-cover" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-3xl font-black text-slate-300 uppercase">
+                                            <div className="w-full h-full flex items-center justify-center text-3xl font-black text-ink-tertiary uppercase">
                                                 {vendor.name.charAt(0)}
                                             </div>
                                         )}
                                     </div>
                                     <h3 className="text-xl font-black text-ink-primary mb-1 group-hover:text-accent-400 transition-colors uppercase tracking-tight">{vendor.name}</h3>
-                                    <p className="text-[10px] font-black text-teal-500 uppercase tracking-widest mb-4">{vendor.category} • {vendor.subtype}</p>
+                                    <p className="text-[10px] font-black text-accent-500 uppercase tracking-widest mb-4">{vendor.category} • {vendor.subtype}</p>
                                     <div className="flex items-center gap-2">
                                         <span className="text-yellow-400">★</span>
                                         <span className="text-sm font-black text-ink-primary">{vendor.rating || '4.8'}</span>

@@ -70,23 +70,23 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
     };
 
     return (
-        <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-2xl shadow-indigo-100/20">
+        <div className="flex flex-col h-full bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden shadow-2xl shadow-indigo-100/20">
             {/* Header */}
-            <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div className="p-6 border-b border-border-primary flex items-center justify-between bg-surface-secondary/50">
                 <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-black">
+                    <div className="w-10 h-10 bg-[#818cf8] rounded-full flex items-center justify-center text-white font-black">
                         {otherUserName.charAt(0)}
                     </div>
                     <div>
-                        <h3 className="font-black text-slate-900 leading-tight">{otherUserName}</h3>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500 flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" /> Online
+                        <h3 className="font-black text-ink-primary leading-tight">{otherUserName}</h3>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 bg-emerald-500/100 rounded-full animate-pulse" /> Online
                         </p>
                     </div>
                 </div>
                 {orderId && (
-                    <div className="bg-indigo-50 px-3 py-1.5 rounded-xl border border-indigo-100 flex items-center gap-2">
-                        <span className="text-[10px] font-black text-indigo-600 uppercase tracking-tight italic text-nowrap">Order #{orderId}</span>
+                    <div className="bg-[#818cf8]/10 px-3 py-1.5 rounded-xl border border-[#818cf8]/20 flex items-center gap-2">
+                        <span className="text-[10px] font-black text-[#818cf8] uppercase tracking-tight italic text-nowrap">Order #{orderId}</span>
                     </div>
                 )}
             </div>
@@ -94,12 +94,12 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
             {/* Messages */}
             <div
                 ref={scrollRef}
-                className="flex-1 overflow-y-auto p-8 space-y-6 bg-slate-50/30"
+                className="flex-1 overflow-y-auto p-8 space-y-6 bg-surface-secondary/30"
             >
                 {loading ? (
-                    <div className="text-center py-20 font-black text-slate-300 uppercase tracking-widest text-[10px]">Encrypting Connection...</div>
+                    <div className="text-center py-20 font-black text-ink-tertiary uppercase tracking-widest text-[10px]">Encrypting Connection...</div>
                 ) : messages.length === 0 ? (
-                    <div className="text-center py-20 text-slate-400 font-medium italic">Start the conversation!</div>
+                    <div className="text-center py-20 text-ink-tertiary font-medium italic">Start the conversation!</div>
                 ) : (
                     messages.map((m) => (
                         <div
@@ -107,8 +107,8 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                             className={`flex ${m.sender_id === currentUser.id ? 'justify-end' : 'justify-start'}`}
                         >
                             <div className={`max-w-[70%] p-5 rounded-3xl font-medium shadow-sm ${m.sender_id === currentUser.id
-                                ? 'bg-indigo-600 text-white rounded-tr-none'
-                                : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'
+                                ? 'bg-[#818cf8] text-white rounded-tr-none'
+                                : 'bg-surface-elevated text-ink-secondary border border-border-primary rounded-tl-none'
                                 }`}>
                                 {m.content}
                                 {m.attachment_url && (
@@ -116,7 +116,7 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                                         <img src={m.attachment_url} className="max-w-full h-auto" alt="Attachment" />
                                     </div>
                                 )}
-                                <div className={`text-[8px] mt-2 font-black uppercase tracking-widest ${m.sender_id === currentUser.id ? 'text-indigo-200' : 'text-slate-400'
+                                <div className={`text-[8px] mt-2 font-black uppercase tracking-widest ${m.sender_id === currentUser.id ? 'text-[#a5b4fc]' : 'text-ink-tertiary'
                                     }`}>
                                     {new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     {m.order_id && <span className="ml-2">• Order #{m.order_id}</span>}
@@ -128,11 +128,11 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSend} className="p-6 border-t border-slate-100 bg-white">
+            <form onSubmit={handleSend} className="p-6 border-t border-border-primary bg-surface-elevated">
                 <div className="relative flex gap-2">
                     <button
                         type="button"
-                        className="p-4 bg-slate-50 text-slate-400 rounded-2xl hover:bg-slate-100 transition-all"
+                        className="p-4 bg-surface-secondary text-ink-tertiary rounded-2xl hover:bg-surface-secondary transition-all"
                         onClick={() => {/* TODO: Implement attachment upload */ }}
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,12 +145,12 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             placeholder="Type your message..."
-                            className="w-full pl-6 pr-20 py-5 bg-slate-50 border-transparent rounded-4xl text-slate-900 font-medium focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all"
+                            className="w-full pl-6 pr-20 py-5 bg-surface-secondary border-transparent rounded-4xl text-ink-primary font-medium focus:ring-2 focus:ring-indigo-100 focus:border-[#818cf8] transition-all"
                         />
                         <button
                             type="submit"
                             disabled={!newMessage.trim()}
-                            className="absolute right-3 top-3 bottom-3 px-6 bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+                            className="absolute right-3 top-3 bottom-3 px-6 bg-[#818cf8] text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-[#6366f1] transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
                         >
                             Send
                         </button>

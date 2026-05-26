@@ -130,7 +130,7 @@ export function StoreCard({ store, index, theme, variant }: {
         >
             <Link
                 href={`/store/${store.slug}`}
-                className="group block bg-white dark:bg-ocean-800 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 ring-1 ring-slate-200 dark:ring-ocean-700 hover:ring-slate-300 dark:hover:ring-ocean-600"
+                className="group block bg-surface-elevated dark:bg-ocean-800 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 ring-1 ring-slate-200 dark:ring-ocean-700 hover:ring-slate-300 dark:hover:ring-ocean-600"
             >
                 <div className="relative h-48 overflow-hidden">
                     {store.banner_url ? (
@@ -148,13 +148,13 @@ export function StoreCard({ store, index, theme, variant }: {
 
                     {subtypeLabel && (
                         <div className="absolute top-3 left-3">
-                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 dark:bg-ocean-700/90 shadow-lg backdrop-blur-sm ${theme.lightText}`}>
+                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-elevated/90 dark:bg-ocean-700/90 shadow-lg backdrop-blur-sm ${theme.lightText}`}>
                                 {subtypeLabel}
                             </span>
                         </div>
                     )}
 
-                    <div className="absolute bottom-0 left-4 translate-y-1/2 w-14 h-14 rounded-2xl overflow-hidden border-[3px] border-white dark:border-ocean-700 shadow-xl bg-white dark:bg-ocean-800 z-10 group-hover:scale-110 transition-transform duration-300">
+                    <div className="absolute bottom-0 left-4 translate-y-1/2 w-14 h-14 rounded-2xl overflow-hidden border-[3px] border-white dark:border-ocean-700 shadow-xl bg-surface-elevated dark:bg-ocean-800 z-10 group-hover:scale-110 transition-transform duration-300">
                         {store.logo_url ? (
                             <img src={getImageUrl(store.logo_url)} alt={storeName} className="w-full h-full object-cover" />
                         ) : (
@@ -167,16 +167,16 @@ export function StoreCard({ store, index, theme, variant }: {
 
                 <div className="pt-10 pb-5 px-4">
                     <div className="flex items-center gap-1.5 mb-2">
-                        <StarIcon className="w-4 h-4 text-amber-400" />
-                        <span className="text-sm font-bold text-slate-800 dark:text-sand-50">{rating}</span>
-                        <span className="text-[11px] text-slate-400 ml-1">({Math.floor(Math.random() * 200) + 50} reviews)</span>
+                        <StarIcon className="w-4 h-4 text-sand-400" />
+                        <span className="text-sm font-bold text-ink-primary dark:text-sand-50">{rating}</span>
+                        <span className="text-[11px] text-ink-tertiary ml-1">({Math.floor(Math.random() * 200) + 50} reviews)</span>
                     </div>
 
-                    <h3 className="text-base font-extrabold text-slate-900 dark:text-sand-50 group-hover:text-ocean-600 dark:group-hover:text-ocean-400 transition-colors line-clamp-1 mb-1.5">
+                    <h3 className="text-base font-extrabold text-ink-primary dark:text-sand-50 group-hover:text-ocean-600 dark:group-hover:text-ocean-400 transition-colors line-clamp-1 mb-1.5">
                         {storeName}
                     </h3>
 
-                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
+                    <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
                         {store.description || `Discover ${storeName} on IslandHub.`}
                     </p>
 
@@ -202,14 +202,14 @@ export function HubHero({ config, totalStores, searchTerm, onSearch, children }:
     const t = config.theme;
     return (
         <HeroBackground pageKey={config.pageKey} fallbackTitle={config.fallbackTitle} className="min-h-[55vh]">
-            <div className={`absolute inset-0 bg-gradient-to-br ${config.type === 'food' ? 'from-orange-600/70 via-red-500/60 to-amber-600/70' : config.type === 'products' ? 'from-emerald-600/70 via-teal-500/60 to-cyan-600/70' : 'from-ocean-600/70 via-brand-500/60 to-brand-600/70'} pointer-events-none`} />
+            <div className={`absolute inset-0 bg-gradient-to-br ${config.type === 'food' ? 'from-orange-600/70 via-red-500/60 to-amber-600/70' : config.type === 'products' ? 'from-emerald-600/70 via-teal-500/60 to-accent-400/70' : 'from-ocean-600/70 via-brand-500/60 to-brand-600/70'} pointer-events-none`} />
             <motion.div
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.5 }}
                 className="relative z-10 w-full max-w-2xl mx-auto text-center"
             >
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-                    className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-md rounded-full text-white/90 text-sm font-semibold mb-5 ring-1 ring-white/20">
+                    className="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-elevated/15 backdrop-blur-md rounded-full text-white/90 text-sm font-semibold mb-5 ring-1 ring-white/20">
                     {config.heroEmoji} {config.type.charAt(0).toUpperCase() + config.type.slice(1)} Hub
                 </motion.div>
 
@@ -221,12 +221,12 @@ export function HubHero({ config, totalStores, searchTerm, onSearch, children }:
                 </p>
 
                 <div className="relative max-w-lg mx-auto">
-                    <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                     <input type="text" placeholder={config.searchPlaceholder} value={searchTerm}
                         onChange={(e) => onSearch(e.target.value)}
-                        className="w-full pl-12 pr-4 py-4 bg-white dark:bg-ocean-800 rounded-2xl text-slate-900 dark:text-sand-50 font-semibold placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-2xl shadow-black/20" />
+                        className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-ocean-800 rounded-2xl text-ink-primary dark:text-sand-50 font-semibold placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-2xl shadow-black/20" />
                 </div>
 
                 <div className="flex items-center justify-center gap-8 mt-7">
@@ -234,12 +234,12 @@ export function HubHero({ config, totalStores, searchTerm, onSearch, children }:
                         <div className="text-3xl font-black text-white">{totalStores}</div>
                         <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">{config.heroStats.label}</div>
                     </div>
-                    <div className="w-px h-10 bg-white/20" />
+                    <div className="w-px h-10 bg-surface-elevated/20" />
                     <div className="text-center">
                         <div className="text-3xl font-black text-white">{config.categories.length - 1}</div>
                         <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">Categories</div>
                     </div>
-                    <div className="w-px h-10 bg-white/20" />
+                    <div className="w-px h-10 bg-surface-elevated/20" />
                     <div className="text-center">
                         <div className="text-3xl font-black text-white">{config.heroStats.emoji}</div>
                         <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">Island</div>
@@ -257,7 +257,7 @@ export function CategoryFilterBar({ categories, activeCategory, onCategoryChange
     theme: HubTheme; totalStores: number; storesByCategory: Record<string, Store[]>; loading: boolean;
 }) {
     return (
-        <section className={`bg-white dark:bg-ocean-800 border-b ${theme.border} sticky top-18 z-40 shadow-sm`}>
+        <section className={`bg-surface-elevated dark:bg-ocean-800 border-b ${theme.border} sticky top-18 z-40 shadow-sm`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
                 <div className="flex items-center gap-2.5 overflow-x-auto pb-0.5 scrollbar-hide">
                     {categories.map(cat => {
@@ -268,11 +268,11 @@ export function CategoryFilterBar({ categories, activeCategory, onCategoryChange
                                 className={`relative inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold transition-all duration-200 whitespace-nowrap ${
                                     isActive
                                         ? `bg-gradient-to-r ${theme.gradient} text-white shadow-lg`
-                                        : `bg-slate-50 dark:bg-ocean-700 text-slate-600 dark:text-slate-300 hover:${theme.lightBg} ${theme.lightText} ring-1 ring-slate-200 dark:ring-ocean-600`
+                                        : `bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-ink-tertiary hover:${theme.lightBg} ${theme.lightText} ring-1 ring-slate-200 dark:ring-ocean-600`
                                 }`}>
                                 <span className="text-base">{cat.icon}</span>
                                 <span>{cat.title}</span>
-                                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isActive ? 'bg-white/25 text-white' : `${theme.lightBg} ${theme.lightText}`}`}>
+                                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isActive ? 'bg-surface-elevated/25 text-white' : `${theme.lightBg} ${theme.lightText}`}`}>
                                     {loading ? '…' : count}
                                 </span>
                             </button>
@@ -296,7 +296,7 @@ export function HubCTA({ config }: { config: HubPageConfig }) {
                     </motion.div>
                     <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">{config.ctaTitle}</h2>
                     <p className="text-white/85 text-lg md:text-xl mb-10 font-medium max-w-xl mx-auto">{config.ctaSubtitle}</p>
-                    <Link href="/become-vendor" className="inline-flex items-center gap-2 px-10 py-4 bg-white text-slate-900 font-extrabold rounded-2xl hover:bg-slate-50 transition-all shadow-2xl shadow-black/20 text-sm uppercase tracking-wider group">
+                    <Link href="/become-vendor" className="inline-flex items-center gap-2 px-10 py-4 bg-surface-elevated text-ink-primary font-extrabold rounded-2xl hover:bg-surface-secondary transition-all shadow-2xl shadow-black/20 text-sm uppercase tracking-wider group">
                         <span>🚀</span> Become a Vendor
                         <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
@@ -324,8 +324,8 @@ export function HubEmptyState({ emoji, title, message, onClear }: {
     return (
         <div className="text-center py-24">
             <span className="text-7xl mb-5 block">{emoji}</span>
-            <h3 className="text-2xl font-extrabold text-slate-900 dark:text-sand-50 mb-2">{title}</h3>
-            <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-md mx-auto">{message}</p>
+            <h3 className="text-2xl font-extrabold text-ink-primary dark:text-sand-50 mb-2">{title}</h3>
+            <p className="text-ink-tertiary0 dark:text-ink-tertiary mb-8 max-w-md mx-auto">{message}</p>
             <button onClick={onClear} className="inline-flex items-center gap-2 px-8 py-3.5 bg-ocean-500 hover:bg-ocean-400 text-white font-bold rounded-2xl transition-all shadow-xl">
                 View All
             </button>

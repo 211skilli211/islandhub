@@ -70,7 +70,7 @@ export default function PrivacyPage() {
             <section className="bg-accent-800 py-24 px-4">
                 <div className="max-w-3xl mx-auto text-center">
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Privacy Policy</h1>
-                    <p className="text-teal-100 text-lg">How we protect and use your data</p>
+                    <p className="text-accent-100 text-lg">How we protect and use your data</p>
                 </div>
             </section>
 

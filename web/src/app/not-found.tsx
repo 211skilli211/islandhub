@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export default function NotFound() {
     return (
-        <main className="min-h-screen bg-slate-900 flex flex-col">
+        <main className="min-h-screen bg-ink-primary flex flex-col">
             <HeroBackground
                 pageKey="404"
                 fallbackTitle="404: Lost at Sea?"
@@ -43,7 +43,7 @@ export default function NotFound() {
                         <Link
                             key={i}
                             href={item.href}
-                            className="flex flex-col items-center justify-center p-8 bg-white/5 hover:bg-white/10 border border-white/10 rounded-[2.5rem] backdrop-blur-md transition-all hover:scale-105 hover:shadow-2xl group text-center"
+                            className="flex flex-col items-center justify-center p-8 bg-surface-elevated/5 hover:bg-surface-elevated/10 border border-white/10 rounded-[2.5rem] backdrop-blur-md transition-all hover:scale-105 hover:shadow-2xl group text-center"
                         >
                             <span className="text-4xl mb-4 group-hover:scale-110 transition-transform">{item.icon}</span>
                             <span className="text-white font-bold uppercase tracking-widest text-xs">{item.label}</span>

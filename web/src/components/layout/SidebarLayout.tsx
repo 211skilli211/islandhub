@@ -56,7 +56,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex">
+        <div className="min-h-screen bg-surface-secondary flex">
             {/* Mobile Overlay */}
             <AnimatePresence>
                 {mobileOpen && (
@@ -71,30 +71,30 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
             </AnimatePresence>
 
             {/* Sidebar */}
-            <aside className={`fixed left-0 top-0 h-screen bg-slate-900 text-white flex flex-col transition-all duration-300 z-50 ${
+            <aside className={`fixed left-0 top-0 h-screen bg-ink-primary text-white flex flex-col transition-all duration-300 z-50 ${
                 mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
             } ${collapsed ? 'lg:w-20' : 'w-72'}`}>
                 {/* Logo */}
-                <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+                <div className="p-4 border-b border-border-primary flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <span className="text-2xl">🌴</span>
                         {!collapsed && <span className="font-black text-lg tracking-tight">IslandHub</span>}
                     </Link>
-                    <button onClick={() => setMobileOpen(false)} className="lg:hidden p-2 hover:bg-slate-800 rounded-lg">
+                    <button onClick={() => setMobileOpen(false)} className="lg:hidden p-2 hover:bg-surface-tertiary rounded-lg">
                         ✕
                     </button>
                 </div>
 
                 {/* User */}
                 {user && !collapsed && (
-                    <div className="p-4 border-b border-slate-800">
+                    <div className="p-4 border-b border-border-primary">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center font-bold">
+                            <div className="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center font-bold">
                                 {user.name?.charAt(0).toUpperCase() || 'U'}
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="font-bold text-sm truncate">{user.name}</p>
-                                <p className="text-xs text-slate-400 capitalize">{user.role}</p>
+                                <p className="text-xs text-ink-tertiary capitalize">{user.role}</p>
                             </div>
                         </div>
                     </div>
@@ -110,8 +110,8 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                                     onClick={() => setMobileOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                                         isActive(item.href) 
-                                            ? 'bg-teal-600 text-white shadow-lg' 
-                                            : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                                            ? 'bg-accent-500 text-white shadow-lg' 
+                                            : 'text-ink-tertiary hover:bg-surface-tertiary hover:text-white'
                                     }`}
                                 >
                                     <span className="text-xl">{item.icon}</span>
@@ -125,16 +125,16 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                 {/* Collapse Toggle (Desktop) */}
                 <button 
                     onClick={() => setCollapsed(!collapsed)}
-                    className="hidden lg:flex p-4 border-t border-slate-800 items-center justify-center text-slate-400 hover:text-white"
+                    className="hidden lg:flex p-4 border-t border-border-primary items-center justify-center text-ink-tertiary hover:text-white"
                 >
                     {collapsed ? '→' : '←'}
                 </button>
 
                 {/* Logout */}
-                <div className="p-4 border-t border-slate-800">
+                <div className="p-4 border-t border-border-primary">
                     <button
                         onClick={handleLogout}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white w-full ${collapsed ? 'justify-center' : ''}`}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-ink-tertiary hover:bg-surface-tertiary hover:text-white w-full ${collapsed ? 'justify-center' : ''}`}
                     >
                         <span className="text-xl">🚪</span>
                         {!collapsed && <span className="font-bold text-sm">Logout</span>}
@@ -145,11 +145,11 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
             {/* Main Content */}
             <main className={`flex-1 transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-72'}`}>
                 {/* Mobile Header */}
-                <header className="lg:hidden bg-white border-b border-slate-200 p-4 flex items-center justify-between sticky top-0 z-30">
-                    <button onClick={() => setMobileOpen(true)} className="p-2 hover:bg-slate-100 rounded-lg">
+                <header className="lg:hidden bg-surface-elevated border-b border-border-primary p-4 flex items-center justify-between sticky top-0 z-30">
+                    <button onClick={() => setMobileOpen(true)} className="p-2 hover:bg-surface-secondary rounded-lg">
                         ☰
                     </button>
-                    <span className="font-black text-slate-900">{title}</span>
+                    <span className="font-black text-ink-primary">{title}</span>
                     <div className="w-8" />
                 </header>
 

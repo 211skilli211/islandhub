@@ -60,7 +60,7 @@ export default function LoginPage() {
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Or{' '}
-                        <Link href="/register" className="font-medium text-accent-400 hover:text-teal-500">
+                        <Link href="/register" className="font-medium text-accent-400 hover:text-accent-500">
                             create a new account
                         </Link>
                     </p>
@@ -70,7 +70,7 @@ export default function LoginPage() {
                     <div className="bg-surface-elevated dark:bg-surface-tertiary py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
+                                <label htmlFor="email" className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary">
                                     Email address
                                 </label>
                                 <div className="mt-2">
@@ -82,13 +82,13 @@ export default function LoginPage() {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label htmlFor="password" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
+                                <label htmlFor="password" className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary">
                                     Password
                                 </label>
                                 <div className="mt-2">
@@ -100,7 +100,7 @@ export default function LoginPage() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
@@ -111,15 +111,15 @@ export default function LoginPage() {
                                         id="remember-me"
                                         name="remember-me"
                                         type="checkbox"
-                                        className="h-5 w-5 text-accent-400 focus:ring-accent-400 border-border-primary dark:border-slate-600 rounded-lg cursor-pointer"
+                                        className="h-5 w-5 text-accent-400 focus:ring-accent-400 border-border-primary dark:border-border-primary rounded-lg cursor-pointer"
                                     />
-                                    <label htmlFor="remember-me" className="ml-3 block text-sm font-medium text-ink-secondary dark:text-slate-300">
+                                    <label htmlFor="remember-me" className="ml-3 block text-sm font-medium text-ink-secondary dark:text-ink-tertiary">
                                         Remember me
                                     </label>
                                 </div>
 
                                 <div className="text-sm">
-                                    <Link href="/forgot-password" className="font-medium text-accent-400 hover:text-teal-500">
+                                    <Link href="/forgot-password" className="font-medium text-accent-400 hover:text-accent-500">
                                         Forgot your password?
                                     </Link>
                                 </div>

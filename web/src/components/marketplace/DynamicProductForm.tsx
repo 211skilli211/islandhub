@@ -72,7 +72,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                         placeholder={field.placeholder}
                         value={value}
                         onChange={(e) => handleChange(field.field_type === 'number' ? parseFloat(e.target.value) : e.target.value)}
-                        className="w-full px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-slate-900"
+                        className="w-full px-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-ink-primary"
                         required={field.required}
                     />
                 );
@@ -83,7 +83,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                         value={value}
                         onChange={(e) => handleChange(e.target.value)}
                         rows={3}
-                        className="w-full px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-slate-900"
+                        className="w-full px-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-ink-primary"
                         required={field.required}
                     />
                 );
@@ -92,7 +92,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                     <select
                         value={value}
                         onChange={(e) => handleChange(e.target.value)}
-                        className="w-full px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-bold text-slate-900 appearance-none"
+                        className="w-full px-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-bold text-ink-primary appearance-none"
                         required={field.required}
                     >
                         <option value="">Select Option</option>
@@ -117,7 +117,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                                 key={opt.value}
                                 type="button"
                                 onClick={() => toggle(opt.value)}
-                                className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${selected.includes(opt.value) ? 'bg-teal-600 text-white shadow-lg' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}
+                                className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${selected.includes(opt.value) ? 'bg-accent-500 text-white shadow-lg' : 'bg-surface-secondary text-ink-tertiary0 hover:bg-surface-tertiary'}`}
                             >
                                 {opt.label}
                             </button>
@@ -127,13 +127,13 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
             case 'checkbox':
                 return (
                     <div
-                        className="flex items-center gap-4 px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl cursor-pointer hover:border-teal-100 transition-all"
+                        className="flex items-center gap-4 px-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl cursor-pointer hover:border-teal-100 transition-all"
                         onClick={() => handleChange(!value)}
                     >
-                        <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${value ? 'bg-teal-500 border-teal-500' : 'border-slate-300'}`}>
+                        <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${value ? 'bg-accent-500/100 border-teal-500' : 'border-border-primary'}`}>
                             {value && <span className="text-white text-xs">✓</span>}
                         </div>
-                        <span className="font-bold text-slate-700">{field.placeholder || (value ? 'Yes' : 'No')}</span>
+                        <span className="font-bold text-ink-secondary">{field.placeholder || (value ? 'Yes' : 'No')}</span>
                     </div>
                 );
             case 'boolean':
@@ -142,13 +142,13 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                         <button
                             type="button"
                             onClick={() => handleChange(!value)}
-                            className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none ${value ? 'bg-teal-500' : 'bg-slate-200'}`}
+                            className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none ${value ? 'bg-accent-500/100' : 'bg-surface-tertiary'}`}
                         >
                             <span
-                                className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${value ? 'translate-x-7' : 'translate-x-1'}`}
+                                className={`inline-block h-6 w-6 transform rounded-full bg-surface-elevated transition-transform ${value ? 'translate-x-7' : 'translate-x-1'}`}
                             />
                         </button>
-                        <span className="font-bold text-slate-700">{value ? 'Yes' : 'No'}</span>
+                        <span className="font-bold text-ink-secondary">{value ? 'Yes' : 'No'}</span>
                     </div>
                 );
             case 'date':
@@ -158,20 +158,20 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                         type={field.field_type}
                         value={value}
                         onChange={(e) => handleChange(e.target.value)}
-                        className="w-full px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-slate-900"
+                        className="w-full px-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-ink-primary"
                         required={field.required}
                     />
                 );
             case 'price':
                 return (
                     <div className="relative">
-                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-ink-tertiary font-bold">$</span>
                         <input
                             type="number"
                             placeholder="0.00"
                             value={value}
                             onChange={(e) => handleChange(parseFloat(e.target.value))}
-                            className="w-full pl-10 pr-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-slate-900"
+                            className="w-full pl-10 pr-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-ink-primary"
                             required={field.required}
                         />
                     </div>
@@ -185,7 +185,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                             placeholder={field.placeholder || "Enter address..."}
                             value={value}
                             onChange={(e) => handleChange(e.target.value)}
-                            className="w-full pl-14 pr-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-slate-900"
+                            className="w-full pl-14 pr-6 py-4 bg-surface-elevated border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-4 focus:ring-teal-50/50 transition-all font-medium text-ink-primary"
                             required={field.required}
                         />
                     </div>
@@ -201,9 +201,9 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                                 if (file) handleChange(file.name); // Placeholder for actual upload
                             }}
                         />
-                        <div className="w-full px-8 py-5 bg-white border-2 border-dashed border-slate-200 rounded-3xl text-center group-hover:border-teal-400 group-hover:bg-teal-50/30 transition-all">
+                        <div className="w-full px-8 py-5 bg-surface-elevated border-2 border-dashed border-border-primary rounded-3xl text-center group-hover:border-teal-400 group-hover:bg-accent-500/10/30 transition-all">
                             <div className="text-2xl mb-2">📁</div>
-                            <p className="text-slate-400 font-bold text-sm">
+                            <p className="text-ink-tertiary font-bold text-sm">
                                 {value || 'Click to upload or drag & drop'}
                             </p>
                         </div>
@@ -217,22 +217,22 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
     if (loading) {
         return (
             <div className="p-8 space-y-4">
-                <div className="h-4 bg-slate-100 rounded w-1/4 animate-pulse"></div>
-                <div className="h-12 bg-slate-50 rounded-2xl animate-pulse"></div>
-                <div className="h-4 bg-slate-100 rounded w-1/3 animate-pulse"></div>
-                <div className="h-12 bg-slate-50 rounded-2xl animate-pulse"></div>
+                <div className="h-4 bg-surface-secondary rounded w-1/4 animate-pulse"></div>
+                <div className="h-12 bg-surface-secondary rounded-2xl animate-pulse"></div>
+                <div className="h-4 bg-surface-secondary rounded w-1/3 animate-pulse"></div>
+                <div className="h-12 bg-surface-secondary rounded-2xl animate-pulse"></div>
             </div>
         );
     }
 
     if (error) {
-        return <div className="text-rose-500 font-bold p-4 bg-rose-50 rounded-xl">{error}</div>;
+        return <div className="text-[#e11d48] font-bold p-4 bg-[#e11d48]/5 rounded-xl">{error}</div>;
     }
 
     if (fields.length === 0) {
         return (
-            <div className="p-8 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 text-center">
-                <p className="text-slate-400 font-bold">Standard product details will be used.</p>
+            <div className="p-8 bg-surface-secondary rounded-2xl border-2 border-dashed border-border-primary text-center">
+                <p className="text-ink-tertiary font-bold">Standard product details will be used.</p>
             </div>
         );
     }
@@ -241,21 +241,21 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
         <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-100/50"
+            className="space-y-8 bg-surface-secondary p-10 rounded-[2.5rem] border border-border-primary shadow-xl shadow-slate-100/50"
         >
             <div className="flex items-center gap-4 mb-2">
-                <div className="w-2 h-8 bg-teal-500 rounded-full" />
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Category Specifics</h3>
+                <div className="w-2 h-8 bg-accent-500/100 rounded-full" />
+                <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Category Specifics</h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {fields.map((field) => (
                     <div key={field.id} className={`space-y-2 ${field.field_type === 'textarea' || field.field_type === 'multiselect' ? 'md:col-span-2' : ''}`}>
-                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">
-                            {field.field_label} {field.required && <span className="text-rose-400">*</span>}
+                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-2">
+                            {field.field_label} {field.required && <span className="text-[#fb7185]">*</span>}
                         </label>
                         {renderField(field)}
-                        {field.helper_text && <p className="text-xs text-slate-400 ml-2 font-medium">{field.helper_text}</p>}
+                        {field.helper_text && <p className="text-xs text-ink-tertiary ml-2 font-medium">{field.helper_text}</p>}
                     </div>
                 ))}
             </div>

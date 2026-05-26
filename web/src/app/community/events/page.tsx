@@ -208,7 +208,7 @@ export default function EventsPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
+                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
                     >
                         Community Events 🌴
                     </motion.div>
@@ -223,7 +223,7 @@ export default function EventsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-teal-50 text-xl max-w-2xl mx-auto mb-12 font-medium opacity-80 leading-relaxed"
+                        className="text-accent-50 text-xl max-w-2xl mx-auto mb-12 font-medium opacity-80 leading-relaxed"
                     >
                         From food festivals to yoga sessions, find your next adventure
                     </motion.p>
@@ -308,7 +308,7 @@ export default function EventsPage() {
                                         <div className="flex-1">
                                             <div className="flex items-center gap-3 mb-3">
                                                 <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${event.status === 'upcoming' ? 'bg-accent-500/10 text-accent-400' :
-                                                    event.status === 'ongoing' ? 'bg-amber-50 text-amber-600' :
+                                                    event.status === 'ongoing' ? 'bg-sand-500/5 text-sand-500' :
                                                         'bg-surface-secondary text-ink-tertiary'
                                                     }`}>
                                                     {event.status}
@@ -355,7 +355,7 @@ export default function EventsPage() {
                                                     </button>
                                                     <button
                                                         onClick={() => handleRSVP(event.event_id, 'interested')}
-                                                        className="px-6 py-3 bg-amber-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-600 transition-colors"
+                                                        className="px-6 py-3 bg-sand-500/50 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-sand-500 transition-colors"
                                                     >
                                                         Interested
                                                     </button>

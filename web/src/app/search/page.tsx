@@ -119,7 +119,7 @@ function SearchContent() {
                                             <p className="text-ink-tertiary text-sm line-clamp-2 font-medium mb-4 italic">
                                                 "{result.bio || 'Crafting island experiences with passion and quality.'}"
                                             </p>
-                                            <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+                                            <div className="flex items-center justify-between pt-4 border-t border-border-primary">
                                                 <span className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Storefront</span>
                                                 <span className="text-[#818cf8] font-black text-sm group-hover:underline">Visit Store ↗</span>
                                             </div>

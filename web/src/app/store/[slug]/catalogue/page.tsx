@@ -300,7 +300,7 @@ function StoreCatalogueContent() {
                     </div>
                 ) : (
                     <div className="bg-surface-elevated rounded-2xl border border-border-primary p-12 text-center">
-                        <ShoppingBag size={48} className="mx-auto text-slate-300 mb-4" />
+                        <ShoppingBag size={48} className="mx-auto text-ink-tertiary mb-4" />
                         <h3 className="text-lg font-bold text-ink-primary mb-2">No items found</h3>
                         <p className="text-sm text-ink-tertiary mb-4">
                             {searchQuery

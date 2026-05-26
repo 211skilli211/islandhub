@@ -49,11 +49,11 @@ export default function ImageCropper({
         <div className="fixed inset-0 z-[200] bg-black/80 flex flex-col items-center justify-center p-6">
             <div className="mb-4 text-center">
                 <h3 className="text-white font-bold text-lg">{presetConfig.label}</h3>
-                <p className="text-slate-400 text-sm">
+                <p className="text-ink-tertiary text-sm">
                     {presetConfig.width} x {presetConfig.height}px • Max {presetConfig.maxSizeMB}MB
                 </p>
             </div>
-            <div className="relative w-full max-w-2xl h-[400px] bg-slate-900 rounded-2xl overflow-hidden mb-6">
+            <div className="relative w-full max-w-2xl h-[400px] bg-ink-primary rounded-2xl overflow-hidden mb-6">
                 <Cropper
                     image={imageSrc}
                     crop={crop}
@@ -75,15 +75,15 @@ export default function ImageCropper({
                     step={0.1}
                     aria-labelledby="Zoom"
                     onChange={(e) => setZoom(Number(e.target.value))}
-                    className="w-full h-1 bg-slate-600 rounded-lg appearance-none cursor-pointer"
+                    className="w-full h-1 bg-surface-tertiary rounded-lg appearance-none cursor-pointer"
                 />
             </div>
 
             <div className="flex gap-4">
-                <button onClick={onCancel} className="px-6 py-3 bg-slate-700 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-slate-600">
+                <button onClick={onCancel} className="px-6 py-3 bg-surface-tertiary text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-surface-tertiary">
                     Cancel
                 </button>
-                <button onClick={showCroppedImage} className="px-6 py-3 bg-rose-500 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-rose-600 shadow-lg shadow-rose-500/20">
+                <button onClick={showCroppedImage} className="px-6 py-3 bg-[#e11d48]/50 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-[#e11d48] shadow-lg shadow-rose-500/20">
                     Apply Crop
                 </button>
             </div>

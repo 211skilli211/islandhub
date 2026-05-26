@@ -18,11 +18,11 @@ interface Order {
 
 export default function OrdersTab() {
     const columns: Column<Order>[] = [
-        { header: 'ID', accessor: 'order_id', className: 'w-16 text-slate-400 font-mono' },
+        { header: 'ID', accessor: 'order_id', className: 'w-16 text-ink-tertiary font-mono' },
         {
             header: 'Customer',
             accessor: (o) => (
-                <div className="font-bold text-slate-800">
+                <div className="font-bold text-ink-primary">
                     {o.customer_name || 'Guest User'}
                 </div>
             )
@@ -31,11 +31,11 @@ export default function OrdersTab() {
             header: 'Type',
             accessor: (o) => (
                 <div className="flex flex-col">
-                    <span className={`text-[10px] font-black uppercase tracking-widest ${o.order_type === 'delivery' ? 'text-blue-600' : 'text-slate-400'}`}>
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${o.order_type === 'delivery' ? 'text-blue-600' : 'text-ink-tertiary'}`}>
                         {o.order_type || 'pickup'}
                     </span>
                     {o.order_type === 'delivery' && o.delivery_fee && (
-                        <span className="text-[9px] font-bold text-slate-400">+${parseFloat(o.delivery_fee).toFixed(2)} Fee</span>
+                        <span className="text-[9px] font-bold text-ink-tertiary">+${parseFloat(o.delivery_fee).toFixed(2)} Fee</span>
                     )}
                 </div>
             )
@@ -43,7 +43,7 @@ export default function OrdersTab() {
         {
             header: 'Store',
             accessor: (o) => (
-                <div className="text-teal-600 font-black uppercase text-[10px] tracking-widest">
+                <div className="text-accent-400 font-black uppercase text-[10px] tracking-widest">
                     {o.store_name || 'Platform'}
                 </div>
             )
@@ -51,7 +51,7 @@ export default function OrdersTab() {
         {
             header: 'Total',
             accessor: (o) => (
-                <span className="font-black text-slate-900 italic">
+                <span className="font-black text-ink-primary italic">
                     ${parseFloat(o.total_amount).toFixed(2)}
                 </span>
             )
@@ -60,9 +60,9 @@ export default function OrdersTab() {
             header: 'Status',
             accessor: (o) => (
                 <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${o.status === 'paid' ? 'bg-green-100 text-green-700' :
-                    o.status === 'pending' ? 'bg-amber-100 text-amber-700' :
+                    o.status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
                         o.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                            'bg-slate-100 text-slate-500'
+                            'bg-surface-secondary text-ink-tertiary0'
                     }`}>
                     {o.status}
                 </span>
@@ -89,7 +89,7 @@ export default function OrdersTab() {
         {
             header: 'Date',
             accessor: (o) => (
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-ink-tertiary">
                     {new Date(o.created_at).toLocaleDateString()}
                 </span>
             )
@@ -100,8 +100,8 @@ export default function OrdersTab() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Global Orders</h2>
-                    <p className="text-slate-500 text-sm font-medium">Monitoring all platform transactions</p>
+                    <h2 className="text-2xl font-black text-ink-primary tracking-tight">Global Orders</h2>
+                    <p className="text-ink-tertiary0 text-sm font-medium">Monitoring all platform transactions</p>
                 </div>
             </div>
 

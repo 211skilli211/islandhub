@@ -110,7 +110,7 @@ function getCategoryAccent(catId: string): string {
         case 'land': return 'bg-green-100 text-green-700';
         case 'sea': return 'bg-accent-500/15 text-accent-500';
         case 'adventure': return 'bg-lime-100 text-lime-700';
-        case 'charter': return 'bg-emerald-100 text-emerald-700';
+        case 'charter': return 'bg-emerald-500/15 text-emerald-500';
         default: return 'bg-green-100 text-green-700';
     }
 }
@@ -156,7 +156,7 @@ function TourCard({ store, index }: { store: Store; index: number }) {
                         <span className="text-green-600">
                             <StarIcon />
                         </span>
-                        <span className="text-xs font-bold text-slate-800">{rating}</span>
+                        <span className="text-xs font-bold text-ink-primary">{rating}</span>
                     </div>
 
                     {/* Category tag */}
@@ -483,7 +483,7 @@ export default function ToursHubPage() {
                     backgroundSize: '60px 60px, 80px 80px, 100px 100px'
                 }} />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-surface-elevated/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-72 h-72 bg-teal-400/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent-400/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
                 <div className="relative max-w-4xl mx-auto text-center py-20 px-6">
                     <motion.div

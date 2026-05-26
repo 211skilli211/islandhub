@@ -24,7 +24,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ filters, onFilterChange
                     <select
                         value={filters[key] || ''}
                         onChange={(e) => handleChange(key, e.target.value)}
-                        className="appearance-none pl-3 pr-8 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all cursor-pointer shadow-sm"
+                        className="appearance-none pl-3 pr-8 py-2 bg-surface-elevated border border-border-primary rounded-lg text-sm font-bold text-ink-secondary hover:border-teal-500 focus:outline-none focus:ring-2 focus:ring-accent-400/20 transition-all cursor-pointer shadow-sm"
                     >
                         <option value="">{setting.label}: All</option>
                         {setting.options.map((opt) => (
@@ -33,7 +33,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ filters, onFilterChange
                             </option>
                         ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-ink-tertiary">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>

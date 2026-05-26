@@ -223,7 +223,7 @@ export default function HeroBackground({
                             speed={styleConfig.shaderSpeed || 1}
                           />
                         ) : assetType === 'particle' ? (
-                          <div className="absolute inset-0 bg-slate-900">
+                          <div className="absolute inset-0 bg-ink-primary">
                             <ParticleField
                               count={styleConfig.particleCount || 80}
                               color={styleConfig.particleColor || '#06b6d4'}
@@ -295,7 +295,7 @@ export default function HeroBackground({
                                                 (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
                                                 }`}
                                         >
-                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
+                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-surface-elevated/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-surface-elevated/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
                                                 {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads') || iconUrl.includes('.')) ? (
                                                     <img
                                                         src={getImageUrl(iconUrl)}
@@ -307,7 +307,7 @@ export default function HeroBackground({
                                                     <span className="text-4xl md:text-8xl drop-shadow-2xl select-none leading-none">{iconUrl}</span>
                                                 )}
                                             </div>
-                                            <div className="absolute inset-0 bg-teal-500/20 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none" />
+                                            <div className="absolute inset-0 bg-accent-500/100/20 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none" />
                                         </motion.div>
                                     )}
 
@@ -362,7 +362,7 @@ export default function HeroBackground({
                                         {cta2Text && cta2Link && (
                                             <a
                                                 href={cta2Link}
-                                                className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl shadow-black/20 transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
+                                                className="inline-block px-8 md:px-12 py-4 md:py-5 bg-surface-elevated/10 backdrop-blur-md border border-surface-elevated/20 hover:bg-surface-elevated/20 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl shadow-black/20 transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
                                             >
                                                 {cta2Text}
                                             </a>

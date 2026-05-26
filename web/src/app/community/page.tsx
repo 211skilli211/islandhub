@@ -240,19 +240,19 @@ export default function CommunityPage() {
                         <div className="bg-gradient-to-br from-accent-600 to-brand-600 rounded-2xl p-4 text-white">
                             <h3 className="text-[10px] font-black uppercase tracking-widest text-white/70 mb-3">Community Pulse</h3>
                             <div className="grid grid-cols-2 gap-2">
-                        <div className="bg-white/10 rounded-lg p-2.5 text-center">
+                        <div className="bg-surface-elevated/10 rounded-lg p-2.5 text-center">
                             <div className="text-lg font-black">{posts.length}</div>
                             <div className="text-[8px] font-bold text-white/70 uppercase tracking-widest">Posts</div>
                         </div>
-                        <div className="bg-white/10 rounded-lg p-2.5 text-center">
+                        <div className="bg-surface-elevated/10 rounded-lg p-2.5 text-center">
                             <div className="text-lg font-black">{stores.length}</div>
                             <div className="text-[8px] font-bold text-white/70 uppercase tracking-widest">Businesses</div>
                         </div>
-                        <div className="bg-white/10 rounded-lg p-2.5 text-center">
+                        <div className="bg-surface-elevated/10 rounded-lg p-2.5 text-center">
                             <div className="text-lg font-black">—</div>
                             <div className="text-[8px] font-bold text-white/70 uppercase tracking-widest">Groups</div>
                         </div>
-                        <div className="bg-white/10 rounded-lg p-2.5 text-center">
+                        <div className="bg-surface-elevated/10 rounded-lg p-2.5 text-center">
                             <div className="text-lg font-black">—</div>
                             <div className="text-[8px] font-bold text-white/70 uppercase tracking-widest">Events</div>
                         </div>

@@ -42,8 +42,8 @@ export function DashboardSidebar({ navItems, activeTab, onTabChange, expandedIte
             }}
             className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
               activeTab === item.id || (item.children?.some(c => c.id === activeTab))
-                ? 'bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400'
-                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-accent-500/10 dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
+                : 'text-ink-secondary dark:text-ink-tertiary hover:bg-surface-secondary dark:hover:bg-surface-tertiary/50 hover:text-ink-primary dark:hover:text-white'
             }`}
           >
             <span className="flex-shrink-0">{item.icon}</span>
@@ -55,15 +55,15 @@ export function DashboardSidebar({ navItems, activeTab, onTabChange, expandedIte
             ) : null}
           </button>
           {item.children?.length && expandedItems.has(item.id) && (
-            <div className="ml-5 mt-1 space-y-0.5 border-l-2 border-slate-200 dark:border-slate-700 pl-2">
+            <div className="ml-5 mt-1 space-y-0.5 border-l-2 border-border-primary dark:border-border-primary pl-2">
               {item.children.map(child => (
                 <button
                   key={child.id}
                   onClick={() => onTabChange(child.id)}
                   className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                     activeTab === child.id
-                      ? 'bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                      ? 'bg-accent-500/10 dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
+                      : 'text-ink-tertiary0 dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
                   }`}
                 >
                   {child.icon}
@@ -101,16 +101,16 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] bg-slate-50 dark:bg-slate-900">
+    <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] bg-surface-secondary dark:bg-ink-primary">
       {/* Mobile header */}
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary">
         <div>
-          <p className="text-sm font-semibold text-slate-900 dark:text-white">{title}</p>
-          {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400">{subtitle}</p>}
+          <p className="text-sm font-semibold text-ink-primary dark:text-white">{title}</p>
+          {subtitle && <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary">{subtitle}</p>}
         </div>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
+          className="p-2 rounded-lg hover:bg-surface-secondary dark:hover:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileMenuOpen ? (
@@ -123,12 +123,12 @@ export default function DashboardLayout({
       </div>
 
       {/* Sidebar */}
-      <aside className={`w-full lg:w-60 bg-white dark:bg-slate-800 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-700 flex-shrink-0 ${
+      <aside className={`w-full lg:w-60 bg-surface-elevated dark:bg-surface-tertiary border-b lg:border-b-0 lg:border-r border-border-primary dark:border-border-primary flex-shrink-0 ${
         mobileMenuOpen ? 'block' : 'hidden lg:block'
       }`}>
-        <div className="hidden lg:block p-4 border-b border-slate-200 dark:border-slate-700">
-          <p className="text-sm font-semibold text-slate-900 dark:text-white">{title}</p>
-          {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{subtitle}</p>}
+        <div className="hidden lg:block p-4 border-b border-border-primary dark:border-border-primary">
+          <p className="text-sm font-semibold text-ink-primary dark:text-white">{title}</p>
+          {subtitle && <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary mt-0.5">{subtitle}</p>}
         </div>
         <DashboardSidebar
           navItems={navItems}
@@ -138,7 +138,7 @@ export default function DashboardLayout({
           onToggleExpand={toggleExpand}
         />
         {sidebarFooter && (
-          <div className="mt-auto p-3 border-t border-slate-200 dark:border-slate-700">
+          <div className="mt-auto p-3 border-t border-border-primary dark:border-border-primary">
             {sidebarFooter}
           </div>
         )}
