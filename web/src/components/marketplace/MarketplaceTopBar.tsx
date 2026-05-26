@@ -17,23 +17,16 @@ export default function MarketplaceTopBar({ onMenuToggle, searchQuery, onSearchC
     const { user, isAuthenticated } = useAuthStore();
 
     return (
-        <div className="sticky top-0 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
+        <div className="sticky top-18 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
             <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
-                    {/* Left: Menu + Home + Logo */}
+                    {/* Left: Menu toggle (mobile) */}
                     <div className="flex items-center gap-2">
                         <button onClick={onMenuToggle}
                             className="p-2 rounded-lg hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors lg:hidden"
                             aria-label="Toggle sidebar">
                             <Menu size={20} />
                         </button>
-                        <Link href="/" className="p-2 rounded-lg hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors" aria-label="Back to Home">
-                            <Home size={18} />
-                        </Link>
-                        <Link href="/listings" className="flex items-center gap-2">
-                            <span className="text-lg">🏪</span>
-                            <span className="font-bold text-sm text-ink-primary hidden sm:inline">IslandHub</span>
-                        </Link>
                     </div>
 
                     {/* Center: Search */}

@@ -36,10 +36,10 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
     };
 
     return (
-        <div className="sticky top-0 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
+        <div className="sticky top-18 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
             <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
-                    {/* Left: Menu + Logo */}
+                    {/* Left: Menu + Search */}
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onMenuToggle}
@@ -48,31 +48,19 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                         >
                             <Menu size={20} />
                         </button>
-                        <Link href="/" className="flex items-center gap-2">
-                            <span className="text-lg">🏝️</span>
-                            <span className="font-bold text-sm text-ink-primary hidden sm:inline">IslandHub</span>
-                        </Link>
+                        <form onSubmit={handleSearch} className="hidden sm:block">
+                            <div className="relative">
+                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                                <input
+                                    type="text"
+                                    placeholder="Search community..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-48 pl-9 pr-3 py-1.5 bg-surface-secondary border border-border-primary rounded-lg text-xs text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all"
+                                />
+                            </div>
+                        </form>
                     </div>
-
-                    {/* Center: Nav links (desktop) */}
-                    <nav className="hidden lg:flex items-center gap-1">
-                        {COMMUNITY_NAV.map(link => {
-                            const active = pathname === link.href || pathname.startsWith(link.href + '/');
-                            return (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                                        active
-                                            ? 'bg-accent-500/10 text-accent-500'
-                                            : 'text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary'
-                                    }`}
-                                >
-                                    {link.label}
-                                </Link>
-                            );
-                        })}
-                    </nav>
 
                     {/* Right: Search + Actions */}
                     <div className="flex items-center gap-2">

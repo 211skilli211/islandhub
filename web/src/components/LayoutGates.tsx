@@ -2,7 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 
-const HIDE_NAVBAR_PATHS = ['/admin', '/dashboard', '/community', '/listings', '/stores'];
+// Only hide navbar on admin and dashboard — they have their own full-screen layouts
+const HIDE_NAVBAR_PATHS = ['/admin', '/dashboard'];
 
 function shouldHideNavbar(pathname: string | null): boolean {
     if (!pathname) return false;

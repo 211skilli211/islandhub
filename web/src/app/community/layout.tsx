@@ -64,8 +64,11 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
         </div>
       )}
 
-      {/* Main layout: sidebar + content */}
-      <div className="flex">
+        {/* Spacer for fixed navbar + community top bar */}
+        <div className="h-36" />
+        
+        {/* Main layout: sidebar + content */}
+        <div className="flex">
         {/* Desktop sidebar — always visible, part of page flow */}
         <aside className="hidden lg:block w-[260px] shrink-0 bg-surface-elevated border-r border-border-primary sticky top-14 h-[calc(100vh-56px)] overflow-y-auto">
           <SidebarContent pathname={pathname} user={user} onLogout={handleLogout} />
