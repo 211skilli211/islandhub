@@ -1,43 +1,45 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
-import UserProfileDropdown from './UserProfileDropdown';
 import { useTheme } from '@/components/ThemeContext';
 import { useCart } from '@/contexts/CartContext';
 import CartDrawer from '@/components/cart/CartDrawer';
 import { getImageUrl } from '@/lib/api';
 import NotificationCenter from './NotificationCenter';
-import { Search, Menu, X, ShoppingCart, Sun, Moon } from 'lucide-react';
+import {
+  Search, Menu, X, ShoppingCart, Sun, Moon,
+  Home, Store, UtensilsCrossed, ShoppingBag, Bed, Map,
+  Calendar, Users, MessageSquare, Heart, Zap, ChevronRight,
+  User, Settings, LogOut, Bell, Compass
+} from 'lucide-react';
 
-const NAV_LINKS = [
-  { href: '/stores', label: 'Explore' },
-  { href: '/food', label: 'Food', color: 'coral' },
-  { href: '/products', label: 'Shop', color: 'accent' },
-  { href: '/rentals', label: 'Stays', color: 'palm' },
-  { href: '/tours', label: 'Tours', color: 'sand' },
+// ─── Navigation Data ───
+const PRIMARY_NAV = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/stores', label: 'Explore', icon: Compass },
+  { href: '/community', label: 'Community', icon: Users },
 ];
 
-const EXPLORE_HUBS = [
-  { href: '/food', label: 'Food & Dining', emoji: '🍽️', group: 'Marketplace' },
-  { href: '/products', label: 'Local Shopping', emoji: '🛍️', group: 'Marketplace' },
-  { href: '/services', label: 'Services', emoji: '🛠️', group: 'Marketplace' },
-  { href: '/rentals', label: 'Rentals', emoji: '🏠', group: 'Marketplace' },
-  { href: '/events', label: 'Events & Tickets', emoji: '🎫', group: 'Explore' },
-  { href: '/tours', label: 'Tours', emoji: '🗺️', group: 'Explore' },
-  { href: '/transport', label: 'Transport', emoji: '🚕', group: 'Explore' },
-  { href: '/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },
-  { href: '/community', label: 'Community', emoji: '🌴', group: 'Impact' },
-  { href: '/listings', label: 'Marketplace', emoji: '🏪', group: 'Marketplace' },
+const MARKETPLACE = [
+  { href: '/food', label: 'Food & Dining', icon: UtensilsCrossed },
+  { href: '/products', label: 'Shop', icon: ShoppingBag },
+  { href: '/rentals', label: 'Stays', icon: Bed },
+  { href: '/tours', label: 'Tours', icon: Map },
+];
+
+const EXPLORE = [
+  { href: '/events', label: 'Events', icon: Calendar },
+  { href: '/services', label: 'Services', icon: Zap },
+  { href: '/campaigns', label: 'Campaigns', icon: Heart },
 ];
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [exploreOpen, setExploreOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -53,102 +55,59 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const handleLogout = () => {
-    logout();
-    router.push('/');
-  };
+  const handleLogout = () => { logout(); router.push('/'); };
+
+  const navItemClass = "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all duration-150";
+  const navItemActiveClass = "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-teal-700 bg-teal-50 transition-all duration-150";
+  const sectionLabel = "px-3 pt-4 pb-2 text-[10px] font-black uppercase tracking-widest text-slate-400";
 
   return (
     <>
+      {/* ═══ TOP NAV BAR ═══ */}
       <nav
-        className={`
-          sticky top-0 z-50 transition-all duration-300
-          ${scrolled
-            ? 'glass shadow-md border-b border-border-primary'
-            : 'bg-surface-primary/95 border-b border-transparent'
-          }
-        `}
-        style={{ height: 'var(--navbar-height, 72px)' }}
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/80 backdrop-blur-xl shadow-sm border-b border-slate-200/60'
+            : 'bg-white border-b border-slate-100'
+        }`}
+        style={{ height: 'var(--navbar-height, 64px)' }}
       >
-        <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 h-full">
           <div className="flex items-center justify-between h-full">
 
-            {/* ═══ LEFT: Logo + Nav Links ═══ */}
-            <div className="flex items-center gap-8">
-              {/* Logo */}
-              <Link href="/" className="shrink-0 group">
-                <span className="text-display-md text-gradient-brand tracking-tight">
+            {/* LEFT: Logo + Primary Nav */}
+            <div className="flex items-center gap-6">
+              <Link href="/" className="shrink-0">
+                <span className="text-xl font-black tracking-tight bg-gradient-to-r from-teal-600 to-indigo-600 bg-clip-text text-transparent">
                   IslandHub
                 </span>
               </Link>
 
-              {/* Desktop Nav Links */}
-              <div className="hidden lg:flex items-center gap-1">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="px-3 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg hover:bg-surface-secondary transition-all duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-
-                {/* Explore Dropdown */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => setExploreOpen(true)}
-                  onMouseLeave={() => setExploreOpen(false)}
-                >
-                  <button className="px-3 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg hover:bg-surface-secondary transition-all duration-200 flex items-center gap-1">
-                    More
-                    <svg className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: exploreOpen ? 'rotate(180deg)' : 'rotate(0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-
-                  <AnimatePresence>
-                    {exploreOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute left-0 top-full mt-2 w-64 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary py-3 z-50"
-                      >
-                        {EXPLORE_HUBS.map((hub, i) => (
-                          <Link
-                            key={hub.href}
-                            href={hub.href}
-                            className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors"
-                          >
-                            <span className="text-base">{hub.emoji}</span>
-                            {hub.label}
-                          </Link>
-                        ))}
-                        <div className="my-2 border-t border-border-primary" />
-                        <Link
-                          href="/store/ibt-solutions"
-                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-brand-600 hover:bg-brand-50 transition-colors"
-                        >
-                          <span className="text-base">⚡</span>
-                          IBT Solutions
-                        </Link>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+              {/* Desktop Primary Nav */}
+              <div className="hidden lg:flex items-center gap-0.5">
+                {PRIMARY_NAV.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-all duration-150"
+                    >
+                      <Icon size={16} className="text-slate-400" />
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
-            {/* ═══ CENTER: Search (desktop) ═══ */}
-            <div className="hidden md:flex flex-1 max-w-md mx-8">
+            {/* CENTER: Search */}
+            <div className="hidden md:flex flex-1 max-w-sm mx-6">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -158,69 +117,60 @@ export default function Navbar() {
                 className="w-full"
               >
                 <div className="relative">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     name="search"
                     type="search"
-                    placeholder="Search the island..."
-                    className="w-full pl-10 pr-4 py-2.5 rounded-full bg-surface-secondary border border-border-primary text-body-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
+                    placeholder="Search..."
+                    className="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-400/10 transition-all"
                   />
                 </div>
               </form>
             </div>
 
-            {/* ═══ RIGHT: Actions ═══ */}
-            <div className="flex items-center gap-2">
-              {/* Theme Toggle */}
+            {/* RIGHT: Actions */}
+            <div className="flex items-center gap-1">
               {mounted && (
-                <button
-                  onClick={toggleTheme}
-                  className="p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
-                  aria-label="Toggle theme"
-                >
-                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                <button onClick={toggleTheme} className="p-2 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-all" aria-label="Toggle theme">
+                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
               )}
 
-              {/* Cart */}
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
-                aria-label="Cart"
-              >
-                <ShoppingCart className="w-5 h-5" />
+              <button onClick={() => setCartOpen(true)} className="relative p-2 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-all" aria-label="Cart">
+                <ShoppingCart size={18} />
                 {itemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-teal-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
                     {itemCount > 9 ? '9+' : itemCount}
                   </span>
                 )}
               </button>
 
-              {/* Notifications (authenticated) */}
               {mounted && isAuthenticated && (
-                <div className="hidden sm:block">
-                  <NotificationCenter />
-                </div>
+                <div className="hidden sm:block"><NotificationCenter /></div>
               )}
 
-              {/* Auth buttons / Profile (desktop) */}
-              <div className="hidden lg:flex items-center gap-2 ml-2">
+              {/* Profile / Auth */}
+              <div className="hidden lg:flex items-center gap-1 ml-1">
                 {mounted && (
                   isAuthenticated ? (
-                    <UserProfileDropdown />
+                    <div className="flex items-center gap-2">
+                      <Link href="/profile" className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-50 transition-all">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-indigo-500 flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+                          {user?.avatar_url ? (
+                            <img src={getImageUrl(user.avatar_url)} alt="" className="w-full h-full object-cover" />
+                          ) : (
+                            user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || 'U'
+                          )}
+                        </div>
+                      </Link>
+                    </div>
                   ) : (
                     <>
-                      <Link
-                        href="/login"
-                        className="px-4 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg transition-colors"
-                      >
+                      <Link href="/login" className="px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-lg transition-colors">
                         Log in
                       </Link>
-                      <Link
-                        href="/register"
-                        className="px-5 py-2.5 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl hover:from-brand-700 hover:to-accent-700 shadow-sm transition-all"
-                      >
-                        Join Free
+                      <Link href="/register" className="px-4 py-2 text-sm font-bold text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors">
+                        Join
                       </Link>
                     </>
                   )
@@ -230,10 +180,10 @@ export default function Navbar() {
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
+                className="lg:hidden p-2 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-50 transition-all ml-1"
                 aria-label="Menu"
               >
-                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
@@ -248,8 +198,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[60] bg-surface-overlay backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[60] bg-black/20 backdrop-blur-sm lg:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -257,159 +206,124 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated shadow-2xl lg:hidden flex flex-col overflow-y-auto"
+              className="fixed right-0 top-0 bottom-0 z-[70] w-[280px] bg-white shadow-2xl lg:hidden flex flex-col"
             >
-              {/* Mobile header */}
-              <div className="flex items-center justify-between p-5 border-b border-border-primary shrink-0">
-                <span className="text-headline-md text-gradient-brand">IslandHub</span>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="p-2 rounded-xl hover:bg-surface-secondary transition-colors"
-                >
-                  <X className="w-5 h-5 text-ink-secondary" />
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 shrink-0">
+                <span className="text-lg font-black tracking-tight bg-gradient-to-r from-teal-600 to-indigo-600 bg-clip-text text-transparent">IslandHub</span>
+                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-slate-50 transition-colors">
+                  <X size={18} className="text-slate-500" />
                 </button>
               </div>
 
-              {/* Mobile search */}
-              <div className="p-4 border-b border-border-primary">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
-                    if (q.trim()) { router.push(`/search?q=${encodeURIComponent(q)}`); setMobileOpen(false); }
-                  }}
-                >
+              {/* Search */}
+              <div className="px-3 py-3 border-b border-slate-100">
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
+                  if (q.trim()) { router.push(`/search?q=${encodeURIComponent(q)}`); setMobileOpen(false); }
+                }}>
                   <div className="relative">
-                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
-                    <input
-                      name="search"
-                      type="search"
-                      placeholder="Search the island..."
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-secondary border border-border-primary text-body-sm focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
-                    />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input name="search" type="search" placeholder="Search..." className="w-full pl-9 pr-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-teal-400 transition-all" />
                   </div>
                 </form>
               </div>
 
-              {/* Mobile nav links */}
-              <div className="flex-1 p-4 space-y-1">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-body-md font-semibold text-ink-primary hover:bg-surface-secondary rounded-xl transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+              {/* Navigation */}
+              <div className="flex-1 overflow-y-auto px-3 py-2">
+                {/* Primary */}
+                <div className="space-y-0.5">
+                  {PRIMARY_NAV.map(link => {
+                    const Icon = link.icon;
+                    return (
+                      <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className={navItemClass}>
+                        <Icon size={18} className="text-slate-400" />
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
 
-                <div className="my-3 border-t border-border-primary" />
-                <div className="px-4 py-2 text-caption-xs text-ink-tertiary">Marketplace Hubs</div>
+                <div className="my-3 border-t border-slate-100" />
+                <div className={sectionLabel}>Marketplace</div>
+                <div className="space-y-0.5">
+                  {MARKETPLACE.map(link => {
+                    const Icon = link.icon;
+                    return (
+                      <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className={navItemClass}>
+                        <Icon size={18} className="text-slate-400" />
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
 
-                {EXPLORE_HUBS.filter(h => h.group === 'Marketplace').map((hub) => (
-                  <Link
-                    key={hub.href}
-                    href={hub.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary rounded-xl transition-colors"
-                  >
-                    <span>{hub.emoji}</span>
-                    {hub.label}
-                  </Link>
-                ))}
+                <div className="my-3 border-t border-slate-100" />
+                <div className={sectionLabel}>Explore</div>
+                <div className="space-y-0.5">
+                  {EXPLORE.map(link => {
+                    const Icon = link.icon;
+                    return (
+                      <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className={navItemClass}>
+                        <Icon size={18} className="text-slate-400" />
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
 
-                <div className="my-3 border-t border-border-primary" />
-                <div className="px-4 py-2 text-caption-xs text-ink-tertiary">Explore</div>
-
-                {EXPLORE_HUBS.filter(h => h.group !== 'Marketplace').map((hub) => (
-                  <Link
-                    key={hub.href}
-                    href={hub.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary rounded-xl transition-colors"
-                  >
-                    <span>{hub.emoji}</span>
-                    {hub.label}
-                  </Link>
-                ))}
-
-                <div className="my-3 border-t border-border-primary" />
-                <Link
-                  href="/store/ibt-solutions"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-brand-600 hover:bg-brand-50 rounded-xl transition-colors"
-                >
-                  <span>⚡</span>
+                <div className="my-3 border-t border-slate-100" />
+                <Link href="/store/ibt-solutions" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-all">
+                  <Zap size={18} className="text-indigo-500" />
                   IBT Solutions
                 </Link>
               </div>
 
-              {/* Mobile auth area */}
-              <div className="p-4 border-t border-border-primary shrink-0 space-y-3">
+              {/* Auth Area */}
+              <div className="px-3 py-3 border-t border-slate-100 shrink-0">
                 {mounted && (
                   isAuthenticated ? (
-                    <>
-                      <div className="flex items-center gap-3 px-2">
-                        <div className="w-10 h-10 rounded-full bg-accent-100 flex items-center justify-center text-accent-700 font-bold text-sm overflow-hidden">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 px-2 py-2">
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-indigo-500 flex items-center justify-center text-white text-xs font-bold overflow-hidden shrink-0">
                           {user?.avatar_url ? (
                             <img src={getImageUrl(user.avatar_url)} alt="" className="w-full h-full object-cover" />
                           ) : (
-                            user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
+                            user?.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || 'U'
                           )}
                         </div>
-                        <div>
-                          <div className="text-body-sm font-bold text-ink-primary">{user?.name}</div>
-                          <div className="text-caption text-ink-tertiary">{user?.email}</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-sm font-bold text-slate-900 truncate">{user?.name}</div>
+                          <div className="text-[11px] text-slate-400 truncate">{user?.email}</div>
                         </div>
                       </div>
-                      <Link
-                        href="/profile"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"
-                      >
-                        Edit Profile
-                      </Link>
-                      <Link
-                        href="/dashboard"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"
-                      >
-                        Dashboard
-                      </Link>
-                      {user?.role === 'admin' && (
-                        <Link
-                          href="/admin"
-                          onClick={() => setMobileOpen(false)}
-                          className="block w-full px-4 py-3 text-body-sm font-bold text-accent-600 bg-accent-50 rounded-xl text-center hover:bg-accent-100 transition-colors"
-                        >
-                          Admin Panel
+                      <div className="space-y-0.5">
+                        <Link href="/profile" onClick={() => setMobileOpen(false)} className={navItemClass}>
+                          <User size={18} className="text-slate-400" /> Edit Profile
                         </Link>
-                      )}
-                      <button
-                        onClick={() => { handleLogout(); setMobileOpen(false); }}
-                        className="w-full px-4 py-3 text-body-sm font-semibold text-coral-600 bg-coral-50 rounded-xl text-center hover:bg-coral-100 transition-colors"
-                      >
-                        Log out
-                      </button>
-                    </>
+                        <Link href="/dashboard" onClick={() => setMobileOpen(false)} className={navItemClass}>
+                          <Settings size={18} className="text-slate-400" /> Dashboard
+                        </Link>
+                        {user?.role === 'admin' && (
+                          <Link href="/admin" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-all">
+                            <Settings size={18} className="text-indigo-500" /> Admin Panel
+                          </Link>
+                        )}
+                        <button onClick={() => { handleLogout(); setMobileOpen(false); }} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-all w-full text-left">
+                          <LogOut size={18} className="text-red-400" /> Log out
+                        </button>
+                      </div>
+                    </div>
                   ) : (
-                    <>
-                      <Link
-                        href="/login"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary border border-border-primary rounded-xl text-center hover:bg-surface-secondary transition-colors"
-                      >
+                    <div className="space-y-2">
+                      <Link href="/login" onClick={() => setMobileOpen(false)} className="block w-full px-4 py-2.5 text-sm font-medium text-slate-700 border border-slate-200 rounded-xl text-center hover:bg-slate-50 transition-colors">
                         Log in
                       </Link>
-                      <Link
-                        href="/register"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl text-center shadow-sm"
-                      >
+                      <Link href="/register" onClick={() => setMobileOpen(false)} className="block w-full px-4 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-xl text-center hover:bg-slate-800 transition-colors">
                         Join IslandHub
                       </Link>
-                    </>
+                    </div>
                   )
                 )}
               </div>
@@ -418,7 +332,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Cart Drawer */}
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );

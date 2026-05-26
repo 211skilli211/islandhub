@@ -217,7 +217,7 @@
   --info: var(--brand-500);
 
   /* ── Layout ── */
-  --navbar-height: 72px;
+  --navbar-height: 64px;
   --sidebar-width: 260px;
   --sidebar-collapsed-width: 64px;
   --content-max-width: 1280px;
