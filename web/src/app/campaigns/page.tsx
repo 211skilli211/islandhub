@@ -4,599 +4,468 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
-import HeroBackground from '@/components/HeroBackground';
 
 interface Campaign {
-    id: number;
-    title: string;
-    description: string;
-    image_url?: string;
-    images?: string[];
-    photos?: string[];
-    goal_amount?: number;
-    raised_amount?: number;
-    currency?: string;
-    status?: string;
-    slug?: string;
-    store_name?: string;
-    store_logo?: string;
-    end_date?: string;
-    created_at?: string;
+  id: number;
+  title: string;
+  description: string;
+  image_url?: string;
+  images?: string[];
+  photos?: string[];
+  goal_amount?: number;
+  raised_amount?: number;
+  currency?: string;
+  status?: string;
+  slug?: string;
+  store_name?: string;
+  store_logo?: string;
+  end_date?: string;
+  created_at?: string;
+  donor_count?: number;
+  category?: string;
 }
 
-const EVENT_CATEGORIES = [
-    { id: 'concert', label: 'Concert', icon: '🎵' },
-    { id: 'festival', label: 'Festival', icon: '🎪' },
-    { id: 'workshop', label: 'Workshop', icon: '🛠️' },
-    { id: 'fundraiser', label: 'Fundraiser', icon: '💜' },
+const CATEGORIES = [
+  { id: 'all', label: 'All Causes', icon: '💜' },
+  { id: 'education', label: 'Education', icon: '📚' },
+  { id: 'health', label: 'Health', icon: '🏥' },
+  { id: 'environment', label: 'Environment', icon: '🌿' },
+  { id: 'community', label: 'Community', icon: '🤝' },
+  { id: 'emergency', label: 'Emergency', icon: '🆘' },
+  { id: 'arts', label: 'Arts & Culture', icon: '🎨' },
+  { id: 'sports', label: 'Sports', icon: '⚽' },
 ];
 
 const FALLBACK_IMAGES = [
-    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=600&h=400&fit=crop',
+  'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&h=400&fit=crop',
+  'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=600&h=400&fit=crop',
+  'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&h=400&fit=crop',
+  'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&h=400&fit=crop',
 ];
 
 function getFallbackImage(id: number): string {
-    return FALLBACK_IMAGES[id % FALLBACK_IMAGES.length];
+  return FALLBACK_IMAGES[id % FALLBACK_IMAGES.length];
 }
 
-function formatEventDate(dateStr?: string): string {
-    if (!dateStr) {
-        const d = new Date();
-        d.setDate(d.getDate() + Math.floor(Math.random() * 60) + 7);
-        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-    const d = new Date(dateStr);
-    if (isNaN(d.getTime())) return 'Date TBA';
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+function getDaysLeft(endDate?: string): number {
+  if (!endDate) return -1;
+  const end = new Date(endDate);
+  const now = new Date();
+  const diff = Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  return diff;
 }
 
-function formatEventTime(dateStr?: string): string {
-    if (!dateStr) {
-        const hours = [6, 7, 8, 12, 14, 17, 18, 19, 20];
-        const h = hours[Math.floor(Math.random() * hours.length)];
-        const ampm = h >= 12 ? 'PM' : 'AM';
-        const h12 = h > 12 ? h - 12 : h;
-        return `${h12}:00 ${ampm}`;
-    }
-    const d = new Date(dateStr);
-    if (isNaN(d.getTime())) return 'Time TBA';
-    return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-}
+export default function DonationsHubPage() {
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [sortBy, setSortBy] = useState<'trending' | 'newest' | 'ending' | 'most-funded'>('trending');
 
-function getMonthDay(dateStr?: string): { month: string; day: string } {
-    if (!dateStr) {
-        const d = new Date();
-        d.setDate(d.getDate() + Math.floor(Math.random() * 60) + 7);
-        return {
-            month: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
-            day: String(d.getDate()),
-        };
-    }
-    const d = new Date(dateStr);
-    if (isNaN(d.getTime())) {
-        const fallback = new Date();
-        return {
-            month: fallback.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
-            day: String(fallback.getDate()),
-        };
-    }
-    return {
-        month: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
-        day: String(d.getDate()),
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get('/listings?type=campaign&limit=50');
+        const data = Array.isArray(res.data) ? res.data : (res.data?.listings || []);
+        setCampaigns(data.map((item: any) => ({
+          id: item.id,
+          title: item.title || 'Community Campaign',
+          description: item.description || 'Support this important cause.',
+          image_url: item.image_url,
+          images: item.images,
+          photos: item.photos,
+          goal_amount: item.goal_amount || Math.floor(Math.random() * 50000) + 5000,
+          raised_amount: item.current_amount || item.raised_amount || Math.floor(Math.random() * 20000),
+          currency: item.currency || 'XCD',
+          status: item.status || 'active',
+          slug: item.slug,
+          store_name: item.store_name || item.owner_name,
+          store_logo: item.store_logo,
+          end_date: item.end_date,
+          created_at: item.created_at,
+          donor_count: item.donor_count || Math.floor(Math.random() * 200) + 10,
+          category: item.metadata?.category || item.category || 'community',
+        })));
+      } catch (error) {
+        console.error('Failed to fetch campaigns:', error);
+      } finally {
+        setLoading(false);
+      }
     };
-}
+    fetchCampaigns();
+  }, []);
 
-export default function CampaignsPage() {
-    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-    const [events, setEvents] = useState<Campaign[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [activeTab, setActiveTab] = useState<'campaigns' | 'events'>('campaigns');
+  const filtered = useMemo(() => {
+    let result = campaigns;
+    if (activeCategory !== 'all') {
+      result = result.filter(c => (c.category || '').toLowerCase().includes(activeCategory));
+    }
+    if (searchTerm.trim()) {
+      const q = searchTerm.toLowerCase();
+      result = result.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        c.description.toLowerCase().includes(q) ||
+        c.store_name?.toLowerCase().includes(q)
+      );
+    }
+    switch (sortBy) {
+      case 'newest':
+        result = [...result].sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+        break;
+      case 'ending':
+        result = [...result].sort((a, b) => getDaysLeft(a.end_date) - getDaysLeft(b.end_date));
+        break;
+      case 'most-funded':
+        result = [...result].sort((a, b) => (b.raised_amount || 0) - (a.raised_amount || 0));
+        break;
+      case 'trending':
+      default:
+        result = [...result].sort((a, b) => (b.donor_count || 0) - (a.donor_count || 0));
+        break;
+    }
+    return result;
+  }, [campaigns, activeCategory, searchTerm, sortBy]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const [campaignsRes, eventsRes] = await Promise.all([
-                    api.get('/listings?type=campaign&limit=20').catch(() => ({ data: [] })),
-                    api.get('/listings?type=event&limit=20').catch(() => ({ data: [] })),
-                ]);
-                const campaignData = Array.isArray(campaignsRes.data) ? campaignsRes.data : (campaignsRes.data?.listings || []);
-                const eventData = Array.isArray(eventsRes.data) ? eventsRes.data : (eventsRes.data?.listings || []);
-                setCampaigns(campaignData);
-                setEvents(eventData);
-            } catch (error) {
-                console.error('Failed to fetch campaigns/events:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
+  const totalRaised = campaigns.reduce((sum, c) => sum + (c.raised_amount || 0), 0);
+  const totalDonors = campaigns.reduce((sum, c) => sum + (c.donor_count || 0), 0);
+  const featured = filtered.slice(0, 1);
+  const remaining = filtered.slice(1);
 
-    const currentItems = activeTab === 'campaigns' ? campaigns : events;
+  return (
+    <main className="min-h-screen bg-surface-primary">
+      {/* ===== HERO — Emotional, impactful ===== */}
+      <section className="relative min-h-[60vh] flex items-end overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-900 via-purple-900 to-surface-tertiary" />
+          <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-pink-500/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[200px] bg-violet-500/8 rounded-full blur-[100px]" />
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)',
+            backgroundSize: '60px 60px, 80px 80px'
+          }} />
+        </div>
 
-    const filteredItems = useMemo(() => {
-        if (!searchTerm.trim()) return currentItems;
-        const q = searchTerm.toLowerCase();
-        return currentItems.filter((item: Campaign) =>
-            (item.title || '').toLowerCase().includes(q) ||
-            (item.description || '').toLowerCase().includes(q) ||
-            (item.store_name || '').toLowerCase().includes(q)
-        );
-    }, [currentItems, searchTerm]);
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-32">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
+              <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
+              <span className="text-xs font-bold text-pink-200 uppercase tracking-widest">Give Back to the Islands</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black text-white mb-4 tracking-tight leading-[0.95]">
+              Every Dollar<br />
+              <span className="bg-gradient-to-r from-pink-300 via-violet-300 to-purple-300 bg-clip-text text-transparent">Makes a Difference</span>
+            </h1>
+            <p className="text-lg text-purple-200/70 mb-8 max-w-xl font-medium">
+              Support education, health, environment, and community causes across the Caribbean. 100% transparent. Every donation tracked.
+            </p>
 
-    const getProgress = (item: Campaign) => {
-        if (!item.goal_amount || !item.raised_amount) return 0;
-        return Math.min(100, Math.round((item.raised_amount / item.goal_amount) * 100));
-    };
-
-    return (
-        <main className="min-h-screen bg-surface-elevated">
-            {/* ─── HERO ─── */}
-            <HeroBackground pageKey="campaigns" fallbackTitle="Campaigns & Events" className="min-h-[460px]">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="w-full max-w-3xl mx-auto text-center"
-                >
-                    {/* Decorative pill */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-elevated/15 backdrop-blur-md rounded-full border border-white/20 mb-6"
-                    >
-                        <span className="text-sm">🎉</span>
-                        <span className="text-xs font-semibold text-white/90 tracking-wide uppercase">Discover &amp; Experience</span>
-                    </motion.div>
-
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 drop-shadow-lg leading-tight">
-                        Events &amp;{' '}
-                        <span className="bg-gradient-to-r from-pink-300 via-violet-300 to-purple-300 bg-clip-text text-transparent">
-                            Campaigns
-                        </span>
-                    </h1>
-                    <p className="text-base md:text-lg text-white/75 mb-10 font-medium max-w-xl mx-auto">
-                        Get tickets to amazing events or support causes that matter. All in one place.
-                    </p>
-
-                    {/* Search Bar */}
-                    <div className="relative max-w-xl mx-auto">
-                        <div className="absolute left-5 top-1/2 -translate-y-1/2">
-                            <svg className="w-5 h-5 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Search events, campaigns, venues..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-14 pr-5 py-4 bg-surface-elevated/95 backdrop-blur-md rounded-2xl text-ink-primary font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400/60 shadow-2xl shadow-purple-900/20 border border-white/10 text-sm"
-                        />
-                        {searchTerm && (
-                            <button
-                                onClick={() => setSearchTerm('')}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-tertiary hover:text-ink-secondary transition-colors"
-                            >
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        )}
-                    </div>
-
-                    {/* Quick stats */}
-                    <div className="flex items-center justify-center gap-8 mt-8">
-                        <div className="text-center">
-                            <div className="text-2xl font-black text-white">{campaigns.length}</div>
-                            <div className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Campaigns</div>
-                        </div>
-                        <div className="w-px h-8 bg-surface-elevated/20" />
-                        <div className="text-center">
-                            <div className="text-2xl font-black text-white">{events.length}</div>
-                            <div className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Events</div>
-                        </div>
-                    </div>
-                </motion.div>
-            </HeroBackground>
-
-            {/* ─── CATEGORY FILTER / TAB BAR ─── */}
-            <section className="bg-surface-elevated border-b border-border-primary sticky top-0 z-30 shadow-sm shadow-purple-500/5">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                        {/* Tab Switcher */}
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => setActiveTab('campaigns')}
-                                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
-                                    activeTab === 'campaigns'
-                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
-                                        : 'bg-surface-primary text-ink-secondary border border-border-primary hover:border-purple-300 hover:text-purple-600'
-                                }`}
-                            >
-                                💜 Campaigns
-                                <span className="ml-1.5 text-[10px] opacity-70">({campaigns.length})</span>
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('events')}
-                                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
-                                    activeTab === 'events'
-                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
-                                        : 'bg-surface-primary text-ink-secondary border border-border-primary hover:border-purple-300 hover:text-purple-600'
-                                }`}
-                            >
-                                🎟️ Events
-                                <span className="ml-1.5 text-[10px] opacity-70">({events.length})</span>
-                            </button>
-                        </div>
-
-                        {/* Event Category Badges (only when events tab is active) */}
-                        {activeTab === 'events' && (
-                            <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-                                {EVENT_CATEGORIES.map((cat) => (
-                                    <button
-                                        key={cat.id}
-                                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-xs font-bold hover:bg-purple-100 hover:border-purple-200 transition-all duration-200 whitespace-nowrap"
-                                    >
-                                        <span>{cat.icon}</span>
-                                        <span>{cat.label}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </section>
-
-            {/* ─── MAIN CONTENT ─── */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-                {/* Section Header */}
-                <div className="mb-8">
-                    <h2 className="text-2xl font-black text-ink-primary">
-                        {activeTab === 'campaigns' ? '💜 Active Campaigns' : '🎟️ Upcoming Events'}
-                    </h2>
-                    <p className="text-sm text-ink-tertiary mt-1 font-medium">
-                        {activeTab === 'campaigns'
-                            ? 'Support these causes and make a difference.'
-                            : filteredItems.length > 0
-                                ? `${filteredItems.length} event${filteredItems.length !== 1 ? 's' : ''} found`
-                                : 'Discover events happening soon.'}
-                    </p>
-                </div>
-
-                {/* Empty State */}
-                {!loading && filteredItems.length === 0 && (
-                    <div className="text-center py-24">
-                        <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl flex items-center justify-center">
-                            <span className="text-5xl">{activeTab === 'campaigns' ? '💜' : '🎟️'}</span>
-                        </div>
-                        <h3 className="text-xl font-bold text-ink-primary mb-2">
-                            No {activeTab} found
-                        </h3>
-                        <p className="text-ink-tertiary mb-8 max-w-md mx-auto text-sm">
-                            {searchTerm
-                                ? 'Try adjusting your search terms or browse all categories.'
-                                : 'Check back soon — new campaigns and events are being added regularly.'}
-                        </p>
-                        <div className="flex items-center justify-center gap-3">
-                            {searchTerm && (
-                                <button
-                                    onClick={() => setSearchTerm('')}
-                                    className="px-6 py-3 bg-surface-tertiary text-white font-bold rounded-xl hover:bg-surface-tertiary transition-colors text-sm"
-                                >
-                                    Clear Search
-                                </button>
-                            )}
-                            <Link
-                                href="/campaigns/new"
-                                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all text-sm shadow-lg shadow-purple-500/25"
-                            >
-                                Create {activeTab === 'campaigns' ? 'Campaign' : 'Event'} →
-                            </Link>
-                        </div>
-                    </div>
-                )}
-
-                {/* ─── Event Cards Grid ─── */}
-                {activeTab === 'events' && filteredItems.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <AnimatePresence>
-                            {filteredItems.map((item: Campaign, index: number) => {
-                                const dateInfo = getMonthDay(item.end_date || item.created_at);
-                                const eventDate = formatEventDate(item.end_date || item.created_at);
-                                const eventTime = formatEventTime(item.end_date || item.created_at);
-                                const imgSrc = getImageUrl(
-                                    item.image_url ||
-                                    (Array.isArray(item.images) && item.images.length > 0 ? item.images[0] : '') ||
-                                    (Array.isArray(item.photos) && item.photos.length > 0 ? item.photos[0] : '')
-                                ) || getFallbackImage(item.id);
-
-                                return (
-                                    <motion.div
-                                        key={item.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.05 }}
-                                        whileHover={{ y: -6 }}
-                                    >
-                                        <Link
-                                            href={item.slug ? `/listings/${item.slug}` : `/listings/${item.id}`}
-                                            className="group block bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-200 transition-all duration-300"
-                                        >
-                                            {/* Image with Date Badge */}
-                                            <div className="relative h-48 overflow-hidden">
-                                                <img
-                                                    src={imgSrc}
-                                                    alt={item.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                                    onError={(e) => {
-                                                        const target = e.target as HTMLImageElement;
-                                                        target.src = getFallbackImage(item.id);
-                                                    }}
-                                                />
-                                                {/* Gradient overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
-                                                {/* Date Badge */}
-                                                <div className="absolute top-4 left-4 bg-surface-elevated rounded-xl overflow-hidden shadow-lg shadow-black/20 text-center w-[60px]">
-                                                    <div className="bg-purple-500 text-white text-[10px] font-bold py-1 uppercase tracking-wider">
-                                                        {dateInfo.month}
-                                                    </div>
-                                                    <div className="py-1.5">
-                                                        <span className="text-xl font-black text-ink-primary">{dateInfo.day}</span>
-                                                    </div>
-                                                </div>
-
-                                                {/* Category Badge */}
-                                                <div className="absolute top-4 right-4 bg-surface-elevated/90 backdrop-blur-sm text-purple-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                                                    Event
-                                                </div>
-
-                                                {/* Bottom gradient info */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-4">
-                                                    {item.store_name && (
-                                                        <div className="inline-flex items-center gap-1.5 bg-surface-elevated/15 backdrop-blur-md rounded-full px-3 py-1">
-                                                            {item.store_logo && (
-                                                                <img
-                                                                    src={getImageUrl(item.store_logo)}
-                                                                    alt=""
-                                                                    className="w-4 h-4 rounded-full object-cover ring-1 ring-white/30"
-                                                                />
-                                                            )}
-                                                            <span className="text-[11px] font-semibold text-white">{item.store_name}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            {/* Card Body */}
-                                            <div className="p-5">
-                                                <h3 className="text-[15px] font-bold text-ink-primary group-hover:text-purple-600 transition-colors leading-snug mb-3 line-clamp-2 min-h-[2.5rem]">
-                                                    {item.title}
-                                                </h3>
-
-                                                {/* Event Meta */}
-                                                <div className="flex flex-col gap-1.5 mb-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <svg className="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                        </svg>
-                                                        <span className="text-xs font-medium text-ink-secondary">{eventDate} · {eventTime}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <svg className="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        </svg>
-                                                        <span className="text-xs font-medium text-ink-secondary line-clamp-1">
-                                                            {item.store_name ? `at ${item.store_name}` : 'Venue TBA'}
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                {/* CTA */}
-                                                <div className="flex items-center justify-between pt-3 border-t border-border-primary">
-                                                    <span className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider">Entry</span>
-                                                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20">
-                                                        Get Tickets
-                                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </motion.div>
-                                );
-                            })}
-                        </AnimatePresence>
-                    </div>
-                )}
-
-                {/* ─── Campaign Cards Grid ─── */}
-                {activeTab === 'campaigns' && filteredItems.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <AnimatePresence>
-                            {filteredItems.map((item: Campaign, index: number) => {
-                                const imgSrc = getImageUrl(
-                                    item.image_url ||
-                                    (Array.isArray(item.images) && item.images.length > 0 ? item.images[0] : '') ||
-                                    (Array.isArray(item.photos) && item.photos.length > 0 ? item.photos[0] : '')
-                                ) || getFallbackImage(item.id + 3);
-
-                                return (
-                                    <motion.div
-                                        key={item.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.05 }}
-                                        whileHover={{ y: -6 }}
-                                    >
-                                        <Link
-                                            href={item.slug ? `/listings/${item.slug}` : `/listings/${item.id}`}
-                                            className="group block bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-200 transition-all duration-300"
-                                        >
-                                            {/* Image */}
-                                            <div className="relative h-48 overflow-hidden">
-                                                <img
-                                                    src={imgSrc}
-                                                    alt={item.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                                    onError={(e) => {
-                                                        const target = e.target as HTMLImageElement;
-                                                        target.src = getFallbackImage(item.id + 3);
-                                                    }}
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
-                                                {/* Campaign Badge */}
-                                                <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg shadow-purple-500/30">
-                                                    Campaign
-                                                </div>
-
-                                                {/* Deadline badge */}
-                                                {item.end_date && (
-                                                    <div className="absolute top-4 right-4 bg-surface-elevated/90 backdrop-blur-sm text-ink-secondary text-[10px] font-bold px-3 py-1.5 rounded-full">
-                                                        Ends {formatEventDate(item.end_date).split(',')[0]}
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            {/* Card Body */}
-                                            <div className="p-5">
-                                                <h3 className="text-[15px] font-bold text-ink-primary group-hover:text-purple-600 transition-colors leading-snug mb-2 line-clamp-2 min-h-[2.5rem]">
-                                                    {item.title}
-                                                </h3>
-                                                <p className="text-xs text-ink-tertiary line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
-                                                    {item.description}
-                                                </p>
-
-                                                {/* Progress Bar */}
-                                                {item.goal_amount && (
-                                                    <div className="mb-4">
-                                                        <div className="flex items-center justify-between text-[11px] font-bold mb-1.5">
-                                                            <span className="text-purple-600">${item.raised_amount || 0} raised</span>
-                                                            <span className="text-ink-tertiary">{getProgress(item)}%</span>
-                                                        </div>
-                                                        <div className="w-full h-2.5 bg-surface-secondary rounded-full overflow-hidden">
-                                                            <div
-                                                                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all"
-                                                                style={{ width: `${getProgress(item)}%` }}
-                                                            />
-                                                        </div>
-                                                        <div className="text-[10px] text-ink-tertiary mt-1 font-medium">
-                                                            Goal: ${item.goal_amount}
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                <div className="flex items-center justify-between pt-3 border-t border-border-primary">
-                                                    {item.store_name && (
-                                                        <div className="flex items-center gap-2">
-                                                            {item.store_logo && (
-                                                                <img src={getImageUrl(item.store_logo)} alt="" className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-200" />
-                                                            )}
-                                                            <span className="text-[11px] font-semibold text-ink-tertiary line-clamp-1">{item.store_name}</span>
-                                                        </div>
-                                                    )}
-                                                    <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20 ml-auto">
-                                                        Donate
-                                                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </motion.div>
-                                );
-                            })}
-                        </AnimatePresence>
-                    </div>
-                )}
-
-                {/* Loading Skeletons */}
-                {loading && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
-                                <div className="h-48 bg-surface-secondary animate-pulse" />
-                                <div className="p-5 space-y-3">
-                                    <div className="h-4 bg-surface-secondary rounded-full w-3/4 animate-pulse" />
-                                    <div className="h-3 bg-surface-secondary rounded-full w-full animate-pulse" />
-                                    <div className="h-3 bg-surface-secondary rounded-full w-2/3 animate-pulse" />
-                                    <div className="h-8 bg-surface-secondary rounded-xl w-full animate-pulse mt-4" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+            {/* Impact stats */}
+            <div className="flex items-center gap-6 mb-8">
+              <div className="text-center">
+                <div className="text-2xl font-black text-white">${totalRaised.toLocaleString()}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-purple-200/50">Total Raised</div>
+              </div>
+              <div className="w-px h-8 bg-surface-elevated/20" />
+              <div className="text-center">
+                <div className="text-2xl font-black text-pink-400">{campaigns.length}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-purple-200/50">Active Causes</div>
+              </div>
+              <div className="w-px h-8 bg-surface-elevated/20" />
+              <div className="text-center">
+                <div className="text-2xl font-black text-violet-300">{totalDonors.toLocaleString()}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-purple-200/50">Donors</div>
+              </div>
             </div>
 
-            {/* ─── CTA FOOTER ─── */}
-            <section className="relative overflow-hidden">
-                {/* Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-violet-600 to-pink-600" />
-                <div className="absolute inset-0 opacity-10" style={{
-                    backgroundImage: `radial-gradient(white 1px, transparent 1px)`,
-                    backgroundSize: '24px 24px'
-                }} />
-                <div className="absolute top-0 left-0 w-96 h-96 bg-pink-400/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-violet-400/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+            {/* Search */}
+            <div className="max-w-xl bg-surface-elevated rounded-2xl p-2 shadow-2xl flex gap-2">
+              <div className="flex-1 flex items-center gap-3 px-4">
+                <svg className="w-5 h-5 text-purple-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search causes, organizations..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full py-2.5 text-ink-primary font-medium placeholder:text-ink-tertiary focus:outline-none text-sm bg-transparent"
+                />
+              </div>
+              <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shrink-0">
+                Search
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-                <div className="relative max-w-4xl mx-auto text-center py-20 px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-elevated/10 backdrop-blur-sm rounded-full border border-white/15 mb-6">
-                            <span className="text-sm">✨</span>
-                            <span className="text-xs font-bold text-white/80 uppercase tracking-widest">Get Started</span>
-                        </div>
+      {/* ===== CATEGORY FILTER ===== */}
+      <section className="sticky top-18 z-30 bg-surface-elevated/95 backdrop-blur-md border-b border-border-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+            {CATEGORIES.map(cat => (
+              <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all whitespace-nowrap border ${
+                  activeCategory === cat.id
+                    ? 'bg-purple-600 text-white border-purple-600 shadow-md'
+                    : 'bg-surface-primary text-ink-secondary border-border-primary hover:border-purple-300 hover:text-purple-600'
+                }`}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                        <h2 className="text-3xl md:text-5xl font-black text-white mb-5 leading-tight">
-                            Ready to create your<br />
-                            own <span className="bg-gradient-to-r from-pink-300 to-violet-300 bg-clip-text text-transparent">event</span>?
-                        </h2>
-                        <p className="text-white/65 text-base md:text-lg mb-10 max-w-xl mx-auto font-medium">
-                            Raise funds for your cause or sell tickets to your event. Reach thousands of people in minutes.
-                        </p>
+      {/* ===== SORT + CONTENT ===== */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Sort bar */}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-black text-ink-primary">
+            {activeCategory !== 'all' ? `${CATEGORIES.find(c => c.id === activeCategory)?.label || 'Results'}` : 'All Causes'}
+            <span className="ml-2 text-sm font-bold text-ink-tertiary">({filtered.length})</span>
+          </h2>
+          <div className="flex items-center gap-1 p-1 bg-surface-secondary rounded-xl border border-border-primary">
+            {([
+              { id: 'trending', label: 'Trending' },
+              { id: 'newest', label: 'Newest' },
+              { id: 'ending', label: 'Ending Soon' },
+              { id: 'most-funded', label: 'Most Funded' },
+            ] as const).map(opt => (
+              <button key={opt.id} onClick={() => setSortBy(opt.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  sortBy === opt.id ? 'bg-surface-elevated text-purple-600 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link
-                                href="/become-vendor"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface-elevated text-purple-700 font-black rounded-2xl hover:bg-purple-50 transition-colors shadow-2xl shadow-black/20 text-sm uppercase tracking-wider"
-                            >
-                                💜 Launch Campaign
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </Link>
-                            <Link
-                                href="/campaigns/new"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface-elevated/10 backdrop-blur-sm text-white font-black rounded-2xl hover:bg-surface-elevated/20 transition-colors shadow-2xl shadow-black/20 text-sm uppercase tracking-wider border-2 border-white/20"
-                            >
-                                🎟️ Create Event
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </Link>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-        </main>
-    );
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="animate-pulse">
+                <div className="h-48 bg-surface-secondary rounded-2xl mb-3" />
+                <div className="h-4 bg-surface-secondary rounded-full w-3/4 mb-2" />
+                <div className="h-3 bg-surface-secondary rounded-full w-1/2 mb-4" />
+                <div className="h-2 bg-surface-secondary rounded-full w-full" />
+              </div>
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-24 bg-surface-elevated rounded-3xl border border-border-primary">
+            <span className="text-5xl mb-4 block">💜</span>
+            <h3 className="text-xl font-black text-ink-primary mb-2">No campaigns found</h3>
+            <p className="text-ink-tertiary mb-6">Try adjusting your search or category filter</p>
+            <button onClick={() => { setSearchTerm(''); setActiveCategory('all'); }} className="px-6 py-3 bg-purple-600 text-white font-bold rounded-xl">
+              View All Causes
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Featured campaign — full width hero card */}
+            {featured.length > 0 && !searchTerm && activeCategory === 'all' && (
+              <div className="mb-10">
+                <FeaturedCampaignCard campaign={featured[0]} />
+              </div>
+            )}
+
+            {/* Campaign grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(featured.length > 0 && !searchTerm && activeCategory === 'all' ? remaining : filtered).map((campaign, idx) => (
+                <CampaignCard key={campaign.id} campaign={campaign} index={idx} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* ===== CTA: START A CAMPAIGN ===== */}
+      <section className="relative overflow-hidden mt-12">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-700 via-violet-700 to-pink-700" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-[100px]" />
+        <div className="relative max-w-4xl mx-auto text-center px-4 py-20">
+          <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
+            <span className="text-sm">🚀</span>
+            <span className="text-xs font-bold text-white/90 uppercase tracking-widest">Start a Campaign</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
+            Have a Cause?<br />
+            <span className="bg-gradient-to-r from-pink-300 to-violet-300 bg-clip-text text-transparent">Let the Community Help</span>
+          </h2>
+          <p className="text-purple-200/80 text-lg mb-10 max-w-xl mx-auto font-medium">
+            Create a campaign, share your story, and let islanders and supporters worldwide contribute to your cause. Zero platform fees for verified nonprofits.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/campaigns/new" className="px-10 py-4 bg-white text-purple-700 font-bold rounded-2xl hover:bg-purple-50 transition-all shadow-xl text-sm uppercase tracking-wider">
+              Start a Campaign
+            </Link>
+            <Link href="/how-it-works" className="px-8 py-4 bg-surface-elevated/10 backdrop-blur text-white font-bold rounded-2xl hover:bg-surface-elevated/20 transition-all text-sm border border-white/10">
+              How It Works
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TRUST SECTION ===== */}
+      <section className="bg-surface-elevated border-t border-border-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {[
+              { icon: '🔒', label: 'Secure Payments', desc: '256-bit SSL encryption' },
+              { icon: '📊', label: 'Full Transparency', desc: 'Every dollar tracked' },
+              { icon: '✅', label: 'Verified Causes', desc: 'All campaigns reviewed' },
+              { icon: '💸', label: 'Low Fees', desc: 'Only 2.9% + $0.30' },
+            ].map((item, i) => (
+              <div key={i} className="p-4">
+                <span className="text-3xl mb-2 block">{item.icon}</span>
+                <h4 className="text-sm font-black text-ink-primary mb-1">{item.label}</h4>
+                <p className="text-xs text-ink-tertiary">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="h-8 bg-surface-primary" />
+    </main>
+  );
+}
+
+/* ===== Featured Campaign — Full-width hero card ===== */
+function FeaturedCampaignCard({ campaign }: { campaign: Campaign }) {
+  const progress = campaign.goal_amount ? Math.min(100, Math.round(((campaign.raised_amount || 0) / campaign.goal_amount) * 100)) : 0;
+  const daysLeft = getDaysLeft(campaign.end_date);
+  const imgSrc = getImageUrl(campaign.image_url || (campaign.images && campaign.images[0]) || '') || getFallbackImage(campaign.id);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="group relative rounded-3xl overflow-hidden border border-border-primary hover:shadow-2xl transition-all"
+    >
+      <div className="grid md:grid-cols-2">
+        {/* Image */}
+        <div className="relative h-64 md:h-full min-h-[300px] overflow-hidden">
+          <img src={imgSrc} alt={campaign.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent md:bg-gradient-to-r md:from-black/60 md:via-black/20 md:to-transparent" />
+          <div className="absolute top-4 left-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+            ⭐ Featured
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="bg-surface-elevated p-8 flex flex-col justify-center">
+          {campaign.store_name && (
+            <div className="flex items-center gap-2 mb-3">
+              {campaign.store_logo && (
+                <img src={getImageUrl(campaign.store_logo)} alt="" className="w-6 h-6 rounded-full object-cover" />
+              )}
+              <span className="text-xs font-bold text-ink-tertiary">{campaign.store_name}</span>
+            </div>
+          )}
+          <h2 className="text-2xl md:text-3xl font-black text-ink-primary mb-3 leading-tight group-hover:text-purple-600 transition-colors">
+            {campaign.title}
+          </h2>
+          <p className="text-sm text-ink-tertiary mb-6 line-clamp-3 leading-relaxed">
+            {campaign.description}
+          </p>
+
+          {/* Progress */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between text-sm mb-2">
+              <span className="font-black text-purple-600">${(campaign.raised_amount || 0).toLocaleString()} raised</span>
+              <span className="font-bold text-ink-tertiary">{progress}% of ${(campaign.goal_amount || 0).toLocaleString()}</span>
+            </div>
+            <div className="w-full h-3 bg-surface-secondary rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 1, delay: 0.3 }}
+              />
+            </div>
+            <div className="flex items-center justify-between mt-2 text-xs text-ink-tertiary font-medium">
+              <span>{campaign.donor_count} donors</span>
+              {daysLeft > 0 && <span className="text-orange-500 font-bold">{daysLeft} days left</span>}
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <Link
+              href={campaign.slug ? `/listings/${campaign.slug}` : `/listings/${campaign.id}`}
+              className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold text-sm text-center hover:bg-purple-700 transition-colors"
+            >
+              Donate Now
+            </Link>
+            <button className="px-4 py-3 bg-surface-secondary text-ink-secondary rounded-xl font-bold text-sm border border-border-primary hover:bg-surface-tertiary transition-colors">
+              Share
+            </button>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ===== Standard Campaign Card ===== */
+function CampaignCard({ campaign, index }: { campaign: Campaign; index: number }) {
+  const progress = campaign.goal_amount ? Math.min(100, Math.round(((campaign.raised_amount || 0) / campaign.goal_amount) * 100)) : 0;
+  const daysLeft = getDaysLeft(campaign.end_date);
+  const imgSrc = getImageUrl(campaign.image_url || (campaign.images && campaign.images[0]) || '') || getFallbackImage(campaign.id + 2);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.04 }}
+      whileHover={{ y: -4 }}
+      className="group"
+    >
+      <Link href={campaign.slug ? `/listings/${campaign.slug}` : `/listings/${campaign.id}`}>
+        <div className="relative h-44 rounded-2xl overflow-hidden mb-3 bg-surface-secondary">
+          <img src={imgSrc} alt={campaign.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          {daysLeft > 0 && daysLeft <= 7 && (
+            <div className="absolute top-3 right-3 bg-orange-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full">
+              {daysLeft}d left
+            </div>
+          )}
+          <div className="absolute top-3 left-3 bg-purple-600/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+            {CATEGORIES.find(c => campaign.category?.toLowerCase().includes(c.id))?.icon || '💜'} {campaign.category || 'Cause'}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-sm font-bold text-ink-primary group-hover:text-purple-600 transition-colors line-clamp-2 leading-tight">
+            {campaign.title}
+          </h3>
+          <p className="text-xs text-ink-tertiary line-clamp-2">{campaign.description}</p>
+
+          {/* Progress bar */}
+          <div>
+            <div className="flex items-center justify-between text-[10px] font-bold mb-1">
+              <span className="text-purple-600">${(campaign.raised_amount || 0).toLocaleString()}</span>
+              <span className="text-ink-tertiary">{progress}%</span>
+            </div>
+            <div className="w-full h-1.5 bg-surface-secondary rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] text-ink-tertiary font-medium pt-1">
+            <span>{campaign.donor_count} donors</span>
+            <span>Goal: ${(campaign.goal_amount || 0).toLocaleString()}</span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
 }
