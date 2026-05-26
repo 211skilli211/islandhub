@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-const HIDE_NAVBAR_PATHS = ['/admin', '/dashboard', '/community'];
+const HIDE_NAVBAR_PATHS = ['/admin', '/dashboard', '/community', '/listings'];
 
 function shouldHideNavbar(pathname: string | null): boolean {
     if (!pathname) return false;

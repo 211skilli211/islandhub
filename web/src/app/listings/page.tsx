@@ -2,298 +2,279 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import api from '@/lib/api';
-import MarketplaceHero from '@/components/marketplace/MarketplaceHero';
-import CategorySection from '@/components/marketplace/CategorySection';
-import SponsorSection from '@/components/marketplace/SponsorSection';
-import ListingCard from '@/components/ListingCard';
-import ListingFilters from '@/components/ListingFilters';
-import GuestWelcomeModal from '@/components/marketplace/GuestWelcomeModal';
-import FloatingBanner from '@/components/FloatingBanner';
-import BrandMarquee from '@/components/BrandMarquee';
-import AdSpace from '@/components/advertising/AdSpace';
-import { filterConfigs } from '@/lib/filterConfig';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import api, { getImageUrl } from '@/lib/api';
+import MarketplaceTopBar from '@/components/marketplace/MarketplaceTopBar';
+import { MapPin, Plus, User, LogOut, ChevronRight } from 'lucide-react';
+
+const SIDEBAR_CATEGORIES = [
+    { id: 'all', label: 'Browse All', icon: '🏠' },
+    { id: 'vehicles', label: 'Vehicles', icon: '🚗' },
+    { id: 'property', label: 'Property Rentals', icon: '🏡' },
+    { id: 'apparel', label: 'Apparel', icon: '👕' },
+    { id: 'classifieds', label: 'Classifieds', icon: '📋' },
+    { id: 'electronics', label: 'Electronics', icon: '📱' },
+    { id: 'food', label: 'Food & Dining', icon: '🍽️' },
+    { id: 'services', label: 'Services', icon: '🛠️' },
+    { id: 'tours', label: 'Tours', icon: '🗺️' },
+];
+
+const LOCATION = 'Kittitian Village, Saint Peter Basseterre, Saint Kitts And Nevis · Within 40 mi';
 
 export default function MarketplaceDiscoveryPage() {
-    const [filters, setFilters] = useState({
-        type: '',
-        category: '',
-        min_price: '',
-        max_price: ''
-    });
-
-    const getActiveConfig = () => {
-        if (filters.type === 'food') return filterConfigs.food;
-        if (filters.type === 'product' || (filters.category && ['Souvenirs', 'Clothing', 'Art', 'Agro'].some(c => filters.category?.includes(c)))) return filterConfigs.shop;
-        if (filters.type === 'rental' || (filters.category && ['Apartment', 'Car', 'Boat', 'Jet Ski', 'Equipment'].some(c => filters.category?.includes(c)))) return filterConfigs.rent;
-        if (filters.type === 'service' || (filters.category && ['Professional', 'Tour'].some(c => filters.category?.includes(c)))) return filterConfigs.book;
-        return filterConfigs.marketplace;
-    };
-
-    const config = getActiveConfig();
     const [listings, setListings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [activeCategory, setActiveCategory] = useState('all');
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         const fetchListings = async () => {
             setLoading(true);
             try {
-                // Read filters from URL on initial load
-                const params = new URLSearchParams(window.location.search);
-                const urlFilters = {
-                    type: params.get('type') || '',
-                    category: params.get('category') || '',
-                    min_price: params.get('min_price') || '',
-                    max_price: params.get('max_price') || ''
-                };
-                const urlSearch = params.get('search') || '';
-
-                // Update state with URL params
-                setFilters(urlFilters);
-                setSearchQuery(urlSearch);
-
-                // Build search params for API
-                const searchParams = new URLSearchParams();
-                if (urlFilters.type) searchParams.append('type', urlFilters.type);
-                if (urlFilters.category) searchParams.append('category', urlFilters.category);
-                if (urlFilters.min_price) searchParams.append('min_price', urlFilters.min_price);
-                if (urlFilters.max_price) searchParams.append('max_price', urlFilters.max_price);
-                if (urlSearch) searchParams.append('search', urlSearch);
-
-                const res = await api.get(`/listings?${searchParams.toString()}`);
-                setListings(res.data);
+                const res = await api.get('/listings?limit=50');
+                setListings(Array.isArray(res.data) ? res.data : (res.data.listings || res.data || []));
             } catch (error) {
-                console.error("Failed to fetch listings", error);
+                console.error('Failed to fetch listings', error);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchListings();
-    }, []); // Only run on mount
+    }, []);
 
-    // Separate effect for when filters/search change after initial load
-    useEffect(() => {
-        // Skip if this is the initial render (filters are still empty)
-        if (!filters.type && !filters.category && !filters.min_price && !filters.max_price && !searchQuery) {
-            return;
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+    };
+
+    const filteredListings = useMemo(() => {
+        let result = [...listings];
+        if (activeCategory !== 'all') {
+            result = result.filter(l =>
+                l.category?.toLowerCase().includes(activeCategory) ||
+                l.type?.toLowerCase().includes(activeCategory)
+            );
         }
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            result = result.filter(l =>
+                (l.title || '').toLowerCase().includes(q) ||
+                (l.description || '').toLowerCase().includes(q) ||
+                (l.category || '').toLowerCase().includes(q)
+            );
+        }
+        return result;
+    }, [listings, activeCategory, searchQuery]);
 
-        const fetchListings = async () => {
-            setLoading(true);
-            try {
-                const searchParams = new URLSearchParams();
-                if (filters.type) searchParams.append('type', filters.type);
-                if (filters.category) searchParams.append('category', filters.category);
-                if (filters.min_price) searchParams.append('min_price', filters.min_price);
-                if (filters.max_price) searchParams.append('max_price', filters.max_price);
-                if (searchQuery) searchParams.append('search', searchQuery);
+    const getPrice = (listing: any) => {
+        if (!listing.price || listing.price === 0) return 'FREE';
+        return `EC$${Number(listing.price).toLocaleString()}`;
+    };
 
-                const res = await api.get(`/listings?${searchParams.toString()}`);
-                setListings(res.data);
-            } catch (error) {
-                console.error("Failed to fetch listings", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchListings();
-    }, [filters, searchQuery]);
-
-    const isDiscoveryMode = !filters.type && !filters.category && !filters.min_price && !filters.max_price && !searchQuery;
-
-    // Memoize filtered results to avoid recomputation
-    const promotedListings = useMemo(() => listings.filter(l => l.is_promoted), [listings]);
-    const foodListings = useMemo(() => listings.filter(l => l.category?.toLowerCase() === 'food' || l.type?.toLowerCase() === 'food'), [listings]);
-    const productListings = useMemo(() => listings.filter(l => (l.type?.toLowerCase() === 'product' || l.category?.toLowerCase() === 'retail') && l.category?.toLowerCase() !== 'food'), [listings]);
-    const serviceListings = useMemo(() => listings.filter(l => l.type?.toLowerCase() === 'service' || l.category?.toLowerCase() === 'service'), [listings]);
+    const getImage = (listing: any) => {
+        if (listing.images && listing.images.length > 0) return getImageUrl(listing.images[0]);
+        if (listing.image_url) return getImageUrl(listing.image_url);
+        return null;
+    };
 
     return (
-        <div className="min-h-screen bg-white">
-            <GuestWelcomeModal />
+        <div className="min-h-screen bg-surface-primary">
+            {/* Top Bar */}
+            <MarketplaceTopBar
+                onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onSearchSubmit={handleSearchSubmit}
+            />
 
-            <MarketplaceHero onSearch={setSearchQuery} />
+            {/* Mobile sidebar overlay */}
+            {sidebarOpen && (
+                <div className="fixed inset-0 z-40 lg:hidden">
+                    <div className="absolute inset-0 bg-surface-overlay" onClick={() => setSidebarOpen(false)} />
+                    <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-surface-elevated border-r border-border-primary z-50 overflow-y-auto">
+                        <SidebarContent
+                            activeCategory={activeCategory}
+                            onCategoryChange={(cat) => { setActiveCategory(cat); setSidebarOpen(false); }}
+                    onClose={() => setSidebarOpen(false)}
+                />
+            </aside>
+                </div>
+            )}
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <AnimatePresence mode="wait">
-                    {isDiscoveryMode ? (
-                        <motion.div
-                            key="discovery"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            className="space-y-12"
-                        >
-                            <FloatingBanner location="marketplace" />
+            {/* Main layout */}
+            <div className="flex">
+                {/* Desktop sidebar */}
+                <aside className="hidden lg:block w-[280px] shrink-0 bg-surface-elevated border-r border-border-primary sticky top-14 h-[calc(100vh-56px)] overflow-y-auto">
+                    <SidebarContent
+                        activeCategory={activeCategory}
+                        onCategoryChange={setActiveCategory}
+                    />
+                </aside>
 
-                            <BrandMarquee type="product" />
+                {/* Main content */}
+                <div className="flex-1 min-w-0">
+                    <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
+                        {/* Section title */}
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-black text-ink-primary tracking-tight">
+                                {activeCategory === 'all' ? "Today's picks" : SIDEBAR_CATEGORIES.find(c => c.id === activeCategory)?.label || 'Listings'}
+                                <span className="ml-2 text-sm font-bold text-ink-tertiary">({filteredListings.length})</span>
+                            </h2>
+                        </div>
 
-                            <SponsorSection />
-
-                            <CategorySection
-                                id="food"
-                                title="Island Kitchens"
-                                icon="🍴"
-                                listings={foodListings}
-                                loading={loading}
-                                viewAllHref="/stores?category=food"
-                            />
-
-                            {/* Sponsored Strip */}
-                            <section className="bg-gradient-to-rrom-teal-600/5 to-emerald-600/5 rounded-[3rem] p-12 border border-teal-100 overflow-hidden relative">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                                    <div>
-                                        <h3 className="text-3xl font-black text-slate-900 tracking-tight italic mb-2">Merchant Spotlight</h3>
-                                        <p className="text-slate-500 font-medium max-w-md italic">Discover high-quality local businesses and exclusive deals from our verified island partners.</p>
+                        {/* Listings grid — Facebook Marketplace style */}
+                        {loading ? (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+                                    <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden animate-pulse">
+                                        <div className="aspect-square bg-surface-tertiary" />
+                                        <div className="p-3 space-y-2">
+                                            <div className="w-3/4 h-4 bg-surface-tertiary rounded" />
+                                            <div className="w-1/2 h-3 bg-surface-tertiary/50 rounded" />
+                                        </div>
                                     </div>
-                                    <div className="flex gap-4 scrollbar-hide overflow-x-auto pb-4 w-full md:w-auto">
-                                        {promotedListings.slice(0, 2).map(promo => (
-                                            <div key={promo.id} className="min-w-[280px] bg-white p-4 rounded-3xl shadow-xl shadow-teal-900/5 border border-white flex gap-4">
-                                                <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 shrink-0">
-                                                    <img src={promo.images?.[0] || 'https://via.placeholder.com/80'} className="w-full h-full object-cover" />
+                                ))}
+                            </div>
+                        ) : filteredListings.length === 0 ? (
+                            <div className="text-center py-20">
+                                <div className="text-5xl mb-4">🏪</div>
+                                <h3 className="text-lg font-black text-ink-primary mb-2">No listings found</h3>
+                                <p className="text-sm text-ink-tertiary mb-6">Try adjusting your search or browse a different category.</p>
+                                <Link href="/listings/create" className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white rounded-xl text-sm font-bold hover:bg-accent-600 transition-colors">
+                                    <Plus size={16} />
+                                    Create a listing
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                {filteredListings.map((listing, index) => {
+                                    const image = getImage(listing);
+                                    const price = getPrice(listing);
+                                    const isNew = index < 2; // Mark first few as "new"
+                                    return (
+                                        <motion.div
+                                            key={listing.id || index}
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: index * 0.02 }}
+                                        >
+                                            <Link href={`/listings/${listing.id}`}
+                                                className="group block bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:shadow-lg hover:border-accent-200 transition-all">
+                                                {/* Image */}
+                                                <div className="aspect-square bg-surface-secondary relative overflow-hidden">
+                                                    {image ? (
+                                                        <img src={image} alt={listing.title}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-4xl bg-gradient-to-br from-surface-secondary to-surface-tertiary">
+                                                            {listing.type === 'food' ? '🍽️' : listing.type === 'service' ? '🛠️' : listing.type === 'rental' ? '🏠' : '📦'}
+                                                        </div>
+                                                    )}
+                                                    {/* Tags */}
+                                                    {isNew && (
+                                                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-accent-500 text-white text-[9px] font-black uppercase rounded-full">
+                                                            Just listed
+                                                        </span>
+                                                    )}
+                                                    {listing.price === 0 && (
+                                                        <span className="absolute top-2 right-2 px-2 py-0.5 bg-success-500 text-white text-[9px] font-black uppercase rounded-full">
+                                                            FREE
+                                                        </span>
+                                                    )}
                                                 </div>
-                                                <div className="flex flex-col justify-center">
-                                                    <h4 className="font-black text-slate-900 leading-tight mb-1 truncate max-w-[150px]">{promo.title}</h4>
-                                                    <p className="text-[10px] font-black uppercase tracking-widest text-teal-600 mb-2">{promo.type}</p>
-                                                    <Link href={`/listings/${promo.id}`} className="text-[10px] font-black uppercase text-slate-400 hover:text-teal-600 transition-colors">View Offer →</Link>
+                                                {/* Info */}
+                                                <div className="p-3">
+                                                    <div className="text-sm font-bold text-ink-primary truncate mb-0.5">{price}</div>
+                                                    <div className="text-xs text-ink-secondary truncate mb-1">{listing.title || 'Untitled'}</div>
+                                                    <div className="flex items-center gap-1 text-[10px] text-ink-tertiary">
+                                                        <MapPin size={10} className="shrink-0" />
+                                                        <span className="truncate">{listing.location || 'St. Kitts'}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
-                                        {promotedListings.length === 0 && (
-                                            <div className="flex items-center gap-4 bg-white/50 backdrop-blur-sm p-6 rounded-3xl border border-white/50">
-                                                <span className="text-3xl">🌟</span>
-                                                <div>
-                                                    <p className="font-black text-slate-800 text-sm">Your business here?</p>
-                                                    <Link href="/become-vendor" className="text-[10px] font-black uppercase text-teal-600">Upgrade to Pro →</Link>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </section>
-
-                            <CategorySection
-                                id="product"
-                                title="Local Products"
-                                icon="📦"
-                                listings={productListings}
-                                loading={loading}
-                                viewAllHref="/shop"
-                            />
-
-                            <CategorySection
-                                id="service"
-                                title="Local Services"
-                                icon="🛠"
-                                listings={serviceListings}
-                                loading={loading}
-                                viewAllHref="/book"
-                            />
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="results"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            className="flex flex-col lg:flex-row gap-8"
-                        >
-                            <aside className="w-full lg:w-64 shrink-0">
-                                <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm sticky top-24">
-                                    <ListingFilters
-                                        config={config}
-                                        filters={filters}
-                                        setFilters={setFilters}
-                                    />
-                                    <button
-                                        onClick={() => {
-                                            setFilters({ type: '', category: '', min_price: '', max_price: '' });
-                                            setSearchQuery('');
-                                        }}
-                                        className="w-full mt-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-teal-600 border border-transparent hover:border-slate-100 rounded-2xl transition-all"
-                                    >
-                                        ← Back to Discovery
-                                    </button>
-                                </div>
-
-                                {/* Sidebar Advertisements */}
-                                <div className="mt-8">
-                                    <AdSpace spaceName="marketplace_sidebar" className="h-[500px]" />
-                                </div>
-                            </aside>
-
-                            <main className="flex-1">
-                                <div className="flex justify-between items-center mb-10">
-                                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                                        {searchQuery ? `Search results for "${searchQuery}"` : 'All Listings'}
-                                        <span className="ml-3 text-sm font-bold text-slate-400 uppercase tracking-widest">
-                                            ({listings.length})
-                                        </span>
-                                    </h2>
-                                </div>
-
-                                {loading ? (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                                        {[1, 2, 3, 4, 5, 6].map(i => (
-                                            <div key={i} className="h-64 bg-slate-50 animate-pulse rounded-3xl border border-slate-100" />
-                                        ))}
-                                    </div>
-                                ) : listings.length === 0 ? (
-                                    <div className="text-center py-32 bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
-                                        <h3 className="text-xl font-bold text-slate-400 mb-2 italic">Nothing found matching your criteria...</h3>
-                                        <p className="text-slate-400 text-sm font-medium">Try adjusting your search or filters.</p>
-                                    </div>
-                                ) : (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 content-visibility-auto contain-intrinsic-size-auto">
-                                        {listings.map((listing, index) => (
-                                            <motion.div
-                                                key={listing.id}
-                                                initial={{ opacity: 0, scale: 0.95 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ delay: index * 0.05 }}
-                                            >
-                                                <ListingCard listing={listing} />
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                )}
-                            </main>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-
-            <section className="bg-slate-900 py-24 px-8 text-center text-white rounded-[4rem] mx-4 mb-20 shadow-2xl shadow-slate-900/20 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                <div className="relative z-10">
-                    <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">Expand Your Reach</h2>
-                    <p className="text-slate-400 text-xl font-medium mb-10 max-w-2xl mx-auto">
-                        Join our vibrant community of island entrepreneurs. Register as a vendor today!
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            href="/become-vendor"
-                            className="px-12 py-5 bg-teal-600 hover:bg-teal-500 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-900/40 transition-all"
-                        >
-                            Start Selling Today <span>→</span>
-                        </motion.a>
-                        <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            href="/contact"
-                            className="px-12 py-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 rounded-2xl font-black text-lg transition-all"
-                        >
-                            Contact Support
-                        </motion.a>
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    );
+}
+
+function SidebarContent({ activeCategory, onCategoryChange, onClose }: {
+    activeCategory: string;
+    onCategoryChange: (cat: string) => void;
+    onClose?: () => void;
+}) {
+    return (
+        <div className="p-4 space-y-4">
+            {/* Create listing button */}
+            <Link href="/listings/create" onClick={onClose}
+                className="flex items-center justify-center gap-2 w-full py-3 bg-accent-500 text-white rounded-xl text-sm font-bold hover:bg-accent-600 transition-colors">
+                <Plus size={16} />
+                Create new listing
+            </Link>
+
+            {/* Marketplace menu */}
+            <div className="space-y-0.5">
+                <div className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Marketplace</div>
+                {[
+                    { id: 'browse', label: 'Browse all', icon: '🏠' },
+                    { id: 'notifications', label: 'Notifications', icon: '🔔' },
+                    { id: 'inbox', label: 'Inbox', icon: '✉️' },
+                    { id: 'access', label: 'Marketplace access', icon: '🔑' },
+                    { id: 'buying', label: 'Buying', icon: '🛒' },
+                    { id: 'selling', label: 'Selling', icon: '💰' },
+                ].map(item => (
+                    <button key={item.id} onClick={onClose}
+                        className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors text-left">
+                        <span className="text-base">{item.icon}</span>
+                        <span className="text-[13px] font-medium">{item.label}</span>
+                    </button>
+                ))}
+            </div>
+
+            {/* Location */}
+            <div className="pt-3 border-t border-border-primary">
+                <div className="flex items-center gap-2 px-3 mb-2">
+                    <MapPin size={14} className="text-ink-tertiary" />
+                    <span className="text-[11px] text-ink-tertiary font-medium">{LOCATION}</span>
+                </div>
+            </div>
+
+            {/* Categories */}
+            <div className="pt-3 border-t border-border-primary">
+                <div className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Categories</div>
+                <div className="space-y-0.5">
+                    {SIDEBAR_CATEGORIES.filter(c => c.id !== 'all').map(cat => {
+                        const active = activeCategory === cat.id;
+                        return (
+                            <button key={cat.id} onClick={() => onCategoryChange(cat.id)}
+                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-left ${
+                                    active ? 'bg-accent-500/10 text-accent-500' : 'text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary'
+                                }`}>
+                                <span className="text-base">{cat.icon}</span>
+                                <span className="text-[13px] font-medium">{cat.label}</span>
+                                {active && <ChevronRight size={12} className="ml-auto" />}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* Footer */}
+            <div className="pt-3 border-t border-border-primary">
+                <div className="flex flex-wrap gap-x-2 gap-y-1 px-3 text-[10px] text-ink-tertiary">
+                    <Link href="/about" onClick={onClose} className="hover:underline">About</Link>
+                    <span>·</span>
+                    <Link href="/privacy" onClick={onClose} className="hover:underline">Privacy</Link>
+                    <span>·</span>
+                    <Link href="/terms" onClick={onClose} className="hover:underline">Terms</Link>
+                </div>
+            </div>
         </div>
     );
 }
