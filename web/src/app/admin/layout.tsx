@@ -114,16 +114,17 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         animate={{ width: collapsed ? 64 : 260 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={`
-          fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50
-          transition-all duration-300
+          fixed left-0 top-14 bottom-0 bg-[#0c0f14] text-white flex flex-col z-50
+          border-r border-white/[0.06]
+          transition-all duration-300 ease-out
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
       >
         {/* Header */}
-        <div className="h-14 px-3 border-b border-white/[0.06] flex items-center justify-between shrink-0">
+        <div className="h-[52px] px-3 border-b border-white/[0.04] flex items-center justify-between shrink-0">
           <Link href="/admin/overview" className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center shrink-0">
-              <Settings className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+              <Settings size={16} className="text-emerald-400" />
             </div>
             <AnimatePresence mode="wait">
               {!collapsed && (
@@ -147,7 +148,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         {user && (
           <div className={`border-b border-white/[0.06] shrink-0 ${collapsed ? 'p-2' : 'p-3'}`}>
             <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2.5'}`}>
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0 overflow-hidden">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs font-bold shrink-0 overflow-hidden">
                 {user.avatar_url ? (
                   <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
                 ) : (
@@ -191,19 +192,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'
                       } ${
                         active
-                          ? 'bg-teal-600/15 text-teal-400'
-                          : 'text-slate-400 hover:bg-white/[0.04] hover:text-slate-200'
+                          ? 'bg-emerald-500/10 text-emerald-400'
+                          : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'`
                       }`}
                       title={collapsed ? item.label : undefined}
                     >
                       {active && (
                         <motion.div
                           layoutId="admin-sidebar-active"
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-teal-400 rounded-r-full"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-emerald-400 rounded-r-full"
                           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                         />
                       )}
-                      <Icon size={18} className={`shrink-0 ${active ? 'text-teal-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
+                      <Icon size={18} className={`shrink-0 ${active ? 'text-emerald-400' : 'text-white/30 group-hover:text-white/60'}`} />
                       {!collapsed && <span className="font-medium text-[13px] truncate">{item.label}</span>}
                     </Link>
                     {hasChildren && !collapsed && (

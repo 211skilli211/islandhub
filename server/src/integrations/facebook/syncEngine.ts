@@ -1,4 +1,4 @@
-import { sql } from '../db';
+import { sql } from '../config/db';
 
 const FB_GRAPH_API = 'https://graph.facebook.com/v20.0';
 

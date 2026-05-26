@@ -58,7 +58,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
       collapsed={collapsed}
       setCollapsed={setCollapsed}
       pathname={typeof window !== 'undefined' ? window.location.pathname : '/settings'}
-      mainClassName="md:ml-16 xl:ml-60"
+      mainClassName="md:ml-16 xl:ml-[248px]"
     >
       {children}
     </Sidebar>

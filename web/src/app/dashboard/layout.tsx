@@ -140,7 +140,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
       collapsed={collapsed}
       setCollapsed={setCollapsed}
       pathname={pathname}
-      mainClassName="md:ml-16 xl:ml-60"
+      mainClassName="md:ml-16 xl:ml-[248px]"
     >
       {children}
     </Sidebar>

@@ -39,7 +39,7 @@ export default function MessagesLayout({ children }: { children: ReactNode }) {
       collapsed={collapsed}
       setCollapsed={setCollapsed}
       pathname={typeof window !== 'undefined' ? window.location.pathname : '/dashboard/messages'}
-      mainClassName="lg:ml-16 xl:ml-60"
+      mainClassName="lg:ml-16 xl:ml-[248px]"
     >
       {children}
     </Sidebar>
