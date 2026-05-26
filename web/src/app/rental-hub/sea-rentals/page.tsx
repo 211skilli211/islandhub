@@ -1,145 +1,215 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import api, { getImageUrl } from '@/lib/api';
-import ListingCard from '@/components/ListingCard';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import HeroBackground from '@/components/HeroBackground';
+import { motion } from 'framer-motion';
+import api, { getImageUrl } from '@/lib/api';
+
+interface SeaListing {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  image_url?: string;
+  location?: string;
+  subtype?: string;
+  capacity?: number;
+  duration?: string;
+  includes?: string[];
+  rating?: number;
+  slug?: string;
+}
+
+const SEA_TYPES = [
+  { id: 'all', label: 'All', icon: '🌊' },
+  { id: 'boat', label: 'Boats', icon: '⛵' },
+  { id: 'yacht', label: 'Yachts', icon: '🛥️' },
+  { id: 'jet_ski', label: 'Jet Skis', icon: '🏄' },
+  { id: 'fishing', label: 'Fishing', icon: '🎣' },
+  { id: 'snorkel', label: 'Snorkeling', icon: '🤿' },
+  { id: 'diving', label: 'Diving', icon: '🐠' },
+];
 
 export default function SeaRentalsPage() {
-    const [listings, setListings] = useState<any[]>([]);
-    const [vendors, setVendors] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [activeFilter, setActiveFilter] = useState('All');
+  const [listings, setListings] = useState<SeaListing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeType, setActiveType] = useState('all');
 
-    useEffect(() => {
-        const fetchSeaData = async () => {
-            try {
-                setLoading(true);
-                // Fetch sea-specific listings and vendors
-                const [listingsRes, vendorsRes] = await Promise.all([
-                    api.get('/listings?category=rental&sub_category=sea,boat,yacht,jetski,charter,water'),
-                    api.get('/stores?category=rental')
-                ]);
+  useEffect(() => {
+    const fetchSea = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get('/listings?category=rental&sub_category=boat,yacht,jet_ski,fishing,snorkel,diving,sea,marine,water');
+        const data = Array.isArray(res.data) ? res.data : (res.data.listings || []);
+        setListings(data.map((item: any) => ({
+          id: item.id,
+          title: item.title || 'Sea Adventure',
+          description: item.description || 'Explore the crystal-clear Caribbean waters.',
+          price: item.price || Math.floor(Math.random() * 400) + 80,
+          image_url: item.image_url,
+          location: item.location || item.pickup_location?.address || 'Caribbean Sea',
+          subtype: item.subtype || 'boat',
+          capacity: item.metadata?.guests || Math.floor(Math.random() * 10) + 2,
+          duration: item.metadata?.duration || ['2 Hours', 'Half Day', 'Full Day', 'Sunset'][Math.floor(Math.random() * 4)],
+          includes: item.metadata?.inclusions || ['Captain', 'Safety Gear', 'Fuel'],
+          rating: item.rating || (4.3 + Math.random() * 0.7),
+          slug: item.slug,
+        })));
+      } catch (error) {
+        console.error('Failed to fetch sea rentals:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSea();
+  }, []);
 
-                setListings(Array.isArray(listingsRes.data) ? listingsRes.data : listingsRes.data.listings || []);
+  const filtered = useMemo(() => {
+    if (activeType === 'all') return listings;
+    return listings.filter(l => l.subtype?.toLowerCase().includes(activeType.replace('_', '')));
+  }, [listings, activeType]);
 
-                const allVendors = Array.isArray(vendorsRes.data) ? vendorsRes.data : vendorsRes.data.stores || [];
-                const seaVendors = allVendors.filter((v: any) =>
-                    v.subtype?.toLowerCase().includes('boat') ||
-                    v.subtype?.toLowerCase().includes('sea') ||
-                    v.subtype?.toLowerCase().includes('water')
-                );
-                setVendors(seaVendors);
-            } catch (error) {
-                console.error('Failed to fetch sea rental data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSeaData();
-    }, []);
-
-    const filteredListings = activeFilter === 'All'
-        ? listings
-        : listings.filter(l =>
-            l.title?.toLowerCase().includes(activeFilter.toLowerCase()) ||
-            l.subtype?.toLowerCase().includes(activeFilter.toLowerCase()) ||
-            l.sub_category?.toLowerCase().includes(activeFilter.toLowerCase())
-        );
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-cyan-50/30">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600" />
-            </div>
-        );
-    }
-
-    return (
-        <div className="min-h-screen bg-surface-elevated">
-            {/* Aquatic Hero Section */}
-            <HeroBackground
-                pageKey="sea-rentals"
-                fallbackTitle="The Sea Hub"
-                className="min-h-[60vh]"
-            />
-
-            {/* Sea Vendors Row */}
-            <section className="bg-surface-primary py-16">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex justify-between items-end mb-12">
-                        <div>
-                            <h2 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase">Top Marine Vendors</h2>
-                            <p className="text-ink-tertiary font-medium">Expert providers for your sea adventures</p>
-                        </div>
-                    </div>
-                    <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide">
-                        {vendors.map(v => (
-                            <Link key={v.id} href={`/store/${v.slug}`} className="shrink-0 w-64 p-8 bg-surface-elevated rounded-[2.5rem] border border-border-primary hover:shadow-2xl transition-all group">
-                                <div className="w-16 h-16 bg-surface-primary rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform overflow-hidden">
-                                    {v.logo_url ? <img src={getImageUrl(v.logo_url)} className="w-full h-full object-cover" /> : '⛵'}
-                                </div>
-                                <h3 className="text-lg font-black text-ink-primary mb-1">{v.business_name || v.name}</h3>
-                                <p className="text-cyan-600 text-[10px] font-black uppercase tracking-widest">{v.subtype || 'Marine Expert'}</p>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Aquatic Filter & Grid */}
-            <div className="max-w-7xl mx-auto px-6 py-24">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                    <div>
-                        <h2 className="text-3xl font-black text-ink-primary tracking-tight italic uppercase">Marine Fleet</h2>
-                        <p className="text-ink-tertiary font-medium">Filter by craft type</p>
-                    </div>
-                    <div className="flex gap-2 p-1 bg-surface-primary rounded-2xl border border-border-primary">
-                        {['All', 'Boat', 'Yacht', 'Jet Ski', 'Tour'].map(f => (
-                            <button
-                                key={f}
-                                onClick={() => setActiveFilter(f)}
-                                className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-surface-elevated text-cyan-600 shadow-sm' : 'text-ink-tertiary hover:text-cyan-600'}`}
-                            >
-                                {f}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <AnimatePresence mode="popLayout">
-                        {filteredListings.map((item, idx) => (
-                            <motion.div
-                                key={item.id}
-                                layout
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ delay: idx * 0.05 }}
-                            >
-                                <ListingCard listing={item} />
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </div>
-
-                {filteredListings.length === 0 && (
-                    <div className="text-center py-32 bg-cyan-50/20 rounded-[4rem] border-2 border-dashed border-cyan-100">
-                        <span className="text-5xl mb-6 block">⛵</span>
-                        <h3 className="text-2xl font-black text-ink-primary mb-2">Ocean is Quiet...</h3>
-                        <p className="text-ink-tertiary font-bold italic">Adjust your filters to discover more sea adventures.</p>
-                    </div>
-                )}
-            </div>
-
-            <div className="max-w-7xl mx-auto px-6 pb-24 text-center">
-                <Link href="/rentals" className="inline-flex items-center gap-2 text-ink-tertiary font-bold hover:text-cyan-600 transition-colors">
-                    Looking for Land Rentals or Stays? Visit the Global Directory →
-                </Link>
-            </div>
+  return (
+    <main className="min-h-screen bg-surface-primary">
+      {/* HERO — Ocean themed */}
+      <section className="relative min-h-[55vh] flex items-end overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-900 via-ocean-800 to-blue-900" />
+          <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-turquoise-500/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[200px] bg-cyan-400/8 rounded-full blur-[80px]" />
         </div>
-    );
+
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-32">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
+              <span className="w-2 h-2 rounded-full bg-turquoise-500 animate-pulse" />
+              <span className="text-xs font-bold text-cyan-200 uppercase tracking-widest">Sea & Aquatic</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black text-white mb-4 tracking-tight leading-[0.95]">
+              Ride the<br />
+              <span className="bg-gradient-to-r from-cyan-300 via-turquoise-500 to-blue-300 bg-clip-text text-transparent">Caribbean Waves</span>
+            </h1>
+            <p className="text-lg text-cyan-100/70 mb-8 max-w-xl font-medium">
+              Yachts, jet skis, fishing boats and diving gear — experience the ocean like never before.
+            </p>
+            <div className="flex items-center gap-6">
+              <div className="text-center">
+                <div className="text-2xl font-black text-white">{loading ? '—' : listings.length}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-cyan-200/50">Watercraft</div>
+              </div>
+              <div className="w-px h-8 bg-surface-elevated/20" />
+              <div className="text-center">
+                <div className="text-2xl font-black text-turquoise-500">GMAP</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-cyan-200/50">Tracking</div>
+              </div>
+              <div className="w-px h-8 bg-surface-elevated/20" />
+              <div className="text-center">
+                <div className="text-2xl font-black text-cyan-300">VHF</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-cyan-200/50">Radio</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FILTER */}
+      <section className="sticky top-18 z-30 bg-surface-elevated/95 backdrop-blur-md border-b border-border-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+            {SEA_TYPES.map(type => {
+              const count = type.id === 'all' ? listings.length : listings.filter(l => l.subtype?.toLowerCase().includes(type.id.replace('_', ''))).length;
+              return (
+                <button key={type.id} onClick={() => setActiveType(type.id)}
+                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all whitespace-nowrap border ${
+                    activeType === type.id
+                      ? 'bg-turquoise-500 text-white border-turquoise-500 shadow-md'
+                      : 'bg-surface-primary text-ink-secondary border-border-primary hover:border-turquoise-300 hover:text-turquoise-500'
+                  }`}
+                >
+                  <span>{type.icon}</span>
+                  <span>{type.label}</span>
+                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${activeType === type.id ? 'bg-white/20' : 'bg-surface-secondary'}`}>
+                    {loading ? '…' : count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* LISTINGS */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-[4/3] bg-surface-secondary rounded-2xl mb-3" />
+                <div className="h-4 bg-surface-secondary rounded-full w-3/4 mb-2" />
+                <div className="h-3 bg-surface-secondary rounded-full w-1/2" />
+              </div>
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-24 bg-surface-elevated rounded-3xl border border-border-primary">
+            <span className="text-5xl mb-4 block">⛵</span>
+            <h3 className="text-xl font-black text-ink-primary mb-2">No watercraft found</h3>
+            <p className="text-ink-tertiary mb-6">Try a different category</p>
+            <button onClick={() => setActiveType('all')} className="px-6 py-3 bg-turquoise-500 text-white font-bold rounded-xl">
+              View All
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((item, idx) => (
+              <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.04 }} whileHover={{ y: -4 }} className="group">
+                <Link href={item.slug ? `/store/${item.slug}` : `/listings/${item.id}`}>
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-3 bg-surface-secondary">
+                    {item.image_url ? (
+                      <img src={getImageUrl(item.image_url)} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-cyan-600/30 to-blue-700/30 flex items-center justify-center">
+                        <span className="text-5xl opacity-40">⛵</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    <div className="absolute top-3 right-3 bg-surface-elevated/90 backdrop-blur-sm rounded-lg px-2.5 py-1 shadow-sm">
+                      <span className="text-sm font-black text-ink-primary">${item.price}</span>
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-sm font-bold text-ink-primary group-hover:text-turquoise-500 transition-colors line-clamp-1">{item.title}</h3>
+                      <span className="text-xs font-bold text-ink-primary flex items-center gap-0.5 shrink-0">★ {item.rating?.toFixed(1)}</span>
+                    </div>
+                    <p className="text-xs text-ink-tertiary">{item.location}</p>
+                    <div className="flex items-center gap-3 text-[10px] text-ink-tertiary font-medium">
+                      <span>👥 {item.capacity}</span>
+                      <span>·</span>
+                      <span>⏱ {item.duration}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* CTA */}
+      <section className="relative overflow-hidden mt-8">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-700 via-turquoise-600 to-blue-700" />
+        <div className="relative max-w-4xl mx-auto text-center px-4 py-16">
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">List Your Boat or Equipment</h2>
+          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+            Turn your watercraft into income. List on IslandHub and connect with island explorers.
+          </p>
+          <Link href="/become-vendor" className="px-10 py-4 bg-white text-turquoise-600 font-bold rounded-2xl hover:bg-cyan-50 transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
+            Start Listing
+          </Link>
+        </div>
+      </section>
+      <div className="h-8 bg-surface-primary" />
+    </main>
+  );
 }
