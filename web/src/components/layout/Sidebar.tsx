@@ -78,21 +78,15 @@ export default function Sidebar({
   const mobileOpen = externalMobileOpen !== undefined ? externalMobileOpen : internalMobileOpen;
   const setMobileOpen = externalSetMobileOpen || setInternalMobileOpen;
 
-  // Restore persisted state
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(storageKey);
-      if (saved === 'closed' || saved === 'rail' || saved === 'expanded') {
-        setState(saved);
-      }
+      if (saved === 'closed' || saved === 'rail' || saved === 'expanded') setState(saved);
     }
   }, [storageKey]);
 
-  // Persist state
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(storageKey, state);
-    }
+    if (typeof window !== 'undefined') localStorage.setItem(storageKey, state);
   }, [state, storageKey]);
 
   useEffect(() => { setMobileOpen(false); }, [pathname, setMobileOpen]);
@@ -110,44 +104,43 @@ export default function Sidebar({
     if (state === 'closed') setState('rail');
   }, [state]);
 
-  const closeSidebar = useCallback(() => {
-    setState('closed');
-  }, []);
-
   const isRail = state === 'rail';
   const isExpanded = state === 'expanded';
   const isClosed = state === 'closed';
   const showSidebar = isRail || isExpanded;
 
-  // Main content margin: only when rail (thin strip), not when expanded (overlay)
-  // When closed: no margin needed since edge strip is only 12px
+  // Only add left margin in rail mode — expanded overlays, closed hides completely
   const mainMarginLeft = isRail ? RAIL_WIDTH : 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-surface-primary">
 
-      {/* ═══ EDGE TAB: thin strip when closed ═══ */}
+      {/* ════════════════════════════════════════════════════════════════════
+          EDGE TAB — visible when sidebar is fully closed
+          Thin strip along left edge, click to open rail
+          ════════════════════════════════════════════════════════════════════ */}
       {isClosed && (
         <button
           onClick={openRail}
-          className="fixed left-0 top-0 bottom-0 z-[60] w-3 bg-slate-900/80 hover:bg-slate-800 transition-colors cursor-pointer group"
+          className="fixed left-0 top-0 bottom-0 z-[60] w-2.5 bg-brand-950/70 hover:bg-brand-900 transition-colors cursor-pointer group border-r border-brand-800/30"
           aria-label="Open sidebar"
         >
-          <div className="absolute top-1/2 -translate-y-1/2 left-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-            <ChevronRight size={10} className="text-white/50" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 opacity-0 group-hover:opacity-80 transition-opacity">
+            <ChevronRight size={9} className="text-brand-400" />
           </div>
         </button>
       )}
 
-      {/* ═══ SIDEBAR TOGGLE: inside the sidebar, top-left corner ═══ */}
+      {/* ════════════════════════════════════════════════════════════════════
+          TOGGLE BUTTON — pinned at top of sidebar
+          ════════════════════════════════════════════════════════════════════ */}
       {showSidebar && (
         <button
           onClick={toggleExpand}
-          className="fixed z-[70] p-2 rounded-lg bg-[#0c0f14]/95 hover:bg-slate-800 text-white/60 hover:text-white transition-all shadow-lg backdrop-blur-sm border border-white/[0.08]"
+          className="fixed z-[70] p-1.5 rounded-md bg-brand-950/90 hover:bg-brand-900 text-ink-tertiary hover:text-ink-primary transition-all border border-brand-800/20"
           style={{
-            top: '12px',
-            left: isRail ? `${RAIL_WIDTH - 2}px` : `${EXPANDED_WIDTH - 36}px`,
-            transform: isRail ? 'translateX(-50%)' : 'none',
+            top: '10px',
+            left: isRail ? `${RAIL_WIDTH + 2}px` : `${EXPANDED_WIDTH - 32}px`,
           }}
           aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         >
@@ -155,8 +148,11 @@ export default function Sidebar({
         </button>
       )}
 
-      {/* ═══ DESKTOP SIDEBAR PANEL ═══ */}
-      {/* Starts at top-0, sits IN FRONT of navbar (z-[60] > navbar z-50) */}
+      {/* ════════════════════════════════════════════════════════════════════
+          DESKTOP SIDEBAR PANEL
+          Starts at top-0, overlays navbar when expanded (z-[60] > navbar z-50)
+          Uses DS volcanic-dark surface with brand/accent colors
+          ════════════════════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {showSidebar && (
           <motion.aside
@@ -164,40 +160,40 @@ export default function Sidebar({
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -EXPANDED_WIDTH, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-            className="fixed left-0 top-0 bottom-0 z-[60] flex flex-col bg-[#0c0f14] border-r border-white/[0.06]"
+            className="fixed left-0 top-0 bottom-0 z-[60] flex flex-col bg-surface-elevated border-r border-border-primary"
             style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            {/* Header */}
-            <div className={`shrink-0 flex items-center border-b border-white/[0.06] ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
+            {/* ── Header ── */}
+            <div className={`shrink-0 flex items-center border-b border-border-primary ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
               {!isRail && (
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
-                    <TitleIcon size={15} className="text-emerald-400" />
+                  <div className="w-7 h-7 rounded-lg bg-brand-500/10 border border-brand-500/15 flex items-center justify-center shrink-0">
+                    <TitleIcon size={15} className="text-brand-400" />
                   </div>
-                  <span className="font-semibold text-[13px] text-white/90 truncate">{title}</span>
+                  <span className="font-semibold text-[13px] text-ink-primary truncate">{title}</span>
                 </div>
               )}
               {isRail && (
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
-                  <TitleIcon size={15} className="text-emerald-400" />
+                <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/15 flex items-center justify-center">
+                  <TitleIcon size={15} className="text-brand-400" />
                 </div>
               )}
             </div>
 
-            {/* Back link */}
-            <div className={`shrink-0 border-b border-white/[0.06] ${isRail ? 'py-2' : 'py-2 px-3'}`}>
+            {/* ── Back link ── */}
+            <div className={`shrink-0 border-b border-border-primary ${isRail ? 'py-2' : 'py-2 px-3'}`}>
               <Link
                 href={backHref}
-                className={`flex items-center text-[11px] text-white/30 hover:text-white/60 transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`}
-                title={backLabel}
+                className={`flex items-center text-[11px] text-ink-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`}
+                title={isRail ? backLabel : undefined}
               >
                 <ChevronLeft size={12} />
                 {!isRail && <span className="truncate">{backLabel}</span>}
               </Link>
             </div>
 
-            {/* Nav items */}
+            {/* ── Nav items ── */}
             <nav className="flex-1 overflow-y-auto py-2 space-y-0.5">
               {items.map((item) => {
                 const Icon = item.icon;
@@ -217,20 +213,20 @@ export default function Sidebar({
                         flex items-center rounded-lg transition-all duration-150 relative group
                         ${isRail ? 'justify-center px-0 py-2.5' : 'gap-2.5 px-3 py-2.5'}
                         ${active
-                          ? 'bg-emerald-500/10 text-emerald-400'
-                          : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
+                          ? 'bg-accent-500/10 text-accent-500'
+                          : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'
                         }
                       `}
                       title={isRail ? item.label : undefined}
                     >
                       {active && (
                         <motion.div
-                          layoutId="sidebar-active-indicator"
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-emerald-400 rounded-r-full"
+                          layoutId="sidebar-active"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-accent-400 rounded-r-full"
                           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                         />
                       )}
-                      <Icon size={isRail ? 20 : 17} className="shrink-0" />
+                      <Icon size={isRail ? 20 : 16} className="shrink-0" />
                       {!isRail && (
                         <span className="font-medium text-[13px] truncate">{item.label}</span>
                       )}
@@ -238,9 +234,9 @@ export default function Sidebar({
 
                     {/* Rail tooltip */}
                     {isRail && isHovered && (
-                      <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 bg-slate-800 text-white text-[12px] font-medium rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none">
+                      <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 bg-surface-elevated text-ink-primary text-[12px] font-medium rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none border border-border-primary">
                         {item.label}
-                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-800" />
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-surface-elevated" />
                       </div>
                     )}
                   </div>
@@ -248,32 +244,32 @@ export default function Sidebar({
               })}
             </nav>
 
-            {/* Footer: Profile + Logout */}
-            <div className={`shrink-0 border-t border-white/[0.06] ${isRail ? 'p-2' : 'p-3'}`}>
+            {/* ── Footer: Profile + Logout ── */}
+            <div className={`shrink-0 border-t border-border-primary ${isRail ? 'p-2' : 'p-3'}`}>
               {user && (
                 <Link
                   href="/profile"
-                  className={`flex items-center rounded-lg transition-colors mb-1.5 ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2'} text-white/50 hover:bg-white/[0.04] hover:text-white/80`}
+                  className={`flex items-center rounded-lg transition-colors mb-1 ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2'} text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary`}
                   title={isRail ? user.name : undefined}
                 >
-                  <div className="w-7 h-7 rounded-full bg-emerald-500/15 flex items-center justify-center shrink-0 overflow-hidden">
+                  <div className="w-7 h-7 rounded-full bg-brand-500/10 border border-brand-500/15 flex items-center justify-center shrink-0 overflow-hidden">
                     {user.avatar_url ? (
                       <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
                     ) : (
-                      <User size={14} className="text-emerald-400" />
+                      <User size={13} className="text-brand-400" />
                     )}
                   </div>
                   {!isRail && (
                     <div className="min-w-0 flex-1">
-                      <div className="text-[12px] font-semibold text-white/80 truncate">{user.name}</div>
-                      {user.role && <div className="text-[10px] text-white/30 truncate">{user.role}</div>}
+                      <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
+                      {user.role && <div className="text-[10px] text-ink-tertiary truncate">{user.role}</div>}
                     </div>
                   )}
                 </Link>
               )}
               <button
                 onClick={onLogout}
-                className={`flex items-center rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
+                className={`flex items-center rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
                 title={isRail ? 'Log out' : undefined}
               >
                 <LogOut size={isRail ? 18 : 15} className="shrink-0" />
@@ -284,7 +280,9 @@ export default function Sidebar({
         )}
       </AnimatePresence>
 
-      {/* ═══ MOBILE OVERLAY ═══ */}
+      {/* ════════════════════════════════════════════════════════════════════
+          MOBILE OVERLAY DRAWER
+          ════════════════════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -292,7 +290,7 @@ export default function Sidebar({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[55] bg-surface-overlay backdrop-blur-sm lg:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.aside
@@ -300,49 +298,45 @@ export default function Sidebar({
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-              className="fixed left-0 top-0 bottom-0 z-[65] w-[280px] bg-[#0c0f14] text-white flex flex-col lg:hidden overflow-y-auto"
+              className="fixed left-0 top-0 bottom-0 z-[65] w-[280px] bg-surface-elevated text-ink-primary flex flex-col lg:hidden overflow-y-auto border-r border-border-primary"
             >
               {/* Mobile header */}
-              <div className="flex items-center justify-between px-4 py-4 border-b border-white/[0.06] shrink-0">
+              <div className="flex items-center justify-between px-4 py-4 border-b border-border-primary shrink-0">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
-                    <TitleIcon size={15} className="text-emerald-400" />
+                  <div className="w-7 h-7 rounded-lg bg-brand-500/10 border border-brand-500/15 flex items-center justify-center">
+                    <TitleIcon size={15} className="text-brand-400" />
                   </div>
-                  <span className="font-semibold text-[13px] text-white/90">{title}</span>
+                  <span className="font-semibold text-[13px] text-ink-primary">{title}</span>
                 </div>
-                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50">
+                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-surface-tertiary text-ink-tertiary">
                   <ChevronLeft size={16} />
                 </button>
               </div>
 
-              {/* Profile */}
+              {/* Mobile profile */}
               {user && (
                 <Link
                   href="/profile"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2.5 px-4 py-3 border-b border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/80"
+                  className="flex items-center gap-2.5 px-4 py-3 border-b border-border-primary text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary"
                 >
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/15 flex items-center justify-center shrink-0 overflow-hidden">
+                  <div className="w-8 h-8 rounded-full bg-brand-500/10 border border-brand-500/15 flex items-center justify-center shrink-0 overflow-hidden">
                     {user.avatar_url ? (
                       <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
                     ) : (
-                      <User size={14} className="text-emerald-400" />
+                      <User size={14} className="text-brand-400" />
                     )}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[12px] font-semibold text-white/80 truncate">{user.name}</div>
-                    {user.role && <div className="text-[10px] text-white/30 truncate">{user.role}</div>}
+                    <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
+                    {user.role && <div className="text-[10px] text-ink-tertiary truncate">{user.role}</div>}
                   </div>
                 </Link>
               )}
 
-              {/* Mobile back link */}
-              <div className="px-4 py-2 border-b border-white/[0.06]">
-                <Link
-                  href={backHref}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-1.5 text-[11px] text-white/30 hover:text-white/60"
-                >
+              {/* Mobile back */}
+              <div className="px-4 py-2 border-b border-border-primary">
+                <Link href={backHref} onClick={() => setMobileOpen(false)} className="flex items-center gap-1.5 text-[11px] text-ink-tertiary hover:text-ink-secondary">
                   <ChevronLeft size={12} />
                   {backLabel}
                 </Link>
@@ -360,11 +354,11 @@ export default function Sidebar({
                       onClick={() => setMobileOpen(false)}
                       className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all ${
                         active
-                          ? 'bg-emerald-500/10 text-emerald-400'
-                          : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
+                          ? 'bg-accent-500/10 text-accent-500'
+                          : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'
                       }`}
                     >
-                      <Icon size={17} className="shrink-0" />
+                      <Icon size={16} className="shrink-0" />
                       <span className="font-medium text-[13px] truncate">{item.label}</span>
                     </Link>
                   );
@@ -372,18 +366,18 @@ export default function Sidebar({
               </nav>
 
               {/* Mobile footer */}
-              <div className="shrink-0 border-t border-white/[0.06] p-3 space-y-1">
+              <div className="shrink-0 border-t border-border-primary p-3 space-y-1">
                 <Link
                   href="/profile"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/50 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary transition-colors"
                 >
                   <User size={15} className="shrink-0" />
                   <span className="text-[12px] font-medium">Profile</span>
                 </Link>
                 <button
                   onClick={() => { onLogout(); setMobileOpen(false); }}
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors w-full"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors w-full"
                 >
                   <LogOut size={15} className="shrink-0" />
                   <span className="text-[12px] font-medium">Log out</span>
@@ -394,22 +388,24 @@ export default function Sidebar({
         )}
       </AnimatePresence>
 
-      {/* ═══ MAIN CONTENT ═══ */}
-      {/* No margin when expanded (sidebar overlays), small margin when rail */}
+      {/* ════════════════════════════════════════════════════════════════════
+          MAIN CONTENT
+          Only offset in rail mode — expanded overlays, closed hides
+          ════════════════════════════════════════════════════════════════════ */}
       <main
         className="transition-all duration-300 ease-out"
         style={{ marginLeft: mainMarginLeft }}
       >
-        {/* Mobile hamburger */}
-        <div className="lg:hidden sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-3">
+        {/* Mobile hamburger trigger */}
+        <div className="lg:hidden sticky top-0 z-30 bg-surface-primary/80 backdrop-blur-lg border-b border-border-primary px-4 py-3 flex items-center gap-3">
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors"
             aria-label="Open menu"
           >
             <Menu size={20} />
           </button>
-          <span className="font-semibold text-sm text-slate-900 dark:text-white">{title}</span>
+          <span className="font-semibold text-sm text-ink-primary">{title}</span>
         </div>
 
         <div className="p-4 md:p-6 lg:p-8">
