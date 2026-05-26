@@ -72,9 +72,10 @@ export default function SeaRentalsPage() {
 
     const SILOS = [
         { id: 'stays', title: 'Stays & Homes', icon: '🏠', href: '/rental-hub/stays' },
-        { id: 'land', title: 'Land Rentals', icon: '🚗', href: '/rental-hub/land-rentals' },
+        { id: 'vehicles', title: 'Vehicles', icon: '🚗', href: '/rental-hub/vehicles' },
         { id: 'sea', title: 'Sea & Aquatic', icon: '⛵', href: '/rental-hub/sea-rentals' },
         { id: 'equipment', title: 'Equipment & Tools', icon: '🛠️', href: '/rental-hub/equipment-tools' },
+        { id: 'property', title: 'Land & Property', icon: '🏘️', href: '/rental-hub/property' },
     ];
     
     

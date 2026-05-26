@@ -32,7 +32,7 @@ const VEHICLE_TYPES = [
   { id: 'scooter', label: 'Scooters', icon: '🛵' },
 ];
 
-export default function LandRentalsPage() {
+export default function VehiclesPage() {
   const [listings, setListings] = useState<VehicleListing[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeType, setActiveType] = useState('all');
@@ -74,16 +74,17 @@ export default function LandRentalsPage() {
 
     const SILOS = [
         { id: 'stays', title: 'Stays & Homes', icon: '🏠', href: '/rental-hub/stays' },
-        { id: 'land', title: 'Land Rentals', icon: '🚗', href: '/rental-hub/land-rentals' },
+        { id: 'vehicles', title: 'Vehicles', icon: '🚗', href: '/rental-hub/vehicles' },
         { id: 'sea', title: 'Sea & Aquatic', icon: '⛵', href: '/rental-hub/sea-rentals' },
         { id: 'equipment', title: 'Equipment & Tools', icon: '🛠️', href: '/rental-hub/equipment-tools' },
+        { id: 'property', title: 'Land & Property', icon: '🏘️', href: '/rental-hub/property' },
     ];
     
     
 
       return (
     <main className="min-h-screen bg-surface-primary">
-      <SiloSubNav current="land" silos={SILOS} />
+      <SiloSubNav current="vehicles" silos={SILOS} />
 
       {/* HERO */}
       <section className="relative min-h-[55vh] flex items-end overflow-hidden">
@@ -101,7 +102,7 @@ export default function LandRentalsPage() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 rounded-full bg-sunset-500 animate-pulse" />
-              <span className="text-xs font-bold text-sand-100 uppercase tracking-widest">Land Rentals</span>
+              <span className="text-xs font-bold text-sand-100 uppercase tracking-widest">Vehicle Rentals</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white mb-4 tracking-tight leading-[0.95]">
               Explore the<br />

@@ -13,16 +13,14 @@ export default function RentalHubPage() {
             description: 'Luxury villas, apartments, studios & Airbnb',
             link: '/rental-hub/stays',
             gradient: 'from-ocean-500 to-brand-700',
-            iconBg: 'bg-ocean-500/10',
         },
         {
-            id: 'land',
-            title: 'Land Rentals',
+            id: 'vehicles',
+            title: 'Vehicles',
             icon: '🚗',
             description: 'Cars, jeeps, ATVs & island bikes',
-            link: '/rental-hub/land-rentals',
+            link: '/rental-hub/vehicles',
             gradient: 'from-sunset-500 to-sunset-700',
-            iconBg: 'bg-sunset-500/10',
         },
         {
             id: 'sea',
@@ -31,7 +29,6 @@ export default function RentalHubPage() {
             description: 'Boats, jet skis, yachts & marine gear',
             link: '/rental-hub/sea-rentals',
             gradient: 'from-turquoise-400 to-ocean-600',
-            iconBg: 'bg-turquoise-400/10',
         },
         {
             id: 'equipment',
@@ -40,7 +37,14 @@ export default function RentalHubPage() {
             description: 'Event gear, power tools & marine equipment',
             link: '/rental-hub/equipment-tools',
             gradient: 'from-slate-500 to-surface-tertiary',
-            iconBg: 'bg-slate-500/10',
+        },
+        {
+            id: 'property',
+            title: 'Land & Property',
+            icon: '🏘️',
+            description: 'Land plots, commercial real estate & warehouses',
+            link: '/rental-hub/property',
+            gradient: 'from-brand-600 to-brand-800',
         },
     ];
 
@@ -103,7 +107,7 @@ export default function RentalHubPage() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-20">
                     {silos.map((cat, idx) => (
                         <motion.div
                             key={cat.id}
@@ -138,12 +142,13 @@ export default function RentalHubPage() {
                 {/* Quick Comparison */}
                 <div className="bg-surface-elevated rounded-[2.5rem] p-8 md:p-12 border border-border-primary">
                     <h3 className="text-2xl font-black text-ink-primary mb-8 text-center tracking-tight">Which Silo Is Right For You?</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                         {[
                             { icon: '🏠', title: 'Stays', when: 'Need a place to sleep', examples: 'Villas • Apartments • Studios • Airbnb' },
-                            { icon: '🚗', title: 'Land', when: 'Getting around the island', examples: 'Cars • Jeeps • ATVs • Bikes' },
+                            { icon: '🚗', title: 'Vehicles', when: 'Getting around the island', examples: 'Cars • Jeeps • ATVs • Bikes' },
                             { icon: '⛵', title: 'Sea', when: 'Water adventures & fishing', examples: 'Boats • Jet Skis • Yachts • Diving' },
                             { icon: '🛠️', title: 'Equipment', when: 'Tools for projects & events', examples: 'Power Tools • Generators • Tents • Gear' },
+                            { icon: '🏘️', title: 'Real Estate', when: 'Buy, lease or rent property', examples: 'Land • Commercial • Warehouses • Offices' },
                         ].map((item) => (
                             <div key={item.title} className="bg-surface-primary rounded-2xl p-6 border border-border-primary">
                                 <span className="text-3xl mb-3 block">{item.icon}</span>
