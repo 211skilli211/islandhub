@@ -317,7 +317,7 @@ function RequestRideContent() {
                         </>
                     ) : (
                         <>
-                            <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-teal-500 to-emerald-400" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-accent-700 via-accent-500 to-emerald-400" />
                             <div className="absolute inset-0 bg-[url('/images/taxi-pattern.png')] opacity-10" />
                         </>
                     )}
@@ -367,7 +367,7 @@ function RequestRideContent() {
                                     if (pickupLocation.address.length >= 3) setShowSuggestions(true);
                                 }}
                                 placeholder="Search pickup location..."
-                                className={`w-full bg-surface-primary border-2 rounded-2xl py-4 pl-12 pr-4 font-bold text-ink-primary outline-none transition-all ${activeInput === 'pickup' ? 'border-teal-500 bg-surface-elevated' : 'border-border-primary'}`}
+                                className={`w-full bg-surface-primary border-2 rounded-2xl py-4 pl-12 pr-4 font-bold text-ink-primary outline-none transition-all ${activeInput === 'pickup' ? 'border-accent-500 bg-surface-elevated' : 'border-border-primary'}`}
                             />
                             <div className={`absolute left-4 top-9 text-lg ${activeInput === 'pickup' ? 'text-accent-500' : 'text-ink-tertiary'}`}>📍</div>
 
@@ -424,7 +424,7 @@ function RequestRideContent() {
 
                     {/* Stats */}
                     {distance > 0 && (
-                        <div className="flex gap-4 p-4 bg-accent-500/10/50 rounded-2xl border border-teal-100/50">
+                        <div className="flex gap-4 p-4 bg-accent-500/10 rounded-2xl border border-accent-100/50">
                             <div>
                                 <p className="text-[9px] font-black text-accent-400 uppercase tracking-widest">Est. Distance</p>
                                 <p className="text-xl font-black text-accent-500">{distance.toFixed(1)} km</p>
