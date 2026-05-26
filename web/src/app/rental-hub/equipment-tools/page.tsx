@@ -44,15 +44,15 @@ export default function EquipmentToolsPage() {
         const data = Array.isArray(res.data) ? res.data : (res.data.listings || []);
         setItems(data.map((item: any) => ({
           id: item.id,
-          title: item.title || 'Equipment Rental',
-          description: item.description || 'Quality equipment for your project or adventure.',
-          price: item.price || Math.floor(Math.random() * 200) + 25,
+          title: item.title || 'Untitled',
+          description: item.description || '',
+          price: item.price || null,
           image_url: item.image_url,
-          location: item.location || 'St. Kitts',
+          location: item.location || null,
           subtype: item.subtype || 'tools',
           condition: item.metadata?.condition || 'Excellent',
           category_label: item.metadata?.category || 'General',
-          rating: item.rating || (4.0 + Math.random() * 1),
+          rating: item.rating || null,
           slug: item.slug,
         })));
       } catch (error) {
@@ -97,28 +97,28 @@ export default function EquipmentToolsPage() {
       {/* HERO — Industrial/workshop feel */}
       <section className="relative min-h-[45vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-surface-tertiary" />
-          <div className="absolute top-0 right-0 w-[400px] h-[250px] bg-slate-500/10 rounded-full blur-[100px]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-surface-tertiary via-brand-950 to-surface-tertiary" />
+          <div className="absolute top-0 right-0 w-[400px] h-[250px] bg-surface-secondary0/10 rounded-full blur-[100px]" />
         </div>
 
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-32">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 rounded-full bg-slate-400 animate-pulse" />
-              <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Equipment & Tools</span>
+              <span className="w-2 h-2 rounded-full bg-ink-tertiary animate-pulse" />
+              <span className="text-xs font-bold text-ink-secondary uppercase tracking-widest">Equipment & Tools</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-white mb-4 tracking-tight leading-[0.95]">
               Rent the<br />
-              <span className="bg-gradient-to-r from-slate-300 via-slate-100 to-slate-300 bg-clip-text text-transparent">Right Tools</span>
+              <span className="bg-gradient-to-r from-ink-secondary via-surface-secondary to-ink-secondary bg-clip-text text-transparent">Right Tools</span>
             </h1>
-            <p className="text-lg text-slate-400 mb-8 max-w-xl font-medium">
+            <p className="text-lg text-ink-secondary mb-8 max-w-xl font-medium">
               Power tools, marine gear, event equipment, construction machinery — rent what you need, when you need it.
             </p>
 
             {/* Search */}
             <div className="max-w-xl bg-surface-elevated rounded-2xl p-2 shadow-2xl flex gap-2">
               <div className="flex-1 flex items-center gap-3 px-4">
-                <svg className="w-5 h-5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-5 h-5 text-ink-secondary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
@@ -129,7 +129,7 @@ export default function EquipmentToolsPage() {
                   className="w-full py-2.5 text-ink-primary font-medium placeholder:text-ink-tertiary focus:outline-none text-sm bg-transparent"
                 />
               </div>
-              <button className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shrink-0">
+              <button className="bg-surface-tertiary hover:bg-surface-elevated text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shrink-0">
                 Search
               </button>
             </div>
@@ -147,8 +147,8 @@ export default function EquipmentToolsPage() {
                 <button key={type.id} onClick={() => setActiveType(type.id)}
                   className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all whitespace-nowrap border ${
                     activeType === type.id
-                      ? 'bg-slate-700 text-white border-slate-700 shadow-md'
-                      : 'bg-surface-primary text-ink-secondary border-border-primary hover:border-slate-400 hover:text-slate-600'
+                      ? 'bg-surface-tertiary text-ink-primary border-surface-tertiary shadow-md'
+                      : 'bg-surface-primary text-ink-secondary border-border-primary hover:border-ink-tertiary hover:text-ink-tertiary'
                   }`}
                 >
                   <span>{type.icon}</span>
@@ -180,7 +180,7 @@ export default function EquipmentToolsPage() {
             <span className="text-5xl mb-4 block">🛠️</span>
             <h3 className="text-xl font-black text-ink-primary mb-2">No equipment found</h3>
             <p className="text-ink-tertiary mb-6">Try adjusting your search or filters</p>
-            <button onClick={() => { setSearchQuery(''); setActiveType('all'); }} className="px-6 py-3 bg-slate-700 text-white font-bold rounded-xl">
+            <button onClick={() => { setSearchQuery(''); setActiveType('all'); }} className="px-6 py-3 bg-surface-tertiary text-ink-primary font-bold rounded-xl">
               View All Equipment
             </button>
           </div>
@@ -193,7 +193,7 @@ export default function EquipmentToolsPage() {
                     {item.image_url ? (
                       <img src={getImageUrl(item.image_url)} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-slate-600/30 to-slate-700/30 flex items-center justify-center">
+                      <div className="w-full h-full bg-gradient-to-br from-surface-tertiary/30 to-surface-elevated/30 flex items-center justify-center">
                         <span className="text-4xl opacity-40">🛠️</span>
                       </div>
                     )}
@@ -201,9 +201,9 @@ export default function EquipmentToolsPage() {
                       <span className="text-xs font-black text-ink-primary">${item.price}/d</span>
                     </div>
                   </div>
-                  <h3 className="text-xs font-bold text-ink-primary group-hover:text-slate-600 transition-colors line-clamp-1">{item.title}</h3>
+                  <h3 className="text-xs font-bold text-ink-primary group-hover:text-ink-tertiary transition-colors line-clamp-1">{item.title}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[10px] text-emerald-500 font-bold">{item.condition}</span>
+                    <span className="text-[10px] text-accent-500 font-bold">{item.condition}</span>
                     <span className="text-[10px] text-ink-tertiary">·</span>
                     <span className="text-[10px] text-ink-tertiary">{item.location}</span>
                   </div>
@@ -216,13 +216,13 @@ export default function EquipmentToolsPage() {
 
       {/* CTA */}
       <section className="relative overflow-hidden mt-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-surface-tertiary via-surface-tertiary to-brand-950" />
         <div className="relative max-w-4xl mx-auto text-center px-4 py-16">
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Have Equipment to Rent?</h2>
-          <p className="text-slate-400 text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-ink-secondary text-lg mb-8 max-w-xl mx-auto">
             List your tools, gear, or machinery and earn from every rental.
           </p>
-          <Link href="/become-vendor" className="px-10 py-4 bg-white text-slate-800 font-bold rounded-2xl hover:bg-slate-100 transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
+          <Link href="/become-vendor" className="px-10 py-4 bg-white text-ink-primary font-bold rounded-2xl hover:bg-surface-secondary transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
             List Equipment
           </Link>
         </div>

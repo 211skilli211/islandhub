@@ -45,17 +45,17 @@ export default function VehiclesPage() {
         const data = Array.isArray(res.data) ? res.data : (res.data.listings || []);
         setListings(data.map((item: any) => ({
           id: item.id,
-          title: item.title || 'Island Vehicle',
-          description: item.description || 'Reliable transport for your island adventure.',
-          price: item.price || Math.floor(Math.random() * 150) + 45,
+          title: item.title || 'Untitled',
+          description: item.description || '',
+          price: item.price || null,
           image_url: item.image_url,
-          location: item.location || 'St. Kitts',
+          location: item.location || null,
           subtype: item.subtype || item.vehicle_category || 'car',
-          transmission: item.metadata?.transmission || (Math.random() > 0.5 ? 'Automatic' : 'Manual'),
-          seats: item.metadata?.seats || Math.floor(Math.random() * 6) + 2,
-          fuel_type: item.metadata?.fuel_type || ['Gasoline', 'Diesel', 'Electric'][Math.floor(Math.random() * 3)],
-          year: item.metadata?.year || 2020 + Math.floor(Math.random() * 5),
-          rating: item.rating || (4.0 + Math.random() * 1),
+          transmission: item.metadata?.transmission || null,
+          seats: item.metadata?.seats || null,
+          fuel_type: item.metadata?.fuel_type || null,
+          year: item.metadata?.year || null,
+          rating: item.rating || null,
           slug: item.slug,
         })));
       } catch (error) {
@@ -89,13 +89,13 @@ export default function VehiclesPage() {
       {/* HERO */}
       <section className="relative min-h-[55vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-surface-tertiary to-ocean-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-950 to-ocean-900" />
           <div className="absolute inset-0 opacity-[0.04]" style={{
             backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
             backgroundSize: '60px 60px'
           }} />
           <div className="absolute top-0 left-0 w-[400px] h-[300px] bg-sunset-500/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 right-0 w-[300px] h-[200px] bg-amber-500/8 rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 right-0 w-[300px] h-[200px] bg-sunset-500/8 rounded-full blur-[80px]" />
         </div>
 
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-32">
@@ -123,7 +123,7 @@ export default function VehiclesPage() {
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
-                <div className="text-2xl font-black text-amber-400">Free</div>
+                <div className="text-2xl font-black text-sunset-400">Free</div>
                 <div className="text-[10px] font-bold uppercase tracking-widest text-sand-200/50">Delivery</div>
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function VehiclesPage() {
                         {item.title}
                       </h3>
                       <div className="flex items-center gap-1 shrink-0">
-                        <span className="text-amber-500 text-xs">★</span>
+                        <span className="text-sunset-400 text-xs">★</span>
                         <span className="text-xs font-bold text-ink-primary">{item.rating?.toFixed(1)}</span>
                       </div>
                     </div>

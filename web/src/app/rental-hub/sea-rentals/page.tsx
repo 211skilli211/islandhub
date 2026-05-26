@@ -44,16 +44,16 @@ export default function SeaRentalsPage() {
         const data = Array.isArray(res.data) ? res.data : (res.data.listings || []);
         setListings(data.map((item: any) => ({
           id: item.id,
-          title: item.title || 'Sea Adventure',
-          description: item.description || 'Explore the crystal-clear Caribbean waters.',
-          price: item.price || Math.floor(Math.random() * 400) + 80,
+          title: item.title || 'Untitled',
+          description: item.description || '',
+          price: item.price || null,
           image_url: item.image_url,
           location: item.location || item.pickup_location?.address || 'Caribbean Sea',
           subtype: item.subtype || 'boat',
-          capacity: item.metadata?.guests || Math.floor(Math.random() * 10) + 2,
-          duration: item.metadata?.duration || ['2 Hours', 'Half Day', 'Full Day', 'Sunset'][Math.floor(Math.random() * 4)],
-          includes: item.metadata?.inclusions || ['Captain', 'Safety Gear', 'Fuel'],
-          rating: item.rating || (4.3 + Math.random() * 0.7),
+          capacity: item.metadata?.capacity || item.metadata?.guests || null,
+          duration: item.metadata?.duration || null,
+          includes: item.metadata?.inclusions || null,
+          rating: item.rating || null,
           slug: item.slug,
         })));
       } catch (error) {
@@ -87,38 +87,38 @@ export default function SeaRentalsPage() {
       {/* HERO — Ocean themed */}
       <section className="relative min-h-[55vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-900 via-ocean-800 to-blue-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-900 via-brand-800 to-brand-900" />
           <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-turquoise-500/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[200px] bg-cyan-400/8 rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[200px] bg-accent-400/8 rounded-full blur-[80px]" />
         </div>
 
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-32">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 rounded-full bg-turquoise-500 animate-pulse" />
-              <span className="text-xs font-bold text-cyan-200 uppercase tracking-widest">Sea & Aquatic</span>
+              <span className="text-xs font-bold text-accent-300 uppercase tracking-widest">Sea & Aquatic</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white mb-4 tracking-tight leading-[0.95]">
               Ride the<br />
               <span className="bg-gradient-to-r from-cyan-300 via-turquoise-500 to-blue-300 bg-clip-text text-transparent">Caribbean Waves</span>
             </h1>
-            <p className="text-lg text-cyan-100/70 mb-8 max-w-xl font-medium">
+            <p className="text-lg text-accent-200/70 mb-8 max-w-xl font-medium">
               Yachts, jet skis, fishing boats and diving gear — experience the ocean like never before.
             </p>
             <div className="flex items-center gap-6">
               <div className="text-center">
                 <div className="text-2xl font-black text-white">{loading ? '—' : listings.length}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-cyan-200/50">Watercraft</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-accent-300/50">Watercraft</div>
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
                 <div className="text-2xl font-black text-turquoise-500">GMAP</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-cyan-200/50">Tracking</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-accent-300/50">Tracking</div>
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
-                <div className="text-2xl font-black text-cyan-300">VHF</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-cyan-200/50">Radio</div>
+                <div className="text-2xl font-black text-accent-300">VHF</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-accent-300/50">Radio</div>
               </div>
             </div>
           </motion.div>

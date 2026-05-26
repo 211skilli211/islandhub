@@ -75,8 +75,8 @@ export default function DonationsHubPage() {
           image_url: item.image_url,
           images: item.images,
           photos: item.photos,
-          goal_amount: item.goal_amount || Math.floor(Math.random() * 50000) + 5000,
-          raised_amount: item.current_amount || item.raised_amount || Math.floor(Math.random() * 20000),
+          goal_amount: item.goal_amount || null,
+          raised_amount: item.current_amount || item.raised_amount || null,
           currency: item.currency || 'XCD',
           status: item.status || 'active',
           slug: item.slug,
@@ -84,7 +84,7 @@ export default function DonationsHubPage() {
           store_logo: item.store_logo,
           end_date: item.end_date,
           created_at: item.created_at,
-          donor_count: item.donor_count || Math.floor(Math.random() * 200) + 10,
+          donor_count: item.donor_count || null,
           category: item.metadata?.category || item.category || 'community',
         })));
       } catch (error) {

@@ -60,18 +60,18 @@ export default function PropertyHubPage() {
         const data = Array.isArray(res.data) ? res.data : (res.data.listings || []);
         setListings(data.map((item: any) => ({
           id: item.id,
-          title: item.title || 'Caribbean Property',
-          description: item.description || 'Prime island real estate opportunity.',
-          price: item.price || Math.floor(Math.random() * 500) + 100,
+          title: item.title || 'Untitled',
+          description: item.description || '',
+          price: item.price || null,
           image_url: item.image_url,
           images: item.images,
-          location: item.location || 'St. Kitts',
+          location: item.location || null,
           subtype: item.subtype || item.property_type || 'land',
           property_type: item.metadata?.property_type || item.property_type || 'Lot',
-          lot_size: item.metadata?.lot_size || item.lot_size || `${(Math.random() * 5 + 0.1).toFixed(1)} acres`,
-          zoning: item.metadata?.zoning || item.zoning || ['Residential', 'Commercial', 'Agricultural', 'Mixed-Use'][Math.floor(Math.random() * 4)],
+          lot_size: item.metadata?.lot_size || item.lot_size || null,
+          zoning: item.metadata?.zoning || item.zoning || null,
           year_built: item.metadata?.year_built,
-          rating: item.rating || (4.0 + Math.random() * 1),
+          rating: item.rating || null,
           slug: item.slug,
         })));
       } catch (err) {
@@ -95,7 +95,7 @@ export default function PropertyHubPage() {
       {/* HERO */}
       <section className="relative min-h-[55vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-900 via-surface-tertiary to-ocean-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-950 to-ocean-900" />
           <div className="absolute inset-0 opacity-[0.04]" style={{
             backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
             backgroundSize: '60px 60px'

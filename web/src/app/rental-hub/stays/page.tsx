@@ -54,18 +54,18 @@ export default function StaysHubPage() {
         const data = Array.isArray(res.data) ? res.data : (res.data.listings || []);
         setListings(data.map((item: any) => ({
           id: item.id,
-          title: item.title || 'Island Stay',
-          description: item.description || 'A beautiful island property waiting for you.',
-          price: item.price || Math.floor(Math.random() * 300) + 80,
+          title: item.title || 'Untitled',
+          description: item.description || '',
+          price: item.price || null,
           image_url: item.image_url || (item.images && item.images[0]),
           location: item.location || item.pickup_location?.address || 'St. Kitts',
           subtype: item.subtype || 'apartment',
-          bedrooms: item.metadata?.bedrooms || Math.floor(Math.random() * 4) + 1,
-          bathrooms: item.metadata?.bathrooms || Math.floor(Math.random() * 3) + 1,
-          guests: item.metadata?.guests || Math.floor(Math.random() * 6) + 2,
-          amenities: item.metadata?.amenities || ['wifi', 'ac', 'kitchen'],
-          rating: item.rating || (4.2 + Math.random() * 0.8),
-          review_count: Math.floor(Math.random() * 50) + 5,
+          bedrooms: item.metadata?.bedrooms || null,
+          bathrooms: item.metadata?.bathrooms || null,
+          guests: item.metadata?.guests || null,
+          amenities: item.metadata?.amenities || null,
+          rating: item.rating || null,
+          review_count: null,
           slug: item.slug,
         })));
       } catch (error) {
@@ -115,7 +115,7 @@ export default function StaysHubPage() {
       <section className="relative min-h-[65vh] flex items-end overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-ocean-900 via-ocean-800 to-surface-tertiary" />
+          <div className="absolute inset-0 bg-gradient-to-br from-ocean-900 via-brand-800 to-surface-tertiary" />
           <div className="absolute inset-0 opacity-[0.04]" style={{
             backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
             backgroundSize: '60px 60px'
@@ -353,7 +353,7 @@ function FeaturedStayCard({ item, index }: { item: Listing; index: number }) {
           </div>
         </div>
         <div className="flex items-center gap-3 text-xs text-ink-tertiary">
-          <span className="font-bold text-amber-500">★ {item.rating?.toFixed(1)}</span>
+          <span className="font-bold text-sunset-400">★ {item.rating?.toFixed(1)}</span>
           <span>({item.review_count} reviews)</span>
           <span>·</span>
           <span>{item.bedrooms} bed</span>
@@ -398,7 +398,7 @@ function StayCard({ item, index }: { item: Listing; index: number }) {
               {item.title}
             </h3>
             <div className="flex items-center gap-1 shrink-0">
-              <span className="text-amber-500 text-xs">★</span>
+              <span className="text-sunset-400 text-xs">★</span>
               <span className="text-xs font-bold text-ink-primary">{item.rating?.toFixed(1)}</span>
             </div>
           </div>
