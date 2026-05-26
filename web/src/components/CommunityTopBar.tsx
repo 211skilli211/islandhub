@@ -48,9 +48,9 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                         >
                             <Menu size={20} />
                         </button>
-                        <Link href="/community" className="flex items-center gap-2">
+                        <Link href="/" className="flex items-center gap-2">
                             <span className="text-lg">🏝️</span>
-                            <span className="font-bold text-sm text-ink-primary hidden sm:inline">Community</span>
+                            <span className="font-bold text-sm text-ink-primary hidden sm:inline">IslandHub</span>
                         </Link>
                     </div>
 
