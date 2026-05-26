@@ -7,7 +7,7 @@ import api, { getImageUrl } from '@/lib/api';
 import PostCard from '@/components/social/PostCard';
 import PostComposer from '@/components/social/PostComposer';
 import AdSpace from '@/components/advertising/AdSpace';
-import { Search, TrendingUp, Users, Calendar, MapPin, Plus, Hash, Flame, Clock, Star } from 'lucide-react';
+import { Search, TrendingUp, Users, Plus, Hash, Flame, Clock, Star } from 'lucide-react';
 
 const CATEGORIES = [
     { id: 'all', label: 'All', icon: '✨' },
@@ -85,67 +85,16 @@ export default function CommunityPage() {
 
     return (
         <div className="w-full">
-            {/* Top Bar — Search + Sort + Compose */}
-            <div className="sticky top-0 z-20 bg-surface-primary/90 backdrop-blur-lg border-b border-border-primary">
-                <div className="w-full px-4 sm:px-6 lg:px-8 py-3">
-                    <div className="flex items-center gap-4">
-                        {/* Search */}
-                        <div className="flex-1 max-w-md relative">
-                            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
-                            <input
-                                type="text"
-                                placeholder="Search community..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-xl text-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all"
-                            />
-                        </div>
-                        {/* Sort */}
-                        <div className="flex gap-1 p-1 bg-surface-secondary rounded-lg border border-border-primary">
-                            {([
-                                { id: 'recent' as const, label: 'Recent', icon: <Clock size={12} /> },
-                                { id: 'popular' as const, label: 'Popular', icon: <Star size={12} /> },
-                                { id: 'trending' as const, label: 'Trending', icon: <Flame size={12} /> },
-                            ]).map(opt => (
-                                <button
-                                    key={opt.id}
-                                    onClick={() => setSortBy(opt.id)}
-                                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all ${
-                                        sortBy === opt.id ? 'bg-accent-500 text-white' : 'text-ink-tertiary hover:text-ink-secondary'
-                                    }`}
-                                >
-                                    {opt.icon}
-                                    <span className="hidden sm:inline">{opt.label}</span>
-                                </button>
-                            ))}
-                        </div>
-                        {/* New Post */}
-                        <button
-                            onClick={() => setShowComposer(!showComposer)}
-                            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
-                                showComposer ? 'bg-surface-secondary text-ink-secondary' : 'bg-accent-500 text-white hover:bg-accent-600'
-                            }`}
-                        >
-                            <Plus size={14} />
-                            <span className="hidden sm:inline">Post</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Category Filter — full width horizontal scroll */}
+            {/* Category Filter — horizontal scroll */}
             <div className="w-full bg-surface-primary border-b border-border-primary">
                 <div className="px-4 sm:px-6 lg:px-8 py-2 flex gap-2 overflow-x-auto scrollbar-thin">
                     {CATEGORIES.map(cat => (
-                        <button
-                            key={cat.id}
-                            onClick={() => setActiveCategory(cat.id)}
+                        <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                                 activeCategory === cat.id
                                     ? 'bg-accent-500 text-white border-accent-500'
                                     : 'bg-surface-elevated text-ink-secondary border-border-primary hover:border-accent-300'
-                            }`}
-                        >
+                            }`}>
                             <span>{cat.icon}</span>
                             {cat.label}
                         </button>
@@ -153,24 +102,42 @@ export default function CommunityPage() {
                 </div>
             </div>
 
-            {/* Main Content — full width Facebook-style 3 column */}
+            {/* Main Content — Facebook-style: Feed + Right sidebar */}
             <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                    {/* Left spacer for sidebar alignment when expanded */}
-                    <div className="hidden lg:block lg:col-span-2" />
+                    {/* Center — Feed (2/3 width) */}
+                    <div className="lg:col-span-2 space-y-4">
+                        {/* Sort + Compose Toggle */}
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="flex gap-1 p-1 bg-surface-elevated rounded-lg border border-border-primary">
+                                {([
+                                    { id: 'recent' as const, label: 'Recent', icon: <Clock size={12} /> },
+                                    { id: 'popular' as const, label: 'Popular', icon: <Star size={12} /> },
+                                    { id: 'trending' as const, label: 'Trending', icon: <Flame size={12} /> },
+                                ]).map(opt => (
+                                    <button key={opt.id} onClick={() => setSortBy(opt.id)}
+                                        className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all ${
+                                            sortBy === opt.id ? 'bg-accent-500 text-white' : 'text-ink-tertiary hover:text-ink-secondary'
+                                        }`}>
+                                        {opt.icon}
+                                        <span className="hidden sm:inline">{opt.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                            <button onClick={() => setShowComposer(!showComposer)}
+                                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
+                                    showComposer ? 'bg-surface-secondary text-ink-secondary' : 'bg-accent-500 text-white hover:bg-accent-600'
+                                }`}>
+                                <Plus size={14} />
+                                <span className="hidden sm:inline">New Post</span>
+                            </button>
+                        </div>
 
-                    {/* Center — Feed (7/12 width) */}
-                    <div className="lg:col-span-7 space-y-4">
                         {/* Composer */}
                         <AnimatePresence>
                             {showComposer && (
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden"
-                                >
+                                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                                     <PostComposer onPostCreated={handlePostCreated} />
                                 </motion.div>
                             )}
@@ -199,47 +166,31 @@ export default function CommunityPage() {
                             ) : filteredPosts.length > 0 ? (
                                 <>
                                     {filteredPosts.map((post, idx) => (
-                                        <motion.div
-                                            key={post.post_id || idx}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: idx * 0.03 }}
-                                        >
+                                        <motion.div key={post.post_id || idx} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.03 }}>
                                             <PostCard post={post} />
                                         </motion.div>
                                     ))}
                                     {filteredPosts.length >= 20 && (
                                         <div className="text-center py-6">
-                                            <button className="px-6 py-3 bg-surface-elevated border border-border-primary rounded-xl text-xs font-bold uppercase tracking-widest text-ink-tertiary hover:bg-surface-secondary transition-colors">
-                                                Load More
-                                            </button>
+                                            <button className="px-6 py-3 bg-surface-elevated border border-border-primary rounded-xl text-xs font-bold uppercase tracking-widest text-ink-tertiary hover:bg-surface-secondary transition-colors">Load More</button>
                                         </div>
                                     )}
                                 </>
                             ) : (
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-12 text-center">
                                     <div className="text-5xl mb-4">🌊</div>
-                                    <h3 className="text-lg font-black text-ink-primary mb-2">
-                                        {searchQuery ? 'No results found' : 'No posts yet'}
-                                    </h3>
-                                    <p className="text-sm text-ink-tertiary mb-6">
-                                        {searchQuery
-                                            ? `No posts matching "${searchQuery}".`
-                                            : 'Be the first to share something!'}
-                                    </p>
+                                    <h3 className="text-lg font-black text-ink-primary mb-2">{searchQuery ? 'No results found' : 'No posts yet'}</h3>
+                                    <p className="text-sm text-ink-tertiary mb-6">{searchQuery ? `No posts matching "${searchQuery}".` : 'Be the first to share something!'}</p>
                                     {!searchQuery && (
-                                        <button onClick={() => setShowComposer(true)}
-                                            className="px-6 py-3 bg-accent-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-accent-600 transition-colors">
-                                            🚀 Create First Post
-                                        </button>
+                                        <button onClick={() => setShowComposer(true)} className="px-6 py-3 bg-accent-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-accent-600 transition-colors">🚀 Create First Post</button>
                                     )}
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    {/* Right Sidebar — Trending + Businesses (3/12 width) */}
-                    <aside className="lg:col-span-3 space-y-4">
+                    {/* Right Sidebar — Trending + Businesses (1/3 width) */}
+                    <aside className="lg:col-span-1 space-y-4">
                         {/* Trending */}
                         <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4 shadow-sm">
                             <div className="flex items-center gap-2 px-2 mb-3">
@@ -271,11 +222,7 @@ export default function CommunityPage() {
                                     <Link key={store.id} href={`/store/${store.slug}`}
                                         className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-surface-secondary transition-colors">
                                         <div className="w-9 h-9 rounded-lg bg-surface-secondary overflow-hidden shrink-0 flex items-center justify-center">
-                                            {store.logo_url ? (
-                                                <img src={getImageUrl(store.logo_url)} alt="" className="w-full h-full object-cover" />
-                                            ) : (
-                                                <span className="text-sm">🏪</span>
-                                            )}
+                                            {store.logo_url ? <img src={getImageUrl(store.logo_url)} alt="" className="w-full h-full object-cover" /> : <span className="text-sm">🏪</span>}
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="text-xs font-bold text-ink-primary truncate">{store.name}</div>
