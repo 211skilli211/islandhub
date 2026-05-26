@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
@@ -47,12 +47,6 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, logout } = useAuthStore();
-  const [collapsed, setCollapsed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('dashboard-sidebar-collapsed') === 'true';
-    }
-    return false;
-  });
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const currentTab = searchParams.get('tab');
@@ -74,49 +68,6 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
   if (currentSection === 'vendor') navItems = getVendorNav(currentTab);
   if (currentSection === 'driver') navItems = getDriverNav(currentTab);
 
-  // Section switcher items (always visible)
-  const sectionItems = [
-    { id: 'switch-buyer', label: 'Buyer', icon: LayoutDashboard, href: '/dashboard?tab=activity' },
-    ...(hasVendorRole ? [{ id: 'switch-vendor', label: 'Vendor', icon: Store, href: '/dashboard?tab=overview' }] : []),
-    ...(hasDriverRole ? [{ id: 'switch-driver', label: 'Driver', icon: Car, href: '/dashboard?tab=driver-hub' }] : []),
-  ];
-
-  // Combine: section switcher at top, then nav items
-  const allItems = [
-    ...sectionItems.map(s => ({ ...s, isSectionSwitch: true })),
-    ...navItems,
-  ];
-
-  // Override isActive for section switches
-  const originalIsActive = (href: string) => {
-    if (href.includes('?')) {
-      const [base, queryString] = href.split('?');
-      const params = new URLSearchParams(queryString);
-      const tabParam = params.get('tab');
-      if (pathname !== base) return false;
-      if (base === '/dashboard' && tabParam) return currentTab === tabParam;
-      return true;
-    }
-    if (href === '/dashboard') return pathname === '/dashboard' && !currentTab;
-    return pathname === href;
-  };
-
-  // We need to handle section switcher active state differently
-  // For now, use the navItems directly in the sidebar
-  const sidebarItems = [
-    // Section switches as special items
-    ...sectionItems.map(s => ({
-      ...s,
-      href: s.href,
-      // Mark active if current section matches
-    })),
-    ...navItems,
-  ];
-
-  useEffect(() => {
-    localStorage.setItem('dashboard-sidebar-collapsed', String(collapsed));
-  }, [collapsed]);
-
   const handleLogout = () => {
     logout();
     router.push('/');
@@ -125,6 +76,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
 
   const sectionTitle = currentSection === 'driver' ? 'Driver' : currentSection === 'vendor' ? 'Vendor' : 'Dashboard';
   const sectionIcon = currentSection === 'driver' ? Car : currentSection === 'vendor' ? Store : LayoutDashboard;
+  const roleLabel = currentSection === 'driver' ? 'Driver' : currentSection === 'vendor' ? 'Vendor' : user?.role || 'User';
 
   return (
     <Sidebar
@@ -134,13 +86,11 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
       backHref="/"
       backLabel="Back to Home"
       onLogout={handleLogout}
-      user={user ? { name: user.name, avatar_url: user.avatar_url, role: currentSection === 'driver' ? 'Driver' : currentSection === 'vendor' ? 'Vendor' : user.role || 'User' } : null}
+      user={user ? { name: user.name, avatar_url: user.avatar_url, role: roleLabel } : null}
+      pathname={pathname}
+      storageKey="dashboard-sidebar-state"
       mobileOpen={mobileOpen}
       setMobileOpen={setMobileOpen}
-      collapsed={collapsed}
-      setCollapsed={setCollapsed}
-      pathname={pathname}
-      mainClassName="md:ml-16 xl:ml-[248px]"
     >
       {children}
     </Sidebar>

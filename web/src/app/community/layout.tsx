@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
@@ -27,27 +26,17 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
-  const [collapsed, setCollapsed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('community-sidebar-collapsed') === 'true';
-    }
-    return false;
-  });
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem('community-sidebar-collapsed', String(collapsed));
-  }, [collapsed]);
-
-  if (pathname.includes('/messages')) {
-    return <>{children}</>;
-  }
 
   const handleLogout = () => {
     logout();
     router.push('/');
     toast.success('Logged out');
   };
+
+  if (pathname.includes('/messages')) {
+    return <>{children}</>;
+  }
 
   return (
     <Sidebar
@@ -58,12 +47,10 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
       backLabel="Back to Home"
       onLogout={handleLogout}
       user={user ? { name: user.name, avatar_url: user.avatar_url } : null}
+      pathname={pathname}
+      storageKey="community-sidebar-state"
       mobileOpen={mobileOpen}
       setMobileOpen={setMobileOpen}
-      collapsed={collapsed}
-      setCollapsed={setCollapsed}
-      pathname={pathname}
-      mainClassName="md:ml-16 xl:ml-[248px]"
     >
       {children}
     </Sidebar>

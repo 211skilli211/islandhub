@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
 import Sidebar from '@/components/layout/Sidebar';
@@ -23,20 +23,10 @@ const settingsNavItems = [
 ];
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
-  const [collapsed, setCollapsed] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('settings-sidebar-collapsed') === 'true';
-    }
-    return false;
-  });
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = '/settings'; // Simplified for settings
-
-  useEffect(() => {
-    localStorage.setItem('settings-sidebar-collapsed', String(collapsed));
-  }, [collapsed]);
 
   const handleLogout = () => {
     logout();
@@ -53,12 +43,10 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
       backLabel="Back to Dashboard"
       onLogout={handleLogout}
       user={user ? { name: user.name, avatar_url: user.avatar_url, role: user.role } : null}
+      pathname={pathname}
+      storageKey="settings-sidebar-state"
       mobileOpen={mobileOpen}
       setMobileOpen={setMobileOpen}
-      collapsed={collapsed}
-      setCollapsed={setCollapsed}
-      pathname={typeof window !== 'undefined' ? window.location.pathname : '/settings'}
-      mainClassName="md:ml-16 xl:ml-[248px]"
     >
       {children}
     </Sidebar>

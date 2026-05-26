@@ -1,35 +1,65 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback, ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X, Menu, LogOut } from 'lucide-react';
+import { ChevronLeft, ChevronRight, LogOut, User, Menu } from 'lucide-react';
 
-interface NavItem {
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export interface SidebarItem {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className?: string; size?: number }>;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
   href: string;
-  badge?: number;
+  isSectionSwitch?: boolean;
 }
 
-interface SidebarProps {
-  title: string;
-  icon: React.ComponentType<{ className?: string; size?: number }>;
-  items: NavItem[];
-  backHref?: string;
-  backLabel?: string;
-  onLogout?: () => void;
-  user?: { name?: string; avatar_url?: string; role?: string } | null;
-  mobileOpen: boolean;
-  setMobileOpen: (open: boolean) => void;
-  collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
-  pathname: string;
-  children: React.ReactNode;
-  mainClassName?: string;
+export interface SidebarUser {
+  name: string;
+  avatar_url?: string;
+  role?: string;
 }
+
+export interface SidebarProps {
+  title: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  items: SidebarItem[];
+  backHref: string;
+  backLabel: string;
+  onLogout: () => void;
+  user: SidebarUser | null;
+  children: ReactNode;
+  pathname: string;
+  storageKey?: string;
+  mobileOpen?: boolean;
+  setMobileOpen?: (open: boolean) => void;
+}
+
+// ─── Sidebar State Machine ───────────────────────────────────────────────────
+// States: 'closed' | 'rail' | 'expanded'
+// - closed:  nothing visible on desktop, hamburger in navbar area
+// - rail:    56px icon-only strip (default desktop)
+// - expanded: 240px full sidebar overlay
+
+type SidebarState = 'closed' | 'rail' | 'expanded';
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function isActiveNav(item: SidebarItem, pathname: string): boolean {
+  if (item.href.includes('?')) {
+    const [base, queryString] = item.href.split('?');
+    if (pathname !== base) return false;
+    const params = new URLSearchParams(queryString);
+    const tabParam = params.get('tab');
+    const currentParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+    return tabParam ? currentParams.get('tab') === tabParam : true;
+  }
+  return pathname === item.href;
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function Sidebar({
   title,
@@ -39,250 +69,367 @@ export default function Sidebar({
   backLabel,
   onLogout,
   user,
-  mobileOpen,
-  setMobileOpen,
-  collapsed,
-  setCollapsed,
-  pathname,
   children,
-  mainClassName = '',
+  pathname,
+  storageKey = 'sidebar-state',
+  mobileOpen: externalMobileOpen,
+  setMobileOpen: externalSetMobileOpen,
 }: SidebarProps) {
+  const [state, setState] = useState<SidebarState>('rail');
+  const [internalMobileOpen, setInternalMobileOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  const isActive = (href: string) => {
-    if (href.includes('?')) {
-      const [base, queryString] = href.split('?');
-      const params = new URLSearchParams(queryString);
-      const tabParam = params.get('tab');
-      if (pathname !== base) return false;
-      if (base === '/dashboard' && tabParam) {
-        const currentTab = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('tab');
-        return currentTab === tabParam;
-      }
-      return true;
-    }
-    if (href === '/dashboard') {
-      return pathname === '/dashboard' && !new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('tab');
-    }
-    return pathname === href || pathname.startsWith(href + '/');
-  };
+  // Use external mobile state if provided, otherwise internal
+  const mobileOpen = externalMobileOpen !== undefined ? externalMobileOpen : internalMobileOpen;
+  const setMobileOpen = externalSetMobileOpen || setInternalMobileOpen;
 
-  const currentActiveItem = items.find(item => isActive(item.href));
+  // Restore persisted state
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(storageKey);
+      if (saved === 'closed' || saved === 'rail' || saved === 'expanded') {
+        setState(saved);
+      }
+    }
+  }, [storageKey]);
+
+  // Persist state
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(storageKey, state);
+    }
+  }, [state, storageKey]);
+
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll on mobile
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const toggleExpand = useCallback(() => {
+    setState(prev => {
+      if (prev === 'expanded') return 'rail';
+      return 'expanded';
+    });
+  }, []);
+
+  const openRail = useCallback(() => {
+    if (state === 'closed') setState('rail');
+  }, [state]);
+
+  const closeSidebar = useCallback(() => {
+    setState('closed');
+  }, []);
+
+  const isRail = state === 'rail';
+  const isExpanded = state === 'expanded';
+  const isClosed = state === 'closed';
+  const showSidebar = isRail || isExpanded;
+
+  // Width values
+  const railWidth = 56;
+  const expandedWidth = 240;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex">
-      {/* Mobile Overlay */}
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+
+      {/* ═══ EDGE TAB: visible when sidebar is closed ═══ */}
+      {isClosed && (
+        <div className="fixed left-0 top-0 bottom-0 z-40 flex flex-col items-center">
+          {/* Thin edge strip — click to open rail */}
+          <button
+            onClick={openRail}
+            className="h-full w-3 bg-slate-900/80 hover:bg-slate-800 transition-colors cursor-pointer relative group"
+            aria-label="Open sidebar"
+          >
+            {/* Chevron hint */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <ChevronRight size={10} className="text-white/50" />
+            </div>
+          </button>
+        </div>
+      )}
+
+      {/* ═══ HAMBURGER TOGGLE: fixed at top-left when sidebar is visible ═══ */}
+      {showSidebar && (
+        <button
+          onClick={toggleExpand}
+          className="fixed top-3.5 z-50 p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-white/70 hover:text-white transition-all shadow-lg backdrop-blur-sm"
+          style={{ left: isRail ? `${railWidth - 4}px` : `${expandedWidth - 44}px` }}
+          aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+        >
+          {isExpanded ? <ChevronLeft size={16} /> : <Menu size={16} />}
+        </button>
+      )}
+
+      {/* ═══ SIDEBAR PANEL ═══ */}
       <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
-            onClick={() => setMobileOpen(false)}
-          />
+        {showSidebar && (
+          <motion.aside
+            initial={{ x: -expandedWidth, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -expandedWidth, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 35 }}
+            className="fixed left-0 top-0 bottom-0 z-30 flex flex-col bg-[#0c0f14] border-r border-white/[0.06]"
+            style={{ width: isRail ? railWidth : expandedWidth }}
+            onMouseLeave={() => setHoveredItem(null)}
+          >
+            {/* Header */}
+            <div className={`shrink-0 flex items-center border-b border-white/[0.06] ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
+              {!isRail && (
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
+                    <TitleIcon size={15} className="text-emerald-400" />
+                  </div>
+                  <span className="font-semibold text-[13px] text-white/90 truncate">{title}</span>
+                </div>
+              )}
+              {isRail && (
+                <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                  <TitleIcon size={15} className="text-emerald-400" />
+                </div>
+              )}
+            </div>
+
+            {/* Back link */}
+            <div className={`shrink-0 border-b border-white/[0.06] ${isRail ? 'py-2' : 'py-2 px-3'}`}>
+              <Link
+                href={backHref}
+                className={`flex items-center text-[11px] text-white/30 hover:text-white/60 transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`}
+                title={backLabel}
+              >
+                <ChevronLeft size={12} />
+                {!isRail && <span className="truncate">{backLabel}</span>}
+              </Link>
+            </div>
+
+            {/* Nav items */}
+            <nav className="flex-1 overflow-y-auto py-2 space-y-0.5 scrollbar-thin">
+              {items.map((item) => {
+                const Icon = item.icon;
+                const active = isActiveNav(item, pathname);
+                const isHovered = hoveredItem === item.id;
+
+                return (
+                  <div
+                    key={item.id}
+                    className="relative px-2"
+                    onMouseEnter={() => isRail && setHoveredItem(item.id)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`
+                        flex items-center rounded-lg transition-all duration-150 relative group
+                        ${isRail ? 'justify-center px-0 py-2.5' : 'gap-2.5 px-3 py-2.5'}
+                        ${active
+                          ? 'bg-emerald-500/10 text-emerald-400'
+                          : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
+                        }
+                        ${item.isSectionSwitch ? 'font-semibold' : ''}
+                      `}
+                      title={isRail ? item.label : undefined}
+                    >
+                      {/* Active indicator */}
+                      {active && (
+                        <motion.div
+                          layoutId="sidebar-active-indicator"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-emerald-400 rounded-r-full"
+                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                      <Icon size={isRail ? 20 : 17} className="shrink-0" />
+                      {!isRail && (
+                        <span className="font-medium text-[13px] truncate">{item.label}</span>
+                      )}
+                    </Link>
+
+                    {/* Rail tooltip */}
+                    {isRail && isHovered && (
+                      <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 bg-slate-800 text-white text-[12px] font-medium rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none">
+                        {item.label}
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-800" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </nav>
+
+            {/* Footer: User + Logout */}
+            <div className={`shrink-0 border-t border-white/[0.06] ${isRail ? 'p-2' : 'p-3'}`}>
+              {/* User profile link */}
+              {user && (
+                <Link
+                  href="/profile"
+                  className={`flex items-center rounded-lg transition-colors mb-1.5 ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2'} text-white/50 hover:bg-white/[0.04] hover:text-white/80`}
+                  title={isRail ? user.name : undefined}
+                >
+                  <div className="w-7 h-7 rounded-full bg-emerald-500/15 flex items-center justify-center shrink-0 overflow-hidden">
+                    {user.avatar_url ? (
+                      <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <User size={14} className="text-emerald-400" />
+                    )}
+                  </div>
+                  {!isRail && (
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[12px] font-semibold text-white/80 truncate">{user.name}</div>
+                      {user.role && <div className="text-[10px] text-white/30 truncate">{user.role}</div>}
+                    </div>
+                  )}
+                </Link>
+              )}
+
+              {/* Logout */}
+              <button
+                onClick={onLogout}
+                className={`flex items-center rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
+                title={isRail ? 'Log out' : undefined}
+              >
+                <LogOut size={isRail ? 18 : 15} className="shrink-0" />
+                {!isRail && <span className="text-[12px] font-medium">Log out</span>}
+              </button>
+            </div>
+          </motion.aside>
         )}
       </AnimatePresence>
 
-      {/* ═══ SIDEBAR ═══ */}
-      <motion.aside
-        initial={false}
-        animate={{ width: collapsed ? 64 : 248 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`
-          fixed left-0 top-14 bottom-0 z-50
-          bg-[#0c0f14] border-r border-white/[0.06]
-          flex flex-col overflow-hidden
-          transition-transform duration-300 ease-out
-          ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        `}
-      >
-        {/* ── Header ── */}
-        <div className="h-[52px] px-3 flex items-center justify-between shrink-0 border-b border-white/[0.04]">
-          <Link href={backHref || '/'} className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-              <TitleIcon size={16} className="text-emerald-400" />
-            </div>
-            <AnimatePresence mode="wait">
-              {!collapsed && (
-                <motion.span
-                  initial={{ opacity: 0, x: -4 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -4 }}
-                  className="font-semibold text-[13px] text-white/90 tracking-tight truncate"
-                >
-                  {title}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </Link>
-          <div className="flex items-center gap-0.5">
-            <button
-              onClick={() => setCollapsed(!collapsed)}
-              className="hidden md:flex p-1.5 rounded-md text-white/30 hover:text-white/70 hover:bg-white/[0.04] transition-all"
-              title={collapsed ? 'Expand' : 'Collapse'}
-            >
-              {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-            </button>
-            <button
+      {/* ═══ MOBILE OVERLAY ═══ */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm lg:hidden"
               onClick={() => setMobileOpen(false)}
-              className="md:hidden p-1.5 rounded-md text-white/30 hover:text-white/70 hover:bg-white/[0.04]"
+            />
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 35 }}
+              className="fixed left-0 top-0 bottom-0 z-[60] w-[280px] bg-[#0c0f14] flex flex-col lg:hidden overflow-y-auto"
             >
-              <X size={16} />
-            </button>
-          </div>
-        </div>
-
-        {/* ── User Section ── */}
-        {user && (
-          <div className={`shrink-0 border-b border-white/[0.04] ${collapsed ? 'p-2' : 'px-3 py-2.5'}`}>
-            <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2.5'}`}>
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs font-bold shrink-0 overflow-hidden">
-                {user.avatar_url ? (
-                  <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
-                ) : (
-                  user.name?.charAt(0).toUpperCase() || 'U'
-                )}
-              </div>
-              {!collapsed && (
-                <div className="min-w-0 flex-1">
-                  <p className="font-medium text-[12px] text-white/80 truncate">{user.name}</p>
-                  <p className="text-[10px] text-white/30 truncate">{user.role || 'Member'}</p>
+              {/* Mobile header */}
+              <div className="flex items-center justify-between px-4 py-4 border-b border-white/[0.06] shrink-0">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                    <TitleIcon size={15} className="text-emerald-400" />
+                  </div>
+                  <span className="font-semibold text-[13px] text-white/90">{title}</span>
                 </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ── Search (expanded only) ── */}
-        {!collapsed && (
-          <div className="px-3 py-2 shrink-0">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={`Search ${title.toLowerCase()}...`}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    const q = (e.target as HTMLInputElement).value;
-                    if (q.trim()) setMobileOpen(false);
-                  }
-                }}
-                className="w-full bg-white/[0.03] border border-white/[0.06] rounded-lg py-2 px-3 text-[12px] text-white/70 placeholder:text-white/20 focus:outline-none focus:border-emerald-500/30 focus:bg-white/[0.05] transition-all"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* ── Back Link ── */}
-        {backHref && (
-          <div className={`shrink-0 border-b border-white/[0.04] ${collapsed ? 'p-2' : 'px-3 py-1.5'}`}>
-            <Link
-              href={backHref}
-              className={`flex items-center text-white/25 hover:text-white/60 text-[11px] transition-colors ${collapsed ? 'justify-center' : 'gap-1.5'}`}
-            >
-              <ChevronLeft size={12} />
-              {!collapsed && <span>{backLabel || 'Back'}</span>}
-            </Link>
-          </div>
-        )}
-
-        {/* ── Navigation ── */}
-        <nav className="flex-1 overflow-y-auto py-3 scrollbar-thin">
-          <div className="px-2 space-y-0.5">
-            {items.map((item) => {
-              const Icon = item.icon;
-              const active = isActive(item.href);
-              const isHovered = hoveredItem === item.id;
-
-              return (
-                <div
-                  key={item.id}
-                  className="relative"
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50 hover:text-white/80 transition-colors"
                 >
-                  <Link
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`
-                      flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative
-                      ${collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'}
-                      ${active
-                        ? 'bg-emerald-500/[0.08] text-emerald-400'
-                        : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
-                      }
-                    `}
-                    title={collapsed ? item.label : undefined}
-                  >
-                    {/* Active indicator bar */}
-                    {active && (
-                      <motion.div
-                        layoutId="sidebar-active-pill"
-                        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-emerald-400 rounded-r-full"
-                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <Icon
-                      size={18}
-                      className={`shrink-0 transition-colors ${
-                        active
-                          ? 'text-emerald-400'
-                          : 'text-white/30 group-hover:text-white/60'
-                      }`}
-                    />
-                    {!collapsed && (
+                  <ChevronLeft size={16} />
+                </button>
+              </div>
+
+              {/* Back link */}
+              <div className="px-4 py-2 border-b border-white/[0.06]">
+                <Link
+                  href={backHref}
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-1.5 text-[11px] text-white/30 hover:text-white/60 transition-colors"
+                >
+                  <ChevronLeft size={12} />
+                  {backLabel}
+                </Link>
+              </div>
+
+              {/* Mobile nav */}
+              <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
+                {items.map((item) => {
+                  const Icon = item.icon;
+                  const active = isActiveNav(item, pathname);
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`
+                        flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all duration-150
+                        ${active
+                          ? 'bg-emerald-500/10 text-emerald-400'
+                          : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
+                        }
+                      `}
+                    >
+                      <Icon size={17} className="shrink-0" />
                       <span className="font-medium text-[13px] truncate">{item.label}</span>
-                    )}
-                    {!collapsed && item.badge && item.badge > 0 && (
-                      <span className="ml-auto bg-emerald-500/15 text-emerald-400 text-[10px] font-semibold px-1.5 py-0.5 rounded-md min-w-[20px] text-center">
-                        {item.badge}
-                      </span>
-                    )}
-                  </Link>
+                    </Link>
+                  );
+                })}
+              </nav>
 
-                  {/* Tooltip for collapsed state */}
-                  {collapsed && isHovered && (
-                    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 pointer-events-none">
-                      <div className="bg-[#1a1f2e] border border-white/[0.08] rounded-lg px-3 py-1.5 shadow-xl shadow-black/30">
-                        <span className="text-[12px] font-medium text-white/80 whitespace-nowrap">{item.label}</span>
-                      </div>
+              {/* Mobile footer */}
+              <div className="shrink-0 border-t border-white/[0.06] p-3 space-y-1">
+                {user && (
+                  <Link
+                    href="/profile"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/50 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-full bg-emerald-500/15 flex items-center justify-center shrink-0 overflow-hidden">
+                      {user.avatar_url ? (
+                        <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
+                      ) : (
+                        <User size={14} className="text-emerald-400" />
+                      )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </nav>
-
-        {/* ── Footer ── */}
-        <div className="p-2 border-t border-white/[0.04] shrink-0 space-y-0.5">
-          {onLogout && (
-            <button
-              onClick={onLogout}
-              className={`
-                flex items-center gap-2.5 rounded-lg text-white/25 hover:bg-white/[0.04] hover:text-white/60 w-full transition-all
-                ${collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'}
-              `}
-              title={collapsed ? 'Logout' : undefined}
-            >
-              <LogOut size={18} className="shrink-0" />
-              {!collapsed && <span className="font-medium text-[13px]">Logout</span>}
-            </button>
-          )}
-        </div>
-      </motion.aside>
+                    <div className="min-w-0">
+                      <div className="text-[12px] font-semibold text-white/80 truncate">{user.name}</div>
+                      {user.role && <div className="text-[10px] text-white/30 truncate">{user.role}</div>}
+                    </div>
+                  </Link>
+                )}
+                <button
+                  onClick={() => { onLogout(); setMobileOpen(false); }}
+                  className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors w-full"
+                >
+                  <LogOut size={15} className="shrink-0" />
+                  <span className="text-[12px] font-medium">Log out</span>
+                </button>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* ═══ MAIN CONTENT ═══ */}
-      <main className={`flex-1 min-w-0 transition-all duration-300 ${mainClassName}`}>
-        {/* Mobile Header */}
-        <header className="md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
-          <button onClick={() => setMobileOpen(true)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-            <Menu size={18} className="text-slate-600 dark:text-slate-300" />
+      <main
+        className={`
+          transition-all duration-300 ease-out
+          ${isClosed ? 'md:ml-3' : isRail ? `md:ml-[${railWidth}px]` : `md:ml-[${expandedWidth}px]`}
+        `}
+        style={{
+          marginLeft: isClosed ? '12px' : isRail ? `${railWidth}px` : `${expandedWidth}px`,
+        }}
+      >
+        {/* Mobile hamburger trigger */}
+        <div className="lg:hidden sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-3">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu size={20} />
           </button>
-          <span className="font-bold text-sm text-slate-900 dark:text-white">{title}</span>
-          <div className="w-8" />
-        </header>
-        <div className="p-4 md:p-6 lg:p-8">{children}</div>
+          <span className="font-semibold text-sm text-slate-900 dark:text-white">{title}</span>
+        </div>
+
+        <div className="p-4 md:p-6 lg:p-8">
+          {children}
+        </div>
       </main>
     </div>
   );
