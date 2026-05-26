@@ -241,7 +241,7 @@ export default function StoresPage() {
                                 <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                                 <input type="text" placeholder="Search stores..."
                                     value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-lg text-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 transition-all" />
+                                    className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-xl text-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all" />
                             </div>
                         </form>
                         <div className="flex items-center gap-2">

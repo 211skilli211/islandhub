@@ -289,8 +289,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   const isHovered = hoveredItem === item.id;
 
                   const itemClass = isRail
-                    ? 'flex items-center justify-center rounded-lg transition-all duration-150 group relative px-0 py-2.5' + (active ? ' bg-accent-500/10 text-accent-500' : ' text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary')
-                    : 'flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative px-3 py-2.5' + (active ? ' bg-accent-500/10 text-accent-500' : ' text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary');
+                    ? `flex items-center justify-center rounded-lg transition-all duration-150 group relative px-0 py-2.5${active ? ' bg-accent-500/10 text-accent-500' : ' text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`
+                    : `flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative px-3 py-2.5${active ? ' bg-accent-500/10 text-accent-500' : ' text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`;
 
                   return (
                     <div key={item.id} onMouseEnter={() => isRail && setHoveredItem(item.id)} onMouseLeave={() => setHoveredItem(null)}>

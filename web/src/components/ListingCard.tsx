@@ -45,7 +45,6 @@ interface ListingCardProps {
 }
 
 const ListingCardComponent = function ListingCard({ listing, onClick, layout = 'default' }: ListingCardProps) {
-    // Memoize expensive computations based on the listing prop
     const memoizedListingData = useMemo(() => {
         const { type, title, price, goal_amount, metadata, is_promoted, location, duration, capacity } = listing;
 
@@ -54,7 +53,6 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
         const isFood = (listing as any).category?.toLowerCase() === 'food' || type?.toLowerCase() === 'food';
         const activeType = isFood ? 'food' : type;
 
-        // Helper to extract URL from photo (handles both string and object formats)
         const extractPhotoUrl = (photo: any): string | null => {
             if (!photo) return null;
             if (typeof photo === 'string') return photo;
@@ -62,7 +60,6 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
             return null;
         };
 
-        // Standardized Priority: Transport Image -> Manual Photos -> Group Images -> Main image_url -> Metadata -> No fallback
         const primaryAsset = (isTransport && vehicleType)
             ? `/assets/vehicles/${vehicleType.toLowerCase()}.png`
             : (listing.photos && listing.photos.length > 0)
@@ -76,19 +73,18 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
             : getImageUrl(primaryAsset) || getImageUrl('file-1769965232226-73669333.jpg');
 
         return { type, title, price, goal_amount, is_promoted, location, duration, capacity, isFood, activeType, imageUrl };
-    }, [listing]); // Dependencies for this memo block
+    }, [listing]);
 
     const { type, title, price, goal_amount, is_promoted, location, duration, capacity, imageUrl } = memoizedListingData;
 
-    // Memoize render functions
     const renderPriceOrGoal = useCallback(() => {
         if (type === 'campaign' && goal_amount) {
             return (
                 <div className="mt-2 text-left">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Campaign Goal</p>
-                    <p className="text-xl font-black text-slate-900">${goal_amount.toLocaleString()}</p>
-                    <div className="w-full bg-slate-100 rounded-full h-2 mt-2">
-                        <div className="bg-gradient-to-r from-teal-500 to-emerald-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-1">Campaign Goal</p>
+                    <p className="text-xl font-black text-ink-primary">${goal_amount.toLocaleString()}</p>
+                    <div className="w-full bg-surface-tertiary rounded-full h-2 mt-2">
+                        <div className="bg-gradient-to-r from-emerald-500 to-accent-400 h-2 rounded-full" style={{ width: '45%' }}></div>
                     </div>
                 </div>
             );
@@ -96,9 +92,9 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
         if (price) {
             return (
                 <div className="mt-2 text-left">
-                    <p className="text-2xl font-black text-slate-900">
+                    <p className="text-2xl font-black text-ink-primary">
                         ${price.toLocaleString()}
-                        {type === 'rental' && <span className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">/ day</span>}
+                        {type === 'rental' && <span className="text-xs font-bold text-ink-tertiary uppercase tracking-widest ml-1">/ day</span>}
                     </p>
                 </div>
             );
@@ -111,7 +107,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
             return (
                 <div className="flex items-center gap-2 mt-3">
                     <div className={`w-1.5 h-1.5 rounded-full ${listing.metadata.inventory_count > 0 ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`}></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">
                         {listing.metadata.inventory_count > 0 ? `${listing.metadata.inventory_count} in stock` : 'Out of stock'}
                     </span>
                 </div>
@@ -121,7 +117,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
             const daysLeft = Math.ceil((new Date(listing.metadata.deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
             return (
                 <div className="flex items-center gap-2 mt-3">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-orange-600 bg-orange-50 px-2 py-1 rounded-md">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-sand-500 bg-sand-500/10 px-2 py-1 rounded-md">
                         {daysLeft > 0 ? `${daysLeft} days left` : 'Ended'}
                     </span>
                 </div>
@@ -130,11 +126,11 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
         if ((type === 'service' || type === 'rental') && (duration || listing.metadata?.duration)) {
             return (
                 <div className="flex items-center gap-2 mt-3">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-accent-400 bg-accent-500/10 px-2 py-1 rounded-md">
                         ⏱ {duration || listing.metadata?.duration}
                     </span>
                     {capacity && (
-                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md">
                             👤 {capacity} Guests
                         </span>
                     )}
@@ -166,11 +162,9 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
 
     const CardWrapper = ({ children }: { children: React.ReactNode }) => {
         const handleCardClick = (e: React.MouseEvent) => {
-            // If the user clicked a link or button inside, don't trigger card navigation
             if ((e.target as HTMLElement).closest('a, button')) {
                 return;
             }
-
             if (onClick) {
                 e.preventDefault();
                 onClick();
@@ -193,7 +187,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                 onKeyDown={handleKeyDown}
                 role="link"
                 tabIndex={0}
-                className="group relative bg-white rounded-[2.5rem] flex flex-col overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 hover:-translate-y-2 h-full w-full text-left cursor-pointer"
+                className="group relative bg-surface-elevated rounded-2xl flex flex-col overflow-hidden border border-border-primary hover:shadow-xl hover:shadow-black/20 transition-all duration-500 hover:-translate-y-2 h-full w-full text-left cursor-pointer"
             >
                 {children}
             </div>
@@ -212,16 +206,16 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                             alt={listing.title}
                         />
                         {listing.is_promoted && (
-                            <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-amber-400 text-white rounded text-[7px] font-black uppercase">★</span>
+                            <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-sand-500 text-white rounded text-[7px] font-black uppercase">★</span>
                         )}
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
-                                <h3 className="text-sm sm:text-base font-black text-slate-900 leading-tight group-hover:text-teal-600 transition-colors truncate">
+                                <h3 className="text-sm sm:text-base font-black text-ink-primary leading-tight group-hover:text-accent-400 transition-colors truncate">
                                     {title}
                                 </h3>
-                                <p className="text-[10px] sm:text-xs text-slate-500 font-medium line-clamp-1 mt-0.5">
+                                <p className="text-[10px] sm:text-xs text-ink-tertiary font-medium line-clamp-1 mt-0.5">
                                     {listing.description}
                                 </p>
                             </div>
@@ -232,10 +226,10 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                         <div className="flex items-center gap-2 mt-1.5">
                             <TypeBadge type={type} />
                             {listing.shop_name && (
-                                <span className="text-[9px] font-bold text-slate-400 truncate">by {listing.shop_name}</span>
+                                <span className="text-[9px] font-bold text-ink-tertiary truncate">by {listing.shop_name}</span>
                             )}
                             {location && (
-                                <span className="text-[9px] text-teal-600 font-medium">📍 {location}</span>
+                                <span className="text-[9px] text-accent-400 font-medium">📍 {location}</span>
                             )}
                         </div>
                     </div>
@@ -255,12 +249,12 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                         alt={listing.title}
                     />
                     {listing.is_promoted && (
-                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-amber-400 text-white rounded text-[8px] font-black uppercase shadow">★</span>
+                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-sand-500 text-white rounded text-[8px] font-black uppercase shadow">★</span>
                     )}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
                 </div>
                 <div className="p-3 sm:p-4">
-                    <h3 className="text-xs sm:text-sm font-black text-slate-900 leading-tight group-hover:text-teal-600 transition-colors line-clamp-2 mb-1">
+                    <h3 className="text-xs sm:text-sm font-black text-ink-primary leading-tight group-hover:text-accent-400 transition-colors line-clamp-2 mb-1">
                         {title}
                     </h3>
                     <div className="flex items-center justify-between">
@@ -284,7 +278,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                     <div className="flex items-center gap-2">
                         <TypeBadge type={type} />
                         {listing.is_promoted && (
-                            <span className="px-3 py-1 bg-amber-400 text-white rounded-lg text-[9px] font-black uppercase tracking-widest shadow-lg shadow-amber-200">
+                            <span className="px-3 py-1 bg-sand-500 text-white rounded-lg text-[9px] font-black uppercase tracking-widest shadow-lg shadow-sand-500/20">
                                 Featured
                             </span>
                         )}
@@ -293,16 +287,16 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                         <Link
                             href={`/store/${listing.shop_slug}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="relative z-20 flex items-center gap-1.5 px-2 py-1 bg-white/90 backdrop-blur-md rounded-xl border border-white/50 shadow-sm hover:bg-white transition-colors group/shop"
+                            className="relative z-20 flex items-center gap-1.5 px-2 py-1 bg-surface-elevated/90 backdrop-blur-md rounded-xl border border-white/10 shadow-sm hover:bg-surface-elevated transition-colors group/shop"
                         >
-                            <div className="w-5 h-5 rounded-lg bg-slate-50 overflow-hidden border border-slate-100 shrink-0">
+                            <div className="w-5 h-5 rounded-lg bg-surface-secondary overflow-hidden border border-border-primary shrink-0">
                                 {listing.shop_logo ? (
                                     <img src={getImageUrl(listing.shop_logo)} alt={listing.shop_name} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-[10px] grayscale group-hover/shop:grayscale-0 transition-all">🏪</div>
                                 )}
                             </div>
-                            <span className="text-[9px] font-black text-slate-700 uppercase tracking-tight truncate max-w-[80px]">
+                            <span className="text-[9px] font-black text-ink-primary uppercase tracking-tight truncate max-w-[80px]">
                                 {listing.shop_name}
                             </span>
                         </Link>
@@ -312,7 +306,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
 
                 {/* Floating Action Hint */}
                 <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                    <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-white/90 backdrop-blur-md rounded-full text-[10px] sm:text-sm font-black uppercase tracking-widest text-slate-900 shadow-xl border border-white whitespace-nowrap">
+                    <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-surface-elevated/90 backdrop-blur-md rounded-full text-[10px] sm:text-sm font-black uppercase tracking-widest text-ink-primary shadow-xl border border-white/10 whitespace-nowrap">
                         {renderAction()} →
                     </span>
                 </div>
@@ -320,20 +314,20 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
 
             <div className={`flex-1 flex flex-col text-left ${layout === 'compact' ? 'p-4' : 'p-5 md:p-8'}`}>
                 <div className="flex-1">
-                    <h3 className={`${layout === 'compact' ? 'text-lg' : 'text-xl md:text-2xl'} font-black text-slate-900 leading-tight group-hover:text-teal-600 transition-colors line-clamp-1 mb-2 md:mb-3`}>
+                    <h3 className={`${layout === 'compact' ? 'text-lg' : 'text-xl md:text-2xl'} font-black text-ink-primary leading-tight group-hover:text-accent-400 transition-colors line-clamp-1 mb-2 md:mb-3`}>
                         {title}
                     </h3>
                     {location && (
-                        <p className="text-[10px] font-black text-teal-600 uppercase tracking-widest mb-2 flex items-center gap-1">
+                        <p className="text-[10px] font-black text-accent-400 uppercase tracking-widest mb-2 flex items-center gap-1">
                             📍 {location}
                         </p>
                     )}
-                    <p className="text-xs sm:text-sm text-slate-500 font-medium line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-ink-tertiary font-medium line-clamp-2 leading-relaxed">
                         {listing.description}
                     </p>
                 </div>
 
-                <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-50">
+                <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-border-primary">
                     {renderPriceOrGoal()}
                     {renderMeta()}
                 </div>
@@ -342,5 +336,4 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     );
 };
 
-// Memoize the entire component to prevent re-renders if props haven't changed
 export default memo(ListingCardComponent);

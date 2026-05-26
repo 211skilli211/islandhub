@@ -138,12 +138,12 @@ export default function Home() {
         pageKey="home"
         align="center"
       >
-        <section className="relative py-16 md:py-40 px-4 overflow-hidden">
+        <section className="relative py-12 md:py-24 px-4 overflow-hidden">
           <div className="max-w-7xl mx-auto relative z-10 text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-block px-4 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-teal-400 text-[10px] font-black uppercase tracking-[0.3em] mb-10"
+              className="inline-block px-4 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-accent-400 text-[10px] font-black uppercase tracking-[0.3em] mb-10"
             >
               🏝 Welcome to the Heart of the Islands
             </motion.div>
@@ -158,17 +158,17 @@ export default function Home() {
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-8xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[0.95] md:leading-[0.9]"
+              className="text-4xl md:text-6xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[0.95] md:leading-[0.9]"
             >
               The Caribbean <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-400 to-teal-200">Commerce Hub</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-emerald-400 to-accent-200">Commerce Hub</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-teal-50 text-lg md:text-xl max-w-2xl mx-auto mb-16 font-medium leading-relaxed opacity-80"
+              className="text-teal-50 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed opacity-80"
             >
               Connected directly to local artisans, restaurants, and community causes.
               Support the islands with every purchase.
@@ -210,14 +210,14 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
         <AdSpace
           spaceName="homepage_interstitial"
-          className="h-32 md:h-48 rounded-4xl overflow-hidden border-4 border-white shadow-2xl"
+          className="h-32 md:h-48 rounded-4xl overflow-hidden border-4 border-surface-elevated shadow-2xl"
         />
       </div>
 
       {/* Marketplace Section - Using theme-aware classes */}
       <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBgClass('secondary'))}>
         <div className={cnTheme(getCardBaseClasses(false), 'p-8 md:p-24 rounded-[3rem] md:rounded-[4rem] relative overflow-hidden group', getShadowClass('lg'))}>
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-teal-500/10 transition-colors duration-1000" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-accent-500/10 transition-colors duration-1000" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -272,14 +272,14 @@ export default function Home() {
       {/* IBT Solutions Section */}
       <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBgClass('secondary'))}>
         <div className={cnTheme(getCardBaseClasses(false), 'p-8 md:p-16 rounded-[3rem] md:rounded-[4rem] relative overflow-hidden', getShadowClass('lg'))}>
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block px-4 py-1.5 bg-teal-500/10 text-teal-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+              <div className="inline-block px-4 py-1.5 bg-accent-500/10 text-accent-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
                 💼 Business Solutions
               </div>
               <h2 className={cnTheme('text-4xl md:text-5xl font-black mb-6 tracking-tighter leading-tight italic', getTextClass('primary'))}>
-                IBT <span className="text-teal-600">Solutions</span>
+                IBT <span className="text-accent-400">Solutions</span>
               </h2>
               <p className={cnTheme('text-lg mb-8 leading-relaxed', getTextClass('secondary'))}>
                 AI-powered digital employees, web development, business automation, and a growing co-operative federation — everything your Caribbean business needs to compete.
@@ -374,7 +374,7 @@ export default function Home() {
               From volcano treks to scenic railway journeys. Discover the best curated adventures across St. Kitts & Nevis.
             </p>
           </div>
-          <Link href="/tours" className={cnTheme(getButtonClasses('primary'), 'bg-orange-600 hover:bg-orange-700')}>
+          <Link href="/tours" className={cnTheme(getButtonClasses('primary'), 'bg-sand-500 hover:bg-sand-600')}>
             Explore All Tours <span>→</span>
           </Link>
         </div>
@@ -421,7 +421,7 @@ export default function Home() {
               <div className={cnTheme('inline-flex items-center gap-3 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-6', getBgClass('tertiary'), getTextClass('primary'))}>
                 🏝️ Premium Experiences
               </div>
-              <h2 className={cnTheme('text-4xl md:text-7xl font-black tracking-tighter leading-none mb-6 italic', getTextClass('primary'))}>
+              <h2 className={cnTheme('text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6 italic', getTextClass('primary'))}>
                 Your Island <br />
                 <span className={cnTheme('font-medium tracking-normal not-italic', getTextClass('primary'))}>Journey Starts Here</span>
               </h2>
@@ -429,7 +429,7 @@ export default function Home() {
                 From luxury villas to high-performance vehicles and private yachts. Rent the best the islands have to offer.
               </p>
             </div>
-            <Link href="/rentals" className={cnTheme(getButtonClasses('primary'), 'bg-blue-600 hover:bg-blue-700 flex items-center gap-3')}>
+            <Link href="/rentals" className={cnTheme(getButtonClasses('primary'), 'bg-brand-500 hover:bg-brand-600 flex items-center gap-3')}>
               View All Rentals <span className="text-xl">→</span>
             </Link>
           </div>
@@ -497,7 +497,7 @@ export default function Home() {
               ⭐ Elevate Your Experience
             </motion.div>
             <h2 className={cnTheme('text-4xl md:text-6xl font-black mb-6 tracking-tight italic', getTextClass('primary'))}>
-              Exclusive <span className="text-(--accent-primary)">Island Tiers</span>
+              Exclusive              <span className="text-accent-400">Island Tiers</span>
             </h2>
             <p className={cnTheme('font-medium max-w-2xl mx-auto text-lg leading-relaxed', getTextClass('secondary'))}>
               Unlock the full potential of IslandHub with our premium memberships.
@@ -516,7 +516,7 @@ export default function Home() {
                 getBgClass('secondary')
               )}
               style={{
-                background: 'linear-gradient(135deg, rgba(251,191,36,0.1) 0%, rgba(245,158,11,0.1) 100%)'
+                background: 'linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(217,119,6,0.1) 100%)'
               }}
             >
               <div className="relative z-10">
@@ -529,11 +529,11 @@ export default function Home() {
                   <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>${subscriptionTiers.vip}</span>
                   <span className={cnTheme('font-bold uppercase tracking-widest text-[10px]', getTextClass('tertiary'))}>/ month</span>
                 </div>
-                <Link href="/pricing" className={cnTheme(getButtonClasses('primary'), 'bg-amber-500 hover:bg-amber-600 inline-flex items-center gap-3')}>
+                <Link href="/pricing" className={cnTheme(getButtonClasses('primary'), 'bg-sand-500 hover:bg-sand-600 inline-flex items-center gap-3')}>
                   Claim VIP Status <span>→</span>
                 </Link>
               </div>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[80px] rounded-full group-hover:bg-amber-500/10 transition-colors" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-sand-500/5 blur-[80px] rounded-full group-hover:bg-sand-500/10 transition-colors" />
             </motion.div>
 
             {/* Premium Vendor Teaser */}
@@ -546,7 +546,7 @@ export default function Home() {
                 getBgClass('secondary')
               )}
               style={{
-                background: 'linear-gradient(135deg, rgba(20,184,166,0.1) 0%, rgba(5,150,105,0.1) 100%)'
+                background: 'linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(8,145,178,0.1) 100%)'
               }}
             >
               <div className="relative z-10">
@@ -563,7 +563,7 @@ export default function Home() {
                   Upgrade Business <span>→</span>
                 </Link>
               </div>
-              <div className="absolute bottom-0 right-0 w-64 h-64 bg-teal-500/5 blur-[80px] rounded-full group-hover:bg-teal-500/10 transition-colors" />
+              <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-500/5 blur-[80px] rounded-full group-hover:bg-accent-500/10 transition-colors" />
             </motion.div>
           </div>
 
@@ -614,7 +614,7 @@ export default function Home() {
                 )}
 
                 {section.cta_text && (
-                  <Link href={section.cta_link || '#'} className="inline-flex items-center justify-center px-6 py-3 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 theme-transition shadow-2xl bg-white text-(--accent-primary) hover:bg-gray-50 focus:ring-(--accent-primary)">
+                  <Link href={section.cta_link || '#'} className="inline-flex items-center justify-center px-6 py-3 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 theme-transition shadow-2xl bg-white text-accent-500 hover:bg-surface-secondary focus:ring-accent-400">
                     {section.cta_text}
                   </Link>
                 )}
