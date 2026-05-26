@@ -4,166 +4,239 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuthStore } from '@/lib/auth';
+import { ChevronLeft, ChevronRight, X, Menu, LogOut } from 'lucide-react';
 
+// ─── Types ───
 interface NavItem {
-    id: string;
-    label: string;
-    icon: string;
-    href?: string;
-    badge?: number;
-    subItems?: NavItem[];
+  id: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
+  href: string;
+  badge?: number;
 }
 
 interface SidebarProps {
-    items: NavItem[];
-    title?: string;
-    logo?: string;
-    onLogout?: () => void;
+  title: string;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
+  items: NavItem[];
+  backHref?: string;
+  backLabel?: string;
+  onLogout?: () => void;
+  user?: { name?: string; avatar_url?: string; role?: string } | null;
+  mobileOpen: boolean;
+  setMobileOpen: (open: boolean) => void;
+  collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
+  pathname: string;
+  children: React.ReactNode;
+  mainClassName?: string;
 }
 
-export default function Sidebar({ items, title = 'IslandHub', logo = '🌴', onLogout }: SidebarProps) {
-    const pathname = usePathname();
-    const { user } = useAuthStore();
-    const [expandedItem, setExpandedItem] = useState<string | null>(null);
-    const [collapsed, setCollapsed] = useState(false);
+// ─── Unified Sidebar Component ───
+export default function Sidebar({
+  title,
+  icon: TitleIcon,
+  items,
+  backHref,
+  backLabel,
+  onLogout,
+  user,
+  mobileOpen,
+  setMobileOpen,
+  collapsed,
+  setCollapsed,
+  pathname,
+  children,
+  mainClassName = '',
+}: SidebarProps) {
+  const isActive = (href: string) => {
+    if (href.includes('?')) {
+      const [base, queryString] = href.split('?');
+      const params = new URLSearchParams(queryString);
+      const tabParam = params.get('tab');
+      if (pathname !== base) return false;
+      if (base === '/dashboard' && tabParam) {
+        const currentTab = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('tab');
+        return currentTab === tabParam;
+      }
+      return true;
+    }
+    if (href === '/dashboard') {
+      return pathname === '/dashboard' && !new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('tab');
+    }
+    return pathname === href || pathname.startsWith(href + '/');
+  };
 
-    const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex">
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
-    const toggleExpand = (id: string) => {
-        setExpandedItem(expandedItem === id ? null : id);
-    };
-
-    return (
-        <div className={`fixed left-0 top-0 h-screen bg-slate-900 text-white flex flex-col transition-all duration-300 z-50 ${
-            collapsed ? 'w-20' : 'w-72'
-        }`}>
-            {/* Header */}
-            <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-                <AnimatePresence mode="wait">
-                    {!collapsed && (
-                        <motion.div 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="flex items-center gap-3"
-                        >
-                            <span className="text-2xl">{logo}</span>
-                            <span className="font-black text-lg tracking-tight">{title}</span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-                <button 
-                    onClick={() => setCollapsed(!collapsed)}
-                    className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+      {/* Sidebar */}
+      <motion.aside
+        initial={false}
+        animate={{ width: collapsed ? 64 : 240 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className={`
+          fixed left-0 top-0 h-screen bg-slate-950 text-white flex flex-col z-50
+          transition-all duration-300
+          ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}
+      >
+        {/* Header */}
+        <div className="h-14 px-3 border-b border-white/[0.06] flex items-center justify-between shrink-0">
+          <Link href={backHref || '/'} className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center shrink-0">
+              <TitleIcon className="w-4 h-4 text-white" />
+            </div>
+            <AnimatePresence mode="wait">
+              {!collapsed && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="font-bold text-sm tracking-tight truncate"
                 >
-                    <span className="text-lg">{collapsed ? '→' : '←'}</span>
-                </button>
-            </div>
-
-            {/* User Info */}
-            {user && !collapsed && (
-                <div className="p-4 border-b border-slate-800">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center font-bold">
-                            {user.name?.charAt(0).toUpperCase() || 'U'}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <p className="font-bold text-sm truncate">{user.name}</p>
-                            <p className="text-xs text-slate-400 truncate">{user.email}</p>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto py-4">
-                <ul className="space-y-1 px-3">
-                    {items.map((item) => {
-                        const active = item.href ? isActive(item.href) : false;
-                        const hasSubItems = item.subItems && item.subItems.length > 0;
-                        const isExpanded = expandedItem === item.id;
-
-                        return (
-                            <li key={item.id}>
-                                {item.href ? (
-                                    <Link
-                                        href={item.href}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                                            active 
-                                                ? 'bg-teal-600 text-white shadow-lg shadow-teal-600/20' 
-                                                : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                                        }`}
-                                    >
-                                        <span className="text-xl">{item.icon}</span>
-                                        {!collapsed && (
-                                            <>
-                                                <span className="flex-1 font-bold text-sm">{item.label}</span>
-                                                {item.badge && item.badge > 0 && (
-                                                    <span className="bg-teal-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                                                        {item.badge}
-                                                    </span>
-                                                )}
-                                            </>
-                                        )}
-                                    </Link>
-                                ) : (
-                                    <button
-                                        onClick={() => toggleExpand(item.id)}
-                                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                                            isExpanded 
-                                                ? 'bg-slate-800 text-white' 
-                                                : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                                        }`}
-                                    >
-                                        <span className="text-xl">{item.icon}</span>
-                                        {!collapsed && (
-                                            <>
-                                                <span className="flex-1 font-bold text-sm text-left">{item.label}</span>
-                                                <span className="text-slate-500">{isExpanded ? '↑' : '↓'}</span>
-                                            </>
-                                        )}
-                                    </button>
-                                )}
-
-                                {/* Sub Items */}
-                                {hasSubItems && isExpanded && !collapsed && (
-                                    <ul className="ml-8 mt-1 space-y-1">
-                                        {item.subItems?.map((subItem) => (
-                                            <li key={subItem.id}>
-                                                <Link
-                                                    href={subItem.href || '#'}
-                                                    className={`flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all ${
-                                                        isActive(subItem.href || '')
-                                                            ? 'text-teal-400 bg-slate-800' 
-                                                            : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                                                    }`}
-                                                >
-                                                    <span>{subItem.icon}</span>
-                                                    <span>{subItem.label}</span>
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </li>
-                        );
-                    })}
-                </ul>
-            </nav>
-
-            {/* Footer */}
-            <div className="p-4 border-t border-slate-800">
-                {onLogout && (
-                    <button
-                        onClick={onLogout}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all ${collapsed ? 'justify-center' : ''}`}
-                    >
-                        <span className="text-xl">🚪</span>
-                        {!collapsed && <span className="font-bold text-sm">Logout</span>}
-                    </button>
-                )}
-            </div>
+                  {title}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </Link>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setCollapsed(!collapsed)}
+              className="hidden md:flex p-1.5 hover:bg-white/[0.06] rounded-md transition-colors"
+              title={collapsed ? 'Expand' : 'Collapse'}
+            >
+              {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+            </button>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="md:hidden p-1.5 hover:bg-white/[0.06] rounded-md"
+            >
+              <X size={16} />
+            </button>
+          </div>
         </div>
-    );
+
+        {/* User (collapsed: just avatar, expanded: name + email) */}
+        {user && (
+          <div className={`border-b border-white/[0.06] shrink-0 ${collapsed ? 'p-2' : 'p-3'}`}>
+            <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2.5'}`}>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0 overflow-hidden">
+                {user.avatar_url ? (
+                  <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  user.name?.charAt(0).toUpperCase() || 'U'
+                )}
+              </div>
+              {!collapsed && (
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-xs truncate text-white">{user.name}</p>
+                  <p className="text-[10px] text-slate-500 truncate">{user.role || 'Member'}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Back Link */}
+        {backHref && (
+          <div className={`border-b border-white/[0.06] shrink-0 ${collapsed ? 'p-2' : 'px-3 py-2'}`}>
+            <Link
+              href={backHref}
+              className={`flex items-center text-slate-500 hover:text-slate-300 text-xs transition-colors ${collapsed ? 'justify-center' : 'gap-2'}`}
+            >
+              <ChevronLeft size={14} />
+              {!collapsed && <span>{backLabel || 'Back'}</span>}
+            </Link>
+          </div>
+        )}
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-2">
+          <div className="px-2 space-y-0.5">
+            {items.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative ${
+                    collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'
+                  } ${
+                    active
+                      ? 'bg-teal-600/15 text-teal-400'
+                      : 'text-slate-400 hover:bg-white/[0.04] hover:text-slate-200'
+                  }`}
+                  title={collapsed ? item.label : undefined}
+                >
+                  {active && (
+                    <motion.div
+                      layoutId="sidebar-active"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-teal-400 rounded-r-full"
+                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  <Icon
+                    size={18}
+                    className={`shrink-0 ${active ? 'text-teal-400' : 'text-slate-500 group-hover:text-slate-300'}`}
+                  />
+                  {!collapsed && (
+                    <span className="font-medium text-[13px] truncate">{item.label}</span>
+                  )}
+                  {!collapsed && item.badge && item.badge > 0 && (
+                    <span className="ml-auto bg-teal-600/20 text-teal-400 text-[10px] font-bold px-1.5 py-0.5 rounded-md">
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+
+        {/* Footer */}
+        <div className="p-2 border-t border-white/[0.06] shrink-0 space-y-0.5">
+          {onLogout && (
+            <button
+              onClick={onLogout}
+              className={`flex items-center gap-2.5 rounded-lg text-slate-500 hover:bg-white/[0.04] hover:text-slate-300 w-full transition-all ${
+                collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'
+              }`}
+              title={collapsed ? 'Logout' : undefined}
+            >
+              <LogOut size={18} className="shrink-0" />
+              {!collapsed && <span className="font-medium text-[13px]">Logout</span>}
+            </button>
+          )}
+        </div>
+      </motion.aside>
+
+      {/* Main Content */}
+      <main className={`flex-1 min-w-0 transition-all duration-300 ${mainClassName}`}>
+        {/* Mobile Header */}
+        <header className="md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
+          <button onClick={() => setMobileOpen(true)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+            <Menu size={18} className="text-slate-600 dark:text-slate-300" />
+          </button>
+          <span className="font-bold text-sm text-slate-900 dark:text-white">{title}</span>
+          <div className="w-8" />
+        </header>
+        <div className="p-4 md:p-6 lg:p-8">{children}</div>
+      </main>
+    </div>
+  );
 }
