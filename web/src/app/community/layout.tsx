@@ -56,7 +56,7 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
       mobileOpen={mobileOpen}
       setMobileOpen={setMobileOpen}
       defaultState="closed"
-      toggleTop="160px"
+      toggleTop="80px"
     >
       {children}
     </Sidebar>
