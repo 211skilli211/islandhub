@@ -7,19 +7,23 @@ import toast from '@/lib/toast';
 import Sidebar from '@/components/layout/Sidebar';
 import {
   Home, Building2, Users, MessageCircle, Calendar,
-  Briefcase, MapPin, Gavel, ShoppingBag
+  Briefcase, MapPin, Gavel, ShoppingBag, Newspaper,
+  Megaphone, Heart
 } from 'lucide-react';
 
 const communityNavItems = [
   { id: 'feed', label: 'Feed', icon: Home, href: '/community' },
-  { id: 'business', label: 'Business', icon: Building2, href: '/community/business' },
   { id: 'groups', label: 'Groups', icon: Users, href: '/community/groups' },
-  { id: 'stories', label: 'Stories', icon: MessageCircle, href: '/community/stories' },
   { id: 'events', label: 'Events', icon: Calendar, href: '/community/events' },
-  { id: 'jobs', label: 'Jobs', icon: Briefcase, href: '/community/jobs' },
-  { id: 'map', label: 'Map', icon: MapPin, href: '/community/map' },
-  { id: 'auctions', label: 'Auctions', icon: Gavel, href: '/community/auctions' },
+  { id: 'stories', label: 'Stories', icon: MessageCircle, href: '/community/stories' },
+  { id: 'business', label: 'Business', icon: Building2, href: '/community/business' },
   { id: 'marketplace', label: 'Marketplace', icon: ShoppingBag, href: '/community/marketplace' },
+  { id: 'jobs', label: 'Jobs', icon: Briefcase, href: '/community/jobs' },
+  { id: 'auctions', label: 'Auctions', icon: Gavel, href: '/community/auctions' },
+  { id: 'map', label: 'Island Map', icon: MapPin, href: '/community/map' },
+  { id: 'news', label: 'Local News', icon: Newspaper, href: '/community/news' },
+  { id: 'campaigns', label: 'Campaigns', icon: Megaphone, href: '/community/campaigns' },
+  { id: 'volunteer', label: 'Volunteer', icon: Heart, href: '/community/volunteer' },
 ];
 
 export default function CommunityLayout({ children }: { children: React.ReactNode }) {
@@ -51,6 +55,8 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
       storageKey="community-sidebar-state"
       mobileOpen={mobileOpen}
       setMobileOpen={setMobileOpen}
+      defaultState="closed"
+      toggleTop="160px"
     >
       {children}
     </Sidebar>

@@ -35,6 +35,8 @@ export interface SidebarProps {
   storageKey?: string;
   mobileOpen?: boolean;
   setMobileOpen?: (open: boolean) => void;
+  defaultState?: SidebarState;
+  toggleTop?: string;
 }
 
 type SidebarState = 'closed' | 'rail' | 'expanded';
@@ -70,8 +72,10 @@ export default function Sidebar({
   storageKey = 'sidebar-state',
   mobileOpen: externalMobileOpen,
   setMobileOpen: externalSetMobileOpen,
+  defaultState = 'rail',
+  toggleTop = '10px',
 }: SidebarProps) {
-  const [state, setState] = useState<SidebarState>('rail');
+  const [state, setState] = useState<SidebarState>(defaultState);
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
@@ -139,7 +143,7 @@ export default function Sidebar({
           onClick={toggleExpand}
           className="fixed z-[70] p-1.5 rounded-md bg-brand-950/90 hover:bg-brand-900 text-ink-tertiary hover:text-ink-primary transition-all border border-brand-800/20"
           style={{
-            top: '10px',
+            top: toggleTop,
             left: isRail ? `${RAIL_WIDTH + 2}px` : `${EXPANDED_WIDTH - 32}px`,
           }}
           aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
