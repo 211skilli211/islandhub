@@ -245,7 +245,7 @@ export default function Home() {
               {[
                 { label: 'Fresh Food', count: categoryCounts.food ?? 0, icon: '🍴', href: '/food' },
                 { label: 'Local Brands/Hosts', count: categoryCounts.product ?? 0, icon: '📦', href: '/products' },
-                { label: 'Rentals', count: categoryCounts.rental ?? 0, icon: '🏠', href: '/rentals' },
+                { label: 'Rentals', count: categoryCounts.rental ?? 0, icon: '🏠', href: '/rental-hub' },
                 { label: 'Services', count: categoryCounts.service ?? 0, icon: '🛠️', href: '/services' }
               ].map((item) => (
                 <Link
@@ -429,7 +429,7 @@ export default function Home() {
                 From luxury villas to high-performance vehicles and private yachts. Rent the best the islands have to offer.
               </p>
             </div>
-            <Link href="/rentals" className={cnTheme(getButtonClasses('primary'), 'bg-brand-500 hover:bg-brand-600 flex items-center gap-3')}>
+            <Link href="/rental-hub" className={cnTheme(getButtonClasses('primary'), 'bg-brand-500 hover:bg-brand-600 flex items-center gap-3')}>
               View All Rentals <span className="text-xl">→</span>
             </Link>
           </div>

@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
+import SiloSubNav from '@/app/rental-hub/SiloSubNav';
 
 interface VehicleListing {
   id: number;
@@ -71,8 +72,19 @@ export default function LandRentalsPage() {
     return listings.filter(l => l.subtype?.toLowerCase().includes(activeType));
   }, [listings, activeType]);
 
-  return (
+    const SILOS = [
+        { id: 'stays', title: 'Stays & Homes', icon: '🏠', href: '/rental-hub/stays' },
+        { id: 'land', title: 'Land Rentals', icon: '🚗', href: '/rental-hub/land-rentals' },
+        { id: 'sea', title: 'Sea & Aquatic', icon: '⛵', href: '/rental-hub/sea-rentals' },
+        { id: 'equipment', title: 'Equipment & Tools', icon: '🛠️', href: '/rental-hub/equipment-tools' },
+    ];
+    
+    
+
+      return (
     <main className="min-h-screen bg-surface-primary">
+      <SiloSubNav current="land" silos={SILOS} />
+
       {/* HERO */}
       <section className="relative min-h-[55vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">

@@ -1,131 +1,184 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import HeroBackground from '@/components/HeroBackground';
 
 export default function RentalHubPage() {
-    const [activeTab, setActiveTab] = useState<'stays' | 'rides' | 'sea'>('stays');
-
-    const categories = [
-        {
-            id: 'sea',
-            title: 'Sea & Aquatic',
-            icon: '⛵',
-            description: 'Boats, jet skis, yachts, and marine adventures',
-            link: '/rental-hub/sea-rentals',
-            gradient: 'from-cyan-500 to-blue-600'
-        },
+    const silos = [
         {
             id: 'stays',
             title: 'Stays & Homes',
             icon: '🏠',
-            description: 'Luxury villas, apartments, and studio rentals',
+            description: 'Luxury villas, apartments, studios & Airbnb',
             link: '/rental-hub/stays',
-            gradient: 'from-purple-500 to-pink-500'
+            gradient: 'from-ocean-500 to-brand-700',
+            iconBg: 'bg-ocean-500/10',
         },
         {
             id: 'land',
             title: 'Land Rentals',
             icon: '🚗',
-            description: 'Jeeps, cars, ATVs, and island bikes',
+            description: 'Cars, jeeps, ATVs & island bikes',
             link: '/rental-hub/land-rentals',
-            gradient: 'from-blue-500 to-indigo-600'
+            gradient: 'from-sunset-500 to-sunset-700',
+            iconBg: 'bg-sunset-500/10',
         },
         {
-            id: 'tools',
+            id: 'sea',
+            title: 'Sea & Aquatic',
+            icon: '⛵',
+            description: 'Boats, jet skis, yachts & marine gear',
+            link: '/rental-hub/sea-rentals',
+            gradient: 'from-turquoise-400 to-ocean-600',
+            iconBg: 'bg-turquoise-400/10',
+        },
+        {
+            id: 'equipment',
             title: 'Equipment & Tools',
             icon: '🛠️',
-            description: 'Marine gear, event equipment, and power tools',
+            description: 'Event gear, power tools & marine equipment',
             link: '/rental-hub/equipment-tools',
-            gradient: 'from-slate-600 to-slate-800'
-        }
+            gradient: 'from-slate-500 to-surface-tertiary',
+            iconBg: 'bg-slate-500/10',
+        },
     ];
 
-    // Featured listings will be fetched from API
-
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
+        <div className="min-h-screen bg-surface-primary">
             {/* Hero Section */}
-            <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-surface-tertiary">
-                <HeroBackground
-                    pageKey="rental-hub"
-                >
+            <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-surface-tertiary">
+                <HeroBackground pageKey="rental-hub">
                     <div className="mt-8 pointer-events-auto">
                         <Link
-                            href="/rentals"
-                            className="inline-block px-8 py-4 md:px-10 md:py-5 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-xs md:text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
+                            href="#explore"
+                            className="inline-block px-8 py-4 md:px-10 md:py-5 bg-accent-400 text-brand-950 rounded-2xl font-black uppercase text-xs md:text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
                         >
-                            Explore Full Directory
+                            Explore All Silos
                         </Link>
                     </div>
                 </HeroBackground>
             </section>
 
+            {/* Silo Navigation Bar — visible on scroll */}
+            <div className="sticky top-0 z-40 bg-surface-elevated/95 backdrop-blur-xl border-b border-border-primary">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between py-3">
+                        <Link href="/" className="text-ink-primary font-black text-sm tracking-tight">
+                            🏝 IslandHub Rentals
+                        </Link>
+                        <div className="flex items-center gap-1 md:gap-2">
+                            {silos.map((s) => (
+                                <Link
+                                    key={s.id}
+                                    href={s.link}
+                                    className="px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-widest text-ink-secondary hover:text-ink-primary hover:bg-surface-tertiary transition-all"
+                                >
+                                    <span className="hidden md:inline">{s.icon} </span>
+                                    {s.title.split(' ')[0]}
+                                </Link>
+                            ))}
+                        </div>
+                        <Link
+                            href="/listings?category=rental"
+                            className="px-4 py-1.5 bg-accent-400/10 text-accent-400 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-accent-400/20 transition-all"
+                        >
+                            All Rentals
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
             {/* Category Grid */}
-            <section id="explore" className="max-w-7xl mx-auto px-6 py-24">
+            <section id="explore" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#818cf8]/10 rounded-full text-[#818cf8] text-[10px] font-black uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent-400/10 rounded-full text-accent-400 text-[10px] font-black uppercase tracking-widest mb-4">
                         📍 Select Your Sector
                     </div>
                     <h2 className="text-4xl md:text-6xl font-black text-ink-primary mb-4 tracking-tighter italic">
                         The Silo Experience
                     </h2>
-                    <p className="text-lg text-ink-tertiary font-medium italic">
-                        Specialized hubs for every island need
+                    <p className="text-lg text-ink-tertiary font-medium italic max-w-2xl mx-auto">
+                        Each silo is a tailored experience — stays, rides, sea adventures, and equipment all have their own dedicated journey
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
-                    {categories.map((cat) => (
-                        <Link
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                    {silos.map((cat, idx) => (
+                        <motion.div
                             key={cat.id}
-                            href={cat.link}
-                            className="group"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
                         >
-                            <motion.div
-                                whileHover={{ scale: 1.02, y: -5 }}
-                                className={`relative p-8 rounded-[2.5rem] bg-gradient-to-br ${cat.gradient} text-white overflow-hidden shadow-xl hover:shadow-2xl transition-all h-full flex flex-col`}
-                            >
-                                <div className="absolute top-0 right-0 text-9xl opacity-20 -mr-8 -mt-8 grayscale group-hover:opacity-30 transition-opacity">
-                                    {cat.icon}
-                                </div>
-                                <div className="relative z-10 flex flex-col h-full">
-                                    <h3 className="text-2xl font-black mb-2 tracking-tight uppercase italic mt-2">
-                                        {cat.title}
-                                    </h3>
-                                    <p className="text-white/80 font-medium mb-8 text-sm italic">
-                                        {cat.description}
-                                    </p>
-                                    <div className="mt-auto inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-surface-elevated/10 w-fit px-4 py-2 rounded-full border border-white/20">
-                                        Explore Silo <span className="text-lg">→</span>
+                            <Link href={cat.link} className="group block h-full">
+                                <div className={`relative p-8 rounded-[2.5rem] bg-gradient-to-br ${cat.gradient} text-white overflow-hidden shadow-xl hover:shadow-2xl transition-all h-full flex flex-col hover:-translate-y-2`}>
+                                    <div className="absolute top-0 right-0 text-9xl opacity-10 -mr-8 -mt-8 select-none">
+                                        {cat.icon}
+                                    </div>
+                                    <div className="relative z-10 flex flex-col h-full">
+                                        <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform">{cat.icon}</span>
+                                        <h3 className="text-xl font-black mb-2 tracking-tight uppercase italic">
+                                            {cat.title}
+                                        </h3>
+                                        <p className="text-white/80 font-medium mb-6 text-sm leading-relaxed">
+                                            {cat.description}
+                                        </p>
+                                        <div className="mt-auto inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/10 w-fit px-4 py-2 rounded-full border border-white/20 group-hover:bg-white/20 transition-all">
+                                            Enter Silo <span className="text-lg">→</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </motion.div>
-                        </Link>
+                            </Link>
+                        </motion.div>
                     ))}
                 </div>
 
-                {/* Featured Area removed - will be populated with real API data */}
+                {/* Quick Comparison */}
+                <div className="bg-surface-elevated rounded-[2.5rem] p-8 md:p-12 border border-border-primary">
+                    <h3 className="text-2xl font-black text-ink-primary mb-8 text-center tracking-tight">Which Silo Is Right For You?</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { icon: '🏠', title: 'Stays', when: 'Need a place to sleep', examples: 'Villas • Apartments • Studios • Airbnb' },
+                            { icon: '🚗', title: 'Land', when: 'Getting around the island', examples: 'Cars • Jeeps • ATVs • Bikes' },
+                            { icon: '⛵', title: 'Sea', when: 'Water adventures & fishing', examples: 'Boats • Jet Skis • Yachts • Diving' },
+                            { icon: '🛠️', title: 'Equipment', when: 'Tools for projects & events', examples: 'Power Tools • Generators • Tents • Gear' },
+                        ].map((item) => (
+                            <div key={item.title} className="bg-surface-primary rounded-2xl p-6 border border-border-primary">
+                                <span className="text-3xl mb-3 block">{item.icon}</span>
+                                <h4 className="text-lg font-black text-ink-primary mb-1">{item.title}</h4>
+                                <p className="text-accent-400 text-xs font-bold uppercase tracking-widest mb-3">{item.when}</p>
+                                <p className="text-ink-tertiary text-sm">{item.examples}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
 
-            {/* Final CTA */}
-            <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 py-24 md:py-32 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.15)_0%,transparent_60%)]" />
+            {/* Bottom CTA */}
+            <section className="relative bg-surface-tertiary py-20 md:py-28 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter italic uppercase">
-                        Ready to Explore?
+                    <h2 className="text-3xl md:text-5xl font-black text-ink-primary mb-6 tracking-tighter italic">
+                        Can&apos;t Find What You Need?
                     </h2>
-                    <p className="text-xl text-ink-tertiary font-medium mb-12 italic">
-                        Access the full Caribbean marketplace through our unified directory
+                    <p className="text-lg text-ink-tertiary font-medium mb-10 italic max-w-xl mx-auto">
+                        Browse the full rental marketplace or list your own property, vehicle, or equipment.
                     </p>
-                    <Link
-                        href="/rentals"
-                        className="inline-block px-12 py-5 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
-                    >
-                        Enter Global Hub
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link
+                            href="/listings?category=rental"
+                            className="inline-block px-10 py-4 bg-accent-400 text-brand-950 rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
+                        >
+                            Browse All Rentals
+                        </Link>
+                        <Link
+                            href="/become-vendor"
+                            className="inline-block px-10 py-4 bg-surface-elevated text-ink-primary rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-105 transition-all border border-border-primary"
+                        >
+                            List Your Rental
+                        </Link>
+                    </div>
                 </div>
             </section>
         </div>

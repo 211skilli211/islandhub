@@ -137,9 +137,9 @@ export default function DonationsHubPage() {
       {/* ===== HERO — Emotional, impactful ===== */}
       <section className="relative min-h-[60vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-900 via-purple-900 to-surface-tertiary" />
-          <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-pink-500/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[200px] bg-violet-500/8 rounded-full blur-[100px]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-800 to-surface-tertiary" />
+          <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-accent-400/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[200px] bg-accent-300/8 rounded-full blur-[100px]" />
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)',
             backgroundSize: '60px 60px, 80px 80px'
@@ -149,14 +149,14 @@ export default function DonationsHubPage() {
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-32">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
-              <span className="text-xs font-bold text-pink-200 uppercase tracking-widest">Give Back to the Islands</span>
+              <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse" />
+              <span className="text-xs font-bold text-accent-200 uppercase tracking-widest">Give Back to the Islands</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white mb-4 tracking-tight leading-[0.95]">
               Every Dollar<br />
-              <span className="bg-gradient-to-r from-pink-300 via-violet-300 to-purple-300 bg-clip-text text-transparent">Makes a Difference</span>
+              <span className="bg-gradient-to-r from-accent-300 via-accent-200 to-accent-100 bg-clip-text text-transparent">Makes a Difference</span>
             </h1>
-            <p className="text-lg text-purple-200/70 mb-8 max-w-xl font-medium">
+            <p className="text-lg text-white/70 mb-8 max-w-xl font-medium">
               Support education, health, environment, and community causes across the Caribbean. 100% transparent. Every donation tracked.
             </p>
 
@@ -164,24 +164,24 @@ export default function DonationsHubPage() {
             <div className="flex items-center gap-6 mb-8">
               <div className="text-center">
                 <div className="text-2xl font-black text-white">${totalRaised.toLocaleString()}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-purple-200/50">Total Raised</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Total Raised</div>
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
-                <div className="text-2xl font-black text-pink-400">{campaigns.length}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-purple-200/50">Active Causes</div>
+                <div className="text-2xl font-black text-accent-400">{campaigns.length}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Active Causes</div>
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
-                <div className="text-2xl font-black text-violet-300">{totalDonors.toLocaleString()}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-purple-200/50">Donors</div>
+                <div className="text-2xl font-black text-accent-300">{totalDonors.toLocaleString()}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Donors</div>
               </div>
             </div>
 
             {/* Search */}
             <div className="max-w-xl bg-surface-elevated rounded-2xl p-2 shadow-2xl flex gap-2">
               <div className="flex-1 flex items-center gap-3 px-4">
-                <svg className="w-5 h-5 text-purple-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-5 h-5 text-accent-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
@@ -192,7 +192,7 @@ export default function DonationsHubPage() {
                   className="w-full py-2.5 text-ink-primary font-medium placeholder:text-ink-tertiary focus:outline-none text-sm bg-transparent"
                 />
               </div>
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shrink-0">
+              <button className="bg-accent-500 hover:bg-accent-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all shrink-0">
                 Search
               </button>
             </div>
@@ -208,8 +208,8 @@ export default function DonationsHubPage() {
               <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all whitespace-nowrap border ${
                   activeCategory === cat.id
-                    ? 'bg-purple-600 text-white border-purple-600 shadow-md'
-                    : 'bg-surface-primary text-ink-secondary border-border-primary hover:border-purple-300 hover:text-purple-600'
+                    ? 'bg-accent-500 text-white border-accent-500 shadow-md'
+                    : 'bg-surface-primary text-ink-secondary border-border-primary hover:border-accent-400 hover:text-accent-500'
                 }`}
               >
                 <span>{cat.icon}</span>
@@ -237,7 +237,7 @@ export default function DonationsHubPage() {
             ] as const).map(opt => (
               <button key={opt.id} onClick={() => setSortBy(opt.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  sortBy === opt.id ? 'bg-surface-elevated text-purple-600 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'
+                  sortBy === opt.id ? 'bg-surface-elevated text-accent-500 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'
                 }`}
               >
                 {opt.label}
@@ -262,7 +262,7 @@ export default function DonationsHubPage() {
             <span className="text-5xl mb-4 block">💜</span>
             <h3 className="text-xl font-black text-ink-primary mb-2">No campaigns found</h3>
             <p className="text-ink-tertiary mb-6">Try adjusting your search or category filter</p>
-            <button onClick={() => { setSearchTerm(''); setActiveCategory('all'); }} className="px-6 py-3 bg-purple-600 text-white font-bold rounded-xl">
+            <button onClick={() => { setSearchTerm(''); setActiveCategory('all'); }} className="px-6 py-3 bg-accent-600 text-white font-bold rounded-xl">
               View All Causes
             </button>
           </div>
@@ -287,8 +287,8 @@ export default function DonationsHubPage() {
 
       {/* ===== CTA: START A CAMPAIGN ===== */}
       <section className="relative overflow-hidden mt-12">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-700 via-violet-700 to-pink-700" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-[100px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-800 via-brand-700 to-accent-700" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-400/10 rounded-full blur-[100px]" />
         <div className="relative max-w-4xl mx-auto text-center px-4 py-20">
           <div className="inline-flex items-center gap-2 bg-surface-elevated/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 mb-6">
             <span className="text-sm">🚀</span>
@@ -296,13 +296,13 @@ export default function DonationsHubPage() {
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
             Have a Cause?<br />
-            <span className="bg-gradient-to-r from-pink-300 to-violet-300 bg-clip-text text-transparent">Let the Community Help</span>
+            <span className="bg-gradient-to-r from-accent-300 to-accent-200 bg-clip-text text-transparent">Let the Community Help</span>
           </h2>
-          <p className="text-purple-200/80 text-lg mb-10 max-w-xl mx-auto font-medium">
+          <p className="text-white/80 text-lg mb-10 max-w-xl mx-auto font-medium">
             Create a campaign, share your story, and let islanders and supporters worldwide contribute to your cause. Zero platform fees for verified nonprofits.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/campaigns/new" className="px-10 py-4 bg-white text-purple-700 font-bold rounded-2xl hover:bg-purple-50 transition-all shadow-xl text-sm uppercase tracking-wider">
+            <Link href="/campaigns/new" className="px-10 py-4 bg-white text-accent-600 font-bold rounded-2xl hover:bg-surface-secondary transition-all shadow-xl text-sm uppercase tracking-wider">
               Start a Campaign
             </Link>
             <Link href="/how-it-works" className="px-8 py-4 bg-surface-elevated/10 backdrop-blur text-white font-bold rounded-2xl hover:bg-surface-elevated/20 transition-all text-sm border border-white/10">
@@ -355,7 +355,7 @@ function FeaturedCampaignCard({ campaign }: { campaign: Campaign }) {
           <img src={imgSrc} alt={campaign.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent md:bg-gradient-to-r md:from-black/60 md:via-black/20 md:to-transparent" />
-          <div className="absolute top-4 left-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+          <div className="absolute top-4 left-4 bg-gradient-to-r from-accent-400 to-accent-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
             ⭐ Featured
           </div>
         </div>
@@ -370,7 +370,7 @@ function FeaturedCampaignCard({ campaign }: { campaign: Campaign }) {
               <span className="text-xs font-bold text-ink-tertiary">{campaign.store_name}</span>
             </div>
           )}
-          <h2 className="text-2xl md:text-3xl font-black text-ink-primary mb-3 leading-tight group-hover:text-purple-600 transition-colors">
+          <h2 className="text-2xl md:text-3xl font-black text-ink-primary mb-3 leading-tight group-hover:text-accent-500 transition-colors">
             {campaign.title}
           </h2>
           <p className="text-sm text-ink-tertiary mb-6 line-clamp-3 leading-relaxed">
@@ -380,12 +380,12 @@ function FeaturedCampaignCard({ campaign }: { campaign: Campaign }) {
           {/* Progress */}
           <div className="mb-4">
             <div className="flex items-center justify-between text-sm mb-2">
-              <span className="font-black text-purple-600">${(campaign.raised_amount || 0).toLocaleString()} raised</span>
+              <span className="font-black text-accent-500">${(campaign.raised_amount || 0).toLocaleString()} raised</span>
               <span className="font-bold text-ink-tertiary">{progress}% of ${(campaign.goal_amount || 0).toLocaleString()}</span>
             </div>
             <div className="w-full h-3 bg-surface-secondary rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+                className="h-full bg-gradient-to-r from-accent-500 to-accent-400 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 1, delay: 0.3 }}
@@ -400,7 +400,7 @@ function FeaturedCampaignCard({ campaign }: { campaign: Campaign }) {
           <div className="flex gap-3">
             <Link
               href={campaign.slug ? `/listings/${campaign.slug}` : `/listings/${campaign.id}`}
-              className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold text-sm text-center hover:bg-purple-700 transition-colors"
+              className="flex-1 py-3 bg-accent-600 text-white rounded-xl font-bold text-sm text-center hover:bg-accent-700 transition-colors"
             >
               Donate Now
             </Link>
@@ -438,13 +438,13 @@ function CampaignCard({ campaign, index }: { campaign: Campaign; index: number }
               {daysLeft}d left
             </div>
           )}
-          <div className="absolute top-3 left-3 bg-purple-600/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+          <div className="absolute top-3 left-3 bg-accent-600/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
             {CATEGORIES.find(c => campaign.category?.toLowerCase().includes(c.id))?.icon || '💜'} {campaign.category || 'Cause'}
           </div>
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-sm font-bold text-ink-primary group-hover:text-purple-600 transition-colors line-clamp-2 leading-tight">
+          <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 transition-colors line-clamp-2 leading-tight">
             {campaign.title}
           </h3>
           <p className="text-xs text-ink-tertiary line-clamp-2">{campaign.description}</p>
@@ -452,11 +452,11 @@ function CampaignCard({ campaign, index }: { campaign: Campaign; index: number }
           {/* Progress bar */}
           <div>
             <div className="flex items-center justify-between text-[10px] font-bold mb-1">
-              <span className="text-purple-600">${(campaign.raised_amount || 0).toLocaleString()}</span>
+              <span className="text-accent-500">${(campaign.raised_amount || 0).toLocaleString()}</span>
               <span className="text-ink-tertiary">{progress}%</span>
             </div>
             <div className="w-full h-1.5 bg-surface-secondary rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{ width: `${progress}%` }} />
+              <div className="h-full bg-gradient-to-r from-accent-500 to-accent-400 rounded-full" style={{ width: `${progress}%` }} />
             </div>
           </div>
 

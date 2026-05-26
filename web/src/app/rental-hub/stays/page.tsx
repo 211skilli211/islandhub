@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
+import SiloSubNav from '@/app/rental-hub/SiloSubNav';
 
 interface Listing {
   id: number;
@@ -98,8 +99,17 @@ export default function StaysHubPage() {
   const featured = filtered.slice(0, 3);
   const remaining = filtered.slice(3);
 
-  return (
+    const SILOS = [
+        { id: 'stays', title: 'Stays & Homes', icon: '🏠', href: '/rental-hub/stays' },
+        { id: 'land', title: 'Land Rentals', icon: '🚗', href: '/rental-hub/land-rentals' },
+        { id: 'sea', title: 'Sea & Aquatic', icon: '⛵', href: '/rental-hub/sea-rentals' },
+        { id: 'equipment', title: 'Equipment & Tools', icon: '🛠️', href: '/rental-hub/equipment-tools' },
+    ];
+
+    return (
     <main className="min-h-screen bg-surface-primary">
+      <SiloSubNav current="stays" silos={SILOS} />
+
       {/* ===== HERO — Immersive with search overlay ===== */}
       <section className="relative min-h-[65vh] flex items-end overflow-hidden">
         {/* Background */}

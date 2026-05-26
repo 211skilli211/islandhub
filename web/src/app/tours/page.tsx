@@ -141,7 +141,7 @@ export default function ToursHubPage() {
               Discover the<br />
               <span className="bg-gradient-to-r from-turquoise-500 via-ocean-300 to-sunset-400 bg-clip-text text-transparent">Island's Best</span>
             </h1>
-            <p className="text-lg text-ocean-200/70 mb-8 max-w-xl font-medium">
+            <p className="text-lg text-white/70 mb-8 max-w-xl font-medium">
               From volcano treks to sunset sails — curated adventures from local experts.
             </p>
 
@@ -149,17 +149,17 @@ export default function ToursHubPage() {
             <div className="flex items-center gap-6">
               <div className="text-center">
                 <div className="text-2xl font-black text-white">{loading ? '—' : totalTours}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-ocean-200/50">Unique Tours</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Unique Tours</div>
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
                 <div className="text-2xl font-black text-turquoise-500">{TOUR_CATEGORIES.length - 1}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-ocean-200/50">Categories</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Categories</div>
               </div>
               <div className="w-px h-8 bg-surface-elevated/20" />
               <div className="text-center">
                 <div className="text-2xl font-black text-sunset-400">4.9</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-ocean-200/50">Avg Rating</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Avg Rating</div>
               </div>
             </div>
           </motion.div>
@@ -287,7 +287,7 @@ export default function ToursHubPage() {
             Lead Tours &<br />
             <span className="bg-gradient-to-r from-turquoise-500 to-sunset-400 bg-clip-text text-transparent">Share Your Island</span>
           </h2>
-          <p className="text-ocean-200/80 text-lg mb-10 max-w-xl mx-auto font-medium">
+          <p className="text-white/80 text-lg mb-10 max-w-xl mx-auto font-medium">
             Are you a local expert? Lead tours, share your knowledge, and earn doing what you love.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -320,7 +320,7 @@ function TourCard({ tour, index }: { tour: Tour; index: number }) {
       whileHover={{ y: -6 }}
     >
       <Link href={tour.slug ? `/store/${tour.slug}` : `/listings/${tour.id}`}
-        className="group block bg-surface-elevated rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-border-primary hover:border-ocean-200">
+        className="group block bg-surface-elevated rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-border-primary hover:border-accent-400">
         <div className="relative h-52 overflow-hidden rounded-t-3xl">
           <img src={imgSrc} alt={tour.title}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
@@ -328,7 +328,7 @@ function TourCard({ tour, index }: { tour: Tour; index: number }) {
 
           {/* Rating badge */}
           <div className="absolute top-3 right-3 bg-surface-elevated/95 backdrop-blur-sm px-2.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5">
-            <span className="text-amber-500 text-xs">★</span>
+            <span className="text-sunset-400 text-xs">★</span>
             <span className="text-xs font-bold text-ink-primary">{tour.rating?.toFixed(1)}</span>
           </div>
 
@@ -342,7 +342,7 @@ function TourCard({ tour, index }: { tour: Tour; index: number }) {
 
           {/* Tour name overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-4">
-            <h3 className="text-lg font-black text-white drop-shadow-lg leading-tight line-clamp-2 group-hover:text-ocean-200 transition-colors">
+            <h3 className="text-lg font-black text-white drop-shadow-lg leading-tight line-clamp-2 group-hover:text-accent-300 transition-colors">
               {tour.title}
             </h3>
           </div>
