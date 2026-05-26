@@ -120,25 +120,27 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
       {/* ═══ EDGE TAB: visible when closed ═══ */}
       {isClosed && (
-        <div className="fixed left-0 top-0 bottom-0 z-40 flex flex-col items-center">
-          <button
-            onClick={() => setState('rail')}
-            className="h-full w-3 bg-slate-900/80 hover:bg-slate-800 transition-colors cursor-pointer relative group"
-            aria-label="Open sidebar"
-          >
-            <div className="absolute top-1/2 -translate-y-1/2 left-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-              <ChevronRight size={10} className="text-white/50" />
-            </div>
-          </button>
-        </div>
+        <button
+          onClick={() => setState('rail')}
+          className="fixed left-0 top-0 bottom-0 z-[60] w-3 bg-slate-900/80 hover:bg-slate-800 transition-colors cursor-pointer group"
+          aria-label="Open sidebar"
+        >
+          <div className="absolute top-1/2 -translate-y-1/2 left-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <ChevronRight size={10} className="text-white/50" />
+          </div>
+        </button>
       )}
 
       {/* ═══ HAMBURGER TOGGLE: fixed at top-left ═══ */}
       {showSidebar && (
         <button
           onClick={() => setState(isExpanded ? 'rail' : 'expanded')}
-          className="fixed top-3.5 z-50 p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-white/70 hover:text-white transition-all shadow-lg backdrop-blur-sm"
-          style={{ left: isRail ? `${RAIL_WIDTH - 4}px` : `${EXPANDED_WIDTH - 44}px` }}
+          className="fixed z-[70] p-2 rounded-lg bg-[#0c0f14]/95 hover:bg-slate-800 text-white/60 hover:text-white transition-all shadow-lg backdrop-blur-sm border border-white/[0.08]"
+          style={{
+            top: '12px',
+            left: isRail ? `${RAIL_WIDTH - 2}px` : `${EXPANDED_WIDTH - 36}px`,
+            transform: isRail ? 'translateX(-50%)' : 'none',
+          }}
           aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           {isExpanded ? <ChevronLeft size={16} /> : <Menu size={16} />}
@@ -273,7 +275,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -EXPANDED_WIDTH, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-            className="fixed left-0 top-0 bottom-0 z-30 bg-[#0c0f14] text-white flex flex-col border-r border-white/[0.06] hidden lg:flex"
+            className="fixed left-0 top-0 bottom-0 z-[60] bg-[#0c0f14] text-white flex flex-col border-r border-white/[0.06] hidden lg:flex"
             style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
             onMouseLeave={() => setHoveredItem(null)}
           >
@@ -430,9 +432,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       {/* ═══ MAIN CONTENT ═══ */}
       <main
         className="transition-all duration-300 ease-out"
-        style={{
-          marginLeft: isClosed ? '12px' : isRail ? `${RAIL_WIDTH}px` : `${EXPANDED_WIDTH}px`,
-        }}
+        style={{ marginLeft: isRail ? RAIL_WIDTH : 0 }}
       >
         {/* Mobile header */}
         <div className="lg:hidden sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between">

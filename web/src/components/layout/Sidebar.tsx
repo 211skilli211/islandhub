@@ -37,13 +37,9 @@ export interface SidebarProps {
   setMobileOpen?: (open: boolean) => void;
 }
 
-// ─── Sidebar State Machine ───────────────────────────────────────────────────
-// States: 'closed' | 'rail' | 'expanded'
-// - closed:  nothing visible on desktop, hamburger in navbar area
-// - rail:    56px icon-only strip (default desktop)
-// - expanded: 240px full sidebar overlay
-
 type SidebarState = 'closed' | 'rail' | 'expanded';
+const RAIL_WIDTH = 56;
+const EXPANDED_WIDTH = 240;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -79,7 +75,6 @@ export default function Sidebar({
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  // Use external mobile state if provided, otherwise internal
   const mobileOpen = externalMobileOpen !== undefined ? externalMobileOpen : internalMobileOpen;
   const setMobileOpen = externalSetMobileOpen || setInternalMobileOpen;
 
@@ -100,22 +95,15 @@ export default function Sidebar({
     }
   }, [state, storageKey]);
 
-  // Close mobile drawer on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMobileOpen(false); }, [pathname, setMobileOpen]);
 
-  // Lock body scroll on mobile
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
   const toggleExpand = useCallback(() => {
-    setState(prev => {
-      if (prev === 'expanded') return 'rail';
-      return 'expanded';
-    });
+    setState(prev => prev === 'expanded' ? 'rail' : 'expanded');
   }, []);
 
   const openRail = useCallback(() => {
@@ -131,52 +119,53 @@ export default function Sidebar({
   const isClosed = state === 'closed';
   const showSidebar = isRail || isExpanded;
 
-  // Width values
-  const railWidth = 56;
-  const expandedWidth = 240;
+  // Main content margin: only when rail (thin strip), not when expanded (overlay)
+  // When closed: no margin needed since edge strip is only 12px
+  const mainMarginLeft = isRail ? RAIL_WIDTH : 0;
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
 
-      {/* ═══ EDGE TAB: visible when sidebar is closed ═══ */}
+      {/* ═══ EDGE TAB: thin strip when closed ═══ */}
       {isClosed && (
-        <div className="fixed left-0 top-0 bottom-0 z-40 flex flex-col items-center">
-          {/* Thin edge strip — click to open rail */}
-          <button
-            onClick={openRail}
-            className="h-full w-3 bg-slate-900/80 hover:bg-slate-800 transition-colors cursor-pointer relative group"
-            aria-label="Open sidebar"
-          >
-            {/* Chevron hint */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-              <ChevronRight size={10} className="text-white/50" />
-            </div>
-          </button>
-        </div>
-      )}
-
-      {/* ═══ HAMBURGER TOGGLE: fixed at top-left when sidebar is visible ═══ */}
-      {showSidebar && (
         <button
-          onClick={toggleExpand}
-          className="fixed top-3.5 z-50 p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-white/70 hover:text-white transition-all shadow-lg backdrop-blur-sm"
-          style={{ left: isRail ? `${railWidth - 4}px` : `${expandedWidth - 44}px` }}
-          aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+          onClick={openRail}
+          className="fixed left-0 top-0 bottom-0 z-[60] w-3 bg-slate-900/80 hover:bg-slate-800 transition-colors cursor-pointer group"
+          aria-label="Open sidebar"
         >
-          {isExpanded ? <ChevronLeft size={16} /> : <Menu size={16} />}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <ChevronRight size={10} className="text-white/50" />
+          </div>
         </button>
       )}
 
-      {/* ═══ SIDEBAR PANEL ═══ */}
+      {/* ═══ SIDEBAR TOGGLE: inside the sidebar, top-left corner ═══ */}
+      {showSidebar && (
+        <button
+          onClick={toggleExpand}
+          className="fixed z-[70] p-2 rounded-lg bg-[#0c0f14]/95 hover:bg-slate-800 text-white/60 hover:text-white transition-all shadow-lg backdrop-blur-sm border border-white/[0.08]"
+          style={{
+            top: '12px',
+            left: isRail ? `${RAIL_WIDTH - 2}px` : `${EXPANDED_WIDTH - 36}px`,
+            transform: isRail ? 'translateX(-50%)' : 'none',
+          }}
+          aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+        >
+          {isExpanded ? <ChevronLeft size={14} /> : <Menu size={14} />}
+        </button>
+      )}
+
+      {/* ═══ DESKTOP SIDEBAR PANEL ═══ */}
+      {/* Starts at top-0, sits IN FRONT of navbar (z-[60] > navbar z-50) */}
       <AnimatePresence>
         {showSidebar && (
           <motion.aside
-            initial={{ x: -expandedWidth, opacity: 0 }}
+            initial={{ x: -EXPANDED_WIDTH, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -expandedWidth, opacity: 0 }}
+            exit={{ x: -EXPANDED_WIDTH, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-            className="fixed left-0 top-0 bottom-0 z-30 flex flex-col bg-[#0c0f14] border-r border-white/[0.06]"
-            style={{ width: isRail ? railWidth : expandedWidth }}
+            className="fixed left-0 top-0 bottom-0 z-[60] flex flex-col bg-[#0c0f14] border-r border-white/[0.06]"
+            style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
             onMouseLeave={() => setHoveredItem(null)}
           >
             {/* Header */}
@@ -209,7 +198,7 @@ export default function Sidebar({
             </div>
 
             {/* Nav items */}
-            <nav className="flex-1 overflow-y-auto py-2 space-y-0.5 scrollbar-thin">
+            <nav className="flex-1 overflow-y-auto py-2 space-y-0.5">
               {items.map((item) => {
                 const Icon = item.icon;
                 const active = isActiveNav(item, pathname);
@@ -231,11 +220,9 @@ export default function Sidebar({
                           ? 'bg-emerald-500/10 text-emerald-400'
                           : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
                         }
-                        ${item.isSectionSwitch ? 'font-semibold' : ''}
                       `}
                       title={isRail ? item.label : undefined}
                     >
-                      {/* Active indicator */}
                       {active && (
                         <motion.div
                           layoutId="sidebar-active-indicator"
@@ -261,9 +248,8 @@ export default function Sidebar({
               })}
             </nav>
 
-            {/* Footer: User + Logout */}
+            {/* Footer: Profile + Logout */}
             <div className={`shrink-0 border-t border-white/[0.06] ${isRail ? 'p-2' : 'p-3'}`}>
-              {/* User profile link */}
               {user && (
                 <Link
                   href="/profile"
@@ -285,8 +271,6 @@ export default function Sidebar({
                   )}
                 </Link>
               )}
-
-              {/* Logout */}
               <button
                 onClick={onLogout}
                 className={`flex items-center rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
@@ -316,7 +300,7 @@ export default function Sidebar({
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-              className="fixed left-0 top-0 bottom-0 z-[60] w-[280px] bg-[#0c0f14] flex flex-col lg:hidden overflow-y-auto"
+              className="fixed left-0 top-0 bottom-0 z-[65] w-[280px] bg-[#0c0f14] text-white flex flex-col lg:hidden overflow-y-auto"
             >
               {/* Mobile header */}
               <div className="flex items-center justify-between px-4 py-4 border-b border-white/[0.06] shrink-0">
@@ -326,20 +310,38 @@ export default function Sidebar({
                   </div>
                   <span className="font-semibold text-[13px] text-white/90">{title}</span>
                 </div>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50 hover:text-white/80 transition-colors"
-                >
+                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-white/[0.06] text-white/50">
                   <ChevronLeft size={16} />
                 </button>
               </div>
 
-              {/* Back link */}
+              {/* Profile */}
+              {user && (
+                <Link
+                  href="/profile"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2.5 px-4 py-3 border-b border-white/[0.06] text-white/50 hover:bg-white/[0.04] hover:text-white/80"
+                >
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/15 flex items-center justify-center shrink-0 overflow-hidden">
+                    {user.avatar_url ? (
+                      <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <User size={14} className="text-emerald-400" />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[12px] font-semibold text-white/80 truncate">{user.name}</div>
+                    {user.role && <div className="text-[10px] text-white/30 truncate">{user.role}</div>}
+                  </div>
+                </Link>
+              )}
+
+              {/* Mobile back link */}
               <div className="px-4 py-2 border-b border-white/[0.06]">
                 <Link
                   href={backHref}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-1.5 text-[11px] text-white/30 hover:text-white/60 transition-colors"
+                  className="flex items-center gap-1.5 text-[11px] text-white/30 hover:text-white/60"
                 >
                   <ChevronLeft size={12} />
                   {backLabel}
@@ -356,13 +358,11 @@ export default function Sidebar({
                       key={item.id}
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
-                      className={`
-                        flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all duration-150
-                        ${active
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all ${
+                        active
                           ? 'bg-emerald-500/10 text-emerald-400'
                           : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'
-                        }
-                      `}
+                      }`}
                     >
                       <Icon size={17} className="shrink-0" />
                       <span className="font-medium text-[13px] truncate">{item.label}</span>
@@ -373,28 +373,17 @@ export default function Sidebar({
 
               {/* Mobile footer */}
               <div className="shrink-0 border-t border-white/[0.06] p-3 space-y-1">
-                {user && (
-                  <Link
-                    href="/profile"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/50 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
-                  >
-                    <div className="w-7 h-7 rounded-full bg-emerald-500/15 flex items-center justify-center shrink-0 overflow-hidden">
-                      {user.avatar_url ? (
-                        <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
-                      ) : (
-                        <User size={14} className="text-emerald-400" />
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[12px] font-semibold text-white/80 truncate">{user.name}</div>
-                      {user.role && <div className="text-[10px] text-white/30 truncate">{user.role}</div>}
-                    </div>
-                  </Link>
-                )}
+                <Link
+                  href="/profile"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/50 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
+                >
+                  <User size={15} className="shrink-0" />
+                  <span className="text-[12px] font-medium">Profile</span>
+                </Link>
                 <button
                   onClick={() => { onLogout(); setMobileOpen(false); }}
-                  className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors w-full"
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors w-full"
                 >
                   <LogOut size={15} className="shrink-0" />
                   <span className="text-[12px] font-medium">Log out</span>
@@ -406,16 +395,12 @@ export default function Sidebar({
       </AnimatePresence>
 
       {/* ═══ MAIN CONTENT ═══ */}
+      {/* No margin when expanded (sidebar overlays), small margin when rail */}
       <main
-        className={`
-          transition-all duration-300 ease-out
-          ${isClosed ? 'md:ml-3' : isRail ? `md:ml-[${railWidth}px]` : `md:ml-[${expandedWidth}px]`}
-        `}
-        style={{
-          marginLeft: isClosed ? '12px' : isRail ? `${railWidth}px` : `${expandedWidth}px`,
-        }}
+        className="transition-all duration-300 ease-out"
+        style={{ marginLeft: mainMarginLeft }}
       >
-        {/* Mobile hamburger trigger */}
+        {/* Mobile hamburger */}
         <div className="lg:hidden sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-3">
           <button
             onClick={() => setMobileOpen(true)}
