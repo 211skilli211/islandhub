@@ -1,4 +1,4 @@
-import { sql } from '../config/db';
+import { pool } from '../config/db';
 
 const FB_GRAPH_API = 'https://graph.facebook.com/v20.0';
 
@@ -376,10 +376,11 @@ export class FacebookSyncEngine {
         errorMessage?: string
     ): Promise<void> {
         try {
-            await sql`
-                INSERT INTO facebook_sync_log (product_id, action, status, retailer_id, error_message)
-                VALUES (${String(productId)}, ${action}, ${status}, ${retailerId}, ${errorMessage || null})
-            `;
+            await pool.query(
+                `INSERT INTO facebook_sync_log (product_id, action, status, retailer_id, error_message)
+                VALUES ($1, $2, $3, $4, $5)`,
+                [String(productId), action, status, retailerId, errorMessage || null]
+            );
         } catch {
             // Don't let logging failures break the sync
         }

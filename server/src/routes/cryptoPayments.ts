@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { sql } from '../config/db';
+import { pool } from '../config/db';
 import crypto from 'crypto';
 
 const router = Router();
@@ -82,7 +82,7 @@ router.post('/convert', (req: Request, res: Response) => {
  * Create a crypto payment charge
  */
 router.post('/create', async (req: Request, res: Response) => {
-    const client = await sql.connect();
+    const client = await pool.connect();
     try {
         const { order_id, coin, amount_xcd } = req.body;
         const user_id = (req as any).user?.id || null;
@@ -124,24 +124,25 @@ router.post('/create', async (req: Request, res: Response) => {
         const paymentAddress = generatePaymentAddress(coinUpper);
 
         // Create crypto payment record
-        await client.query(`
-            INSERT INTO crypto_payments (
-                payment_id, order_id, user_id, coin, 
+        await client.query(
+            `INSERT INTO crypto_payments (
+                payment_id, order_id, user_id, coin,
                 amount_xcd, crypto_amount, exchange_rate,
                 payment_address, status, expires_at
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-        `, [
-            paymentId,
-            order_id,
-            user_id,
-            coinUpper,
-            amount_xcd,
-            cryptoAmount.toFixed(coinInfo.decimals),
-            rate,
-            paymentAddress,
-            'pending',
-            new Date(Date.now() + 30 * 60 * 1000), // 30 min expiry
-        ]);
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+            [
+                paymentId,
+                order_id,
+                user_id,
+                coinUpper,
+                amount_xcd,
+                cryptoAmount.toFixed(coinInfo.decimals),
+                rate,
+                paymentAddress,
+                'pending',
+                new Date(Date.now() + 30 * 60 * 1000), // 30 min expiry
+            ]
+        );
 
         // Update order with crypto payment info
         await client.query(
@@ -179,7 +180,7 @@ router.post('/create', async (req: Request, res: Response) => {
  * Verify a crypto payment (called by webhook or polling)
  */
 router.post('/verify', async (req: Request, res: Response) => {
-    const client = await sql.connect();
+    const client = await pool.connect();
     try {
         const { payment_id, tx_hash } = req.body;
 
@@ -215,7 +216,7 @@ router.post('/verify', async (req: Request, res: Response) => {
         // In production, verify the transaction on the blockchain
         // For now, mark as completed
         await client.query(
-            `UPDATE crypto_payments 
+            `UPDATE crypto_payments
              SET status = $1, tx_hash = $2, confirmed_at = NOW(), updated_at = NOW()
              WHERE payment_id = $3`,
             ['completed', tx_hash || 'manual_verify', payment_id]
@@ -228,16 +229,17 @@ router.post('/verify', async (req: Request, res: Response) => {
         );
 
         // Create transaction record
-        await client.query(`
-            INSERT INTO transactions (order_id, type, amount, currency, gateway, gateway_transaction_id, status, metadata)
-            VALUES ($1, 'payment', $2, $3, 'crypto', $4, 'completed', $5)
-        `, [
-            payment.order_id,
-            payment.amount_xcd,
-            'XCD',
-            payment_id,
-            JSON.stringify({ coin: payment.coin, crypto_amount: payment.crypto_amount, tx_hash }),
-        ]);
+        await client.query(
+            `INSERT INTO transactions (order_id, type, amount, currency, gateway, gateway_transaction_id, status, metadata)
+            VALUES ($1, 'payment', $2, $3, 'crypto', $4, 'completed', $5)`,
+            [
+                payment.order_id,
+                payment.amount_xcd,
+                'XCD',
+                payment_id,
+                JSON.stringify({ coin: payment.coin, crypto_amount: payment.crypto_amount, tx_hash }),
+            ]
+        );
 
         await client.query('COMMIT');
 
@@ -264,18 +266,19 @@ router.get('/status/:paymentId', async (req: Request, res: Response) => {
     try {
         const { paymentId } = req.params;
 
-        const result = await sql`
-            SELECT cp.*, o.order_number, o.total_amount as order_total
+        const result = await pool.query(
+            `SELECT cp.*, o.order_number, o.total_amount as order_total
             FROM crypto_payments cp
             JOIN orders o ON cp.order_id = o.order_id
-            WHERE cp.payment_id = ${paymentId}
-        `;
+            WHERE cp.payment_id = $1`,
+            [paymentId]
+        );
 
-        if (result.length === 0) {
+        if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Payment not found' });
         }
 
-        const payment = result[0];
+        const payment = result.rows[0];
         const expired = new Date(payment.expires_at) < new Date();
 
         res.json({
@@ -308,35 +311,27 @@ router.post('/webhook', async (req: Request, res: Response) => {
 
         if (status === 'completed' || status === 'paid') {
             // Auto-verify the payment
-            const verifyReq = { body: { payment_id, tx_hash } } as Request;
-            const verifyRes = {
-                json: (data: any) => console.log('Webhook auto-verify:', data),
-                status: () => ({ json: (data: any) => console.log('Webhook auto-verify error:', data) }),
-            } as unknown as Response;
-
-            await (async () => {
-                const client = await sql.connect();
-                try {
-                    await client.query('BEGIN');
+            const client = await pool.connect();
+            try {
+                await client.query('BEGIN');
+                await client.query(
+                    `UPDATE crypto_payments SET status = 'completed', tx_hash = $1, confirmed_at = NOW() WHERE payment_id = $2`,
+                    [tx_hash, payment_id]
+                );
+                const paymentResult = await client.query('SELECT order_id FROM crypto_payments WHERE payment_id = $1', [payment_id]);
+                if (paymentResult.rows.length > 0) {
                     await client.query(
-                        `UPDATE crypto_payments SET status = 'completed', tx_hash = $1, confirmed_at = NOW() WHERE payment_id = $2`,
-                        [tx_hash, payment_id]
+                        'UPDATE orders SET payment_status = $1, status = $2 WHERE order_id = $3',
+                        ['paid', 'processing', paymentResult.rows[0].order_id]
                     );
-                    const paymentResult = await client.query('SELECT order_id FROM crypto_payments WHERE payment_id = $1', [payment_id]);
-                    if (paymentResult.rows.length > 0) {
-                        await client.query(
-                            'UPDATE orders SET payment_status = $1, status = $2 WHERE order_id = $3',
-                            ['paid', 'processing', paymentResult.rows[0].order_id]
-                        );
-                    }
-                    await client.query('COMMIT');
-                } catch (e) {
-                    await client.query('ROLLBACK');
-                    throw e;
-                } finally {
-                    client.release();
                 }
-            })();
+                await client.query('COMMIT');
+            } catch (e) {
+                await client.query('ROLLBACK');
+                throw e;
+            } finally {
+                client.release();
+            }
         }
 
         res.json({ received: true });

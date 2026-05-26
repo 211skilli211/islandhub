@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { sql } from '../config/db';
+import { pool } from '../config/db';
 
 const router = Router();
 
@@ -9,34 +9,34 @@ const router = Router();
  */
 router.get('/sync-status', async (req: Request, res: Response) => {
     try {
-        const statusCounts = await sql`
-            SELECT status, COUNT(*) as count
+        const statusCountsResult = await pool.query(
+            `SELECT status, COUNT(*) as count
             FROM facebook_sync_log
             WHERE created_at > NOW() - INTERVAL '24 hours'
-            GROUP BY status
-        `;
+            GROUP BY status`
+        );
 
-        const recentErrors = await sql`
-            SELECT product_id, retailer_id, error_message, created_at
+        const recentErrorsResult = await pool.query(
+            `SELECT product_id, retailer_id, error_message, created_at
             FROM facebook_sync_log
             WHERE status = 'failed'
             ORDER BY created_at DESC
-            LIMIT 10
-        `;
+            LIMIT 10`
+        );
 
-        const totalSynced = await sql`
-            SELECT COUNT(DISTINCT product_id) as count
+        const totalSyncedResult = await pool.query(
+            `SELECT COUNT(DISTINCT product_id) as count
             FROM facebook_sync_log
-            WHERE status = 'synced'
-        `;
+            WHERE status = 'synced'`
+        );
 
         res.json({
-            statusCounts: statusCounts.reduce((acc: any, row: any) => {
+            statusCounts: statusCountsResult.rows.reduce((acc: any, row: any) => {
                 acc[row.status] = parseInt(row.count);
                 return acc;
             }, {}),
-            recentErrors,
-            totalSynced: parseInt(totalSynced[0]?.count || '0'),
+            recentErrors: recentErrorsResult.rows,
+            totalSynced: parseInt(totalSyncedResult.rows[0]?.count || '0'),
         });
     } catch (error: any) {
         res.status(500).json({ error: error.message });
@@ -54,32 +54,33 @@ router.get('/sync-log', async (req: Request, res: Response) => {
         const status = req.query.status as string;
         const offset = (page - 1) * limit;
 
-        let query;
+        let logsResult;
         if (status) {
-            query = sql`
-                SELECT * FROM facebook_sync_log
-                WHERE status = ${status}
+            logsResult = await pool.query(
+                `SELECT * FROM facebook_sync_log
+                WHERE status = $1
                 ORDER BY created_at DESC
-                LIMIT ${limit} OFFSET ${offset}
-            `;
+                LIMIT $2 OFFSET $3`,
+                [status, limit, offset]
+            );
         } else {
-            query = sql`
-                SELECT * FROM facebook_sync_log
+            logsResult = await pool.query(
+                `SELECT * FROM facebook_sync_log
                 ORDER BY created_at DESC
-                LIMIT ${limit} OFFSET ${offset}
-            `;
+                LIMIT $1 OFFSET $2`,
+                [limit, offset]
+            );
         }
 
-        const logs = await query;
-        const countResult = await sql`SELECT COUNT(*) as total FROM facebook_sync_log`;
+        const countResult = await pool.query('SELECT COUNT(*) as total FROM facebook_sync_log');
 
         res.json({
-            logs,
+            logs: logsResult.rows,
             pagination: {
                 page,
                 limit,
-                total: parseInt(countResult[0].total),
-                pages: Math.ceil(parseInt(countResult[0].total) / limit),
+                total: parseInt(countResult.rows[0].total),
+                pages: Math.ceil(parseInt(countResult.rows[0].total) / limit),
             },
         });
     } catch (error: any) {
@@ -97,19 +98,20 @@ router.post('/sync-product', async (req: Request, res: Response) => {
         const { listingId } = req.body;
 
         // Get listing data
-        const listingResult = await sql`
-            SELECT l.*, s.name as store_name, s.slug as store_slug,
+        const listingResult = await pool.query(
+            `SELECT l.*, s.name as store_name, s.slug as store_slug,
                    s.name as business_name, s.id as store_id
             FROM listings l
             JOIN stores s ON l.store_id = s.store_id
-            WHERE l.id = ${listingId}
-        `;
+            WHERE l.id = $1`,
+            [listingId]
+        );
 
-        if (listingResult.length === 0) {
+        if (listingResult.rows.length === 0) {
             return res.status(404).json({ error: 'Listing not found' });
         }
 
-        const listing = listingResult[0];
+        const listing = listingResult.rows[0];
         const store = {
             store_id: listing.store_id,
             name: listing.store_name || listing.business_name,
@@ -129,11 +131,12 @@ router.post('/sync-product', async (req: Request, res: Response) => {
 
         if (result.success) {
             // Update listing with Facebook product ID
-            await sql`
-                UPDATE listings
-                SET facebook_product_id = ${result.facebookProductId}
-                WHERE id = ${listingId}
-            `;
+            await pool.query(
+                `UPDATE listings
+                SET facebook_product_id = $1
+                WHERE id = $2`,
+                [result.facebookProductId, listingId]
+            );
         }
 
         res.json(result);
@@ -155,19 +158,19 @@ router.post('/sync-all', async (req: Request, res: Response) => {
         }
 
         // Get all active listings with store data
-        const listings = await sql`
-            SELECT l.*, s.name as store_name, s.slug as store_slug,
+        const listingsResult = await pool.query(
+            `SELECT l.*, s.name as store_name, s.slug as store_slug,
                    s.name as business_name, s.store_id
             FROM listings l
             JOIN stores s ON l.store_id = s.store_id
-            WHERE l.status = 'active' AND s.status = 'active'
-        `;
+            WHERE l.status = 'active' AND s.status = 'active'`
+        );
 
-        const stores = await sql`SELECT * FROM stores WHERE status = 'active'`;
+        const storesResult = await pool.query('SELECT * FROM stores WHERE status = \'active\'');
 
         const { FacebookSyncEngine } = require('./syncEngine');
         const engine = new FacebookSyncEngine(config, process.env.BASE_URL || 'https://islandhub.app');
-        const result = await engine.fullSync(stores, listings);
+        const result = await engine.fullSync(storesResult.rows, listingsResult.rows);
 
         res.json({
             message: 'Sync completed',
@@ -186,18 +189,19 @@ router.get('/vendor-connection/:storeId', async (req: Request, res: Response) =>
     try {
         const { storeId } = req.params;
 
-        const connection = await sql`
-            SELECT id, store_id, facebook_page_id, facebook_catalog_id,
+        const connectionResult = await pool.query(
+            `SELECT id, store_id, facebook_page_id, facebook_catalog_id,
                    status, permissions, created_at, updated_at
             FROM facebook_vendor_connections
-            WHERE store_id = ${storeId}
+            WHERE store_id = $1
             AND status = 'active'
-            LIMIT 1
-        `;
+            LIMIT 1`,
+            [storeId]
+        );
 
         res.json({
-            connected: connection.length > 0,
-            connection: connection[0] || null,
+            connected: connectionResult.rows.length > 0,
+            connection: connectionResult.rows[0] || null,
         });
     } catch (error: any) {
         res.status(500).json({ error: error.message });
@@ -212,11 +216,12 @@ router.delete('/vendor-connection/:storeId', async (req: Request, res: Response)
     try {
         const { storeId } = req.params;
 
-        await sql`
-            UPDATE facebook_vendor_connections
+        await pool.query(
+            `UPDATE facebook_vendor_connections
             SET status = 'revoked', updated_at = NOW()
-            WHERE store_id = ${storeId}
-        `;
+            WHERE store_id = $1`,
+            [storeId]
+        );
 
         res.json({ success: true, message: 'Facebook connection revoked' });
     } catch (error: any) {

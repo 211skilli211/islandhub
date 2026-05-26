@@ -182,19 +182,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               const hasChildren = navGroups.find(g => g.id === item.id);
               const isExpanded = expandedGroups.includes(item.id);
 
+              const navItemClass = collapsed
+                ? 'flex-1 flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative px-2 py-2.5 justify-center' +
+                  (active ? ' bg-emerald-500/10 text-emerald-400' : ' text-white/40 hover:bg-white/[0.04] hover:text-white/70')
+                : 'flex-1 flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative px-3 py-2.5' +
+                  (active ? ' bg-emerald-500/10 text-emerald-400' : ' text-white/40 hover:bg-white/[0.04] hover:text-white/70');
+
               return (
                 <div key={item.id}>
                   <div className="flex items-center gap-1">
                     <Link
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
-                      className={`flex-1 flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative ${
-                        collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'
-                      } ${
-                        active
-                          ? 'bg-emerald-500/10 text-emerald-400'
-                          : 'text-white/40 hover:bg-white/[0.04] hover:text-white/70'`
-                      }`}
+                      className={navItemClass}
                       title={collapsed ? item.label : undefined}
                     >
                       {active && (
@@ -204,7 +204,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                         />
                       )}
-                      <Icon size={18} className={`shrink-0 ${active ? 'text-emerald-400' : 'text-white/30 group-hover:text-white/60'}`} />
+                      <Icon size={18} className={active ? 'shrink-0 text-emerald-400' : 'shrink-0 text-white/30 group-hover:text-white/60'} />
                       {!collapsed && <span className="font-medium text-[13px] truncate">{item.label}</span>}
                     </Link>
                     {hasChildren && !collapsed && (
@@ -228,11 +228,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                             key={sub.id}
                             href={sub.href}
                             onClick={() => setMobileOpen(false)}
-                            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[12px] transition-all ${
-                              subActive
-                                ? 'text-teal-400 bg-teal-600/10'
-                                : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.04]'
-                            }`}
+                            className={subActive
+                              ? 'flex items-center gap-2.5 px-3 py-2 rounded-lg text-[12px] transition-all text-emerald-400 bg-emerald-500/10'
+                              : 'flex items-center gap-2.5 px-3 py-2 rounded-lg text-[12px] transition-all text-slate-500 hover:text-slate-300 hover:bg-white/[0.04]'}
                           >
                             <SubIcon size={15} className="shrink-0" />
                             <span className="font-medium truncate">{sub.label}</span>
@@ -251,9 +249,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div className="p-2 border-t border-white/[0.06] shrink-0">
           <button
             onClick={handleLogout}
-            className={`flex items-center gap-2.5 rounded-lg text-slate-500 hover:bg-white/[0.04] hover:text-slate-300 w-full transition-all ${
-              collapsed ? 'px-2 py-2.5 justify-center' : 'px-3 py-2.5'
-            }`}
+            className={collapsed
+              ? 'flex items-center gap-2.5 rounded-lg text-slate-500 hover:bg-white/[0.04] hover:text-slate-300 w-full transition-all px-2 py-2.5 justify-center'
+              : 'flex items-center gap-2.5 rounded-lg text-slate-500 hover:bg-white/[0.04] hover:text-slate-300 w-full transition-all px-3 py-2.5'}
             title={collapsed ? 'Logout' : undefined}
           >
             <LogOut size={18} className="shrink-0" />
