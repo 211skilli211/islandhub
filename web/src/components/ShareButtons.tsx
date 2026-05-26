@@ -49,8 +49,8 @@ export default function ShareButtonsClient({ listing }: ShareButtonsProps) {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
+            <div className="bg-surface-elevated rounded-2xl p-6 border border-border-primary shadow-sm">
+                <h3 className="text-sm font-bold text-ink-primary uppercase tracking-wide mb-4">
                     Share this {listing.type === 'product' ? 'product' : listing.type === 'service' ? 'service' : listing.type === 'rental' ? 'rental' : 'listing'}
                 </h3>
                 <div className="flex flex-wrap gap-3">
@@ -99,7 +99,7 @@ export default function ShareButtonsClient({ listing }: ShareButtonsProps) {
                         className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                             copied
                                 ? 'bg-emerald-500 text-white'
-                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                                : 'bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary border border-border-primary'
                         }`}
                     >
                         {copied ? (

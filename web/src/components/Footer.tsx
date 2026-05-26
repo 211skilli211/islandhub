@@ -1,125 +1,82 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-const FOOTER_HUBS = [
-  { href: '/food', label: 'Food & Dining' },
-  { href: '/products', label: 'Local Shopping' },
-  { href: '/services', label: 'Services' },
-  { href: '/rentals', label: 'Stays & Rentals' },
-  { href: '/tours', label: 'Tours' },
-  { href: '/transport', label: 'Transport' },
-  { href: '/campaigns', label: 'Campaigns' },
-  { href: '/community', label: 'Community' },
-];
+const FOOTER_LINKS = {
+  marketplace: [
+    { href: '/food', label: 'Food & Dining' },
+    { href: '/products', label: 'Shop' },
+    { href: '/rentals', label: 'Stays & Rentals' },
+    { href: '/tours', label: 'Tours' },
+    { href: '/services', label: 'Services' },
+    { href: '/listings', label: 'Marketplace' },
+    { href: '/events', label: 'Events' },
+    { href: '/campaigns', label: 'Campaigns' },
+  ],
+  company: [
+    { href: '/about', label: 'About Us' },
+    { href: '/store/ibt-solutions', label: 'IBT Solutions' },
+    { href: '/become-vendor', label: 'Become a Vendor' },
+    { href: '/community', label: 'Community' },
+  ],
+  support: [
+    { href: '/help', label: 'Help Center' },
+    { href: '/contact', label: 'Contact Us' },
+    { href: '/terms', label: 'Terms of Service' },
+    { href: '/privacy', label: 'Privacy Policy' },
+  ],
+};
 
-const FOOTER_COMPANY = [
-  { href: '/about', label: 'About Us' },
-  { href: '/how-it-works', label: 'How It Works' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/store/ibt-solutions', label: 'IBT Solutions' },
-];
-
-const FOOTER_SUPPORT = [
-  { href: '/faq', label: 'FAQ' },
-  { href: '/help', label: 'Help Center' },
-  { href: '/safety', label: 'Safety' },
-  { href: '/terms', label: 'Terms of Service' },
-  { href: '/privacy', label: 'Privacy Policy' },
+const SOCIAL_LINKS = [
+  { href: 'https://facebook.com/islandhub', label: 'Facebook', icon: '📘' },
+  { href: 'https://instagram.com/islandhub', label: 'Instagram', icon: '📸' },
+  { href: 'https://x.com/islandhub', label: 'X (Twitter)', icon: '🐦' },
+  { href: 'https://wa.me/1869', label: 'WhatsApp', icon: '💬' },
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-  };
-
   return (
-    <footer className="bg-surface-secondary border-t border-border-primary">
-      {/* Main footer */}
-      <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+    <footer className="bg-surface-tertiary border-t border-border-primary">
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
 
-          {/* Brand column */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-block">
-              <span className="text-display-md text-gradient-brand tracking-tight">
-                IslandHub
-              </span>
-            </Link>
-            <p className="mt-4 text-body-sm text-ink-secondary max-w-sm leading-relaxed">
-              The Caribbean's premier marketplace — connecting local businesses,
-              artisans, and service providers across St. Kitts & Nevis and beyond.
-            </p>
-
-            {/* Newsletter */}
-            <form onSubmit={handleSubscribe} className="mt-6 max-w-sm">
-              <label className="text-caption text-ink-secondary font-semibold block mb-2">
-                Stay in the loop
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-surface-primary border border-border-primary text-body-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 text-white shadow-sm hover:shadow-md transition-all shrink-0"
-                  aria-label="Subscribe"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
+          {/* Brand Column */}
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" className="inline-block mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🏝️</span>
+                <span className="text-lg font-black text-ink-primary tracking-tight">IslandHub</span>
               </div>
-              {subscribed && (
-                <p className="mt-2 text-caption text-success-600 font-semibold">
-                  ✓ Thanks for subscribing!
-                </p>
-              )}
-            </form>
-
-            {/* Social links */}
-            <div className="flex items-center gap-4 mt-6">
-              <a href="https://twitter.com/islandhub" target="_blank" rel="noopener noreferrer"
-                className="text-ink-tertiary hover:text-brand-500 transition-colors" aria-label="Twitter">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              </a>
-              <a href="https://instagram.com/islandhub" target="_blank" rel="noopener noreferrer"
-                className="text-ink-tertiary hover:text-coral-500 transition-colors" aria-label="Instagram">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              </a>
-              <a href="https://facebook.com/islandhub" target="_blank" rel="noopener noreferrer"
-                className="text-ink-tertiary hover:text-brand-600 transition-colors" aria-label="Facebook">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-              </a>
+            </Link>
+            <p className="text-sm text-ink-tertiary leading-relaxed mb-6 max-w-xs">
+              The Caribbean's commerce hub. Connecting local artisans, restaurants, and services to the community.
+            </p>
+            {/* Social Links */}
+            <div className="flex items-center gap-3">
+              {SOCIAL_LINKS.map(social => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg bg-surface-elevated border border-border-primary flex items-center justify-center text-sm hover:bg-surface-secondary hover:border-accent-300 transition-all"
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Marketplace Hubs */}
+          {/* Marketplace Links */}
           <div>
-            <h4 className="text-caption text-ink-secondary font-bold uppercase tracking-wider mb-4">
-              Marketplace
-            </h4>
-            <ul className="space-y-3">
-              {FOOTER_HUBS.map((link) => (
+            <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-4">Marketplace</h3>
+            <ul className="space-y-2.5">
+              {FOOTER_LINKS.marketplace.map(link => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-body-sm text-ink-secondary hover:text-ink-primary transition-colors"
-                  >
+                  <Link href={link.href} className="text-sm text-ink-secondary hover:text-accent-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -127,18 +84,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Company Links */}
           <div>
-            <h4 className="text-caption text-ink-secondary font-bold uppercase tracking-wider mb-4">
-              Company
-            </h4>
-            <ul className="space-y-3">
-              {FOOTER_COMPANY.map((link) => (
+            <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-4">Company</h3>
+            <ul className="space-y-2.5">
+              {FOOTER_LINKS.company.map(link => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-body-sm text-ink-secondary hover:text-ink-primary transition-colors"
-                  >
+                  <Link href={link.href} className="text-sm text-ink-secondary hover:text-accent-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -146,18 +98,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Support Links */}
           <div>
-            <h4 className="text-caption text-ink-secondary font-bold uppercase tracking-wider mb-4">
-              Support
-            </h4>
-            <ul className="space-y-3">
-              {FOOTER_SUPPORT.map((link) => (
+            <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-4">Support</h3>
+            <ul className="space-y-2.5">
+              {FOOTER_LINKS.support.map(link => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-body-sm text-ink-secondary hover:text-ink-primary transition-colors"
-                  >
+                  <Link href={link.href} className="text-sm text-ink-secondary hover:text-accent-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -165,23 +112,44 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        {/* Newsletter */}
+        <div className="mt-12 pt-8 border-t border-border-primary">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-sm font-bold text-ink-primary mb-1">Stay in the loop</h3>
+              <p className="text-xs text-ink-tertiary">Get updates on new vendors, deals, and island events.</p>
+            </div>
+            <form className="flex gap-2 w-full md:w-auto" onSubmit={e => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="flex-1 md:w-64 px-4 py-2.5 bg-surface-elevated border border-border-primary rounded-xl text-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all"
+              />
+              <button
+                type="submit"
+                className="px-5 py-2.5 bg-accent-500 text-white rounded-xl text-sm font-bold hover:bg-accent-600 transition-colors whitespace-nowrap"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-border-primary bg-surface-primary">
-        <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-caption text-ink-tertiary">
+      {/* Bottom Bar */}
+      <div className="border-t border-border-primary bg-surface-elevated/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-ink-tertiary">
               © {new Date().getFullYear()} IslandHub. All rights reserved. Made with 💙 in St. Kitts & Nevis.
             </p>
-            <div className="flex items-center gap-4">
-              {/* Currency indicator */}
-              <span className="text-caption text-ink-tertiary font-semibold">XCD $</span>
-              {/* Status indicator */}
-              <span className="flex items-center gap-1.5 text-caption text-success-600 font-semibold">
-                <span className="w-2 h-2 rounded-full bg-success-500 animate-pulse" />
-                All systems operational
-              </span>
+            <div className="flex items-center gap-4 text-xs text-ink-tertiary">
+              <Link href="/terms" className="hover:text-ink-secondary transition-colors">Terms</Link>
+              <span>·</span>
+              <Link href="/privacy" className="hover:text-ink-secondary transition-colors">Privacy</Link>
+              <span>·</span>
+              <Link href="/cookies" className="hover:text-ink-secondary transition-colors">Cookies</Link>
             </div>
           </div>
         </div>

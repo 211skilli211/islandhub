@@ -157,13 +157,13 @@ export default function CheckoutPage() {
 
     if (!cart || itemCount === 0) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-secondary flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-slate-900 mb-4">Your cart is empty</h1>
-                    <p className="text-slate-600 mb-8">Add some items to get started!</p>
+                    <h1 className="text-3xl font-bold text-ink-primary mb-4">Your cart is empty</h1>
+                    <p className="text-ink-secondary mb-8">Add some items to get started!</p>
                     <button
                         onClick={() => router.push('/listings')}
-                        className="px-8 py-4 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
+                        className="px-8 py-4 bg-accent-500 text-white font-bold rounded-xl hover:bg-accent-600 transition-all"
                     >
                         Browse Marketplace
                     </button>
@@ -178,21 +178,21 @@ export default function CheckoutPage() {
     const finalTotal = totalAmount + deliveryFee + serviceFee + tax;
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12">
+        <div className="min-h-screen bg-surface-secondary py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-4xl font-bold text-slate-900 mb-8">Checkout</h1>
+                <h1 className="text-4xl font-bold text-ink-primary mb-8">Checkout</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Order Summary */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Order Items */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6">Order Summary</h2>
+                        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
+                            <h2 className="text-2xl font-bold text-ink-primary mb-6">Order Summary</h2>
 
                             <div className="space-y-4">
                                 {cart.items.map((item) => (
-                                    <div key={item.item_id} className="flex gap-4 p-4 bg-slate-50 rounded-xl">
-                                        <div className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-white">
+                                    <div key={item.item_id} className="flex gap-4 p-4 bg-surface-secondary rounded-xl">
+                                        <div className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-surface-elevated">
                                             <Image
                                                 src={getImageUrl(item.image_url)}
                                                 alt={item.title}
@@ -202,31 +202,31 @@ export default function CheckoutPage() {
                                         </div>
 
                                         <div className="flex-1">
-                                            <h3 className="font-semibold text-slate-900">{item.title}</h3>
-                                            <p className="text-sm text-slate-600">{item.store_name}</p>
+                                            <h3 className="font-semibold text-ink-primary">{item.title}</h3>
+                                            <p className="text-sm text-ink-secondary">{item.store_name}</p>
 
                                             {item.rental_start_date && (
-                                                <p className="text-xs text-teal-600 mt-1">
+                                                <p className="text-xs text-accent-400 mt-1">
                                                     {new Date(item.rental_start_date).toLocaleDateString()} - {new Date(item.rental_end_date!).toLocaleDateString()}
                                                 </p>
                                             )}
                                             {item.service_package && (
-                                                <p className="text-xs text-teal-600 mt-1">Package: {item.service_package}</p>
+                                                <p className="text-xs text-accent-400 mt-1">Package: {item.service_package}</p>
                                             )}
                                             {item.selected_variant && (
-                                                <p className="text-xs text-slate-500 mt-1">
+                                                <p className="text-xs text-ink-tertiary mt-1">
                                                     Variant: {Object.entries(item.selected_variant).map(([k, v]) => `${k}: ${v}`).join(', ')}
                                                 </p>
                                             )}
                                             {item.selected_addons && item.selected_addons.length > 0 && (
-                                                <p className="text-xs text-slate-500 mt-1">
+                                                <p className="text-xs text-ink-tertiary mt-1">
                                                     Add-ons: {item.selected_addons.map((a: any) => a.name).join(', ')}
                                                 </p>
                                             )}
 
                                             <div className="flex items-center justify-between mt-2">
-                                                <span className="text-sm text-slate-600">Qty: {item.quantity}</span>
-                                                <span className="font-bold text-slate-900">${(item.price_snapshot * item.quantity).toFixed(2)}</span>
+                                                <span className="text-sm text-ink-secondary">Qty: {item.quantity}</span>
+                                                <span className="font-bold text-ink-primary">${(item.price_snapshot * item.quantity).toFixed(2)}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -235,38 +235,38 @@ export default function CheckoutPage() {
                         </div>
 
                         {/* Delivery Method */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6">Delivery Method</h2>
+                        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
+                            <h2 className="text-2xl font-bold text-ink-primary mb-6">Delivery Method</h2>
                             <div className="grid grid-cols-2 gap-4">
                                 <button
                                     onClick={() => setDeliverySettings('pickup')}
-                                    className={`p-4 rounded-xl border-2 transition-all text-left ${cart.delivery_type === 'pickup' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}
+                                    className={`p-4 rounded-xl border-2 transition-all text-left ${cart.delivery_type === 'pickup' ? 'border-accent-500 bg-accent-500/10' : 'border-border-primary hover:border-border-primary'}`}
                                 >
-                                    <div className="font-bold text-slate-900">Store Pickup</div>
-                                    <div className="text-sm text-slate-500">Pick up at the store</div>
-                                    <div className="text-sm font-bold text-teal-600 mt-1">FREE</div>
+                                    <div className="font-bold text-ink-primary">Store Pickup</div>
+                                    <div className="text-sm text-ink-tertiary">Pick up at the store</div>
+                                    <div className="text-sm font-bold text-accent-400 mt-1">FREE</div>
                                 </button>
                                 <button
                                     onClick={() => setDeliverySettings('delivery')}
-                                    className={`p-4 rounded-xl border-2 transition-all text-left ${cart.delivery_type === 'delivery' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}
+                                    className={`p-4 rounded-xl border-2 transition-all text-left ${cart.delivery_type === 'delivery' ? 'border-accent-500 bg-accent-500/10' : 'border-border-primary hover:border-border-primary'}`}
                                 >
-                                    <div className="font-bold text-slate-900">Home Delivery</div>
-                                    <div className="text-sm text-slate-500">Delivered to your door</div>
-                                    <div className="text-sm font-bold text-teal-600 mt-1">$10.00</div>
+                                    <div className="font-bold text-ink-primary">Home Delivery</div>
+                                    <div className="text-sm text-ink-tertiary">Delivered to your door</div>
+                                    <div className="text-sm font-bold text-accent-400 mt-1">$10.00</div>
                                 </button>
                             </div>
 
                             {cart.delivery_type === 'delivery' && (
                                 <div className="mt-6 space-y-4">
-                                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider">
-                                        Delivery Address <span className="text-red-500">*</span>
+                                    <label className="block text-sm font-bold text-ink-secondary uppercase tracking-wider">
+                                        Delivery Address <span className="text-[#ef4444]">*</span>
                                     </label>
                                     <textarea
                                         value={deliveryAddress}
                                         onChange={(e) => setDeliveryAddress(e.target.value)}
                                         onBlur={() => setDeliverySettings('delivery', deliveryAddress)}
                                         placeholder="Enter your full delivery address including street, city, and postal code..."
-                                        className="w-full px-4 py-3 bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                                        className="w-full px-4 py-3 bg-surface-secondary border-border-primary rounded-xl focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
                                         rows={3}
                                         required
                                     />
@@ -276,24 +276,24 @@ export default function CheckoutPage() {
 
                         {/* Contact Information - For Guest Checkout */}
                         {!user && (
-                            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                                <h2 className="text-2xl font-bold text-slate-900 mb-6">Contact Information</h2>
+                            <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
+                                <h2 className="text-2xl font-bold text-ink-primary mb-6">Contact Information</h2>
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                            Email Address <span className="text-red-500">*</span>
+                                        <label className="block text-sm font-bold text-ink-secondary uppercase tracking-wider mb-2">
+                                            Email Address <span className="text-[#ef4444]">*</span>
                                         </label>
                                         <input
                                             type="email"
                                             value={guestEmail}
                                             onChange={(e) => setGuestEmail(e.target.value)}
                                             placeholder="your@email.com"
-                                            className="w-full px-4 py-3 bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                                            className="w-full px-4 py-3 bg-surface-secondary border-border-primary rounded-xl focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
                                             required
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                        <label className="block text-sm font-bold text-ink-secondary uppercase tracking-wider mb-2">
                                             Phone Number (optional)
                                         </label>
                                         <input
@@ -301,7 +301,7 @@ export default function CheckoutPage() {
                                             value={guestPhone}
                                             onChange={(e) => setGuestPhone(e.target.value)}
                                             placeholder="+1 (869) 555-0123"
-                                            className="w-full px-4 py-3 bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                                            className="w-full px-4 py-3 bg-surface-secondary border-border-primary rounded-xl focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
                                         />
                                     </div>
                                 </div>
@@ -309,17 +309,17 @@ export default function CheckoutPage() {
                         )}
 
                         {/* Terms & Conditions */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
                             <label className="flex items-start gap-3 cursor-pointer">
                                 <input
                                     type="checkbox"
                                     checked={agreedToTerms}
                                     onChange={(e) => setAgreedToTerms(e.target.checked)}
-                                    className="mt-1 w-5 h-5 text-teal-600 rounded border-slate-300 focus:ring-teal-500"
+                                    className="mt-1 w-5 h-5 text-accent-400 rounded border-border-primary focus:ring-accent-400"
                                 />
-                                <span className="text-sm text-slate-600">
-                                    I agree to the <a href="/terms" className="text-teal-600 hover:underline">Terms of Service</a> and{' '}
-                                    <a href="/privacy" className="text-teal-600 hover:underline">Privacy Policy</a>. I understand that
+                                <span className="text-sm text-ink-secondary">
+                                    I agree to the <a href="/terms" className="text-accent-400 hover:underline">Terms of Service</a> and{' '}
+                                    <a href="/privacy" className="text-accent-400 hover:underline">Privacy Policy</a>. I understand that
                                     my order will be processed once payment is confirmed.
                                 </span>
                             </label>
@@ -327,94 +327,94 @@ export default function CheckoutPage() {
                     </div>
 
                         {/* Payment Method */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6">Payment Method</h2>
+                        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
+                            <h2 className="text-2xl font-bold text-ink-primary mb-6">Payment Method</h2>
                             <div className="space-y-3">
-                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'dodopayments' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}>
+                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'dodopayments' ? 'border-accent-500 bg-accent-500/10' : 'border-border-primary hover:border-border-primary'}`}>
                                     <input
                                         type="radio"
                                         name="paymentMethod"
                                         value="dodopayments"
                                         checked={paymentMethod === 'dodopayments'}
                                         onChange={() => setPaymentMethod('dodopayments')}
-                                        className="w-5 h-5 text-teal-600"
+                                        className="w-5 h-5 text-accent-400"
                                     />
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2">
                                             <span className="text-xl">💳</span>
-                                            <span className="font-bold text-slate-900">Credit / Debit Card</span>
+                                            <span className="font-bold text-ink-primary">Credit / Debit Card</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 mt-1">Visa, Mastercard, American Express</p>
+                                        <p className="text-xs text-ink-tertiary mt-1">Visa, Mastercard, American Express</p>
                                     </div>
-                                    <span className="text-xs font-bold text-slate-400">via DodoPayments</span>
+                                    <span className="text-xs font-bold text-ink-tertiary">via DodoPayments</span>
                                 </label>
 
-                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'paypal' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}>
+                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'paypal' ? 'border-accent-500 bg-accent-500/10' : 'border-border-primary hover:border-border-primary'}`}>
                                     <input
                                         type="radio"
                                         name="paymentMethod"
                                         value="paypal"
                                         checked={paymentMethod === 'paypal'}
                                         onChange={() => setPaymentMethod('paypal')}
-                                        className="w-5 h-5 text-teal-600"
+                                        className="w-5 h-5 text-accent-400"
                                     />
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2">
                                             <span className="text-xl">🅿️</span>
-                                            <span className="font-bold text-slate-900">PayPal</span>
+                                            <span className="font-bold text-ink-primary">PayPal</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 mt-1">Pay with your PayPal account or card</p>
+                                        <p className="text-xs text-ink-tertiary mt-1">Pay with your PayPal account or card</p>
                                     </div>
-                                    <span className="text-xs font-bold text-slate-400">via PayPal</span>
+                                    <span className="text-xs font-bold text-ink-tertiary">via PayPal</span>
                                 </label>
 
-                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-teal-600 bg-teal-50' : 'border-slate-100 hover:border-slate-200'}`}>
+                                <label className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-accent-500 bg-accent-500/10' : 'border-border-primary hover:border-border-primary'}`}>
                                     <input
                                         type="radio"
                                         name="paymentMethod"
                                         value="crypto"
                                         checked={paymentMethod === 'crypto'}
                                         onChange={() => setPaymentMethod('crypto')}
-                                        className="w-5 h-5 text-teal-600"
+                                        className="w-5 h-5 text-accent-400"
                                     />
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2">
                                             <span className="text-xl">₿</span>
-                                            <span className="font-bold text-slate-900">Cryptocurrency</span>
+                                            <span className="font-bold text-ink-primary">Cryptocurrency</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 mt-1">USDT, BTC, ETH</p>
+                                        <p className="text-xs text-ink-tertiary mt-1">USDT, BTC, ETH</p>
                                     </div>
-                                    <span className="text-xs font-bold text-slate-400">via Crypto</span>
+                                    <span className="text-xs font-bold text-ink-tertiary">via Crypto</span>
                                 </label>
                             </div>
                         </div>
 
                         {/* Price Breakdown */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sticky top-24">
-                            <h2 className="text-xl font-bold text-slate-900 mb-6">Price Details</h2>
+                        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 sticky top-24">
+                            <h2 className="text-xl font-bold text-ink-primary mb-6">Price Details</h2>
 
                             <div className="space-y-3 mb-6">
-                                <div className="flex justify-between text-slate-700">
+                                <div className="flex justify-between text-ink-secondary">
                                     <span>Subtotal ({itemCount} items)</span>
                                     <span>${totalAmount.toFixed(2)}</span>
                                 </div>
                                 {cart.delivery_type === 'delivery' && (
-                                    <div className="flex justify-between text-slate-700">
+                                    <div className="flex justify-between text-ink-secondary">
                                         <span>Delivery Fee</span>
                                         <span>${deliveryFee.toFixed(2)}</span>
                                     </div>
                                 )}
-                                <div className="flex justify-between text-slate-700">
+                                <div className="flex justify-between text-ink-secondary">
                                     <span>Service Fee (5%)</span>
                                     <span>${serviceFee.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between text-slate-700">
+                                <div className="flex justify-between text-ink-secondary">
                                     <span>Tax (10%)</span>
                                     <span>${tax.toFixed(2)}</span>
                                 </div>
-                                <div className="border-t border-slate-200 pt-3">
-                                    <div className="flex justify-between text-xl font-bold text-slate-900">
+                                <div className="border-t border-border-primary pt-3">
+                                    <div className="flex justify-between text-xl font-bold text-ink-primary">
                                         <span>Total</span>
                                         <span>${finalTotal.toFixed(2)} XCD</span>
                                     </div>
@@ -424,7 +424,7 @@ export default function CheckoutPage() {
                             <button
                                 onClick={handleCheckout}
                                 disabled={loadingPayment || processing || !agreedToTerms}
-                                className="w-full py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-4 bg-gradient-to-r from-accent-500 to-accent-400 text-white font-bold rounded-xl hover:from-accent-600 hover:to-accent-500 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loadingPayment ? (
                                     <span className="flex items-center justify-center gap-2">
@@ -439,17 +439,17 @@ export default function CheckoutPage() {
                                 )}
                             </button>
 
-                            <p className="text-xs text-slate-500 text-center mt-4">
+                            <p className="text-xs text-ink-tertiary text-center mt-4">
                                 Secure payment powered by DodoPayments
                             </p>
 
                             {!user && (
-                                <div className="mt-4 pt-4 border-t border-slate-200">
-                                    <p className="text-sm text-slate-600 text-center">
+                                <div className="mt-4 pt-4 border-t border-border-primary">
+                                    <p className="text-sm text-ink-secondary text-center">
                                         Already have an account?{' '}
                                         <button
                                             onClick={() => router.push(`/login?redirect=${encodeURIComponent('/checkout')}`)}
-                                            className="text-teal-600 font-bold hover:underline"
+                                            className="text-accent-400 font-bold hover:underline"
                                         >
                                             Login for faster checkout
                                         </button>

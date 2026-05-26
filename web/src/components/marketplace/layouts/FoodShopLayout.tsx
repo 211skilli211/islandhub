@@ -144,7 +144,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
     };
 
     return (
-        <div className="bg-white dark:bg-[var(--surface-primary)] min-h-screen font-sans transition-colors duration-300">
+        <div className="bg-surface-primary min-h-screen font-sans transition-colors duration-300">
 
             {/* ═══ Floating Action Bar (replaces Kitchen Hub button) ═══ */}
             <div className="fixed right-4 bottom-24 z-50 flex flex-col items-end gap-3">
@@ -159,7 +159,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 exit={{ opacity: 0, scale: 0.5, y: 20 }}
                                 transition={{ delay: 0.0 }}
                                 onClick={handleCart}
-                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-surface-elevated text-ink-primary shadow-lg hover:shadow-xl rounded-full border border-border-primary transition-all hover:scale-105 active:scale-95 group"
                                 title="Cart"
                             >
                                 <span className="text-lg">🛒</span>
@@ -173,7 +173,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 exit={{ opacity: 0, scale: 0.5, y: 20 }}
                                 transition={{ delay: 0.05 }}
                                 onClick={handleShare}
-                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-surface-elevated text-ink-primary shadow-lg hover:shadow-xl rounded-full border border-border-primary transition-all hover:scale-105 active:scale-95 group"
                                 title="Share"
                             >
                                 <span className="text-lg">📤</span>
@@ -187,7 +187,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 exit={{ opacity: 0, scale: 0.5, y: 20 }}
                                 transition={{ delay: 0.1 }}
                                 onClick={handleDirections}
-                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-surface-elevated text-ink-primary shadow-lg hover:shadow-xl rounded-full border border-border-primary transition-all hover:scale-105 active:scale-95 group"
                                 title="Directions"
                             >
                                 <span className="text-lg">📍</span>
@@ -201,7 +201,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 exit={{ opacity: 0, scale: 0.5, y: 20 }}
                                 transition={{ delay: 0.15 }}
                                 onClick={handleCall}
-                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-white dark:bg-[var(--surface-elevated)] text-slate-700 dark:text-[var(--ink-primary)] shadow-lg hover:shadow-xl rounded-full border border-slate-200 dark:border-[var(--border-secondary)] transition-all hover:scale-105 active:scale-95 group"
+                                className="flex items-center gap-2 pl-4 pr-5 py-3 bg-surface-elevated text-ink-primary shadow-lg hover:shadow-xl rounded-full border border-border-primary transition-all hover:scale-105 active:scale-95 group"
                                 title="Call"
                             >
                                 <span className="text-lg">📞</span>
@@ -252,7 +252,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 >
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 bg-black/30 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-white/10 mt-6 md:mt-8 w-full md:w-fit pointer-events-auto">
                         {/* Logo and BadgeList */}
-                        <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-white/20 shadow-lg bg-white p-1 overflow-hidden shrink-0">
+                        <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-surface-elevated/20 shadow-lg bg-white p-1 overflow-hidden shrink-0">
                             <img
                                 src={store.logo_url ? getImageUrl(store.logo_url) : getImageUrl(PLACEHOLDER_LOGO)}
                                 className="w-full h-full object-cover rounded-lg"
@@ -281,14 +281,14 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 >
                     <div className="flex items-center gap-3">
                         <span className="text-lg">ℹ️</span>
-                        <span className="text-sm font-semibold text-slate-700 dark:text-[var(--ink-secondary)] group-hover:text-slate-900 dark:group-hover:text-[var(--ink-primary)] transition-colors">
+                        <span className="text-sm font-semibold text-ink-secondary group-hover:text-ink-primary transition-colors">
                             About {store.business_name}
                         </span>
                     </div>
                     <motion.span
                         animate={{ rotate: aboutOpen ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
-                        className="text-slate-400 dark:text-[var(--ink-tertiary)]"
+                        className="text-ink-tertiary"
                     >
                         ▼
                     </motion.span>
@@ -306,21 +306,21 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                             <div className="pb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Description */}
                                 {(store.description || store.bio) && (
-                                    <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)]">
-                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)] mb-2">About Us</h4>
-                                        <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)] leading-relaxed">
+                                    <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
+                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary mb-2">About Us</h4>
+                                        <p className="text-sm text-ink-secondary leading-relaxed">
                                             {store.description || store.bio}
                                         </p>
                                     </div>
                                 )}
 
                                 {/* Location & Hours */}
-                                <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)] space-y-3">
+                                <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary space-y-3">
                                     <div className="flex items-start gap-2">
                                         <span className="text-base">📍</span>
                                         <div>
-                                            <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)]">Location</h4>
-                                            <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)]">
+                                            <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary">Location</h4>
+                                            <p className="text-sm text-ink-secondary">
                                                 {store.business_address || store.location || 'St. Kitts & Nevis'}
                                             </p>
                                         </div>
@@ -329,8 +329,8 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         <div className="flex items-start gap-2">
                                             <span className="text-base">🕒</span>
                                             <div>
-                                                <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)]">Hours</h4>
-                                                <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)] whitespace-pre-line">
+                                                <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary">Hours</h4>
+                                                <p className="text-sm text-ink-secondary whitespace-pre-line">
                                                     {store.opening_hours}
                                                 </p>
                                             </div>
@@ -340,8 +340,8 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         <div className="flex items-start gap-2">
                                             <span className="text-base">📞</span>
                                             <div>
-                                                <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)]">Phone</h4>
-                                                <p className="text-sm text-slate-700 dark:text-[var(--ink-secondary)]">{store.phone}</p>
+                                                <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary">Phone</h4>
+                                                <p className="text-sm text-ink-secondary">{store.phone}</p>
                                             </div>
                                         </div>
                                     )}
@@ -349,13 +349,13 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
 
                                 {/* Dietary Options */}
                                 {store.dietary_options && store.dietary_options.length > 0 && (
-                                    <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)] md:col-span-2">
-                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)] mb-2">Dietary Options</h4>
+                                    <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary md:col-span-2">
+                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary mb-2">Dietary Options</h4>
                                         <div className="flex flex-wrap gap-2">
                                             {store.dietary_options.map((opt: string) => {
                                                 const badge = DIETARY_BADGES[opt];
                                                 if (!badge) return (
-                                                    <span key={opt} className="px-2.5 py-1 bg-slate-100 dark:bg-[var(--surface-tertiary)] rounded-lg text-xs font-medium text-slate-600 dark:text-[var(--ink-secondary)] border border-slate-200 dark:border-[var(--border-secondary)]">
+                                                    <span key={opt} className="px-2.5 py-1 bg-surface-tertiary rounded-lg text-xs font-medium text-ink-secondary border border-border-primary">
                                                         {opt}
                                                     </span>
                                                 );
@@ -372,8 +372,8 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
 
                                 {/* Store Badges */}
                                 {store.badges && store.badges.length > 0 && (
-                                    <div className="p-4 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)] md:col-span-2">
-                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-[var(--ink-tertiary)] mb-2">Highlights</h4>
+                                    <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary md:col-span-2">
+                                        <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary mb-2">Highlights</h4>
                                         <BadgeList badges={store.badges} />
                                     </div>
                                 )}
@@ -381,11 +381,11 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-                <div className="border-b border-slate-100 dark:border-[var(--border-primary)]" />
+                <div className="border-b border-border-primary" />
             </div>
 
             {/* ═══ Menu Filters — Enhanced Mobile UX ═══ */}
-            <div id="menu" className="sticky top-0 bg-white/90 dark:bg-[var(--surface-primary)]/90 backdrop-blur-md z-40 border-b border-slate-100 dark:border-[var(--border-primary)]">
+            <div id="menu" className="sticky top-0 bg-surface-primary/90 backdrop-blur-md z-40 border-b border-border-primary">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
                     {/* Left fade edge */}
                     <AnimatePresence>
@@ -446,7 +446,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     {filteredSections.length > 0 ? filteredSections.map((section: any) => (
                         <section key={section.id} id={`section-${section.id}`}>
                             <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-                                <h2 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-[var(--ink-primary)]">
+                                <h2 className="text-xl md:text-2xl font-semibold text-ink-primary">
                                     {section.name}
                                 </h2>
                                 <div className="flex-1 h-px bg-slate-100 dark:bg-[var(--border-primary)]" />
@@ -477,7 +477,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                 viewport={{ once: true }}
                                                 transition={{ delay: idx * 0.05 }}
                                                 whileHover={{ scale: 1.02 }}
-                                                className={`relative bg-white dark:bg-[var(--surface-elevated)] p-4 rounded-xl border ${isSoupKitchen ? 'border-amber-100 dark:border-amber-900/50 hover:border-amber-200 dark:hover:border-amber-700' : 'border-slate-100 dark:border-[var(--border-primary)] hover:border-slate-200 dark:hover:border-[var(--border-secondary)]'} group-hover:shadow-md dark:group-hover:shadow-lg transition-all flex gap-4`}
+                                                className={`relative bg-surface-elevated p-4 rounded-xl border ${isSoupKitchen ? 'border-sand-500/20 hover:border-sand-500' : 'border-border-primary hover:border-border-primary'} group-hover:shadow-md dark:group-hover:shadow-lg transition-all flex gap-4`}
                                             >
                                                 <div className="w-20 h-20 md:w-24 md:h-24 shrink-0 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded-lg overflow-hidden">
                                                     {item.image_url ? (
@@ -492,7 +492,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                 </div>
                                                 <div className="flex-1 flex flex-col justify-center min-w-0">
                                                     <div className="flex justify-between items-start mb-1 gap-2">
-                                                        <h3 className="font-semibold text-slate-900 dark:text-[var(--ink-primary)] text-sm md:text-base group-hover:text-slate-700 dark:group-hover:text-[var(--ink-secondary)] transition-colors truncate">{item.name}</h3>
+                                                        <h3 className="font-semibold text-ink-primary text-sm md:text-base group-hover:text-ink-secondary transition-colors truncate">{item.name}</h3>
                                                         <div className="text-right shrink-0">
                                                             <span
                                                                 className="font-medium text-white px-2 py-0.5 rounded text-xs"
@@ -501,11 +501,11 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                                 ${item.price}
                                                             </span>
                                                             {item.donation_suggested && (
-                                                                <p className="text-xs text-slate-500 dark:text-[var(--ink-tertiary)] mt-0.5">Suggested</p>
+                                                                <p className="text-xs text-ink-tertiary mt-0.5">Suggested</p>
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-xs leading-relaxed mb-2 line-clamp-2">{item.description}</p>
+                                                    <p className="text-ink-tertiary text-xs leading-relaxed mb-2 line-clamp-2">{item.description}</p>
 
                                                     {/* Dietary badges */}
                                                     {itemDietary.length > 0 && (
@@ -556,20 +556,20 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                         exit={{ opacity: 0, x: -10 }}
                                                         className="absolute left-full ml-4 top-0 z-50 hidden lg:block w-72"
                                                     >
-                                                        <div className="bg-white dark:bg-[var(--surface-elevated)] rounded-xl shadow-lg border border-slate-100 dark:border-[var(--border-primary)] overflow-hidden">
-                                                            <div className="h-32 relative bg-slate-100 dark:bg-[var(--surface-tertiary)]">
+                                                        <div className="bg-surface-elevated rounded-xl shadow-lg border border-border-primary overflow-hidden">
+                                                            <div className="h-32 relative bg-surface-tertiary">
                                                                 {item.image_url ? (
                                                                     <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt="" />
                                                                 ) : (
                                                                     <div className="w-full h-full flex items-center justify-center text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
                                                                 )}
-                                                                <div className="absolute top-3 right-3 bg-white/95 dark:bg-[var(--surface-elevated)]/95 backdrop-blur px-2 py-1 rounded-lg font-semibold text-sm text-slate-900 dark:text-[var(--ink-primary)] shadow-sm">
+                                                                <div className="absolute top-3 right-3 bg-white/95 dark:bg-[var(--surface-elevated)]/95 backdrop-blur px-2 py-1 rounded-lg font-semibold text-sm text-ink-primary shadow-sm">
                                                                     ${item.price}
                                                                 </div>
                                                             </div>
                                                             <div className="p-5">
-                                                                <h4 className="text-base font-semibold text-slate-900 dark:text-[var(--ink-primary)] mb-2">{item.name}</h4>
-                                                                <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-xs leading-relaxed mb-4">
+                                                                <h4 className="text-base font-semibold text-ink-primary mb-2">{item.name}</h4>
+                                                                <p className="text-ink-tertiary text-xs leading-relaxed mb-4">
                                                                     {item.description || "The finest island ingredients prepared with tradition and care."}
                                                                 </p>
                                                                 <div className="flex flex-wrap gap-1.5 mb-3">
@@ -584,7 +584,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                                             );
                                                                         }
                                                                         return (
-                                                                            <span key={tag} className="px-2 py-0.5 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded text-xs font-medium text-slate-500 dark:text-[var(--ink-tertiary)] border border-slate-100 dark:border-[var(--border-secondary)]">
+                                                                            <span key={tag} className="px-2 py-0.5 bg-slate-50 dark:bg-[var(--surface-tertiary)] rounded text-xs font-medium text-ink-tertiary border border-slate-100 dark:border-[var(--border-secondary)]">
                                                                                 {tag}
                                                                             </span>
                                                                         );
@@ -592,7 +592,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                                 </div>
                                                                 <div className="flex items-center gap-2 py-3 border-t border-slate-50 dark:border-[var(--border-primary)]">
                                                                     <div className="w-6 h-6 rounded-full flex items-center justify-center text-sm" style={{ backgroundColor: `${brandingColor}15` }}>👨‍🍳</div>
-                                                                    <p className="text-xs font-medium text-slate-400 dark:text-[var(--ink-tertiary)]">Chef&apos;s Special</p>
+                                                                    <p className="text-xs font-medium text-ink-tertiary">Chef&apos;s Special</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -613,10 +613,10 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                             >
                                 <span className="text-5xl">{isSoupKitchen ? '🍲' : '🍽️'}</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-slate-900 dark:text-[var(--ink-primary)] mb-2">
+                            <h3 className="text-xl font-semibold text-ink-primary mb-2">
                                 Menu Coming Soon
                             </h3>
-                            <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-sm max-w-md mx-auto mb-6">
+                            <p className="text-ink-tertiary text-sm max-w-md mx-auto mb-6">
                                 {store.business_name} is preparing something special. Check back soon for our delicious offerings!
                             </p>
                             <div className="flex items-center justify-center gap-3">
@@ -626,7 +626,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 >
                                     🔔
                                 </div>
-                                <span className="text-sm text-slate-600 dark:text-[var(--ink-secondary)]">
+                                <span className="text-sm text-ink-secondary">
                                     We&apos;ll notify you when the menu is live
                                 </span>
                             </div>
@@ -642,17 +642,17 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     {siteSections.find(s => s.name === 'kitchen_story') ? (() => {
                         const section = siteSections.find(s => s.name === 'kitchen_story');
                         return (
-                            <section className="pt-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
+                            <section className="pt-12 border-t border-border-primary">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                                     <motion.div
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                     >
-                                        <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-[var(--ink-primary)] mb-4">
+                                        <h2 className="text-2xl md:text-3xl font-semibold text-ink-primary mb-4">
                                             {section.title}
                                         </h2>
-                                        <p className="text-slate-600 dark:text-[var(--ink-secondary)] leading-relaxed mb-6">
+                                        <p className="text-ink-secondary leading-relaxed mb-6">
                                             &ldquo;{section.body}&rdquo;
                                         </p>
 
@@ -664,8 +664,8 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                             {item.icon}
                                                         </div>
                                                         <div>
-                                                            <p className="font-medium text-slate-900 dark:text-[var(--ink-primary)] text-sm">{item.title}</p>
-                                                            <p className="text-xs text-slate-400 dark:text-[var(--ink-tertiary)]">{item.desc}</p>
+                                                            <p className="font-medium text-ink-primary text-sm">{item.title}</p>
+                                                            <p className="text-xs text-ink-tertiary">{item.desc}</p>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -684,7 +684,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         viewport={{ once: true }}
                                         className="relative"
                                     >
-                                        <div className="aspect-square bg-slate-100 dark:bg-[var(--surface-tertiary)] rounded-2xl overflow-hidden shadow-md group relative">
+                                        <div className="aspect-square bg-surface-tertiary rounded-2xl overflow-hidden shadow-md group relative">
                                             <img
                                                 src={getImageUrl(section.image_url)}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -704,24 +704,24 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
 
                     {/* Professional Business Profile: Aims & Objectives */}
                     {(store.aims || store.objectives) && (
-                        <section className="pt-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
+                        <section className="pt-12 border-t border-border-primary">
                             <div className="flex flex-col md:flex-row gap-6 md:gap-8">
                                 {store.aims && (
-                                    <div className="flex-1 p-6 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)]">
+                                    <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
                                             <span className="w-8 h-8 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center text-lg">🎯</span>
-                                            <h3 className="text-base font-semibold text-slate-900 dark:text-[var(--ink-primary)]">Strategic Aims</h3>
+                                            <h3 className="text-base font-semibold text-ink-primary">Strategic Aims</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-[var(--ink-secondary)] leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
+                                        <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
                                     </div>
                                 )}
                                 {store.objectives && (
-                                    <div className="flex-1 p-6 bg-slate-50 dark:bg-[var(--surface-secondary)] rounded-xl border border-slate-100 dark:border-[var(--border-primary)]">
+                                    <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
                                             <span className="w-8 h-8 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg flex items-center justify-center text-lg">🚀</span>
-                                            <h3 className="text-base font-semibold text-slate-900 dark:text-[var(--ink-primary)]">Key Objectives</h3>
+                                            <h3 className="text-base font-semibold text-ink-primary">Key Objectives</h3>
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-[var(--ink-secondary)] leading-relaxed">&ldquo;{store.objectives}&rdquo;</p>
+                                        <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.objectives}&rdquo;</p>
                                     </div>
                                 )}
                             </div>
@@ -729,7 +729,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     )}
 
                     {/* Integrated Reviews */}
-                    <section className="pt-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
+                    <section className="pt-12 border-t border-border-primary">
                         <ReviewSection vendorId={String(store.id || store.user_id)} />
                     </section>
                 </div>
@@ -798,7 +798,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                             <div key={i} className="flex gap-3 items-start group">
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
-                                                    <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">{item.title}</p>
+                                                    <p className="text-ink-tertiary text-xs mb-0.5">{item.title}</p>
                                                     <p className="font-medium text-sm text-slate-200 dark:text-[var(--ink-secondary)]">{item.desc}</p>
                                                 </div>
                                             </div>
@@ -823,7 +823,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                         <a href={store.website_url.startsWith('http') ? store.website_url : `https://${store.website_url}`} target="_blank" rel="noopener noreferrer" className="flex gap-3 items-center group">
                                             <span className="text-xl group-hover:scale-110 transition-transform">🌐</span>
                                             <div>
-                                                <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">Official Website</p>
+                                                <p className="text-ink-tertiary text-xs mb-0.5">Official Website</p>
                                                 <p className="font-medium text-white group-hover:text-indigo-400 transition-colors">Visit Official Site →</p>
                                             </div>
                                         </a>
@@ -831,14 +831,14 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                     <div className="flex gap-3 items-start">
                                         <span className="text-xl">📍</span>
                                         <div>
-                                            <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">Location</p>
+                                            <p className="text-ink-tertiary text-xs mb-0.5">Location</p>
                                             <p className="font-medium text-slate-200 dark:text-[var(--ink-secondary)]">{store.business_address || store.location || 'Verified Island Merchant'}</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-3 items-start">
                                         <span className="text-xl">🕒</span>
                                         <div>
-                                            <p className="text-slate-400 dark:text-[var(--ink-tertiary)] text-xs mb-0.5">Status</p>
+                                            <p className="text-ink-tertiary text-xs mb-0.5">Status</p>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-2 h-2 rounded-full bg-emerald-500" />
                                                 <p className="font-medium text-slate-200 dark:text-[var(--ink-secondary)]">Accepting Orders</p>
@@ -863,33 +863,33 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
             />
 
             {/* Clean Footer */}
-            <footer className="bg-slate-50 dark:bg-[var(--surface-secondary)] py-12 border-t border-slate-100 dark:border-[var(--border-primary)]">
+            <footer className="bg-surface-secondary py-12 border-t border-border-primary">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
                     <div className="md:col-span-2">
-                        <Link href="/" className="text-2xl font-serif mb-3 block text-slate-900 dark:text-[var(--ink-primary)]">IslandHub</Link>
-                        <p className="text-slate-500 dark:text-[var(--ink-tertiary)] text-sm max-w-sm">
+                        <Link href="/" className="text-2xl font-serif mb-3 block text-ink-primary">IslandHub</Link>
+                        <p className="text-ink-tertiary text-sm max-w-sm">
                             Empowering local island businesses through verified commerce and authentic community hubs.
                         </p>
                     </div>
                     <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-[var(--ink-primary)] mb-4">Explore</h4>
-                        <nav className="flex flex-col gap-2 text-sm text-slate-500 dark:text-[var(--ink-tertiary)]">
+                        <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-primary mb-4">Explore</h4>
+                        <nav className="flex flex-col gap-2 text-sm text-ink-tertiary">
                             <Link href="/food" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Food Hub</Link>
                             <Link href="/listings" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Marketplace</Link>
                             <Link href="/about" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Our Charter</Link>
                         </nav>
                     </div>
                     <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-[var(--ink-primary)] mb-4">Support</h4>
-                        <nav className="flex flex-col gap-2 text-sm text-slate-500 dark:text-[var(--ink-tertiary)]">
+                        <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-primary mb-4">Support</h4>
+                        <nav className="flex flex-col gap-2 text-sm text-ink-tertiary">
                             <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Contact Vendor</a>
                             <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Report Issue</a>
                             <a href="#" className="hover:text-slate-900 dark:hover:text-[var(--ink-primary)] transition-colors">Help Center</a>
                         </nav>
                     </div>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 mt-8 border-t border-slate-200 dark:border-[var(--border-secondary)] text-center">
-                    <p className="text-xs text-slate-400 dark:text-[var(--ink-tertiary)]">
+                <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 mt-8 border-t border-border-primary text-center">
+                    <p className="text-xs text-ink-tertiary">
                         © 2026 {store.business_name} • Secure Island Commerce Protocol
                     </p>
                 </div>

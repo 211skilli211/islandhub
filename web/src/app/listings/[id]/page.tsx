@@ -85,10 +85,10 @@ export default async function ListingDetailPage({ params }: PageProps) {
     const listing = await getListing(id);
 
     if (!listing) return (
-        <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+        <div className="min-h-screen bg-surface-primary flex flex-col items-center justify-center p-4">
             <span className="text-6xl mb-4">🏝️</span>
-            <h1 className="text-2xl font-black text-slate-900">Listing Not Found</h1>
-            <Link href="/listings" className="mt-4 text-teal-600 font-bold hover:underline">Back to Marketplace</Link>
+            <h1 className="text-2xl font-black text-ink-primary">Listing Not Found</h1>
+            <Link href="/listings" className="mt-4 text-accent-400 font-bold hover:underline">Back to Marketplace</Link>
         </div>
     );
 
@@ -98,7 +98,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-surface-primary">
             <ListingClient listing={listing} />
             <ShareButtonsClient listing={listing} />
         </div>

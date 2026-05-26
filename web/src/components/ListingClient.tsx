@@ -216,9 +216,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
     const isKitchen = listing.category?.toLowerCase() === 'food' || listing.title.toLowerCase().includes('ital');
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-surface-secondary">
             {/* Navigation Bar */}
-            <nav className="bg-white border-b border-slate-200 sticky top-0 z-30">
+            <nav className="bg-surface-elevated border-b border-border-primary sticky top-0 z-30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center gap-6">
@@ -230,27 +230,27 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         router.push('/listings');
                                     }
                                 }}
-                                className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+                                className="flex items-center gap-2 text-sm font-medium text-ink-secondary hover:text-ink-primary transition-colors"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
                                 Back
                             </button>
-                            <div className="hidden md:flex items-center gap-2 text-sm text-slate-400">
-                                <Link href="/" className="hover:text-slate-600 transition-colors">Home</Link>
+                            <div className="hidden md:flex items-center gap-2 text-sm text-ink-tertiary">
+                                <Link href="/" className="hover:text-ink-secondary transition-colors">Home</Link>
                                 <span>/</span>
-                                <Link href={`/${listing.type === 'product' && listing.category?.toLowerCase() === 'food' ? 'food' : listing.type + 's'}`} className="hover:text-slate-600 transition-colors">
+                                <Link href={`/${listing.type === 'product' && listing.category?.toLowerCase() === 'food' ? 'food' : listing.type + 's'}`} className="hover:text-ink-secondary transition-colors">
                                     {theme.label}
                                 </Link>
                                 <span>/</span>
-                                <span className="text-slate-900 truncate max-w-[200px]">{listing.title}</span>
+                                <span className="text-ink-primary truncate max-w-[200px]">{listing.title}</span>
                             </div>
                         </div>
                         {isKitchen && (
                             <button
                                 onClick={() => setIsKitchenSidebarOpen(true)}
-                                className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 bg-ink-primary text-white rounded-lg text-sm font-medium hover:bg-ink-primary transition-colors"
                             >
                                 <span>👨‍🍳</span>
                                 Kitchen Hub
@@ -272,7 +272,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                     {/* Main Content */}
                     <div className="lg:col-span-7 space-y-8">
                         {/* Image Gallery */}
-                        <div className="relative aspect-4/3 bg-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                        <div className="relative aspect-4/3 bg-surface-tertiary rounded-2xl overflow-hidden shadow-sm">
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={activeImage}
@@ -304,7 +304,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                             {/* Image Counter */}
                             {displayImages.length > 1 && (
-                                <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur-sm rounded-full text-xs font-medium text-white">
+                                <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-ink-primary/60 backdrop-blur-sm rounded-full text-xs font-medium text-white">
                                     {activeImage + 1} / {displayImages.length}
                                 </div>
                             )}
@@ -317,7 +317,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <button
                                         key={idx}
                                         onClick={() => setActiveImage(idx)}
-                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-slate-900 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
+                                        className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-ink-primary shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
                                             }`}
                                     >
                                         <img src={getImageUrl(img)} className="w-full h-full object-cover" alt="" />
@@ -327,9 +327,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         )}
 
                         {/* Description */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                            <h2 className="text-lg font-semibold text-slate-900 mb-4">Description</h2>
-                            <p className="text-slate-600 leading-relaxed">
+                        <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                            <h2 className="text-lg font-semibold text-ink-primary mb-4">Description</h2>
+                            <p className="text-ink-secondary leading-relaxed">
                                 {listing.description}
                             </p>
                         </div>
@@ -338,17 +338,17 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         {((listing.metadata as any)?.inclusions?.length > 0 || (listing.metadata as any)?.exclusions?.length > 0) && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {(listing.metadata as any).inclusions?.length > 0 && (
-                                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                        <h3 className="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                                        <h3 className="text-sm font-semibold text-ink-primary mb-4 flex items-center gap-2">
+                                            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
                                             What's Included
                                         </h3>
                                         <ul className="space-y-2">
                                             {(listing.metadata as any).inclusions.map((item: string, i: number) => (
-                                                <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                                                    <span className="text-emerald-500 mt-0.5">•</span>
+                                                <li key={i} className="flex items-start gap-2 text-sm text-ink-secondary">
+                                                    <span className="text-emerald-400 mt-0.5">•</span>
                                                     {item}
                                                 </li>
                                             ))}
@@ -356,17 +356,17 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
                                 {(listing.metadata as any).exclusions?.length > 0 && (
-                                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                        <h3 className="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                                        <h3 className="text-sm font-semibold text-ink-primary mb-4 flex items-center gap-2">
+                                            <svg className="w-5 h-5 text-[#e11d48]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                             What's Not Included
                                         </h3>
                                         <ul className="space-y-2">
                                             {(listing.metadata as any).exclusions.map((item: string, i: number) => (
-                                                <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
-                                                    <span className="text-rose-400 mt-0.5">•</span>
+                                                <li key={i} className="flex items-start gap-2 text-sm text-ink-tertiary">
+                                                    <span className="text-[#fb7185] mt-0.5">•</span>
                                                     {item}
                                                 </li>
                                             ))}
@@ -378,12 +378,12 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                         {/* Restaurant Menu */}
                         {(listing.metadata as any)?.menu_sections && (
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                <h2 className="text-lg font-semibold text-slate-900 mb-6">Restaurant Menu</h2>
+                            <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                                <h2 className="text-lg font-semibold text-ink-primary mb-6">Restaurant Menu</h2>
                                 <div className="space-y-8">
                                     {(listing.metadata as any).menu_sections?.map((section: any, sIdx: number) => (
                                         <div key={sIdx}>
-                                            <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-4">
+                                            <h3 className="text-sm font-medium text-ink-tertiary uppercase tracking-wide mb-4">
                                                 {section.section_name}
                                             </h3>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -391,7 +391,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                     <div
                                                         key={iIdx}
                                                         onClick={() => setSelectedItemForAddons(item)}
-                                                        className="p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors cursor-pointer flex gap-4"
+                                                        className="p-4 bg-surface-secondary rounded-xl border border-border-primary hover:border-border-primary transition-colors cursor-pointer flex gap-4"
                                                     >
                                                         {item.image_url && (
                                                             <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
@@ -400,12 +400,12 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                         )}
                                                         <div className="flex-1">
                                                             <div className="flex justify-between items-start mb-1">
-                                                                <h4 className="font-medium text-slate-900">{item.item_name || item.name}</h4>
-                                                                <span className="font-semibold text-rose-600">${item.price}</span>
+                                                                <h4 className="font-medium text-ink-primary">{item.item_name || item.name}</h4>
+                                                                <span className="font-semibold text-[#e11d48]">${item.price}</span>
                                                             </div>
-                                                            <p className="text-slate-500 text-sm">{item.description}</p>
+                                                            <p className="text-ink-tertiary text-sm">{item.description}</p>
                                                             {item.addons && JSON.parse(typeof item.addons === 'string' ? item.addons : JSON.stringify(item.addons)).length > 0 && (
-                                                                <span className="mt-2 text-xs font-medium text-emerald-600">+ Addons Available</span>
+                                                                <span className="mt-2 text-xs font-medium text-emerald-400">+ Addons Available</span>
                                                             )}
                                                         </div>
                                                     </div>
@@ -419,17 +419,17 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                         {/* Boutique Catalogue */}
                         {(listing.metadata as any)?.catalogue_sections && (
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                <h2 className="text-lg font-semibold text-slate-900 mb-6">Boutique Catalogue</h2>
+                            <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                                <h2 className="text-lg font-semibold text-ink-primary mb-6">Boutique Catalogue</h2>
                                 <div className="space-y-8">
                                     {(listing.metadata as any).catalogue_sections?.map((section: any, sIdx: number) => (
                                         <div key={sIdx}>
-                                            <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-4">
+                                            <h3 className="text-sm font-medium text-ink-tertiary uppercase tracking-wide mb-4">
                                                 {section.section_name}
                                             </h3>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 {section.items?.map((item: any, iIdx: number) => (
-                                                    <div key={iIdx} className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex gap-4">
+                                                    <div key={iIdx} className="p-4 bg-surface-secondary rounded-xl border border-border-primary flex gap-4">
                                                         {item.image_url && (
                                                             <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
                                                                 <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.name} />
@@ -438,15 +438,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                         <div className="flex-1">
                                                             <div className="flex justify-between items-start mb-1">
                                                                 <div>
-                                                                    <h4 className="font-medium text-slate-900">{item.name}</h4>
-                                                                    {item.colors && <p className="text-xs text-slate-400">{item.colors}</p>}
+                                                                    <h4 className="font-medium text-ink-primary">{item.name}</h4>
+                                                                    {item.colors && <p className="text-xs text-ink-tertiary">{item.colors}</p>}
                                                                 </div>
-                                                                <span className="font-semibold text-slate-900">${item.price}</span>
+                                                                <span className="font-semibold text-ink-primary">${item.price}</span>
                                                             </div>
                                                             <div className="flex flex-wrap gap-1 mt-2">
                                                                 {Array.isArray(item.sizes) ? item.sizes.map((s: string) => (
-                                                                    <span key={s} className="px-2 py-0.5 bg-white rounded text-xs text-slate-500 border border-slate-200">{s}</span>
-                                                                )) : item.sizes && <span className="px-2 py-0.5 bg-white rounded text-xs text-slate-500 border border-slate-200">{item.sizes}</span>}
+                                                                    <span key={s} className="px-2 py-0.5 bg-surface-elevated rounded text-xs text-ink-tertiary border border-border-primary">{s}</span>
+                                                                )) : item.sizes && <span className="px-2 py-0.5 bg-surface-elevated rounded text-xs text-ink-tertiary border border-border-primary">{item.sizes}</span>}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -460,19 +460,19 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                         {/* Rental/Service CTA */}
                         {(listing.type === 'rental' || listing.type === 'service') && (
-                            <div className="bg-slate-900 rounded-2xl p-8 text-white">
+                            <div className="bg-ink-primary rounded-2xl p-8 text-white">
                                 <div className="flex flex-col md:flex-row items-center gap-6">
                                     <div className="flex-1 text-center md:text-left">
                                         <h3 className="text-xl font-semibold mb-2">
                                             {listing.type === 'rental' ? 'Direct Booking' : 'Book Island Expertise'}
                                         </h3>
-                                        <p className="text-slate-400 text-sm">
+                                        <p className="text-ink-tertiary text-sm">
                                             {listing.type === 'rental' ? 'Live pricing and instant confirmation' : 'Quality service from verified local experts'}
                                         </p>
                                     </div>
                                     <button
                                         onClick={() => listing.type === 'service' && setIsBookingModalOpen(true)}
-                                        className="px-8 py-3 bg-white text-slate-900 rounded-lg font-medium hover:bg-slate-100 transition-colors"
+                                        className="px-8 py-3 bg-surface-elevated text-ink-primary rounded-lg font-medium hover:bg-surface-secondary transition-colors"
                                     >
                                         {listing.type === 'rental' ? 'View Schedule' : 'Select Date & Time'}
                                     </button>
@@ -482,8 +482,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                         {/* Specifications */}
                         {listing.metadata && Object.keys(listing.metadata).length > 2 && (
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                <h2 className="text-lg font-semibold text-slate-900 mb-6">Specifications</h2>
+                            <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                                <h2 className="text-lg font-semibold text-ink-primary mb-6">Specifications</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {Object.entries(listing.metadata).map(([key, value]) => {
                                         if (['sub_type', 'vendor_bio', 'unavailable_dates', 'menu_sections', 'catalogue_sections', 'specialties', 'variants', 'addons', 'appointment_config', 'pickup_schedules', 'inclusions', 'exclusions', 'gallery'].includes(key)) return null;
@@ -492,15 +492,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         const label = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
                                         return (
-                                            <div key={key} className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                                <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">{label}</span>
-                                                <span className="block mt-1 font-medium text-slate-900">
+                                            <div key={key} className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
+                                                <span className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">{label}</span>
+                                                <span className="block mt-1 font-medium text-ink-primary">
                                                     {Array.isArray(value) ? (
                                                         <div className="flex flex-wrap gap-1 mt-1">
                                                             {value.map((v, i) => {
                                                                 const displayValue = typeof v === 'object' && v !== null ? (v.label || v.name || JSON.stringify(v)) : String(v);
                                                                 return (
-                                                                    <span key={v?.id || v?.name || i} className="px-2 py-0.5 bg-white rounded text-xs text-slate-600 border border-slate-200">
+                                                                    <span key={v?.id || v?.name || i} className="px-2 py-0.5 bg-surface-elevated rounded text-xs text-ink-secondary border border-border-primary">
                                                                         {displayValue}
                                                                     </span>
                                                                 );
@@ -520,39 +520,39 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         )}
 
                         {/* Vendor Section */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                             <div className="flex flex-col md:flex-row items-center gap-6">
                                 <div className="relative">
-                                    <div className="w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl overflow-hidden">
+                                    <div className="w-20 h-20 rounded-2xl bg-surface-secondary flex items-center justify-center text-3xl overflow-hidden">
                                         {(listing as any).vendor_logo ? (
                                             <img src={getImageUrl((listing as any).vendor_logo)} className="w-full h-full object-cover" alt="" />
                                         ) : (
                                             <span>{theme.icon}</span>
                                         )}
                                     </div>
-                                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-white">
+                                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-surface-elevated">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
                                 </div>
                                 <div className="text-center md:text-left flex-1">
-                                    <span className="text-xs font-medium text-emerald-600 uppercase tracking-wide">Verified Island Partner</span>
-                                    <h3 className="text-xl font-semibold text-slate-900 mt-1">
+                                    <span className="text-xs font-medium text-emerald-400 uppercase tracking-wide">Verified Island Partner</span>
+                                    <h3 className="text-xl font-semibold text-ink-primary mt-1">
                                         {(listing as any).store_name || (listing as any).vendor_name || listing.owner_name || 'Island Partner'}
                                     </h3>
                                     {(listing as any).vendor_bio && (
-                                        <p className="text-sm text-slate-500 mt-1 line-clamp-2">{(listing as any).vendor_bio}</p>
+                                        <p className="text-sm text-ink-tertiary mt-1 line-clamp-2">{(listing as any).vendor_bio}</p>
                                     )}
                                 </div>
                                 <div className="flex gap-3">
                                     <Link href={(listing as any).store_slug ? `/store/${(listing as any).store_slug}` : `/vendors/${listing.creator_id}`}>
-                                        <button className="px-6 py-2.5 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors">
+                                        <button className="px-6 py-2.5 bg-ink-primary text-white rounded-lg text-sm font-medium hover:bg-ink-primary transition-colors">
                                             View Store
                                         </button>
                                     </Link>
                                     <Link href={`/dashboard/messages?userId=${listing.creator_id}&userName=${listing.owner_name}`}>
-                                        <button className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors">
+                                        <button className="px-4 py-2.5 bg-surface-secondary text-ink-secondary rounded-lg text-sm font-medium hover:bg-surface-tertiary transition-colors">
                                             Message
                                         </button>
                                     </Link>
@@ -570,9 +570,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                     {/* Sidebar */}
                     <div className="lg:col-span-5 mt-8 lg:mt-0 lg:sticky lg:top-24 lg:self-start">
-                        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-                            <div className="p-6 border-b border-slate-100">
-                                <h1 className="text-2xl font-semibold text-slate-900 leading-tight mb-4">
+                        <div className="bg-surface-elevated rounded-2xl border border-border-primary shadow-sm">
+                            <div className="p-6 border-b border-border-primary">
+                                <h1 className="text-2xl font-semibold text-ink-primary leading-tight mb-4">
                                     {listing.title}
                                 </h1>
 
@@ -581,15 +581,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-end">
                                             <div>
-                                                <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Current Funding</span>
-                                                <span className="block text-4xl font-bold text-slate-900">${(listing.current_amount || 0).toLocaleString()}</span>
+                                                <span className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Current Funding</span>
+                                                <span className="block text-4xl font-bold text-ink-primary">${(listing.current_amount || 0).toLocaleString()}</span>
                                             </div>
                                             <div className="text-right">
-                                                <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Goal</span>
-                                                <span className="block text-lg font-medium text-slate-500">${(listing.goal_amount || 0).toLocaleString()}</span>
+                                                <span className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Goal</span>
+                                                <span className="block text-lg font-medium text-ink-tertiary">${(listing.goal_amount || 0).toLocaleString()}</span>
                                             </div>
                                         </div>
-                                        <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                                        <div className="w-full bg-surface-secondary rounded-full h-2 overflow-hidden">
                                             <motion.div
                                                 initial={{ width: 0 }}
                                                 animate={{ width: `${Math.min(100, (Number(listing.current_amount || 0) / Number(listing.goal_amount || 1)) * 100)}%` }}
@@ -598,15 +598,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                 style={{ backgroundColor: accentColor }}
                                             />
                                         </div>
-                                        <p className="text-xs font-medium text-slate-400 text-center">Verified Hub Campaign</p>
+                                        <p className="text-xs font-medium text-ink-tertiary text-center">Verified Hub Campaign</p>
                                     </div>
                                 ) : (
                                     <div>
-                                        <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Price</span>
+                                        <span className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Price</span>
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-4xl font-bold text-slate-900">${(listing.price || 0).toLocaleString()}</span>
-                                            {listing.type === 'rental' && <span className="text-sm text-slate-400">/ day</span>}
-                                            {listing.type === 'service' && <span className="text-xs text-slate-400">starting price</span>}
+                                            <span className="text-4xl font-bold text-ink-primary">${(listing.price || 0).toLocaleString()}</span>
+                                            {listing.type === 'rental' && <span className="text-sm text-ink-tertiary">/ day</span>}
+                                            {listing.type === 'service' && <span className="text-xs text-ink-tertiary">starting price</span>}
                                         </div>
                                     </div>
                                 )}
@@ -618,7 +618,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <div className="space-y-4">
                                         {Object.entries(listing.metadata.variants).map(([groupName, options], idx) => (
                                             <div key={idx}>
-                                                <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2">{groupName}</p>
+                                                <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-2">{groupName}</p>
                                                 <div className="flex flex-wrap gap-2">
                                                     {(options as string[]).map((v: string) => {
                                                         const isSelected = selectedVariants[groupName] === v;
@@ -627,8 +627,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                                 key={v}
                                                                 onClick={() => setSelectedVariants(prev => ({ ...prev, [groupName]: v }))}
                                                                 className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${isSelected
-                                                                        ? 'border-slate-900 bg-slate-900 text-white'
-                                                                        : 'border-slate-200 text-slate-600 hover:border-slate-300'
+                                                                        ? 'border-ink-primary bg-ink-primary text-white'
+                                                                        : 'border-border-primary text-ink-secondary hover:border-border-primary'
                                                                     }`}
                                                             >
                                                                 {v}
@@ -646,7 +646,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <div className="space-y-4">
                                         {listing.metadata.variants.map((variant: any, idx: number) => (
                                             <div key={idx}>
-                                                <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2">{variant.name}</p>
+                                                <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-2">{variant.name}</p>
                                                 <div className="flex flex-wrap gap-2">
                                                     {((typeof variant.values === 'string' ? variant.values : '')).split(',').map((val: string) => {
                                                         const v = val.trim();
@@ -657,8 +657,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                                 key={v}
                                                                 onClick={() => setSelectedVariants(prev => ({ ...prev, [variant.name]: v }))}
                                                                 className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${isSelected
-                                                                        ? 'border-slate-900 bg-slate-900 text-white'
-                                                                        : 'border-slate-200 text-slate-600 hover:border-slate-300'
+                                                                        ? 'border-ink-primary bg-ink-primary text-white'
+                                                                        : 'border-border-primary text-ink-secondary hover:border-border-primary'
                                                                     }`}
                                                             >
                                                                 {v}
@@ -674,7 +674,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 {/* Addons Selection */}
                                 {listing.metadata?.addons && Array.isArray(listing.metadata.addons) && listing.metadata.addons.length > 0 && (
                                     <div className="space-y-3">
-                                        <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Enhance your order</p>
+                                        <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Enhance your order</p>
                                         <div className="space-y-2">
                                             {listing.metadata.addons.map((addon, idx) => {
                                                 const isSelected = selectedAddons.find((a: any) => a.name === addon.name);
@@ -689,17 +689,17 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             }
                                                         }}
                                                         className={`w-full flex items-center justify-between p-3 rounded-xl transition-all border ${isSelected
-                                                                ? 'bg-slate-900 border-slate-900 text-white'
-                                                                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                                                                ? 'bg-ink-primary border-ink-primary text-white'
+                                                                : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-border-primary'
                                                             }`}
                                                     >
                                                         <div className="flex items-center gap-3">
-                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-slate-900 border-white' : 'border-slate-300'}`}>
+                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-ink-primary border-surface-elevated' : 'border-border-primary'}`}>
                                                                 {isSelected && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}
                                                             </div>
                                                             <span className="text-sm font-medium">{addon.name}</span>
                                                         </div>
-                                                        <span className={`text-sm font-medium ${isSelected ? 'text-slate-300' : 'text-slate-400'}`}>+${addon.price}</span>
+                                                        <span className={`text-sm font-medium ${isSelected ? 'text-slate-300' : 'text-ink-tertiary'}`}>+${addon.price}</span>
                                                     </button>
                                                 );
                                             })}
@@ -709,21 +709,21 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                                 {/* Service Schedule */}
                                 {listing.metadata?.appointment_config && (
-                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                        <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-3">Typical Schedule</p>
+                                    <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
+                                        <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-3">Typical Schedule</p>
                                         <div className="flex flex-wrap gap-2 mb-3">
                                             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => {
                                                 const isAvailable = listing.metadata?.appointment_config?.days?.includes(day);
                                                 return (
-                                                    <span key={day} className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${isAvailable ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-400'}`}>
+                                                    <span key={day} className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${isAvailable ? 'bg-emerald-500 text-white' : 'bg-surface-tertiary text-ink-tertiary'}`}>
                                                         {day.charAt(0)}
                                                     </span>
                                                 );
                                             })}
                                         </div>
-                                        <div className="flex justify-between text-sm font-medium text-slate-700 bg-white p-2 rounded-lg border border-slate-200">
+                                        <div className="flex justify-between text-sm font-medium text-ink-secondary bg-surface-elevated p-2 rounded-lg border border-border-primary">
                                             <span>{listing.metadata?.appointment_config?.start || '9:00'}</span>
-                                            <span className="text-slate-400">to</span>
+                                            <span className="text-ink-tertiary">to</span>
                                             <span>{listing.metadata?.appointment_config?.end || '17:00'}</span>
                                         </div>
                                     </div>
@@ -731,13 +731,13 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                                 {/* Pickup Schedules */}
                                 {listing.metadata?.pickup_schedules && Array.isArray(listing.metadata.pickup_schedules) && listing.metadata.pickup_schedules.length > 0 && (
-                                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                        <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-3">Pickup Schedule</p>
+                                    <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
+                                        <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-3">Pickup Schedule</p>
                                         <div className="space-y-2">
                                             {listing.metadata.pickup_schedules.map((sched: any, sIdx: number) => (
-                                                <div key={sIdx} className="flex justify-between items-center text-sm bg-white p-2 rounded-lg border border-slate-200">
-                                                    <span className="text-slate-700">{sched.location}</span>
-                                                    <span className="text-emerald-600 font-medium">{sched.time}</span>
+                                                <div key={sIdx} className="flex justify-between items-center text-sm bg-surface-elevated p-2 rounded-lg border border-border-primary">
+                                                    <span className="text-ink-secondary">{sched.location}</span>
+                                                    <span className="text-emerald-400 font-medium">{sched.time}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -747,7 +747,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 {/* Rental Inclusions */}
                                 {listing.metadata?.inclusions && (
                                     <div>
-                                        <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2">Included</p>
+                                        <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-2">Included</p>
                                         <div className="flex flex-wrap gap-2">
                                             {(listing.metadata.inclusions as string[]).map((inc: string) => (
                                                 <span key={inc} className="px-2 py-1 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium">
@@ -760,14 +760,14 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                                 {/* Trust Badges */}
                                 <div className="grid grid-cols-2 gap-3">
-                                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                                        <p className="text-xs text-slate-400 mb-1">Experience</p>
-                                        <p className="text-sm font-semibold text-slate-900">{(listing.metadata as any)?.experience_years || '10y+'}</p>
+                                    <div className="p-3 bg-surface-secondary rounded-xl border border-border-primary text-center">
+                                        <p className="text-xs text-ink-tertiary mb-1">Experience</p>
+                                        <p className="text-sm font-semibold text-ink-primary">{(listing.metadata as any)?.experience_years || '10y+'}</p>
                                     </div>
-                                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-center">
-                                        <p className="text-xs text-slate-400 mb-1">Rating</p>
+                                    <div className="p-3 bg-surface-secondary rounded-xl border border-border-primary text-center">
+                                        <p className="text-xs text-ink-tertiary mb-1">Rating</p>
                                         <div className="flex items-center justify-center gap-1">
-                                            <span className="text-sm font-semibold text-slate-900">{(listing.metadata as any)?.client_rating || '4.9'}</span>
+                                            <span className="text-sm font-semibold text-ink-primary">{(listing.metadata as any)?.client_rating || '4.9'}</span>
                                             <span className="text-amber-500 text-sm">★</span>
                                         </div>
                                     </div>
@@ -775,12 +775,12 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                                 {/* Quantity Selector */}
                                 {listing.type !== 'service' && listing.type !== 'campaign' && (
-                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                                        <span className="text-sm font-medium text-slate-600">Quantity</span>
-                                        <div className="flex items-center gap-2 bg-slate-100 rounded-lg p-1">
-                                            <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-8 h-8 flex items-center justify-center bg-white rounded-md text-slate-600 hover:bg-slate-50 transition-colors">−</button>
-                                            <span className="w-8 text-center font-medium text-slate-900">{quantity}</span>
-                                            <button onClick={() => setQuantity(quantity + 1)} className="w-8 h-8 flex items-center justify-center bg-white rounded-md text-slate-600 hover:bg-slate-50 transition-colors">+</button>
+                                    <div className="flex items-center justify-between pt-4 border-t border-border-primary">
+                                        <span className="text-sm font-medium text-ink-secondary">Quantity</span>
+                                        <div className="flex items-center gap-2 bg-surface-secondary rounded-lg p-1">
+                                            <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-8 h-8 flex items-center justify-center bg-surface-elevated rounded-md text-ink-secondary hover:bg-surface-secondary transition-colors">−</button>
+                                            <span className="w-8 text-center font-medium text-ink-primary">{quantity}</span>
+                                            <button onClick={() => setQuantity(quantity + 1)} className="w-8 h-8 flex items-center justify-center bg-surface-elevated rounded-md text-ink-secondary hover:bg-surface-secondary transition-colors">+</button>
                                         </div>
                                     </div>
                                 )}
@@ -789,21 +789,21 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 {listing.type === 'service' && (
                                     <button
                                         onClick={() => setIsBookingModalOpen(true)}
-                                        className={`w-full p-4 rounded-xl border transition-all text-left ${selectedDate && selectedSlot ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50 border-slate-200 hover:border-slate-300'}`}
+                                        className={`w-full p-4 rounded-xl border transition-all text-left ${selectedDate && selectedSlot ? 'bg-indigo-50 border-indigo-200' : 'bg-surface-secondary border-border-primary hover:border-border-primary'}`}
                                     >
                                         {selectedDate && selectedSlot ? (
                                             <div>
-                                                <span className="text-xs font-medium text-indigo-600 uppercase tracking-wide">Selected</span>
-                                                <p className="text-sm font-semibold text-slate-900 mt-1">
+                                                <span className="text-xs font-medium text-[#a78bfa] uppercase tracking-wide">Selected</span>
+                                                <p className="text-sm font-semibold text-ink-primary mt-1">
                                                     {new Date(selectedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} @ {selectedSlot}
                                                 </p>
                                             </div>
                                         ) : (
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-xl shadow-sm">📅</div>
+                                                <div className="w-10 h-10 bg-surface-elevated rounded-lg flex items-center justify-center text-xl shadow-sm">📅</div>
                                                 <div>
-                                                    <span className="text-sm font-medium text-slate-900">Select Date & Time</span>
-                                                    <p className="text-xs text-slate-400">Check availability</p>
+                                                    <span className="text-sm font-medium text-ink-primary">Select Date & Time</span>
+                                                    <p className="text-xs text-ink-tertiary">Check availability</p>
                                                 </div>
                                             </div>
                                         )}
@@ -811,10 +811,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 )}
 
                                 {/* Total & CTA */}
-                                <div className="pt-4 border-t border-slate-100">
+                                <div className="pt-4 border-t border-border-primary">
                                     <div className="flex justify-between items-center mb-4">
-                                        <span className="text-sm text-slate-600">Total</span>
-                                        <span className="text-2xl font-bold text-slate-900">${calculateTotal().toFixed(2)}</span>
+                                        <span className="text-sm text-ink-secondary">Total</span>
+                                        <span className="text-2xl font-bold text-ink-primary">${calculateTotal().toFixed(2)}</span>
                                     </div>
                                     <button
                                         onClick={handleAction}
@@ -824,7 +824,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     >
                                         {isAdding ? 'Adding...' : listing.type === 'campaign' ? 'Contribute Now' : listing.type === 'service' ? 'Request Appointment' : 'Add to Cart'}
                                     </button>
-                                    <p className="text-center mt-3 text-xs text-slate-400">
+                                    <p className="text-center mt-3 text-xs text-ink-tertiary">
                                         Secure transactions by IslandHub
                                     </p>
                                 </div>
@@ -833,13 +833,13 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
                         {/* Service Specialties */}
                         {listing.type === 'service' && listing.metadata?.specialties && (
-                            <div className="mt-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                <h3 className="text-lg font-semibold text-slate-900 mb-4">Our Specialties</h3>
+                            <div className="mt-6 bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
+                                <h3 className="text-lg font-semibold text-ink-primary mb-4">Our Specialties</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {Array.isArray(listing.metadata.specialties) && listing.metadata.specialties.map((spec: any, idx: number) => (
                                         <div key={idx} className="p-3 bg-indigo-50 rounded-xl">
                                             <p className="font-medium text-indigo-900 text-sm">{spec.name || spec}</p>
-                                            {spec.description && <p className="text-xs text-indigo-600/70 mt-1">{spec.description}</p>}
+                                            {spec.description && <p className="text-xs text-[#a78bfa]/70 mt-1">{spec.description}</p>}
                                         </div>
                                     ))}
                                 </div>
@@ -864,28 +864,28 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
-                            className="relative w-full max-w-3xl bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row max-h-[90vh]"
+                            className="relative w-full max-w-3xl bg-surface-elevated rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row max-h-[90vh]"
                         >
                             {/* Left Panel */}
-                            <div className="md:w-2/5 bg-slate-900 p-6 text-white">
+                            <div className="md:w-2/5 bg-ink-primary p-6 text-white">
                                 <button
                                     onClick={() => setIsBookingModalOpen(false)}
-                                    className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                                    className="absolute top-4 left-4 w-8 h-8 rounded-full bg-surface-elevated/10 hover:bg-surface-elevated/20 flex items-center justify-center text-white transition-colors"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
                                 <div className="mt-12">
-                                    <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2">Book Your Session</p>
+                                    <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-2">Book Your Session</p>
                                     <h3 className="text-xl font-semibold mb-4">{listing.title}</h3>
                                     <div className="space-y-4 text-sm">
                                         <div className="flex items-center gap-3">
-                                            <span className="text-slate-400">Duration:</span>
+                                            <span className="text-ink-tertiary">Duration:</span>
                                             <span className="font-medium">{(listing.metadata as any)?.duration || '60 min'}</span>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <span className="text-slate-400">Starting from:</span>
+                                            <span className="text-ink-tertiary">Starting from:</span>
                                             <span className="font-semibold text-lg">${listing.price}</span>
                                         </div>
                                     </div>
@@ -895,7 +895,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             {/* Right Panel */}
                             <div className="flex-1 p-6 overflow-y-auto">
                                 <div className="mb-6">
-                                    <h4 className="text-sm font-medium text-slate-900 mb-4">1. Select Date</h4>
+                                    <h4 className="text-sm font-medium text-ink-primary mb-4">1. Select Date</h4>
                                     <AvailabilityCalendar
                                         listingId={listing.id}
                                         onDateSelect={(date) => setSelectedDate(date ? date.toISOString().split('T')[0] : '')}
@@ -904,15 +904,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 </div>
 
                                 <div className="mb-6">
-                                    <h4 className="text-sm font-medium text-slate-900 mb-4">2. Select Time</h4>
+                                    <h4 className="text-sm font-medium text-ink-primary mb-4">2. Select Time</h4>
                                     <div className="grid grid-cols-3 gap-2">
                                         {DEFAULT_SLOTS.map(slot => (
                                             <button
                                                 key={slot}
                                                 onClick={() => setSelectedSlot(slot)}
                                                 className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all border ${selectedSlot === slot
-                                                        ? 'bg-slate-900 border-slate-900 text-white'
-                                                        : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                                                        ? 'bg-ink-primary border-ink-primary text-white'
+                                                        : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-border-primary'
                                                     }`}
                                             >
                                                 {slot}
@@ -954,7 +954,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
-                            className="relative w-full max-w-md bg-white rounded-2xl overflow-hidden shadow-xl"
+                            className="relative w-full max-w-md bg-surface-elevated rounded-2xl overflow-hidden shadow-xl"
                         >
                             <div className="relative aspect-video">
                                 <img src={getImageUrl(selectedItemForAddons.image_url || listing.image_url)} className="w-full h-full object-cover" alt="" />
@@ -966,14 +966,14 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-2">
-                                    <h3 className="text-lg font-semibold text-slate-900">{selectedItemForAddons.item_name || selectedItemForAddons.name}</h3>
-                                    <span className="text-lg font-semibold text-rose-600">${selectedItemForAddons.price}</span>
+                                    <h3 className="text-lg font-semibold text-ink-primary">{selectedItemForAddons.item_name || selectedItemForAddons.name}</h3>
+                                    <span className="text-lg font-semibold text-[#e11d48]">${selectedItemForAddons.price}</span>
                                 </div>
-                                <p className="text-sm text-slate-500 mb-6">{selectedItemForAddons.description}</p>
+                                <p className="text-sm text-ink-tertiary mb-6">{selectedItemForAddons.description}</p>
 
                                 {selectedItemForAddons.addons && (
                                     <div className="space-y-3 mb-6">
-                                        <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Available Addons</p>
+                                        <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Available Addons</p>
                                         <div className="space-y-2 max-h-40 overflow-y-auto">
                                             {JSON.parse(typeof selectedItemForAddons.addons === 'string' ? selectedItemForAddons.addons : JSON.stringify(selectedItemForAddons.addons)).map((addon: any, idx: number) => {
                                                 const isSelected = selectedAddons.some((a: any) => a.name === addon.name);
@@ -983,16 +983,16 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                         onClick={() => isSelected ? setSelectedAddons(prev => prev.filter((a: any) => a.name !== addon.name)) : setSelectedAddons(prev => [...prev, { name: addon.name, price: addon.price }])}
                                                         className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all ${isSelected
                                                                 ? 'border-rose-500 bg-rose-50'
-                                                                : 'border-slate-200 hover:border-slate-300'
+                                                                : 'border-border-primary hover:border-border-primary'
                                                             }`}
                                                     >
                                                         <div className="flex items-center gap-3">
-                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-rose-500 border-rose-500' : 'border-slate-300'}`}>
+                                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-[#e11d48] border-rose-500' : 'border-border-primary'}`}>
                                                                 {isSelected && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}
                                                             </div>
-                                                            <span className={`text-sm font-medium ${isSelected ? 'text-rose-700' : 'text-slate-700'}`}>{addon.name}</span>
+                                                            <span className={`text-sm font-medium ${isSelected ? 'text-rose-700' : 'text-ink-secondary'}`}>{addon.name}</span>
                                                         </div>
-                                                        <span className="text-sm font-medium text-slate-500">+${addon.price}</span>
+                                                        <span className="text-sm font-medium text-ink-tertiary">+${addon.price}</span>
                                                     </button>
                                                 );
                                             })}
@@ -1015,7 +1015,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         toast.success(`${selectedItemForAddons.item_name || selectedItemForAddons.name} added to cart!`);
                                         setSelectedItemForAddons(null);
                                     }}
-                                    className="w-full py-3 bg-slate-900 text-white rounded-xl font-medium hover:bg-rose-600 transition-colors"
+                                    className="w-full py-3 bg-ink-primary text-white rounded-xl font-medium hover:bg-[#e11d48] transition-colors"
                                 >
                                     Add to Order
                                 </button>
