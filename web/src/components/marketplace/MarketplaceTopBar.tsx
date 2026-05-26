@@ -32,7 +32,7 @@ export default function MarketplaceTopBar({ onMenuToggle, searchQuery, onSearchC
                         </Link>
                         <Link href="/listings" className="flex items-center gap-2">
                             <span className="text-lg">🏪</span>
-                            <span className="font-bold text-sm text-ink-primary hidden sm:inline">Marketplace</span>
+                            <span className="font-bold text-sm text-ink-primary hidden sm:inline">IslandHub</span>
                         </Link>
                     </div>
 
