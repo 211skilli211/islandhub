@@ -96,10 +96,10 @@ export default function AdminUsersPage() {
             {/* Modals */}
             {roleChangeUser && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-md border border-slate-100 dark:border-slate-700">
+                    <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-md border border-border-primary dark:border-slate-700">
                         <div className="text-center mb-6">
                             <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100">Change Role</h3>
-                            <p className="text-slate-500 dark:text-slate-400 mt-2">Update role for {roleChangeUser.name}</p>
+                            <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Update role for {roleChangeUser.name}</p>
                         </div>
                         <div className="grid grid-cols-2 gap-2 mb-6">
                             {['admin', 'vendor', 'driver', 'rider', 'moderator', 'buyer'].map((role) => (
@@ -117,8 +117,8 @@ export default function AdminUsersPage() {
                                     }}
                                     className={`p-3 rounded-lg border-2 text-left transition-all ${
                                         roleChangeUser.role === role 
-                                            ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20' 
-                                            : 'border-slate-100 dark:border-slate-700 hover:border-teal-500'
+                                            ? 'border-teal-500 bg-accent-500/10 dark:bg-teal-900/20' 
+                                            : 'border-border-primary dark:border-slate-700 hover:border-teal-500'
                                     }`}
                                 >
                                     <span className="font-black uppercase text-xs tracking-widest block">{role}</span>
@@ -127,7 +127,7 @@ export default function AdminUsersPage() {
                         </div>
                         <button 
                             onClick={() => setRoleChangeUser(null)} 
-                            className="w-full py-4 text-slate-400 dark:text-slate-400 font-black uppercase text-xs tracking-widest"
+                            className="w-full py-4 text-ink-tertiary dark:text-ink-tertiary font-black uppercase text-xs tracking-widest"
                         >
                             Cancel
                         </button>
@@ -153,12 +153,12 @@ export default function AdminUsersPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 dark:text-white">User Accounts</h2>
-                    <p className="text-slate-500 dark:text-slate-400">Manage all registered users on the platform</p>
+                    <h2 className="text-2xl font-black text-ink-primary dark:text-white">User Accounts</h2>
+                    <p className="text-ink-tertiary dark:text-ink-tertiary">Manage all registered users on the platform</p>
                 </div>
                 <button 
                     onClick={() => setShowCreateUser(true)} 
-                    className="px-5 py-2.5 bg-slate-900 dark:bg-slate-950 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors"
+                    className="px-5 py-2.5 bg-surface-tertiary dark:bg-slate-950 text-white rounded-xl font-bold hover:bg-surface-tertiary transition-colors"
                 >
                     + New User
                 </button>

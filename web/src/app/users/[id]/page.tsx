@@ -63,7 +63,7 @@ function PublicProfileContent() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="w-12 h-12 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
             </div>
         );
@@ -71,10 +71,10 @@ function PublicProfileContent() {
 
     if (!profile) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-2xl font-black text-slate-900 mb-2">User not found</h1>
-                    <p className="text-slate-500">This profile doesn&apos;t exist or has been removed.</p>
+                    <h1 className="text-2xl font-black text-ink-primary mb-2">User not found</h1>
+                    <p className="text-ink-tertiary">This profile doesn&apos;t exist or has been removed.</p>
                 </div>
             </div>
         );
@@ -88,7 +88,7 @@ function PublicProfileContent() {
     const initials = displayName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || 'U';
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-surface-primary">
             {/* Banner */}
             <div
                 className="relative h-48 sm:h-56 md:h-72 overflow-hidden"
@@ -123,15 +123,15 @@ function PublicProfileContent() {
 
                     {/* Name & Meta */}
                     <div className="flex-1 text-center sm:text-left min-w-0">
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 truncate">{displayName}</h1>
+                        <h1 className="text-2xl sm:text-3xl font-black text-ink-primary truncate">{displayName}</h1>
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-1">
                             {profile.location && (
-                                <span className="text-xs text-slate-500 flex items-center gap-1">
+                                <span className="text-xs text-ink-tertiary flex items-center gap-1">
                                     <MapPin size={12} />
                                     {profile.location}
                                 </span>
                             )}
-                            <span className="text-xs text-slate-500 flex items-center gap-1">
+                            <span className="text-xs text-ink-tertiary flex items-center gap-1">
                                 <Calendar size={12} />
                                 Joined {memberSince}
                             </span>
@@ -145,24 +145,24 @@ function PublicProfileContent() {
 
                     {/* Action Buttons */}
                     <div className="flex gap-2 shrink-0">
-                        <button className="px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors flex items-center gap-2">
+                        <button className="px-5 py-2.5 bg-surface-tertiary text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary transition-colors flex items-center gap-2">
                             <Mail size={14} />
                             Message
                         </button>
-                        <button className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition-colors">
+                        <button className="px-4 py-2.5 bg-surface-elevated border border-border-primary rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-primary transition-colors">
                             Follow
                         </button>
                     </div>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex gap-1 p-1 bg-white rounded-xl border border-slate-200 mb-6">
+                <div className="flex gap-1 p-1 bg-surface-elevated rounded-xl border border-border-primary mb-6">
                     <button
                         onClick={() => setActiveTab('listings')}
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                             activeTab === 'listings'
-                                ? 'bg-teal-600 text-white shadow-sm'
-                                : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                                ? 'bg-accent-500 text-white shadow-sm'
+                                : 'text-ink-tertiary hover:text-ink-secondary hover:bg-surface-primary'
                         }`}
                     >
                         <Grid3X3 size={14} />
@@ -172,8 +172,8 @@ function PublicProfileContent() {
                         onClick={() => setActiveTab('about')}
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                             activeTab === 'about'
-                                ? 'bg-teal-600 text-white shadow-sm'
-                                : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                                ? 'bg-accent-500 text-white shadow-sm'
+                                : 'text-ink-tertiary hover:text-ink-secondary hover:bg-surface-primary'
                         }`}
                     >
                         <Heart size={14} />
@@ -197,10 +197,10 @@ function PublicProfileContent() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+                                <div className="bg-surface-elevated rounded-2xl border border-border-primary p-12 text-center">
                                     <ShoppingBag size={48} className="mx-auto text-slate-300 mb-4" />
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2">No listings yet</h3>
-                                    <p className="text-sm text-slate-500">This user hasn&apos;t listed any products or services yet.</p>
+                                    <h3 className="text-lg font-bold text-ink-primary mb-2">No listings yet</h3>
+                                    <p className="text-sm text-ink-tertiary">This user hasn&apos;t listed any products or services yet.</p>
                                 </div>
                             )}
                         </>
@@ -210,41 +210,41 @@ function PublicProfileContent() {
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             <div className="lg:col-span-2 space-y-6">
                                 {/* Bio */}
-                                <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4">About</h3>
+                                <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
+                                    <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-4">About</h3>
                                     {profile.bio ? (
-                                        <p className="text-sm text-slate-600 leading-relaxed">{profile.bio}</p>
+                                        <p className="text-sm text-ink-secondary leading-relaxed">{profile.bio}</p>
                                     ) : (
-                                        <p className="text-sm text-slate-400 italic">No bio provided</p>
+                                        <p className="text-sm text-ink-tertiary italic">No bio provided</p>
                                     )}
                                 </div>
 
                                 {/* Contact Info */}
-                                <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4">Contact Info</h3>
+                                <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
+                                    <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-4">Contact Info</h3>
                                     <div className="space-y-3">
                                         {profile.phone && (
-                                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                                            <div className="flex items-center gap-3 text-sm text-ink-secondary">
                                                 <span>📞</span>
                                                 <span>{profile.phone}</span>
                                             </div>
                                         )}
                                         {profile.website && (
-                                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                                            <div className="flex items-center gap-3 text-sm text-ink-secondary">
                                                 <LinkIcon size={16} />
-                                                <a href={profile.website} target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline">
+                                                <a href={profile.website} target="_blank" rel="noopener noreferrer" className="text-accent-400 hover:underline">
                                                     {profile.website}
                                                 </a>
                                             </div>
                                         )}
                                         {profile.location && (
-                                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                                            <div className="flex items-center gap-3 text-sm text-ink-secondary">
                                                 <MapPin size={16} />
                                                 <span>{profile.location}</span>
                                             </div>
                                         )}
                                         {!profile.phone && !profile.website && !profile.location && (
-                                            <p className="text-sm text-slate-400 italic">No contact info provided</p>
+                                            <p className="text-sm text-ink-tertiary italic">No contact info provided</p>
                                         )}
                                     </div>
                                 </div>
@@ -253,34 +253,34 @@ function PublicProfileContent() {
                             {/* Sidebar */}
                             <div className="space-y-6">
                                 {/* Stats */}
-                                <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4">Stats</h3>
+                                <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
+                                    <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-4">Stats</h3>
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="text-center p-3 bg-slate-50 rounded-xl">
-                                            <div className="text-2xl font-black text-slate-900">{listings.length}</div>
-                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Listings</div>
+                                        <div className="text-center p-3 bg-surface-primary rounded-xl">
+                                            <div className="text-2xl font-black text-ink-primary">{listings.length}</div>
+                                            <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Listings</div>
                                         </div>
-                                        <div className="text-center p-3 bg-slate-50 rounded-xl">
-                                            <div className="text-2xl font-black text-slate-900">0</div>
-                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Reviews</div>
+                                        <div className="text-center p-3 bg-surface-primary rounded-xl">
+                                            <div className="text-2xl font-black text-ink-primary">0</div>
+                                            <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Reviews</div>
                                         </div>
-                                        <div className="text-center p-3 bg-slate-50 rounded-xl">
-                                            <div className="text-2xl font-black text-slate-900">0</div>
-                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sales</div>
+                                        <div className="text-center p-3 bg-surface-primary rounded-xl">
+                                            <div className="text-2xl font-black text-ink-primary">0</div>
+                                            <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Sales</div>
                                         </div>
-                                        <div className="text-center p-3 bg-slate-50 rounded-xl">
+                                        <div className="text-center p-3 bg-surface-primary rounded-xl">
                                             <div className="flex items-center justify-center gap-1 text-2xl font-black text-amber-500">
                                                 <Star size={20} fill="currentColor" /> -
                                             </div>
-                                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Rating</div>
+                                            <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Rating</div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Member Since */}
-                                <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-3">Member Since</h3>
-                                    <p className="text-sm text-slate-600">{memberSince}</p>
+                                <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
+                                    <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-3">Member Since</h3>
+                                    <p className="text-sm text-ink-secondary">{memberSince}</p>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +294,7 @@ function PublicProfileContent() {
 export default function PublicProfilePage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="w-12 h-12 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
             </div>
         }>

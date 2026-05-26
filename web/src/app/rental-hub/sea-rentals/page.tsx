@@ -58,7 +58,7 @@ export default function SeaRentalsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-surface-elevated">
             {/* Aquatic Hero Section */}
             <HeroBackground
                 pageKey="sea-rentals"
@@ -67,21 +67,21 @@ export default function SeaRentalsPage() {
             />
 
             {/* Sea Vendors Row */}
-            <section className="bg-slate-50 py-16">
+            <section className="bg-surface-primary py-16">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex justify-between items-end mb-12">
                         <div>
-                            <h2 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase">Top Marine Vendors</h2>
-                            <p className="text-slate-500 font-medium">Expert providers for your sea adventures</p>
+                            <h2 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase">Top Marine Vendors</h2>
+                            <p className="text-ink-tertiary font-medium">Expert providers for your sea adventures</p>
                         </div>
                     </div>
                     <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide">
                         {vendors.map(v => (
-                            <Link key={v.id} href={`/store/${v.slug}`} className="shrink-0 w-64 p-8 bg-white rounded-[2.5rem] border border-slate-100 hover:shadow-2xl transition-all group">
-                                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform overflow-hidden">
+                            <Link key={v.id} href={`/store/${v.slug}`} className="shrink-0 w-64 p-8 bg-surface-elevated rounded-[2.5rem] border border-border-primary hover:shadow-2xl transition-all group">
+                                <div className="w-16 h-16 bg-surface-primary rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform overflow-hidden">
                                     {v.logo_url ? <img src={getImageUrl(v.logo_url)} className="w-full h-full object-cover" /> : '⛵'}
                                 </div>
-                                <h3 className="text-lg font-black text-slate-900 mb-1">{v.business_name || v.name}</h3>
+                                <h3 className="text-lg font-black text-ink-primary mb-1">{v.business_name || v.name}</h3>
                                 <p className="text-cyan-600 text-[10px] font-black uppercase tracking-widest">{v.subtype || 'Marine Expert'}</p>
                             </Link>
                         ))}
@@ -93,15 +93,15 @@ export default function SeaRentalsPage() {
             <div className="max-w-7xl mx-auto px-6 py-24">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight italic uppercase">Marine Fleet</h2>
-                        <p className="text-slate-500 font-medium">Filter by craft type</p>
+                        <h2 className="text-3xl font-black text-ink-primary tracking-tight italic uppercase">Marine Fleet</h2>
+                        <p className="text-ink-tertiary font-medium">Filter by craft type</p>
                     </div>
-                    <div className="flex gap-2 p-1 bg-slate-50 rounded-2xl border border-slate-100">
+                    <div className="flex gap-2 p-1 bg-surface-primary rounded-2xl border border-border-primary">
                         {['All', 'Boat', 'Yacht', 'Jet Ski', 'Tour'].map(f => (
                             <button
                                 key={f}
                                 onClick={() => setActiveFilter(f)}
-                                className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-white text-cyan-600 shadow-sm' : 'text-slate-400 hover:text-cyan-600'}`}
+                                className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-surface-elevated text-cyan-600 shadow-sm' : 'text-ink-tertiary hover:text-cyan-600'}`}
                             >
                                 {f}
                             </button>
@@ -129,14 +129,14 @@ export default function SeaRentalsPage() {
                 {filteredListings.length === 0 && (
                     <div className="text-center py-32 bg-cyan-50/20 rounded-[4rem] border-2 border-dashed border-cyan-100">
                         <span className="text-5xl mb-6 block">⛵</span>
-                        <h3 className="text-2xl font-black text-slate-900 mb-2">Ocean is Quiet...</h3>
-                        <p className="text-slate-400 font-bold italic">Adjust your filters to discover more sea adventures.</p>
+                        <h3 className="text-2xl font-black text-ink-primary mb-2">Ocean is Quiet...</h3>
+                        <p className="text-ink-tertiary font-bold italic">Adjust your filters to discover more sea adventures.</p>
                     </div>
                 )}
             </div>
 
             <div className="max-w-7xl mx-auto px-6 pb-24 text-center">
-                <Link href="/rentals" className="inline-flex items-center gap-2 text-slate-400 font-bold hover:text-cyan-600 transition-colors">
+                <Link href="/rentals" className="inline-flex items-center gap-2 text-ink-tertiary font-bold hover:text-cyan-600 transition-colors">
                     Looking for Land Rentals or Stays? Visit the Global Directory →
                 </Link>
             </div>

@@ -13,9 +13,9 @@ export default function DriverHubOnboarding() {
             description: 'Fast and reliable transport across the island. Professional drivers ready when you are.',
             image: '/assets/vehicles/car.png',
             link: '/request-ride?type=taxi',
-            color: 'bg-teal-50',
-            textColor: 'text-teal-600',
-            buttonColor: 'bg-teal-600'
+            color: 'bg-accent-500/10',
+            textColor: 'text-accent-400',
+            buttonColor: 'bg-accent-500'
         },
         {
             title: 'Delivery & Courier',
@@ -38,14 +38,14 @@ export default function DriverHubOnboarding() {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-32 pb-20 px-4">
+        <div className="min-h-screen bg-surface-primary pt-32 pb-20 px-4">
             <div className="max-w-7xl mx-auto">
                 {/* Hero Section */}
                 <div className="text-center mb-16 px-4">
-                    <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 tracking-tight">
-                        Island <span className="text-teal-600">Mobility</span> Hub
+                    <h1 className="text-5xl md:text-7xl font-black text-ink-primary mb-6 tracking-tight">
+                        Island <span className="text-accent-400">Mobility</span> Hub
                     </h1>
-                    <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+                    <p className="text-xl text-ink-tertiary max-w-2xl mx-auto font-medium leading-relaxed">
                         The heartbeat of island logistics. Request a ride, send a parcel, or move heavy freight with just a few clicks.
                     </p>
                 </div>
@@ -56,7 +56,7 @@ export default function DriverHubOnboarding() {
                         <div key={i} className={`group relative rounded-[3rem] overflow-hidden border border-white shadow-2xl hover:shadow-emerald-100/20 transition-all duration-700 hover:-translate-y-4 ${service.color}`}>
                             {/* Image Container */}
                             <div className="aspect-[5/4] p-8 flex items-center justify-center relative overflow-hidden">
-                                <div className="absolute inset-0 bg-white/40 blur-3xl rounded-full translate-y-12 scale-150"></div>
+                                <div className="absolute inset-0 bg-surface-elevated/40 blur-3xl rounded-full translate-y-12 scale-150"></div>
                                 <img
                                     src={service.image}
                                     alt={service.title}
@@ -65,9 +65,9 @@ export default function DriverHubOnboarding() {
                             </div>
 
                             {/* Content */}
-                            <div className="p-10 bg-white/80 backdrop-blur-xl border-t border-white/50 relative z-20">
+                            <div className="p-10 bg-surface-elevated/80 backdrop-blur-xl border-t border-white/50 relative z-20">
                                 <h3 className={`text-2xl font-black mb-3 ${service.textColor}`}>{service.title}</h3>
-                                <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">
+                                <p className="text-ink-tertiary text-sm font-medium leading-relaxed mb-8">
                                     {service.description}
                                 </p>
                                 <Link
@@ -82,24 +82,24 @@ export default function DriverHubOnboarding() {
                 </div>
 
                 {/* Driver Onboarding Section */}
-                <div className="bg-slate-900 rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div className="bg-surface-tertiary rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/100/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
                     <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
                         <div className="flex-1 text-center md:text-left">
                             <h2 className="text-3xl md:text-5xl font-black mb-6">Want to drive with us?</h2>
-                            <p className="text-slate-400 text-lg mb-10 font-medium">
+                            <p className="text-ink-tertiary text-lg mb-10 font-medium">
                                 Join our network of professional drivers and start earning on your own schedule. From taxis to commercial trucks, we have opportunities for everyone.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Link
                                     href="/register?role=driver"
-                                    className="px-8 py-4 bg-teal-500 hover:bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-lg shadow-teal-500/20"
+                                    className="px-8 py-4 bg-accent-500/100 hover:bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-lg shadow-teal-500/20"
                                 >
                                     Become a Driver
                                 </Link>
                                 <Link
                                     href="/driver/dashboard"
-                                    className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all border border-white/10"
+                                    className="px-8 py-4 bg-surface-elevated/10 hover:bg-surface-elevated/20 text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all border border-white/10"
                                 >
                                     Driver Dashboard
                                 </Link>
@@ -121,8 +121,8 @@ export default function DriverHubOnboarding() {
                     ].map((item, i) => (
                         <div key={i} className="text-center">
                             <div className="text-3xl mb-3">{item.icon}</div>
-                            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">{item.label}</div>
-                            <div className="text-sm font-bold text-slate-700">{item.value}</div>
+                            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-1">{item.label}</div>
+                            <div className="text-sm font-bold text-ink-secondary">{item.value}</div>
                         </div>
                     ))}
                 </div>

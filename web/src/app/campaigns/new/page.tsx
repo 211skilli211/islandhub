@@ -72,46 +72,46 @@ export default function NewCampaignPage() {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-surface-primary py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
                 {/* Progress Bar */}
                 <div className="mb-12">
                     <div className="flex items-center justify-between mb-4">
                         {[1, 2, 3].map((s) => (
                             <div key={s} className="flex flex-col items-center">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${step >= s ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-white text-slate-300 border-2 border-slate-200'
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${step >= s ? 'bg-accent-500 text-white shadow-lg shadow-teal-200' : 'bg-surface-elevated text-slate-300 border-2 border-border-primary'
                                     }`}>
                                     {s}
                                 </div>
-                                <span className={`mt-2 text-xs font-semibold uppercase tracking-wider ${step >= s ? 'text-teal-700' : 'text-slate-400'
+                                <span className={`mt-2 text-xs font-semibold uppercase tracking-wider ${step >= s ? 'text-accent-500' : 'text-ink-tertiary'
                                     }`}>
                                     {s === 1 ? 'Basics' : s === 2 ? 'The Story' : 'Launch'}
                                 </span>
                             </div>
                         ))}
                     </div>
-                    <div className="relative h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="relative h-2 bg-surface-tertiary rounded-full overflow-hidden">
                         <div
-                            className="absolute top-0 left-0 h-full bg-teal-600 transition-all duration-500 ease-out"
+                            className="absolute top-0 left-0 h-full bg-accent-500 transition-all duration-500 ease-out"
                             style={{ width: `${(step - 1) * 50}%` }}
                         />
                     </div>
                 </div>
 
-                <div className="bg-white/70 backdrop-blur-xl border border-white rounded-3xl shadow-2xl overflow-hidden">
+                <div className="bg-surface-elevated/70 backdrop-blur-xl border border-white rounded-3xl shadow-2xl overflow-hidden">
                     <form onSubmit={handleSubmit} className="p-8 sm:p-12">
 
                         {/* Step 1: Basics */}
                         {step === 1 && (
                             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-900 mb-2">Let's start with the basics</h2>
-                                    <p className="text-slate-500">What's the main goal of your campaign?</p>
+                                    <h2 className="text-3xl font-black text-ink-primary mb-2">Let's start with the basics</h2>
+                                    <p className="text-ink-tertiary">What's the main goal of your campaign?</p>
                                 </div>
 
                                 <div className="space-y-6">
                                     <div>
-                                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest mb-2">Campaign Title</label>
+                                        <label className="block text-sm font-bold text-ink-secondary uppercase tracking-widest mb-2">Campaign Title</label>
                                         <input
                                             id="title"
                                             type="text"
@@ -120,12 +120,12 @@ export default function NewCampaignPage() {
                                             onChange={handleChange}
                                             required
                                             placeholder="e.g. Help rebuild the local library"
-                                            className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
+                                            className="w-full px-5 py-4 bg-surface-primary border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest mb-4">Category</label>
+                                        <label className="block text-sm font-bold text-ink-secondary uppercase tracking-widest mb-4">Category</label>
                                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                             {CATEGORIES.map((cat) => (
                                                 <button
@@ -133,8 +133,8 @@ export default function NewCampaignPage() {
                                                     type="button"
                                                     onClick={() => setFormData(prev => ({ ...prev, category: cat.id }))}
                                                     className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${formData.category === cat.id
-                                                        ? 'bg-teal-50 border-teal-500 text-teal-700'
-                                                        : 'bg-white border-slate-100 text-slate-500 hover:border-slate-200'
+                                                        ? 'bg-accent-500/10 border-teal-500 text-accent-500'
+                                                        : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'
                                                         }`}
                                                 >
                                                     <span className="text-2xl">{cat.icon}</span>
@@ -146,9 +146,9 @@ export default function NewCampaignPage() {
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest mb-2">Goal Amount ($)</label>
+                                            <label className="block text-sm font-bold text-ink-secondary uppercase tracking-widest mb-2">Goal Amount ($)</label>
                                             <div className="relative">
-                                                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                                                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-ink-tertiary font-bold">$</span>
                                                 <input
                                                     id="goal_amount"
                                                     type="number"
@@ -157,19 +157,19 @@ export default function NewCampaignPage() {
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="0.00"
-                                                    className="w-full pl-10 pr-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
+                                                    className="w-full pl-10 pr-5 py-4 bg-surface-primary border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
                                                 />
                                             </div>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest mb-2">End Date (Optional)</label>
+                                            <label className="block text-sm font-bold text-ink-secondary uppercase tracking-widest mb-2">End Date (Optional)</label>
                                             <input
                                                 id="end_date"
                                                 type="date"
                                                 name="end_date"
                                                 value={formData.end_date}
                                                 onChange={handleChange}
-                                                className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
+                                                className="w-full px-5 py-4 bg-surface-primary border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
                                             />
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@ export default function NewCampaignPage() {
                                         type="button"
                                         onClick={nextStep}
                                         disabled={!formData.title || !formData.goal_amount}
-                                        className="w-full py-5 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-200 transition-all transform hover:-translate-y-1 active:translate-y-0"
+                                        className="w-full py-5 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-200 transition-all transform hover:-translate-y-1 active:translate-y-0"
                                     >
                                         Next: Tell Your Story
                                     </button>
@@ -192,15 +192,15 @@ export default function NewCampaignPage() {
                         {step === 2 && (
                             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-900 mb-2">Tell your story</h2>
-                                    <p className="text-slate-500">Why should people support your cause?</p>
+                                    <h2 className="text-3xl font-black text-ink-primary mb-2">Tell your story</h2>
+                                    <p className="text-ink-tertiary">Why should people support your cause?</p>
                                 </div>
 
                                 <div className="space-y-6">
                                     <div>
-                                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-widest mb-2">
+                                        <label className="block text-sm font-bold text-ink-secondary uppercase tracking-widest mb-2">
                                             Description
-                                            <span className={`ml-2 text-xs ${wordCount >= 300 ? 'text-teal-600' : 'text-slate-400'}`}>
+                                            <span className={`ml-2 text-xs ${wordCount >= 300 ? 'text-accent-400' : 'text-ink-tertiary'}`}>
                                                 ({wordCount} / 300 words)
                                             </span>
                                         </label>
@@ -212,15 +212,15 @@ export default function NewCampaignPage() {
                                             required
                                             rows={8}
                                             placeholder="Connect with your donors. Share your mission, your challenges, and how the funds will be used..."
-                                            className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
+                                            className="w-full px-5 py-4 bg-surface-primary border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
                                         />
                                     </div>
 
-                                    <div className="bg-teal-50 p-6 rounded-2xl border border-teal-100">
+                                    <div className="bg-accent-500/10 p-6 rounded-2xl border border-teal-100">
                                         <h4 className="text-teal-800 font-bold mb-2 flex items-center gap-2">
                                             <span>💡</span> Pro Tip
                                         </h4>
-                                        <p className="text-teal-700 text-sm italic">
+                                        <p className="text-accent-500 text-sm italic">
                                             Campaigns with at least 300 words and clear progress updates tend to raise 3x more funds!
                                         </p>
                                     </div>
@@ -230,7 +230,7 @@ export default function NewCampaignPage() {
                                     <button
                                         type="button"
                                         onClick={prevStep}
-                                        className="flex-1 py-5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold text-lg transition-all"
+                                        className="flex-1 py-5 bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary rounded-2xl font-bold text-lg transition-all"
                                     >
                                         Go Back
                                     </button>
@@ -238,7 +238,7 @@ export default function NewCampaignPage() {
                                         type="button"
                                         onClick={nextStep}
                                         disabled={!formData.description || wordCount < 300}
-                                        className="flex-[2] py-5 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-200 transition-all transform hover:-translate-y-1 active:translate-y-0"
+                                        className="flex-[2] py-5 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-200 transition-all transform hover:-translate-y-1 active:translate-y-0"
                                     >
                                         Final Step
                                     </button>
@@ -250,22 +250,22 @@ export default function NewCampaignPage() {
                         {step === 3 && (
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                                 <div>
-                                    <h2 className="text-3xl font-black text-slate-900 mb-2">Ready to launch?</h2>
-                                    <p className="text-slate-500">Review your details and prepare for liftoff.</p>
+                                    <h2 className="text-3xl font-black text-ink-primary mb-2">Ready to launch?</h2>
+                                    <p className="text-ink-tertiary">Review your details and prepare for liftoff.</p>
                                 </div>
 
-                                <div className="bg-slate-50 rounded-3xl p-8 space-y-4 border-2 border-slate-100">
-                                    <div className="flex justify-between items-center border-b border-slate-200 pb-4">
-                                        <span className="text-slate-500 font-bold uppercase tracking-widest text-xs">Title</span>
-                                        <span className="font-bold text-slate-900">{formData.title}</span>
+                                <div className="bg-surface-primary rounded-3xl p-8 space-y-4 border-2 border-border-primary">
+                                    <div className="flex justify-between items-center border-b border-border-primary pb-4">
+                                        <span className="text-ink-tertiary font-bold uppercase tracking-widest text-xs">Title</span>
+                                        <span className="font-bold text-ink-primary">{formData.title}</span>
                                     </div>
-                                    <div className="flex justify-between items-center border-b border-slate-200 pb-4">
-                                        <span className="text-slate-500 font-bold uppercase tracking-widest text-xs">Category</span>
-                                        <span className="font-bold text-teal-600 uppercase tracking-tighter">{formData.category}</span>
+                                    <div className="flex justify-between items-center border-b border-border-primary pb-4">
+                                        <span className="text-ink-tertiary font-bold uppercase tracking-widest text-xs">Category</span>
+                                        <span className="font-bold text-accent-400 uppercase tracking-tighter">{formData.category}</span>
                                     </div>
-                                    <div className="flex justify-between items-center border-b border-slate-200 pb-4">
-                                        <span className="text-slate-500 font-bold uppercase tracking-widest text-xs">Goal</span>
-                                        <span className="font-black text-slate-900 text-xl">${Number(formData.goal_amount).toLocaleString()}</span>
+                                    <div className="flex justify-between items-center border-b border-border-primary pb-4">
+                                        <span className="text-ink-tertiary font-bold uppercase tracking-widest text-xs">Goal</span>
+                                        <span className="font-black text-ink-primary text-xl">${Number(formData.goal_amount).toLocaleString()}</span>
                                     </div>
                                 </div>
 
@@ -279,7 +279,7 @@ export default function NewCampaignPage() {
                                     <button
                                         type="button"
                                         onClick={prevStep}
-                                        className="flex-1 py-5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold text-lg transition-all"
+                                        className="flex-1 py-5 bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary rounded-2xl font-bold text-lg transition-all"
                                     >
                                         Go Back
                                     </button>

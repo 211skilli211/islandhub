@@ -55,22 +55,22 @@ export default function LoginPage() {
         <>
             <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-ink-primary">
                         Sign in to your account
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Or{' '}
-                        <Link href="/register" className="font-medium text-teal-600 hover:text-teal-500">
+                        <Link href="/register" className="font-medium text-accent-400 hover:text-teal-500">
                             create a new account
                         </Link>
                     </p>
                 </div>
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white dark:bg-slate-800 py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
+                    <div className="bg-surface-elevated dark:bg-surface-tertiary py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
+                                <label htmlFor="email" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
                                     Email address
                                 </label>
                                 <div className="mt-2">
@@ -82,13 +82,13 @@ export default function LoginPage() {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label htmlFor="password" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
+                                <label htmlFor="password" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
                                     Password
                                 </label>
                                 <div className="mt-2">
@@ -100,7 +100,7 @@ export default function LoginPage() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
@@ -111,15 +111,15 @@ export default function LoginPage() {
                                         id="remember-me"
                                         name="remember-me"
                                         type="checkbox"
-                                        className="h-5 w-5 text-teal-600 focus:ring-teal-500 border-slate-300 dark:border-slate-600 rounded-lg cursor-pointer"
+                                        className="h-5 w-5 text-accent-400 focus:ring-accent-400 border-border-primary dark:border-slate-600 rounded-lg cursor-pointer"
                                     />
-                                    <label htmlFor="remember-me" className="ml-3 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    <label htmlFor="remember-me" className="ml-3 block text-sm font-medium text-ink-secondary dark:text-slate-300">
                                         Remember me
                                     </label>
                                 </div>
 
                                 <div className="text-sm">
-                                    <Link href="/forgot-password" className="font-medium text-teal-600 hover:text-teal-500">
+                                    <Link href="/forgot-password" className="font-medium text-accent-400 hover:text-teal-500">
                                         Forgot your password?
                                     </Link>
                                 </div>
@@ -129,7 +129,7 @@ export default function LoginPage() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50"
+                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-400 disabled:opacity-50"
                                 >
                                     {loading ? 'Signing in...' : 'Sign in'}
                                 </button>

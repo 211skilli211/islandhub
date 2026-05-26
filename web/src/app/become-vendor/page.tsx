@@ -88,7 +88,7 @@ function BecomeVendorContent() {
         country: '',
         contact_email: user?.email || '',
         contact_phone: '',
-        theme_color: 'teal-600',
+        theme_color: 'accent-400',
         branding_color: '#0d9488',
         logo_url: '',
         banner_url: '',
@@ -153,10 +153,10 @@ function BecomeVendorContent() {
 
     if (checkingAccess) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin h-12 w-12 border-4 border-teal-600 border-t-transparent rounded-full mx-auto mb-4" />
-                    <p className="font-black text-slate-400 uppercase tracking-widest text-xs">Checking access...</p>
+                    <div className="animate-spin h-12 w-12 border-4 border-accent-400 border-t-transparent rounded-full mx-auto mb-4" />
+                    <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Checking access...</p>
                 </div>
             </main>
         );
@@ -164,21 +164,21 @@ function BecomeVendorContent() {
 
     if (showRestriction) {
         return (
-            <main className="min-h-screen bg-slate-50 pt-24 pb-12 px-4">
+            <main className="min-h-screen bg-surface-primary pt-24 pb-12 px-4">
                 <div className="max-w-2xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-slate-200 border border-slate-100"
+                        className="bg-surface-elevated rounded-[3rem] p-12 shadow-2xl shadow-black/10 border border-border-primary"
                     >
-                        <div className="w-24 h-24 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <div className="w-24 h-24 bg-[#e11d48]/10 rounded-full flex items-center justify-center mx-auto mb-8">
                             <span className="text-5xl">🔒</span>
                         </div>
-                        <h1 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Multi-Store Access Restricted</h1>
-                        <p className="text-slate-500 font-medium text-lg mb-8">
+                        <h1 className="text-3xl font-black text-ink-primary mb-4 tracking-tight">Multi-Store Access Restricted</h1>
+                        <p className="text-ink-tertiary font-medium text-lg mb-8">
                             Your current <strong>{subscription?.tier_name || 'Basic'}</strong> subscription only allows one store.
                         </p>
-                        <Link href="/dashboard" className="block w-full py-4 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all">
+                        <Link href="/dashboard" className="block w-full py-4 bg-surface-secondary text-ink-secondary rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-surface-tertiary transition-all">
                             ← Back to Dashboard
                         </Link>
                     </motion.div>
@@ -188,13 +188,13 @@ function BecomeVendorContent() {
     }
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             <div className="max-w-4xl mx-auto px-4 py-20">
                 <div className="mb-12 flex justify-between items-center relative">
-                    <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 z-0" />
-                    <div className="absolute top-1/2 left-0 h-1 bg-teal-500 -translate-y-1/2 z-0 transition-all duration-500" style={{ width: `${((step - 1) / 5) * 100}%` }} />
+                    <div className="absolute top-1/2 left-0 w-full h-1 bg-surface-tertiary -translate-y-1/2 z-0" />
+                    <div className="absolute top-1/2 left-0 h-1 bg-accent-500/100 -translate-y-1/2 z-0 transition-all duration-500" style={{ width: `${((step - 1) / 5) * 100}%` }} />
                     {[1, 2, 3, 4, 5, 6].map(i => (
-                        <div key={i} className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-sm relative z-10 transition-all shadow-lg ${step >= i ? 'bg-teal-600 text-white scale-110' : 'bg-white text-slate-400 border-4 border-slate-100'}`}>
+                        <div key={i} className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-sm relative z-10 transition-all shadow-lg ${step >= i ? 'bg-accent-500 text-white scale-110' : 'bg-surface-elevated text-ink-tertiary border-4 border-border-primary'}`}>
                             {i}
                         </div>
                     ))}
@@ -203,53 +203,53 @@ function BecomeVendorContent() {
                 <AnimatePresence mode="wait">
                     {step === 1 && (
                         <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                            className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-slate-200 border border-slate-100 text-center">
+                            className="bg-surface-elevated rounded-[3rem] p-12 shadow-2xl shadow-black/10 border border-border-primary text-center">
                             <span className="text-6xl mb-8 block">🚀</span>
-                            <h1 className="text-4xl font-black text-slate-900 mb-6 tracking-tight italic">Ready to make waves?</h1>
-                            <p className="text-slate-500 font-medium text-lg max-w-xl mx-auto mb-12">Join hundreds of island entrepreneurs who are growing their business with IslandHub.</p>
-                            <button onClick={nextStep} className="px-12 py-5 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-black text-xl shadow-xl shadow-teal-100 transition-all">Let's Get Started ⚡</button>
+                            <h1 className="text-4xl font-black text-ink-primary mb-6 tracking-tight italic">Ready to make waves?</h1>
+                            <p className="text-ink-tertiary font-medium text-lg max-w-xl mx-auto mb-12">Join hundreds of island entrepreneurs who are growing their business with IslandHub.</p>
+                            <button onClick={nextStep} className="px-12 py-5 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-accent-500/10 transition-all">Let's Get Started ⚡</button>
                         </motion.div>
                     )}
 
                     {step === 2 && (
                         <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                             <div className="text-center mb-12">
-                                <h1 className="text-4xl font-black text-slate-900 mb-2 italic tracking-tight">What's your specialty?</h1>
-                                <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Choose your primary category</p>
+                                <h1 className="text-4xl font-black text-ink-primary mb-2 italic tracking-tight">What's your specialty?</h1>
+                                <p className="text-ink-tertiary font-bold uppercase tracking-widest text-xs">Choose your primary category</p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {CATEGORIES.map(cat => (
                                     <button key={cat.id} onClick={() => {
                                         const isService = cat.id === 'services';
                                         setFormData({ ...formData, category: cat.id, sub_type: '', type: isService ? 'service' : 'product' });
-                                    }} className={`p-8 rounded-[2.5rem] text-left transition-all border-4 ${formData.category === cat.id ? 'bg-teal-50 border-teal-500 shadow-xl' : 'bg-white border-transparent hover:border-slate-100 hover:bg-slate-50/50'}`}>
+                                    }} className={`p-8 rounded-[2.5rem] text-left transition-all border-4 ${formData.category === cat.id ? 'bg-accent-500/10 border-teal-500 shadow-xl' : 'bg-surface-elevated border-transparent hover:border-border-primary hover:bg-surface-primary/50'}`}>
                                         <div className="text-4xl mb-4">{cat.icon}</div>
-                                        <h3 className="text-xl font-black text-slate-900 mb-2">{cat.name}</h3>
-                                        <p className="text-slate-500 text-sm font-medium">Connect with buyers looking for {cat.name.toLowerCase()}.</p>
+                                        <h3 className="text-xl font-black text-ink-primary mb-2">{cat.name}</h3>
+                                        <p className="text-ink-tertiary text-sm font-medium">Connect with buyers looking for {cat.name.toLowerCase()}.</p>
                                     </button>
                                 ))}
                             </div>
                             <div className="flex justify-between pt-8">
-                                <button onClick={prevStep} className="px-10 py-4 font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest text-xs transition-colors">← Back</button>
-                                <button disabled={!formData.sub_type} onClick={nextStep} className="px-12 py-5 bg-teal-600 disabled:opacity-50 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all">Next: Brand Identity</button>
+                                <button onClick={prevStep} className="px-10 py-4 font-black text-ink-tertiary hover:text-ink-secondary uppercase tracking-widest text-xs transition-colors">← Back</button>
+                                <button disabled={!formData.sub_type} onClick={nextStep} className="px-12 py-5 bg-accent-500 disabled:opacity-50 text-white rounded-2xl font-black text-lg shadow-xl shadow-accent-500/10 transition-all">Next: Brand Identity</button>
                             </div>
                         </motion.div>
                     )}
 
                     {step === 3 && (
                         <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                            className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-slate-200 border border-slate-100">
-                            <h2 className="text-3xl font-black text-slate-900 mb-8 italic tracking-tight">Tell us about your brand</h2>
+                            className="bg-surface-elevated rounded-[3rem] p-12 shadow-2xl shadow-black/10 border border-border-primary">
+                            <h2 className="text-3xl font-black text-ink-primary mb-8 italic tracking-tight">Tell us about your brand</h2>
                             <div className="space-y-8">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Business Name</label>
+                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Business Name</label>
                                     <input type="text" placeholder="e.g. Island Adventures" value={formData.business_name}
                                         onChange={e => setFormData({ ...formData, business_name: e.target.value, slug: e.target.value.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') })}
-                                        className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all" />
+                                        className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-accent-500/10 focus:border-accent-400 transition-all" />
                                 </div>
                                 <div className="flex justify-between pt-12">
-                                    <button onClick={prevStep} className="px-10 py-4 font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest text-xs transition-colors">← Back</button>
-                                    <button disabled={!formData.business_name} onClick={nextStep} className="px-12 py-5 bg-teal-600 disabled:opacity-50 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all">Next</button>
+                                    <button onClick={prevStep} className="px-10 py-4 font-black text-ink-tertiary hover:text-ink-secondary uppercase tracking-widest text-xs transition-colors">← Back</button>
+                                    <button disabled={!formData.business_name} onClick={nextStep} className="px-12 py-5 bg-accent-500 disabled:opacity-50 text-white rounded-2xl font-black text-lg shadow-xl shadow-accent-500/10 transition-all">Next</button>
                                 </div>
                             </div>
                         </motion.div>
@@ -257,24 +257,24 @@ function BecomeVendorContent() {
 
                     {step === 4 && (
                         <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                            className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-slate-200 border border-slate-100">
-                            <h2 className="text-3xl font-black text-slate-900 mb-2 italic tracking-tight">Visual Identity</h2>
-                            <p className="text-slate-500 mb-8 max-w-lg">Let's make your store stand out with custom branding.</p>
+                            className="bg-surface-elevated rounded-[3rem] p-12 shadow-2xl shadow-black/10 border border-border-primary">
+                            <h2 className="text-3xl font-black text-ink-primary mb-2 italic tracking-tight">Visual Identity</h2>
+                            <p className="text-ink-tertiary mb-8 max-w-lg">Let's make your store stand out with custom branding.</p>
                             <div className="flex justify-between pt-12">
-                                <button onClick={prevStep} className="px-10 py-4 font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest text-xs transition-colors">← Back</button>
-                                <button onClick={nextStep} className="px-12 py-5 bg-teal-600 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all">Next</button>
+                                <button onClick={prevStep} className="px-10 py-4 font-black text-ink-tertiary hover:text-ink-secondary uppercase tracking-widest text-xs transition-colors">← Back</button>
+                                <button onClick={nextStep} className="px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-lg shadow-xl shadow-accent-500/10 transition-all">Next</button>
                             </div>
                         </motion.div>
                     )}
 
                     {step === 5 && (
                         <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                            className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-slate-200 border border-slate-100">
-                            <h2 className="text-3xl font-black text-slate-900 mb-2 italic tracking-tight">Verify Identity</h2>
-                            <p className="text-slate-500 mb-8 max-w-lg">To maintain trust in our marketplace, we require a valid government ID.</p>
+                            className="bg-surface-elevated rounded-[3rem] p-12 shadow-2xl shadow-black/10 border border-border-primary">
+                            <h2 className="text-3xl font-black text-ink-primary mb-2 italic tracking-tight">Verify Identity</h2>
+                            <p className="text-ink-tertiary mb-8 max-w-lg">To maintain trust in our marketplace, we require a valid government ID.</p>
                             <div className="flex justify-between pt-12">
-                                <button onClick={prevStep} className="px-10 py-4 font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest text-xs transition-colors">← Back</button>
-                                <button disabled={!kycDocs.id_card} onClick={nextStep} className="px-12 py-5 bg-teal-600 disabled:opacity-50 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all">Next: Choose Plan</button>
+                                <button onClick={prevStep} className="px-10 py-4 font-black text-ink-tertiary hover:text-ink-secondary uppercase tracking-widest text-xs transition-colors">← Back</button>
+                                <button disabled={!kycDocs.id_card} onClick={nextStep} className="px-12 py-5 bg-accent-500 disabled:opacity-50 text-white rounded-2xl font-black text-lg shadow-xl shadow-accent-500/10 transition-all">Next: Choose Plan</button>
                             </div>
                         </motion.div>
                     )}
@@ -282,32 +282,32 @@ function BecomeVendorContent() {
                     {step === 6 && (
                         <motion.div key="step6" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-12">
                             <div className="text-center">
-                                <h1 className="text-4xl font-black text-slate-900 mb-2 italic tracking-tight">Elevate your storefront</h1>
-                                <p className="text-slate-500 font-bold uppercase tracking-widest text-xs text-center">Select a plan to launch your vendor profile</p>
+                                <h1 className="text-4xl font-black text-ink-primary mb-2 italic tracking-tight">Elevate your storefront</h1>
+                                <p className="text-ink-tertiary font-bold uppercase tracking-widest text-xs text-center">Select a plan to launch your vendor profile</p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {SUBSCRIPTIONS.map(sub => (
-                                    <div key={sub.id} className={`p-10 rounded-[3rem] border-4 transition-all ${formData.subscription_tier === sub.id ? 'bg-white border-teal-500 shadow-2xl scale-105' : 'bg-slate-50 border-transparent hover:border-slate-100'}`}
+                                    <div key={sub.id} className={`p-10 rounded-[3rem] border-4 transition-all ${formData.subscription_tier === sub.id ? 'bg-surface-elevated border-teal-500 shadow-2xl scale-105' : 'bg-surface-primary border-transparent hover:border-border-primary'}`}
                                         onClick={() => setFormData({ ...formData, subscription_tier: sub.id })}>
-                                        <h3 className="text-2xl font-black text-slate-900 mb-2">{sub.name}</h3>
+                                        <h3 className="text-2xl font-black text-ink-primary mb-2">{sub.name}</h3>
                                         <div className="flex items-baseline gap-2 mb-8">
-                                            <span className="text-4xl font-black text-teal-600">{sub.price}</span>
-                                            <span className="text-slate-400 text-sm font-bold">billed monthly</span>
+                                            <span className="text-4xl font-black text-accent-400">{sub.price}</span>
+                                            <span className="text-ink-tertiary text-sm font-bold">billed monthly</span>
                                         </div>
                                         <ul className="space-y-4 mb-10">
                                             {sub.features.map(f => (
-                                                <li key={f} className="flex items-center gap-3 text-slate-600 font-medium"><span className="text-teal-500">✓</span> {f}</li>
+                                                <li key={f} className="flex items-center gap-3 text-ink-secondary font-medium"><span className="text-accent-500">✓</span> {f}</li>
                                             ))}
                                         </ul>
-                                        <button className={`w-full py-5 rounded-2xl font-black transition-all ${formData.subscription_tier === sub.id ? 'bg-teal-600 text-white shadow-xl shadow-teal-100' : 'bg-white text-slate-400 border-2 border-slate-100'}`}>
+                                        <button className={`w-full py-5 rounded-2xl font-black transition-all ${formData.subscription_tier === sub.id ? 'bg-accent-500 text-white shadow-xl shadow-accent-500/10' : 'bg-surface-elevated text-ink-tertiary border-2 border-border-primary'}`}>
                                             {formData.subscription_tier === sub.id ? 'Selected Plan' : 'Choose Plan'}
                                         </button>
                                     </div>
                                 ))}
                             </div>
                             <div className="flex justify-between pt-12">
-                                <button onClick={prevStep} className="px-10 py-4 font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest text-xs transition-colors">← Back</button>
-                                <button onClick={handleComplete} disabled={loading} className="px-16 py-6 bg-teal-600 text-white rounded-4xl font-black text-xl shadow-2xl shadow-teal-200 transition-all">
+                                <button onClick={prevStep} className="px-10 py-4 font-black text-ink-tertiary hover:text-ink-secondary uppercase tracking-widest text-xs transition-colors">← Back</button>
+                                <button onClick={handleComplete} disabled={loading} className="px-16 py-6 bg-accent-500 text-white rounded-4xl font-black text-xl shadow-2xl shadow-accent-500/15 transition-all">
                                     {loading ? 'Confirming...' : 'Launch Storefront 🏁'}
                                 </button>
                             </div>
@@ -322,10 +322,10 @@ function BecomeVendorContent() {
 export default function BecomeVendorPage() {
     return (
         <Suspense fallback={
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin h-12 w-12 border-4 border-teal-600 border-t-transparent rounded-full mx-auto mb-4" />
-                    <p className="font-black text-slate-400 uppercase tracking-widest text-xs">Loading...</p>
+                    <div className="animate-spin h-12 w-12 border-4 border-accent-400 border-t-transparent rounded-full mx-auto mb-4" />
+                    <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading...</p>
                 </div>
             </main>
         }>

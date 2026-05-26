@@ -48,14 +48,14 @@ export default function RentalHubPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
             {/* Hero Section */}
-            <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-slate-900">
+            <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-surface-tertiary">
                 <HeroBackground
                     pageKey="rental-hub"
                 >
                     <div className="mt-8 pointer-events-auto">
                         <Link
                             href="/rentals"
-                            className="inline-block px-8 py-4 md:px-10 md:py-5 bg-white text-indigo-600 rounded-2xl font-black uppercase text-xs md:text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
+                            className="inline-block px-8 py-4 md:px-10 md:py-5 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-xs md:text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
                         >
                             Explore Full Directory
                         </Link>
@@ -66,13 +66,13 @@ export default function RentalHubPage() {
             {/* Category Grid */}
             <section id="explore" className="max-w-7xl mx-auto px-6 py-24">
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 rounded-full text-indigo-600 text-[10px] font-black uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 rounded-full text-[#818cf8] text-[10px] font-black uppercase tracking-widest mb-4">
                         📍 Select Your Sector
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter italic">
+                    <h2 className="text-4xl md:text-6xl font-black text-ink-primary mb-4 tracking-tighter italic">
                         The Silo Experience
                     </h2>
-                    <p className="text-lg text-slate-500 font-medium italic">
+                    <p className="text-lg text-ink-tertiary font-medium italic">
                         Specialized hubs for every island need
                     </p>
                 </div>
@@ -98,7 +98,7 @@ export default function RentalHubPage() {
                                     <p className="text-white/80 font-medium mb-8 text-sm italic">
                                         {cat.description}
                                     </p>
-                                    <div className="mt-auto inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-white/10 w-fit px-4 py-2 rounded-full border border-white/20">
+                                    <div className="mt-auto inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] bg-surface-elevated/10 w-fit px-4 py-2 rounded-full border border-white/20">
                                         Explore Silo <span className="text-lg">→</span>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ export default function RentalHubPage() {
                     </p>
                     <Link
                         href="/rentals"
-                        className="inline-block px-12 py-5 bg-white text-indigo-600 rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
+                        className="inline-block px-12 py-5 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-sm tracking-widest hover:scale-105 transition-all shadow-2xl"
                     >
                         Enter Global Hub
                     </Link>

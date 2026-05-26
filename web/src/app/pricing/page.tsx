@@ -99,11 +99,11 @@ export default function PricingPage() {
     const [activeRole, setActiveRole] = useState<'vendor' | 'customer' | 'creator'>('vendor');
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
 
             {/* Hero Section */}
             <section className="bg-teal-950 py-24 px-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px]" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/100/10 rounded-full blur-[100px]" />
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
@@ -120,7 +120,7 @@ export default function PricingPage() {
 
             {/* Role Switcher */}
             <section className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
-                <div className="bg-white p-2 rounded-[2rem] shadow-2xl shadow-teal-900/10 flex flex-col md:flex-row gap-2">
+                <div className="bg-surface-elevated p-2 rounded-[2rem] shadow-2xl shadow-teal-900/10 flex flex-col md:flex-row gap-2">
                     {[
                         { id: 'vendor', label: 'Sell & Rent', icon: '🛍️' },
                         { id: 'customer', label: 'Shop & Save', icon: '✨' },
@@ -129,7 +129,7 @@ export default function PricingPage() {
                         <button
                             key={role.id}
                             onClick={() => setActiveRole(role.id as any)}
-                            className={`flex-1 py-6 rounded-[1.8rem] flex items-center justify-center gap-3 font-black text-sm uppercase tracking-widest transition-all ${activeRole === role.id ? 'bg-teal-600 text-white shadow-xl shadow-teal-100 scale-[1.02]' : 'bg-transparent text-slate-400 hover:bg-slate-50'}`}
+                            className={`flex-1 py-6 rounded-[1.8rem] flex items-center justify-center gap-3 font-black text-sm uppercase tracking-widest transition-all ${activeRole === role.id ? 'bg-accent-500 text-white shadow-xl shadow-teal-100 scale-[1.02]' : 'bg-transparent text-ink-tertiary hover:bg-surface-primary'}`}
                         >
                             <span className="text-xl">{role.icon}</span>
                             {role.label}
@@ -149,32 +149,32 @@ export default function PricingPage() {
                     {(activeRole === 'vendor' ? VENDOR_TIERS : activeRole === 'customer' ? CUSTOMER_TIERS : CREATOR_TIERS).map((tier: any, idx) => (
                         <div
                             key={tier.name}
-                            className={`p-10 rounded-[3rem] border-4 transition-all relative overflow-hidden flex flex-col ${tier.recommended ? 'bg-white border-teal-500 shadow-3xl scale-105 z-10 ring-8 ring-teal-500/5' : 'bg-white/50 border-slate-100'}`}
+                            className={`p-10 rounded-[3rem] border-4 transition-all relative overflow-hidden flex flex-col ${tier.recommended ? 'bg-surface-elevated border-teal-500 shadow-3xl scale-105 z-10 ring-8 ring-teal-500/5' : 'bg-surface-elevated/50 border-border-primary'}`}
                         >
                             {tier.recommended && (
-                                <div className="absolute top-0 right-0 bg-teal-500 px-8 py-3 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-bl-3xl">Best Value</div>
+                                <div className="absolute top-0 right-0 bg-accent-500/100 px-8 py-3 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-bl-3xl">Best Value</div>
                             )}
 
-                            <h3 className="text-2xl font-black text-slate-900 mb-2">{tier.name}</h3>
+                            <h3 className="text-2xl font-black text-ink-primary mb-2">{tier.name}</h3>
                             <div className="flex items-baseline gap-2 mb-8">
-                                <span className={`text-5xl font-black ${tier.color === 'amber' ? 'text-amber-500' : tier.color === 'indigo' ? 'text-indigo-600' : 'text-teal-600'}`}>
+                                <span className={`text-5xl font-black ${tier.color === 'amber' ? 'text-amber-500' : tier.color === 'indigo' ? 'text-[#818cf8]' : 'text-accent-400'}`}>
                                     {tier.price !== 'Custom' ? `$${tier.price}` : tier.price}
                                 </span>
                                 {tier.price !== 'Custom' && tier.price !== '0' && (
-                                    <span className="text-slate-400 text-sm font-bold"> /mo</span>
+                                    <span className="text-ink-tertiary text-sm font-bold"> /mo</span>
                                 )}
                             </div>
 
                             <div className="space-y-6 mb-12 flex-1">
                                 {activeRole === 'vendor' && (
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1">Commission</p>
-                                            <p className="font-black text-slate-900">{tier.commission}</p>
+                                        <div className="bg-surface-primary p-4 rounded-2xl border border-border-primary">
+                                            <p className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest mb-1">Commission</p>
+                                            <p className="font-black text-ink-primary">{tier.commission}</p>
                                         </div>
-                                        <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1">Listings</p>
-                                            <p className="font-black text-slate-900">{tier.listings}</p>
+                                        <div className="bg-surface-primary p-4 rounded-2xl border border-border-primary">
+                                            <p className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest mb-1">Listings</p>
+                                            <p className="font-black text-ink-primary">{tier.listings}</p>
                                         </div>
                                     </div>
                                 )}
@@ -189,7 +189,7 @@ export default function PricingPage() {
 
                                 <ul className="space-y-4">
                                     {tier.features.map((f: string) => (
-                                        <li key={f} className="flex items-center gap-3 text-slate-600 font-medium">
+                                        <li key={f} className="flex items-center gap-3 text-ink-secondary font-medium">
                                             <span className={`text-${tier.color}-500`}>✓</span> {f}
                                         </li>
                                     ))}
@@ -198,7 +198,7 @@ export default function PricingPage() {
 
                             <Link
                                 href={tier.link || '/register'}
-                                className={`w-full py-6 rounded-2xl font-black text-center transition-all ${tier.recommended ? 'bg-teal-600 text-white shadow-2xl shadow-teal-100 hover:scale-105 active:scale-95' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                                className={`w-full py-6 rounded-2xl font-black text-center transition-all ${tier.recommended ? 'bg-accent-500 text-white shadow-2xl shadow-teal-100 hover:scale-105 active:scale-95' : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'}`}
                             >
                                 {tier.buttonText || 'Get Started'}
                             </Link>
@@ -208,20 +208,20 @@ export default function PricingPage() {
             </section>
 
             {/* Comparison Table Section */}
-            <section className="max-w-5xl mx-auto px-4 py-24 border-t border-slate-200">
+            <section className="max-w-5xl mx-auto px-4 py-24 border-t border-border-primary">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight italic">Compare All Features</h2>
-                    <p className="text-slate-500 font-medium">Deep dive into exactly what each tier offers.</p>
+                    <h2 className="text-3xl md:text-4xl font-black text-ink-primary mb-4 tracking-tight italic">Compare All Features</h2>
+                    <p className="text-ink-tertiary font-medium">Deep dive into exactly what each tier offers.</p>
                 </div>
 
-                <div className="bg-white rounded-[3rem] shadow-2xl shadow-slate-200 overflow-hidden border border-slate-100">
+                <div className="bg-surface-elevated rounded-[3rem] shadow-2xl shadow-black/10 overflow-hidden border border-border-primary">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-slate-50/50">
-                                <th className="p-8 font-black text-xs uppercase tracking-widest text-slate-400">Feature</th>
-                                <th className="p-8 font-black text-sm text-slate-900 text-center">Basic</th>
-                                <th className="p-8 font-black text-sm text-teal-600 text-center">Premium</th>
-                                <th className="p-8 font-black text-sm text-indigo-600 text-center">Enterprise</th>
+                            <tr className="bg-surface-primary/50">
+                                <th className="p-8 font-black text-xs uppercase tracking-widest text-ink-tertiary">Feature</th>
+                                <th className="p-8 font-black text-sm text-ink-primary text-center">Basic</th>
+                                <th className="p-8 font-black text-sm text-accent-400 text-center">Premium</th>
+                                <th className="p-8 font-black text-sm text-[#818cf8] text-center">Enterprise</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -233,10 +233,10 @@ export default function PricingPage() {
                                 { name: 'Featured Listings', basic: '❌', premium: '2 / week', enterprise: '10 / week' },
                                 { name: 'Support Tier', basic: 'Email', premium: 'Priority', enterprise: '24/7 Dedicated' }
                             ].map((row) => (
-                                <tr key={row.name} className="hover:bg-slate-50/30 transition-colors">
-                                    <td className="p-8 font-bold text-slate-700">{row.name}</td>
-                                    <td className="p-8 text-center text-slate-500 font-medium">{row.basic}</td>
-                                    <td className="p-8 text-center text-teal-700 font-bold">{row.premium}</td>
+                                <tr key={row.name} className="hover:bg-surface-primary/30 transition-colors">
+                                    <td className="p-8 font-bold text-ink-secondary">{row.name}</td>
+                                    <td className="p-8 text-center text-ink-tertiary font-medium">{row.basic}</td>
+                                    <td className="p-8 text-center text-accent-500 font-bold">{row.premium}</td>
                                     <td className="p-8 text-center text-indigo-700 font-black">{row.enterprise}</td>
                                 </tr>
                             ))}
@@ -246,13 +246,13 @@ export default function PricingPage() {
             </section>
 
             {/* FAQ Teaser */}
-            <section className="bg-teal-600 py-24 text-center text-white px-4">
+            <section className="bg-accent-500 py-24 text-center text-white px-4">
                 <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">Have more questions?</h2>
                 <p className="text-teal-50 text-xl font-medium mb-12 max-w-2xl mx-auto opacity-90">
                     Our team is here to help you choose the right path for your island journey.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-6">
-                    <Link href="/contact" className="px-12 py-5 bg-white text-teal-900 rounded-2xl font-black text-lg shadow-xl hover:scale-105 transition-all">
+                    <Link href="/contact" className="px-12 py-5 bg-surface-elevated text-teal-900 rounded-2xl font-black text-lg shadow-xl hover:scale-105 transition-all">
                         Talk to Sales
                     </Link>
                     <Link href="/how-it-works" className="px-12 py-5 bg-teal-800 text-white rounded-2xl font-black text-lg hover:bg-teal-900 transition-all border border-teal-500/30">

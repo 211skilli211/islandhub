@@ -241,13 +241,13 @@ export default function MessagesPage() {
     };
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             <HeroBackground pageKey="community" className="py-12">
                 <div className="max-w-7xl mx-auto relative z-30 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10"
+                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10"
                     >
                         Messages 💬
                     </motion.div>
@@ -262,17 +262,17 @@ export default function MessagesPage() {
             </HeroBackground>
 
             <section className="max-w-7xl mx-auto px-4 py-8">
-                <div className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 shadow-xl">
+                <div className="bg-surface-elevated rounded-[3rem] overflow-hidden border border-border-primary shadow-xl">
                     <div className="flex h-[70vh]">
                         {/* Conversations List */}
-                        <div className={`w-full md:w-96 border-r border-slate-100 flex flex-col ${selectedConversation ? 'hidden md:flex' : ''}`}>
+                        <div className={`w-full md:w-96 border-r border-border-primary flex flex-col ${selectedConversation ? 'hidden md:flex' : ''}`}>
                             {/* Header */}
-                            <div className="p-6 border-b border-slate-100">
+                            <div className="p-6 border-b border-border-primary">
                                 <div className="flex items-center justify-between mb-4">
-                                    <h2 className="text-xl font-black text-slate-900">Messages</h2>
+                                    <h2 className="text-xl font-black text-ink-primary">Messages</h2>
                                     <button
                                         onClick={() => setShowNewChat(true)}
-                                        className="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center text-xl hover:bg-teal-700 transition-colors"
+                                        className="w-10 h-10 bg-accent-500 text-white rounded-full flex items-center justify-center text-xl hover:bg-accent-600 transition-colors"
                                     >
                                         +
                                     </button>
@@ -280,7 +280,7 @@ export default function MessagesPage() {
                                 <input
                                     type="text"
                                     placeholder="Search conversations..."
-                                    className="w-full px-4 py-3 bg-slate-50 rounded-2xl text-sm font-medium outline-none focus:ring-2 focus:ring-teal-500/20"
+                                    className="w-full px-4 py-3 bg-surface-primary rounded-2xl text-sm font-medium outline-none focus:ring-2 focus:ring-accent-400/20"
                                 />
                             </div>
 
@@ -290,10 +290,10 @@ export default function MessagesPage() {
                                     <div className="p-4 space-y-4">
                                         {[1, 2, 3, 4, 5].map(i => (
                                             <div key={i} className="flex gap-4 animate-pulse">
-                                                <div className="w-12 h-12 bg-slate-200 rounded-full"></div>
+                                                <div className="w-12 h-12 bg-surface-tertiary rounded-full"></div>
                                                 <div className="flex-1">
-                                                    <div className="h-4 bg-slate-200 rounded w-1/3 mb-2"></div>
-                                                    <div className="h-3 bg-slate-100 rounded w-2/3"></div>
+                                                    <div className="h-4 bg-surface-tertiary rounded w-1/3 mb-2"></div>
+                                                    <div className="h-3 bg-surface-secondary rounded w-2/3"></div>
                                                 </div>
                                             </div>
                                         ))}
@@ -305,30 +305,30 @@ export default function MessagesPage() {
                                             <button
                                                 key={conversation.id}
                                                 onClick={() => setSelectedConversation(conversation)}
-                                                className={`w-full p-4 flex items-center gap-4 hover:bg-slate-50 transition-colors border-b border-slate-50 ${selectedConversation?.id === conversation.id ? 'bg-teal-50' : ''
+                                                className={`w-full p-4 flex items-center gap-4 hover:bg-surface-primary transition-colors border-b border-slate-50 ${selectedConversation?.id === conversation.id ? 'bg-accent-500/10' : ''
                                                     }`}
                                             >
                                                 <div className="relative">
-                                                    <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center text-xl">
+                                                    <div className="w-12 h-12 bg-surface-tertiary rounded-full flex items-center justify-center text-xl">
                                                         {otherUser ? '👤' : '👥'}
                                                     </div>
                                                     {conversation.is_online && (
-                                                        <div className="absolute bottom-0 right-0 w-3 h-3 bg-teal-500 border-2 border-white rounded-full"></div>
+                                                        <div className="absolute bottom-0 right-0 w-3 h-3 bg-accent-500/100 border-2 border-white rounded-full"></div>
                                                     )}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center justify-between mb-1">
-                                                        <span className="font-black text-slate-900 truncate">
+                                                        <span className="font-black text-ink-primary truncate">
                                                             {conversation.name || 'Group Chat'}
                                                         </span>
-                                                        <span className="text-xs font-bold text-slate-400">
+                                                        <span className="text-xs font-bold text-ink-tertiary">
                                                             {formatTime(conversation.last_message_at)}
                                                         </span>
                                                     </div>
-                                                    <p className="text-sm text-slate-500 truncate">{conversation.last_message}</p>
+                                                    <p className="text-sm text-ink-tertiary truncate">{conversation.last_message}</p>
                                                 </div>
                                                 {conversation.unread_count > 0 && (
-                                                    <div className="w-6 h-6 bg-teal-600 text-white rounded-full flex items-center justify-center text-xs font-black">
+                                                    <div className="w-6 h-6 bg-accent-500 text-white rounded-full flex items-center justify-center text-xs font-black">
                                                         {conversation.unread_count}
                                                     </div>
                                                 )}
@@ -344,32 +344,32 @@ export default function MessagesPage() {
                             {selectedConversation ? (
                                 <>
                                     {/* Chat Header */}
-                                    <div className="p-6 border-b border-slate-100 flex items-center gap-4">
+                                    <div className="p-6 border-b border-border-primary flex items-center gap-4">
                                         <button
                                             onClick={() => setSelectedConversation(null)}
-                                            className="md:hidden text-slate-500"
+                                            className="md:hidden text-ink-tertiary"
                                         >
                                             ←
                                         </button>
                                         <div className="relative">
-                                            <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-lg">
+                                            <div className="w-10 h-10 bg-surface-tertiary rounded-full flex items-center justify-center text-lg">
                                                 {selectedConversation.type === 'group' ? '👥' : '👤'}
                                             </div>
                                             {selectedConversation.is_online && (
-                                                <div className="absolute bottom-0 right-0 w-2 h-2 bg-teal-500 border-2 border-white rounded-full"></div>
+                                                <div className="absolute bottom-0 right-0 w-2 h-2 bg-accent-500/100 border-2 border-white rounded-full"></div>
                                             )}
                                         </div>
                                         <div className="flex-1">
-                                            <h3 className="font-black text-slate-900">{selectedConversation.name}</h3>
-                                            <p className="text-xs text-slate-400">
+                                            <h3 className="font-black text-ink-primary">{selectedConversation.name}</h3>
+                                            <p className="text-xs text-ink-tertiary">
                                                 {selectedConversation.is_online ? 'Online' : 'Offline'}
                                             </p>
                                         </div>
                                         <div className="flex gap-2">
-                                            <button className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+                                            <button className="w-10 h-10 bg-surface-secondary rounded-full flex items-center justify-center text-ink-tertiary hover:bg-surface-tertiary transition-colors">
                                                 📞
                                             </button>
-                                            <button className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+                                            <button className="w-10 h-10 bg-surface-secondary rounded-full flex items-center justify-center text-ink-tertiary hover:bg-surface-tertiary transition-colors">
                                                 📹
                                             </button>
                                         </div>
@@ -383,14 +383,14 @@ export default function MessagesPage() {
                                                 className={`flex ${message.sender_id === currentUserId ? 'justify-end' : 'justify-start'}`}
                                             >
                                                 <div className={`max-w-[70%] ${message.sender_id === currentUserId
-                                                    ? 'bg-teal-600 text-white rounded-3xl rounded-tr-md'
-                                                    : 'bg-slate-100 text-slate-900 rounded-3xl rounded-tl-md'
+                                                    ? 'bg-accent-500 text-white rounded-3xl rounded-tr-md'
+                                                    : 'bg-surface-secondary text-ink-primary rounded-3xl rounded-tl-md'
                                                     } px-6 py-3`}>
                                                     {message.sender_id !== currentUserId && (
                                                         <p className="text-xs font-black mb-1 opacity-70">{message.sender_name}</p>
                                                     )}
                                                     <p className="text-sm font-medium">{message.content}</p>
-                                                    <p className={`text-[10px] mt-1 ${message.sender_id === currentUserId ? 'text-teal-200' : 'text-slate-400'
+                                                    <p className={`text-[10px] mt-1 ${message.sender_id === currentUserId ? 'text-teal-200' : 'text-ink-tertiary'
                                                         }`}>
                                                         {formatTime(message.created_at)}
                                                     </p>
@@ -401,9 +401,9 @@ export default function MessagesPage() {
                                     </div>
 
                                     {/* Input */}
-                                    <div className="p-6 border-t border-slate-100">
+                                    <div className="p-6 border-t border-border-primary">
                                         <div className="flex items-center gap-4">
-                                            <button className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+                                            <button className="w-10 h-10 bg-surface-secondary rounded-full flex items-center justify-center text-ink-tertiary hover:bg-surface-tertiary transition-colors">
                                                 📎
                                             </button>
                                             <input
@@ -412,12 +412,12 @@ export default function MessagesPage() {
                                                 onChange={(e) => setNewMessage(e.target.value)}
                                                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                                                 placeholder="Type a message..."
-                                                className="flex-1 px-6 py-3 bg-slate-100 rounded-full text-sm font-medium outline-none focus:ring-2 focus:ring-teal-500/20"
+                                                className="flex-1 px-6 py-3 bg-surface-secondary rounded-full text-sm font-medium outline-none focus:ring-2 focus:ring-accent-400/20"
                                             />
                                             <button
                                                 onClick={handleSendMessage}
                                                 disabled={!newMessage.trim()}
-                                                className="w-12 h-12 bg-teal-600 text-white rounded-full flex items-center justify-center text-xl hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                                className="w-12 h-12 bg-accent-500 text-white rounded-full flex items-center justify-center text-xl hover:bg-accent-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                             >
                                                 ➤
                                             </button>
@@ -427,14 +427,14 @@ export default function MessagesPage() {
                             ) : (
                                 <div className="flex-1 flex items-center justify-center">
                                     <div className="text-center">
-                                        <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center text-5xl mx-auto mb-4">
+                                        <div className="w-24 h-24 bg-surface-secondary rounded-full flex items-center justify-center text-5xl mx-auto mb-4">
                                             💬
                                         </div>
-                                        <h3 className="text-xl font-black text-slate-900 mb-2">Select a conversation</h3>
-                                        <p className="text-slate-400 font-medium">Choose from your existing conversations or start a new one</p>
+                                        <h3 className="text-xl font-black text-ink-primary mb-2">Select a conversation</h3>
+                                        <p className="text-ink-tertiary font-medium">Choose from your existing conversations or start a new one</p>
                                         <button
                                             onClick={() => setShowNewChat(true)}
-                                            className="mt-6 px-8 py-3 bg-teal-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-teal-700 transition-colors"
+                                            className="mt-6 px-8 py-3 bg-accent-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-accent-600 transition-colors"
                                         >
                                             New Message
                                         </button>
@@ -460,14 +460,14 @@ export default function MessagesPage() {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-white rounded-[3rem] p-8 max-w-md w-full"
+                            className="bg-surface-elevated rounded-[3rem] p-8 max-w-md w-full"
                             onClick={e => e.stopPropagation()}
                         >
-                            <h3 className="text-2xl font-black text-slate-900 mb-6">New Message</h3>
+                            <h3 className="text-2xl font-black text-ink-primary mb-6">New Message</h3>
                             <input
                                 type="text"
                                 placeholder="Search for users..."
-                                className="w-full px-6 py-4 bg-slate-50 rounded-2xl text-sm font-medium outline-none focus:ring-2 focus:ring-teal-500/20 mb-4"
+                                className="w-full px-6 py-4 bg-surface-primary rounded-2xl text-sm font-medium outline-none focus:ring-2 focus:ring-accent-400/20 mb-4"
                             />
                             <div className="space-y-2 max-h-60 overflow-y-auto">
                                 {['Maria Santos', 'James Wilson', 'Sarah Chen', 'Mike Rivera', 'David Park'].map(name => (
@@ -477,16 +477,16 @@ export default function MessagesPage() {
                                             setShowNewChat(false);
                                             // Would navigate to new conversation
                                         }}
-                                        className="w-full p-4 flex items-center gap-4 hover:bg-slate-50 rounded-2xl transition-colors"
+                                        className="w-full p-4 flex items-center gap-4 hover:bg-surface-primary rounded-2xl transition-colors"
                                     >
-                                        <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center">👤</div>
-                                        <span className="font-bold text-slate-900">{name}</span>
+                                        <div className="w-10 h-10 bg-surface-tertiary rounded-full flex items-center justify-center">👤</div>
+                                        <span className="font-bold text-ink-primary">{name}</span>
                                     </button>
                                 ))}
                             </div>
                             <button
                                 onClick={() => setShowNewChat(false)}
-                                className="mt-6 w-full py-3 text-slate-500 font-bold"
+                                className="mt-6 w-full py-3 text-ink-tertiary font-bold"
                             >
                                 Cancel
                             </button>

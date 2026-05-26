@@ -23,8 +23,8 @@ export default function AdminRevenuePage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Revenue Analytics</h2>
-                <p className="text-slate-500 dark:text-slate-400">Track platform revenue and earnings</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Revenue Analytics</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Track platform revenue and earnings</p>
             </div>
             <RevenueTab />
         </div>

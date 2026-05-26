@@ -14,7 +14,7 @@ import { QRCodeSVG } from 'qrcode.react';
 
 function QRDisplay({ token }: { token: string }) {
   return (
-    <div className="bg-white p-4 rounded-xl inline-block">
+    <div className="bg-surface-elevated p-4 rounded-xl inline-block">
       <QRCodeSVG
         value={token}
         size={160}
@@ -23,7 +23,7 @@ function QRDisplay({ token }: { token: string }) {
         bgColor="#ffffff"
         fgColor="#0f172a"
       />
-      <p className="text-center text-[10px] text-slate-400 mt-2 font-mono">{token.slice(0, 16)}...</p>
+      <p className="text-center text-[10px] text-ink-tertiary mt-2 font-mono">{token.slice(0, 16)}...</p>
     </div>
   );
 }
@@ -36,7 +36,7 @@ export default function MyTicketsPage() {
   const pastTickets = tickets.filter(t => t.status !== 'valid');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
+    <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
         <div className="max-w-4xl mx-auto px-4 py-10">
@@ -49,9 +49,9 @@ export default function MyTicketsPage() {
         {loading ? (
           <div className="space-y-4">
             {[1,2].map(i => (
-              <div key={i} className="bg-white dark:bg-ocean-800 rounded-2xl p-6 animate-pulse">
-                <div className="h-6 bg-slate-200 dark:bg-ocean-700 rounded w-1/3 mb-4" />
-                <div className="h-4 bg-slate-200 dark:bg-ocean-700 rounded w-1/2" />
+              <div key={i} className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 animate-pulse">
+                <div className="h-6 bg-surface-tertiary dark:bg-ocean-700 rounded w-1/3 mb-4" />
+                <div className="h-4 bg-surface-tertiary dark:bg-ocean-700 rounded w-1/2" />
               </div>
             ))}
           </div>
@@ -59,7 +59,7 @@ export default function MyTicketsPage() {
           <div className="text-center py-20">
             <p className="text-6xl mb-4">🎫</p>
             <h3 className="text-2xl font-black text-slate-800 dark:text-sand-50">No tickets yet</h3>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Browse events and grab your first ticket!</p>
+            <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Browse events and grab your first ticket!</p>
             <Link href="/events" className="mt-6 inline-block px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
               Browse Events
             </Link>
@@ -69,15 +69,15 @@ export default function MyTicketsPage() {
             {/* Active Tickets */}
             {activeTickets.length > 0 && (
               <div>
-                <h2 className="text-xl font-black text-slate-900 dark:text-sand-50 mb-4">Active Tickets ({activeTickets.length})</h2>
+                <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Active Tickets ({activeTickets.length})</h2>
                 <div className="space-y-4">
                   {activeTickets.map(ticket => {
                     const event = ticket.event;
                     const isOpen = selectedTicket === ticket.ticket_id;
                     return (
-                      <div key={ticket.ticket_id} className="bg-white dark:bg-ocean-800 rounded-2xl border border-slate-100 dark:border-ocean-700 overflow-hidden">
+                      <div key={ticket.ticket_id} className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl border border-border-primary dark:border-ocean-700 overflow-hidden">
                         <div
-                          className="p-6 cursor-pointer hover:bg-slate-50 dark:hover:bg-ocean-700/50 transition-colors"
+                          className="p-6 cursor-pointer hover:bg-surface-primary dark:hover:bg-ocean-700/50 transition-colors"
                           onClick={() => setSelectedTicket(isOpen ? null : ticket.ticket_id)}
                         >
                           <div className="flex items-start gap-4">
@@ -89,8 +89,8 @@ export default function MyTicketsPage() {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between">
                                 <div>
-                                  <p className="font-black text-lg text-slate-900 dark:text-sand-50">{event?.title || 'Event'}</p>
-                                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                  <p className="font-black text-lg text-ink-primary dark:text-sand-50">{event?.title || 'Event'}</p>
+                                  <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">
                                     📅 {event?.start_date ? formatDate(event.start_date) : 'TBD'} · 📍 {event?.venue || 'TBD'}
                                   </p>
                                   <p className="text-xs text-purple-600 dark:text-purple-400 font-bold mt-2">
@@ -99,7 +99,7 @@ export default function MyTicketsPage() {
                                 </div>
                                 <div className="text-right shrink-0 ml-4">
                                   <span className="inline-block px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-bold">{ticket.status}</span>
-                                  <p className="text-xs text-slate-400 mt-2">{isOpen ? '▲ Hide QR' : '▼ Show QR'}</p>
+                                  <p className="text-xs text-ink-tertiary mt-2">{isOpen ? '▲ Hide QR' : '▼ Show QR'}</p>
                                 </div>
                               </div>
                             </div>
@@ -108,15 +108,15 @@ export default function MyTicketsPage() {
 
                         {/* QR Code Expanded */}
                         {isOpen && (
-                          <div className="border-t border-slate-100 dark:border-ocean-700 p-6 bg-slate-50 dark:bg-ocean-900/50">
+                          <div className="border-t border-border-primary dark:border-ocean-700 p-6 bg-surface-primary dark:bg-ocean-900/50">
                             <div className="flex flex-col sm:flex-row items-center gap-6">
                               <QRDisplay token={ticket.qr_token} />
                               <div className="text-center sm:text-left">
-                                <p className="text-sm text-slate-500 dark:text-slate-400">Present this QR code at the venue entrance</p>
-                                <p className="text-xs text-slate-400 mt-2 font-mono">Token: {ticket.qr_token}</p>
+                                <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Present this QR code at the venue entrance</p>
+                                <p className="text-xs text-ink-tertiary mt-2 font-mono">Token: {ticket.qr_token}</p>
                                 <div className="mt-4 flex gap-2">
                                   <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-xs font-bold">{ticket.holder_name}</span>
-                                  <span className="px-2 py-1 bg-slate-100 dark:bg-ocean-700 text-slate-600 dark:text-slate-300 rounded text-xs">{ticket.holder_email}</span>
+                                  <span className="px-2 py-1 bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-slate-300 rounded text-xs">{ticket.holder_email}</span>
                                 </div>
                               </div>
                             </div>
@@ -132,17 +132,17 @@ export default function MyTicketsPage() {
             {/* Past Tickets */}
             {pastTickets.length > 0 && (
               <div>
-                <h2 className="text-xl font-black text-slate-900 dark:text-sand-50 mb-4">Past Tickets ({pastTickets.length})</h2>
+                <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Past Tickets ({pastTickets.length})</h2>
                 <div className="space-y-3">
                   {pastTickets.map(ticket => (
-                    <div key={ticket.ticket_id} className="bg-white dark:bg-ocean-800 rounded-xl p-4 border border-slate-100 dark:border-ocean-700 opacity-60">
+                    <div key={ticket.ticket_id} className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 border border-border-primary dark:border-ocean-700 opacity-60">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-bold text-slate-700 dark:text-slate-200">{ticket.event?.title || 'Event'} — {ticket.tier?.name || 'Ticket'}</p>
-                          <p className="text-xs text-slate-500">#{ticket.ticket_id} · {ticket.status}</p>
+                          <p className="font-bold text-ink-secondary dark:text-slate-200">{ticket.event?.title || 'Event'} — {ticket.tier?.name || 'Ticket'}</p>
+                          <p className="text-xs text-ink-tertiary">#{ticket.ticket_id} · {ticket.status}</p>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          ticket.status === 'used' ? 'bg-slate-100 text-slate-600 dark:bg-ocean-700 dark:text-slate-300' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+                          ticket.status === 'used' ? 'bg-surface-secondary text-ink-secondary dark:bg-ocean-700 dark:text-slate-300' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
                         }`}>{ticket.status}</span>
                       </div>
                     </div>

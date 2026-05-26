@@ -23,8 +23,8 @@ export default function AdminDriversPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Driver Management</h2>
-                <p className="text-slate-500 dark:text-slate-400">Manage drivers and rider accounts</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Driver Management</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Manage drivers and rider accounts</p>
             </div>
             <DriversTab />
         </div>

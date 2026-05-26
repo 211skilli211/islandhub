@@ -23,8 +23,8 @@ export default function AdminBroadcastsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Broadcasts</h2>
-                <p className="text-slate-500 dark:text-slate-400">Send notifications and announcements to users</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Broadcasts</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Send notifications and announcements to users</p>
             </div>
             <BroadcastTab />
         </div>

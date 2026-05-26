@@ -132,12 +132,12 @@ export default function FAQPage() {
     const activeFaq = faqCategories.find(c => c.id === activeCategory);
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             {/* Hero */}
             <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 py-24 px-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[100px]" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/100/10 rounded-full blur-[100px]" />
                 <div className="max-w-3xl mx-auto text-center relative z-10">
-                    <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
+                    <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
                         Help Center
                     </span>
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Frequently Asked Questions</h1>
@@ -147,12 +147,12 @@ export default function FAQPage() {
 
             {/* Search */}
             <section className="max-w-2xl mx-auto px-4 -mt-8 relative z-20">
-                <div className="bg-white p-2 rounded-[2rem] shadow-2xl flex items-center gap-4">
+                <div className="bg-surface-elevated p-2 rounded-[2rem] shadow-2xl flex items-center gap-4">
                     <span className="pl-6 text-2xl">🔍</span>
                     <input 
                         type="text" 
                         placeholder="Search for answers..."
-                        className="flex-1 py-4 bg-transparent focus:outline-none text-slate-900 placeholder:text-slate-400"
+                        className="flex-1 py-4 bg-transparent focus:outline-none text-ink-primary placeholder:text-ink-tertiary"
                     />
                 </div>
             </section>
@@ -162,8 +162,8 @@ export default function FAQPage() {
                 <div className="grid md:grid-cols-4 gap-8">
                     {/* Sidebar */}
                     <div className="md:col-span-1">
-                        <div className="bg-white rounded-[3rem] p-6 shadow-lg border border-slate-100 sticky top-8">
-                            <h3 className="font-black text-slate-900 mb-6 uppercase text-xs tracking-widest">Categories</h3>
+                        <div className="bg-surface-elevated rounded-[3rem] p-6 shadow-lg border border-border-primary sticky top-8">
+                            <h3 className="font-black text-ink-primary mb-6 uppercase text-xs tracking-widest">Categories</h3>
                             <div className="space-y-2">
                                 {faqCategories.map(cat => (
                                     <button
@@ -171,8 +171,8 @@ export default function FAQPage() {
                                         onClick={() => setActiveCategory(cat.id)}
                                         className={`w-full text-left px-6 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all flex items-center gap-3 ${
                                             activeCategory === cat.id 
-                                                ? 'bg-teal-600 text-white shadow-lg shadow-teal-100' 
-                                                : 'text-slate-500 hover:bg-slate-50'
+                                                ? 'bg-accent-500 text-white shadow-lg shadow-teal-100' 
+                                                : 'text-ink-tertiary hover:bg-surface-primary'
                                         }`}
                                     >
                                         <span>{cat.icon}</span> {cat.label}
@@ -184,8 +184,8 @@ export default function FAQPage() {
 
                     {/* Questions */}
                     <div className="md:col-span-3">
-                        <div className="bg-white rounded-[3rem] p-10 shadow-lg border border-slate-100">
-                            <h2 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                        <div className="bg-surface-elevated rounded-[3rem] p-10 shadow-lg border border-border-primary">
+                            <h2 className="text-2xl font-black text-ink-primary mb-8 flex items-center gap-3">
                                 <span className="text-3xl">{activeFaq?.icon}</span>
                                 {activeFaq?.label} Questions
                             </h2>
@@ -194,17 +194,17 @@ export default function FAQPage() {
                                     const qId = `${activeCategory}-${idx}`;
                                     const isOpen = openQuestions.includes(qId);
                                     return (
-                                        <div key={idx} className={`border rounded-2xl overflow-hidden transition-all ${isOpen ? 'border-teal-200 bg-teal-50/30' : 'border-slate-100'}`}>
+                                        <div key={idx} className={`border rounded-2xl overflow-hidden transition-all ${isOpen ? 'border-teal-200 bg-accent-500/10/30' : 'border-border-primary'}`}>
                                             <button
                                                 onClick={() => toggleQuestion(qId)}
                                                 className="w-full text-left px-6 py-5 flex items-center justify-between gap-4"
                                             >
-                                                <span className="font-black text-slate-900">{item.q}</span>
+                                                <span className="font-black text-ink-primary">{item.q}</span>
                                                 <span className={`text-2xl transition-transform ${isOpen ? 'rotate-180' : ''}`}>▼</span>
                                             </button>
                                             {isOpen && (
                                                 <div className="px-6 pb-6 pt-2">
-                                                    <p className="text-slate-600 leading-relaxed">{item.a}</p>
+                                                    <p className="text-ink-secondary leading-relaxed">{item.a}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -217,7 +217,7 @@ export default function FAQPage() {
                         <div className="mt-10 bg-teal-900 rounded-[3rem] p-10 text-center text-white">
                             <h3 className="text-2xl font-black mb-4">Still have questions?</h3>
                             <p className="text-teal-100 mb-8 max-w-lg mx-auto">Our team is here to help you succeed. Reach out and we'll get back to you within 24 hours.</p>
-                            <Link href="/contact" className="inline-block px-10 py-5 bg-white text-teal-900 rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-xl transition-all">
+                            <Link href="/contact" className="inline-block px-10 py-5 bg-surface-elevated text-teal-900 rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-xl transition-all">
                                 Contact Support
                             </Link>
                         </div>

@@ -139,7 +139,7 @@ export default function CampaignsPage() {
     };
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-surface-elevated">
             {/* ─── HERO ─── */}
             <HeroBackground pageKey="campaigns" fallbackTitle="Campaigns & Events" className="min-h-[460px]">
                 <motion.div
@@ -153,7 +153,7 @@ export default function CampaignsPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-md rounded-full border border-white/20 mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-elevated/15 backdrop-blur-md rounded-full border border-white/20 mb-6"
                     >
                         <span className="text-sm">🎉</span>
                         <span className="text-xs font-semibold text-white/90 tracking-wide uppercase">Discover &amp; Experience</span>
@@ -181,12 +181,12 @@ export default function CampaignsPage() {
                             placeholder="Search events, campaigns, venues..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-14 pr-5 py-4 bg-white/95 backdrop-blur-md rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400/60 shadow-2xl shadow-purple-900/20 border border-white/10 text-sm"
+                            className="w-full pl-14 pr-5 py-4 bg-surface-elevated/95 backdrop-blur-md rounded-2xl text-ink-primary font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400/60 shadow-2xl shadow-purple-900/20 border border-white/10 text-sm"
                         />
                         {searchTerm && (
                             <button
                                 onClick={() => setSearchTerm('')}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-tertiary hover:text-ink-secondary transition-colors"
                             >
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -201,7 +201,7 @@ export default function CampaignsPage() {
                             <div className="text-2xl font-black text-white">{campaigns.length}</div>
                             <div className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Campaigns</div>
                         </div>
-                        <div className="w-px h-8 bg-white/20" />
+                        <div className="w-px h-8 bg-surface-elevated/20" />
                         <div className="text-center">
                             <div className="text-2xl font-black text-white">{events.length}</div>
                             <div className="text-[10px] font-semibold text-white/50 uppercase tracking-widest">Events</div>
@@ -211,7 +211,7 @@ export default function CampaignsPage() {
             </HeroBackground>
 
             {/* ─── CATEGORY FILTER / TAB BAR ─── */}
-            <section className="bg-white border-b border-slate-100 sticky top-0 z-30 shadow-sm shadow-purple-500/5">
+            <section className="bg-surface-elevated border-b border-border-primary sticky top-0 z-30 shadow-sm shadow-purple-500/5">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                         {/* Tab Switcher */}
@@ -221,7 +221,7 @@ export default function CampaignsPage() {
                                 className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
                                     activeTab === 'campaigns'
                                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
-                                        : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-purple-300 hover:text-purple-600'
+                                        : 'bg-surface-primary text-ink-secondary border border-border-primary hover:border-purple-300 hover:text-purple-600'
                                 }`}
                             >
                                 💜 Campaigns
@@ -232,7 +232,7 @@ export default function CampaignsPage() {
                                 className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
                                     activeTab === 'events'
                                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
-                                        : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-purple-300 hover:text-purple-600'
+                                        : 'bg-surface-primary text-ink-secondary border border-border-primary hover:border-purple-300 hover:text-purple-600'
                                 }`}
                             >
                                 🎟️ Events
@@ -263,10 +263,10 @@ export default function CampaignsPage() {
 
                 {/* Section Header */}
                 <div className="mb-8">
-                    <h2 className="text-2xl font-black text-slate-900">
+                    <h2 className="text-2xl font-black text-ink-primary">
                         {activeTab === 'campaigns' ? '💜 Active Campaigns' : '🎟️ Upcoming Events'}
                     </h2>
-                    <p className="text-sm text-slate-500 mt-1 font-medium">
+                    <p className="text-sm text-ink-tertiary mt-1 font-medium">
                         {activeTab === 'campaigns'
                             ? 'Support these causes and make a difference.'
                             : filteredItems.length > 0
@@ -281,10 +281,10 @@ export default function CampaignsPage() {
                         <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl flex items-center justify-center">
                             <span className="text-5xl">{activeTab === 'campaigns' ? '💜' : '🎟️'}</span>
                         </div>
-                        <h3 className="text-xl font-bold text-slate-900 mb-2">
+                        <h3 className="text-xl font-bold text-ink-primary mb-2">
                             No {activeTab} found
                         </h3>
-                        <p className="text-slate-500 mb-8 max-w-md mx-auto text-sm">
+                        <p className="text-ink-tertiary mb-8 max-w-md mx-auto text-sm">
                             {searchTerm
                                 ? 'Try adjusting your search terms or browse all categories.'
                                 : 'Check back soon — new campaigns and events are being added regularly.'}
@@ -293,7 +293,7 @@ export default function CampaignsPage() {
                             {searchTerm && (
                                 <button
                                     onClick={() => setSearchTerm('')}
-                                    className="px-6 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors text-sm"
+                                    className="px-6 py-3 bg-surface-tertiary text-white font-bold rounded-xl hover:bg-surface-tertiary transition-colors text-sm"
                                 >
                                     Clear Search
                                 </button>
@@ -332,7 +332,7 @@ export default function CampaignsPage() {
                                     >
                                         <Link
                                             href={item.slug ? `/listings/${item.slug}` : `/listings/${item.id}`}
-                                            className="group block bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-200 transition-all duration-300"
+                                            className="group block bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-200 transition-all duration-300"
                                         >
                                             {/* Image with Date Badge */}
                                             <div className="relative h-48 overflow-hidden">
@@ -349,24 +349,24 @@ export default function CampaignsPage() {
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
                                                 {/* Date Badge */}
-                                                <div className="absolute top-4 left-4 bg-white rounded-xl overflow-hidden shadow-lg shadow-black/20 text-center w-[60px]">
+                                                <div className="absolute top-4 left-4 bg-surface-elevated rounded-xl overflow-hidden shadow-lg shadow-black/20 text-center w-[60px]">
                                                     <div className="bg-purple-500 text-white text-[10px] font-bold py-1 uppercase tracking-wider">
                                                         {dateInfo.month}
                                                     </div>
                                                     <div className="py-1.5">
-                                                        <span className="text-xl font-black text-slate-900">{dateInfo.day}</span>
+                                                        <span className="text-xl font-black text-ink-primary">{dateInfo.day}</span>
                                                     </div>
                                                 </div>
 
                                                 {/* Category Badge */}
-                                                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-purple-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                                                <div className="absolute top-4 right-4 bg-surface-elevated/90 backdrop-blur-sm text-purple-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                                                     Event
                                                 </div>
 
                                                 {/* Bottom gradient info */}
                                                 <div className="absolute bottom-0 left-0 right-0 p-4">
                                                     {item.store_name && (
-                                                        <div className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md rounded-full px-3 py-1">
+                                                        <div className="inline-flex items-center gap-1.5 bg-surface-elevated/15 backdrop-blur-md rounded-full px-3 py-1">
                                                             {item.store_logo && (
                                                                 <img
                                                                     src={getImageUrl(item.store_logo)}
@@ -382,7 +382,7 @@ export default function CampaignsPage() {
 
                                             {/* Card Body */}
                                             <div className="p-5">
-                                                <h3 className="text-[15px] font-bold text-slate-900 group-hover:text-purple-600 transition-colors leading-snug mb-3 line-clamp-2 min-h-[2.5rem]">
+                                                <h3 className="text-[15px] font-bold text-ink-primary group-hover:text-purple-600 transition-colors leading-snug mb-3 line-clamp-2 min-h-[2.5rem]">
                                                     {item.title}
                                                 </h3>
 
@@ -392,22 +392,22 @@ export default function CampaignsPage() {
                                                         <svg className="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                         </svg>
-                                                        <span className="text-xs font-medium text-slate-600">{eventDate} · {eventTime}</span>
+                                                        <span className="text-xs font-medium text-ink-secondary">{eventDate} · {eventTime}</span>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <svg className="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         </svg>
-                                                        <span className="text-xs font-medium text-slate-600 line-clamp-1">
+                                                        <span className="text-xs font-medium text-ink-secondary line-clamp-1">
                                                             {item.store_name ? `at ${item.store_name}` : 'Venue TBA'}
                                                         </span>
                                                     </div>
                                                 </div>
 
                                                 {/* CTA */}
-                                                <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                                                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Entry</span>
+                                                <div className="flex items-center justify-between pt-3 border-t border-border-primary">
+                                                    <span className="text-[11px] font-bold text-ink-tertiary uppercase tracking-wider">Entry</span>
                                                     <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20">
                                                         Get Tickets
                                                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -445,7 +445,7 @@ export default function CampaignsPage() {
                                     >
                                         <Link
                                             href={item.slug ? `/listings/${item.slug}` : `/listings/${item.id}`}
-                                            className="group block bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-200 transition-all duration-300"
+                                            className="group block bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-200 transition-all duration-300"
                                         >
                                             {/* Image */}
                                             <div className="relative h-48 overflow-hidden">
@@ -467,7 +467,7 @@ export default function CampaignsPage() {
 
                                                 {/* Deadline badge */}
                                                 {item.end_date && (
-                                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-slate-700 text-[10px] font-bold px-3 py-1.5 rounded-full">
+                                                    <div className="absolute top-4 right-4 bg-surface-elevated/90 backdrop-blur-sm text-ink-secondary text-[10px] font-bold px-3 py-1.5 rounded-full">
                                                         Ends {formatEventDate(item.end_date).split(',')[0]}
                                                     </div>
                                                 )}
@@ -475,10 +475,10 @@ export default function CampaignsPage() {
 
                                             {/* Card Body */}
                                             <div className="p-5">
-                                                <h3 className="text-[15px] font-bold text-slate-900 group-hover:text-purple-600 transition-colors leading-snug mb-2 line-clamp-2 min-h-[2.5rem]">
+                                                <h3 className="text-[15px] font-bold text-ink-primary group-hover:text-purple-600 transition-colors leading-snug mb-2 line-clamp-2 min-h-[2.5rem]">
                                                     {item.title}
                                                 </h3>
-                                                <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
+                                                <p className="text-xs text-ink-tertiary line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
                                                     {item.description}
                                                 </p>
 
@@ -487,27 +487,27 @@ export default function CampaignsPage() {
                                                     <div className="mb-4">
                                                         <div className="flex items-center justify-between text-[11px] font-bold mb-1.5">
                                                             <span className="text-purple-600">${item.raised_amount || 0} raised</span>
-                                                            <span className="text-slate-400">{getProgress(item)}%</span>
+                                                            <span className="text-ink-tertiary">{getProgress(item)}%</span>
                                                         </div>
-                                                        <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                                                        <div className="w-full h-2.5 bg-surface-secondary rounded-full overflow-hidden">
                                                             <div
                                                                 className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all"
                                                                 style={{ width: `${getProgress(item)}%` }}
                                                             />
                                                         </div>
-                                                        <div className="text-[10px] text-slate-400 mt-1 font-medium">
+                                                        <div className="text-[10px] text-ink-tertiary mt-1 font-medium">
                                                             Goal: ${item.goal_amount}
                                                         </div>
                                                     </div>
                                                 )}
 
-                                                <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+                                                <div className="flex items-center justify-between pt-3 border-t border-border-primary">
                                                     {item.store_name && (
                                                         <div className="flex items-center gap-2">
                                                             {item.store_logo && (
                                                                 <img src={getImageUrl(item.store_logo)} alt="" className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-200" />
                                                             )}
-                                                            <span className="text-[11px] font-semibold text-slate-500 line-clamp-1">{item.store_name}</span>
+                                                            <span className="text-[11px] font-semibold text-ink-tertiary line-clamp-1">{item.store_name}</span>
                                                         </div>
                                                     )}
                                                     <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-xl group-hover:from-purple-600 group-hover:to-pink-600 transition-all shadow-md shadow-purple-500/20 ml-auto">
@@ -530,13 +530,13 @@ export default function CampaignsPage() {
                 {loading && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
-                                <div className="h-48 bg-slate-100 animate-pulse" />
+                            <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+                                <div className="h-48 bg-surface-secondary animate-pulse" />
                                 <div className="p-5 space-y-3">
-                                    <div className="h-4 bg-slate-100 rounded-full w-3/4 animate-pulse" />
-                                    <div className="h-3 bg-slate-100 rounded-full w-full animate-pulse" />
-                                    <div className="h-3 bg-slate-100 rounded-full w-2/3 animate-pulse" />
-                                    <div className="h-8 bg-slate-100 rounded-xl w-full animate-pulse mt-4" />
+                                    <div className="h-4 bg-surface-secondary rounded-full w-3/4 animate-pulse" />
+                                    <div className="h-3 bg-surface-secondary rounded-full w-full animate-pulse" />
+                                    <div className="h-3 bg-surface-secondary rounded-full w-2/3 animate-pulse" />
+                                    <div className="h-8 bg-surface-secondary rounded-xl w-full animate-pulse mt-4" />
                                 </div>
                             </div>
                         ))}
@@ -561,7 +561,7 @@ export default function CampaignsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-elevated/10 backdrop-blur-sm rounded-full border border-white/15 mb-6">
                             <span className="text-sm">✨</span>
                             <span className="text-xs font-bold text-white/80 uppercase tracking-widest">Get Started</span>
                         </div>
@@ -577,7 +577,7 @@ export default function CampaignsPage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
                                 href="/become-vendor"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-purple-700 font-black rounded-2xl hover:bg-purple-50 transition-colors shadow-2xl shadow-black/20 text-sm uppercase tracking-wider"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface-elevated text-purple-700 font-black rounded-2xl hover:bg-purple-50 transition-colors shadow-2xl shadow-black/20 text-sm uppercase tracking-wider"
                             >
                                 💜 Launch Campaign
                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -586,7 +586,7 @@ export default function CampaignsPage() {
                             </Link>
                             <Link
                                 href="/campaigns/new"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-black rounded-2xl hover:bg-white/20 transition-colors shadow-2xl shadow-black/20 text-sm uppercase tracking-wider border-2 border-white/20"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface-elevated/10 backdrop-blur-sm text-white font-black rounded-2xl hover:bg-surface-elevated/20 transition-colors shadow-2xl shadow-black/20 text-sm uppercase tracking-wider border-2 border-white/20"
                             >
                                 🎟️ Create Event
                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

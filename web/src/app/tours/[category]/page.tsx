@@ -50,7 +50,7 @@ export default function TourCategoryPage() {
     );
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-surface-elevated">
             <CategoryHero
                 icon={config.icon}
                 title={config.title}
@@ -62,9 +62,9 @@ export default function TourCategoryPage() {
 
             <div className="max-w-7xl mx-auto px-6 py-16">
                 {/* Filter Bar */}
-                <div className="bg-slate-50 border border-slate-100 rounded-[2.5rem] p-8 md:p-12 mb-16 flex flex-col lg:flex-row gap-12 items-center">
+                <div className="bg-surface-primary border border-border-primary rounded-[2.5rem] p-8 md:p-12 mb-16 flex flex-col lg:flex-row gap-12 items-center">
                     <div className="flex-1 w-full">
-                        <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">Price Range: Up to ${priceRange}</label>
+                        <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-6">Price Range: Up to ${priceRange}</label>
                         <input
                             type="range"
                             min="50"
@@ -72,7 +72,7 @@ export default function TourCategoryPage() {
                             step="50"
                             value={priceRange}
                             onChange={(e) => setPriceRange(Number(e.target.value))}
-                            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                            className="w-full h-2 bg-surface-tertiary rounded-lg appearance-none cursor-pointer accent-orange-600"
                         />
                     </div>
 
@@ -81,7 +81,7 @@ export default function TourCategoryPage() {
                             <button
                                 key={d}
                                 onClick={() => setActiveDuration(d)}
-                                className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeDuration === d ? 'bg-orange-600 text-white shadow-xl shadow-orange-200' : 'bg-white text-slate-400 hover:text-slate-900 border border-slate-100'}`}
+                                className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeDuration === d ? 'bg-orange-600 text-white shadow-xl shadow-orange-200' : 'bg-surface-elevated text-ink-tertiary hover:text-ink-primary border border-border-primary'}`}
                             >
                                 {d === 'All' ? 'All Durations' : (d === 'hour' ? 'Short Excursions' : 'Full Day Tours')}
                             </button>
@@ -92,13 +92,13 @@ export default function TourCategoryPage() {
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center">
                         {[1, 2, 3, 4].map(i => (
-                            <div key={i} className="h-64 bg-slate-50 animate-pulse rounded-[3rem]" />
+                            <div key={i} className="h-64 bg-surface-primary animate-pulse rounded-[3rem]" />
                         ))}
                     </div>
                 ) : filteredTours.length === 0 ? (
-                    <div className="text-center py-32 bg-slate-50 rounded-[4rem] border-4 border-dashed border-slate-100">
+                    <div className="text-center py-32 bg-surface-primary rounded-[4rem] border-4 border-dashed border-border-primary">
                         <div className="text-6xl mb-6 opacity-30">🏜️</div>
-                        <h3 className="text-2xl font-black text-slate-400 uppercase tracking-tighter italic">No Experiences matched your filters</h3>
+                        <h3 className="text-2xl font-black text-ink-tertiary uppercase tracking-tighter italic">No Experiences matched your filters</h3>
                         <button
                             onClick={() => { setPriceRange(1000); setActiveDuration('All'); }}
                             className="mt-6 text-orange-600 font-bold hover:underline uppercase tracking-widest text-[10px]"

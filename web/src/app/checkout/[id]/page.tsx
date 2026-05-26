@@ -71,20 +71,20 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h2 className="text-3xl font-black text-slate-900 mb-2">Thank You!</h2>
-                <p className="text-slate-500 font-medium mb-8 max-w-xs mx-auto">
-                    Your donation of <span className="text-teal-600 font-bold">${amount}</span> for <span className="font-bold">"{campaignTitle}"</span> was successful.
+                <h2 className="text-3xl font-black text-ink-primary mb-2">Thank You!</h2>
+                <p className="text-ink-tertiary font-medium mb-8 max-w-xs mx-auto">
+                    Your donation of <span className="text-accent-400 font-bold">${amount}</span> for <span className="font-bold">"{campaignTitle}"</span> was successful.
                 </p>
                 <div className="space-y-3">
                     <Link
                         href="/dashboard"
-                        className="block w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-black shadow-xl shadow-teal-100 transition-all"
+                        className="block w-full py-4 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black shadow-xl shadow-teal-100 transition-all"
                     >
                         View My Donations
                     </Link>
                     <Link
                         href="/campaigns"
-                        className="block w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold transition-all"
+                        className="block w-full py-4 bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary rounded-2xl font-bold transition-all"
                     >
                         Browse More Campaigns
                     </Link>
@@ -96,7 +96,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
     return (
         <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-                <label className="block text-sm font-black text-slate-700 uppercase tracking-widest mb-4">Select Amount</label>
+                <label className="block text-sm font-black text-ink-secondary uppercase tracking-widest mb-4">Select Amount</label>
                 <div className="grid grid-cols-3 gap-3 mb-4">
                     {[25, 50, 100].map((val) => (
                         <button
@@ -104,8 +104,8 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                             type="button"
                             onClick={() => setAmount(val)}
                             className={`py-3 rounded-xl border-2 font-bold transition-all ${amount === val
-                                ? 'bg-teal-50 border-teal-500 text-teal-700'
-                                : 'bg-white border-slate-100 text-slate-500 hover:border-slate-200'
+                                ? 'bg-accent-500/10 border-teal-500 text-accent-500'
+                                : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'
                                 }`}
                         >
                             ${val}
@@ -113,20 +113,20 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                     ))}
                 </div>
                 <div className="relative">
-                    <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                    <span className="absolute left-5 top-1/2 -translate-y-1/2 text-ink-tertiary font-bold">$</span>
                     <input
                         type="number"
                         min="1"
                         value={amount}
                         onChange={(e) => setAmount(Number(e.target.value))}
-                        className="w-full pl-10 pr-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
+                        className="w-full pl-10 pr-5 py-4 bg-surface-primary border-2 border-border-primary rounded-2xl focus:border-teal-500 focus:ring-0 transition-all text-lg font-medium"
                         placeholder="Other amount"
                     />
                 </div>
             </div>
 
             <div>
-                <label className="block text-sm font-black text-slate-700 uppercase tracking-widest mb-4">Payment Method</label>
+                <label className="block text-sm font-black text-ink-secondary uppercase tracking-widest mb-4">Payment Method</label>
                 <div className="grid grid-cols-3 gap-3 mb-4">
                     {[
                         { key: 'wipay', label: '💳 Card', icon: '💳' },
@@ -138,8 +138,8 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                             type="button"
                             onClick={() => setPaymentMethod(method.key as any)}
                             className={`py-3 rounded-xl border-2 font-bold transition-all ${paymentMethod === method.key
-                                ? 'bg-teal-50 border-teal-500 text-teal-700'
-                                : 'bg-white border-slate-100 text-slate-500 hover:border-slate-200'
+                                ? 'bg-accent-500/10 border-teal-500 text-accent-500'
+                                : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'
                                 }`}
                         >
                             {method.label}
@@ -149,7 +149,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
             </div>
 
             <div>
-                <label className="block text-sm font-black text-slate-700 uppercase tracking-widest mb-4">Payment Details</label>
+                <label className="block text-sm font-black text-ink-secondary uppercase tracking-widest mb-4">Payment Details</label>
                 {paymentMethod === 'wipay' && (
                     <>
                         <WiPayButton
@@ -158,7 +158,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                             onSuccess={() => setSuccess(true)}
                             onError={setError}
                         />
-                        <p className="mt-3 text-[10px] text-slate-400 uppercase tracking-tight text-center font-bold">
+                        <p className="mt-3 text-[10px] text-ink-tertiary uppercase tracking-tight text-center font-bold">
                             🔒 Secure Payment via WiPay
                         </p>
                     </>
@@ -212,7 +212,7 @@ const DonationWrapper = ({ campaignId, campaignTitle }: { campaignId: string, ca
     if (!isLoaded) {
         return (
             <div className="flex justify-center py-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-teal-600" />
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600" />
             </div>
         );
     }
@@ -235,14 +235,14 @@ export default function CheckoutPage() {
 
     return (
         <PaymentProvider>
-            <div className="min-h-screen bg-slate-50 py-12 md:py-20 px-4">
-                <div className="max-w-xl mx-auto bg-white/70 backdrop-blur-xl border border-white shadow-2xl rounded-[2.5rem] overflow-hidden">
+            <div className="min-h-screen bg-surface-primary py-12 md:py-20 px-4">
+                <div className="max-w-xl mx-auto bg-surface-elevated/70 backdrop-blur-xl border border-white shadow-2xl rounded-[2.5rem] overflow-hidden">
                     <div className="p-8 sm:p-12">
                         <div className="text-center mb-10">
-                            <h1 className="text-3xl font-black text-slate-900 mb-2">Secure Donation</h1>
+                            <h1 className="text-3xl font-black text-ink-primary mb-2">Secure Donation</h1>
                             {campaign && (
-                                <p className="text-slate-500 font-medium">
-                                    Supporting <span className="text-teal-600 font-bold">"{campaign.title}"</span>
+                                <p className="text-ink-tertiary font-medium">
+                                    Supporting <span className="text-accent-400 font-bold">"{campaign.title}"</span>
                                 </p>
                             )}
                         </div>

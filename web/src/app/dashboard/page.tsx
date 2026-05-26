@@ -37,7 +37,7 @@ import BuyerDashboard from './buyer/page';
 const CreateListingModal = dynamic(
     () => import('@/components/CreateListingModal'),
     {
-        loading: () => <div className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm flex items-center justify-center"><div className="bg-white p-8 rounded-2xl">Loading...</div></div>,
+        loading: () => <div className="fixed inset-0 bg-surface-tertiary/20 backdrop-blur-sm flex items-center justify-center"><div className="bg-surface-elevated p-8 rounded-2xl">Loading...</div></div>,
         ssr: false
     }
 );
@@ -45,7 +45,7 @@ const CreateListingModal = dynamic(
 const DeliveryChat = dynamic(
     () => import('@/components/DeliveryChat'),
     {
-        loading: () => <div className="h-full bg-slate-50 animate-pulse" />,
+        loading: () => <div className="h-full bg-surface-primary animate-pulse" />,
         ssr: false
     }
 );
@@ -198,14 +198,14 @@ function DashboardPageContent() {
             {/* Listing Detail Modal */}
             <AnimatePresence>
                 {isDetailModalOpen && selectedListing && (
-                    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-100 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 bg-surface-tertiary/60 backdrop-blur-sm z-100 flex items-center justify-center p-4">
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-white dark:bg-ocean-800 w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                            className="bg-surface-elevated dark:bg-ocean-800 w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
                         >
-                            <div className="relative h-64 bg-slate-900 overflow-hidden">
+                            <div className="relative h-64 bg-surface-tertiary overflow-hidden">
                                 <img
                                     src={getImageUrl(selectedListing.metadata?.image || selectedListing.images?.[0] || '/placeholders/food-hero.jpg')}
                                     className="w-full h-full object-cover opacity-60"
@@ -213,11 +213,11 @@ function DashboardPageContent() {
                                 />
                                 <button
                                     onClick={() => setIsDetailModalOpen(false)}
-                                    className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 shadow-xl hover:scale-110 transition-all font-black"
+                                    className="absolute top-6 right-6 w-10 h-10 bg-surface-elevated rounded-full flex items-center justify-center text-ink-primary shadow-xl hover:scale-110 transition-all font-black"
                                 >✕</button>
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
                                 <div className="absolute bottom-8 left-8">
-                                    <span className="px-3 py-1 bg-teal-500 text-white rounded-lg text-[9px] font-black uppercase tracking-widest mb-4 inline-block">
+                                    <span className="px-3 py-1 bg-accent-500/100 text-white rounded-lg text-[9px] font-black uppercase tracking-widest mb-4 inline-block">
                                         {selectedListing.type}
                                     </span>
                                     <h3 className="text-3xl font-black text-white italic uppercase tracking-tighter">{selectedListing.title}</h3>
@@ -227,26 +227,26 @@ function DashboardPageContent() {
                             <div className="p-10 space-y-8 overflow-y-auto">
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-1">
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Base Value</p>
-                                        <p className="text-2xl font-black text-slate-900">${selectedListing.price || selectedListing.goal_amount}</p>
+                                        <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest">Base Value</p>
+                                        <p className="text-2xl font-black text-ink-primary">${selectedListing.price || selectedListing.goal_amount}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Category</p>
-                                        <p className="text-sm font-bold text-slate-700">{selectedListing.category || 'Uncategorized'}</p>
+                                        <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest">Category</p>
+                                        <p className="text-sm font-bold text-ink-secondary">{selectedListing.category || 'Uncategorized'}</p>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Executive Summary</p>
-                                    <p className="text-sm text-slate-600 font-medium leading-relaxed italic">"{selectedListing.description}"</p>
+                                    <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest">Executive Summary</p>
+                                    <p className="text-sm text-ink-secondary font-medium leading-relaxed italic">"{selectedListing.description}"</p>
                                 </div>
 
                                 {selectedListing.metadata && (
-                                    <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 grid grid-cols-2 gap-4">
+                                    <div className="p-6 bg-surface-primary rounded-2xl border border-border-primary grid grid-cols-2 gap-4">
                                         {Object.entries(selectedListing.metadata).map(([key, val]: [string, any]) => (
                                             key !== 'image' && (
                                                 <div key={key}>
-                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{key.replace('_', ' ')}</p>
+                                                    <p className="text-[8px] font-black text-ink-tertiary uppercase tracking-widest">{key.replace('_', ' ')}</p>
                                                     <p className="text-[10px] font-bold text-slate-800">{String(val)}</p>
                                                 </div>
                                             )
@@ -255,17 +255,17 @@ function DashboardPageContent() {
                                 )}
                             </div>
 
-                            <div className="p-8 bg-slate-50 border-t border-slate-100 flex gap-4">
+                            <div className="p-8 bg-surface-primary border-t border-border-primary flex gap-4">
                                 <Link
                                     href={selectedListing.type === 'service' ? '#' : `/listings/${selectedListing.id}/edit`}
-                                    className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest text-center shadow-xl shadow-slate-200"
+                                    className="flex-1 py-4 bg-surface-tertiary text-white rounded-2xl font-black text-[10px] uppercase tracking-widest text-center shadow-xl shadow-black/10"
                                 >
                                     Refine Listing ➔
                                 </Link>
                                 <Link
                                     target="_blank"
                                     href={`/listings/${selectedListing.id}`}
-                                    className="flex-1 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-black text-[10px] uppercase tracking-widest text-center"
+                                    className="flex-1 py-4 bg-surface-elevated text-ink-primary border border-border-primary rounded-2xl font-black text-[10px] uppercase tracking-widest text-center"
                                 >
                                     Public View
                                 </Link>
@@ -276,29 +276,29 @@ function DashboardPageContent() {
             </AnimatePresence>
 
             {/* Header */}
-            <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 pt-12 pb-16">
+            <div className="bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-slate-700 pt-12 pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-3">
-                                <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Dashboard</h1>
+                                <h1 className="text-4xl font-black text-ink-primary dark:text-white tracking-tight">Dashboard</h1>
                                 {subscription && subscription.status === 'active' && (
-                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${subscription.tier_name === 'enterprise' ? 'bg-indigo-600 text-white' :
-                                        subscription.tier_name === 'premium' ? 'bg-teal-600 text-white' :
+                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${subscription.tier_name === 'enterprise' ? 'bg-[#818cf8] text-white' :
+                                        subscription.tier_name === 'premium' ? 'bg-accent-500 text-white' :
                                             subscription.tier_name === 'vip' ? 'bg-amber-500 text-white' :
-                                                'bg-slate-200 text-slate-600'
+                                                'bg-surface-tertiary text-ink-secondary'
                                         }`}>
                                         {subscription.tier_name}
                                     </span>
                                 )}
                                 {viewMode === 'vendor' && activeStore && (
-                                    <span className="px-3 py-1 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest">
+                                    <span className="px-3 py-1 bg-surface-tertiary text-white rounded-full text-[10px] font-black uppercase tracking-widest">
                                         Vendor ID: {activeStore.store_id || activeStore.id}
                                     </span>
                                 )}
                             </div>
                             <div className="flex flex-col md:flex-row md:items-center gap-4 mt-4">
-                                <p className="text-slate-500 dark:text-slate-300 font-medium">Welcome back, {user?.name} 👋</p>
+                                <p className="text-ink-tertiary dark:text-slate-300 font-medium">Welcome back, {user?.name} 👋</p>
                                 {viewMode === 'vendor' && stores.length > 0 && (
                                     <div className="flex flex-wrap items-center gap-4">
                                         {/* Store Selector */}
@@ -306,7 +306,7 @@ function DashboardPageContent() {
                                             <select
                                                 value={activeStoreId || ''}
                                                 onChange={(e) => setActiveStoreId(Number(e.target.value))}
-                                                className="appearance-none bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-2 pr-10 text-[10px] font-black uppercase tracking-widest hover:border-teal-500 focus:outline-none transition-all shadow-sm cursor-pointer"
+                                                className="appearance-none bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-xl px-4 py-2 pr-10 text-[10px] font-black uppercase tracking-widest hover:border-teal-500 focus:outline-none transition-all shadow-sm cursor-pointer"
                                             >
                                                 {stores.map(s => {
                                                     const sid = s.store_id || s.id;
@@ -315,7 +315,7 @@ function DashboardPageContent() {
                                                     );
                                                 })}
                                             </select>
-                                            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-tertiary">
                                                 ▼
                                             </div>
                                         </div>
@@ -323,19 +323,19 @@ function DashboardPageContent() {
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() => setActiveTab('settings')}
-                                                className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-teal-600 transition-all shadow-sm"
+                                                className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-accent-400 transition-all shadow-sm"
                                             >
                                                 Edit Profile
                                             </button>
                                             <button
                                                 onClick={() => setActiveTab('branding')}
-                                                className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-teal-600 transition-all shadow-sm"
+                                                className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-accent-400 transition-all shadow-sm"
                                             >
                                                 Edit Store
                                             </button>
                                             {activeStoreId && (
                                                 <Link href={`/store/${stores.find(s => (s.store_id || s.id) === activeStoreId)?.slug || ''}`}>
-                                                    <button className="px-4 py-2 bg-teal-50 border border-teal-100 text-teal-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-teal-100 transition-all">
+                                                    <button className="px-4 py-2 bg-accent-500/10 border border-teal-100 text-accent-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-accent-500/15 transition-all">
                                                         View Storefront
                                                     </button>
                                                 </Link>
@@ -357,39 +357,39 @@ function DashboardPageContent() {
                         animate={{ opacity: 1, y: 0 }}
                         className="grid grid-cols-2 md:grid-cols-4 gap-4"
                     >
-                        <Link href="/create?type=product" className="p-6 bg-white rounded-4xl border border-slate-100 shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
+                        <Link href="/create?type=product" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
                             <span className="text-3xl p-3 bg-amber-50 rounded-2xl group-hover:scale-110 transition-all">📦</span>
                             <div>
                                 <p className="text-[10px] font-black uppercase text-slate-800 tracking-widest">Add Product</p>
-                                <p className="text-[9px] text-slate-400 font-medium">List a new item</p>
+                                <p className="text-[9px] text-ink-tertiary font-medium">List a new item</p>
                             </div>
                         </Link>
-                        <Link href="/create?type=service" className="p-6 bg-white rounded-4xl border border-slate-100 shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
+                        <Link href="/create?type=service" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
                             <span className="text-3xl p-3 bg-indigo-50 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
                             <div>
                                 <p className="text-[10px] font-black uppercase text-slate-800 tracking-widest">Post Service</p>
-                                <p className="text-[9px] text-slate-400 font-medium">Offer your skills</p>
+                                <p className="text-[9px] text-ink-tertiary font-medium">Offer your skills</p>
                             </div>
                         </Link>
-                        <Link href="/campaigns/new" className="p-6 bg-white rounded-4xl border border-slate-100 shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
+                        <Link href="/campaigns/new" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
                             <span className="text-3xl p-3 bg-rose-50 rounded-2xl group-hover:scale-110 transition-all">📣</span>
                             <div>
                                 <p className="text-[10px] font-black uppercase text-slate-800 tracking-widest">Start Campaign</p>
-                                <p className="text-[9px] text-slate-400 font-medium">Raise island funds</p>
+                                <p className="text-[9px] text-ink-tertiary font-medium">Raise island funds</p>
                             </div>
                         </Link>
-                        <Link href="/start" className="p-6 bg-slate-900 rounded-4xl shadow-xl shadow-slate-200 border border-slate-800 hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-slate-800 rounded-2xl group-hover:rotate-12 transition-all">✨</span>
+                        <Link href="/start" className="p-6 bg-surface-tertiary rounded-4xl shadow-xl shadow-black/10 border border-slate-800 hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-3 group text-center">
+                            <span className="text-3xl p-3 bg-surface-tertiary rounded-2xl group-hover:rotate-12 transition-all">✨</span>
                             <div>
                                 <p className="text-[10px] font-black uppercase text-white tracking-widest">Creation Hub</p>
-                                <p className="text-[9px] text-slate-400 font-medium">Launch more</p>
+                                <p className="text-[9px] text-ink-tertiary font-medium">Launch more</p>
                             </div>
                         </Link>
                     </motion.div>
                 )}
 
                 {/* Tab Switcher */}
-                <div className="flex overflow-x-auto gap-1 p-1 bg-white/50 backdrop-blur-md rounded-2xl border border-slate-200/60 sticky top-20 z-10 max-w-full scrollbar-hide">
+                <div className="flex overflow-x-auto gap-1 p-1 bg-surface-elevated/50 backdrop-blur-md rounded-2xl border border-border-primary/60 sticky top-20 z-10 max-w-full scrollbar-hide">
                     {[
                         ...(viewMode === 'driver' ? [
                             { id: 'driver-hub', label: 'Driver Hub', icon: '🚖' },
@@ -427,7 +427,7 @@ function DashboardPageContent() {
                             <Link
                                 key={tab.id}
                                 href="/dashboard/vendor/payouts"
-                                className="px-6 py-3 rounded-xl flex items-center gap-2 font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap text-slate-400 hover:text-slate-600"
+                                className="px-6 py-3 rounded-xl flex items-center gap-2 font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap text-ink-tertiary hover:text-ink-secondary"
                             >
                                 <span>{tab.icon}</span>
                                 {tab.label}
@@ -438,8 +438,8 @@ function DashboardPageContent() {
                                 onClick={() => setActiveTab(tab.id as any)}
                                 className={`px-6 py-3 rounded-xl flex items-center gap-2 font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap
                                 ${activeTab === tab.id
-                                        ? 'bg-white text-teal-600 shadow-sm'
-                                        : 'text-slate-400 hover:text-slate-600'}`}
+                                        ? 'bg-surface-elevated text-accent-400 shadow-sm'
+                                        : 'text-ink-tertiary hover:text-ink-secondary'}`}
                             >
                                 <span>{tab.icon}</span>
                                 {tab.label}
@@ -452,10 +452,10 @@ function DashboardPageContent() {
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
                     <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-4xl border border-indigo-100 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-6">
-                            <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-3xl">🎫</div>
+                            <div className="w-16 h-16 bg-surface-elevated rounded-2xl shadow-sm flex items-center justify-center text-3xl">🎫</div>
                             <div>
-                                <h3 className="text-xl font-black text-slate-800 dark:text-white">You're on the <span className="text-indigo-600 uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
-                                <p className="text-slate-500 dark:text-slate-300 font-medium">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
+                                <h3 className="text-xl font-black text-slate-800 dark:text-white">You're on the <span className="text-[#818cf8] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
+                                <p className="text-ink-tertiary dark:text-slate-300 font-medium">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
                                 {subscription.cancel_at_period_end && (
                                     <p className="text-rose-500 text-xs font-black uppercase mt-1">Pending Cancellation</p>
                                 )}
@@ -463,7 +463,7 @@ function DashboardPageContent() {
                         </div>
                         <div className="flex gap-3">
                             {activeStore?.slug && (
-                                <Link href={`/store/${activeStore.slug}`} className="px-8 py-5 bg-white text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs border border-slate-200 hover:bg-slate-50 transition-all">
+                                <Link href={`/store/${activeStore.slug}`} className="px-8 py-5 bg-surface-elevated text-ink-secondary rounded-2xl font-black uppercase tracking-widest text-xs border border-border-primary hover:bg-surface-primary transition-all">
                                     Preview Storefront
                                 </Link>
                             )}
@@ -480,7 +480,7 @@ function DashboardPageContent() {
                                             }
                                         }
                                     }}
-                                    className="px-6 py-3 bg-rose-50 text-rose-600 rounded-xl font-bold hover:bg-rose-100 transition-all"
+                                    className="px-6 py-3 bg-rose-50 text-rose-600 rounded-xl font-bold hover:bg-[#e11d48]/10 transition-all"
                                 >
                                     Cancel
                                 </button>
@@ -489,7 +489,7 @@ function DashboardPageContent() {
                     </div>
                 )}
 
-                <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden min-h-[500px]">
+                <div className="bg-surface-elevated rounded-[2.5rem] shadow-xl shadow-black/10/40 border border-border-primary overflow-hidden min-h-[500px]">
                     <div className="p-6 sm:p-10">
                         {activeTab === 'overview' && viewMode === 'vendor' && (
                             <VendorOverview 
@@ -511,7 +511,7 @@ function DashboardPageContent() {
                                     {viewMode === 'vendor' && (
                                         <Link
                                             href="/create"
-                                            className="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-black uppercase text-[10px] tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-teal-100"
+                                            className="px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white rounded-xl font-black uppercase text-[10px] tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-teal-100"
                                         >
                                             <span>+</span> Create New Listing
                                         </Link>
@@ -520,8 +520,8 @@ function DashboardPageContent() {
 
                                 {loading ? (
                                     <div className="py-20 text-center">
-                                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-teal-600" />
-                                        <p className="mt-4 text-slate-500 font-black uppercase text-[10px] tracking-widest">Hydrating data...</p>
+                                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600" />
+                                        <p className="mt-4 text-ink-tertiary font-black uppercase text-[10px] tracking-widest">Hydrating data...</p>
                                     </div>
                                 ) : viewMode === 'vendor' ? (
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -537,13 +537,13 @@ function DashboardPageContent() {
                                                 />
                                             ))
                                         ) : (
-                                            <div className="col-span-full py-20 text-center bg-slate-50/50 dark:bg-slate-800/50 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-700">
+                                            <div className="col-span-full py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-slate-700">
                                                 <div className="text-5xl mb-4">✨</div>
                                                 <h3 className="text-xl font-black text-slate-800 dark:text-white">No Listings Found</h3>
-                                                <p className="text-slate-500 dark:text-slate-300 font-medium mb-8">Start your journey by creating your first showcase.</p>
+                                                <p className="text-ink-tertiary dark:text-slate-300 font-medium mb-8">Start your journey by creating your first showcase.</p>
                                                 <Link
                                                     href="/create"
-                                                    className="px-8 py-4 bg-teal-600 text-white dark:bg-teal-500 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20 shadow-teal-100"
+                                                    className="px-8 py-4 bg-accent-500 text-white dark:bg-accent-500/100 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20 shadow-teal-100"
                                                 >
                                                     Deploy Listing
                                                 </Link>
@@ -555,34 +555,34 @@ function DashboardPageContent() {
                                         {/* My Logistics Requests Section */}
                                         {myRequests.length > 0 && (
                                             <div className="space-y-4">
-                                                <h3 className="text-lg font-black text-slate-700 uppercase tracking-widest">My Requests</h3>
+                                                <h3 className="text-lg font-black text-ink-secondary uppercase tracking-widest">My Requests</h3>
                                                 {myRequests.map((request: any) => {
                                                     const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
-                                                        pending: { icon: '⏳', color: 'bg-amber-100 text-amber-700', label: 'Finding Driver' },
-                                                        accepted: { icon: '✅', color: 'bg-teal-100 text-teal-700', label: 'Driver Assigned' },
+                                                        pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
+                                                        accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
                                                         in_progress: { icon: '🚚', color: 'bg-indigo-100 text-indigo-700', label: 'In Transit' },
-                                                        completed: { icon: '🏁', color: 'bg-slate-100 text-slate-700', label: 'Completed' },
-                                                        cancelled: { icon: '❌', color: 'bg-rose-100 text-rose-700', label: 'Cancelled' }
+                                                        completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
+                                                        cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-rose-700', label: 'Cancelled' }
                                                     };
                                                     const status = statusConfig[request.transport_status] || statusConfig.pending;
                                                     const serviceIcon = request.service_type === 'taxi' ? '🚖' : request.service_type === 'pickup' ? '🛻' : '📦';
 
                                                     return (
-                                                        <div key={request.id} className="p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                                                        <div key={request.id} className="p-6 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-all">
                                                             <div className="flex justify-between items-start">
                                                                 <div className="flex items-center gap-4">
-                                                                    <div className="w-14 h-14 bg-slate-50 rounded-xl flex items-center justify-center text-2xl">
+                                                                    <div className="w-14 h-14 bg-surface-primary rounded-xl flex items-center justify-center text-2xl">
                                                                         {serviceIcon}
                                                                     </div>
                                                                     <div>
                                                                         <div className="font-black text-slate-800">{request.title}</div>
-                                                                        <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest">
+                                                                        <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">
                                                                             {new Date(request.created_at).toLocaleString()}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="text-right">
-                                                                    <div className="font-black text-slate-900 dark:text-white text-lg">${Number(request.price || 0).toFixed(2)}</div>
+                                                                    <div className="font-black text-ink-primary dark:text-white text-lg">${Number(request.price || 0).toFixed(2)}</div>
                                                                     <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mt-1 ${status.color}`}>
                                                                         {status.icon} {status.label}
                                                                     </span>
@@ -592,7 +592,7 @@ function DashboardPageContent() {
                                                             {request.driver_id && ['accepted', 'in_progress'].includes(request.transport_status) && (
                                                                 <button
                                                                     onClick={() => setChatRequest(request)}
-                                                                    className="mt-4 w-full py-3 bg-indigo-50 text-indigo-600 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-100 transition-all flex items-center justify-center gap-2"
+                                                                    className="mt-4 w-full py-3 bg-indigo-50 text-[#818cf8] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-100 transition-all flex items-center justify-center gap-2"
                                                                 >
                                                                     💬 Chat with Driver
                                                                 </button>
@@ -601,7 +601,7 @@ function DashboardPageContent() {
                                                             {request.transport_status === 'completed' && !request.is_rated && (
                                                                 <button
                                                                     onClick={() => setRatingRequest(request)}
-                                                                    className="mt-4 w-full py-3 bg-amber-50 text-amber-600 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-100 transition-all flex items-center justify-center gap-2"
+                                                                    className="mt-4 w-full py-3 bg-amber-50 text-amber-600 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-sand-500/10 transition-all flex items-center justify-center gap-2"
                                                                 >
                                                                     ⭐ Rate Driver
                                                                 </button>
@@ -614,38 +614,38 @@ function DashboardPageContent() {
 
                                         {/* Donations/Orders Section */}
                                         <div className="space-y-4">
-                                            <h3 className="text-lg font-black text-slate-700 uppercase tracking-widest">Orders & Donations</h3>
+                                            <h3 className="text-lg font-black text-ink-secondary uppercase tracking-widest">Orders & Donations</h3>
 
                                             {/* Orders Display */}
                                             {orders.length > 0 && (
                                                 <div className="space-y-3">
-                                                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Recent Purchases</p>
+                                                    <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Recent Purchases</p>
                                                     {orders.map((order: any) => {
                                                         const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
-                                                            pending: { icon: '⏳', color: 'bg-amber-100 text-amber-700', label: 'Pending' },
+                                                            pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Pending' },
                                                             paid: { icon: '💰', color: 'bg-green-100 text-green-700', label: 'Paid' },
                                                             preparing: { icon: '👨‍🍳', color: 'bg-blue-100 text-blue-700', label: 'Preparing' },
-                                                            ready: { icon: '✅', color: 'bg-teal-100 text-teal-700', label: 'Ready' },
+                                                            ready: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Ready' },
                                                             fulfilled: { icon: '🎉', color: 'bg-purple-100 text-purple-700', label: 'Completed' },
-                                                            cancelled: { icon: '❌', color: 'bg-rose-100 text-rose-700', label: 'Cancelled' }
+                                                            cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-rose-700', label: 'Cancelled' }
                                                         };
                                                         const status = statusConfig[order.status] || statusConfig.pending;
                                                         const itemCount = order.items ? order.items.length : 0;
 
                                                         return (
                                                             <Link key={order.order_id} href={`/dashboard/orders/${order.order_id}`} className="block">
-                                                                <div className="p-6 bg-white border border-slate-100 rounded-2xl flex justify-between items-center hover:shadow-md transition-all hover:bg-slate-50">
+                                                                <div className="p-6 bg-surface-elevated border border-border-primary rounded-2xl flex justify-between items-center hover:shadow-md transition-all hover:bg-surface-primary">
                                                                     <div className="flex items-center gap-4">
-                                                                        <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center text-xl">🛒</div>
+                                                                        <div className="w-12 h-12 bg-accent-500/10 rounded-xl flex items-center justify-center text-xl">🛒</div>
                                                                         <div>
                                                                             <div className="font-black text-slate-800">Order #{order.order_id}</div>
-                                                                            <div className="text-xs text-slate-500">
+                                                                            <div className="text-xs text-ink-tertiary">
                                                                                 {itemCount} item{itemCount !== 1 ? 's' : ''} • {new Date(order.created_at).toLocaleDateString()}
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="text-right">
-                                                                        <div className="font-black text-slate-900 dark:text-white text-lg">${Number(order.total_amount || 0).toFixed(2)}</div>
+                                                                        <div className="font-black text-ink-primary dark:text-white text-lg">${Number(order.total_amount || 0).toFixed(2)}</div>
                                                                         <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mt-1 ${status.color}`}>
                                                                             {status.icon} {status.label}
                                                                         </span>
@@ -660,29 +660,29 @@ function DashboardPageContent() {
                                             {/* Logistics / Bookings Display */}
                                             {myRequests.length > 0 && (
                                                 <div className="space-y-3 mt-6">
-                                                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Active Bookings & Rides</p>
+                                                    <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Active Bookings & Rides</p>
                                                     {myRequests.map((request: any) => {
                                                         const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
-                                                            pending: { icon: '⏳', color: 'bg-amber-100 text-amber-700', label: 'Finding Driver' },
-                                                            accepted: { icon: '✅', color: 'bg-teal-100 text-teal-700', label: 'Driver Assigned' },
+                                                            pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
+                                                            accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
                                                             in_progress: { icon: '🚚', color: 'bg-indigo-100 text-indigo-700', label: 'In Transit' },
-                                                            completed: { icon: '🏁', color: 'bg-slate-100 text-slate-700', label: 'Completed' },
-                                                            cancelled: { icon: '❌', color: 'bg-rose-100 text-rose-700', label: 'Cancelled' }
+                                                            completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
+                                                            cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-rose-700', label: 'Cancelled' }
                                                         };
                                                         const status = statusConfig[request.transport_status] || statusConfig.pending;
                                                         const serviceIcon = request.service_type === 'taxi' ? '🚖' : request.service_type === 'pickup' ? '🛻' : '📦';
 
                                                         return (
-                                                            <div key={request.id} className="p-6 bg-white border border-slate-100 rounded-2xl flex justify-between items-center hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => setActiveTab('portal')}>
+                                                            <div key={request.id} className="p-6 bg-surface-elevated border border-border-primary rounded-2xl flex justify-between items-center hover:bg-surface-primary transition-colors cursor-pointer" onClick={() => setActiveTab('portal')}>
                                                                 <div className="flex items-center gap-4">
-                                                                    <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-xl shadow-sm">{serviceIcon}</div>
+                                                                    <div className="w-12 h-12 bg-surface-primary rounded-xl flex items-center justify-center text-xl shadow-sm">{serviceIcon}</div>
                                                                     <div>
                                                                         <div className="font-black text-slate-800 dark:text-white capitalize">{request.service_type} Request</div>
-                                                                        <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest">#{request.id} • {new Date(request.created_at).toLocaleDateString()}</div>
+                                                                        <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">#{request.id} • {new Date(request.created_at).toLocaleDateString()}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="text-right">
-                                                                    <div className="font-black text-slate-900 dark:text-white text-lg">${Number(request.price || 0).toFixed(2)}</div>
+                                                                    <div className="font-black text-ink-primary dark:text-white text-lg">${Number(request.price || 0).toFixed(2)}</div>
                                                                     <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mt-1 ${status.color}`}>
                                                                         {status.icon} {status.label}
                                                                     </span>
@@ -696,17 +696,17 @@ function DashboardPageContent() {
                                             {/* Donations Display */}
                                             {donations.length > 0 && (
                                                 <div className="space-y-3 mt-6">
-                                                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Donations</p>
+                                                    <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Donations</p>
                                                     {donations.map((donation: any) => (
-                                                        <div key={donation.transaction_id || donation.id} className="p-6 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl flex justify-between items-center hover:bg-white transition-colors">
+                                                        <div key={donation.transaction_id || donation.id} className="p-6 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-slate-700 rounded-2xl flex justify-between items-center hover:bg-surface-elevated transition-colors">
                                                             <div className="flex items-center gap-4">
-                                                                <div className="w-12 h-12 bg-white dark:bg-slate-700 rounded-xl shadow-sm flex items-center justify-center text-xl">🎁</div>
+                                                                <div className="w-12 h-12 bg-surface-elevated dark:bg-slate-700 rounded-xl shadow-sm flex items-center justify-center text-xl">🎁</div>
                                                                 <div>
                                                                     <div className="font-black text-slate-800">{donation.campaign_title || 'Community Contribution'}</div>
-                                                                    <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{new Date(donation.created_at).toLocaleDateString()}</div>
+                                                                    <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">{new Date(donation.created_at).toLocaleDateString()}</div>
                                                                 </div>
                                                             </div>
-                                                            <div className="font-black text-teal-600 text-lg">${Number(donation.amount).toLocaleString()}</div>
+                                                            <div className="font-black text-accent-400 text-lg">${Number(donation.amount).toLocaleString()}</div>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -714,11 +714,11 @@ function DashboardPageContent() {
 
                                             {/* Empty State */}
                                             {orders.length === 0 && donations.length === 0 && myRequests.length === 0 && (
-                                                <div className="py-20 text-center bg-slate-50/50 dark:bg-slate-800/50 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-700">
+                                                <div className="py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-slate-700">
                                                     <div className="text-5xl mb-4">🏝️</div>
                                                     <h3 className="text-xl font-black text-slate-800 dark:text-white">Quiet Waters...</h3>
-                                                    <p className="text-slate-500 dark:text-slate-300 font-medium">Support a cause or shop to see your activity history here.</p>
-                                                    <Link href="/listings" className="mt-6 inline-block px-8 py-4 bg-teal-600 text-white dark:bg-teal-500 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20">
+                                                    <p className="text-ink-tertiary dark:text-slate-300 font-medium">Support a cause or shop to see your activity history here.</p>
+                                                    <Link href="/listings" className="mt-6 inline-block px-8 py-4 bg-accent-500 text-white dark:bg-accent-500/100 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20">
                                                         Browse Hub
                                                     </Link>
                                                 </div>
@@ -791,7 +791,7 @@ function DashboardPageContent() {
 
 export default function DashboardPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-slate-500 dark:text-slate-400">Loading dashboard...</div></div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-ink-tertiary dark:text-ink-tertiary">Loading dashboard...</div></div>}>
             <DashboardPageContent />
         </Suspense>
     );

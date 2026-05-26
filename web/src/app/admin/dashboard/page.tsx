@@ -52,13 +52,13 @@ export default function AdminDashboard() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h1>
 
-                <div className="bg-white dark:bg-ocean-800 shadow overflow-hidden sm:rounded-md">
+                <div className="bg-surface-elevated dark:bg-ocean-800 shadow overflow-hidden sm:rounded-md">
                     <ul className="divide-y divide-gray-200">
                         {campaigns.map((campaign) => (
                             <li key={campaign.campaign_id}>
                                 <div className="px-4 py-4 sm:px-6 flex items-center justify-between">
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-teal-600 truncate">{campaign.title}</p>
+                                        <p className="text-sm font-medium text-accent-400 truncate">{campaign.title}</p>
                                         <p className="flex items-center text-sm text-gray-500">
                                             Status: <span className={`ml-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${campaign.verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                                                 {campaign.verified ? 'Verified' : 'Pending Verification'}
@@ -69,13 +69,13 @@ export default function AdminDashboard() {
                                         {!campaign.verified && (
                                             <button
                                                 onClick={() => handleVerify(campaign.campaign_id)}
-                                                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm"
+                                                className="bg-[#818cf8] hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm"
                                             >
                                                 Approve
                                             </button>
                                         )}
                                         {campaign.verified && (
-                                            <Link href={`/campaigns/${campaign.campaign_id}`} className="text-indigo-600 hover:text-indigo-900 text-sm">
+                                            <Link href={`/campaigns/${campaign.campaign_id}`} className="text-[#818cf8] hover:text-indigo-900 text-sm">
                                                 View
                                             </Link>
                                         )}

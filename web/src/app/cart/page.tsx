@@ -12,16 +12,16 @@ export default function CartPage() {
 
     if (items.length === 0) {
         return (
-            <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center py-20 px-4">
-                <div className="bg-white p-12 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-white text-center max-w-lg w-full">
+            <div className="min-h-screen bg-surface-primary flex flex-col justify-center items-center py-20 px-4">
+                <div className="bg-surface-elevated p-12 rounded-[2.5rem] shadow-2xl shadow-black/10/50 border border-white text-center max-w-lg w-full">
                     <div className="text-7xl mb-8 animate-bounce">🛒</div>
-                    <h1 className="text-4xl font-black text-slate-900 mb-4">Your cart is empty</h1>
-                    <p className="text-slate-500 text-lg mb-10 leading-relaxed">
+                    <h1 className="text-4xl font-black text-ink-primary mb-4">Your cart is empty</h1>
+                    <p className="text-ink-tertiary text-lg mb-10 leading-relaxed">
                         Looks like you haven't added any island treasures yet. Start exploring our unique offerings!
                     </p>
                     <Link
                         href="/listings"
-                        className="inline-block px-10 py-5 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all transform hover:-translate-y-1 active:scale-95"
+                        className="inline-block px-10 py-5 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all transform hover:-translate-y-1 active:scale-95"
                     >
                         Start Shopping
                     </Link>
@@ -31,16 +31,16 @@ export default function CartPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-surface-primary py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
                     <div>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">Shopping Cart</h1>
-                        <p className="text-slate-500 font-medium mt-1">Review your items before checkout ({itemCount} products)</p>
+                        <h1 className="text-4xl font-black text-ink-primary tracking-tight">Shopping Cart</h1>
+                        <p className="text-ink-tertiary font-medium mt-1">Review your items before checkout ({itemCount} products)</p>
                     </div>
                     <Link
                         href="/listings"
-                        className="text-teal-600 font-bold hover:text-teal-700 transition-colors flex items-center gap-2"
+                        className="text-accent-400 font-bold hover:text-accent-500 transition-colors flex items-center gap-2"
                     >
                         <span>←</span> Continue Shopping
                     </Link>
@@ -50,9 +50,9 @@ export default function CartPage() {
                     {/* Items List */}
                     <div className="lg:col-span-2 space-y-4">
                         {items.map((item) => (
-                            <div key={item.item_id} className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex gap-6 items-center">
+                            <div key={item.item_id} className="bg-surface-elevated p-6 rounded-[2rem] shadow-sm border border-border-primary flex gap-6 items-center">
                                 {/* Thumbnail */}
-                                <div className="w-24 h-24 rounded-2xl bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-50">
+                                <div className="w-24 h-24 rounded-2xl bg-surface-secondary overflow-hidden flex-shrink-0 border border-slate-50">
                                     {item.image_url ? (
                                         <img
                                             src={getImageUrl(item.image_url)}
@@ -69,11 +69,11 @@ export default function CartPage() {
                                     <div className="flex justify-between items-start mb-2">
                                         <div>
                                             <TypeBadge type={item.type as any} />
-                                            <h3 className="text-xl font-black text-slate-900 mt-1">{item.title}</h3>
+                                            <h3 className="text-xl font-black text-ink-primary mt-1">{item.title}</h3>
                                         </div>
                                         <button
                                             onClick={() => removeItem(item.item_id)}
-                                            className="p-2 text-slate-400 hover:text-rose-500 transition-colors"
+                                            className="p-2 text-ink-tertiary hover:text-rose-500 transition-colors"
                                             title="Remove item"
                                         >
                                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,23 +83,23 @@ export default function CartPage() {
                                     </div>
 
                                     <div className="flex justify-between items-center">
-                                        <div className="text-lg font-bold text-teal-600">
+                                        <div className="text-lg font-bold text-accent-400">
                                             ${Number(item.price_snapshot || item.price).toLocaleString()}
-                                            {item.type === 'rental' && <span className="text-xs text-slate-400 font-normal ml-1">/ day</span>}
+                                            {item.type === 'rental' && <span className="text-xs text-ink-tertiary font-normal ml-1">/ day</span>}
                                         </div>
 
                                         {/* Quantity Controls */}
-                                        <div className="flex items-center gap-3 bg-slate-50 p-1.5 rounded-xl border border-slate-100">
+                                        <div className="flex items-center gap-3 bg-surface-primary p-1.5 rounded-xl border border-border-primary">
                                             <button
                                                 onClick={() => updateQuantity(item.item_id, item.quantity - 1)}
-                                                className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold"
+                                                className="w-8 h-8 flex items-center justify-center bg-surface-elevated rounded-lg shadow-sm border border-border-primary text-ink-secondary hover:bg-surface-primary font-bold"
                                             >
                                                 -
                                             </button>
-                                            <span className="w-8 text-center font-black text-slate-700">{item.quantity}</span>
+                                            <span className="w-8 text-center font-black text-ink-secondary">{item.quantity}</span>
                                             <button
                                                 onClick={() => updateQuantity(item.item_id, item.quantity + 1)}
-                                                className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold"
+                                                className="w-8 h-8 flex items-center justify-center bg-surface-elevated rounded-lg shadow-sm border border-border-primary text-ink-secondary hover:bg-surface-primary font-bold"
                                             >
                                                 +
                                             </button>
@@ -112,25 +112,25 @@ export default function CartPage() {
 
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-white sticky top-24">
-                            <h2 className="text-2xl font-black text-slate-900 mb-8">Order Summary</h2>
+                        <div className="bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-white sticky top-24">
+                            <h2 className="text-2xl font-black text-ink-primary mb-8">Order Summary</h2>
 
                             <div className="space-y-4 mb-8">
-                                <div className="flex justify-between text-slate-500 font-medium">
+                                <div className="flex justify-between text-ink-tertiary font-medium">
                                     <span>Subtotal</span>
-                                    <span className="text-slate-900">${totalAmount.toLocaleString()}</span>
+                                    <span className="text-ink-primary">${totalAmount.toLocaleString()}</span>
                                 </div>
-                                <div className="flex justify-between text-slate-500 font-medium">
+                                <div className="flex justify-between text-ink-tertiary font-medium">
                                     <span>Service Fee</span>
-                                    <span className="text-slate-900">$0.00</span>
+                                    <span className="text-ink-primary">$0.00</span>
                                 </div>
-                                <div className="flex justify-between text-slate-500 font-medium">
+                                <div className="flex justify-between text-ink-tertiary font-medium">
                                     <span>Estimated Tax</span>
-                                    <span className="text-slate-900">$0.00</span>
+                                    <span className="text-ink-primary">$0.00</span>
                                 </div>
-                                <div className="pt-4 border-t border-slate-100 flex justify-between">
-                                    <span className="text-xl font-black text-slate-900">Total</span>
-                                    <span className="text-2xl font-black text-teal-600">${totalAmount.toLocaleString()}</span>
+                                <div className="pt-4 border-t border-border-primary flex justify-between">
+                                    <span className="text-xl font-black text-ink-primary">Total</span>
+                                    <span className="text-2xl font-black text-accent-400">${totalAmount.toLocaleString()}</span>
                                 </div>
                             </div>
 
@@ -141,7 +141,7 @@ export default function CartPage() {
                                 Checkout Now
                             </Link>
 
-                            <p className="text-[11px] text-slate-400 mt-6 text-center font-bold uppercase tracking-widest">
+                            <p className="text-[11px] text-ink-tertiary mt-6 text-center font-bold uppercase tracking-widest">
                                 🔒 Secure SSL Encrypted Checkout
                             </p>
                         </div>

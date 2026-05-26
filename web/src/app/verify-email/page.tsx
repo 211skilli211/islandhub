@@ -37,13 +37,13 @@ function VerifyEmailInner() {
     }, [token, router]);
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4">
-            <div className="max-w-md w-full bg-white rounded-3xl shadow-xl p-8 text-center">
+        <div className="min-h-screen bg-surface-primary flex flex-col justify-center items-center p-4">
+            <div className="max-w-md w-full bg-surface-elevated rounded-3xl shadow-xl p-8 text-center">
                 {status === 'verifying' && (
                     <div className="space-y-4">
-                        <div className="w-12 h-12 border-4 border-slate-200 border-t-teal-500 rounded-full animate-spin mx-auto" />
-                        <h2 className="text-xl font-black text-slate-900">Verifying Email...</h2>
-                        <p className="text-slate-500">Please wait while we verify your email address.</p>
+                        <div className="w-12 h-12 border-4 border-border-primary border-t-teal-500 rounded-full animate-spin mx-auto" />
+                        <h2 className="text-xl font-black text-ink-primary">Verifying Email...</h2>
+                        <p className="text-ink-tertiary">Please wait while we verify your email address.</p>
                     </div>
                 )}
 
@@ -52,9 +52,9 @@ function VerifyEmailInner() {
                         <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl">
                             ✓
                         </div>
-                        <h2 className="text-2xl font-black text-slate-900">Email Verified!</h2>
-                        <p className="text-slate-500">Your account has been successfully verified. Redirecting to login...</p>
-                        <Link href="/login" className="inline-block mt-4 text-teal-600 font-bold hover:underline">
+                        <h2 className="text-2xl font-black text-ink-primary">Email Verified!</h2>
+                        <p className="text-ink-tertiary">Your account has been successfully verified. Redirecting to login...</p>
+                        <Link href="/login" className="inline-block mt-4 text-accent-400 font-bold hover:underline">
                             Go to Login
                         </Link>
                     </div>
@@ -65,9 +65,9 @@ function VerifyEmailInner() {
                         <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto text-3xl">
                             ✕
                         </div>
-                        <h2 className="text-2xl font-black text-slate-900">Verification Failed</h2>
-                        <p className="text-slate-500">The link may be invalid or expired. Please try registering again or contact support.</p>
-                        <Link href="/register" className="inline-block px-6 py-3 bg-slate-900 text-white rounded-xl font-bold mt-4">
+                        <h2 className="text-2xl font-black text-ink-primary">Verification Failed</h2>
+                        <p className="text-ink-tertiary">The link may be invalid or expired. Please try registering again or contact support.</p>
+                        <Link href="/register" className="inline-block px-6 py-3 bg-surface-tertiary text-white rounded-xl font-bold mt-4">
                             Back to Register
                         </Link>
                     </div>

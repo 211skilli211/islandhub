@@ -65,9 +65,9 @@ export default function PrivacyPage() {
     const [activeSection, setActiveSection] = useState('intro');
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             {/* Hero */}
-            <section className="bg-teal-900 py-24 px-4">
+            <section className="bg-accent-800 py-24 px-4">
                 <div className="max-w-3xl mx-auto text-center">
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Privacy Policy</h1>
                     <p className="text-teal-100 text-lg">How we protect and use your data</p>
@@ -79,8 +79,8 @@ export default function PrivacyPage() {
                 <div className="grid md:grid-cols-4 gap-12">
                     {/* Sidebar */}
                     <div className="md:col-span-1">
-                        <div className="bg-white rounded-[3rem] p-6 shadow-lg border border-slate-100 sticky top-8">
-                            <h3 className="font-black text-slate-900 mb-6 uppercase text-xs tracking-widest">Contents</h3>
+                        <div className="bg-surface-elevated rounded-[3rem] p-6 shadow-lg border border-border-primary sticky top-8">
+                            <h3 className="font-black text-ink-primary mb-6 uppercase text-xs tracking-widest">Contents</h3>
                             <div className="space-y-2">
                                 {sections.map(s => (
                                     <button
@@ -88,8 +88,8 @@ export default function PrivacyPage() {
                                         onClick={() => setActiveSection(s.id)}
                                         className={`w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all ${
                                             activeSection === s.id 
-                                                ? 'bg-teal-600 text-white' 
-                                                : 'text-slate-500 hover:bg-slate-50'
+                                                ? 'bg-accent-500 text-white' 
+                                                : 'text-ink-tertiary hover:bg-surface-primary'
                                         }`}
                                     >
                                         {s.title}
@@ -101,17 +101,17 @@ export default function PrivacyPage() {
 
                     {/* Main Content */}
                     <div className="md:col-span-3">
-                        <div className="bg-white rounded-[3rem] p-10 shadow-lg border border-slate-100">
+                        <div className="bg-surface-elevated rounded-[3rem] p-10 shadow-lg border border-border-primary">
                             {sections.filter(s => s.id === activeSection).map(s => (
                                 <div key={s.id}>
-                                    <h2 className="text-2xl font-black text-slate-900 mb-6">{s.title}</h2>
-                                    <p className="text-slate-600 leading-relaxed text-lg">{s.content}</p>
+                                    <h2 className="text-2xl font-black text-ink-primary mb-6">{s.title}</h2>
+                                    <p className="text-ink-secondary leading-relaxed text-lg">{s.content}</p>
                                 </div>
                             ))}
                             
-                            <div className="mt-12 pt-8 border-t border-slate-100">
-                                <p className="text-slate-500 text-sm">
-                                    For questions about this policy, contact <Link href="/contact" className="text-teal-600 hover:underline">privacy@islandhub.co</Link>
+                            <div className="mt-12 pt-8 border-t border-border-primary">
+                                <p className="text-ink-tertiary text-sm">
+                                    For questions about this policy, contact <Link href="/contact" className="text-accent-400 hover:underline">privacy@islandhub.co</Link>
                                 </p>
                             </div>
                         </div>

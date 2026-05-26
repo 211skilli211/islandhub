@@ -143,24 +143,24 @@ export default function DriverApp() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-tertiary flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin mx-auto mb-4" />
-                    <p className="text-slate-400 font-bold">Loading...</p>
+                    <p className="text-ink-tertiary font-bold">Loading...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-900 text-white">
+        <div className="min-h-screen bg-surface-tertiary text-white">
             
             {/* Header */}
-            <div className="bg-slate-800 p-4 sticky top-0 z-50">
+            <div className="bg-surface-tertiary p-4 sticky top-0 z-50">
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-xl font-black text-teal-400">🚕 Driver</h1>
-                        <p className="text-xs text-slate-400">{user?.name}</p>
+                        <p className="text-xs text-ink-tertiary">{user?.name}</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <button 
@@ -175,7 +175,7 @@ export default function DriverApp() {
                             className={`px-6 py-3 rounded-2xl font-black uppercase text-sm ${
                                 status.is_online 
                                     ? 'bg-rose-500 hover:bg-rose-600' 
-                                    : 'bg-teal-500 hover:bg-teal-600'
+                                    : 'bg-accent-500/100 hover:bg-accent-500'
                             }`}
                         >
                             {status.is_online ? 'Go Offline' : 'Go Online'}
@@ -185,8 +185,8 @@ export default function DriverApp() {
                 
                 {/* Status Indicator */}
                 <div className="mt-3 flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${status.is_online ? 'bg-teal-500 animate-pulse' : 'bg-slate-500'}`} />
-                    <span className="text-xs text-slate-400">
+                    <span className={`w-2 h-2 rounded-full ${status.is_online ? 'bg-accent-500/100 animate-pulse' : 'bg-surface-primary0'}`} />
+                    <span className="text-xs text-ink-tertiary">
                         {status.is_online ? 'Online & Available' : 'Offline'}
                     </span>
                 </div>
@@ -195,9 +195,9 @@ export default function DriverApp() {
             {/* Active Trip Card */}
             {currentTrip && (
                 <div className="p-4 bg-gradient-to-r from-teal-600 to-teal-700">
-                    <div className="bg-slate-900/50 rounded-2xl p-4">
+                    <div className="bg-surface-tertiary/50 rounded-2xl p-4">
                         <div className="flex justify-between items-start mb-3">
-                            <span className="px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full text-xs font-bold uppercase">
+                            <span className="px-3 py-1 bg-accent-500/100/20 text-teal-300 rounded-full text-xs font-bold uppercase">
                                 {currentTrip.status.replace('_', ' ')}
                             </span>
                             <span className="text-xl font-black">${currentTrip.fare_amount}</span>
@@ -218,7 +218,7 @@ export default function DriverApp() {
                             <div className="flex gap-2">
                                 <button 
                                     onClick={() => callRider(currentTrip.rider_phone!)}
-                                    className="flex-1 py-2 bg-white/10 rounded-xl font-bold text-sm"
+                                    className="flex-1 py-2 bg-surface-elevated/10 rounded-xl font-bold text-sm"
                                 >
                                     📞 Call Rider
                                 </button>
@@ -230,7 +230,7 @@ export default function DriverApp() {
                             {currentTrip.status === 'assigned' && (
                                 <button 
                                     onClick={() => updateTripStatus(currentTrip.trip_id, 'arrived')}
-                                    className="flex-1 py-3 bg-teal-500 rounded-xl font-black uppercase text-sm"
+                                    className="flex-1 py-3 bg-accent-500/100 rounded-xl font-black uppercase text-sm"
                                 >
                                     I Arrived
                                 </button>
@@ -238,7 +238,7 @@ export default function DriverApp() {
                             {currentTrip.status === 'arrived' && (
                                 <button 
                                     onClick={() => updateTripStatus(currentTrip.trip_id, 'picked_up')}
-                                    className="flex-1 py-3 bg-teal-500 rounded-xl font-black uppercase text-sm"
+                                    className="flex-1 py-3 bg-accent-500/100 rounded-xl font-black uppercase text-sm"
                                 >
                                     Picked Up
                                 </button>
@@ -246,7 +246,7 @@ export default function DriverApp() {
                             {currentTrip.status === 'picked_up' && (
                                 <button 
                                     onClick={() => updateTripStatus(currentTrip.trip_id, 'in_transit')}
-                                    className="flex-1 py-3 bg-teal-500 rounded-xl font-black uppercase text-sm"
+                                    className="flex-1 py-3 bg-accent-500/100 rounded-xl font-black uppercase text-sm"
                                 >
                                     Start Trip
                                 </button>
@@ -267,22 +267,22 @@ export default function DriverApp() {
             {/* No Active Trip - Show Stats */}
             {!currentTrip && status.is_online && (
                 <div className="p-4">
-                    <div className="bg-slate-800 rounded-2xl p-6 text-center">
+                    <div className="bg-surface-tertiary rounded-2xl p-6 text-center">
                         <div className="text-4xl mb-2">🚗</div>
-                        <p className="text-slate-400 font-medium">Waiting for ride requests...</p>
-                        <p className="text-xs text-slate-500 mt-2">Stay online to receive dispatch offers</p>
+                        <p className="text-ink-tertiary font-medium">Waiting for ride requests...</p>
+                        <p className="text-xs text-ink-tertiary mt-2">Stay online to receive dispatch offers</p>
                     </div>
                 </div>
             )}
 
             {/* Stats Grid */}
             <div className="p-4 grid grid-cols-2 gap-4">
-                <div className="bg-slate-800 rounded-2xl p-4">
-                    <p className="text-xs text-slate-400 uppercase font-bold mb-1">Today&apos;s Trips</p>
+                <div className="bg-surface-tertiary rounded-2xl p-4">
+                    <p className="text-xs text-ink-tertiary uppercase font-bold mb-1">Today&apos;s Trips</p>
                     <p className="text-2xl font-black text-teal-400">{earnings?.total_trips || 0}</p>
                 </div>
-                <div className="bg-slate-800 rounded-2xl p-4">
-                    <p className="text-xs text-slate-400 uppercase font-bold mb-1">Earnings</p>
+                <div className="bg-surface-tertiary rounded-2xl p-4">
+                    <p className="text-xs text-ink-tertiary uppercase font-bold mb-1">Earnings</p>
                     <p className="text-2xl font-black text-green-400">${parseFloat(earnings?.total_net || '0').toFixed(2)}</p>
                 </div>
             </div>
@@ -290,15 +290,15 @@ export default function DriverApp() {
             {/* Quick Actions */}
             <div className="p-4">
                 <div className="grid grid-cols-3 gap-3">
-                    <Link href="/dispatch" className="bg-slate-800 rounded-2xl p-4 text-center">
+                    <Link href="/dispatch" className="bg-surface-tertiary rounded-2xl p-4 text-center">
                         <span className="text-2xl block mb-1">🗺️</span>
                         <span className="text-xs font-bold">Dispatch</span>
                     </Link>
-                    <Link href="/driver-hub" className="bg-slate-800 rounded-2xl p-4 text-center">
+                    <Link href="/driver-hub" className="bg-surface-tertiary rounded-2xl p-4 text-center">
                         <span className="text-2xl block mb-1">📊</span>
                         <span className="text-xs font-bold">Hub</span>
                     </Link>
-                    <button onClick={loadDriverData} className="bg-slate-800 rounded-2xl p-4 text-center">
+                    <button onClick={loadDriverData} className="bg-surface-tertiary rounded-2xl p-4 text-center">
                         <span className="text-2xl block mb-1">🔄</span>
                         <span className="text-xs font-bold">Refresh</span>
                     </button>
@@ -306,7 +306,7 @@ export default function DriverApp() {
             </div>
 
             {/* Bottom Navigation */}
-            <div className="fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-slate-700 p-2 flex justify-around">
+            <div className="fixed bottom-0 left-0 right-0 bg-surface-tertiary border-t border-slate-700 p-2 flex justify-around">
                 {[
                     { id: 'home', icon: '🏠', label: 'Home' },
                     { id: 'trips', icon: '📋', label: 'Trips' },
@@ -317,7 +317,7 @@ export default function DriverApp() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
                         className={`flex flex-col items-center p-2 rounded-xl ${
-                            activeTab === tab.id ? 'text-teal-400' : 'text-slate-400'
+                            activeTab === tab.id ? 'text-teal-400' : 'text-ink-tertiary'
                         }`}
                     >
                         <span className="text-xl">{tab.icon}</span>

@@ -63,8 +63,8 @@ export default function AdminSettingsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Settings</h2>
-                <p className="text-slate-500 dark:text-slate-400">Configure platform settings and preferences</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Settings</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Configure platform settings and preferences</p>
             </div>
             <AdminSettingsTab
                 settings={settings}

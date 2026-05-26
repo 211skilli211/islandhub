@@ -62,13 +62,13 @@ export default function HowItWorksPage() {
     };
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             {/* Hero */}
             <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 py-32 px-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[120px]" />
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/100/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[100px]" />
                 <div className="max-w-5xl mx-auto text-center relative z-10">
-                    <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
+                    <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">
                         Simple & Secure
                     </span>
                     <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight">
@@ -92,17 +92,17 @@ export default function HowItWorksPage() {
                             transition={{ delay: idx * 0.1 }}
                             className="relative group"
                         >
-                            <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all h-full">
-                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">
+                            <div className="bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-sm hover:shadow-xl transition-all h-full">
+                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-500 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">
                                     {idx + 1}
                                 </div>
                                 <div className="text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-300">{step.icon}</div>
-                                <h3 className="text-xl font-black text-slate-900 mb-3">{step.title}</h3>
-                                <p className="text-slate-500 leading-relaxed mb-6">{step.desc}</p>
+                                <h3 className="text-xl font-black text-ink-primary mb-3">{step.title}</h3>
+                                <p className="text-ink-tertiary leading-relaxed mb-6">{step.desc}</p>
                                 <ul className="space-y-2">
                                     {step.details.map((d, i) => (
-                                        <li key={i} className="flex items-center gap-2 text-xs font-bold text-slate-400">
-                                            <span className="w-1.5 h-1.5 bg-teal-500 rounded-full" /> {d}
+                                        <li key={i} className="flex items-center gap-2 text-xs font-bold text-ink-tertiary">
+                                            <span className="w-1.5 h-1.5 bg-accent-500/100 rounded-full" /> {d}
                                         </li>
                                     ))}
                                 </ul>
@@ -113,9 +113,9 @@ export default function HowItWorksPage() {
             </section>
 
             {/* Role-based Flow */}
-            <section className="py-24 px-4 bg-white">
+            <section className="py-24 px-4 bg-surface-elevated">
                 <div className="max-w-5xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-12 text-center">Choose Your Journey</h2>
+                    <h2 className="text-3xl md:text-4xl font-black text-ink-primary mb-12 text-center">Choose Your Journey</h2>
                     
                     {/* Role Switcher */}
                     <div className="flex justify-center gap-4 mb-16">
@@ -125,8 +125,8 @@ export default function HowItWorksPage() {
                                 onClick={() => setActiveRole(role.id)}
                                 className={`px-8 py-4 rounded-[2rem] font-black text-sm uppercase tracking-widest transition-all flex items-center gap-3 ${
                                     activeRole === role.id 
-                                        ? 'bg-teal-600 text-white shadow-xl shadow-teal-100' 
-                                        : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+                                        ? 'bg-accent-500 text-white shadow-xl shadow-teal-100' 
+                                        : 'bg-surface-primary text-ink-tertiary hover:bg-surface-secondary'
                                 }`}
                             >
                                 <span className="text-xl">{role.icon}</span>
@@ -139,12 +139,12 @@ export default function HowItWorksPage() {
                     <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
                         {roleFlows[activeRole as keyof typeof roleFlows].map((item, idx) => (
                             <div key={idx} className="flex-1 flex md:flex-col items-center gap-4 md:gap-0">
-                                <div className="w-16 h-16 bg-teal-50 rounded-3xl flex items-center justify-center text-2xl font-black text-teal-600 shrink-0">
+                                <div className="w-16 h-16 bg-accent-500/10 rounded-3xl flex items-center justify-center text-2xl font-black text-accent-400 shrink-0">
                                     {item.step}
                                 </div>
                                 <div className="text-center md:text-center">
-                                    <h4 className="font-black text-slate-900">{item.title}</h4>
-                                    <p className="text-xs text-slate-500 mt-1">{item.desc}</p>
+                                    <h4 className="font-black text-ink-primary">{item.title}</h4>
+                                    <p className="text-xs text-ink-tertiary mt-1">{item.desc}</p>
                                 </div>
                                 {idx < 3 && (
                                     <div className="hidden md:block text-3xl text-slate-200">→</div>
@@ -156,9 +156,9 @@ export default function HowItWorksPage() {
             </section>
 
             {/* Trust Signals */}
-            <section className="bg-slate-50 py-24">
+            <section className="bg-surface-primary py-24">
                 <div className="max-w-7xl mx-auto px-4 text-center">
-                    <h2 className="text-2xl font-black text-slate-900 mb-12">Trusted by Thousands</h2>
+                    <h2 className="text-2xl font-black text-ink-primary mb-12">Trusted by Thousands</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         {[
                             { icon: '💳', name: 'Stripe', desc: 'Secure Payments' },
@@ -166,10 +166,10 @@ export default function HowItWorksPage() {
                             { icon: '🛡️', name: 'Verified', desc: 'Vendor Trust' },
                             { icon: '🔒', name: '256-bit', desc: 'SSL Encryption' }
                         ].map((trust, idx) => (
-                            <div key={idx} className="bg-white p-8 rounded-[3rem] border border-slate-100">
+                            <div key={idx} className="bg-surface-elevated p-8 rounded-[3rem] border border-border-primary">
                                 <span className="text-4xl mb-4 block">{trust.icon}</span>
-                                <p className="font-black text-slate-900">{trust.name}</p>
-                                <p className="text-xs text-slate-400 mt-1">{trust.desc}</p>
+                                <p className="font-black text-ink-primary">{trust.name}</p>
+                                <p className="text-xs text-ink-tertiary mt-1">{trust.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -184,7 +184,7 @@ export default function HowItWorksPage() {
                         Join thousands of islanders already buying, selling, and growing together.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/register" className="px-12 py-5 bg-white text-teal-900 rounded-2xl font-black text-lg hover:shadow-xl transition-all hover:scale-105">
+                        <Link href="/register" className="px-12 py-5 bg-surface-elevated text-teal-900 rounded-2xl font-black text-lg hover:shadow-xl transition-all hover:scale-105">
                             Join Free
                         </Link>
                         <Link href="/pricing" className="px-12 py-5 bg-teal-800 text-white rounded-2xl font-black text-lg hover:bg-teal-900 transition-all border border-teal-500/30">

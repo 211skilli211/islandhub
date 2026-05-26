@@ -118,17 +118,17 @@ export default function RegisterPage() {
         return (
             <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white py-8 px-4 shadow sm:rounded-3xl sm:px-10 text-center space-y-6">
-                        <div className="w-20 h-20 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+                    <div className="bg-surface-elevated py-8 px-4 shadow sm:rounded-3xl sm:px-10 text-center space-y-6">
+                        <div className="w-20 h-20 bg-accent-500/10 text-accent-400 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
                             📧
                         </div>
-                        <h2 className="text-2xl font-black text-slate-900">Check Your Email</h2>
-                        <p className="text-slate-500 text-sm">
+                        <h2 className="text-2xl font-black text-ink-primary">Check Your Email</h2>
+                        <p className="text-ink-tertiary text-sm">
                             We've sent a verification link to <strong>{email}</strong>.
                             <br />Please verify your account to continue.
                         </p>
                         <div className="pt-4">
-                            <Link href="/login" className="text-teal-600 font-bold hover:underline">
+                            <Link href="/login" className="text-accent-400 font-bold hover:underline">
                                 Skip to Login (Limited Access)
                             </Link>
                         </div>
@@ -142,13 +142,13 @@ export default function RegisterPage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-lg">
                 <div className="text-center mb-8">
-                    <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-xs font-black uppercase tracking-widest mb-4">
+                    <span className="inline-block px-4 py-2 bg-accent-500/15 text-accent-500 rounded-full text-xs font-black uppercase tracking-widest mb-4">
                         Step {step} of 2
                     </span>
-                    <h2 className="text-3xl font-black text-slate-900">
+                    <h2 className="text-3xl font-black text-ink-primary">
                         {step === 1 ? 'Create your account' : 'Tell us more'}
                     </h2>
-                    <p className="mt-2 text-slate-600">
+                    <p className="mt-2 text-ink-secondary">
                         {step === 1 ? 'Choose how you want to use IslandHub' : 
                          selectedRole === 'vendor' ? 'What type of vendor are you?' :
                          selectedRole === 'driver' ? 'What type of driving service?' :
@@ -158,7 +158,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-                <div className="bg-white py-10 px-6 shadow-2xl sm:rounded-3xl sm:px-10">
+                <div className="bg-surface-elevated py-10 px-6 shadow-2xl sm:rounded-3xl sm:px-10">
                     
                     {step === 1 ? (
                         <div className="space-y-4">
@@ -168,17 +168,17 @@ export default function RegisterPage() {
                                     onClick={() => setSelectedRole(role.id)}
                                     className={`w-full p-5 rounded-2xl border-2 flex items-center gap-4 transition-all text-left ${
                                         selectedRole === role.id
-                                            ? 'border-teal-500 bg-teal-50 shadow-lg shadow-teal-100'
-                                            : 'border-slate-100 hover:border-teal-200'
+                                            ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-teal-100'
+                                            : 'border-border-primary hover:border-teal-200'
                                     }`}
                                 >
                                     <span className="text-3xl">{role.icon}</span>
                                     <div>
-                                        <p className="font-black text-slate-900">{role.label}</p>
-                                        <p className="text-xs text-slate-500">{role.desc}</p>
+                                        <p className="font-black text-ink-primary">{role.label}</p>
+                                        <p className="text-xs text-ink-tertiary">{role.desc}</p>
                                     </div>
                                     {selectedRole === role.id && (
-                                        <span className="ml-auto text-teal-600 text-xl">✓</span>
+                                        <span className="ml-auto text-accent-400 text-xl">✓</span>
                                     )}
                                 </button>
                             ))}
@@ -193,23 +193,23 @@ export default function RegisterPage() {
                                             onClick={() => setVendorCategory(cat.id)}
                                             className={`w-full p-5 rounded-2xl border-2 flex items-center gap-4 transition-all text-left ${
                                                 vendorCategory === cat.id
-                                                    ? 'border-teal-500 bg-teal-50 shadow-lg shadow-teal-100'
-                                                    : 'border-slate-100 hover:border-teal-200'
+                                                    ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-teal-100'
+                                                    : 'border-border-primary hover:border-teal-200'
                                             }`}
                                         >
                                             <span className="text-3xl">{cat.icon}</span>
                                             <div>
-                                                <p className="font-black text-slate-900">{cat.label}</p>
-                                                <p className="text-xs text-slate-500">{cat.desc}</p>
+                                                <p className="font-black text-ink-primary">{cat.label}</p>
+                                                <p className="text-xs text-ink-tertiary">{cat.desc}</p>
                                             </div>
                                             {vendorCategory === cat.id && (
-                                                <span className="ml-auto text-teal-600 text-xl">✓</span>
+                                                <span className="ml-auto text-accent-400 text-xl">✓</span>
                                             )}
                                         </button>
                                     ))}
                                     {vendorCategory === 'other' && (
                                         <div className="mt-4">
-                                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">
+                                            <label className="block text-xs font-black text-ink-tertiary uppercase tracking-widest mb-2">
                                                 Describe your category
                                             </label>
                                             <input
@@ -217,7 +217,7 @@ export default function RegisterPage() {
                                                 value={customCategory}
                                                 onChange={(e) => setCustomCategory(e.target.value)}
                                                 placeholder="e.g., Photographer, Event Planner..."
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-0"
+                                                className="w-full px-4 py-3 rounded-xl border border-border-primary focus:border-teal-500 focus:ring-0"
                                             />
                                         </div>
                                     )}
@@ -232,17 +232,17 @@ export default function RegisterPage() {
                                             onClick={() => setDriverCategory(cat.id)}
                                             className={`w-full p-5 rounded-2xl border-2 flex items-center gap-4 transition-all text-left ${
                                                 driverCategory === cat.id
-                                                    ? 'border-teal-500 bg-teal-50 shadow-lg shadow-teal-100'
-                                                    : 'border-slate-100 hover:border-teal-200'
+                                                    ? 'border-teal-500 bg-accent-500/10 shadow-lg shadow-teal-100'
+                                                    : 'border-border-primary hover:border-teal-200'
                                             }`}
                                         >
                                             <span className="text-3xl">{cat.icon}</span>
                                             <div>
-                                                <p className="font-black text-slate-900">{cat.label}</p>
-                                                <p className="text-xs text-slate-500">{cat.desc}</p>
+                                                <p className="font-black text-ink-primary">{cat.label}</p>
+                                                <p className="text-xs text-ink-tertiary">{cat.desc}</p>
                                             </div>
                                             {driverCategory === cat.id && (
-                                                <span className="ml-auto text-teal-600 text-xl">✓</span>
+                                                <span className="ml-auto text-accent-400 text-xl">✓</span>
                                             )}
                                         </button>
                                     ))}
@@ -251,7 +251,7 @@ export default function RegisterPage() {
 
                             {(selectedRole === 'creator' || selectedRole === 'sponsor') && (
                                 <div className="text-center py-8">
-                                    <p className="text-slate-600">
+                                    <p className="text-ink-secondary">
                                         You'll be able to {selectedRole === 'creator' ? 'create fundraising campaigns' : 'sponsor campaigns'} after verification.
                                     </p>
                                 </div>
@@ -264,7 +264,7 @@ export default function RegisterPage() {
                         {step === 2 && (
                             <button
                                 onClick={() => setStep(1)}
-                                className="flex-1 py-4 border-2 border-slate-200 text-slate-600 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-slate-50 transition-all"
+                                className="flex-1 py-4 border-2 border-border-primary text-ink-secondary rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-surface-primary transition-all"
                             >
                                 Back
                             </button>
@@ -274,7 +274,7 @@ export default function RegisterPage() {
                             <button
                                 onClick={() => canProceedToStep2() && setStep(2)}
                                 disabled={!canProceedToStep2()}
-                                className="flex-1 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-teal-100 hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                className="flex-1 py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-teal-100 hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                             >
                                 Continue
                             </button>
@@ -282,7 +282,7 @@ export default function RegisterPage() {
                             <form onSubmit={handleSubmit} className="flex-1">
                                 <div className="space-y-4">
                                     <div>
-                                        <label htmlFor="name" className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">
+                                        <label htmlFor="name" className="block text-xs font-black text-ink-tertiary uppercase tracking-widest mb-2">
                                             Full Name
                                         </label>
                                         <input
@@ -291,11 +291,11 @@ export default function RegisterPage() {
                                             required
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-0"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary focus:border-teal-500 focus:ring-0"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="email" className="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">
+                                        <label htmlFor="email" className="block text-xs font-black text-ink-tertiary dark:text-ink-tertiary uppercase tracking-widest mb-2">
                                             Email
                                         </label>
                                         <input
@@ -304,11 +304,11 @@ export default function RegisterPage() {
                                             required
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500 transition-all duration-200"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-slate-600 bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="password" className="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">
+                                        <label htmlFor="password" className="block text-xs font-black text-ink-tertiary dark:text-ink-tertiary uppercase tracking-widest mb-2">
                                             Password
                                         </label>
                                         <input
@@ -317,13 +317,13 @@ export default function RegisterPage() {
                                             required
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500 transition-all duration-200"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-slate-600 bg-surface-elevated dark:bg-slate-700 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
                                         />
                                     </div>
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-teal-100 hover:bg-teal-700 disabled:opacity-50 transition-all"
+                                        className="w-full py-4 bg-accent-500 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-teal-100 hover:bg-accent-600 disabled:opacity-50 transition-all"
                                     >
                                         {loading ? 'Creating...' : 'Create Account'}
                                     </button>
@@ -333,9 +333,9 @@ export default function RegisterPage() {
                     </div>
 
                     <div className="mt-6 text-center">
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-ink-tertiary">
                             Already have an account?{' '}
-                            <Link href="/login" className="text-teal-600 font-bold hover:underline">
+                            <Link href="/login" className="text-accent-400 font-bold hover:underline">
                                 Sign in
                             </Link>
                         </p>

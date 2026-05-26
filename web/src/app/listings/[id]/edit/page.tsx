@@ -156,19 +156,19 @@ export default function EditListingPage() {
     };
 
     if (!isAuthenticated) return <div className="p-10 text-center font-bold">Please log in to edit listings.</div>;
-    if (loading) return <div className="p-10 text-center font-bold text-slate-400">Loading Listing Details...</div>;
+    if (loading) return <div className="p-10 text-center font-bold text-ink-tertiary">Loading Listing Details...</div>;
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
+        <div className="min-h-screen bg-surface-primary py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto bg-surface-elevated rounded-[2.5rem] shadow-xl shadow-black/10/50 overflow-hidden border border-border-primary">
                 <div className="px-8 py-10 md:p-12">
                     <div className="flex justify-between items-center mb-10">
                         <div>
-                            <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">Edit Listing</h1>
-                            <p className="text-slate-500 font-medium mt-2">Update your listing details and configuration.</p>
+                            <h1 className="text-4xl font-black text-ink-primary tracking-tight italic">Edit Listing</h1>
+                            <p className="text-ink-tertiary font-medium mt-2">Update your listing details and configuration.</p>
                         </div>
                         {selectedCategory && (
-                            <span className="bg-teal-50 text-teal-700 text-3xl p-4 rounded-2xl">
+                            <span className="bg-accent-500/10 text-accent-500 text-3xl p-4 rounded-2xl">
                                 {selectedCategory.icon}
                             </span>
                         )}
@@ -178,41 +178,41 @@ export default function EditListingPage() {
                         {/* Core Details */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="md:col-span-2 space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Title</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Title</label>
                                 <input
                                     required
                                     name="title"
                                     value={formData.title}
                                     onChange={handleChange}
-                                    className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                    className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                 />
                             </div>
 
                             <div className="md:col-span-2 space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Listing Slug (URL Path)</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Listing Slug (URL Path)</label>
                                 <div className="relative">
                                     <input
                                         name="slug"
                                         value={formData.slug}
                                         onChange={(e) => setFormData((prev: any) => ({ ...prev, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') }))}
-                                        className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all pr-32"
+                                        className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all pr-32"
                                         placeholder="e.g. delicious-ital-stew"
                                     />
                                     <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-black text-slate-300 uppercase">
                                         /listings/
                                     </div>
                                 </div>
-                                <p className="text-[10px] text-slate-400 mt-2 ml-4 font-medium italic">
-                                    Public Link: <span className="text-teal-600 font-bold">https://islandhub.com/listings/{formData.slug || id}</span>
+                                <p className="text-[10px] text-ink-tertiary mt-2 ml-4 font-medium italic">
+                                    Public Link: <span className="text-accent-400 font-bold">https://islandhub.com/listings/{formData.slug || id}</span>
                                 </p>
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Category</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Category</label>
                                 <select
                                     value={formData.category_id || ''}
                                     onChange={handleCategoryChange}
-                                    className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                    className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                 >
                                     <option value="">Select Category...</option>
                                     {categories.map(cat => (
@@ -222,27 +222,27 @@ export default function EditListingPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Price ($)</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Price ($)</label>
                                 <input
                                     required
                                     type="number"
                                     name="price"
                                     value={formData.price}
                                     onChange={handleChange}
-                                    className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                    className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                 />
                             </div>
 
                             {/* Subtype Selection */}
                             <div className="md:col-span-2 space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                     Specific Type
                                 </label>
                                 <select
                                     name="subtype_id"
                                     value={formData.subtype_id || ''}
                                     onChange={(e) => setFormData((prev: any) => ({ ...prev, subtype_id: e.target.value ? parseInt(e.target.value) : undefined }))}
-                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                     required={!!selectedCategory?.subtypes?.length}
                                     disabled={!selectedCategory?.subtypes?.length}
                                 >
@@ -256,14 +256,14 @@ export default function EditListingPage() {
                             </div>
 
                             <div className="md:col-span-2 space-y-2">
-                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Description</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Description</label>
                                 <textarea
                                     required
                                     name="description"
                                     rows={5}
                                     value={formData.description}
                                     onChange={handleChange}
-                                    className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                    className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                 />
                             </div>
                         </div>
@@ -277,10 +277,10 @@ export default function EditListingPage() {
                             />
                         )}
 
-                        <div className="border-t border-slate-100 pt-10">
+                        <div className="border-t border-border-primary pt-10">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="w-2 h-8 bg-blue-500 rounded-full" />
-                                <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Gallery</h3>
+                                <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Gallery</h3>
                             </div>
                             <MediaManager initialMedia={files} onChange={setFiles} maxFiles={15} />
                         </div>
@@ -289,14 +289,14 @@ export default function EditListingPage() {
                             <button
                                 type="button"
                                 onClick={() => router.back()}
-                                className="px-10 py-5 bg-slate-100 text-slate-400 rounded-2xl font-black transition-all hover:bg-slate-200 hover:text-slate-600"
+                                className="px-10 py-5 bg-surface-secondary text-ink-tertiary rounded-2xl font-black transition-all hover:bg-surface-tertiary hover:text-ink-secondary"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="flex-1 px-12 py-5 bg-teal-600 text-white rounded-2xl font-black text-xl shadow-2xl shadow-teal-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                                className="flex-1 px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-xl shadow-2xl shadow-teal-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                             >
                                 {saving ? 'Saving...' : 'Save Changes'}
                             </button>

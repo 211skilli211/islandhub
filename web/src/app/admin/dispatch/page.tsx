@@ -9,7 +9,7 @@ import AssignDriverModal from '@/components/admin/AssignDriverModal';
 // Dynamically import map to avoid SSR issues
 const DispatchMap = dynamic(() => import('@/components/admin/DispatchMap'), {
     ssr: false,
-    loading: () => <div className="w-full h-full bg-slate-100 animate-pulse rounded-[1.5rem] flex items-center justify-center text-slate-400 font-bold">Loading Map...</div>
+    loading: () => <div className="w-full h-full bg-surface-secondary animate-pulse rounded-[1.5rem] flex items-center justify-center text-ink-tertiary font-bold">Loading Map...</div>
 });
 
 export default function AdminDispatch() {
@@ -97,31 +97,31 @@ export default function AdminDispatch() {
         <div className="space-y-8">
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 italic uppercase tracking-tighter">Command Center</h2>
-                    <p className="text-slate-500 font-medium">Logistics control & real-time dispatch</p>
+                    <h2 className="text-3xl font-black text-ink-primary italic uppercase tracking-tighter">Command Center</h2>
+                    <p className="text-ink-tertiary font-medium">Logistics control & real-time dispatch</p>
                 </div>
-                <div className="flex gap-2 p-1 bg-slate-100 rounded-2xl">
+                <div className="flex gap-2 p-1 bg-surface-secondary rounded-2xl">
                     <button
                         onClick={() => setActiveTab('dispatch')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'dispatch' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'dispatch' ? 'bg-surface-elevated text-[#818cf8] shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Live Dispatch
                     </button>
                     <button
                         onClick={() => setActiveTab('trips')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'trips' ? 'bg-white text-teal-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'trips' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Trip Tracker
                     </button>
                     <button
                         onClick={() => setActiveTab('earnings')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'earnings' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'earnings' ? 'bg-surface-elevated text-emerald-600 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Earnings
                     </button>
                     <button
                         onClick={() => setActiveTab('surge')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'surge' ? 'bg-white text-amber-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'surge' ? 'bg-surface-elevated text-amber-600 shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Surge Rules
                     </button>
@@ -132,10 +132,10 @@ export default function AdminDispatch() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Left Feed */}
                     <div className="lg:col-span-4 space-y-6">
-                        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm space-y-6">
+                        <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
                                 <h4 className="font-black text-slate-800 uppercase text-xs tracking-widest">Live Mission Feed</h4>
-                                <span className="px-2 py-1 bg-indigo-100 text-indigo-600 rounded-lg text-[10px] font-black">{jobs.length} Active</span>
+                                <span className="px-2 py-1 bg-indigo-100 text-[#818cf8] rounded-lg text-[10px] font-black">{jobs.length} Active</span>
                             </div>
 
                             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
@@ -143,7 +143,7 @@ export default function AdminDispatch() {
                                     <button
                                         key={f}
                                         onClick={() => setSelectedFilter(f)}
-                                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedFilter === f ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-50 dark:bg-ocean-900 text-slate-400'}`}
+                                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedFilter === f ? 'bg-[#818cf8] text-white shadow-lg' : 'bg-surface-primary dark:bg-ocean-900 text-ink-tertiary'}`}
                                     >
                                         {f}
                                     </button>
@@ -152,26 +152,26 @@ export default function AdminDispatch() {
 
                             <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                                 {filteredJobs.map(job => (
-                                    <div key={job.id} className="p-4 bg-slate-50 dark:bg-ocean-900 rounded-2xl border border-slate-100 group hover:border-indigo-200 hover:bg-white transition-all">
+                                    <div key={job.id} className="p-4 bg-surface-primary dark:bg-ocean-900 rounded-2xl border border-border-primary group hover:border-indigo-200 hover:bg-surface-elevated transition-all">
                                         <div className="flex justify-between items-start mb-2">
-                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-indigo-100 text-indigo-700'}`}>
+                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-indigo-100 text-indigo-700'}`}>
                                                 {job.transport_status}
                                             </span>
-                                            <span className="text-[10px] font-black text-slate-400">#{job.id}</span>
+                                            <span className="text-[10px] font-black text-ink-tertiary">#{job.id}</span>
                                         </div>
-                                        <h5 className="font-bold text-slate-900 text-sm">{job.title}</h5>
-                                        <p className="text-[10px] text-slate-500 mt-1 truncate">
+                                        <h5 className="font-bold text-ink-primary text-sm">{job.title}</h5>
+                                        <p className="text-[10px] text-ink-tertiary mt-1 truncate">
                                             {parseLocation(job.pickup_location)} ➔ {parseLocation(job.dropoff_location)}
                                         </p>
                                         <div className="mt-4 flex justify-between items-center">
-                                            <div className="text-[9px] font-black text-slate-400 uppercase">
+                                            <div className="text-[9px] font-black text-ink-tertiary uppercase">
                                                 By: {job.owner_name}
                                             </div>
                                             <div className="flex gap-2">
-                                                <button onClick={() => fetchData()} className="p-2 bg-white rounded-lg border border-slate-100 shadow-sm hover:scale-110 duration-200">📍</button>
+                                                <button onClick={() => fetchData()} className="p-2 bg-surface-elevated rounded-lg border border-border-primary shadow-sm hover:scale-110 duration-200">📍</button>
                                                 <button
                                                     onClick={() => setSelectedJobForAssign(job)}
-                                                    className="p-2 bg-indigo-600 text-white rounded-lg shadow-sm font-black text-[8px] uppercase tracking-widest"
+                                                    className="p-2 bg-[#818cf8] text-white rounded-lg shadow-sm font-black text-[8px] uppercase tracking-widest"
                                                 >
                                                     Assign
                                                 </button>
@@ -185,7 +185,7 @@ export default function AdminDispatch() {
 
                     {/* Right Map */}
                     <div className="lg:col-span-8 space-y-6">
-                        <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden h-[700px] relative">
+                        <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary shadow-2xl overflow-hidden h-[700px] relative">
                             <DispatchMap
                                 jobs={filteredJobs}
                                 drivers={drivers}
@@ -200,25 +200,25 @@ export default function AdminDispatch() {
                             />
 
                             {/* Floating Map Legend */}
-                            <div className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-slate-100 shadow-xl z-[1000] space-y-2">
+                            <div className="absolute bottom-8 left-8 bg-surface-elevated/90 backdrop-blur-md p-4 rounded-2xl border border-border-primary shadow-xl z-[1000] space-y-2">
                                 <div className="flex items-center gap-3">
                                     <div className="w-3 h-3 bg-amber-500 rounded-full" />
-                                    <span className="text-[10px] font-black uppercase text-slate-600">Pending Job</span>
+                                    <span className="text-[10px] font-black uppercase text-ink-secondary">Pending Job</span>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div className="w-3 h-3 bg-indigo-500 rounded-full" />
-                                    <span className="text-[10px] font-black uppercase text-slate-600">Active Job</span>
+                                    <span className="text-[10px] font-black uppercase text-ink-secondary">Active Job</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-3 h-3 bg-teal-500 rounded-full" />
-                                    <span className="text-[10px] font-black uppercase text-slate-600">Online Driver</span>
+                                    <div className="w-3 h-3 bg-accent-500/100 rounded-full" />
+                                    <span className="text-[10px] font-black uppercase text-ink-secondary">Online Driver</span>
                                 </div>
                             </div>
 
                             {/* Map Control Bar */}
                             <div className="absolute top-8 right-8 flex gap-3 z-[1000]">
-                                <button onClick={() => fetchData()} className="p-4 bg-white rounded-2xl shadow-xl hover:scale-105 duration-200">🔄</button>
-                                <button onClick={() => setIsMapExpanded(true)} className="p-4 bg-slate-900 text-white rounded-2xl shadow-xl hover:scale-105 duration-200 font-black text-[10px] uppercase tracking-widest">Fullscreen ⛶</button>
+                                <button onClick={() => fetchData()} className="p-4 bg-surface-elevated rounded-2xl shadow-xl hover:scale-105 duration-200">🔄</button>
+                                <button onClick={() => setIsMapExpanded(true)} className="p-4 bg-surface-tertiary text-white rounded-2xl shadow-xl hover:scale-105 duration-200 font-black text-[10px] uppercase tracking-widest">Fullscreen ⛶</button>
                             </div>
                         </div>
                     </div>
@@ -228,42 +228,42 @@ export default function AdminDispatch() {
             {activeTab === 'surge' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {pricingRules.map(rule => (
-                        <div key={rule.id} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+                        <div key={rule.id} className="bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
                                 <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-2xl">
                                     {rule.service_type === 'taxi' ? '🚖' : '📦'}
                                 </div>
-                                <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${rule.is_active ? 'bg-teal-100 text-teal-600' : 'bg-slate-100 text-slate-400'}`}>
+                                <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${rule.is_active ? 'bg-accent-500/15 text-accent-400' : 'bg-surface-secondary text-ink-tertiary'}`}>
                                     {rule.is_active ? 'Active' : 'Paused'}
                                 </div>
                             </div>
                             <div>
-                                <h4 className="text-xl font-black text-slate-900 uppercase italic">{rule.service_type} Pricing</h4>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Base Multiplier: {rule.surge_multiplier}x</p>
+                                <h4 className="text-xl font-black text-ink-primary uppercase italic">{rule.service_type} Pricing</h4>
+                                <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Base Multiplier: {rule.surge_multiplier}x</p>
                             </div>
 
                             <div className="space-y-4 pt-4 border-t border-slate-50">
                                 <div className="flex justify-between items-center text-sm font-bold">
-                                    <span className="text-slate-400 uppercase text-[10px]">Surge Multiplier</span>
+                                    <span className="text-ink-tertiary uppercase text-[10px]">Surge Multiplier</span>
                                     <div className="flex items-center gap-3">
-                                        <button onClick={() => handleUpdatePricing(rule.id, { ...rule, surge_multiplier: Math.max(1, rule.surge_multiplier - 0.1).toFixed(1) })} className="w-8 h-8 rounded-lg border border-slate-100 flex items-center justify-center">-</button>
+                                        <button onClick={() => handleUpdatePricing(rule.id, { ...rule, surge_multiplier: Math.max(1, rule.surge_multiplier - 0.1).toFixed(1) })} className="w-8 h-8 rounded-lg border border-border-primary flex items-center justify-center">-</button>
                                         <span className="w-8 text-center font-black">{rule.surge_multiplier}x</span>
-                                        <button onClick={() => handleUpdatePricing(rule.id, { ...rule, surge_multiplier: (parseFloat(rule.surge_multiplier) + 0.1).toFixed(1) })} className="w-8 h-8 rounded-lg border border-slate-100 flex items-center justify-center">+</button>
+                                        <button onClick={() => handleUpdatePricing(rule.id, { ...rule, surge_multiplier: (parseFloat(rule.surge_multiplier) + 0.1).toFixed(1) })} className="w-8 h-8 rounded-lg border border-border-primary flex items-center justify-center">+</button>
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center text-sm font-bold">
-                                    <span className="text-slate-400 uppercase text-[10px]">Base Fare</span>
-                                    <span className="text-slate-900 font-black">${rule.base_fare}</span>
+                                    <span className="text-ink-tertiary uppercase text-[10px]">Base Fare</span>
+                                    <span className="text-ink-primary font-black">${rule.base_fare}</span>
                                 </div>
                                 <div className="flex justify-between items-center text-sm font-bold">
-                                    <span className="text-slate-400 uppercase text-[10px]">Min Fare</span>
-                                    <span className="text-slate-900 font-black">${rule.minimum_fare}</span>
+                                    <span className="text-ink-tertiary uppercase text-[10px]">Min Fare</span>
+                                    <span className="text-ink-primary font-black">${rule.minimum_fare}</span>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => handleUpdatePricing(rule.id, { ...rule, is_active: !rule.is_active })}
-                                className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${rule.is_active ? 'bg-rose-50 text-rose-600' : 'bg-teal-600 text-white shadow-lg shadow-teal-100'}`}
+                                className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${rule.is_active ? 'bg-rose-50 text-rose-600' : 'bg-accent-500 text-white shadow-lg shadow-teal-100'}`}
                             >
                                 {rule.is_active ? 'Deactivate Surge' : 'Activate Rules'}
                             </button>
@@ -275,14 +275,14 @@ export default function AdminDispatch() {
             {/* TRIPS TRACKER TAB */}
             {activeTab === 'trips' && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-[2rem] border border-slate-100 shadow-lg overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-                            <h3 className="text-xl font-black text-slate-900">Trip Timeline</h3>
+                    <div className="bg-surface-elevated rounded-[2rem] border border-border-primary shadow-lg overflow-hidden">
+                        <div className="p-6 border-b border-border-primary flex justify-between items-center">
+                            <h3 className="text-xl font-black text-ink-primary">Trip Timeline</h3>
                             <div className="flex gap-2">
-                                <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">
+                                <span className="px-3 py-1 bg-sand-500/10 text-sand-500 rounded-full text-xs font-bold">
                                     {trips.filter(t => t.status === 'assigned').length} Active
                                 </span>
-                                <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-bold">
+                                <span className="px-3 py-1 bg-accent-500/15 text-accent-500 rounded-full text-xs font-bold">
                                     {trips.filter(t => t.status === 'completed').length} Completed
                                 </span>
                             </div>
@@ -290,50 +290,50 @@ export default function AdminDispatch() {
                         
                         <div className="overflow-x-auto">
                             <table className="w-full">
-                                <thead className="bg-slate-50 dark:bg-ocean-900">
+                                <thead className="bg-surface-primary dark:bg-ocean-900">
                                     <tr>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Trip ID</th>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Driver</th>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Rider</th>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Route</th>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Status</th>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Fare</th>
-                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-slate-400">Timeline</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Trip ID</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Driver</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Rider</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Route</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Status</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Fare</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black uppercase text-ink-tertiary">Timeline</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-50">
                                     {trips.length === 0 ? (
                                         <tr>
-                                            <td colSpan={7} className="px-6 py-12 text-center text-slate-400">
+                                            <td colSpan={7} className="px-6 py-12 text-center text-ink-tertiary">
                                                 No trips yet
                                             </td>
                                         </tr>
                                     ) : (
                                         trips.slice(0, 20).map((trip: any) => (
-                                            <tr key={trip.trip_id} className="hover:bg-slate-50 dark:bg-ocean-900">
-                                                <td className="px-6 py-4 font-mono text-sm font-bold text-slate-600">{trip.trip_id}</td>
+                                            <tr key={trip.trip_id} className="hover:bg-surface-primary dark:bg-ocean-900">
+                                                <td className="px-6 py-4 font-mono text-sm font-bold text-ink-secondary">{trip.trip_id}</td>
                                                 <td className="px-6 py-4 text-sm font-bold">{trip.driver_name || 'Unassigned'}</td>
                                                 <td className="px-6 py-4 text-sm">{trip.rider_name || '-'}</td>
-                                                <td className="px-6 py-4 text-xs text-slate-500 max-w-[200px] truncate">
+                                                <td className="px-6 py-4 text-xs text-ink-tertiary max-w-[200px] truncate">
                                                     {trip.pickup_address} → {trip.dropoff_address}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
-                                                        trip.status === 'completed' ? 'bg-teal-100 text-teal-700' :
-                                                        trip.status === 'cancelled' ? 'bg-rose-100 text-rose-700' :
+                                                        trip.status === 'completed' ? 'bg-accent-500/15 text-accent-500' :
+                                                        trip.status === 'cancelled' ? 'bg-[#e11d48]/10 text-rose-700' :
                                                         trip.status === 'in_transit' ? 'bg-indigo-100 text-indigo-700' :
-                                                        'bg-amber-100 text-amber-700'
+                                                        'bg-sand-500/10 text-sand-500'
                                                     }`}>
                                                         {trip.status}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4 font-bold text-slate-900">${trip.fare_amount || '0.00'}</td>
+                                                <td className="px-6 py-4 font-bold text-ink-primary">${trip.fare_amount || '0.00'}</td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-1">
                                                         {['assigned', 'arrived', 'picked_up', 'in_transit', 'completed'].map((step, i) => (
                                                             <div key={step} className={`w-2 h-2 rounded-full ${
                                                                 ['assigned', 'arrived', 'picked_up', 'in_transit', 'completed'].indexOf(trip.status) >= i
-                                                                    ? 'bg-teal-500' : 'bg-slate-200'
+                                                                    ? 'bg-accent-500/100' : 'bg-surface-tertiary'
                                                             }`} />
                                                         ))}
                                                     </div>
@@ -352,60 +352,60 @@ export default function AdminDispatch() {
             {activeTab === 'earnings' && (
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     {/* Summary Cards */}
-                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
-                        <p className="text-xs font-black text-slate-400 uppercase">Today's Revenue</p>
-                        <p className="text-3xl font-black text-slate-900 mt-2">
+                    <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-lg">
+                        <p className="text-xs font-black text-ink-tertiary uppercase">Today's Revenue</p>
+                        <p className="text-3xl font-black text-ink-primary mt-2">
                             ${trips.filter(t => t.status === 'completed' && new Date(t.completed_at).toDateString() === new Date().toDateString())
                                 .reduce((sum, t) => sum + (parseFloat(t.fare_amount) || 0), 0).toFixed(2)}
                         </p>
                     </div>
-                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
-                        <p className="text-xs font-black text-slate-400 uppercase">Today's Trips</p>
-                        <p className="text-3xl font-black text-slate-900 mt-2">
+                    <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-lg">
+                        <p className="text-xs font-black text-ink-tertiary uppercase">Today's Trips</p>
+                        <p className="text-3xl font-black text-ink-primary mt-2">
                             {trips.filter(t => t.status === 'completed' && new Date(t.completed_at).toDateString() === new Date().toDateString()).length}
                         </p>
                     </div>
-                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
-                        <p className="text-xs font-black text-slate-400 uppercase">Active Drivers</p>
-                        <p className="text-3xl font-black text-slate-900 mt-2">{drivers.length}</p>
+                    <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-lg">
+                        <p className="text-xs font-black text-ink-tertiary uppercase">Active Drivers</p>
+                        <p className="text-3xl font-black text-ink-primary mt-2">{drivers.length}</p>
                     </div>
-                    <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-lg">
-                        <p className="text-xs font-black text-slate-400 uppercase">Platform Fee (15%)</p>
-                        <p className="text-3xl font-black text-teal-600 mt-2">
+                    <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-lg">
+                        <p className="text-xs font-black text-ink-tertiary uppercase">Platform Fee (15%)</p>
+                        <p className="text-3xl font-black text-accent-400 mt-2">
                             ${(trips.filter(t => t.status === 'completed').reduce((sum, t) => sum + (parseFloat(t.fare_amount) || 0), 0) * 0.15).toFixed(2)}
                         </p>
                     </div>
 
                     {/* Driver Performance */}
-                    <div className="md:col-span-4 bg-white rounded-[2rem] border border-slate-100 shadow-lg overflow-hidden">
-                        <div className="p-6 border-b border-slate-100">
-                            <h3 className="text-xl font-black text-slate-900">Driver Performance</h3>
+                    <div className="md:col-span-4 bg-surface-elevated rounded-[2rem] border border-border-primary shadow-lg overflow-hidden">
+                        <div className="p-6 border-b border-border-primary">
+                            <h3 className="text-xl font-black text-ink-primary">Driver Performance</h3>
                         </div>
                         <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                             {drivers.slice(0, 6).map((driver: any) => (
-                                <div key={driver.user_id} className="p-4 bg-slate-50 dark:bg-ocean-900 rounded-2xl">
+                                <div key={driver.user_id} className="p-4 bg-surface-primary dark:bg-ocean-900 rounded-2xl">
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
+                                        <div className="w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center text-white font-bold">
                                             {driver.name?.charAt(0) || 'D'}
                                         </div>
                                         <div>
-                                            <p className="font-bold text-slate-900">{driver.name || 'Driver'}</p>
-                                            <p className="text-xs text-slate-500">ID: {driver.user_id}</p>
+                                            <p className="font-bold text-ink-primary">{driver.name || 'Driver'}</p>
+                                            <p className="text-xs text-ink-tertiary">ID: {driver.user_id}</p>
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4 text-center">
                                         <div>
-                                            <p className="text-2xl font-black text-slate-900">
+                                            <p className="text-2xl font-black text-ink-primary">
                                                 {trips.filter(t => t.driver_id === driver.user_id && t.status === 'completed').length}
                                             </p>
-                                            <p className="text-[10px] text-slate-400 uppercase">Trips</p>
+                                            <p className="text-[10px] text-ink-tertiary uppercase">Trips</p>
                                         </div>
                                         <div>
-                                            <p className="text-2xl font-black text-teal-600">
+                                            <p className="text-2xl font-black text-accent-400">
                                                 ${trips.filter(t => t.driver_id === driver.user_id && t.status === 'completed')
                                                     .reduce((sum, t) => sum + (parseFloat(t.fare_amount) || 0) * 0.85, 0).toFixed(0)}
                                             </p>
-                                            <p className="text-[10px] text-slate-400 uppercase">Earned</p>
+                                            <p className="text-[10px] text-ink-tertiary uppercase">Earned</p>
                                         </div>
                                     </div>
                                 </div>

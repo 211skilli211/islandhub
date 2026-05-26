@@ -114,11 +114,11 @@ function ProfilePageContent() {
         { id: 'preferences' as const, label: 'Preferences', icon: <Bell size={18} /> },
     ];
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 font-medium focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-sm";
-    const labelClass = "text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1.5 block";
+    const inputClass = "w-full px-4 py-3 rounded-xl border border-border-primary bg-surface-elevated text-ink-primary font-medium focus:ring-2 focus:ring-accent-400/20 focus:border-teal-500 transition-all text-sm";
+    const labelClass = "text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-1.5 block";
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-surface-primary">
             {/* Banner */}
             <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden" style={{ backgroundColor: formData.banner_color }}>
                 {bannerImage && (
@@ -127,11 +127,11 @@ function ProfilePageContent() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 <button
                     onClick={() => router.back()}
-                    className="absolute top-4 left-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 transition-colors"
+                    className="absolute top-4 left-4 p-2 bg-surface-elevated/20 backdrop-blur-md rounded-full text-white hover:bg-surface-elevated/30 transition-colors"
                 >
                     <ArrowLeft size={20} />
                 </button>
-                <label className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 transition-colors cursor-pointer">
+                <label className="absolute top-4 right-4 p-2 bg-surface-elevated/20 backdrop-blur-md rounded-full text-white hover:bg-surface-elevated/30 transition-colors cursor-pointer">
                     <Camera size={20} />
                     <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'banner')} />
                 </label>
@@ -141,28 +141,28 @@ function ProfilePageContent() {
             <div className="max-w-3xl mx-auto px-4 sm:px-6 -mt-16 relative z-10">
                 <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 mb-6">
                     <div className="relative group">
-                        <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-4 border-white shadow-xl overflow-hidden bg-slate-200 flex items-center justify-center">
+                        <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-4 border-white shadow-xl overflow-hidden bg-surface-tertiary flex items-center justify-center">
                             {profilePhoto ? (
                                 <img src={getImageUrl(profilePhoto)} alt={formData.name} className="w-full h-full object-cover" />
                             ) : (
-                                <span className="text-4xl font-black text-slate-400">
+                                <span className="text-4xl font-black text-ink-tertiary">
                                     {formData.name?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || 'U'}
                                 </span>
                             )}
                         </div>
-                        <label className="absolute bottom-1 right-1 p-2 bg-teal-600 text-white rounded-full shadow-lg cursor-pointer hover:bg-teal-700 transition-colors">
+                        <label className="absolute bottom-1 right-1 p-2 bg-accent-500 text-white rounded-full shadow-lg cursor-pointer hover:bg-accent-600 transition-colors">
                             <Camera size={14} />
                             <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'profile')} />
                         </label>
                     </div>
                     <div className="flex-1 min-w-0">
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 truncate">{formData.name || 'Your Name'}</h1>
-                        <p className="text-sm text-slate-500 truncate">{user.email}</p>
+                        <h1 className="text-2xl sm:text-3xl font-black text-ink-primary truncate">{formData.name || 'Your Name'}</h1>
+                        <p className="text-sm text-ink-tertiary truncate">{user.email}</p>
                     </div>
                     <button
                         onClick={handleSave}
                         disabled={loading}
-                        className="px-6 py-3 bg-slate-900 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-slate-800 transition-all disabled:opacity-50 flex items-center gap-2 shadow-xl shadow-slate-200 shrink-0"
+                        className="px-6 py-3 bg-surface-tertiary text-white rounded-xl font-black uppercase text-xs tracking-widest hover:bg-surface-tertiary transition-all disabled:opacity-50 flex items-center gap-2 shadow-xl shadow-black/10 shrink-0"
                     >
                         <Save size={16} />
                         {loading ? 'Saving...' : 'Save'}
@@ -170,15 +170,15 @@ function ProfilePageContent() {
                 </div>
 
                 {/* Section Tabs */}
-                <div className="flex gap-1 p-1 bg-white rounded-xl border border-slate-200 mb-6 overflow-x-auto">
+                <div className="flex gap-1 p-1 bg-surface-elevated rounded-xl border border-border-primary mb-6 overflow-x-auto">
                     {sections.map((section) => (
                         <button
                             key={section.id}
                             onClick={() => setActiveSection(section.id)}
                             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                                 activeSection === section.id
-                                    ? 'bg-teal-600 text-white shadow-sm'
-                                    : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                                    ? 'bg-accent-500 text-white shadow-sm'
+                                    : 'text-ink-tertiary hover:text-ink-secondary hover:bg-surface-primary'
                             }`}
                         >
                             {section.icon}
@@ -192,7 +192,7 @@ function ProfilePageContent() {
                     key={activeSection}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 mb-8"
+                    className="bg-surface-elevated rounded-2xl border border-border-primary p-6 sm:p-8 mb-8"
                 >
                     {activeSection === 'info' && (
                         <div className="space-y-6">
@@ -219,7 +219,7 @@ function ProfilePageContent() {
                             <div>
                                 <label className={labelClass}>Location</label>
                                 <div className="relative">
-                                    <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                    <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                                     <input
                                         type="text"
                                         value={formData.location}
@@ -232,7 +232,7 @@ function ProfilePageContent() {
                             <div>
                                 <label className={labelClass}>Website</label>
                                 <div className="relative">
-                                    <LinkIcon size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                    <LinkIcon size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                                     <input
                                         type="url"
                                         value={formData.website}
@@ -250,7 +250,7 @@ function ProfilePageContent() {
                                             key={color}
                                             onClick={() => setFormData({ ...formData, banner_color: color })}
                                             className={`w-9 h-9 rounded-full border-2 transition-all ${
-                                                formData.banner_color === color ? 'border-teal-500 scale-110 shadow-lg' : 'border-slate-200 hover:scale-105'
+                                                formData.banner_color === color ? 'border-teal-500 scale-110 shadow-lg' : 'border-border-primary hover:scale-105'
                                             }`}
                                             style={{ backgroundColor: color }}
                                         />
@@ -261,7 +261,7 @@ function ProfilePageContent() {
                                         type="color"
                                         value={formData.banner_color}
                                         onChange={(e) => setFormData({ ...formData, banner_color: e.target.value })}
-                                        className="w-12 h-12 rounded-lg border-2 border-slate-200 p-1 cursor-pointer"
+                                        className="w-12 h-12 rounded-lg border-2 border-border-primary p-1 cursor-pointer"
                                     />
                                     <input
                                         type="text"
@@ -279,42 +279,42 @@ function ProfilePageContent() {
                             <div>
                                 <label className={labelClass}>Profile Photo</label>
                                 <div className="flex items-center gap-6">
-                                    <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center shrink-0">
+                                    <div className="w-24 h-24 rounded-xl overflow-hidden bg-surface-secondary border-2 border-dashed border-border-primary flex items-center justify-center shrink-0">
                                         {profilePhoto ? (
                                             <img src={getImageUrl(profilePhoto)} alt="Profile" className="w-full h-full object-cover" />
                                         ) : (
-                                            <Camera size={24} className="text-slate-400" />
+                                            <Camera size={24} className="text-ink-tertiary" />
                                         )}
                                     </div>
                                     <div>
-                                        <label className="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-slate-800 transition-colors inline-block">
+                                        <label className="px-4 py-2 bg-surface-tertiary text-white rounded-lg text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-surface-tertiary transition-colors inline-block">
                                             Upload Photo
                                             <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'profile')} />
                                         </label>
-                                        <p className="text-[10px] text-slate-400 mt-2">JPG, PNG or GIF. Max 5MB.</p>
+                                        <p className="text-[10px] text-ink-tertiary mt-2">JPG, PNG or GIF. Max 5MB.</p>
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <label className={labelClass}>Banner Image</label>
-                                <div className="h-32 rounded-xl overflow-hidden bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center relative group">
+                                <div className="h-32 rounded-xl overflow-hidden bg-surface-secondary border-2 border-dashed border-border-primary flex items-center justify-center relative group">
                                     {bannerImage ? (
                                         <>
                                             <img src={getImageUrl(bannerImage)} alt="Banner" className="w-full h-full object-cover" />
                                             <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
-                                                <span className="bg-white px-4 py-2 rounded-lg text-xs font-bold uppercase">Change Banner</span>
+                                                <span className="bg-surface-elevated px-4 py-2 rounded-lg text-xs font-bold uppercase">Change Banner</span>
                                                 <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'banner')} />
                                             </label>
                                         </>
                                     ) : (
                                         <label className="flex flex-col items-center cursor-pointer">
-                                            <Camera size={32} className="text-slate-400 mb-2" />
-                                            <span className="text-xs text-slate-400 font-medium">Click to upload banner</span>
+                                            <Camera size={32} className="text-ink-tertiary mb-2" />
+                                            <span className="text-xs text-ink-tertiary font-medium">Click to upload banner</span>
                                             <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'banner')} />
                                         </label>
                                     )}
                                 </div>
-                                <p className="text-[10px] text-slate-400 mt-2">Recommended: 1200x400px. Max 5MB.</p>
+                                <p className="text-[10px] text-ink-tertiary mt-2">Recommended: 1200x400px. Max 5MB.</p>
                             </div>
                         </div>
                     )}
@@ -324,20 +324,20 @@ function ProfilePageContent() {
                             <div>
                                 <label className={labelClass}>Email</label>
                                 <div className="relative">
-                                    <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                    <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                                     <input
                                         type="email"
                                         value={user.email}
                                         disabled
-                                        className={`${inputClass} pl-10 bg-slate-50 text-slate-500`}
+                                        className={`${inputClass} pl-10 bg-surface-primary text-ink-tertiary`}
                                     />
                                 </div>
-                                <p className="text-[10px] text-slate-400 mt-1">Email can be changed in Security settings</p>
+                                <p className="text-[10px] text-ink-tertiary mt-1">Email can be changed in Security settings</p>
                             </div>
                             <div>
                                 <label className={labelClass}>Phone</label>
                                 <div className="relative">
-                                    <Phone size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                    <Phone size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                                     <input
                                         type="tel"
                                         value={formData.phone}
@@ -350,7 +350,7 @@ function ProfilePageContent() {
                             <div>
                                 <label className={labelClass}>Location</label>
                                 <div className="relative">
-                                    <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                    <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                                     <input
                                         type="text"
                                         value={formData.location}
@@ -370,24 +370,24 @@ function ProfilePageContent() {
                                     <Shield size={20} className="text-amber-600 mt-0.5 shrink-0" />
                                     <div>
                                         <h4 className="text-sm font-bold text-amber-900">Two-Factor Authentication</h4>
-                                        <p className="text-xs text-amber-700 mt-1">Add an extra layer of security to your account</p>
+                                        <p className="text-xs text-sand-500 mt-1">Add an extra layer of security to your account</p>
                                         <button className="mt-3 px-4 py-2 bg-amber-600 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-amber-700 transition-colors">
                                             Enable 2FA
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                                <h4 className="text-sm font-bold text-slate-900">Change Password</h4>
-                                <p className="text-xs text-slate-500 mt-1">Update your password regularly</p>
-                                <button className="mt-3 px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors">
+                            <div className="p-4 bg-surface-primary border border-border-primary rounded-xl">
+                                <h4 className="text-sm font-bold text-ink-primary">Change Password</h4>
+                                <p className="text-xs text-ink-tertiary mt-1">Update your password regularly</p>
+                                <button className="mt-3 px-4 py-2 bg-surface-tertiary text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary transition-colors">
                                     Change Password
                                 </button>
                             </div>
-                            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                                <h4 className="text-sm font-bold text-slate-900">Change Email</h4>
-                                <p className="text-xs text-slate-500 mt-1">Update your email address</p>
-                                <button className="mt-3 px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors">
+                            <div className="p-4 bg-surface-primary border border-border-primary rounded-xl">
+                                <h4 className="text-sm font-bold text-ink-primary">Change Email</h4>
+                                <p className="text-xs text-ink-tertiary mt-1">Update your email address</p>
+                                <button className="mt-3 px-4 py-2 bg-surface-tertiary text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary transition-colors">
                                     Change Email
                                 </button>
                             </div>
@@ -396,31 +396,31 @@ function ProfilePageContent() {
 
                     {activeSection === 'preferences' && (
                         <div className="space-y-6">
-                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                            <div className="flex items-center justify-between p-4 bg-surface-primary rounded-xl">
                                 <div>
-                                    <h4 className="text-sm font-bold text-slate-900">Email Notifications</h4>
-                                    <p className="text-xs text-slate-500">Receive order updates and promotions</p>
+                                    <h4 className="text-sm font-bold text-ink-primary">Email Notifications</h4>
+                                    <p className="text-xs text-ink-tertiary">Receive order updates and promotions</p>
                                 </div>
-                                <button className="w-12 h-7 bg-teal-600 rounded-full relative transition-colors">
-                                    <span className="absolute right-1 top-1 w-5 h-5 bg-white rounded-full shadow-sm" />
+                                <button className="w-12 h-7 bg-accent-500 rounded-full relative transition-colors">
+                                    <span className="absolute right-1 top-1 w-5 h-5 bg-surface-elevated rounded-full shadow-sm" />
                                 </button>
                             </div>
-                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                            <div className="flex items-center justify-between p-4 bg-surface-primary rounded-xl">
                                 <div>
-                                    <h4 className="text-sm font-bold text-slate-900">SMS Notifications</h4>
-                                    <p className="text-xs text-slate-500">Get text alerts for important updates</p>
+                                    <h4 className="text-sm font-bold text-ink-primary">SMS Notifications</h4>
+                                    <p className="text-xs text-ink-tertiary">Get text alerts for important updates</p>
                                 </div>
                                 <button className="w-12 h-7 bg-slate-300 rounded-full relative transition-colors">
-                                    <span className="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow-sm" />
+                                    <span className="absolute left-1 top-1 w-5 h-5 bg-surface-elevated rounded-full shadow-sm" />
                                 </button>
                             </div>
-                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                            <div className="flex items-center justify-between p-4 bg-surface-primary rounded-xl">
                                 <div>
-                                    <h4 className="text-sm font-bold text-slate-900">Marketing Emails</h4>
-                                    <p className="text-xs text-slate-500">Receive tips and feature announcements</p>
+                                    <h4 className="text-sm font-bold text-ink-primary">Marketing Emails</h4>
+                                    <p className="text-xs text-ink-tertiary">Receive tips and feature announcements</p>
                                 </div>
                                 <button className="w-12 h-7 bg-slate-300 rounded-full relative transition-colors">
-                                    <span className="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow-sm" />
+                                    <span className="absolute left-1 top-1 w-5 h-5 bg-surface-elevated rounded-full shadow-sm" />
                                 </button>
                             </div>
                         </div>
@@ -428,9 +428,9 @@ function ProfilePageContent() {
                 </motion.div>
 
                 {/* Danger Zone */}
-                <div className="bg-white rounded-2xl border border-red-200 p-6 mb-8">
+                <div className="bg-surface-elevated rounded-2xl border border-red-200 p-6 mb-8">
                     <h3 className="text-sm font-black text-red-600 uppercase tracking-widest mb-3">Danger Zone</h3>
-                    <p className="text-xs text-slate-500 mb-4">Once you deactivate your account, there is no going back.</p>
+                    <p className="text-xs text-ink-tertiary mb-4">Once you deactivate your account, there is no going back.</p>
                     <button
                         onClick={handleDeactivate}
                         className="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-red-100 transition-colors flex items-center gap-2"
@@ -447,7 +447,7 @@ function ProfilePageContent() {
 export default function ProfilePage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="w-12 h-12 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
             </div>
         }>

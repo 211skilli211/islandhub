@@ -17,8 +17,8 @@ export default function AdminHeroAssetsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Hero Assets</h2>
-                <p className="text-slate-500 dark:text-slate-400">Manage homepage hero images and videos</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Hero Assets</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Manage homepage hero images and videos</p>
             </div>
             <HeroAssetTab />
         </div>

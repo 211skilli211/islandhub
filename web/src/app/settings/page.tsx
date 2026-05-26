@@ -12,7 +12,7 @@ import PushNotificationManager from '@/components/notifications/PushNotification
 const ImageUpload = dynamic(
     () => import('@/components/ImageUpload'),
     {
-        loading: () => <div className="h-32 bg-slate-100 animate-pulse rounded-xl" />,
+        loading: () => <div className="h-32 bg-surface-secondary animate-pulse rounded-xl" />,
         ssr: false
     }
 );
@@ -274,9 +274,9 @@ function SettingsContent() {
     const Toggle = ({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) => (
         <button
             onClick={() => onChange(!checked)}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${checked ? 'bg-teal-600' : 'bg-slate-200'}`}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${checked ? 'bg-accent-500' : 'bg-surface-tertiary'}`}
         >
-            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
+            <span className={`inline-block h-4 w-4 transform rounded-full bg-surface-elevated transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
         </button>
     );
 
@@ -284,11 +284,11 @@ function SettingsContent() {
         <div className="py-6 px-4">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-6">
-                    <h1 className="text-2xl font-black text-slate-900 dark:text-white">Settings</h1>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your account and preferences</p>
+                    <h1 className="text-2xl font-black text-ink-primary dark:text-white">Settings</h1>
+                    <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">Manage your account and preferences</p>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl shadow-sm border border-border-primary dark:border-slate-700 p-6">
                     <AnimatePresence mode="wait">
                         <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
                                 
@@ -296,46 +296,46 @@ function SettingsContent() {
                                 {activeTab === 'account' && (
                                     <div className="space-y-6 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Account Settings</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-400">Your personal information</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Account Settings</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary">Your personal information</p>
                                         </div>
                                         
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 dark:text-slate-300 mb-2">Display Name</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 dark:text-slate-300 mb-2">Display Name</label>
                                                 <input value={accountData.name} onChange={e => setAccountData({ ...accountData, name: e.target.value })} 
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400" />
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 dark:text-slate-300 mb-2">Bio</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 dark:text-slate-300 mb-2">Bio</label>
                                                 <textarea value={accountData.bio} onChange={e => setAccountData({ ...accountData, bio: e.target.value })} rows={3}
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400" />
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 dark:text-slate-300 mb-2">Country</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 dark:text-slate-300 mb-2">Country</label>
                                                 <input value={accountData.country} onChange={e => setAccountData({ ...accountData, country: e.target.value })} 
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400" />
                                             </div>
                                         </div>
 
-                                        <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
-                                            <h3 className="font-bold text-slate-900 dark:text-white mb-4">Email Address</h3>
+                                        <div className="pt-4 border-t border-border-primary dark:border-slate-700">
+                                            <h3 className="font-bold text-ink-primary dark:text-white mb-4">Email Address</h3>
                                             {changingEmail ? (
                                                 <div className="flex gap-3">
                                                     <input value={emailData.email} onChange={e => setEmailData({ ...emailData, email: e.target.value })} placeholder="new@email.com"
-                                                        className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white placeholder-slate-400" />
-                                                    <button onClick={handleChangeEmail} disabled={saving} className="px-6 py-3 bg-teal-600 text-white rounded-2xl font-bold text-sm">Verify</button>
-                                                    <button onClick={() => setChangingEmail(false)} className="px-4 py-3 text-slate-500 dark:text-slate-400 dark:text-slate-400">Cancel</button>
+                                                        className="flex-1 px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400" />
+                                                    <button onClick={handleChangeEmail} disabled={saving} className="px-6 py-3 bg-accent-500 text-white rounded-2xl font-bold text-sm">Verify</button>
+                                                    <button onClick={() => setChangingEmail(false)} className="px-4 py-3 text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary">Cancel</button>
                                                 </div>
                                             ) : (
                                                 <div className="flex items-center justify-between">
-                                                    <span className="font-medium text-slate-700 dark:text-slate-300 dark:text-slate-300">{(user as any)?.email || 'No email'}</span>
-                                                    <button onClick={() => setChangingEmail(true)} className="text-teal-600 font-bold text-sm hover:underline">Change</button>
+                                                    <span className="font-medium text-ink-secondary dark:text-slate-300 dark:text-slate-300">{(user as any)?.email || 'No email'}</span>
+                                                    <button onClick={() => setChangingEmail(true)} className="text-accent-400 font-bold text-sm hover:underline">Change</button>
                                                 </div>
                                             )}
                                         </div>
 
-                                        <button onClick={handleSaveAccount} disabled={saving} className="px-8 py-4 bg-slate-900 dark:bg-teal-600 text-white rounded-2xl font-bold text-sm">
+                                        <button onClick={handleSaveAccount} disabled={saving} className="px-8 py-4 bg-surface-tertiary dark:bg-accent-500 text-white rounded-2xl font-bold text-sm">
                                             {saving ? 'Saving...' : 'Save Changes'}
                                         </button>
                                     </div>
@@ -345,13 +345,13 @@ function SettingsContent() {
                                 {activeTab === 'notifications' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Notifications</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">How you want to be contacted</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Notifications</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">How you want to be contacted</p>
                                         </div>
 
                                         <div className="space-y-6">
-                                            <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-3xl">
-                                                <h3 className="font-bold text-slate-900 dark:text-white mb-4">📧 Email Notifications</h3>
+                                            <div className="p-6 bg-surface-primary dark:bg-slate-700 rounded-3xl">
+                                                <h3 className="font-bold text-ink-primary dark:text-white mb-4">📧 Email Notifications</h3>
                                                 <div className="space-y-4">
                                                     {[
                                                         { key: 'email_orders', label: 'Order Updates', desc: 'Status changes on your orders' },
@@ -359,8 +359,8 @@ function SettingsContent() {
                                                     ].map(item => (
                                                         <div key={item.key} className="flex items-center justify-between">
                                                             <div>
-                                                                <div className="font-bold text-slate-900 dark:text-white">{item.label}</div>
-                                                                <div className="text-xs text-slate-500 dark:text-slate-400">{item.desc}</div>
+                                                                <div className="font-bold text-ink-primary dark:text-white">{item.label}</div>
+                                                                <div className="text-xs text-ink-tertiary dark:text-ink-tertiary">{item.desc}</div>
                                                             </div>
                                                             <Toggle checked={notifPrefs[item.key as keyof NotificationPrefs]} onChange={(v: boolean) => setNotifPrefs({ ...notifPrefs, [item.key]: v })} />
                                                         </div>
@@ -368,8 +368,8 @@ function SettingsContent() {
                                                 </div>
                                             </div>
 
-                                            <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-3xl">
-                                                <h3 className="font-bold text-slate-900 dark:text-white mb-4">🔔 Push Notifications</h3>
+                                            <div className="p-6 bg-surface-primary dark:bg-slate-700 rounded-3xl">
+                                                <h3 className="font-bold text-ink-primary dark:text-white mb-4">🔔 Push Notifications</h3>
                                                 <div className="space-y-4">
                                                     {[
                                                         { key: 'push_dispatch', label: '🚗 Dispatch Alerts', desc: 'New ride requests' },
@@ -379,8 +379,8 @@ function SettingsContent() {
                                                     ].map(item => (
                                                         <div key={item.key} className="flex items-center justify-between">
                                                             <div>
-                                                                <div className="font-bold text-slate-900 dark:text-white">{item.label}</div>
-                                                                <div className="text-xs text-slate-500 dark:text-slate-400">{item.desc}</div>
+                                                                <div className="font-bold text-ink-primary dark:text-white">{item.label}</div>
+                                                                <div className="text-xs text-ink-tertiary dark:text-ink-tertiary">{item.desc}</div>
                                                             </div>
                                                             <Toggle checked={notifPrefs[item.key as keyof NotificationPrefs]} onChange={(v: boolean) => setNotifPrefs({ ...notifPrefs, [item.key]: v })} />
                                                         </div>
@@ -391,23 +391,23 @@ function SettingsContent() {
                                             <div className="p-6 bg-gradient-to-r from-teal-50 to-indigo-50 rounded-3xl border border-teal-100">
                                                 <div className="flex items-center justify-between">
                                                     <div>
-                                                        <h3 className="font-bold text-slate-900 dark:text-white">🤖 AI Auto-Reply</h3>
-                                                        <p className="text-xs text-slate-500 dark:text-slate-400">Automatically respond to buyer messages using AI</p>
+                                                        <h3 className="font-bold text-ink-primary dark:text-white">🤖 AI Auto-Reply</h3>
+                                                        <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Automatically respond to buyer messages using AI</p>
                                                     </div>
                                                     <Toggle checked={notifPrefs.ai_auto_reply} onChange={handleToggleAutoReply} />
                                                 </div>
                                                 {notifPrefs.ai_auto_reply && (
-                                                    <p className="text-xs text-teal-600 mt-3">✓ AI will respond to incoming messages when you're unavailable</p>
+                                                    <p className="text-xs text-accent-400 mt-3">✓ AI will respond to incoming messages when you're unavailable</p>
                                                 )}
                                             </div>
                                         </div>
 
-                                        <div className="border-t border-slate-100 pt-6">
-                                            <h3 className="font-bold text-slate-900 dark:text-white mb-4">📱 Device Registration</h3>
+                                        <div className="border-t border-border-primary pt-6">
+                                            <h3 className="font-bold text-ink-primary dark:text-white mb-4">📱 Device Registration</h3>
                                             <PushNotificationManager />
                                         </div>
 
-                                        <button onClick={handleSaveNotifPrefs} disabled={saving} className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm">
+                                        <button onClick={handleSaveNotifPrefs} disabled={saving} className="px-8 py-4 bg-surface-tertiary text-white rounded-2xl font-bold text-sm">
                                             {saving ? 'Saving...' : 'Save Preferences'}
                                         </button>
                                     </div>
@@ -417,8 +417,8 @@ function SettingsContent() {
                                 {activeTab === 'privacy' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Privacy Settings</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Control who sees your information</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Privacy Settings</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Control who sees your information</p>
                                         </div>
 
                                         <div className="space-y-4">
@@ -428,17 +428,17 @@ function SettingsContent() {
                                                 { key: 'show_location', label: 'Show Location', desc: 'Display your location to others' },
                                                 { key: 'allow_messages', label: 'Allow Messages', desc: 'Let others send you messages' }
                                             ].map(item => (
-                                                <div key={item.key} className="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-700 rounded-2xl">
+                                                <div key={item.key} className="flex items-center justify-between p-6 bg-surface-primary dark:bg-slate-700 rounded-2xl">
                                                     <div>
-                                                        <div className="font-bold text-slate-900 dark:text-white">{item.label}</div>
-                                                        <div className="text-xs text-slate-500 dark:text-slate-400">{item.desc}</div>
+                                                        <div className="font-bold text-ink-primary dark:text-white">{item.label}</div>
+                                                        <div className="text-xs text-ink-tertiary dark:text-ink-tertiary">{item.desc}</div>
                                                     </div>
                                                     <Toggle checked={privacyPrefs[item.key as keyof typeof privacyPrefs]} onChange={(v: boolean) => setPrivacyPrefs({ ...privacyPrefs, [item.key]: v })} />
                                                 </div>
                                             ))}
                                         </div>
 
-                                        <button onClick={handleSaveNotifPrefs} disabled={saving} className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm">
+                                        <button onClick={handleSaveNotifPrefs} disabled={saving} className="px-8 py-4 bg-surface-tertiary text-white rounded-2xl font-bold text-sm">
                                             {saving ? 'Saving...' : 'Save Privacy Settings'}
                                         </button>
                                     </div>
@@ -448,14 +448,14 @@ function SettingsContent() {
                                 {activeTab === 'security' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Security</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Protect your account</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Security</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Protect your account</p>
                                         </div>
 
-                                        <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-3xl">
+                                        <div className="p-6 bg-surface-primary dark:bg-slate-700 rounded-3xl">
                                             <div className="flex items-center justify-between mb-4">
-                                                <h3 className="font-bold text-slate-900 dark:text-white">🔑 Password</h3>
-                                                <button onClick={() => setShowChangePassword(!showChangePassword)} className="text-teal-600 font-bold text-sm">
+                                                <h3 className="font-bold text-ink-primary dark:text-white">🔑 Password</h3>
+                                                <button onClick={() => setShowChangePassword(!showChangePassword)} className="text-accent-400 font-bold text-sm">
                                                     {showChangePassword ? 'Cancel' : 'Change'}
                                                 </button>
                                             </div>
@@ -463,59 +463,59 @@ function SettingsContent() {
                                             {showChangePassword && (
                                                 <div className="space-y-4 mt-6">
                                                     <input type="password" placeholder="Current password" value={passwordData.current} onChange={e => setPasswordData({ ...passwordData, current: e.target.value })}
-                                                        className="w-full px-4 py-3 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-xl" />
+                                                        className="w-full px-4 py-3 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 rounded-xl" />
                                                     <input type="password" placeholder="New password" value={passwordData.new} onChange={e => setPasswordData({ ...passwordData, new: e.target.value })}
-                                                        className="w-full px-4 py-3 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-xl" />
+                                                        className="w-full px-4 py-3 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 rounded-xl" />
                                                     <input type="password" placeholder="Confirm new password" value={passwordData.confirm} onChange={e => setPasswordData({ ...passwordData, confirm: e.target.value })}
-                                                        className="w-full px-4 py-3 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-xl" />
-                                                    <button onClick={handleChangePassword} disabled={saving} className="w-full py-3 bg-teal-600 text-white rounded-xl font-bold">
+                                                        className="w-full px-4 py-3 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 rounded-xl" />
+                                                    <button onClick={handleChangePassword} disabled={saving} className="w-full py-3 bg-accent-500 text-white rounded-xl font-bold">
                                                         {saving ? 'Changing...' : 'Update Password'}
                                                     </button>
                                                 </div>
                                             )}
                                         </div>
 
-                                        <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-3xl">
+                                        <div className="p-6 bg-surface-primary dark:bg-slate-700 rounded-3xl">
                                             <div className="flex items-center justify-between mb-4">
-                                                <h3 className="font-bold text-slate-900 dark:text-white">🔐 Two-Factor Authentication</h3>
-                                                {twoFAEnabled && <span className="text-teal-600 text-xs font-bold">✓ {twoFAMethod === 'email' ? 'Email OTP' : 'Authenticator'} Enabled</span>}
+                                                <h3 className="font-bold text-ink-primary dark:text-white">🔐 Two-Factor Authentication</h3>
+                                                {twoFAEnabled && <span className="text-accent-400 text-xs font-bold">✓ {twoFAMethod === 'email' ? 'Email OTP' : 'Authenticator'} Enabled</span>}
                                             </div>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Add an extra layer of security to your account</p>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mb-4">Add an extra layer of security to your account</p>
                                             
                                             {show2FAMethodSelect && !show2FASetup && (
                                                 <div className="space-y-4">
-                                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Choose 2FA method:</p>
+                                                    <p className="text-sm font-medium text-ink-secondary dark:text-slate-300">Choose 2FA method:</p>
                                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                         <button 
                                                             onClick={() => { setTwoFAMethod('authenticator'); setShow2FAMethodSelect(false); handleEnable2FA(); }}
-                                                            className="p-4 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-xl text-left hover:border-teal-500 transition-colors"
+                                                            className="p-4 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 rounded-xl text-left hover:border-teal-500 transition-colors"
                                                         >
-                                                            <div className="font-bold text-slate-900 dark:text-white">📱 Authenticator App</div>
-                                                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Google Auth, Authy, etc.</div>
+                                                            <div className="font-bold text-ink-primary dark:text-white">📱 Authenticator App</div>
+                                                            <div className="text-xs text-ink-tertiary dark:text-ink-tertiary mt-1">Google Auth, Authy, etc.</div>
                                                         </button>
                                                         <button 
                                                             onClick={() => { setTwoFAMethod('email'); setShow2FAMethodSelect(false); handleEnable2FA(); }}
-                                                            className="p-4 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-xl text-left hover:border-teal-500 transition-colors"
+                                                            className="p-4 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 rounded-xl text-left hover:border-teal-500 transition-colors"
                                                         >
-                                                            <div className="font-bold text-slate-900 dark:text-white">📧 Email Code</div>
-                                                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Receive code via email</div>
+                                                            <div className="font-bold text-ink-primary dark:text-white">📧 Email Code</div>
+                                                            <div className="text-xs text-ink-tertiary dark:text-ink-tertiary mt-1">Receive code via email</div>
                                                         </button>
                                                     </div>
-                                                    <button onClick={() => setShow2FAMethodSelect(false)} className="text-sm text-slate-500 dark:text-slate-400">Cancel</button>
+                                                    <button onClick={() => setShow2FAMethodSelect(false)} className="text-sm text-ink-tertiary dark:text-ink-tertiary">Cancel</button>
                                                 </div>
                                             )}
 
                                             {show2FASetup ? (
                                                 <div className="space-y-4">
                                                     {twoFAMethod === 'authenticator' && twoFASecret && (
-                                                        <div className="p-4 bg-white rounded-xl">
-                                                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">Secret Key:</p>
-                                                            <code className="text-sm font-mono bg-slate-100 p-2 rounded block">{twoFASecret}</code>
+                                                        <div className="p-4 bg-surface-elevated rounded-xl">
+                                                            <p className="text-xs font-bold text-ink-tertiary dark:text-ink-tertiary mb-2">Secret Key:</p>
+                                                            <code className="text-sm font-mono bg-surface-secondary p-2 rounded block">{twoFASecret}</code>
                                                         </div>
                                                     )}
                                                     {twoFAMethod === 'email' && (
-                                                        <div className="p-4 bg-white rounded-xl text-center">
-                                                            <p className="text-sm text-slate-600">Enter the 6-digit code sent to your email</p>
+                                                        <div className="p-4 bg-surface-elevated rounded-xl text-center">
+                                                            <p className="text-sm text-ink-secondary">Enter the 6-digit code sent to your email</p>
                                                         </div>
                                                     )}
                                                     <input 
@@ -523,25 +523,25 @@ function SettingsContent() {
                                                         value={twoFACode} 
                                                         onChange={(e) => setTwoFACode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                                                         placeholder="Enter 6-digit code"
-                                                        className="w-full px-4 py-3 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-xl text-center font-mono text-lg tracking-widest"
+                                                        className="w-full px-4 py-3 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 rounded-xl text-center font-mono text-lg tracking-widest"
                                                     />
                                                     <div className="flex gap-3">
-                                                        <button onClick={handleVerify2FA} disabled={saving} className="flex-1 py-3 bg-teal-600 text-white rounded-xl font-bold">
+                                                        <button onClick={handleVerify2FA} disabled={saving} className="flex-1 py-3 bg-accent-500 text-white rounded-xl font-bold">
                                                             {saving ? 'Verifying...' : 'Verify & Enable'}
                                                         </button>
-                                                        <button onClick={() => { setShow2FASetup(false); setTwoFACode(''); }} className="px-4 py-3 text-slate-500 dark:text-slate-400">
+                                                        <button onClick={() => { setShow2FASetup(false); setTwoFACode(''); }} className="px-4 py-3 text-ink-tertiary dark:text-ink-tertiary">
                                                             Cancel
                                                         </button>
                                                     </div>
                                                 </div>
                                             ) : twoFAEnabled ? (
                                                 <div className="flex gap-3">
-                                                    <button onClick={handleDisable2FA} className="px-6 py-3 bg-rose-100 text-rose-700 rounded-xl font-bold text-sm">
+                                                    <button onClick={handleDisable2FA} className="px-6 py-3 bg-[#e11d48]/10 text-rose-700 rounded-xl font-bold text-sm">
                                                         Disable 2FA
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <button onClick={handleEnable2FA} disabled={saving} className="px-6 py-3 bg-white dark:bg-slate-600 border border-slate-200 dark:border-slate-500 text-slate-700 dark:text-slate-300 rounded-xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-500">
+                                                <button onClick={handleEnable2FA} disabled={saving} className="px-6 py-3 bg-surface-elevated dark:bg-slate-600 border border-border-primary dark:border-slate-500 text-ink-secondary dark:text-slate-300 rounded-xl font-bold text-sm hover:bg-surface-primary dark:hover:bg-surface-primary0">
                                                     Enable 2FA
                                                 </button>
                                             )}
@@ -558,13 +558,13 @@ function SettingsContent() {
                                                         value={deletePassword} 
                                                         onChange={(e) => setDeletePassword(e.target.value)}
                                                         placeholder="Enter your password to confirm"
-                                                        className="w-full px-4 py-3 bg-white dark:bg-slate-600 border border-rose-200 dark:border-rose-500 rounded-xl"
+                                                        className="w-full px-4 py-3 bg-surface-elevated dark:bg-slate-600 border border-rose-200 dark:border-rose-500 rounded-xl"
                                                     />
                                                     <div className="flex gap-3">
                                                         <button onClick={handleDeleteAccount} disabled={saving || !deletePassword} className="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold text-sm">
                                                             {saving ? 'Deleting...' : 'Confirm Delete'}
                                                         </button>
-                                                        <button onClick={() => { setShowDeleteAccount(false); setDeletePassword(''); }} className="px-4 py-3 text-slate-500 dark:text-slate-400">
+                                                        <button onClick={() => { setShowDeleteAccount(false); setDeletePassword(''); }} className="px-4 py-3 text-ink-tertiary dark:text-ink-tertiary">
                                                             Cancel
                                                         </button>
                                                     </div>
@@ -582,8 +582,8 @@ function SettingsContent() {
                                 {activeTab === 'connected' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Connected Accounts</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Link accounts for easier login</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Connected Accounts</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Link accounts for easier login</p>
                                         </div>
 
                                         <div className="space-y-4">
@@ -592,25 +592,25 @@ function SettingsContent() {
                                                 { provider: 'Facebook', icon: '🔷', comingSoon: true },
                                                 { provider: 'Apple', icon: '🍎', comingSoon: true }
                                             ].map(item => (
-                                                <div key={item.provider} className="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-700 rounded-2xl">
+                                                <div key={item.provider} className="flex items-center justify-between p-6 bg-surface-primary dark:bg-slate-700 rounded-2xl">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-lg">{item.icon}</div>
-                                                        <span className="font-bold text-slate-900 dark:text-white">{item.provider}</span>
+                                                        <div className="w-10 h-10 bg-surface-elevated rounded-xl flex items-center justify-center text-lg">{item.icon}</div>
+                                                        <span className="font-bold text-ink-primary dark:text-white">{item.provider}</span>
                                                         {item.comingSoon && (
-                                                            <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded-full">Coming Soon</span>
+                                                            <span className="px-2 py-1 bg-sand-500/10 text-sand-500 text-[10px] font-bold rounded-full">Coming Soon</span>
                                                         )}
                                                     </div>
                                                     {item.comingSoon ? (
-                                                        <button disabled className="px-4 py-2 text-slate-400 font-bold text-sm cursor-not-allowed">Connect</button>
+                                                        <button disabled className="px-4 py-2 text-ink-tertiary font-bold text-sm cursor-not-allowed">Connect</button>
                                                     ) : (
-                                                        <button className="px-4 py-2 text-teal-600 font-bold text-sm">Connect</button>
+                                                        <button className="px-4 py-2 text-accent-400 font-bold text-sm">Connect</button>
                                                     )}
                                                 </div>
                                             ))}
                                         </div>
                                         
-                                        <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-2xl">
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                        <div className="p-6 bg-surface-primary dark:bg-slate-700 rounded-2xl">
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">
                                                 Social login integration requires OAuth credentials setup. Contact support for configuration assistance.
                                             </p>
                                         </div>
@@ -621,17 +621,17 @@ function SettingsContent() {
                                 {activeTab === 'appearance' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Appearance</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Customize how IslandHub looks</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Appearance</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Customize how IslandHub looks</p>
                                         </div>
 
-                                        <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-3xl">
-                                            <h3 className="font-bold text-slate-900 dark:text-white mb-4">Theme</h3>
+                                        <div className="p-6 bg-surface-primary dark:bg-slate-700 rounded-3xl">
+                                            <h3 className="font-bold text-ink-primary dark:text-white mb-4">Theme</h3>
                                             <div className="grid grid-cols-3 gap-4">
                                                 {['light', 'dark', 'system'].map(theme => (
                                                     <button key={theme} onClick={() => setAppearance({ ...appearance, theme })}
                                                         className={`p-4 rounded-2xl font-bold text-sm capitalize transition-all ${
-                                                            appearance.theme === theme ? 'bg-teal-600 text-white' : 'bg-white text-slate-700 dark:text-slate-300'
+                                                            appearance.theme === theme ? 'bg-accent-500 text-white' : 'bg-surface-elevated text-ink-secondary dark:text-slate-300'
                                                         }`}>
                                                         {theme}
                                                     </button>
@@ -639,10 +639,10 @@ function SettingsContent() {
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl">
+                                        <div className="flex items-center justify-between p-6 bg-surface-primary rounded-2xl">
                                             <div>
-                                                <div className="font-bold text-slate-900 dark:text-white">Compact Mode</div>
-                                                <div className="text-xs text-slate-500 dark:text-slate-400">Use less spacing throughout the UI</div>
+                                                <div className="font-bold text-ink-primary dark:text-white">Compact Mode</div>
+                                                <div className="text-xs text-ink-tertiary dark:text-ink-tertiary">Use less spacing throughout the UI</div>
                                             </div>
                                             <Toggle checked={appearance.compact} onChange={(v: boolean) => setAppearance({ ...appearance, compact: v })} />
                                         </div>
@@ -653,15 +653,15 @@ function SettingsContent() {
                                 {activeTab === 'language' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Language & Region</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Set your language and timezone</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Language & Region</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Set your language and timezone</p>
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Language</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-2">Language</label>
                                                 <select value={language.locale} onChange={e => setLanguage({ ...language, locale: e.target.value })}
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white">
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white">
                                                     <option value="en">English</option>
                                                     <option value="es">Español</option>
                                                     <option value="fr">Français</option>
@@ -671,9 +671,9 @@ function SettingsContent() {
                                                 </select>
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Timezone</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-2">Timezone</label>
                                                 <select value={language.timezone} onChange={e => setLanguage({ ...language, timezone: e.target.value })}
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white">
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white">
                                                     <option value="UTC">UTC</option>
                                                     <option value="America/New_York">Eastern Time</option>
                                                     <option value="America/Los_Angeles">Pacific Time</option>
@@ -690,8 +690,8 @@ function SettingsContent() {
                                 {activeTab === 'vendor' && user?.role !== 'user' && (
                                     <div className="space-y-8">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Vendor Settings</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Manage your store settings</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Vendor Settings</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Manage your store settings</p>
                                         </div>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -701,24 +701,24 @@ function SettingsContent() {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Business Name</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-2">Business Name</label>
                                                 <input value={vendorData.business_name} onChange={e => setVendorData({ ...vendorData, business_name: e.target.value })}
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white" />
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Location</label>
+                                                <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-2">Location</label>
                                                 <input value={vendorData.location} onChange={e => setVendorData({ ...vendorData, location: e.target.value })}
-                                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white" />
                                             </div>
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Store Description</label>
+                                            <label className="block text-sm font-bold text-ink-secondary dark:text-slate-300 mb-2">Store Description</label>
                                             <textarea value={vendorData.description} onChange={e => setVendorData({ ...vendorData, description: e.target.value })} rows={4}
-                                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl font-medium text-slate-900 dark:text-white" />
+                                                className="w-full px-4 py-3 bg-surface-primary dark:bg-slate-700 border border-border-primary dark:border-slate-600 rounded-2xl font-medium text-ink-primary dark:text-white" />
                                         </div>
 
-                                        <button onClick={handleSaveVendor} disabled={saving} className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm">
+                                        <button onClick={handleSaveVendor} disabled={saving} className="px-8 py-4 bg-surface-tertiary text-white rounded-2xl font-bold text-sm">
                                             {saving ? 'Saving...' : 'Save Vendor Settings'}
                                         </button>
                                     </div>
@@ -728,20 +728,20 @@ function SettingsContent() {
                                 {activeTab === 'media-library' && (
                                     <div className="space-y-8">
                                         <div>
-                                            <h2 className="text-xl font-black text-slate-900 dark:text-white">Media Library</h2>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Manage your uploaded images and files</p>
+                                            <h2 className="text-xl font-black text-ink-primary dark:text-white">Media Library</h2>
+                                            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Manage your uploaded images and files</p>
                                         </div>
 
                                         {mediaLoading ? (
                                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                 {[...Array(8)].map((_, i) => (
-                                                    <div key={i} className="aspect-square bg-slate-100 animate-pulse rounded-xl" />
+                                                    <div key={i} className="aspect-square bg-surface-secondary animate-pulse rounded-xl" />
                                                 ))}
                                             </div>
                                         ) : mediaItems.length > 0 ? (
                                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                 {mediaItems.map((item: any, idx: number) => (
-                                                    <div key={idx} className="relative group aspect-square bg-slate-100 rounded-xl overflow-hidden">
+                                                    <div key={idx} className="relative group aspect-square bg-surface-secondary rounded-xl overflow-hidden">
                                                         <img src={item.url || getImageUrl(item.filename)} alt={item.filename} className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                                             <button onClick={() => handleDeleteMedia(item.filename)} className="p-2 bg-rose-600 text-white rounded-lg text-xs font-bold">
@@ -752,7 +752,7 @@ function SettingsContent() {
                                                 ))}
                                             </div>
                                         ) : (
-                                            <div className="text-center py-12 text-slate-400">
+                                            <div className="text-center py-12 text-ink-tertiary">
                                                 No media uploaded yet
                                             </div>
                                         )}
@@ -769,7 +769,7 @@ function SettingsContent() {
 
 function SettingsPage() {
     return (
-        <Suspense fallback={<div className="p-8 text-center text-slate-500 dark:text-slate-400">Loading settings...</div>}>
+        <Suspense fallback={<div className="p-8 text-center text-ink-tertiary dark:text-ink-tertiary">Loading settings...</div>}>
             <SettingsContent />
         </Suspense>
     );

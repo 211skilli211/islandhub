@@ -93,7 +93,7 @@ export default function OrderDetailPage() {
       case 'refunded':
         return 'bg-red-100 text-red-700 border-red-200';
       default:
-        return 'bg-slate-100 text-slate-700 border-slate-200';
+        return 'bg-surface-secondary text-ink-secondary border-border-primary';
     }
   };
 
@@ -131,7 +131,7 @@ export default function OrderDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-surface-primary flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent" />
       </div>
     );
@@ -139,10 +139,10 @@ export default function OrderDetailPage() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-surface-primary flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Order Not Found</h1>
-          <Link href="/dashboard/orders" className="text-teal-600 hover:underline">
+          <h1 className="text-2xl font-bold text-ink-primary mb-4">Order Not Found</h1>
+          <Link href="/dashboard/orders" className="text-accent-400 hover:underline">
             Back to My Orders
           </Link>
         </div>
@@ -153,12 +153,12 @@ export default function OrderDetailPage() {
   const { steps, currentIndex } = getStatusStep(order.status);
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
+    <div className="min-h-screen bg-surface-primary py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <Link
           href="/dashboard/orders"
-          className="inline-flex items-center text-slate-600 hover:text-teal-600 mb-6 transition-colors"
+          className="inline-flex items-center text-ink-secondary hover:text-accent-400 mb-6 transition-colors"
         >
           <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -167,11 +167,11 @@ export default function OrderDetailPage() {
         </Link>
 
         {/* Order Header */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
+        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 mb-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">{order.order_number}</h1>
-              <p className="text-slate-600 mt-1">
+              <h1 className="text-3xl font-bold text-ink-primary">{order.order_number}</h1>
+              <p className="text-ink-secondary mt-1">
                 Placed on {new Date(order.created_at).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -189,13 +189,13 @@ export default function OrderDetailPage() {
 
         {/* Order Progress */}
         {order.status !== 'cancelled' && order.status !== 'refunded' && (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
-            <h2 className="text-lg font-bold text-slate-900 mb-6">Order Status</h2>
+          <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 mb-6">
+            <h2 className="text-lg font-bold text-ink-primary mb-6">Order Status</h2>
             <div className="relative">
               {/* Progress Bar */}
-              <div className="absolute top-4 left-0 right-0 h-1 bg-slate-200 rounded">
+              <div className="absolute top-4 left-0 right-0 h-1 bg-surface-tertiary rounded">
                 <div
-                  className="h-full bg-teal-500 rounded transition-all"
+                  className="h-full bg-accent-500/100 rounded transition-all"
                   style={{ width: `${((currentIndex + 1) / steps.length) * 100}%` }}
                 />
               </div>
@@ -212,8 +212,8 @@ export default function OrderDetailPage() {
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mb-2 ${
                         index <= currentIndex
-                          ? 'bg-teal-500 text-white'
-                          : 'bg-slate-200 text-slate-500'
+                          ? 'bg-accent-500/100 text-white'
+                          : 'bg-surface-tertiary text-ink-tertiary'
                       }`}
                     >
                       {index < currentIndex ? '✓' : step.icon}
@@ -231,35 +231,35 @@ export default function OrderDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Order Items */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-              <h2 className="text-xl font-bold text-slate-900 mb-6">Order Items</h2>
+            <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
+              <h2 className="text-xl font-bold text-ink-primary mb-6">Order Items</h2>
               <div className="space-y-4">
                 {order.items.map((item) => (
                   <div
                     key={item.order_item_id}
-                    className="flex items-start justify-between p-4 bg-slate-50 rounded-xl"
+                    className="flex items-start justify-between p-4 bg-surface-primary rounded-xl"
                   >
                     <div className="flex-1">
-                      <h3 className="font-semibold text-slate-900">{item.item_name}</h3>
+                      <h3 className="font-semibold text-ink-primary">{item.item_name}</h3>
                       {item.item_description && (
-                        <p className="text-sm text-slate-500 mt-1">{item.item_description}</p>
+                        <p className="text-sm text-ink-tertiary mt-1">{item.item_description}</p>
                       )}
                       {item.selected_variant && (
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-ink-tertiary mt-1">
                           {Object.entries(item.selected_variant).map(([k, v]) => `${k}: ${v}`).join(', ')}
                         </p>
                       )}
                       {item.selected_addons && item.selected_addons.length > 0 && (
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-ink-tertiary mt-1">
                           Add-ons: {item.selected_addons.map(a => a.name).join(', ')}
                         </p>
                       )}
-                      <p className="text-sm text-slate-600 mt-2">
+                      <p className="text-sm text-ink-secondary mt-2">
                         {item.quantity} x ${item.unit_price.toFixed(2)} {order.currency}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-slate-900">${item.total_price.toFixed(2)}</p>
+                      <p className="font-bold text-ink-primary">${item.total_price.toFixed(2)}</p>
                       <span className={`inline-block px-2 py-1 rounded text-xs font-bold mt-2 ${getStatusColor(item.status)}`}>
                         {getStatusLabel(item.status)}
                       </span>
@@ -270,17 +270,17 @@ export default function OrderDetailPage() {
             </div>
 
             {/* Delivery Information */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-              <h2 className="text-xl font-bold text-slate-900 mb-4">Delivery Information</h2>
+            <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
+              <h2 className="text-xl font-bold text-ink-primary mb-4">Delivery Information</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{order.delivery_type === 'delivery' ? '🚚' : '🏪'}</span>
                   <div>
-                    <p className="font-semibold text-slate-900">
+                    <p className="font-semibold text-ink-primary">
                       {order.delivery_type === 'delivery' ? 'Home Delivery' : 'Store Pickup'}
                     </p>
                     {order.estimated_delivery_time && (
-                      <p className="text-sm text-slate-600">
+                      <p className="text-sm text-ink-secondary">
                         Estimated: {new Date(order.estimated_delivery_time).toLocaleDateString()}
                       </p>
                     )}
@@ -288,15 +288,15 @@ export default function OrderDetailPage() {
                 </div>
 
                 {order.delivery_type === 'delivery' && order.delivery_address && (
-                  <div className="p-4 bg-slate-50 rounded-xl">
-                    <p className="font-semibold text-slate-900 mb-1">Delivery Address</p>
-                    <p className="text-slate-600">
+                  <div className="p-4 bg-surface-primary rounded-xl">
+                    <p className="font-semibold text-ink-primary mb-1">Delivery Address</p>
+                    <p className="text-ink-secondary">
                       {typeof order.delivery_address === 'string' 
                         ? order.delivery_address 
                         : JSON.stringify(order.delivery_address, null, 2)}
                     </p>
                     {order.delivery_instructions && (
-                      <p className="text-sm text-slate-500 mt-2">
+                      <p className="text-sm text-ink-tertiary mt-2">
                         Instructions: {order.delivery_instructions}
                       </p>
                     )}
@@ -308,25 +308,25 @@ export default function OrderDetailPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sticky top-24">
-              <h2 className="text-xl font-bold text-slate-900 mb-6">Order Summary</h2>
+            <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 sticky top-24">
+              <h2 className="text-xl font-bold text-ink-primary mb-6">Order Summary</h2>
               
               <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-ink-secondary">
                   <span>Subtotal</span>
                   <span>${order.subtotal?.toFixed(2) || '0.00'}</span>
                 </div>
                 {order.delivery_fee > 0 && (
-                  <div className="flex justify-between text-slate-600">
+                  <div className="flex justify-between text-ink-secondary">
                     <span>Delivery Fee</span>
                     <span>${order.delivery_fee.toFixed(2)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-ink-secondary">
                   <span>Service Fee</span>
                   <span>${order.service_fee?.toFixed(2) || '0.00'}</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-ink-secondary">
                   <span>Tax</span>
                   <span>${order.tax_amount?.toFixed(2) || '0.00'}</span>
                 </div>
@@ -336,8 +336,8 @@ export default function OrderDetailPage() {
                     <span>-${order.discount_amount.toFixed(2)}</span>
                   </div>
                 )}
-                <div className="border-t border-slate-200 pt-3">
-                  <div className="flex justify-between text-xl font-bold text-slate-900">
+                <div className="border-t border-border-primary pt-3">
+                  <div className="flex justify-between text-xl font-bold text-ink-primary">
                     <span>Total</span>
                     <span>${order.total_amount.toFixed(2)} {order.currency}</span>
                   </div>
@@ -345,18 +345,18 @@ export default function OrderDetailPage() {
               </div>
 
               {/* Payment Information */}
-              <div className="border-t border-slate-200 pt-4 mb-4">
-                <h3 className="font-bold text-slate-900 mb-2">Payment</h3>
-                <p className="text-sm text-slate-600">
+              <div className="border-t border-border-primary pt-4 mb-4">
+                <h3 className="font-bold text-ink-primary mb-2">Payment</h3>
+                <p className="text-sm text-ink-secondary">
                   Method: {order.payment_method || 'N/A'}
                 </p>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-ink-secondary">
                   Status: <span className={getStatusColor(order.payment_status)}>
                     {getStatusLabel(order.payment_status)}
                   </span>
                 </p>
                 {order.paid_at && (
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-ink-secondary">
                     Paid on: {new Date(order.paid_at).toLocaleDateString()}
                   </p>
                 )}
@@ -376,7 +376,7 @@ export default function OrderDetailPage() {
                         toast.error(err.response?.data?.message || 'Failed to retry payment');
                       }
                     }}
-                    className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
+                    className="w-full py-3 bg-accent-500 text-white font-bold rounded-xl hover:bg-accent-600 transition-all"
                   >
                     Complete Payment
                   </button>
@@ -385,7 +385,7 @@ export default function OrderDetailPage() {
                 {['pending', 'paid', 'processing'].includes(order.status) && (
                   <button
                     onClick={handleCancelOrder}
-                    className="w-full py-3 bg-white border-2 border-red-200 text-red-600 font-bold rounded-xl hover:bg-red-50 transition-all"
+                    className="w-full py-3 bg-surface-elevated border-2 border-red-200 text-red-600 font-bold rounded-xl hover:bg-red-50 transition-all"
                   >
                     Cancel Order
                   </button>
@@ -393,7 +393,7 @@ export default function OrderDetailPage() {
 
                 <Link
                   href="/dashboard/orders"
-                  className="w-full py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-all block text-center"
+                  className="w-full py-3 bg-surface-secondary text-ink-secondary font-bold rounded-xl hover:bg-surface-tertiary transition-all block text-center"
                 >
                   Back to Orders
                 </Link>

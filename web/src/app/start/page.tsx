@@ -38,21 +38,21 @@ const CREATE_OPTIONS = [
 
 export default function StartHubPage() {
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4">
+        <div className="min-h-screen bg-surface-primary pt-24 pb-12 px-4">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-4"
+                        className="text-5xl md:text-6xl font-black text-ink-primary tracking-tight mb-4"
                     >
-                        Start <span className="text-teal-600">Something</span> New
+                        Start <span className="text-accent-400">Something</span> New
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto"
+                        className="text-ink-tertiary text-lg md:text-xl font-medium max-w-2xl mx-auto"
                     >
                         Whether you're opening a shop, offering a service, or raising funds, we've got you covered.
                     </motion.p>
@@ -67,9 +67,9 @@ export default function StartHubPage() {
                             transition={{ delay: idx * 0.1 }}
                         >
                             <Link href={option.href} className="block h-full group">
-                                <div className="h-full bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-teal-100 hover:-translate-y-2 transition-all relative overflow-hidden">
+                                <div className="h-full bg-surface-elevated rounded-[2.5rem] p-8 border border-border-primary shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100 hover:-translate-y-2 transition-all relative overflow-hidden">
                                     {option.badge && (
-                                        <div className="absolute top-6 right-6 px-3 py-1 bg-teal-50 text-teal-600 text-[10px] font-black uppercase tracking-widest rounded-full">
+                                        <div className="absolute top-6 right-6 px-3 py-1 bg-accent-500/10 text-accent-400 text-[10px] font-black uppercase tracking-widest rounded-full">
                                             {option.badge}
                                         </div>
                                     )}
@@ -82,11 +82,11 @@ export default function StartHubPage() {
                                         {option.title}
                                     </h3>
 
-                                    <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">
+                                    <p className="text-ink-tertiary text-sm font-medium leading-relaxed mb-8">
                                         {option.description}
                                     </p>
 
-                                    <div className="mt-auto flex items-center gap-2 text-teal-600 font-black uppercase tracking-widest text-[10px]">
+                                    <div className="mt-auto flex items-center gap-2 text-accent-400 font-black uppercase tracking-widest text-[10px]">
                                         <span>Get Started</span>
                                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -98,15 +98,15 @@ export default function StartHubPage() {
                     ))}
                 </div>
 
-                <div className="mt-20 p-12 bg-slate-900 rounded-[3rem] text-center text-white relative overflow-hidden">
+                <div className="mt-20 p-12 bg-surface-tertiary rounded-[3rem] text-center text-white relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                        <div className="absolute top-0 left-10 w-40 h-40 bg-teal-500 blur-[100px]" />
+                        <div className="absolute top-0 left-10 w-40 h-40 bg-accent-500/100 blur-[100px]" />
                         <div className="absolute bottom-0 right-10 w-40 h-40 bg-indigo-500 blur-[100px]" />
                     </div>
 
                     <h2 className="text-3xl font-black mb-4">Not sure where to begin?</h2>
-                    <p className="text-slate-400 font-medium mb-8 max-w-xl mx-auto">Our support team is here to help you set up your store or launch your first campaign.</p>
-                    <Link href="/contact" className="inline-block px-10 py-4 bg-teal-600 hover:bg-teal-500 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal-500/20">
+                    <p className="text-ink-tertiary font-medium mb-8 max-w-xl mx-auto">Our support team is here to help you set up your store or launch your first campaign.</p>
+                    <Link href="/contact" className="inline-block px-10 py-4 bg-accent-500 hover:bg-accent-500/100 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 shadow-xl shadow-teal-500/20">
                         Contact Support
                     </Link>
                 </div>

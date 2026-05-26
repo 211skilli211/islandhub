@@ -23,8 +23,8 @@ export default function AdminOrdersPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Orders</h2>
-                <p className="text-slate-500 dark:text-slate-400">Track and manage all platform orders</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Orders</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Track and manage all platform orders</p>
             </div>
             <OrdersTab />
         </div>

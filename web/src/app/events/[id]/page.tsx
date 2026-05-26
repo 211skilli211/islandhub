@@ -26,7 +26,7 @@ export default function EventDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 flex items-center justify-center">
+      <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full" />
       </div>
     );
@@ -34,7 +34,7 @@ export default function EventDetailPage() {
 
   if (!event) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 flex items-center justify-center">
+      <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center">
         <div className="text-center">
           <p className="text-6xl mb-4">🔍</p>
           <h2 className="text-2xl font-black text-slate-800 dark:text-sand-50">Event not found</h2>
@@ -68,7 +68,7 @@ export default function EventDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
+    <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
       {/* Banner */}
       <div className="relative h-64 sm:h-96 overflow-hidden">
         {(event.banner_url || event.image_url) ? (
@@ -96,46 +96,46 @@ export default function EventDetailPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Info Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-white dark:bg-ocean-800 rounded-xl p-4 text-center border border-slate-100 dark:border-ocean-700">
+              <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">📅</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Date</p>
+                <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Date</p>
                 <p className="font-bold text-slate-800 dark:text-sand-50 text-sm">{formatDate(event.start_date)}</p>
               </div>
-              <div className="bg-white dark:bg-ocean-800 rounded-xl p-4 text-center border border-slate-100 dark:border-ocean-700">
+              <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">🕐</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Time</p>
+                <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Time</p>
                 <p className="font-bold text-slate-800 dark:text-sand-50 text-sm">{formatTime(event.start_date)}</p>
               </div>
-              <div className="bg-white dark:bg-ocean-800 rounded-xl p-4 text-center border border-slate-100 dark:border-ocean-700">
+              <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">📍</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Venue</p>
+                <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Venue</p>
                 <p className="font-bold text-slate-800 dark:text-sand-50 text-sm">{event.venue}</p>
               </div>
             </div>
 
             {/* Description */}
-            <div className="bg-white dark:bg-ocean-800 rounded-xl p-6 border border-slate-100 dark:border-ocean-700">
-              <h2 className="text-xl font-black text-slate-900 dark:text-sand-50 mb-3">About This Event</h2>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{event.description}</p>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 border border-border-primary dark:border-ocean-700">
+              <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-3">About This Event</h2>
+              <p className="text-ink-secondary dark:text-slate-300 leading-relaxed whitespace-pre-wrap">{event.description}</p>
             </div>
 
             {/* Organizer */}
-            <div className="bg-white dark:bg-ocean-800 rounded-xl p-6 border border-slate-100 dark:border-ocean-700">
-              <h2 className="text-xl font-black text-slate-900 dark:text-sand-50 mb-3">Organizer</h2>
-              <p className="text-slate-600 dark:text-slate-300">{event.organizer_name}</p>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 border border-border-primary dark:border-ocean-700">
+              <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-3">Organizer</h2>
+              <p className="text-ink-secondary dark:text-slate-300">{event.organizer_name}</p>
             </div>
           </div>
 
           {/* Ticket Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-ocean-800 rounded-2xl p-6 border border-slate-100 dark:border-ocean-700 sticky top-24">
-              <h3 className="text-lg font-black text-slate-900 dark:text-sand-50 mb-4">Select Tickets</h3>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 border border-border-primary dark:border-ocean-700 sticky top-24">
+              <h3 className="text-lg font-black text-ink-primary dark:text-sand-50 mb-4">Select Tickets</h3>
 
               {isSoldOut ? (
                 <div className="text-center py-8">
                   <p className="text-4xl mb-3">🎫</p>
                   <p className="font-black text-red-500 text-lg">SOLD OUT</p>
-                  <p className="text-sm text-slate-500 mt-2">All tickets have been claimed</p>
+                  <p className="text-sm text-ink-tertiary mt-2">All tickets have been claimed</p>
                 </div>
               ) : event.ticket_tiers?.length > 0 ? (
                 <div className="space-y-3">
@@ -149,16 +149,16 @@ export default function EventDetailPage() {
                         onClick={() => setSelectedTier(idx)}
                         className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                           soldOut
-                            ? 'border-slate-200 dark:border-ocean-700 opacity-50 cursor-not-allowed'
+                            ? 'border-border-primary dark:border-ocean-700 opacity-50 cursor-not-allowed'
                             : isSelected
                               ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
-                              : 'border-slate-200 dark:border-ocean-600 hover:border-purple-300'
+                              : 'border-border-primary dark:border-ocean-600 hover:border-purple-300'
                         }`}
                       >
                         <div className="flex justify-between items-start">
                           <div>
                             <p className="font-black text-slate-800 dark:text-sand-50">{t.name}</p>
-                            {t.description && <p className="text-xs text-slate-500 mt-1">{t.description}</p>}
+                            {t.description && <p className="text-xs text-ink-tertiary mt-1">{t.description}</p>}
                             {t.perks?.length > 0 && (
                               <div className="mt-2 flex flex-wrap gap-1">
                                 {t.perks.map((perk, i) => (
@@ -169,7 +169,7 @@ export default function EventDetailPage() {
                           </div>
                           <div className="text-right">
                             <p className="font-black text-lg text-purple-600 dark:text-purple-400">${t.price}</p>
-                            <p className="text-[10px] text-slate-400">{t.quantity - t.sold} left</p>
+                            <p className="text-[10px] text-ink-tertiary">{t.quantity - t.sold} left</p>
                           </div>
                         </div>
                       </button>
@@ -186,12 +186,12 @@ export default function EventDetailPage() {
                   )}
 
                   {/* Capacity bar */}
-                  <div className="pt-4 border-t border-slate-100 dark:border-ocean-700">
-                    <div className="flex justify-between text-xs text-slate-500 mb-1">
+                  <div className="pt-4 border-t border-border-primary dark:border-ocean-700">
+                    <div className="flex justify-between text-xs text-ink-tertiary mb-1">
                       <span>{event.tickets_sold} sold</span>
                       <span>{event.total_capacity} total</span>
                     </div>
-                    <div className="w-full h-2 bg-slate-200 dark:bg-ocean-700 rounded-full">
+                    <div className="w-full h-2 bg-surface-tertiary dark:bg-ocean-700 rounded-full">
                       <div
                         className="h-full bg-purple-500 rounded-full transition-all"
                         style={{ width: `${Math.min(100, (event.tickets_sold / event.total_capacity) * 100)}%` }}
@@ -200,7 +200,7 @@ export default function EventDetailPage() {
                   </div>
                 </div>
               ) : (
-                <p className="text-slate-500 text-center py-4">No tickets available yet</p>
+                <p className="text-ink-tertiary text-center py-4">No tickets available yet</p>
               )}
             </div>
           </div>
@@ -210,22 +210,22 @@ export default function EventDetailPage() {
       {/* Purchase Confirmation Modal */}
       {showConfirm && tier && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-ocean-800 rounded-2xl p-6 max-w-md w-full border border-slate-100 dark:border-ocean-700">
-            <h3 className="text-xl font-black text-slate-900 dark:text-sand-50 mb-4">Confirm Purchase</h3>
+          <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 max-w-md w-full border border-border-primary dark:border-ocean-700">
+            <h3 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Confirm Purchase</h3>
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
-                <span className="text-slate-500">Event</span>
+                <span className="text-ink-tertiary">Event</span>
                 <span className="font-bold text-slate-800 dark:text-sand-50">{event.title}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-slate-500">Ticket</span>
+                <span className="text-ink-tertiary">Ticket</span>
                 <span className="font-bold text-slate-800 dark:text-sand-50">{tier.name}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-slate-500">Date</span>
+                <span className="text-ink-tertiary">Date</span>
                 <span className="font-bold text-slate-800 dark:text-sand-50">{formatDate(event.start_date)}</span>
               </div>
-              <div className="flex justify-between text-sm border-t border-slate-100 dark:border-ocean-700 pt-3">
+              <div className="flex justify-between text-sm border-t border-border-primary dark:border-ocean-700 pt-3">
                 <span className="font-black">Total</span>
                 <span className="font-black text-lg text-purple-600">${tier.price} XCD</span>
               </div>
@@ -233,7 +233,7 @@ export default function EventDetailPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="flex-1 py-3 text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-ocean-700 rounded-xl transition-colors"
+                className="flex-1 py-3 text-ink-tertiary font-bold hover:bg-surface-secondary dark:hover:bg-ocean-700 rounded-xl transition-colors"
               >
                 Cancel
               </button>

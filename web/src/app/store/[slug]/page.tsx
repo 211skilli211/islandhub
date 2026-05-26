@@ -81,10 +81,10 @@ export default function StorePage() {
 
     if (loading) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-100 border-t-teal-600 mx-auto mb-4"></div>
-                    <p className="text-slate-500 font-medium">Loading store...</p>
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600 mx-auto mb-4"></div>
+                    <p className="text-ink-tertiary font-medium">Loading store...</p>
                 </div>
             </main>
         );
@@ -92,11 +92,11 @@ export default function StorePage() {
 
     if (notFoundError) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center max-w-md mx-auto px-6">
-                    <h1 className="text-2xl font-black text-slate-900 mb-2">Store not found</h1>
-                    <p className="text-slate-500 mb-6">This store doesn&apos;t exist or has been removed.</p>
-                    <a href="/stores" className="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors">
+                    <h1 className="text-2xl font-black text-ink-primary mb-2">Store not found</h1>
+                    <p className="text-ink-tertiary mb-6">This store doesn&apos;t exist or has been removed.</p>
+                    <a href="/stores" className="inline-block px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors">
                         Browse Stores
                     </a>
                 </div>
@@ -106,11 +106,11 @@ export default function StorePage() {
 
     if (error || !store) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center max-w-md mx-auto px-6">
-                    <h1 className="text-2xl font-black text-slate-900 mb-2">Something went wrong</h1>
-                    <p className="text-slate-500 mb-6">We couldn&apos;t load this store. Please try again later.</p>
-                    <a href="/stores" className="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors">
+                    <h1 className="text-2xl font-black text-ink-primary mb-2">Something went wrong</h1>
+                    <p className="text-ink-tertiary mb-6">We couldn&apos;t load this store. Please try again later.</p>
+                    <a href="/stores" className="inline-block px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors">
                         Browse Stores
                     </a>
                 </div>
@@ -120,15 +120,15 @@ export default function StorePage() {
 
     if (store.status !== 'active') {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center max-w-md mx-auto px-6">
-                    <h1 className="text-2xl font-black text-slate-900 mb-2">{store.name || 'This Store'}</h1>
-                    <p className="text-slate-500 mb-6">
+                    <h1 className="text-2xl font-black text-ink-primary mb-2">{store.name || 'This Store'}</h1>
+                    <p className="text-ink-tertiary mb-6">
                         {store.status === 'suspended'
                             ? 'This store is currently unavailable.'
                             : 'This store is coming soon. Check back later!'}
                     </p>
-                    <a href="/stores" className="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors">
+                    <a href="/stores" className="inline-block px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors">
                         Browse Other Stores
                     </a>
                 </div>

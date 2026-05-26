@@ -165,12 +165,12 @@ function ProductsContent() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 dark:text-white">Partner Products</h2>
-                    <p className="text-slate-500 dark:text-slate-400">Manage products for IBT partner stores</p>
+                    <h2 className="text-2xl font-black text-ink-primary dark:text-white">Partner Products</h2>
+                    <p className="text-ink-tertiary dark:text-ink-tertiary">Manage products for IBT partner stores</p>
                 </div>
                 <button
                     onClick={() => { setShowForm(true); setEditingProduct(null); setFormData({ title: '', description: '', price: '', category: 'product', store_id: '', image_url: '' }); }}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors"
                 >
                     <Plus className="w-4 h-4" />
                     Add Product
@@ -182,7 +182,7 @@ function ProductsContent() {
                 <button
                     onClick={() => setSelectedStore('all')}
                     className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                        selectedStore === 'all' ? 'bg-teal-500 text-white' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
+                        selectedStore === 'all' ? 'bg-accent-500/100 text-white' : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-slate-700'
                     }`}
                 >
                     All Stores ({products.length})
@@ -194,7 +194,7 @@ function ProductsContent() {
                             key={store.id}
                             onClick={() => setSelectedStore(String(store.id))}
                             className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                                selectedStore === String(store.id) ? 'bg-teal-500 text-white' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
+                                selectedStore === String(store.id) ? 'bg-accent-500/100 text-white' : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-slate-700'
                             }`}
                         >
                             {store.name} ({count})
@@ -206,17 +206,17 @@ function ProductsContent() {
             {/* Product Form Modal */}
             {showForm && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-                        <h3 className="text-xl font-black text-slate-900 dark:text-white mb-6">
+                    <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+                        <h3 className="text-xl font-black text-ink-primary dark:text-white mb-6">
                             {editingProduct ? 'Edit Product' : 'Add Product'}
                         </h3>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Store</label>
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Store</label>
                                 <select
                                     value={formData.store_id}
                                     onChange={e => setFormData(prev => ({ ...prev, store_id: e.target.value }))}
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-teal-500"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
                                 >
                                     <option value="">Select store...</option>
                                     {stores.map(s => (
@@ -225,43 +225,43 @@ function ProductsContent() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Product Name</label>
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Product Name</label>
                                 <input
                                     type="text"
                                     value={formData.title}
                                     onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
                                     placeholder="e.g. Fine Sea Salt 500g"
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-teal-500"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Description</label>
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Description</label>
                                 <textarea
                                     value={formData.description}
                                     onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
                                     placeholder="Product description..."
                                     rows={3}
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-teal-500 resize-none"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500 resize-none"
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Price (XCD)</label>
+                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Price (XCD)</label>
                                     <input
                                         type="number"
                                         step="0.01"
                                         value={formData.price}
                                         onChange={e => setFormData(prev => ({ ...prev, price: e.target.value }))}
                                         placeholder="0.00"
-                                        className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-teal-500"
+                                        className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Category</label>
+                                    <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Category</label>
                                     <select
                                         value={formData.category}
                                         onChange={e => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                        className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-teal-500"
+                                        className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
                                     >
                                         <option value="product">Product</option>
                                         <option value="food">Food</option>
@@ -270,27 +270,27 @@ function ProductsContent() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Image URL</label>
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Image URL</label>
                                 <input
                                     type="text"
                                     value={formData.image_url}
                                     onChange={e => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
                                     placeholder="https://..."
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-700 dark:text-slate-300 outline-none focus:border-teal-500"
+                                    className="w-full p-3 bg-surface-primary dark:bg-surface-tertiary border-2 border-border-primary dark:border-slate-700 rounded-xl font-bold text-ink-secondary dark:text-slate-300 outline-none focus:border-teal-500"
                                 />
                             </div>
                         </div>
                         <div className="flex gap-3 mt-6">
                             <button
                                 onClick={() => { setShowForm(false); setEditingProduct(null); }}
-                                className="flex-1 py-3 text-slate-400 font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                                className="flex-1 py-3 text-ink-tertiary font-bold rounded-xl hover:bg-surface-secondary dark:hover:bg-slate-700 transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleSave}
                                 disabled={saving}
-                                className="flex-1 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors disabled:opacity-50"
+                                className="flex-1 py-3 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors disabled:opacity-50"
                             >
                                 {saving ? 'Saving...' : editingProduct ? 'Update' : 'Create'}
                             </button>
@@ -303,17 +303,17 @@ function ProductsContent() {
             {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[1, 2, 3, 4, 5, 6].map(i => (
-                        <div key={i} className="h-64 bg-slate-100 dark:bg-slate-800 animate-pulse rounded-2xl" />
+                        <div key={i} className="h-64 bg-surface-secondary dark:bg-surface-tertiary animate-pulse rounded-2xl" />
                     ))}
                 </div>
             ) : filteredProducts.length === 0 ? (
-                <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <div className="text-center py-16 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700">
                     <Package className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No Products</h3>
-                    <p className="text-slate-500 mb-6">Add products to your partner stores.</p>
+                    <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-2">No Products</h3>
+                    <p className="text-ink-tertiary mb-6">Add products to your partner stores.</p>
                     <button
                         onClick={() => setShowForm(true)}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors"
                     >
                         <Plus className="w-4 h-4" />
                         Add Product
@@ -322,8 +322,8 @@ function ProductsContent() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredProducts.map(product => (
-                        <div key={product.id} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-shadow">
-                            <div className="h-40 bg-slate-100 dark:bg-slate-700 overflow-hidden">
+                        <div key={product.id} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 overflow-hidden hover:shadow-lg transition-shadow">
+                            <div className="h-40 bg-surface-secondary dark:bg-slate-700 overflow-hidden">
                                 {getProductImage(product) ? (
                                     <img src={getProductImage(product)!} alt={product.title} className="w-full h-full object-cover" />
                                 ) : (
@@ -334,23 +334,23 @@ function ProductsContent() {
                             </div>
                             <div className="p-4">
                                 <div className="flex items-start justify-between mb-1">
-                                    <h3 className="font-bold text-slate-900 dark:text-white text-sm line-clamp-1">{product.title}</h3>
-                                    <span className="text-sm font-black text-teal-600">${Number(product.price).toFixed(2)}</span>
+                                    <h3 className="font-bold text-ink-primary dark:text-white text-sm line-clamp-1">{product.title}</h3>
+                                    <span className="text-sm font-black text-accent-400">${Number(product.price).toFixed(2)}</span>
                                 </div>
-                                <p className="text-[10px] text-slate-400 mb-3">{getStoreName(product.store_id)} • {product.category}</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-3 min-h-[2rem]">{product.description}</p>
+                                <p className="text-[10px] text-ink-tertiary mb-3">{getStoreName(product.store_id)} • {product.category}</p>
+                                <p className="text-xs text-ink-tertiary dark:text-ink-tertiary line-clamp-2 mb-3 min-h-[2rem]">{product.description}</p>
                                 <div className="flex items-center gap-2">
                                     <a
                                         href={`/store/${stores.find(s => s.id === product.store_id)?.slug || ''}`}
                                         target="_blank"
-                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-surface-secondary dark:bg-slate-700 text-ink-secondary dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-surface-tertiary dark:hover:bg-slate-600 transition-colors"
                                     >
                                         <Eye className="w-3 h-3" />
                                         View
                                     </a>
                                     <button
                                         onClick={() => handleEdit(product)}
-                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-amber-100 text-amber-700 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
+                                        className="flex-1 inline-flex items-center justify-center gap-1 px-3 py-2 bg-sand-500/10 text-sand-500 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
                                     >
                                         <Edit className="w-3 h-3" />
                                         Edit

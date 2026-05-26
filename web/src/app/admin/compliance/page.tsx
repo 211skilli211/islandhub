@@ -17,8 +17,8 @@ export default function AdminCompliancePage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-black text-slate-900 dark:text-white">Compliance Analytics</h2>
-                <p className="text-slate-500 dark:text-slate-400">Platform compliance metrics and reports</p>
+                <h2 className="text-2xl font-black text-ink-primary dark:text-white">Compliance Analytics</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary">Platform compliance metrics and reports</p>
             </div>
             <ComplianceAnalytics />
         </div>

@@ -45,15 +45,15 @@ function ResetPasswordContent() {
 
     if (!token) {
         return (
-            <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div className="min-h-screen bg-surface-primary flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
                     <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
                         <span className="text-3xl">⚠️</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900">Invalid Link</h2>
-                    <p className="mt-2 text-sm text-slate-600">This password reset link is invalid or has expired.</p>
+                    <h2 className="text-2xl font-bold text-ink-primary">Invalid Link</h2>
+                    <p className="mt-2 text-sm text-ink-secondary">This password reset link is invalid or has expired.</p>
                     <div className="mt-6">
-                        <a href="/forgot-password" className="text-teal-600 hover:text-teal-500 font-medium">
+                        <a href="/forgot-password" className="text-accent-400 hover:text-teal-500 font-medium">
                             Request a new reset link
                         </a>
                     </div>
@@ -64,21 +64,21 @@ function ResetPasswordContent() {
 
     return (
         <>
-            <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div className="min-h-screen bg-surface-primary flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-ink-primary">
                         Set new password
                     </h2>
-                    <p className="mt-2 text-center text-sm text-slate-600">
+                    <p className="mt-2 text-center text-sm text-ink-secondary">
                         Enter your new password below
                     </p>
                 </div>
 
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white dark:bg-slate-800 py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
+                    <div className="bg-surface-elevated dark:bg-surface-tertiary py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
-                                <label htmlFor="password" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
+                                <label htmlFor="password" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
                                     New Password
                                 </label>
                                 <div className="mt-2">
@@ -90,13 +90,13 @@ function ResetPasswordContent() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label htmlFor="confirmPassword" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
+                                <label htmlFor="confirmPassword" className="block text-sm font-bold text-ink-secondary dark:text-slate-300">
                                     Confirm New Password
                                 </label>
                                 <div className="mt-2">
@@ -108,7 +108,7 @@ function ResetPasswordContent() {
                                         required
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-slate-700 border border-border-primary dark:border-slate-600 text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
@@ -117,14 +117,14 @@ function ResetPasswordContent() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50"
+                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-400 disabled:opacity-50"
                                 >
                                     {loading ? 'Resetting...' : 'Reset Password'}
                                 </button>
                             </div>
 
                             <div className="text-center">
-                                <a href="/login" className="text-sm text-teal-600 hover:text-teal-500">
+                                <a href="/login" className="text-sm text-accent-400 hover:text-teal-500">
                                     Back to login
                                 </a>
                             </div>

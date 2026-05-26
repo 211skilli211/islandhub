@@ -76,10 +76,10 @@ export default function GroupsPage() {
     };
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             <HeroBackground pageKey="community" className="py-16">
                 <div className="max-w-7xl mx-auto relative z-30 text-center px-4">
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10">
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10">
                         Community Groups 🌴
                     </motion.div>
                     <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter">
@@ -89,8 +89,8 @@ export default function GroupsPage() {
                         Join local groups, connect with neighbors who share your interests.
                     </motion.p>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="relative max-w-md mx-auto">
-                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input type="text" placeholder="Search groups..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3.5 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 shadow-xl" />
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                        <input type="text" placeholder="Search groups..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3.5 bg-surface-elevated/95 backdrop-blur-sm rounded-2xl text-ink-primary font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 shadow-xl" />
                     </motion.div>
                 </div>
             </HeroBackground>
@@ -100,13 +100,13 @@ export default function GroupsPage() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div className="flex gap-2 overflow-x-auto pb-2 w-full sm:w-auto scrollbar-hide">
                         {categories.map(cat => (
-                            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${selectedCategory === cat.id ? 'bg-teal-600 text-white shadow-lg shadow-teal-200' : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'}`}>
+                            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${selectedCategory === cat.id ? 'bg-accent-500 text-white shadow-lg shadow-teal-200' : 'bg-surface-elevated text-ink-tertiary border border-border-primary hover:bg-surface-primary'}`}>
                                 <span>{cat.icon}</span>
                                 <span className="hidden sm:inline">{cat.name}</span>
                             </button>
                         ))}
                     </div>
-                    <button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-colors shrink-0">
+                    <button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2 px-5 py-2.5 bg-surface-tertiary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface-tertiary transition-colors shrink-0">
                         <Plus size={14} />
                         Create Group
                     </button>
@@ -115,13 +115,13 @@ export default function GroupsPage() {
                 {/* Groups Grid */}
                 {isLoading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {[1,2,3,4,5,6].map(i => <div key={i} className="h-64 bg-slate-100 animate-pulse rounded-2xl" />)}
+                        {[1,2,3,4,5,6].map(i => <div key={i} className="h-64 bg-surface-secondary animate-pulse rounded-2xl" />)}
                     </div>
                 ) : filteredGroups.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {filteredGroups.map((group, idx) => (
                             <motion.div key={group.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
-                                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all group h-full flex flex-col">
+                                <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all group h-full flex flex-col">
                                     {/* Cover */}
                                     <div className="h-32 bg-gradient-to-br from-teal-400 via-indigo-400 to-violet-500 relative overflow-hidden">
                                         {group.cover_image_url ? (
@@ -143,25 +143,25 @@ export default function GroupsPage() {
 
                                     {/* Content */}
                                     <div className="p-5 flex-1 flex flex-col">
-                                        <h3 className="text-base font-black text-slate-900 mb-1.5 group-hover:text-teal-600 transition-colors">{group.name}</h3>
-                                        <p className="text-xs text-slate-500 line-clamp-2 mb-4 flex-1">{group.description}</p>
+                                        <h3 className="text-base font-black text-ink-primary mb-1.5 group-hover:text-accent-400 transition-colors">{group.name}</h3>
+                                        <p className="text-xs text-ink-tertiary line-clamp-2 mb-4 flex-1">{group.description}</p>
 
-                                        <div className="flex items-center justify-between text-[10px] text-slate-400 mb-4">
+                                        <div className="flex items-center justify-between text-[10px] text-ink-tertiary mb-4">
                                             <span className="flex items-center gap-1 font-bold"><Users size={12} /> {group.member_count.toLocaleString()} members</span>
                                             <span className="flex items-center gap-1 font-bold"><MessageCircle size={12} /> {group.post_count} posts</span>
                                         </div>
 
                                         <div className="flex gap-2">
                                             {group.is_member ? (
-                                                <Link href={`/community/groups/${group.id}`} className="flex-1 py-2.5 bg-teal-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest text-center hover:bg-teal-700 transition-colors">
+                                                <Link href={`/community/groups/${group.id}`} className="flex-1 py-2.5 bg-accent-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest text-center hover:bg-accent-600 transition-colors">
                                                     View Group
                                                 </Link>
                                             ) : (
-                                                <button onClick={() => handleJoinGroup(group.id)} className="flex-1 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-colors">
+                                                <button onClick={() => handleJoinGroup(group.id)} className="flex-1 py-2.5 bg-surface-tertiary text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-surface-tertiary transition-colors">
                                                     Join Group
                                                 </button>
                                             )}
-                                            <Link href={`/community/groups/${group.id}`} className="px-3 py-2.5 bg-slate-100 rounded-xl text-slate-500 hover:bg-slate-200 transition-colors">
+                                            <Link href={`/community/groups/${group.id}`} className="px-3 py-2.5 bg-surface-secondary rounded-xl text-ink-tertiary hover:bg-surface-tertiary transition-colors">
                                                 <ChevronRight size={14} />
                                             </Link>
                                         </div>
@@ -171,11 +171,11 @@ export default function GroupsPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+                    <div className="bg-surface-elevated rounded-2xl border border-border-primary p-12 text-center">
                         <div className="text-5xl mb-4">👥</div>
-                        <h3 className="text-lg font-black text-slate-900 mb-2">No groups found</h3>
-                        <p className="text-sm text-slate-500 mb-6">Try a different search or create a new group!</p>
-                        <button onClick={() => setShowCreateModal(true)} className="px-6 py-3 bg-teal-600 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-teal-700">Create Group</button>
+                        <h3 className="text-lg font-black text-ink-primary mb-2">No groups found</h3>
+                        <p className="text-sm text-ink-tertiary mb-6">Try a different search or create a new group!</p>
+                        <button onClick={() => setShowCreateModal(true)} className="px-6 py-3 bg-accent-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-accent-600">Create Group</button>
                     </div>
                 )}
             </section>

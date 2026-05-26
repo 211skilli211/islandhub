@@ -96,12 +96,12 @@ export default function AdminIBTPartnerStoresPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 dark:text-white">Partner Stores</h2>
-                    <p className="text-slate-500 dark:text-slate-400">Manage IBT Solutions partner storefronts</p>
+                    <h2 className="text-2xl font-black text-ink-primary dark:text-white">Partner Stores</h2>
+                    <p className="text-ink-tertiary dark:text-ink-tertiary">Manage IBT Solutions partner storefronts</p>
                 </div>
                 <a
                     href="/admin/stores"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors"
                 >
                     <Store className="w-4 h-4" />
                     All Stores
@@ -112,26 +112,26 @@ export default function AdminIBTPartnerStoresPage() {
             {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[1, 2, 3].map(i => (
-                        <div key={i} className="h-40 bg-slate-100 dark:bg-slate-800 animate-pulse rounded-2xl" />
+                        <div key={i} className="h-40 bg-surface-secondary dark:bg-surface-tertiary animate-pulse rounded-2xl" />
                     ))}
                 </div>
             ) : stores.length === 0 ? (
-                <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <div className="text-center py-16 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700">
                     <Store className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No Partner Stores</h3>
-                    <p className="text-slate-500 mb-6">Get started by creating a partner store.</p>
-                    <a href="/admin/stores" className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors">
+                    <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-2">No Partner Stores</h3>
+                    <p className="text-ink-tertiary mb-6">Get started by creating a partner store.</p>
+                    <a href="/admin/stores" className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600 transition-colors">
                         Create Store
                     </a>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {stores.map(store => (
-                        <div key={store.store_id || store.id} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 hover:shadow-lg transition-shadow">
+                        <div key={store.store_id || store.id} className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-slate-700 p-5 hover:shadow-lg transition-shadow">
                             <div className="flex items-start justify-between mb-3">
                                 <div>
-                                    <h3 className="font-bold text-slate-900 dark:text-white">{store.name}</h3>
-                                    <p className="text-xs text-slate-500">/{store.slug}</p>
+                                    <h3 className="font-bold text-ink-primary dark:text-white">{store.name}</h3>
+                                    <p className="text-xs text-ink-tertiary">/{store.slug}</p>
                                 </div>
                                 <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                                     store.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
@@ -139,21 +139,21 @@ export default function AdminIBTPartnerStoresPage() {
                                     {store.is_active ? 'Active' : 'Inactive'}
                                 </span>
                             </div>
-                            <div className="text-xs text-slate-400 mb-4">
+                            <div className="text-xs text-ink-tertiary mb-4">
                                 {store.category} • Created {new Date(store.created_at).toLocaleDateString()}
                             </div>
                             <div className="flex items-center gap-2">
                                 <a
                                     href={`/store/${store.slug}`}
                                     target="_blank"
-                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-surface-secondary dark:bg-slate-700 text-ink-secondary dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-surface-tertiary dark:hover:bg-slate-600 transition-colors"
                                 >
                                     <Eye className="w-3.5 h-3.5" />
                                     View
                                 </a>
                                 <a
                                     href={`/admin/ibt-partners/products?store=${store.store_id || store.id}`}
-                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-amber-100 text-amber-700 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
+                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-sand-500/10 text-sand-500 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
                                 >
                                     <Edit className="w-3.5 h-3.5" />
                                     Products

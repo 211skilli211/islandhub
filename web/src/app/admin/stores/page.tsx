@@ -38,7 +38,7 @@ export default function AdminStoresPage() {
         { header: 'Status', accessor: (item) => (
             <span className={`px-2 py-1 rounded-full text-xs font-bold ${
                 item.status === 'active' ? 'bg-green-100 text-green-700' : 
-                item.status === 'pending' ? 'bg-amber-100 text-amber-700' :
+                item.status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
                 'bg-red-100 text-red-700'
             }`}>
                 {item.status || 'active'}
@@ -102,13 +102,13 @@ export default function AdminStoresPage() {
 
             {badgeStore && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-lg">
-                        <h3 className="text-xl font-black text-slate-900 dark:text-white mb-4">Store Badges</h3>
+                    <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-lg">
+                        <h3 className="text-xl font-black text-ink-primary dark:text-white mb-4">Store Badges</h3>
                         <BadgeSelector selectedBadges={badgeSelection} onChange={setBadgeSelection} />
                         <div className="flex gap-3 mt-6">
                             <button 
                                 onClick={() => setBadgeStore(null)} 
-                                className="flex-1 py-4 text-slate-400 dark:text-slate-400 font-bold"
+                                className="flex-1 py-4 text-ink-tertiary dark:text-ink-tertiary font-bold"
                             >
                                 Cancel
                             </button>
@@ -119,7 +119,7 @@ export default function AdminStoresPage() {
                                     setBadgeStore(null);
                                     setRefreshKey(k => k + 1);
                                 }}
-                                className="flex-1 py-4 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700"
+                                className="flex-1 py-4 bg-accent-500 text-white rounded-xl font-bold hover:bg-accent-600"
                             >
                                 Save
                             </button>
@@ -131,12 +131,12 @@ export default function AdminStoresPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 dark:text-white">Vendor Stores</h2>
-                    <p className="text-slate-500 dark:text-slate-400">Manage all vendor stores on the platform</p>
+                    <h2 className="text-2xl font-black text-ink-primary dark:text-white">Vendor Stores</h2>
+                    <p className="text-ink-tertiary dark:text-ink-tertiary">Manage all vendor stores on the platform</p>
                 </div>
                 <button 
                     onClick={() => setShowCreateStore(true)} 
-                    className="px-5 py-2.5 bg-slate-900 dark:bg-slate-950 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors"
+                    className="px-5 py-2.5 bg-surface-tertiary dark:bg-slate-950 text-white rounded-xl font-bold hover:bg-surface-tertiary transition-colors"
                 >
                     + New Store
                 </button>

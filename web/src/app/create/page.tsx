@@ -325,11 +325,11 @@ export default function CreatePage() {
 
     if (!isAuthenticated || (user?.role !== 'vendor' && user?.role !== 'admin' && !vendorData)) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
-                <div className="text-center p-12 bg-white rounded-[3rem] shadow-2xl">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
+                <div className="text-center p-12 bg-surface-elevated rounded-[3rem] shadow-2xl">
                     <div className="text-6xl mb-6 animate-bounce">🔐</div>
-                    <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight italic">Verify Your Vendor Status</h2>
-                    <p className="text-slate-500 font-medium mb-8">Accessing the creation hub requires an active vendor subscription.</p>
+                    <h2 className="text-3xl font-black text-ink-primary mb-4 tracking-tight italic">Verify Your Vendor Status</h2>
+                    <p className="text-ink-tertiary font-medium mb-8">Accessing the creation hub requires an active vendor subscription.</p>
                     <button onClick={() => router.push('/become-vendor')} className="px-10 py-4 bg-(--success-primary,#10b981) text-white! rounded-2xl font-black shadow-xl shadow-teal-100 transition-all hover:scale-105 active:scale-95">Become a Vendor 🚀</button>
                 </div>
             </main>
@@ -341,17 +341,17 @@ export default function CreatePage() {
     const storeName = currentStore?.name || (stores.length > 0 ? stores[0].name : 'Your Store');
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             {/* Step 1: Product Type Selection (for type=product) */}
             {step === 'productType' && (
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-3 bg-teal-50 px-6 py-3 rounded-full mb-8">
+                        <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
                             <span className="text-2xl">🏪</span>
-                            <span className="font-bold text-teal-700">Adding to: {storeName}</span>
+                            <span className="font-bold text-accent-500">Adding to: {storeName}</span>
                         </div>
-                        <h1 className="text-5xl font-black text-slate-900 mb-6 tracking-tight italic">What type of product are you creating?</h1>
-                        <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium">Select the type that best describes your offering. Custom types require admin verification.</p>
+                        <h1 className="text-5xl font-black text-ink-primary mb-6 tracking-tight italic">What type of product are you creating?</h1>
+                        <p className="text-xl text-ink-tertiary max-w-2xl mx-auto font-medium">Select the type that best describes your offering. Custom types require admin verification.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -359,13 +359,13 @@ export default function CreatePage() {
                             <button
                                 key={type.type_key}
                                 onClick={() => handleProductTypeSelect(type)}
-                                className="group relative bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left"
+                                className="group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left"
                             >
-                                <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {type.icon}
                                 </div>
-                                <h3 className="text-xl font-black text-slate-900 mb-2 capitalize">{type.display_name}</h3>
-                                <p className="text-slate-500 font-medium text-sm">{type.description}</p>
+                                <h3 className="text-xl font-black text-ink-primary mb-2 capitalize">{type.display_name}</h3>
+                                <p className="text-ink-tertiary font-medium text-sm">{type.description}</p>
                             </button>
                         ))}
 
@@ -374,12 +374,12 @@ export default function CreatePage() {
                             onClick={() => handleProductTypeSelect(PRODUCT_TYPES.find(t => t.type_key === 'custom')!)}
                             className="group relative bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2.5rem] shadow-xl shadow-amber-200/50 hover:shadow-2xl hover:shadow-amber-100/50 transition-all hover:-translate-y-2 border-2 border-amber-200 hover:border-amber-300 text-left"
                         >
-                            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                            <div className="w-16 h-16 bg-sand-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                 ✨
                             </div>
                             <h3 className="text-xl font-black text-amber-800 mb-2">Custom Type</h3>
                             <p className="text-amber-600 font-medium text-sm mb-3">Request a new product category</p>
-                            <div className="inline-flex items-center gap-1 px-3 py-1 bg-amber-200 rounded-full text-xs font-bold text-amber-700">
+                            <div className="inline-flex items-center gap-1 px-3 py-1 bg-amber-200 rounded-full text-xs font-bold text-sand-500">
                                 <span>⏳</span> Requires Admin Approval
                             </div>
                         </button>
@@ -392,24 +392,24 @@ export default function CreatePage() {
                 <div className="max-w-2xl mx-auto px-4 py-20 animate-in fade-in slide-in-from-bottom-8 duration-500">
                     <button
                         onClick={goBack}
-                        className="mb-8 flex items-center gap-2 text-slate-400 hover:text-slate-600 font-bold transition-colors"
+                        className="mb-8 flex items-center gap-2 text-ink-tertiary hover:text-ink-secondary font-bold transition-colors"
                     >
                         <span>←</span> Back to Product Types
                     </button>
 
-                    <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
+                    <div className="bg-surface-elevated rounded-[2.5rem] shadow-2xl shadow-black/10 border border-border-primary overflow-hidden">
                         <div className="p-8 md:p-12">
                             <div className="text-center mb-8">
-                                <div className="w-20 h-20 bg-amber-100 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6">
+                                <div className="w-20 h-20 bg-sand-500/10 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6">
                                     ✨
                                 </div>
-                                <h1 className="text-3xl font-black text-slate-900 tracking-tight italic">Request Custom Product Type</h1>
-                                <p className="text-slate-500 mt-4">Tell us about the new product category you'd like to add. Our team will review your request.</p>
+                                <h1 className="text-3xl font-black text-ink-primary tracking-tight italic">Request Custom Product Type</h1>
+                                <p className="text-ink-tertiary mt-4">Tell us about the new product category you'd like to add. Our team will review your request.</p>
                             </div>
 
                             <form onSubmit={handleCustomTypeSubmit} className="space-y-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                         Custom Type Name *
                                     </label>
                                     <input
@@ -417,13 +417,13 @@ export default function CreatePage() {
                                         type="text"
                                         value={customTypeName}
                                         onChange={(e) => setCustomTypeName(e.target.value)}
-                                        className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-amber-100 focus:border-amber-500 transition-all"
+                                        className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-amber-100 focus:border-amber-500 transition-all"
                                         placeholder="e.g., Organic Fertilizer, Island Crafts..."
                                     />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                         Description / Justification *
                                     </label>
                                     <textarea
@@ -431,7 +431,7 @@ export default function CreatePage() {
                                         rows={4}
                                         value={customTypeDescription}
                                         onChange={(e) => setCustomTypeDescription(e.target.value)}
-                                        className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-amber-100 focus:border-amber-500 transition-all"
+                                        className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-amber-100 focus:border-amber-500 transition-all"
                                         placeholder="Explain why this category should be added..."
                                     />
                                 </div>
@@ -441,7 +441,7 @@ export default function CreatePage() {
                                         <span className="text-2xl">⏳</span>
                                         <div>
                                             <h4 className="font-bold text-amber-800 mb-1">Verification Required</h4>
-                                            <p className="text-sm text-amber-700">Your custom type will be marked as "Pending Verification". You'll be notified once our team reviews your request.</p>
+                                            <p className="text-sm text-sand-500">Your custom type will be marked as "Pending Verification". You'll be notified once our team reviews your request.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -450,7 +450,7 @@ export default function CreatePage() {
                                     <button
                                         type="button"
                                         onClick={goBack}
-                                        className="px-8 py-4 bg-slate-100 text-slate-400 rounded-2xl font-black transition-all hover:bg-slate-200 hover:text-slate-600"
+                                        className="px-8 py-4 bg-surface-secondary text-ink-tertiary rounded-2xl font-black transition-all hover:bg-surface-tertiary hover:text-ink-secondary"
                                     >
                                         Cancel
                                     </button>
@@ -472,12 +472,12 @@ export default function CreatePage() {
             {step === 'category' && creationType !== 'product' && (
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-3 bg-teal-50 px-6 py-3 rounded-full mb-8">
+                        <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
                             <span className="text-2xl">🏪</span>
-                            <span className="font-bold text-teal-700">Adding to: {storeName}</span>
+                            <span className="font-bold text-accent-500">Adding to: {storeName}</span>
                         </div>
-                        <h1 className="text-5xl font-black text-slate-900 mb-6 tracking-tight italic">What are you creating today?</h1>
-                        <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium">Select the type of listing to add to the IslandHub ecosystem.</p>
+                        <h1 className="text-5xl font-black text-ink-primary mb-6 tracking-tight italic">What are you creating today?</h1>
+                        <p className="text-xl text-ink-tertiary max-w-2xl mx-auto font-medium">Select the type of listing to add to the IslandHub ecosystem.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -486,13 +486,13 @@ export default function CreatePage() {
                                 key={cat.category_id}
                                 disabled={vendorData?.category_id && vendorData.category_id !== cat.category_id}
                                 onClick={() => handleCategorySelect(cat)}
-                                className={`group relative bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
+                                className={`group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
                             >
-                                <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {cat.icon || '✨'}
                                 </div>
-                                <h3 className="text-2xl font-black text-slate-900 mb-2 capitalize">{cat.display_name}</h3>
-                                <p className="text-slate-500 font-medium">{cat.description || `Create a new ${cat.display_name} listing.`}</p>
+                                <h3 className="text-2xl font-black text-ink-primary mb-2 capitalize">{cat.display_name}</h3>
+                                <p className="text-ink-tertiary font-medium">{cat.description || `Create a new ${cat.display_name} listing.`}</p>
                             </button>
                         ))}
                     </div>
@@ -504,21 +504,21 @@ export default function CreatePage() {
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <button
                         onClick={goBack}
-                        className="mb-8 flex items-center gap-2 text-slate-400 hover:text-slate-600 font-bold transition-colors"
+                        className="mb-8 flex items-center gap-2 text-ink-tertiary hover:text-ink-secondary font-bold transition-colors"
                     >
                         <span>←</span> Back to Product Types
                     </button>
 
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-3 bg-teal-50 px-6 py-3 rounded-full mb-8">
+                        <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
                             <span className="text-2xl">🏪</span>
-                            <span className="font-bold text-teal-700">Adding to: {storeName}</span>
+                            <span className="font-bold text-accent-500">Adding to: {storeName}</span>
                             <span className="text-teal-400">•</span>
                             <span className="text-lg">{productType.icon}</span>
-                            <span className="font-bold text-teal-700">{productType.display_name}</span>
+                            <span className="font-bold text-accent-500">{productType.display_name}</span>
                         </div>
-                        <h1 className="text-5xl font-black text-slate-900 mb-6 tracking-tight italic">Select a Category</h1>
-                        <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium">Choose the category that best fits your {productType.display_name.toLowerCase()}.</p>
+                        <h1 className="text-5xl font-black text-ink-primary mb-6 tracking-tight italic">Select a Category</h1>
+                        <p className="text-xl text-ink-tertiary max-w-2xl mx-auto font-medium">Choose the category that best fits your {productType.display_name.toLowerCase()}.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -527,13 +527,13 @@ export default function CreatePage() {
                                 key={cat.category_id}
                                 disabled={vendorData?.category_id && vendorData.category_id !== cat.category_id}
                                 onClick={() => handleCategorySelect(cat)}
-                                className={`group relative bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
+                                className={`group relative bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 hover:shadow-2xl hover:shadow-teal-100/50 transition-all hover:-translate-y-2 border-2 border-transparent hover:border-teal-100 text-left disabled:opacity-30 disabled:cursor-not-allowed`}
                             >
-                                <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {cat.icon || '✨'}
                                 </div>
-                                <h3 className="text-2xl font-black text-slate-900 mb-2 capitalize">{cat.display_name}</h3>
-                                <p className="text-slate-500 font-medium">{cat.description || `Create a new ${cat.display_name} listing.`}</p>
+                                <h3 className="text-2xl font-black text-ink-primary mb-2 capitalize">{cat.display_name}</h3>
+                                <p className="text-ink-tertiary font-medium">{cat.description || `Create a new ${cat.display_name} listing.`}</p>
                             </button>
                         ))}
                     </div>
@@ -545,19 +545,19 @@ export default function CreatePage() {
                 <div className="max-w-4xl mx-auto px-4 py-20 animate-in fade-in slide-in-from-bottom-8 duration-500">
                     <button
                         onClick={goBack}
-                        className="mb-8 flex items-center gap-2 text-slate-400 hover:text-slate-600 font-bold transition-colors"
+                        className="mb-8 flex items-center gap-2 text-ink-tertiary hover:text-ink-secondary font-bold transition-colors"
                     >
                         <span>←</span> Back to {productType ? 'Product Types' : 'Categories'}
                     </button>
 
-                    <div className="bg-white rounded-4xl md:rounded-[3rem] shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
+                    <div className="bg-surface-elevated rounded-4xl md:rounded-[3rem] shadow-2xl shadow-black/10 border border-border-primary overflow-hidden">
                         <div className="p-6 md:p-12">
                             <div className="flex items-center justify-between mb-12">
                                 <div>
-                                    <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">
+                                    <h1 className="text-4xl font-black text-ink-primary tracking-tight italic">
                                         Create {selectedCategory.display_name}
                                     </h1>
-                                    <p className="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">
+                                    <p className="text-ink-tertiary font-bold uppercase tracking-widest text-xs mt-2">
                                         Category: {selectedCategory.display_name}
                                         {productType && (
                                             <span className="ml-2">
@@ -571,7 +571,7 @@ export default function CreatePage() {
                                         )}
                                     </p>
                                 </div>
-                                <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center text-3xl">
+                                <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl">
                                     {selectedCategory.icon || '✨'}
                                 </div>
                             </div>
@@ -580,18 +580,18 @@ export default function CreatePage() {
                                 {/* Base Details */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="md:col-span-2 space-y-2">
-                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Listing Title</label>
+                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Listing Title</label>
                                         <input
                                             required
                                             name="title"
                                             value={formData.title}
                                             onChange={handleChange}
-                                            className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                            className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                             placeholder="e.g. Unique Island Experience"
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                             Price ($)
                                         </label>
                                         <input
@@ -600,7 +600,7 @@ export default function CreatePage() {
                                             name="price"
                                             value={formData.price}
                                             onChange={handleChange}
-                                            className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                            className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                             placeholder="0.00"
                                         />
                                     </div>
@@ -608,14 +608,14 @@ export default function CreatePage() {
                                     {/* Store Selection (Only if multiple stores exist) */}
                                     {stores.length > 1 && (
                                         <div className="md:col-span-2 space-y-2">
-                                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                            <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                 Select Destination Store
                                             </label>
                                             <select
                                                 name="store_id"
                                                 value={formData.store_id || ''}
                                                 onChange={(e) => setFormData(prev => ({ ...prev, store_id: e.target.value ? parseInt(e.target.value) : undefined }))}
-                                                className="w-full px-8 py-5 bg-teal-50 border-2 border-teal-100 rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                className="w-full px-8 py-5 bg-accent-500/10 border-2 border-teal-100 rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 required
                                             >
                                                 <option value="">Which store does this belong to?</option>
@@ -625,7 +625,7 @@ export default function CreatePage() {
                                                     </option>
                                                 ))}
                                             </select>
-                                            <p className="text-[10px] text-teal-600 ml-4 font-black uppercase tracking-widest opacity-60">
+                                            <p className="text-[10px] text-accent-400 ml-4 font-black uppercase tracking-widest opacity-60">
                                                 📍 You have multiple stores. Please select the correct one.
                                             </p>
                                         </div>
@@ -633,11 +633,11 @@ export default function CreatePage() {
 
                                     {/* Subtype Selection */}
                                     <div className="space-y-2">
-                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                             Specific Type
                                         </label>
                                         {vendorData?.subtype_id ? (
-                                            <div className="w-full px-8 py-5 bg-slate-100 border-transparent rounded-2xl text-slate-400 font-black cursor-not-allowed">
+                                            <div className="w-full px-8 py-5 bg-surface-secondary border-transparent rounded-2xl text-ink-tertiary font-black cursor-not-allowed">
                                                 {selectedCategory.subtypes?.find(s => s.subtype_id === vendorData.subtype_id)?.display_name || 'Fixed Type'}
                                             </div>
                                         ) : (
@@ -645,7 +645,7 @@ export default function CreatePage() {
                                                 name="subtype_id"
                                                 value={formData.subtype_id || ''}
                                                 onChange={(e) => setFormData(prev => ({ ...prev, subtype_id: e.target.value ? parseInt(e.target.value) : undefined }))}
-                                                className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 required
                                             >
                                                 <option value="">Select a specific type...</option>
@@ -661,14 +661,14 @@ export default function CreatePage() {
                                     {/* Service Type Multi-Select */}
                                     {selectedCategory?.layout_type === 'service' && !selectedCategory?.category_key?.includes('food') ? (
                                         <div className="md:col-span-2 space-y-2">
-                                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                            <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                 Service Modes
                                             </label>
                                             <select
                                                 multiple
                                                 value={formData.service_type}
                                                 onChange={handleServiceTypeChange}
-                                                className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 style={{ minHeight: '120px' }}
                                             >
                                                 <option value="onsite">🏠 On-site (I travel to customer)</option>
@@ -677,20 +677,20 @@ export default function CreatePage() {
                                                 <option value="emergency">🚨 Emergency Service Available</option>
                                                 <option value="scheduled">📆 Scheduled Visits</option>
                                             </select>
-                                            <p className="text-[10px] text-slate-400 ml-4 font-medium">
+                                            <p className="text-[10px] text-ink-tertiary ml-4 font-medium">
                                                 Hold Ctrl/Cmd to select multiple service modes
                                             </p>
                                         </div>
                                     ) : selectedCategory?.layout_type === 'service' ? (
                                         <div className="md:col-span-2 space-y-2">
-                                            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                            <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                 Service Modes
                                             </label>
                                             <select
                                                 multiple
                                                 value={formData.service_type}
                                                 onChange={handleServiceTypeChange}
-                                                className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 style={{ minHeight: '120px' }}
                                             >
                                                 <option value="walkin">🚶 Walk-in (Customer walks in)</option>
@@ -699,21 +699,21 @@ export default function CreatePage() {
                                                 <option value="dining">🍽️ Dining (Dine-in service)</option>
                                                 <option value="reservations">📅 Reservations (Reservation-based)</option>
                                             </select>
-                                            <p className="text-[10px] text-slate-400 ml-4 font-medium">
+                                            <p className="text-[10px] text-ink-tertiary ml-4 font-medium">
                                                 Hold Ctrl/Cmd to select multiple service modes
                                             </p>
                                         </div>
                                     ) : null}
 
                                     <div className="md:col-span-2 space-y-2">
-                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">Detailed Description</label>
+                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Detailed Description</label>
                                         <textarea
                                             required
                                             name="description"
                                             rows={4}
                                             value={formData.description}
                                             onChange={handleChange}
-                                            className="w-full px-8 py-5 bg-slate-50 border-transparent rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                            className="w-full px-8 py-5 bg-surface-primary border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                             placeholder="Tell your customers more about this offering..."
                                         />
                                     </div>
@@ -728,18 +728,18 @@ export default function CreatePage() {
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-2 h-8 bg-purple-500 rounded-full" />
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Service Details</h3>
+                                            <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Service Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Provider Type *
                                                 </label>
                                                 <select
                                                     name="provider_type"
                                                     value={metadata.provider_type || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, provider_type: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     required
                                                 >
                                                     <option value="">Select type...</option>
@@ -748,14 +748,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Service Area *
                                                 </label>
                                                 <select
                                                     name="service_area"
                                                     value={metadata.service_area || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, service_area: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     required
                                                 >
                                                     <option value="">Select service area...</option>
@@ -766,14 +766,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Experience Level *
                                                 </label>
                                                 <select
                                                     name="experience_level"
                                                     value={metadata.experience_level || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, experience_level: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     required
                                                 >
                                                     <option value="">Select experience...</option>
@@ -785,14 +785,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Response Time *
                                                 </label>
                                                 <select
                                                     name="response_time"
                                                     value={metadata.response_time || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, response_time: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     required
                                                 >
                                                     <option value="">Select response time...</option>
@@ -803,14 +803,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Pricing Model *
                                                 </label>
                                                 <select
                                                     name="pricing_model"
                                                     value={metadata.pricing_model || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, pricing_model: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     required
                                                 >
                                                     <option value="">Select pricing...</option>
@@ -823,14 +823,14 @@ export default function CreatePage() {
                                             {/* Show provider name field only for individual providers */}
                                             {metadata.provider_type === 'individual' && (
                                                 <div className="space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                         Provider / Business Name
                                                     </label>
                                                     <input
                                                         type="text"
                                                         value={metadata.provider_name || ''}
                                                         onChange={(e) => setMetadata({ ...metadata, provider_name: e.target.value })}
-                                                        className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                        className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                         placeholder="Your name or business name"
                                                     />
                                                 </div>
@@ -844,18 +844,18 @@ export default function CreatePage() {
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-2 h-8 bg-orange-500 rounded-full" />
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Food Service Details</h3>
+                                            <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Food Service Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Cuisine Type *
                                                 </label>
                                                 <select
                                                     name="cuisine_type"
                                                     value={metadata.cuisine_type || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, cuisine_type: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select cuisine...</option>
                                                     <option value="caribbean">Caribbean</option>
@@ -871,14 +871,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Price Range
                                                 </label>
                                                 <select
                                                     name="price_range"
                                                     value={metadata.price_range || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, price_range: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select range...</option>
                                                     <option value="budget">Budget ($ - Under $10)</option>
@@ -888,12 +888,12 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Dietary Options
                                                 </label>
                                                 <div className="flex flex-wrap gap-2 px-4">
                                                     {['Vegetarian', 'Vegan', 'Gluten-Free', 'Halal', 'Kosher', 'Dairy-Free'].map(option => (
-                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl cursor-pointer hover:bg-teal-50 transition-colors">
+                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-surface-primary rounded-xl cursor-pointer hover:bg-accent-500/10 transition-colors">
                                                             <input
                                                                 type="checkbox"
                                                                 checked={metadata.dietary_options?.includes(option) || false}
@@ -904,15 +904,15 @@ export default function CreatePage() {
                                                                         : current.filter((d: string) => d !== option);
                                                                     setMetadata({ ...metadata, dietary_options: updated });
                                                                 }}
-                                                                className="w-4 h-4 text-teal-600 rounded"
+                                                                className="w-4 h-4 text-accent-400 rounded"
                                                             />
-                                                            <span className="text-sm font-bold text-slate-700">{option}</span>
+                                                            <span className="text-sm font-bold text-ink-secondary">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Seating Capacity
                                                 </label>
                                                 <input
@@ -920,19 +920,19 @@ export default function CreatePage() {
                                                     min="0"
                                                     value={metadata.seating_capacity || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, seating_capacity: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 50"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Ambiance
                                                 </label>
                                                 <select
                                                     name="ambiance"
                                                     value={metadata.ambiance || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, ambiance: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select ambiance...</option>
                                                     <option value="casual">Casual / Family-Friendly</option>
@@ -944,12 +944,12 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Payment Methods
                                                 </label>
                                                 <div className="flex flex-wrap gap-2 px-4">
                                                     {['Cash', 'Card', 'Mobile Pay', 'Online'].map(option => (
-                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl cursor-pointer hover:bg-teal-50 transition-colors">
+                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-surface-primary rounded-xl cursor-pointer hover:bg-accent-500/10 transition-colors">
                                                             <input
                                                                 type="checkbox"
                                                                 checked={metadata.payment_methods?.includes(option) || false}
@@ -960,9 +960,9 @@ export default function CreatePage() {
                                                                         : current.filter((d: string) => d !== option);
                                                                     setMetadata({ ...metadata, payment_methods: updated });
                                                                 }}
-                                                                className="w-4 h-4 text-teal-600 rounded"
+                                                                className="w-4 h-4 text-accent-400 rounded"
                                                             />
-                                                            <span className="text-sm font-bold text-slate-700">{option}</span>
+                                                            <span className="text-sm font-bold text-ink-secondary">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
@@ -976,20 +976,20 @@ export default function CreatePage() {
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-2 h-8 bg-green-500 rounded-full" />
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Rental Details</h3>
+                                            <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Rental Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {/* Vehicle-specific for vehicle rentals */}
                                             {selectedCategory?.category_key?.includes('vehicle') && (
                                                 <div className="space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                         Vehicle Type *
                                                     </label>
                                                     <select
                                                         name="vehicle_type"
                                                         value={metadata.vehicle_type || ''}
                                                         onChange={(e) => setMetadata({ ...metadata, vehicle_type: e.target.value })}
-                                                        className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                        className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     >
                                                         <option value="">Select type...</option>
                                                         <option value="car">Car / Sedan</option>
@@ -1007,14 +1007,14 @@ export default function CreatePage() {
                                             {selectedCategory?.category_key?.includes('property') && (
                                                 <>
                                                     <div className="space-y-2">
-                                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                             Property Type *
                                                         </label>
                                                         <select
                                                             name="property_type"
                                                             value={metadata.property_type || ''}
                                                             onChange={(e) => setMetadata({ ...metadata, property_type: e.target.value })}
-                                                            className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                            className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                         >
                                                             <option value="">Select type...</option>
                                                             <option value="apartment">Apartment</option>
@@ -1027,14 +1027,14 @@ export default function CreatePage() {
                                                         </select>
                                                     </div>
                                                     <div className="space-y-2">
-                                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                             Bedrooms
                                                         </label>
                                                         <select
                                                             name="bedrooms"
                                                             value={metadata.bedrooms || ''}
                                                             onChange={(e) => setMetadata({ ...metadata, bedrooms: e.target.value })}
-                                                            className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                            className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                         >
                                                             <option value="">Select...</option>
                                                             <option value="studio">Studio</option>
@@ -1045,14 +1045,14 @@ export default function CreatePage() {
                                                         </select>
                                                     </div>
                                                     <div className="space-y-2">
-                                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                             Bathrooms
                                                         </label>
                                                         <select
                                                             name="bathrooms"
                                                             value={metadata.bathrooms || ''}
                                                             onChange={(e) => setMetadata({ ...metadata, bathrooms: e.target.value })}
-                                                            className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                            className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                         >
                                                             <option value="">Select...</option>
                                                             <option value="1">1 Bathroom</option>
@@ -1061,7 +1061,7 @@ export default function CreatePage() {
                                                         </select>
                                                     </div>
                                                     <div className="space-y-2">
-                                                        <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                        <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                             Max Guests
                                                         </label>
                                                         <input
@@ -1069,7 +1069,7 @@ export default function CreatePage() {
                                                             min="1"
                                                             value={metadata.max_guests || ''}
                                                             onChange={(e) => setMetadata({ ...metadata, max_guests: e.target.value })}
-                                                            className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                            className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                             placeholder="e.g., 4"
                                                         />
                                                     </div>
@@ -1078,14 +1078,14 @@ export default function CreatePage() {
                                             {/* Equipment-specific for equipment rentals */}
                                             {selectedCategory?.category_key?.includes('equipment') && (
                                                 <div className="space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                         Equipment Category *
                                                     </label>
                                                     <select
                                                         name="equipment_category"
                                                         value={metadata.equipment_category || ''}
                                                         onChange={(e) => setMetadata({ ...metadata, equipment_category: e.target.value })}
-                                                        className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                        className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     >
                                                         <option value="">Select category...</option>
                                                         <option value="power-tools">Power Tools</option>
@@ -1101,14 +1101,14 @@ export default function CreatePage() {
                                             {/* Boat-specific for boat rentals */}
                                             {selectedCategory?.category_key?.includes('boat') && (
                                                 <div className="space-y-2">
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                    <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                         Watercraft Type *
                                                     </label>
                                                     <select
                                                         name="watercraft_type"
                                                         value={metadata.watercraft_type || ''}
                                                         onChange={(e) => setMetadata({ ...metadata, watercraft_type: e.target.value })}
-                                                        className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                        className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                     >
                                                         <option value="">Select type...</option>
                                                         <option value="speedboat">Speedboat</option>
@@ -1123,14 +1123,14 @@ export default function CreatePage() {
                                                 </div>
                                             )}
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Rental Duration *
                                                 </label>
                                                 <select
                                                     name="rental_duration"
                                                     value={metadata.rental_duration || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, rental_duration: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select duration...</option>
                                                     <option value="hourly">Hourly</option>
@@ -1141,7 +1141,7 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Min. Rental Period
                                                 </label>
                                                 <input
@@ -1149,12 +1149,12 @@ export default function CreatePage() {
                                                     min="1"
                                                     value={metadata.min_rental_period || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, min_rental_period: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 1"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Max. Rental Period
                                                 </label>
                                                 <input
@@ -1162,12 +1162,12 @@ export default function CreatePage() {
                                                     min="1"
                                                     value={metadata.max_rental_period || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, max_rental_period: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 30"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Security Deposit
                                                 </label>
                                                 <input
@@ -1176,19 +1176,19 @@ export default function CreatePage() {
                                                     step="0.01"
                                                     value={metadata.security_deposit || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, security_deposit: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 100.00"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Mileage / Usage Limit
                                                 </label>
                                                 <input
                                                     type="text"
                                                     value={metadata.usage_limit || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, usage_limit: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 100 miles/day"
                                                 />
                                             </div>
@@ -1201,18 +1201,18 @@ export default function CreatePage() {
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-2 h-8 bg-cyan-500 rounded-full" />
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Tour Details</h3>
+                                            <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Tour Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Tour Type *
                                                 </label>
                                                 <select
                                                     name="tour_type"
                                                     value={metadata.tour_type || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, tour_type: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select type...</option>
                                                     <option value="general">General / Shared (Group tour with other participants)</option>
@@ -1220,14 +1220,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Tour Duration *
                                                 </label>
                                                 <select
                                                     name="tour_duration"
                                                     value={metadata.tour_duration || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, tour_duration: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select duration...</option>
                                                     <option value="short">Short (1-2 hours)</option>
@@ -1237,7 +1237,7 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Group Size
                                                 </label>
                                                 <input
@@ -1245,19 +1245,19 @@ export default function CreatePage() {
                                                     min="1"
                                                     value={metadata.max_group_size || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, max_group_size: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 10"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Difficulty Level
                                                 </label>
                                                 <select
                                                     name="difficulty_level"
                                                     value={metadata.difficulty_level || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, difficulty_level: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select level...</option>
                                                     <option value="easy">Easy - All fitness levels</option>
@@ -1267,12 +1267,12 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Inclusions (What's Included)
                                                 </label>
                                                 <div className="flex flex-wrap gap-2 px-4">
                                                     {['Meals', 'Drinks', 'Equipment', 'Guide', 'Transportation', 'Photos/Video', 'Entrance Fees', 'Insurance'].map(option => (
-                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-teal-50 rounded-xl cursor-pointer hover:bg-teal-100 transition-colors">
+                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-accent-500/10 rounded-xl cursor-pointer hover:bg-accent-500/15 transition-colors">
                                                             <input
                                                                 type="checkbox"
                                                                 checked={metadata.tour_inclusions?.includes(option) || false}
@@ -1283,20 +1283,20 @@ export default function CreatePage() {
                                                                         : current.filter((d: string) => d !== option);
                                                                     setMetadata({ ...metadata, tour_inclusions: updated });
                                                                 }}
-                                                                className="w-4 h-4 text-teal-600 rounded"
+                                                                className="w-4 h-4 text-accent-400 rounded"
                                                             />
-                                                            <span className="text-sm font-bold text-slate-700">{option}</span>
+                                                            <span className="text-sm font-bold text-ink-secondary">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Non-Inclusions (What's NOT Included)
                                                 </label>
                                                 <div className="flex flex-wrap gap-2 px-4">
                                                     {['Gratuities/Tips', 'Personal Expenses', 'Souvenirs', 'Alcoholic Drinks', 'Optional Activities', 'Travel Insurance'].map(option => (
-                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-xl cursor-pointer hover:bg-amber-100 transition-colors">
+                                                        <label key={option} className="flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-xl cursor-pointer hover:bg-sand-500/10 transition-colors">
                                                             <input
                                                                 type="checkbox"
                                                                 checked={metadata.tour_non_inclusions?.includes(option) || false}
@@ -1309,32 +1309,32 @@ export default function CreatePage() {
                                                                 }}
                                                                 className="w-4 h-4 text-amber-600 rounded"
                                                             />
-                                                            <span className="text-sm font-bold text-slate-700">{option}</span>
+                                                            <span className="text-sm font-bold text-ink-secondary">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Pickup Location
                                                 </label>
                                                 <input
                                                     type="text"
                                                     value={metadata.tour_pickup || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, tour_pickup: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., Hotel lobby or specified address"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Schedule
                                                 </label>
                                                 <select
                                                     name="tour_schedule"
                                                     value={metadata.tour_schedule || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, tour_schedule: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select schedule...</option>
                                                     <option value="daily">Daily</option>
@@ -1354,18 +1354,18 @@ export default function CreatePage() {
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-2 h-8 bg-blue-500 rounded-full" />
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Digital Product Details</h3>
+                                            <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Digital Product Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Download Type *
                                                 </label>
                                                 <select
                                                     name="download_type"
                                                     value={metadata.download_type || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, download_type: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select type...</option>
                                                     <option value="permanent">Permanent Download</option>
@@ -1375,14 +1375,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     File Format
                                                 </label>
                                                 <select
                                                     name="file_format"
                                                     value={metadata.file_format || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, file_format: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select format...</option>
                                                     <option value="pdf">PDF</option>
@@ -1394,26 +1394,26 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Access Duration
                                                 </label>
                                                 <input
                                                     type="text"
                                                     value={metadata.access_duration || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, access_duration: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., Lifetime, 30 days"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     File Size
                                                 </label>
                                                 <input
                                                     type="text"
                                                     value={metadata.file_size || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, file_size: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 50MB"
                                                 />
                                             </div>
@@ -1426,30 +1426,30 @@ export default function CreatePage() {
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-2 h-8 bg-amber-500 rounded-full" />
-                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Product Details</h3>
+                                            <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Product Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Brand / Manufacturer
                                                 </label>
                                                 <input
                                                     type="text"
                                                     value={metadata.brand || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, brand: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., Nike, Samsung, Local Craft"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Condition *
                                                 </label>
                                                 <select
                                                     name="condition"
                                                     value={metadata.condition || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, condition: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select condition...</option>
                                                     <option value="new">New - Never Used</option>
@@ -1460,14 +1460,14 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Target Age Group
                                                 </label>
                                                 <select
                                                     name="age_group"
                                                     value={metadata.age_group || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, age_group: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="">Select age group...</option>
                                                     <option value="all">All Ages</option>
@@ -1480,21 +1480,21 @@ export default function CreatePage() {
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Shipping Available
                                                 </label>
                                                 <select
                                                     name="shipping_available"
                                                     value={metadata.shipping_available || 'yes'}
                                                     onChange={(e) => setMetadata({ ...metadata, shipping_available: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 >
                                                     <option value="yes">Yes - Shipping Available</option>
                                                     <option value="no">No - Local Pickup Only</option>
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Stock Quantity
                                                 </label>
                                                 <input
@@ -1502,12 +1502,12 @@ export default function CreatePage() {
                                                     min="0"
                                                     value={metadata.stock_quantity || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, stock_quantity: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 100"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4">
+                                                <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                                     Weight (kg)
                                                 </label>
                                                 <input
@@ -1516,7 +1516,7 @@ export default function CreatePage() {
                                                     step="0.01"
                                                     value={metadata.weight_kg || ''}
                                                     onChange={(e) => setMetadata({ ...metadata, weight_kg: e.target.value })}
-                                                    className="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl text-slate-900 font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
+                                                    className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all"
                                                     placeholder="e.g., 0.5"
                                                 />
                                             </div>
@@ -1535,7 +1535,7 @@ export default function CreatePage() {
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-4 mb-2">
                                         <div className="w-2 h-8 bg-blue-500 rounded-full" />
-                                        <h3 className="text-2xl font-black text-slate-900 tracking-tight italic">Gallery</h3>
+                                        <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Gallery</h3>
                                     </div>
                                     <MediaManager initialMedia={files} onChange={setFiles} maxFiles={15} />
                                 </div>
@@ -1544,14 +1544,14 @@ export default function CreatePage() {
                                     <button
                                         type="button"
                                         onClick={goBack}
-                                        className="px-10 py-5 bg-slate-100 text-slate-400 rounded-2xl font-black transition-all hover:bg-slate-200 hover:text-slate-600"
+                                        className="px-10 py-5 bg-surface-secondary text-ink-tertiary rounded-2xl font-black transition-all hover:bg-surface-tertiary hover:text-ink-secondary"
                                     >
                                         Back
                                     </button>
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="flex-1 px-12 py-5 bg-teal-600 text-white rounded-2xl font-black text-xl shadow-2xl shadow-teal-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                                        className="flex-1 px-12 py-5 bg-accent-500 text-white rounded-2xl font-black text-xl shadow-2xl shadow-teal-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                                     >
                                         {loading ? 'Publishing...' : '🚀 Publish Now'}
                                     </button>

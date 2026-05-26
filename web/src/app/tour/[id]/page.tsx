@@ -60,7 +60,7 @@ export default function TourDetailPage() {
     };
 
     if (loading) return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="min-h-screen flex items-center justify-center bg-surface-primary">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600" />
         </div>
     );
@@ -70,9 +70,9 @@ export default function TourDetailPage() {
     const mainImage = tour.images?.[0] || null;
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-surface-elevated">
             {/* Immersive Header */}
-            <section className="relative h-[60vh] flex items-end overflow-hidden bg-slate-900 px-6">
+            <section className="relative h-[60vh] flex items-end overflow-hidden bg-surface-tertiary px-6">
                 <HeroBackground
                     pageKey={`tour-detail-${tourId}`}
                 />
@@ -103,8 +103,8 @@ export default function TourDetailPage() {
                 <div className="lg:col-span-2 space-y-12">
                     {/* About Section */}
                     <section>
-                        <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight italic mb-6">About the Experience</h2>
-                        <div className={`prose prose-slate max-w-none text-slate-500 font-medium leading-relaxed italic ${!expandDescription ? 'line-clamp-4' : ''}`}>
+                        <h2 className="text-2xl font-black text-ink-primary uppercase tracking-tight italic mb-6">About the Experience</h2>
+                        <div className={`prose prose-slate max-w-none text-ink-tertiary font-medium leading-relaxed italic ${!expandDescription ? 'line-clamp-4' : ''}`}>
                             {tour.description}
                         </div>
                         <button
@@ -118,16 +118,16 @@ export default function TourDetailPage() {
                     {/* Expandable Meta Sections */}
                     <div className="space-y-4">
                         {/* What's Included */}
-                        <div className="border border-slate-100 rounded-3xl overflow-hidden bg-slate-50/50">
+                        <div className="border border-border-primary rounded-3xl overflow-hidden bg-surface-primary/50">
                             <button
                                 onClick={() => toggleSection('included')}
-                                className="w-full p-8 flex items-center justify-between text-left hover:bg-slate-50 transition-all focus:outline-none"
+                                className="w-full p-8 flex items-center justify-between text-left hover:bg-surface-primary transition-all focus:outline-none"
                             >
                                 <div className="flex items-center gap-4">
                                     <span className="text-2xl">🎁</span>
-                                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight italic">What's Included</h3>
+                                    <h3 className="text-lg font-black text-ink-primary uppercase tracking-tight italic">What's Included</h3>
                                 </div>
-                                <span className={`transform transition-transform duration-300 font-black text-slate-400 ${expandedSections.includes('included') ? 'rotate-180' : ''}`}>▼</span>
+                                <span className={`transform transition-transform duration-300 font-black text-ink-tertiary ${expandedSections.includes('included') ? 'rotate-180' : ''}`}>▼</span>
                             </button>
                             <AnimatePresence>
                                 {expandedSections.includes('included') && (
@@ -139,13 +139,13 @@ export default function TourDetailPage() {
                                     >
                                         <div className="px-8 pb-8 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             {(tour.addons || []).map((addon: any, i: number) => (
-                                                <div key={i} className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm shadow-slate-200/50">
+                                                <div key={i} className="flex items-center gap-3 p-4 bg-surface-elevated rounded-2xl border border-border-primary shadow-sm shadow-black/10/50">
                                                     <span className="text-emerald-500">✓</span>
-                                                    <span className="text-sm font-bold text-slate-600 italic">{addon.name}</span>
+                                                    <span className="text-sm font-bold text-ink-secondary italic">{addon.name}</span>
                                                 </div>
                                             ))}
                                             {(!tour.addons || tour.addons.length === 0) && (
-                                                <p className="text-sm text-slate-400 font-medium italic">Standard equipment and guide provided.</p>
+                                                <p className="text-sm text-ink-tertiary font-medium italic">Standard equipment and guide provided.</p>
                                             )}
                                         </div>
                                     </motion.div>
@@ -154,16 +154,16 @@ export default function TourDetailPage() {
                         </div>
 
                         {/* Trip Requirements & Details */}
-                        <div className="border border-slate-100 rounded-3xl overflow-hidden bg-slate-50/50">
+                        <div className="border border-border-primary rounded-3xl overflow-hidden bg-surface-primary/50">
                             <button
                                 onClick={() => toggleSection('details')}
-                                className="w-full p-8 flex items-center justify-between text-left hover:bg-slate-50 transition-all focus:outline-none"
+                                className="w-full p-8 flex items-center justify-between text-left hover:bg-surface-primary transition-all focus:outline-none"
                             >
                                 <div className="flex items-center gap-4">
                                     <span className="text-2xl">📋</span>
-                                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight italic">Important Info</h3>
+                                    <h3 className="text-lg font-black text-ink-primary uppercase tracking-tight italic">Important Info</h3>
                                 </div>
-                                <span className={`transform transition-transform duration-300 font-black text-slate-400 ${expandedSections.includes('details') ? 'rotate-180' : ''}`}>▼</span>
+                                <span className={`transform transition-transform duration-300 font-black text-ink-tertiary ${expandedSections.includes('details') ? 'rotate-180' : ''}`}>▼</span>
                             </button>
                             <AnimatePresence>
                                 {expandedSections.includes('details') && (
@@ -175,18 +175,18 @@ export default function TourDetailPage() {
                                     >
                                         <div className="px-8 pb-8 space-y-6">
                                             <div>
-                                                <h4 className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-3">Operator / Vendor</h4>
-                                                <div className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100">
-                                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-lg">🛡️</div>
+                                                <h4 className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest mb-3">Operator / Vendor</h4>
+                                                <div className="flex items-center gap-4 p-4 bg-surface-elevated rounded-2xl border border-border-primary">
+                                                    <div className="w-12 h-12 rounded-full bg-surface-secondary flex items-center justify-center text-lg">🛡️</div>
                                                     <div>
-                                                        <div className="font-black text-slate-900 uppercase text-sm tracking-tight">{tour.vendor_name || 'Signature Tours'}</div>
+                                                        <div className="font-black text-ink-primary uppercase text-sm tracking-tight">{tour.vendor_name || 'Signature Tours'}</div>
                                                         <div className="text-[10px] text-emerald-600 font-black uppercase tracking-widest">Verified Multi-Silo Operator</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div>
-                                                <h4 className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-3">Meeting Point</h4>
-                                                <p className="text-sm font-bold text-slate-600 italic">{tour.location}</p>
+                                                <h4 className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest mb-3">Meeting Point</h4>
+                                                <p className="text-sm font-bold text-ink-secondary italic">{tour.location}</p>
                                             </div>
                                         </div>
                                     </motion.div>
@@ -197,10 +197,10 @@ export default function TourDetailPage() {
 
                     {/* Media Gallery (Compact for now) */}
                     <section>
-                        <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight italic mb-6">Experience Gallery</h2>
+                        <h2 className="text-2xl font-black text-ink-primary uppercase tracking-tight italic mb-6">Experience Gallery</h2>
                         <div className="grid grid-cols-2 gap-4">
                             {tour.images?.map((img: string, i: number) => (
-                                <div key={i} className="aspect-video rounded-3xl overflow-hidden bg-slate-100 border border-slate-100 group">
+                                <div key={i} className="aspect-video rounded-3xl overflow-hidden bg-surface-secondary border border-border-primary group">
                                     <img src={getImageUrl(img)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="" />
                                 </div>
                             ))}
@@ -210,21 +210,21 @@ export default function TourDetailPage() {
 
                 {/* Booking Sidebar */}
                 <div className="lg:col-span-1">
-                    <div className="sticky top-24 bg-white p-10 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/60">
+                    <div className="sticky top-24 bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-2xl shadow-black/10/60">
                         <div className="mb-8">
                             <div className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600 mb-2">Price Per Person</div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-black text-slate-900">${tour.price}</span>
-                                <span className="text-slate-400 font-bold italic tracking-tight uppercase text-xs">Full Access</span>
+                                <span className="text-4xl font-black text-ink-primary">${tour.price}</span>
+                                <span className="text-ink-tertiary font-bold italic tracking-tight uppercase text-xs">Full Access</span>
                             </div>
                         </div>
 
                         <div className="space-y-6 mb-10">
                             <div>
-                                <label className="block text-[10px] font-black uppercase text-slate-400 tracking-widest mb-3 ml-1">Select Date</label>
+                                <label className="block text-[10px] font-black uppercase text-ink-tertiary tracking-widest mb-3 ml-1">Select Date</label>
                                 <input
                                     type="date"
-                                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none focus:border-orange-500 transition-all shadow-inner"
+                                    className="w-full p-4 bg-surface-primary border-2 border-border-primary rounded-2xl font-bold text-ink-secondary outline-none focus:border-orange-500 transition-all shadow-inner"
                                     value={selectedDate}
                                     onChange={(e) => setSelectedDate(e.target.value)}
                                 />
@@ -240,11 +240,11 @@ export default function TourDetailPage() {
                         <button
                             onClick={handleBookTour}
                             disabled={!selectedDate}
-                            className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase text-sm tracking-widest shadow-xl hover:bg-orange-600 hover:scale-[1.02] active:scale-95 transition-all mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-5 bg-surface-tertiary text-white rounded-2xl font-black uppercase text-sm tracking-widest shadow-xl hover:bg-orange-600 hover:scale-[1.02] active:scale-95 transition-all mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Book Experience ➔
                         </button>
-                        <p className="text-center text-[10px] text-slate-400 font-medium italic">Instant confirmation • Mobile tickets accepted</p>
+                        <p className="text-center text-[10px] text-ink-tertiary font-medium italic">Instant confirmation • Mobile tickets accepted</p>
                     </div>
                 </div>
             </div>

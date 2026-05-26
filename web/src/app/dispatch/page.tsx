@@ -10,7 +10,7 @@ import Link from 'next/link';
 // Dynamically import map to avoid SSR issues
 const DispatchMap = dynamic(() => import('@/components/admin/DispatchMap'), {
     ssr: false,
-    loading: () => <div className="w-full h-full bg-slate-100 animate-pulse flex items-center justify-center text-slate-400 font-bold">Loading Map...</div>
+    loading: () => <div className="w-full h-full bg-surface-secondary animate-pulse flex items-center justify-center text-ink-tertiary font-bold">Loading Map...</div>
 });
 
 export default function StandaloneDispatchPage() {
@@ -99,36 +99,36 @@ export default function StandaloneDispatchPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-surface-primary">
             {/* Fixed Header - Below Navbar */}
-            <div className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+            <div className="sticky top-0 z-40 bg-surface-elevated border-b border-border-primary shadow-sm">
                 <div className="max-w-[1920px] mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <Link href="/admin" className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-                                <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <Link href="/admin" className="p-2 hover:bg-surface-secondary rounded-lg transition-colors">
+                                <svg className="w-6 h-6 text-ink-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
                             </Link>
                             <div>
-                                <h1 className="text-2xl font-black text-slate-900">Dispatch Command Center 🛰️</h1>
-                                <p className="text-sm text-slate-500 font-medium">Real-time fleet management</p>
+                                <h1 className="text-2xl font-black text-ink-primary">Dispatch Command Center 🛰️</h1>
+                                <p className="text-sm text-ink-tertiary font-medium">Real-time fleet management</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">
                             <div className="flex gap-3">
-                                <div className="bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 text-center">
-                                    <p className="text-[9px] uppercase font-black text-slate-400 tracking-widest">Jobs</p>
-                                    <p className="text-xl font-black text-indigo-600">{jobs.length}</p>
+                                <div className="bg-surface-primary px-4 py-2 rounded-xl border border-border-primary text-center">
+                                    <p className="text-[9px] uppercase font-black text-ink-tertiary tracking-widest">Jobs</p>
+                                    <p className="text-xl font-black text-[#818cf8]">{jobs.length}</p>
                                 </div>
-                                <div className="bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 text-center">
-                                    <p className="text-[9px] uppercase font-black text-slate-400 tracking-widest">Drivers</p>
-                                    <p className="text-xl font-black text-teal-600">{activeDrivers}</p>
+                                <div className="bg-surface-primary px-4 py-2 rounded-xl border border-border-primary text-center">
+                                    <p className="text-[9px] uppercase font-black text-ink-tertiary tracking-widest">Drivers</p>
+                                    <p className="text-xl font-black text-accent-400">{activeDrivers}</p>
                                 </div>
                             </div>
                             <button
                                 onClick={fetchJobs}
-                                className="p-3 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors"
+                                className="p-3 bg-surface-secondary hover:bg-surface-tertiary rounded-xl transition-colors"
                                 title="Refresh">
                                 🔄
                             </button>
@@ -141,14 +141,14 @@ export default function StandaloneDispatchPage() {
             <div className="max-w-[1920px] mx-auto p-6">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-180px)]">
                     {/* Map Section - 2/3 width */}
-                    <div className={`${isMapFullscreen ? 'lg:col-span-3' : 'lg:col-span-2'} bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden relative transition-all`}>
+                    <div className={`${isMapFullscreen ? 'lg:col-span-3' : 'lg:col-span-2'} bg-surface-elevated rounded-2xl border border-border-primary shadow-xl overflow-hidden relative transition-all`}>
                         <DispatchMap jobs={filteredJobs} />
 
                         {/* Map Controls */}
                         <div className="absolute top-4 right-4 flex gap-2 z-10">
                             <button
                                 onClick={() => setIsMapFullscreen(!isMapFullscreen)}
-                                className="p-3 bg-white/90 backdrop-blur-md rounded-xl border border-slate-200 shadow-lg hover:bg-white transition-colors"
+                                className="p-3 bg-surface-elevated/90 backdrop-blur-md rounded-xl border border-border-primary shadow-lg hover:bg-surface-elevated transition-colors"
                                 title={isMapFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}>
                                 {isMapFullscreen ? '⊟' : '⛶'}
                             </button>
@@ -157,9 +157,9 @@ export default function StandaloneDispatchPage() {
 
                     {/* Sidebar - 1/3 width */}
                     {!isMapFullscreen && (
-                        <div className="bg-white rounded-2xl border border-slate-200 shadow-xl flex flex-col overflow-hidden">
+                        <div className="bg-surface-elevated rounded-2xl border border-border-primary shadow-xl flex flex-col overflow-hidden">
                             {/* Filters */}
-                            <div className="p-4 border-b border-slate-100 bg-slate-50/50">
+                            <div className="p-4 border-b border-border-primary bg-surface-primary/50">
                                 <div className="flex gap-2">
                                     {[
                                         { id: 'all', label: 'All', count: jobs.length },
@@ -170,8 +170,8 @@ export default function StandaloneDispatchPage() {
                                             key={filter.id}
                                             onClick={() => setSelectedFilter(filter.id as any)}
                                             className={`flex-1 py-2 px-3 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${selectedFilter === filter.id
-                                                ? 'bg-teal-600 text-white shadow-md'
-                                                : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                                                ? 'bg-accent-500 text-white shadow-md'
+                                                : 'bg-surface-elevated text-ink-secondary hover:bg-surface-secondary border border-border-primary'
                                                 }`}>
                                             {filter.label} ({filter.count})
                                         </button>
@@ -182,33 +182,33 @@ export default function StandaloneDispatchPage() {
                             {/* Job List */}
                             <div className="flex-1 overflow-y-auto p-4 space-y-3">
                                 {filteredJobs.length === 0 ? (
-                                    <div className="text-center py-20 text-slate-400 italic text-sm">No jobs</div>
+                                    <div className="text-center py-20 text-ink-tertiary italic text-sm">No jobs</div>
                                 ) : (
                                     filteredJobs.map(job => (
-                                        <div key={job.id} className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-teal-200 transition-all group">
+                                        <div key={job.id} className="p-4 bg-surface-primary rounded-xl border border-border-primary hover:border-teal-200 transition-all group">
                                             <div className="flex justify-between items-start mb-2">
-                                                <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-amber-100 text-amber-700' :
+                                                <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
                                                     job.transport_status === 'accepted' ? 'bg-blue-100 text-blue-700' :
-                                                        'bg-teal-100 text-teal-700'
+                                                        'bg-accent-500/15 text-accent-500'
                                                     }`}>
                                                     {job.transport_status}
                                                 </span>
-                                                <span className="text-xs font-black text-slate-400">
+                                                <span className="text-xs font-black text-ink-tertiary">
                                                     {new Date(job.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                 </span>
                                             </div>
-                                            <h4 className="font-bold text-slate-900 text-sm mb-1">{job.title}</h4>
-                                            <p className="text-xs text-slate-500 mb-2">{job.pickup_location} ➝ {job.dropoff_location}</p>
-                                            <div className="flex justify-between items-center mt-3 pt-3 border-t border-slate-200/50">
+                                            <h4 className="font-bold text-ink-primary text-sm mb-1">{job.title}</h4>
+                                            <p className="text-xs text-ink-tertiary mb-2">{job.pickup_location} ➝ {job.dropoff_location}</p>
+                                            <div className="flex justify-between items-center mt-3 pt-3 border-t border-border-primary/50">
                                                 <div className="flex items-center gap-2">
                                                     <div className="w-5 h-5 bg-indigo-100 rounded-full flex items-center justify-center text-[10px]">
                                                         {job.driver_id ? '👨‍✈️' : '🤖'}
                                                     </div>
-                                                    <span className="text-[10px] font-bold text-slate-600">
+                                                    <span className="text-[10px] font-bold text-ink-secondary">
                                                         {job.driver_id ? `Driver #${job.driver_id}` : 'Unassigned'}
                                                     </span>
                                                 </div>
-                                                <span className="text-xs font-black text-teal-600">${job.price}</span>
+                                                <span className="text-xs font-black text-accent-400">${job.price}</span>
                                             </div>
                                         </div>
                                     ))

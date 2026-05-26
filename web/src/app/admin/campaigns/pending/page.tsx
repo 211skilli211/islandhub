@@ -21,19 +21,19 @@ const RequestChangesModal = ({ isOpen, onClose, onSubmit, campaignId, campaignTi
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-2xl max-w-md w-full mx-4">
-                <h3 className="text-xl font-black text-slate-900 mb-4">Request Changes for "{campaignTitle}"</h3>
+            <div className="bg-surface-elevated p-6 rounded-2xl max-w-md w-full mx-4">
+                <h3 className="text-xl font-black text-ink-primary mb-4">Request Changes for "{campaignTitle}"</h3>
                 <textarea
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     placeholder="Please provide specific feedback on what changes are needed..."
-                    className="w-full p-3 border border-slate-200 rounded-xl mb-4 min-h-[120px] resize-none"
+                    className="w-full p-3 border border-border-primary rounded-xl mb-4 min-h-[120px] resize-none"
                     required
                 />
                 <div className="flex gap-3">
                     <button
                         onClick={onClose}
-                        className="flex-1 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black rounded-xl transition-all"
+                        className="flex-1 px-4 py-3 bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary font-black rounded-xl transition-all"
                     >
                         Cancel
                     </button>
@@ -130,19 +130,19 @@ export default function PendingCampaignsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-surface-primary py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-8 flex items-center justify-between">
                     <div>
                         <button
                             onClick={() => router.push('/admin')}
-                            className="text-teal-600 hover:text-teal-700 font-bold mb-2 flex items-center gap-2"
+                            className="text-accent-400 hover:text-accent-500 font-bold mb-2 flex items-center gap-2"
                         >
                             ← Back to Admin Dashboard
                         </button>
-                        <h1 className="text-3xl font-black text-slate-900">Pending Campaigns</h1>
-                        <p className="text-slate-500">Review and approve community campaigns</p>
+                        <h1 className="text-3xl font-black text-ink-primary">Pending Campaigns</h1>
+                        <p className="text-ink-tertiary">Review and approve community campaigns</p>
                     </div>
                     <div className="bg-amber-50 px-4 py-2 rounded-xl border border-amber-100">
                         <span className="block text-xs text-amber-500 font-bold uppercase">Pending Review</span>
@@ -153,16 +153,16 @@ export default function PendingCampaignsPage() {
                 {/* Content */}
                 {loading ? (
                     <div className="text-center py-20">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-teal-600"></div>
-                        <p className="mt-4 text-slate-500 font-medium">Loading campaigns...</p>
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600"></div>
+                        <p className="mt-4 text-ink-tertiary font-medium">Loading campaigns...</p>
                     </div>
                 ) : campaigns.length === 0 ? (
-                    <div className="p-12 text-center bg-white rounded-xl border border-slate-200">
+                    <div className="p-12 text-center bg-surface-elevated rounded-xl border border-border-primary">
                         <div className="text-4xl mb-4">✨</div>
-                        <p className="text-slate-500 font-medium">All caught up! No pending campaigns to review.</p>
+                        <p className="text-ink-tertiary font-medium">All caught up! No pending campaigns to review.</p>
                         <button
                             onClick={() => router.push('/admin')}
-                            className="mt-4 text-teal-600 hover:text-teal-700 font-bold"
+                            className="mt-4 text-accent-400 hover:text-accent-500 font-bold"
                         >
                             Return to Dashboard
                         </button>
@@ -170,14 +170,14 @@ export default function PendingCampaignsPage() {
                 ) : (
                     <div className="grid gap-6">
                         {campaigns.map(campaign => (
-                            <div key={campaign.id} className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                            <div key={campaign.id} className="bg-surface-elevated p-8 rounded-2xl border border-border-primary shadow-sm hover:shadow-md transition-all">
                                 <div className="flex flex-col lg:flex-row gap-6">
                                     {/* Campaign Image */}
-                                    <div className="w-full lg:w-64 h-48 flex-shrink-0 bg-slate-100 rounded-xl overflow-hidden">
+                                    <div className="w-full lg:w-64 h-48 flex-shrink-0 bg-surface-secondary rounded-xl overflow-hidden">
                                         {campaign.image_url ? (
                                             <img src={campaign.image_url} alt={campaign.title} className="w-full h-full object-cover" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-slate-400">
+                                            <div className="w-full h-full flex items-center justify-center text-ink-tertiary">
                                                 <span className="text-6xl">🏝️</span>
                                             </div>
                                         )}
@@ -187,8 +187,8 @@ export default function PendingCampaignsPage() {
                                     <div className="flex-1">
                                         <div className="flex items-start justify-between mb-4">
                                             <div>
-                                                <h2 className="text-2xl font-black text-slate-900 mb-2">{campaign.title}</h2>
-                                                <div className="flex items-center gap-3 text-sm text-slate-500">
+                                                <h2 className="text-2xl font-black text-ink-primary mb-2">{campaign.title}</h2>
+                                                <div className="flex items-center gap-3 text-sm text-ink-tertiary">
                                                     <span className="flex items-center gap-1">
                                                         <span>📅</span>
                                                         {new Date(campaign.created_at).toLocaleDateString()}
@@ -198,7 +198,7 @@ export default function PendingCampaignsPage() {
                                                         ID: {campaign.id}
                                                     </span>
                                                     {campaign.category && (
-                                                        <span className="px-2 py-1 bg-slate-100 rounded text-xs font-bold">
+                                                        <span className="px-2 py-1 bg-surface-secondary rounded text-xs font-bold">
                                                             {campaign.category}
                                                         </span>
                                                     )}
@@ -206,24 +206,24 @@ export default function PendingCampaignsPage() {
                                             </div>
                                         </div>
 
-                                        <p className="text-slate-700 mb-4 leading-relaxed">{campaign.description}</p>
+                                        <p className="text-ink-secondary mb-4 leading-relaxed">{campaign.description}</p>
 
                                         {/* Campaign Stats */}
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-slate-50 rounded-xl">
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-surface-primary rounded-xl">
                                             <div>
-                                                <div className="text-xs text-slate-400 font-bold uppercase mb-1">Goal Amount</div>
-                                                <div className="text-lg font-black text-teal-600">${campaign.goal_amount?.toLocaleString() || 0}</div>
+                                                <div className="text-xs text-ink-tertiary font-bold uppercase mb-1">Goal Amount</div>
+                                                <div className="text-lg font-black text-accent-400">${campaign.goal_amount?.toLocaleString() || 0}</div>
                                             </div>
                                             <div>
-                                                <div className="text-xs text-slate-400 font-bold uppercase mb-1">Current Amount</div>
-                                                <div className="text-lg font-black text-slate-900">${campaign.current_amount?.toLocaleString() || 0}</div>
+                                                <div className="text-xs text-ink-tertiary font-bold uppercase mb-1">Current Amount</div>
+                                                <div className="text-lg font-black text-ink-primary">${campaign.current_amount?.toLocaleString() || 0}</div>
                                             </div>
                                             <div>
-                                                <div className="text-xs text-slate-400 font-bold uppercase mb-1">Creator ID</div>
-                                                <div className="text-lg font-black text-slate-900">{campaign.creator_id}</div>
+                                                <div className="text-xs text-ink-tertiary font-bold uppercase mb-1">Creator ID</div>
+                                                <div className="text-lg font-black text-ink-primary">{campaign.creator_id}</div>
                                             </div>
                                             <div>
-                                                <div className="text-xs text-slate-400 font-bold uppercase mb-1">Status</div>
+                                                <div className="text-xs text-ink-tertiary font-bold uppercase mb-1">Status</div>
                                                 <div className="text-lg font-black text-amber-600">Pending</div>
                                             </div>
                                         </div>
@@ -235,8 +235,8 @@ export default function PendingCampaignsPage() {
                                                 <div className="grid grid-cols-2 gap-2 text-sm">
                                                     {Object.entries(campaign.metadata).map(([key, value]) => (
                                                         <div key={key}>
-                                                            <span className="text-slate-500 font-medium">{key}: </span>
-                                                            <span className="text-slate-900 font-bold">{String(value)}</span>
+                                                            <span className="text-ink-tertiary font-medium">{key}: </span>
+                                                            <span className="text-ink-primary font-bold">{String(value)}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -247,7 +247,7 @@ export default function PendingCampaignsPage() {
                                         <div className="flex gap-4">
                                             <button
                                                 onClick={() => handleApprove(campaign.id)}
-                                                className="flex-1 px-6 py-4 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-lg shadow-teal-200 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                                                className="flex-1 px-6 py-4 bg-accent-500 hover:bg-accent-600 text-white font-black rounded-xl shadow-lg shadow-teal-200 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
                                             >
                                                 <span>✓</span> Approve Campaign
                                             </button>
@@ -265,7 +265,7 @@ export default function PendingCampaignsPage() {
                                             </button>
                                             <button
                                                 onClick={() => router.push(`/listings/${campaign.id}`)}
-                                                className="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black rounded-xl transition-all flex items-center justify-center gap-2"
+                                                className="px-6 py-4 bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary font-black rounded-xl transition-all flex items-center justify-center gap-2"
                                             >
                                                 <span>👁️</span> View Details
                                             </button>

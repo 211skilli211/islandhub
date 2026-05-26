@@ -202,13 +202,13 @@ export default function EventsPage() {
     };
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             <HeroBackground pageKey="community" className="py-16">
                 <div className="max-w-7xl mx-auto relative z-30 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
+                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
                     >
                         Community Events 🌴
                     </motion.div>
@@ -234,13 +234,13 @@ export default function EventsPage() {
                 {/* Search and Create */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                     <div className="relative flex-1 max-w-md">
-                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                         <input
                             type="text"
                             placeholder="Search events..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3.5 bg-white rounded-2xl border border-slate-200 font-medium outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all"
+                            className="w-full pl-12 pr-4 py-3.5 bg-surface-elevated rounded-2xl border border-border-primary font-medium outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-teal-500 transition-all"
                         />
                     </div>
                     <button
@@ -258,8 +258,8 @@ export default function EventsPage() {
                             key={f}
                             onClick={() => setFilter(f)}
                             className={`px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${filter === f
-                                ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/25'
-                                : 'bg-white text-slate-500 hover:bg-slate-100'
+                                ? 'bg-accent-500 text-white shadow-lg shadow-teal-500/25'
+                                : 'bg-surface-elevated text-ink-tertiary hover:bg-surface-secondary'
                                 }`}
                         >
                             {f === 'all' && '🌟'} {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -271,12 +271,12 @@ export default function EventsPage() {
                 {isLoading ? (
                     <div className="space-y-6">
                         {[1, 2, 3].map(i => (
-                            <div key={i} className="bg-white rounded-[3rem] h-48 animate-pulse flex">
-                                <div className="w-48 bg-slate-200 rounded-l-[3rem]"></div>
+                            <div key={i} className="bg-surface-elevated rounded-[3rem] h-48 animate-pulse flex">
+                                <div className="w-48 bg-surface-tertiary rounded-l-[3rem]"></div>
                                 <div className="flex-1 p-8">
-                                    <div className="h-6 bg-slate-200 rounded w-1/3 mb-4"></div>
-                                    <div className="h-4 bg-slate-100 rounded w-full mb-2"></div>
-                                    <div className="h-4 bg-slate-100 rounded w-2/3"></div>
+                                    <div className="h-6 bg-surface-tertiary rounded w-1/3 mb-4"></div>
+                                    <div className="h-4 bg-surface-secondary rounded w-full mb-2"></div>
+                                    <div className="h-4 bg-surface-secondary rounded w-2/3"></div>
                                 </div>
                             </div>
                         ))}
@@ -289,7 +289,7 @@ export default function EventsPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
-                                className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-teal-500/10 transition-all flex flex-col md:flex-row"
+                                className="bg-surface-elevated rounded-[3rem] overflow-hidden border border-border-primary hover:shadow-2xl hover:shadow-teal-500/10 transition-all flex flex-col md:flex-row"
                             >
                                 {/* Date Box */}
                                 <div className="md:w-48 bg-gradient-to-br from-teal-400 to-teal-600 p-6 flex flex-col items-center justify-center text-white">
@@ -307,9 +307,9 @@ export default function EventsPage() {
                                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                                         <div className="flex-1">
                                             <div className="flex items-center gap-3 mb-3">
-                                                <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${event.status === 'upcoming' ? 'bg-teal-50 text-teal-600' :
+                                                <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${event.status === 'upcoming' ? 'bg-accent-500/10 text-accent-400' :
                                                     event.status === 'ongoing' ? 'bg-amber-50 text-amber-600' :
-                                                        'bg-slate-100 text-slate-500'
+                                                        'bg-surface-secondary text-ink-tertiary'
                                                     }`}>
                                                     {event.status}
                                                 </span>
@@ -319,13 +319,13 @@ export default function EventsPage() {
                                                     </span>
                                                 )}
                                             </div>
-                                            <h3 className="text-2xl font-black text-slate-900 mb-2 hover:text-teal-600 transition-colors">
+                                            <h3 className="text-2xl font-black text-ink-primary mb-2 hover:text-accent-400 transition-colors">
                                                 {event.title}
                                             </h3>
-                                            <p className="text-slate-500 font-medium mb-4 line-clamp-2">
+                                            <p className="text-ink-tertiary font-medium mb-4 line-clamp-2">
                                                 {event.description}
                                             </p>
-                                            <div className="flex flex-wrap gap-4 text-sm font-bold text-slate-400">
+                                            <div className="flex flex-wrap gap-4 text-sm font-bold text-ink-tertiary">
                                                 <span>📅 {formatDate(event.date)}</span>
                                                 <span>📍 {event.location}</span>
                                                 <span>👥 {event.rsvp_count} attending</span>
@@ -339,8 +339,8 @@ export default function EventsPage() {
                                         <div className="flex flex-col gap-3">
                                             {event.user_rsvp ? (
                                                 <div className="text-center">
-                                                    <span className={`px-4 py-2 rounded-xl font-black text-xs uppercase ${event.user_rsvp === 'attending' ? 'bg-teal-100 text-teal-700' :
-                                                        'bg-amber-100 text-amber-700'
+                                                    <span className={`px-4 py-2 rounded-xl font-black text-xs uppercase ${event.user_rsvp === 'attending' ? 'bg-accent-500/15 text-accent-500' :
+                                                        'bg-sand-500/10 text-sand-500'
                                                         }`}>
                                                         {event.user_rsvp === 'attending' ? '✓ Going' : '★ Interested'}
                                                     </span>
@@ -349,7 +349,7 @@ export default function EventsPage() {
                                                 <div className="flex gap-2">
                                                     <button
                                                         onClick={() => handleRSVP(event.event_id, 'attending')}
-                                                        className="px-6 py-3 bg-teal-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-teal-700 transition-colors"
+                                                        className="px-6 py-3 bg-accent-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-accent-600 transition-colors"
                                                     >
                                                         RSVP ✓
                                                     </button>
@@ -362,7 +362,7 @@ export default function EventsPage() {
                                                 </div>
                                             )}
                                             {event.ticket_price && (
-                                                <span className="text-center font-black text-teal-600">
+                                                <span className="text-center font-black text-accent-400">
                                                     ${event.ticket_price}
                                                 </span>
                                             )}
@@ -376,10 +376,10 @@ export default function EventsPage() {
 
                 {filteredEvents.length === 0 && !isLoading && (
                     <div className="text-center py-20">
-                        <p className="text-slate-400 font-medium text-lg">No events found</p>
+                        <p className="text-ink-tertiary font-medium text-lg">No events found</p>
                         <button
                             onClick={() => setShowCreateModal(true)}
-                            className="mt-4 text-teal-600 font-black text-sm uppercase tracking-widest hover:underline"
+                            className="mt-4 text-accent-400 font-black text-sm uppercase tracking-widest hover:underline"
                         >
                             Create the first event →
                         </button>

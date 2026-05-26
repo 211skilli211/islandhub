@@ -108,7 +108,7 @@ function getCategoryGradient(catId: string): string {
 function getCategoryAccent(catId: string): string {
     switch (catId) {
         case 'land': return 'bg-green-100 text-green-700';
-        case 'sea': return 'bg-teal-100 text-teal-700';
+        case 'sea': return 'bg-accent-500/15 text-accent-500';
         case 'adventure': return 'bg-lime-100 text-lime-700';
         case 'charter': return 'bg-emerald-100 text-emerald-700';
         default: return 'bg-green-100 text-green-700';
@@ -131,7 +131,7 @@ function TourCard({ store, index }: { store: Store; index: number }) {
         >
             <Link
                 href={`/store/${store.slug}`}
-                className="group block bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-500 border border-green-50 hover:border-green-200"
+                className="group block bg-surface-elevated rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-500 border border-green-50 hover:border-green-200"
             >
                 <div className="relative h-52 overflow-hidden rounded-t-3xl">
                     {store.banner_url ? (
@@ -152,7 +152,7 @@ function TourCard({ store, index }: { store: Store; index: number }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
                     {/* Rating badge */}
-                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5">
+                    <div className="absolute top-3 right-3 bg-surface-elevated/95 backdrop-blur-sm px-2.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5">
                         <span className="text-green-600">
                             <StarIcon />
                         </span>
@@ -179,12 +179,12 @@ function TourCard({ store, index }: { store: Store; index: number }) {
                 </div>
 
                 <div className="p-5">
-                    <p className="text-sm text-slate-500 line-clamp-2 leading-relaxed mb-4 min-h-[2.5rem]">
+                    <p className="text-sm text-ink-tertiary line-clamp-2 leading-relaxed mb-4 min-h-[2.5rem]">
                         {store.description || 'Unforgettable island experiences await. Discover hidden gems and breathtaking views.'}
                     </p>
 
                     {/* Info row */}
-                    <div className="flex items-center gap-4 mb-4 text-slate-400">
+                    <div className="flex items-center gap-4 mb-4 text-ink-tertiary">
                         <div className="flex items-center gap-1.5">
                             <span className="text-green-500"><ClockIcon /></span>
                             <span className="text-xs font-medium">Full Day</span>
@@ -199,7 +199,7 @@ function TourCard({ store, index }: { store: Store; index: number }) {
                     <div className="flex items-center justify-between pt-3 border-t border-green-50">
                         <div>
                             <span className="text-[10px] font-bold uppercase tracking-widest text-green-600">From</span>
-                            <p className="text-lg font-black text-slate-900">Best Price</p>
+                            <p className="text-lg font-black text-ink-primary">Best Price</p>
                         </div>
                         <span className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-green-500/25 hover:shadow-green-500/40 group-hover:from-green-600 group-hover:to-emerald-700 transition-all">
                             Explore
@@ -283,7 +283,7 @@ export default function ToursHubPage() {
     const totalStores = filteredStores.length;
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-surface-elevated">
             {/* ===== HERO ===== */}
             <HeroBackground pageKey="tour-hub" fallbackTitle="Explore the Islands" className="min-h-[52vh]">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="w-full max-w-2xl mx-auto text-center">
@@ -313,7 +313,7 @@ export default function ToursHubPage() {
                             placeholder="Search tours, experiences, destinations..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-4 py-4 bg-white/95 backdrop-blur-sm rounded-2xl text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-2xl shadow-green-900/20 border border-white/20"
+                            className="w-full pl-12 pr-4 py-4 bg-surface-elevated/95 backdrop-blur-sm rounded-2xl text-ink-primary font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-2xl shadow-green-900/20 border border-white/20"
                         />
                         <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-green-500/25 hover:from-green-600 hover:to-emerald-700 transition-all">
                             Search
@@ -328,14 +328,14 @@ export default function ToursHubPage() {
                             </div>
                             <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Unique Tours</div>
                         </div>
-                        <div className="w-px h-10 bg-white/20" />
+                        <div className="w-px h-10 bg-surface-elevated/20" />
                         <div className="text-center">
                             <div className="text-3xl font-black bg-gradient-to-r from-emerald-300 to-teal-400 bg-clip-text text-transparent">
                                 {TOUR_CATEGORIES.length - 1}
                             </div>
                             <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">Categories</div>
                         </div>
-                        <div className="w-px h-10 bg-white/20" />
+                        <div className="w-px h-10 bg-surface-elevated/20" />
                         <div className="text-center">
                             <div className="text-3xl font-black bg-gradient-to-r from-teal-300 to-green-400 bg-clip-text text-transparent">
                                 4.9
@@ -359,14 +359,14 @@ export default function ToursHubPage() {
                                     className={`inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold transition-all whitespace-nowrap shadow-sm ${
                                         activeCategory === cat.id
                                             ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/25 scale-105'
-                                            : 'bg-white text-slate-600 border border-green-100 hover:border-green-300 hover:bg-green-50 hover:text-green-700'
+                                            : 'bg-surface-elevated text-ink-secondary border border-green-100 hover:border-green-300 hover:bg-green-50 hover:text-green-700'
                                     }`}
                                 >
                                     <span className="text-base">{cat.icon}</span>
                                     <span>{cat.title}</span>
                                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                                         activeCategory === cat.id
-                                            ? 'bg-white/20 text-white'
+                                            ? 'bg-surface-elevated/20 text-white'
                                             : 'bg-green-50 text-green-600'
                                     }`}>
                                         {loading ? '…' : count}
@@ -390,8 +390,8 @@ export default function ToursHubPage() {
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-green-100 to-emerald-50 mb-6">
                             <span className="text-4xl">🌿</span>
                         </div>
-                        <h3 className="text-2xl font-black text-slate-900 mb-2">No tours found</h3>
-                        <p className="text-slate-500 mb-8 max-w-md mx-auto">Try adjusting your search or explore all tour categories to find your next island adventure.</p>
+                        <h3 className="text-2xl font-black text-ink-primary mb-2">No tours found</h3>
+                        <p className="text-ink-tertiary mb-8 max-w-md mx-auto">Try adjusting your search or explore all tour categories to find your next island adventure.</p>
                         <button
                             onClick={() => { setSearchTerm(''); setActiveCategory('all'); }}
                             className="px-8 py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-2xl hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25"
@@ -412,10 +412,10 @@ export default function ToursHubPage() {
                                     </span>
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-black text-slate-900">
+                                    <h2 className="text-xl font-black text-ink-primary">
                                         {activeCategory !== 'all' ? TOUR_CATEGORIES.find(c => c.id === activeCategory)?.title : 'Search Results'}
                                     </h2>
-                                    <p className="text-xs text-slate-500 font-medium">{totalStores} experience{totalStores !== 1 ? 's' : ''} found</p>
+                                    <p className="text-xs text-ink-tertiary font-medium">{totalStores} experience{totalStores !== 1 ? 's' : ''} found</p>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -439,8 +439,8 @@ export default function ToursHubPage() {
                                             <span className="text-xl">{cat.icon}</span>
                                         </div>
                                         <div>
-                                            <h2 className="text-2xl font-black text-slate-900">{cat.title}</h2>
-                                            <p className="text-xs text-slate-500 font-medium">{cat.desc}</p>
+                                            <h2 className="text-2xl font-black text-ink-primary">{cat.title}</h2>
+                                            <p className="text-xs text-ink-tertiary font-medium">{cat.desc}</p>
                                         </div>
                                     </div>
                                     <span className={`text-xs font-bold px-4 py-2 rounded-xl ${getCategoryAccent(cat.id)}`}>
@@ -482,7 +482,7 @@ export default function ToursHubPage() {
                     backgroundImage: `radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px), radial-gradient(circle at 60% 80%, white 1px, transparent 1px)`,
                     backgroundSize: '60px 60px, 80px 80px, 100px 100px'
                 }} />
-                <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-surface-elevated/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-72 h-72 bg-teal-400/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
                 <div className="relative max-w-4xl mx-auto text-center py-20 px-6">
@@ -491,7 +491,7 @@ export default function ToursHubPage() {
                         whileInView={{ scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ type: 'spring', stiffness: 200 }}
-                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 mb-8"
+                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface-elevated/15 backdrop-blur-sm border border-white/20 mb-8"
                     >
                         <span className="text-3xl">🌴</span>
                     </motion.div>
@@ -509,7 +509,7 @@ export default function ToursHubPage() {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link
                             href="/become-vendor"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-green-700 font-black rounded-2xl hover:bg-green-50 transition-all shadow-2xl shadow-black/20 text-sm uppercase tracking-wider group"
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-surface-elevated text-green-700 font-black rounded-2xl hover:bg-green-50 transition-all shadow-2xl shadow-black/20 text-sm uppercase tracking-wider group"
                         >
                             Become a Guide
                             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -518,7 +518,7 @@ export default function ToursHubPage() {
                         </Link>
                         <Link
                             href="/become-vendor"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold rounded-2xl hover:bg-white/20 transition-all text-sm"
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-surface-elevated/10 backdrop-blur-sm border border-white/20 text-white font-bold rounded-2xl hover:bg-surface-elevated/20 transition-all text-sm"
                         >
                             Learn More
                         </Link>

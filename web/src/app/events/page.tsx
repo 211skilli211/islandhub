@@ -39,7 +39,7 @@ export default function EventsHubPage() {
   const { events, loading } = useEvents({ category: category || undefined, search: search || undefined, status: 'published' });
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900">
+    <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
       {/* Hero */}
       <div className="relative bg-gradient-to-br from-purple-900 via-indigo-900 to-ocean-800 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -52,7 +52,7 @@ export default function EventsHubPage() {
             Discover and attend the best events across the Caribbean. Secure your spot with QR-powered digital tickets.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/events/my-tickets" className="px-6 py-3 bg-white text-purple-900 rounded-xl font-bold hover:bg-purple-50 transition-colors">
+            <Link href="/events/my-tickets" className="px-6 py-3 bg-surface-elevated text-purple-900 rounded-xl font-bold hover:bg-purple-50 transition-colors">
               My Tickets
             </Link>
             <Link href="/events/create" className="px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-500 transition-colors border border-purple-400">
@@ -71,9 +71,9 @@ export default function EventsHubPage() {
               placeholder="Search events..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-ocean-800 border border-slate-200 dark:border-ocean-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500 dark:text-sand-50"
+              className="w-full pl-10 pr-4 py-3 bg-surface-elevated dark:bg-ocean-800 border border-border-primary dark:border-ocean-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500 dark:text-sand-50"
             />
-            <svg className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="absolute left-3 top-3.5 h-4 w-4 text-ink-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
@@ -85,7 +85,7 @@ export default function EventsHubPage() {
                 className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${
                   category === c.value
                     ? 'bg-purple-600 text-white'
-                    : 'bg-white dark:bg-ocean-800 text-slate-600 dark:text-sand-200 border border-slate-200 dark:border-ocean-700 hover:border-purple-300'
+                    : 'bg-surface-elevated dark:bg-ocean-800 text-ink-secondary dark:text-sand-200 border border-border-primary dark:border-ocean-700 hover:border-purple-300'
                 }`}
               >
                 {c.value ? `${categoryIcons[c.value] || '📌'} ${c.label}` : c.label}
@@ -98,12 +98,12 @@ export default function EventsHubPage() {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1,2,3,4,5,6].map(i => (
-              <div key={i} className="bg-white dark:bg-ocean-800 rounded-2xl overflow-hidden animate-pulse">
-                <div className="h-48 bg-slate-200 dark:bg-ocean-700" />
+              <div key={i} className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl overflow-hidden animate-pulse">
+                <div className="h-48 bg-surface-tertiary dark:bg-ocean-700" />
                 <div className="p-5 space-y-3">
-                  <div className="h-4 bg-slate-200 dark:bg-ocean-700 rounded w-3/4" />
-                  <div className="h-3 bg-slate-200 dark:bg-ocean-700 rounded w-1/2" />
-                  <div className="h-3 bg-slate-200 dark:bg-ocean-700 rounded w-2/3" />
+                  <div className="h-4 bg-surface-tertiary dark:bg-ocean-700 rounded w-3/4" />
+                  <div className="h-3 bg-surface-tertiary dark:bg-ocean-700 rounded w-1/2" />
+                  <div className="h-3 bg-surface-tertiary dark:bg-ocean-700 rounded w-2/3" />
                 </div>
               </div>
             ))}
@@ -112,7 +112,7 @@ export default function EventsHubPage() {
           <div className="text-center py-20">
             <p className="text-6xl mb-4">🎪</p>
             <h3 className="text-2xl font-black text-slate-800 dark:text-sand-50">No events found</h3>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Check back later or create your own event!</p>
+            <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Check back later or create your own event!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -120,7 +120,7 @@ export default function EventsHubPage() {
               <Link
                 key={event.event_id}
                 href={`/events/${event.event_id}`}
-                className="group bg-white dark:bg-ocean-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-ocean-700"
+                className="group bg-surface-elevated dark:bg-ocean-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-border-primary dark:border-ocean-700"
               >
                 <div className="relative h-48 overflow-hidden">
                   {event.image_url ? (
@@ -136,7 +136,7 @@ export default function EventsHubPage() {
                     </div>
                   )}
                   <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 bg-white/90 dark:bg-ocean-900/90 backdrop-blur-sm rounded-full text-xs font-bold text-purple-700 dark:text-purple-300">
+                    <span className="px-3 py-1 bg-surface-elevated/90 dark:bg-ocean-900/90 backdrop-blur-sm rounded-full text-xs font-bold text-purple-700 dark:text-purple-300">
                       {categoryIcons[event.category]} {event.category}
                     </span>
                   </div>
@@ -147,10 +147,10 @@ export default function EventsHubPage() {
                   )}
                 </div>
                 <div className="p-5">
-                  <h3 className="font-black text-lg text-slate-900 dark:text-sand-50 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
+                  <h3 className="font-black text-lg text-ink-primary dark:text-sand-50 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
                     {event.title}
                   </h3>
-                  <div className="mt-3 space-y-1.5 text-sm text-slate-500 dark:text-slate-400">
+                  <div className="mt-3 space-y-1.5 text-sm text-ink-tertiary dark:text-ink-tertiary">
                     <p className="flex items-center gap-2">
                       <span>📅</span> {formatDate(event.start_date)} · {formatTime(event.start_date)}
                     </p>
@@ -163,14 +163,14 @@ export default function EventsHubPage() {
                   </div>
                   <div className="mt-4 flex items-center justify-between">
                     <div>
-                      <span className="text-xs text-slate-400">From</span>
+                      <span className="text-xs text-ink-tertiary">From</span>
                       <p className="text-lg font-black text-purple-600 dark:text-purple-400">
-                        ${event.ticket_tiers?.[0]?.price?.toLocaleString() || '0'} <span className="text-xs font-normal text-slate-400">XCD</span>
+                        ${event.ticket_tiers?.[0]?.price?.toLocaleString() || '0'} <span className="text-xs font-normal text-ink-tertiary">XCD</span>
                       </p>
                     </div>
                     <div className="text-right">
-                      <span className="text-xs text-slate-400">{event.total_capacity - event.tickets_sold} left</span>
-                      <div className="w-20 h-1.5 bg-slate-200 dark:bg-ocean-700 rounded-full mt-1">
+                      <span className="text-xs text-ink-tertiary">{event.total_capacity - event.tickets_sold} left</span>
+                      <div className="w-20 h-1.5 bg-surface-tertiary dark:bg-ocean-700 rounded-full mt-1">
                         <div
                           className="h-full bg-purple-500 rounded-full"
                           style={{ width: `${Math.min(100, (event.tickets_sold / event.total_capacity) * 100)}%` }}

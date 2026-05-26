@@ -57,7 +57,7 @@ export default function StaysHubPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-surface-elevated">
             {/* Hero Section */}
             <HeroBackground
                 pageKey="stays"
@@ -66,25 +66,25 @@ export default function StaysHubPage() {
             />
 
             {/* Vendors Row */}
-            <section className="bg-slate-50 py-16">
+            <section className="bg-surface-primary py-16">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex justify-between items-end mb-12">
                         <div>
-                            <h2 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase">Top Property Managers</h2>
-                            <p className="text-slate-500 font-medium">Trusted hosts and premium property vendors</p>
+                            <h2 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase">Top Property Managers</h2>
+                            <p className="text-ink-tertiary font-medium">Trusted hosts and premium property vendors</p>
                         </div>
                     </div>
                     <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide">
                         {vendors.length > 0 ? vendors.map(v => (
-                            <Link key={v.id} href={`/store/${v.slug}`} className="shrink-0 w-64 p-8 bg-white rounded-[2.5rem] border border-slate-100 hover:shadow-2xl transition-all group">
-                                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                            <Link key={v.id} href={`/store/${v.slug}`} className="shrink-0 w-64 p-8 bg-surface-elevated rounded-[2.5rem] border border-border-primary hover:shadow-2xl transition-all group">
+                                <div className="w-16 h-16 bg-surface-primary rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
                                     {v.logo_url ? <img src={v.logo_url} className="w-full h-full object-cover rounded-xl" /> : '🏠'}
                                 </div>
-                                <h3 className="text-lg font-black text-slate-900 mb-1">{v.business_name || v.name}</h3>
+                                <h3 className="text-lg font-black text-ink-primary mb-1">{v.business_name || v.name}</h3>
                                 <p className="text-purple-600 text-[10px] font-black uppercase tracking-widest">{v.subtype || 'Property Host'}</p>
                             </Link>
                         )) : (
-                            <div className="text-slate-400 font-bold italic py-4">Showcasing top hosts soon...</div>
+                            <div className="text-ink-tertiary font-bold italic py-4">Showcasing top hosts soon...</div>
                         )}
                     </div>
                 </div>
@@ -94,15 +94,15 @@ export default function StaysHubPage() {
             <div className="max-w-7xl mx-auto px-6 py-24">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight italic uppercase">Available Inventory</h2>
-                        <p className="text-slate-500 font-medium">Filter by accommodation type</p>
+                        <h2 className="text-3xl font-black text-ink-primary tracking-tight italic uppercase">Available Inventory</h2>
+                        <p className="text-ink-tertiary font-medium">Filter by accommodation type</p>
                     </div>
-                    <div className="flex gap-2 p-1 bg-slate-50 rounded-2xl border border-slate-100">
+                    <div className="flex gap-2 p-1 bg-surface-primary rounded-2xl border border-border-primary">
                         {['All', 'Villa', 'Apartment', 'Studio', 'Condo'].map(f => (
                             <button
                                 key={f}
                                 onClick={() => setActiveFilter(f)}
-                                className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-white text-purple-600 shadow-sm' : 'text-slate-400 hover:text-purple-600'}`}
+                                className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === f ? 'bg-surface-elevated text-purple-600 shadow-sm' : 'text-ink-tertiary hover:text-purple-600'}`}
                             >
                                 {f}
                             </button>
@@ -130,14 +130,14 @@ export default function StaysHubPage() {
                 {filteredListings.length === 0 && (
                     <div className="text-center py-32 bg-purple-50/20 rounded-[4rem] border-2 border-dashed border-purple-100">
                         <span className="text-5xl mb-6 block">🏘️</span>
-                        <h3 className="text-2xl font-black text-slate-900 mb-2">No Match Found</h3>
-                        <p className="text-slate-400 font-bold italic">Adjust your filters to see more island homes.</p>
+                        <h3 className="text-2xl font-black text-ink-primary mb-2">No Match Found</h3>
+                        <p className="text-ink-tertiary font-bold italic">Adjust your filters to see more island homes.</p>
                     </div>
                 )}
             </div>
 
             <div className="max-w-7xl mx-auto px-6 pb-24 text-center">
-                <Link href="/rentals" className="inline-flex items-center gap-2 text-slate-400 font-bold hover:text-purple-600 transition-colors">
+                <Link href="/rentals" className="inline-flex items-center gap-2 text-ink-tertiary font-bold hover:text-purple-600 transition-colors">
                     Looking for Sea or Land Rentals? Visit the Global Directory →
                 </Link>
             </div>

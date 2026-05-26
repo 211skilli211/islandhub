@@ -51,32 +51,32 @@ function CheckoutSuccessContent() {
 
     if (verifying) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-16 h-16 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">Confirming your order...</h1>
-                    <p className="text-slate-600">Please wait while we verify your payment.</p>
+                    <h1 className="text-2xl font-bold text-ink-primary mb-2">Confirming your order...</h1>
+                    <p className="text-ink-secondary">Please wait while we verify your payment.</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="min-h-screen bg-surface-primary flex items-center justify-center">
             <div className="text-center max-w-md mx-auto px-6">
                 <div className="text-6xl mb-4">✅</div>
-                <h1 className="text-3xl font-bold text-slate-900 mb-4">Payment Successful!</h1>
-                <p className="text-slate-600 mb-8">Your order has been confirmed. You'll receive a confirmation email shortly.</p>
+                <h1 className="text-3xl font-bold text-ink-primary mb-4">Payment Successful!</h1>
+                <p className="text-ink-secondary mb-8">Your order has been confirmed. You'll receive a confirmation email shortly.</p>
                 <div className="space-y-3">
                     <button
                         onClick={() => router.push('/dashboard/orders')}
-                        className="w-full py-4 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
+                        className="w-full py-4 bg-accent-500 text-white font-bold rounded-xl hover:bg-accent-600 transition-all"
                     >
                         View My Orders
                     </button>
                     <button
                         onClick={() => router.push('/listings')}
-                        className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all"
+                        className="w-full py-4 bg-surface-elevated border-2 border-border-primary text-ink-secondary font-bold rounded-xl hover:bg-surface-primary transition-all"
                     >
                         Continue Shopping
                     </button>
@@ -89,10 +89,10 @@ function CheckoutSuccessContent() {
 export default function CheckoutSuccessPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-16 h-16 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">Loading...</h1>
+                    <h1 className="text-2xl font-bold text-ink-primary mb-2">Loading...</h1>
                 </div>
             </div>
         }>

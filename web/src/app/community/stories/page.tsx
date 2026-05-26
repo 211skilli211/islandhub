@@ -156,13 +156,13 @@ export default function StoriesPage() {
     }));
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             <HeroBackground pageKey="community" className="py-16">
                 <div className="max-w-7xl mx-auto relative z-30 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
+                        className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-teal-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10"
                     >
                         Community Stories 🌟
                     </motion.div>
@@ -187,22 +187,22 @@ export default function StoriesPage() {
             <section className="max-w-7xl mx-auto px-4 py-12">
                 {/* Stories Row - Instagram style */}
                 <div className="mb-12">
-                    <h2 className="text-2xl font-black text-slate-900 mb-6">Latest Stories</h2>
+                    <h2 className="text-2xl font-black text-ink-primary mb-6">Latest Stories</h2>
 
                     {isLoading ? (
                         <div className="flex gap-4 overflow-x-auto pb-4">
                             {[1, 2, 3, 4, 5, 6].map(i => (
-                                <div key={i} className="shrink-0 w-24 h-24 bg-slate-200 rounded-full animate-pulse"></div>
+                                <div key={i} className="shrink-0 w-24 h-24 bg-surface-tertiary rounded-full animate-pulse"></div>
                             ))}
                         </div>
                     ) : (
                         <div className="flex gap-4 overflow-x-auto pb-4">
                             {/* Add Story Button */}
                             <button className="shrink-0 w-24 flex flex-col items-center">
-                                <div className="w-20 h-20 rounded-full bg-white border-2 border-teal-500 flex items-center justify-center text-3xl mb-2 hover:bg-teal-50 transition-colors">
+                                <div className="w-20 h-20 rounded-full bg-surface-elevated border-2 border-teal-500 flex items-center justify-center text-3xl mb-2 hover:bg-accent-500/10 transition-colors">
                                     +
                                 </div>
-                                <span className="text-xs font-bold text-slate-500 uppercase">Add Story</span>
+                                <span className="text-xs font-bold text-ink-tertiary uppercase">Add Story</span>
                             </button>
 
                             {/* User Stories */}
@@ -212,8 +212,8 @@ export default function StoriesPage() {
                                     onClick={() => setActiveStory(user.stories[0])}
                                     className="shrink-0 flex flex-col items-center"
                                 >
-                                    <div className={`w-20 h-20 rounded-full p-1 mb-2 ${!user.latestStory.is_viewed ? 'bg-gradient-to-tr from-teal-400 via-teal-500 to-teal-600' : 'bg-slate-200'}`}>
-                                        <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-2xl overflow-hidden">
+                                    <div className={`w-20 h-20 rounded-full p-1 mb-2 ${!user.latestStory.is_viewed ? 'bg-gradient-to-tr from-teal-400 via-teal-500 to-teal-600' : 'bg-surface-tertiary'}`}>
+                                        <div className="w-full h-full rounded-full bg-surface-elevated flex items-center justify-center text-2xl overflow-hidden">
                                             {user.latestStory.profile_photo_url ? (
                                                 <img src={user.latestStory.profile_photo_url} alt={user.latestStory.user_name} className="w-full h-full object-cover" />
                                             ) : (
@@ -221,7 +221,7 @@ export default function StoriesPage() {
                                             )}
                                         </div>
                                     </div>
-                                    <span className="text-xs font-bold text-slate-600 max-w-[80px] truncate">
+                                    <span className="text-xs font-bold text-ink-secondary max-w-[80px] truncate">
                                         {user.latestStory.user_name}
                                     </span>
                                 </button>
@@ -233,8 +233,8 @@ export default function StoriesPage() {
                 {/* Featured Stories Grid */}
                 <div className="mb-12">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl font-black text-slate-900">Featured Stories</h2>
-                        <span className="text-sm font-bold text-slate-400">Stories disappear after 24 hours</span>
+                        <h2 className="text-2xl font-black text-ink-primary">Featured Stories</h2>
+                        <span className="text-sm font-bold text-ink-tertiary">Stories disappear after 24 hours</span>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -245,7 +245,7 @@ export default function StoriesPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
                                 onClick={() => setActiveStory(story)}
-                                className="bg-white rounded-[3rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-teal-500/10 transition-all cursor-pointer group"
+                                className="bg-surface-elevated rounded-[3rem] overflow-hidden border border-border-primary hover:shadow-2xl hover:shadow-teal-500/10 transition-all cursor-pointer group"
                             >
                                 {/* Story Media */}
                                 <div className="h-48 bg-gradient-to-br from-teal-400 to-teal-600 relative">
@@ -264,7 +264,7 @@ export default function StoriesPage() {
 
                                     {/* User info overlay */}
                                     <div className="absolute bottom-4 left-4 flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl overflow-hidden">
+                                        <div className="w-10 h-10 rounded-full bg-surface-elevated flex items-center justify-center text-xl overflow-hidden">
                                             {story.profile_photo_url ? (
                                                 <img src={story.profile_photo_url} alt={story.user_name} className="w-full h-full object-cover" />
                                             ) : (
@@ -277,10 +277,10 @@ export default function StoriesPage() {
 
                                 {/* Content */}
                                 <div className="p-6">
-                                    <p className="text-slate-700 font-medium mb-4 line-clamp-2">
+                                    <p className="text-ink-secondary font-medium mb-4 line-clamp-2">
                                         {story.content}
                                     </p>
-                                    <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                                    <div className="flex items-center justify-between text-xs font-bold text-ink-tertiary">
                                         <span>👁️ {story.view_count} views</span>
                                         <span>❤️ {story.reaction_count} reactions</span>
                                     </div>
@@ -292,14 +292,14 @@ export default function StoriesPage() {
 
                 {/* Story Highlights */}
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 mb-6">Story Highlights</h2>
+                    <h2 className="text-2xl font-black text-ink-primary mb-6">Story Highlights</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {['Food', 'Beach', 'Events', 'Business', 'Sports', 'Art'].map((highlight, index) => (
-                            <div key={highlight} className="bg-white rounded-3xl p-6 text-center border border-slate-100 hover:border-teal-200 transition-colors cursor-pointer">
+                            <div key={highlight} className="bg-surface-elevated rounded-3xl p-6 text-center border border-border-primary hover:border-teal-200 transition-colors cursor-pointer">
                                 <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center text-2xl">
                                     {['🍽️', '🏖️', '🎉', '💼', '⚽', '🎨'][index]}
                                 </div>
-                                <span className="text-xs font-black text-slate-600 uppercase tracking-wider">{highlight}</span>
+                                <span className="text-xs font-black text-ink-secondary uppercase tracking-wider">{highlight}</span>
                             </div>
                         ))}
                     </div>
@@ -326,14 +326,14 @@ export default function StoriesPage() {
 
                                 {/* Progress bar */}
                                 <div className="absolute top-4 left-4 right-4 flex gap-1">
-                                    <div className="h-1 flex-1 bg-white/30 rounded-full overflow-hidden">
-                                        <div className="h-full bg-white w-1/2"></div>
+                                    <div className="h-1 flex-1 bg-surface-elevated/30 rounded-full overflow-hidden">
+                                        <div className="h-full bg-surface-elevated w-1/2"></div>
                                     </div>
                                 </div>
 
                                 {/* User info */}
                                 <div className="absolute top-12 left-4 right-4 flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl overflow-hidden">
+                                    <div className="w-10 h-10 rounded-full bg-surface-elevated flex items-center justify-center text-xl overflow-hidden">
                                         {activeStory.profile_photo_url ? (
                                             <img src={activeStory.profile_photo_url} alt={activeStory.user_name} className="w-full h-full object-cover" />
                                         ) : (
@@ -347,18 +347,18 @@ export default function StoriesPage() {
                                 {/* Close button */}
                                 <button
                                     onClick={() => setActiveStory(null)}
-                                    className="absolute top-4 right-4 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                                    className="absolute top-4 right-4 w-10 h-10 bg-surface-elevated/20 rounded-full flex items-center justify-center text-white hover:bg-surface-elevated/30 transition-colors"
                                 >
                                     ✕
                                 </button>
                             </div>
 
                             {/* Reply input */}
-                            <div className="p-4 bg-white">
+                            <div className="p-4 bg-surface-elevated">
                                 <input
                                     type="text"
                                     placeholder="Send a message..."
-                                    className="w-full px-4 py-3 bg-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-teal-500/20"
+                                    className="w-full px-4 py-3 bg-surface-secondary rounded-2xl outline-none focus:ring-2 focus:ring-accent-400/20"
                                 />
                             </div>
                         </div>

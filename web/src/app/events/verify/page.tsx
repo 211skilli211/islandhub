@@ -34,14 +34,14 @@ export default function QRVerifyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-ocean-800 rounded-2xl p-8 max-w-md w-full border border-slate-100 dark:border-ocean-700">
+    <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center p-4">
+      <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-8 max-w-md w-full border border-border-primary dark:border-ocean-700">
         <div className="text-center mb-6">
           <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">🎫</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-sand-50">Verify Ticket</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Enter the QR token to verify</p>
+          <h1 className="text-2xl font-black text-ink-primary dark:text-sand-50">Verify Ticket</h1>
+          <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">Enter the QR token to verify</p>
         </div>
 
         <div className="space-y-4">
@@ -50,7 +50,7 @@ export default function QRVerifyPage() {
             placeholder="Paste QR token..."
             value={token}
             onChange={e => setToken(e.target.value)}
-            className="w-full px-4 py-3 bg-slate-50 dark:bg-ocean-900 border border-slate-200 dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 font-mono dark:text-sand-50"
+            className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 font-mono dark:text-sand-50"
           />
           <button
             onClick={handleVerify}
@@ -66,7 +66,7 @@ export default function QRVerifyPage() {
             {result.valid ? (
               <div>
                 <p className="font-black text-green-700 dark:text-green-400 text-lg">✓ Valid Ticket</p>
-                <div className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                <div className="mt-2 space-y-1 text-sm text-ink-secondary dark:text-slate-300">
                   <p><span className="font-bold">Event:</span> {result.ticket?.event_title}</p>
                   <p><span className="font-bold">Tier:</span> {result.ticket?.tier_name}</p>
                   <p><span className="font-bold">Ticket ID:</span> {result.ticket?.ticket_id}</p>

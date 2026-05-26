@@ -40,11 +40,11 @@ interface PayoutRequest {
 }
 
 const statusColors: Record<string, string> = {
-    pending: 'bg-amber-100 text-amber-700',
+    pending: 'bg-sand-500/10 text-sand-500',
     processing: 'bg-blue-100 text-blue-700',
     completed: 'bg-emerald-100 text-emerald-700',
-    rejected: 'bg-rose-100 text-rose-700',
-    cancelled: 'bg-slate-100 text-slate-600',
+    rejected: 'bg-[#e11d48]/10 text-rose-700',
+    cancelled: 'bg-surface-secondary text-ink-secondary',
 };
 
 const txnTypeLabel: Record<string, string> = {
@@ -165,10 +165,10 @@ export default function VendorPayoutsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-black text-slate-900">Payouts & Wallet</h1>
-                    <p className="text-slate-500 text-sm mt-1">Manage your earnings and payout requests</p>
+                    <h1 className="text-2xl font-black text-ink-primary">Payouts & Wallet</h1>
+                    <p className="text-ink-tertiary text-sm mt-1">Manage your earnings and payout requests</p>
                 </div>
-                <Link href="/dashboard" className="text-sm font-bold text-teal-600 hover:text-teal-700">
+                <Link href="/dashboard" className="text-sm font-bold text-accent-400 hover:text-accent-500">
                     ← Back to Dashboard
                 </Link>
             </div>
@@ -187,20 +187,20 @@ export default function VendorPayoutsPage() {
                             <p className="text-teal-200 text-xs font-black uppercase tracking-widest">Total Balance</p>
                             <p className="text-4xl font-black mt-1">{formatCurrency(wallet.balance, wallet.currency)}</p>
                         </div>
-                        <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
+                        <div className="w-14 h-14 bg-surface-elevated/20 rounded-2xl flex items-center justify-center">
                             <span className="text-3xl">💰</span>
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-4">
-                        <div className="bg-white/10 rounded-2xl px-4 py-3">
+                        <div className="bg-surface-elevated/10 rounded-2xl px-4 py-3">
                             <p className="text-teal-200 text-[10px] font-black uppercase tracking-wider">Withdrawable</p>
                             <p className="text-white font-black text-lg mt-0.5">{formatCurrency(wallet.withdrawable_balance, wallet.currency)}</p>
                         </div>
-                        <div className="bg-white/10 rounded-2xl px-4 py-3">
+                        <div className="bg-surface-elevated/10 rounded-2xl px-4 py-3">
                             <p className="text-teal-200 text-[10px] font-black uppercase tracking-wider">Pending Payouts</p>
                             <p className="text-white font-black text-lg mt-0.5">{formatCurrency(wallet.pending_payouts, wallet.currency)}</p>
                         </div>
-                        <div className="bg-white/10 rounded-2xl px-4 py-3">
+                        <div className="bg-surface-elevated/10 rounded-2xl px-4 py-3">
                             <p className="text-teal-200 text-[10px] font-black uppercase tracking-wider">Lifetime Earned</p>
                             <p className="text-white font-black text-lg mt-0.5">{formatCurrency(wallet.lifetime_earnings, wallet.currency)}</p>
                         </div>
@@ -210,7 +210,7 @@ export default function VendorPayoutsPage() {
                         <button
                             onClick={() => setShowPayoutModal(true)}
                             disabled={Number(wallet.withdrawable_balance) <= 0}
-                            className="bg-white text-teal-700 font-black px-6 py-3 rounded-2xl hover:bg-teal-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                            className="bg-surface-elevated text-accent-500 font-black px-6 py-3 rounded-2xl hover:bg-accent-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                         >
                             Request Payout →
                         </button>
@@ -220,23 +220,23 @@ export default function VendorPayoutsPage() {
                     </div>
                 </div>
             ) : (
-                <div className="bg-slate-50 rounded-3xl p-8 text-center">
+                <div className="bg-surface-primary rounded-3xl p-8 text-center">
                     <p className="text-4xl mb-3">💳</p>
-                    <p className="font-black text-slate-700">No wallet found</p>
-                    <p className="text-slate-500 text-sm mt-1">Your wallet will be created automatically once you start making sales.</p>
+                    <p className="font-black text-ink-secondary">No wallet found</p>
+                    <p className="text-ink-tertiary text-sm mt-1">Your wallet will be created automatically once you start making sales.</p>
                 </div>
             )}
 
             {/* Payout Requests */}
-            <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                    <h2 className="font-black text-slate-900">Payout Requests</h2>
-                    <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-lg">{payoutRequests.length} requests</span>
+            <div className="bg-surface-elevated rounded-3xl border border-border-primary shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-border-primary flex items-center justify-between">
+                    <h2 className="font-black text-ink-primary">Payout Requests</h2>
+                    <span className="text-xs font-bold text-ink-tertiary bg-surface-secondary px-2 py-1 rounded-lg">{payoutRequests.length} requests</span>
                 </div>
                 {payoutRequests.length === 0 ? (
                     <div className="px-6 py-10 text-center">
                         <p className="text-3xl mb-2">📋</p>
-                        <p className="text-sm text-slate-500 font-bold">No payout requests yet</p>
+                        <p className="text-sm text-ink-tertiary font-bold">No payout requests yet</p>
                     </div>
                 ) : (
                     <div className="divide-y divide-slate-50">
@@ -244,12 +244,12 @@ export default function VendorPayoutsPage() {
                             <div key={req.request_id} className="px-6 py-4 flex items-center justify-between">
                                 <div>
                                     <div className="flex items-center gap-2">
-                                        <p className="font-black text-slate-900">{formatCurrency(req.amount)}</p>
+                                        <p className="font-black text-ink-primary">{formatCurrency(req.amount)}</p>
                                         <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${statusColors[req.status]}`}>
                                             {req.status}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-0.5">
+                                    <p className="text-xs text-ink-tertiary mt-0.5">
                                         via <span className="font-bold">{req.payout_method.replace('_', ' ')}</span> · {timeAgo(req.created_at)}
                                     </p>
                                     {req.rejection_reason && (
@@ -257,7 +257,7 @@ export default function VendorPayoutsPage() {
                                     )}
                                 </div>
                                 {req.processed_at && (
-                                    <p className="text-xs text-slate-400">
+                                    <p className="text-xs text-ink-tertiary">
                                         Processed {timeAgo(req.processed_at)}
                                     </p>
                                 )}
@@ -268,15 +268,15 @@ export default function VendorPayoutsPage() {
             </div>
 
             {/* Transaction History */}
-            <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                    <h2 className="font-black text-slate-900">Transaction History</h2>
-                    <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-lg">Last 20</span>
+            <div className="bg-surface-elevated rounded-3xl border border-border-primary shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-border-primary flex items-center justify-between">
+                    <h2 className="font-black text-ink-primary">Transaction History</h2>
+                    <span className="text-xs font-bold text-ink-tertiary bg-surface-secondary px-2 py-1 rounded-lg">Last 20</span>
                 </div>
                 {transactions.length === 0 ? (
                     <div className="px-6 py-10 text-center">
                         <p className="text-3xl mb-2">💳</p>
-                        <p className="text-sm text-slate-500 font-bold">No transactions yet</p>
+                        <p className="text-sm text-ink-tertiary font-bold">No transactions yet</p>
                     </div>
                 ) : (
                     <div className="divide-y divide-slate-50">
@@ -285,11 +285,11 @@ export default function VendorPayoutsPage() {
                             return (
                                 <div key={txn.transaction_id} className="px-6 py-4 flex items-center justify-between">
                                     <div>
-                                        <p className="text-sm font-bold text-slate-700">
+                                        <p className="text-sm font-bold text-ink-secondary">
                                             {txnTypeLabel[txn.transaction_type] || txn.transaction_type}
                                         </p>
-                                        {txn.notes && <p className="text-xs text-slate-400 mt-0.5">{txn.notes}</p>}
-                                        <p className="text-xs text-slate-400 mt-0.5">{timeAgo(txn.created_at)}</p>
+                                        {txn.notes && <p className="text-xs text-ink-tertiary mt-0.5">{txn.notes}</p>}
+                                        <p className="text-xs text-ink-tertiary mt-0.5">{timeAgo(txn.created_at)}</p>
                                     </div>
                                     <p className={`font-black text-base ${isPositive ? 'text-emerald-600' : 'text-rose-600'}`}>
                                         {isPositive ? '+' : ''}{formatCurrency(txn.amount)}
@@ -305,15 +305,15 @@ export default function VendorPayoutsPage() {
             {showPayoutModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div
-                        className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+                        className="absolute inset-0 bg-surface-tertiary/50 backdrop-blur-sm"
                         onClick={() => { setShowPayoutModal(false); setSubmitError(null); }}
                     />
-                    <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md p-6 animate-in fade-in zoom-in-95 duration-200">
+                    <div className="relative bg-surface-elevated rounded-3xl shadow-2xl w-full max-w-md p-6 animate-in fade-in zoom-in-95 duration-200">
                         <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-lg font-black text-slate-900">Request Payout</h3>
+                            <h3 className="text-lg font-black text-ink-primary">Request Payout</h3>
                             <button
                                 onClick={() => { setShowPayoutModal(false); setSubmitError(null); }}
-                                className="text-slate-400 hover:text-slate-600 transition-colors"
+                                className="text-ink-tertiary hover:text-ink-secondary transition-colors"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
@@ -325,12 +325,12 @@ export default function VendorPayoutsPage() {
                             <div className="text-center py-6">
                                 <p className="text-5xl mb-3">✅</p>
                                 <p className="font-black text-emerald-700 text-lg">Payout requested!</p>
-                                <p className="text-slate-500 text-sm mt-1">Your request is being reviewed.</p>
+                                <p className="text-ink-tertiary text-sm mt-1">Your request is being reviewed.</p>
                             </div>
                         ) : (
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-black text-slate-600 uppercase tracking-widest mb-1.5">
+                                    <label className="block text-xs font-black text-ink-secondary uppercase tracking-widest mb-1.5">
                                         Amount ({wallet?.currency || 'USD'})
                                     </label>
                                     <input
@@ -341,23 +341,23 @@ export default function VendorPayoutsPage() {
                                         step="0.01"
                                         value={payoutAmount}
                                         onChange={e => setPayoutAmount(e.target.value)}
-                                        className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-400"
+                                        className="w-full border border-border-primary rounded-xl px-4 py-3 text-sm font-bold text-ink-primary focus:outline-none focus:ring-2 focus:ring-accent-400/30 focus:border-teal-400"
                                         placeholder="0.00"
                                     />
-                                    <p className="text-xs text-slate-400 mt-1">
-                                        Available: <span className="font-bold text-teal-600">{formatCurrency(wallet?.withdrawable_balance || 0, wallet?.currency)}</span>
+                                    <p className="text-xs text-ink-tertiary mt-1">
+                                        Available: <span className="font-bold text-accent-400">{formatCurrency(wallet?.withdrawable_balance || 0, wallet?.currency)}</span>
                                     </p>
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-black text-slate-600 uppercase tracking-widest mb-1.5">
+                                    <label className="block text-xs font-black text-ink-secondary uppercase tracking-widest mb-1.5">
                                         Payout Method
                                     </label>
                                     <select
                                         id="payout-method"
                                         value={payoutMethod}
                                         onChange={e => setPayoutMethod(e.target.value)}
-                                        className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-400"
+                                        className="w-full border border-border-primary rounded-xl px-4 py-3 text-sm font-bold text-ink-primary focus:outline-none focus:ring-2 focus:ring-accent-400/30 focus:border-teal-400"
                                     >
                                         <option value="bank_transfer">🏦 Bank Transfer</option>
                                         <option value="paypal">💙 PayPal</option>
@@ -367,7 +367,7 @@ export default function VendorPayoutsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-black text-slate-600 uppercase tracking-widest mb-1.5">
+                                    <label className="block text-xs font-black text-ink-secondary uppercase tracking-widest mb-1.5">
                                         Payout Details (JSON)
                                     </label>
                                     <textarea
@@ -375,10 +375,10 @@ export default function VendorPayoutsPage() {
                                         value={payoutDetails}
                                         onChange={e => setPayoutDetails(e.target.value)}
                                         rows={3}
-                                        className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-400 resize-none"
+                                        className="w-full border border-border-primary rounded-xl px-4 py-3 text-sm font-mono text-ink-secondary focus:outline-none focus:ring-2 focus:ring-accent-400/30 focus:border-teal-400 resize-none"
                                         placeholder={'{\n  "bank": "RBC",\n  "account": "123456"\n}'}
                                     />
-                                    <p className="text-xs text-slate-400 mt-1">Provide the account details for your chosen method as JSON.</p>
+                                    <p className="text-xs text-ink-tertiary mt-1">Provide the account details for your chosen method as JSON.</p>
                                 </div>
 
                                 {submitError && (
@@ -391,7 +391,7 @@ export default function VendorPayoutsPage() {
                                     id="submit-payout"
                                     onClick={handleRequestPayout}
                                     disabled={submitting || !payoutAmount || Number(payoutAmount) <= 0}
-                                    className="w-full bg-teal-600 hover:bg-teal-700 text-white font-black py-3.5 rounded-2xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="w-full bg-accent-500 hover:bg-accent-600 text-white font-black py-3.5 rounded-2xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {submitting ? (
                                         <>

@@ -146,20 +146,20 @@ export default function AdminAnalyticsDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 dark:bg-ocean-900 flex items-center justify-center">
+      <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 dark:bg-ocean-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-ocean-900 dark:bg-ocean-900 py-8">
+    <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 dark:bg-ocean-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Platform Analytics</h1>
-            <p className="text-slate-600 mt-1">Overview of platform performance</p>
+            <h1 className="text-3xl font-bold text-ink-primary">Platform Analytics</h1>
+            <p className="text-ink-secondary mt-1">Overview of platform performance</p>
           </div>
           
           <div className="flex gap-2">
@@ -169,8 +169,8 @@ export default function AdminAnalyticsDashboard() {
                 onClick={() => setTimeRange(days)}
                 className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
                   timeRange === days
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-white text-slate-600 hover:bg-slate-100'
+                    ? 'bg-accent-500 text-white'
+                    : 'bg-surface-elevated text-ink-secondary hover:bg-surface-secondary'
                 }`}
               >
                 {days} Days
@@ -181,56 +181,56 @@ export default function AdminAnalyticsDashboard() {
 
         {/* Platform KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Total Revenue</h3>
+              <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Total Revenue</h3>
               <span className="text-2xl">💰</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900">
+            <p className="text-2xl font-bold text-ink-primary">
               ${overview?.total_revenue?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) || '0'}
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Commission</h3>
+              <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Commission</h3>
               <span className="text-2xl">🏦</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900">
+            <p className="text-2xl font-bold text-ink-primary">
               ${overview?.total_commission?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) || '0'}
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Total Orders</h3>
+              <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Total Orders</h3>
               <span className="text-2xl">📦</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900">{overview?.total_orders || 0}</p>
+            <p className="text-2xl font-bold text-ink-primary">{overview?.total_orders || 0}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Active Stores</h3>
+              <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Active Stores</h3>
               <span className="text-2xl">🏪</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900">{overview?.active_stores || 0}</p>
+            <p className="text-2xl font-bold text-ink-primary">{overview?.active_stores || 0}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Active Buyers</h3>
+              <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Active Buyers</h3>
               <span className="text-2xl">👥</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900">{overview?.active_customers || 0}</p>
+            <p className="text-2xl font-bold text-ink-primary">{overview?.active_customers || 0}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Avg Order</h3>
+              <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Avg Order</h3>
               <span className="text-2xl">📊</span>
             </div>
-            <p className="text-2xl font-bold text-slate-900">
+            <p className="text-2xl font-bold text-ink-primary">
               ${overview?.avg_order_value?.toFixed(2) || '0.00'}
             </p>
           </div>
@@ -263,8 +263,8 @@ export default function AdminAnalyticsDashboard() {
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Revenue & Commission Chart */}
-          <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h2 className="text-xl font-bold text-slate-900 mb-6">Revenue & Commission Trends</h2>
+          <div className="lg:col-span-2 bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
+            <h2 className="text-xl font-bold text-ink-primary mb-6">Revenue & Commission Trends</h2>
             <div className="h-80">
               <Line
                 data={revenueChartData}
@@ -298,8 +298,8 @@ export default function AdminAnalyticsDashboard() {
           </div>
 
           {/* Platform Distribution */}
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h2 className="text-xl font-bold text-slate-900 mb-6">Platform Activity</h2>
+          <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
+            <h2 className="text-xl font-bold text-ink-primary mb-6">Platform Activity</h2>
             <div className="h-64">
               <Doughnut
                 data={platformDistributionData}
@@ -318,53 +318,53 @@ export default function AdminAnalyticsDashboard() {
         </div>
 
         {/* Top Stores Table */}
-        <div className="bg-white dark:bg-ocean-800 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="p-6 border-b border-slate-100">
-            <h2 className="text-xl font-bold text-slate-900">Top Performing Stores</h2>
-            <p className="text-sm text-slate-600 mt-1">Based on revenue (Last {timeRange} days)</p>
+        <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl shadow-sm border border-border-primary overflow-hidden">
+          <div className="p-6 border-b border-border-primary">
+            <h2 className="text-xl font-bold text-ink-primary">Top Performing Stores</h2>
+            <p className="text-sm text-ink-secondary mt-1">Based on revenue (Last {timeRange} days)</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-slate-50 dark:bg-ocean-900">
+              <thead className="bg-surface-primary dark:bg-ocean-900">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Store</th>
-                  <th className="px-6 py-4 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">Orders</th>
-                  <th className="px-6 py-4 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">Customers</th>
-                  <th className="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Revenue</th>
-                  <th className="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Avg Order</th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-ink-tertiary uppercase tracking-wider">Store</th>
+                  <th className="px-6 py-4 text-center text-xs font-bold text-ink-tertiary uppercase tracking-wider">Orders</th>
+                  <th className="px-6 py-4 text-center text-xs font-bold text-ink-tertiary uppercase tracking-wider">Customers</th>
+                  <th className="px-6 py-4 text-right text-xs font-bold text-ink-tertiary uppercase tracking-wider">Revenue</th>
+                  <th className="px-6 py-4 text-right text-xs font-bold text-ink-tertiary uppercase tracking-wider">Avg Order</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {topStores.map((store, index) => (
-                  <tr key={store.store_id} className="hover:bg-slate-50 dark:bg-ocean-900 transition-colors">
+                  <tr key={store.store_id} className="hover:bg-surface-primary dark:bg-ocean-900 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-full bg-teal-100 text-teal-600 font-bold flex items-center justify-center text-sm">
+                        <span className="w-8 h-8 rounded-full bg-accent-500/15 text-accent-400 font-bold flex items-center justify-center text-sm">
                           {index + 1}
                         </span>
                         {store.logo_url && (
                           <img src={store.logo_url} alt="" className="w-10 h-10 rounded-lg object-cover" />
                         )}
-                        <span className="font-semibold text-slate-900">{store.store_name}</span>
+                        <span className="font-semibold text-ink-primary">{store.store_name}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-center font-medium text-slate-700">
+                    <td className="px-6 py-4 text-center font-medium text-ink-secondary">
                       {store.order_count}
                     </td>
-                    <td className="px-6 py-4 text-center font-medium text-slate-700">
+                    <td className="px-6 py-4 text-center font-medium text-ink-secondary">
                       {store.unique_customers}
                     </td>
-                    <td className="px-6 py-4 text-right font-bold text-slate-900">
+                    <td className="px-6 py-4 text-right font-bold text-ink-primary">
                       ${store.total_revenue?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="px-6 py-4 text-right font-medium text-slate-700">
+                    <td className="px-6 py-4 text-right font-medium text-ink-secondary">
                       ${store.avg_order_value?.toFixed(2)}
                     </td>
                   </tr>
                 ))}
                 {topStores.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-slate-500">
+                    <td colSpan={5} className="px-6 py-8 text-center text-ink-tertiary">
                       No store data available for this period
                     </td>
                   </tr>

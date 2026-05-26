@@ -55,7 +55,7 @@ export default function CoopDetailPage() {
 
     if (loading) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin" />
             </main>
         );
@@ -63,11 +63,11 @@ export default function CoopDetailPage() {
 
     if (error || !coop) {
         return (
-            <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
                     <div className="text-6xl mb-4">😕</div>
-                    <h1 className="text-2xl font-black text-slate-900 mb-2">Co-op not found</h1>
-                    <Link href="/store/ibt-solutions/coops" className="text-teal-600 font-bold hover:underline">
+                    <h1 className="text-2xl font-black text-ink-primary mb-2">Co-op not found</h1>
+                    <Link href="/store/ibt-solutions/coops" className="text-accent-400 font-bold hover:underline">
                         ← Back to Co-ops
                     </Link>
                 </div>
@@ -76,9 +76,9 @@ export default function CoopDetailPage() {
     }
 
     return (
-        <main className="min-h-screen bg-slate-50">
+        <main className="min-h-screen bg-surface-primary">
             {/* Hero */}
-            <section className="bg-slate-900 py-16 px-6">
+            <section className="bg-surface-tertiary py-16 px-6">
                 <div className="max-w-4xl mx-auto">
                     <Link href="/store/ibt-solutions/coops" className="inline-flex items-center gap-2 text-teal-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
                         ← Back to Co-ops
@@ -86,7 +86,7 @@ export default function CoopDetailPage() {
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                         <div className="flex items-center gap-3 mb-4">
                             <span className="text-4xl">{coop.sector_icon}</span>
-                            <span className="px-3 py-1 bg-teal-600/20 text-teal-400 rounded-full text-xs font-bold uppercase tracking-widest">
+                            <span className="px-3 py-1 bg-accent-500/20 text-teal-400 rounded-full text-xs font-bold uppercase tracking-widest">
                                 {coop.sector_name}
                             </span>
                             {coop.is_verified && (
@@ -110,19 +110,19 @@ export default function CoopDetailPage() {
                         {/* Services */}
                         {coop.services && coop.services.length > 0 && (
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                                <h2 className="text-xl font-black text-slate-900 mb-4 italic uppercase">Services</h2>
+                                <h2 className="text-xl font-black text-ink-primary mb-4 italic uppercase">Services</h2>
                                 <div className="space-y-3">
                                     {coop.services.map((service) => (
-                                        <div key={service.service_id} className="bg-white rounded-xl border border-slate-100 p-5">
+                                        <div key={service.service_id} className="bg-surface-elevated rounded-xl border border-border-primary p-5">
                                             <div className="flex items-start justify-between">
                                                 <div>
-                                                    <h3 className="font-bold text-slate-900">{service.service_name}</h3>
+                                                    <h3 className="font-bold text-ink-primary">{service.service_name}</h3>
                                                     {service.description && (
-                                                        <p className="text-slate-500 text-sm mt-1">{service.description}</p>
+                                                        <p className="text-ink-tertiary text-sm mt-1">{service.description}</p>
                                                     )}
                                                 </div>
                                                 {service.price_range && (
-                                                    <span className="text-teal-600 font-bold text-sm whitespace-nowrap ml-4">
+                                                    <span className="text-accent-400 font-bold text-sm whitespace-nowrap ml-4">
                                                         {service.price_range}
                                                     </span>
                                                 )}
@@ -138,43 +138,43 @@ export default function CoopDetailPage() {
                     <div className="space-y-6">
                         {/* Contact card */}
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                            className="bg-white rounded-2xl border border-slate-100 p-6">
-                            <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-4">Contact</h3>
+                            className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
+                            <h3 className="text-sm font-black text-ink-primary uppercase tracking-wider mb-4">Contact</h3>
                             <div className="space-y-3">
                                 {coop.contact_name && (
                                     <div className="flex items-center gap-3">
-                                        <span className="text-slate-400">👤</span>
-                                        <span className="text-sm text-slate-700">{coop.contact_name}</span>
+                                        <span className="text-ink-tertiary">👤</span>
+                                        <span className="text-sm text-ink-secondary">{coop.contact_name}</span>
                                     </div>
                                 )}
                                 {coop.contact_email && (
                                     <div className="flex items-center gap-3">
-                                        <span className="text-slate-400">✉️</span>
-                                        <a href={`mailto:${coop.contact_email}`} className="text-sm text-teal-600 hover:underline">
+                                        <span className="text-ink-tertiary">✉️</span>
+                                        <a href={`mailto:${coop.contact_email}`} className="text-sm text-accent-400 hover:underline">
                                             {coop.contact_email}
                                         </a>
                                     </div>
                                 )}
                                 {coop.contact_phone && (
                                     <div className="flex items-center gap-3">
-                                        <span className="text-slate-400">📞</span>
-                                        <a href={`tel:${coop.contact_phone}`} className="text-sm text-teal-600 hover:underline">
+                                        <span className="text-ink-tertiary">📞</span>
+                                        <a href={`tel:${coop.contact_phone}`} className="text-sm text-accent-400 hover:underline">
                                             {coop.contact_phone}
                                         </a>
                                     </div>
                                 )}
                                 {coop.location && (
                                     <div className="flex items-center gap-3">
-                                        <span className="text-slate-400">📍</span>
-                                        <span className="text-sm text-slate-700">
+                                        <span className="text-ink-tertiary">📍</span>
+                                        <span className="text-sm text-ink-secondary">
                                             {coop.location}, {coop.island === 'st_kitts' ? 'St. Kitts' : 'Nevis'}
                                         </span>
                                     </div>
                                 )}
                                 {coop.website_url && (
                                     <div className="flex items-center gap-3">
-                                        <span className="text-slate-400">🌐</span>
-                                        <a href={coop.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-teal-600 hover:underline">
+                                        <span className="text-ink-tertiary">🌐</span>
+                                        <a href={coop.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-accent-400 hover:underline">
                                             Website
                                         </a>
                                     </div>
@@ -184,10 +184,10 @@ export default function CoopDetailPage() {
 
                         {/* Stats */}
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                            className="bg-teal-50 rounded-2xl border border-teal-100 p-6">
+                            className="bg-accent-500/10 rounded-2xl border border-teal-100 p-6">
                             <div className="text-center">
-                                <div className="text-3xl font-black text-teal-600">{coop.member_count}</div>
-                                <div className="text-xs font-bold text-teal-600/60 uppercase tracking-wider">Members</div>
+                                <div className="text-3xl font-black text-accent-400">{coop.member_count}</div>
+                                <div className="text-xs font-bold text-accent-400/60 uppercase tracking-wider">Members</div>
                             </div>
                         </motion.div>
 
@@ -195,7 +195,7 @@ export default function CoopDetailPage() {
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
                             <a
                                 href={`mailto:${coop.contact_email || 'info@ibt-solutions.com'}?subject=Inquiry: Join ${coop.name}`}
-                                className="block w-full text-center px-6 py-4 bg-teal-600 text-white rounded-xl font-bold text-sm hover:bg-teal-700 transition-colors"
+                                className="block w-full text-center px-6 py-4 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors"
                             >
                                 Contact to Join
                             </a>

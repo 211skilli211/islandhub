@@ -54,9 +54,9 @@ function StatusBadge({ status }: { status: string }) {
 
 function KPICard({ label, value, change, up }: { label: string; value: string; change: string; up: boolean }) {
   return (
-    <div className="bg-white dark:bg-ocean-800 rounded-xl p-4 border border-slate-200 dark:border-ocean-700">
-      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</p>
-      <p className="text-2xl font-bold text-slate-900 dark:text-sand-50 mt-1">{value}</p>
+    <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 border border-border-primary dark:border-ocean-700">
+      <p className="text-xs font-medium text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider">{label}</p>
+      <p className="text-2xl font-bold text-ink-primary dark:text-sand-50 mt-1">{value}</p>
       <p className={`text-xs mt-1.5 font-medium ${up ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>{change}</p>
     </div>
   );
@@ -79,8 +79,8 @@ export default function VendorDashboard() {
         <div className="flex items-center gap-3 px-2">
           <div className="w-8 h-8 rounded-lg bg-ocean-500 flex items-center justify-center text-white text-xs font-bold">H</div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-slate-900 dark:text-sand-50 truncate">Horizon Salt</p>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400">Vendor</p>
+            <p className="text-xs font-medium text-ink-primary dark:text-sand-50 truncate">Horizon Salt</p>
+            <p className="text-[10px] text-ink-tertiary dark:text-ink-tertiary">Vendor</p>
           </div>
         </div>
       }
@@ -88,8 +88,8 @@ export default function VendorDashboard() {
       {activeTab === 'overview' && (
         <div>
           <div className="mb-6">
-            <h1 className="text-xl font-bold text-slate-900 dark:text-sand-50">Overview</h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Performance summary for Horizon Salt</p>
+            <h1 className="text-xl font-bold text-ink-primary dark:text-sand-50">Overview</h1>
+            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">Performance summary for Horizon Salt</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
@@ -101,9 +101,9 @@ export default function VendorDashboard() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Recent Orders */}
-            <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700">
-              <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-ocean-700">
-                <h2 className="text-sm font-semibold text-slate-900 dark:text-sand-50">Recent Orders</h2>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700">
+              <div className="flex items-center justify-between p-4 border-b border-border-primary dark:border-ocean-700">
+                <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50">Recent Orders</h2>
                 <button onClick={() => setActiveTab('orders')} className="text-xs text-ocean-500 hover:underline font-medium flex items-center gap-1">
                   View All <ChevronRight size={12} />
                 </button>
@@ -112,11 +112,11 @@ export default function VendorDashboard() {
                 {orders.slice(0, 4).map(o => (
                   <div key={o.id} className="flex items-center justify-between px-4 py-3">
                     <div>
-                      <p className="text-sm font-medium text-slate-900 dark:text-sand-50">{o.id}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{o.customer} · {o.items} item{o.items > 1 ? 's' : ''}</p>
+                      <p className="text-sm font-medium text-ink-primary dark:text-sand-50">{o.id}</p>
+                      <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{o.customer} · {o.items} item{o.items > 1 ? 's' : ''}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium text-slate-900 dark:text-sand-50">${o.total.toFixed(2)}</p>
+                      <p className="text-sm font-medium text-ink-primary dark:text-sand-50">${o.total.toFixed(2)}</p>
                       <StatusBadge status={o.status} />
                     </div>
                   </div>
@@ -125,9 +125,9 @@ export default function VendorDashboard() {
             </div>
 
             {/* Top Products */}
-            <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700">
-              <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-ocean-700">
-                <h2 className="text-sm font-semibold text-slate-900 dark:text-sand-50">Top Products</h2>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700">
+              <div className="flex items-center justify-between p-4 border-b border-border-primary dark:border-ocean-700">
+                <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50">Top Products</h2>
                 <button onClick={() => setActiveTab('products')} className="text-xs text-ocean-500 hover:underline font-medium flex items-center gap-1">
                   Manage <ChevronRight size={12} />
                 </button>
@@ -136,10 +136,10 @@ export default function VendorDashboard() {
                 {products.filter(p => p.status === 'active').slice(0, 4).map(p => (
                   <div key={p.id} className="flex items-center justify-between px-4 py-3">
                     <div className="min-w-0 mr-3">
-                      <p className="text-sm font-medium text-slate-900 dark:text-sand-50 truncate">{p.name}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{p.sku} · Stock: {p.stock}</p>
+                      <p className="text-sm font-medium text-ink-primary dark:text-sand-50 truncate">{p.name}</p>
+                      <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{p.sku} · Stock: {p.stock}</p>
                     </div>
-                    <span className="text-sm font-semibold text-slate-900 dark:text-sand-50 flex-shrink-0">${p.price.toFixed(2)}</span>
+                    <span className="text-sm font-semibold text-ink-primary dark:text-sand-50 flex-shrink-0">${p.price.toFixed(2)}</span>
                   </div>
                 ))}
               </div>
@@ -152,45 +152,45 @@ export default function VendorDashboard() {
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-sand-50">Products</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{products.length} products · {products.filter(p => p.status === 'active').length} active</p>
+              <h1 className="text-xl font-bold text-ink-primary dark:text-sand-50">Products</h1>
+              <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">{products.length} products · {products.filter(p => p.status === 'active').length} active</p>
             </div>
             <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-ocean-500 hover:bg-ocean-400 text-white text-sm font-semibold rounded-xl transition-colors self-start">
               <Plus size={16} /> Add Product
             </button>
           </div>
 
-          <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700 overflow-hidden">
+          <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-ocean-700 bg-slate-50/50 dark:bg-ocean-800/50">
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-5 py-3">Product</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">SKU</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Price</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Stock</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Status</th>
-                    <th className="text-right text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-5 py-3">Actions</th>
+                  <tr className="border-b border-border-primary dark:border-ocean-700 bg-surface-primary/50 dark:bg-ocean-800/50">
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-5 py-3">Product</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">SKU</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Price</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Stock</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Status</th>
+                    <th className="text-right text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-5 py-3">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {products.map(p => (
-                    <tr key={p.id} className="border-t border-slate-100 dark:border-ocean-700/50 hover:bg-slate-50/50 dark:hover:bg-ocean-700/30 transition-colors">
-                      <td className="px-5 py-3 text-sm font-medium text-slate-900 dark:text-sand-50">{p.name}</td>
-                      <td className="px-3 py-3 text-sm text-slate-500 dark:text-slate-400 font-mono text-xs">{p.sku}</td>
-                      <td className="px-3 py-3 text-sm font-medium text-slate-900 dark:text-sand-50">${p.price.toFixed(2)}</td>
+                    <tr key={p.id} className="border-t border-border-primary dark:border-ocean-700/50 hover:bg-surface-primary/50 dark:hover:bg-ocean-700/30 transition-colors">
+                      <td className="px-5 py-3 text-sm font-medium text-ink-primary dark:text-sand-50">{p.name}</td>
+                      <td className="px-3 py-3 text-sm text-ink-tertiary dark:text-ink-tertiary font-mono text-xs">{p.sku}</td>
+                      <td className="px-3 py-3 text-sm font-medium text-ink-primary dark:text-sand-50">${p.price.toFixed(2)}</td>
                       <td className="px-3 py-3">
                         <span className={`text-sm font-medium ${
                           p.stock === 0 ? 'text-red-600 dark:text-red-400' :
                           p.stock < 20 ? 'text-amber-600 dark:text-amber-400' :
-                          'text-slate-900 dark:text-sand-50'
+                          'text-ink-primary dark:text-sand-50'
                         }`}>{p.stock}</span>
                       </td>
                       <td className="px-3 py-3"><StatusBadge status={p.status} /></td>
                       <td className="px-5 py-3">
                         <div className="flex items-center justify-end gap-1">
-                          <button className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-ocean-700 text-slate-500 dark:text-slate-400 transition-colors"><Pencil size={14} /></button>
-                          <button className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
+                          <button className="p-1.5 rounded-lg hover:bg-surface-secondary dark:hover:bg-ocean-700 text-ink-tertiary dark:text-ink-tertiary transition-colors"><Pencil size={14} /></button>
+                          <button className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-ink-tertiary dark:text-ink-tertiary hover:text-red-600 dark:hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
                         </div>
                       </td>
                     </tr>
@@ -206,8 +206,8 @@ export default function VendorDashboard() {
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-xl font-bold text-slate-900 dark:text-sand-50">Orders</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{orders.length} total orders</p>
+              <h1 className="text-xl font-bold text-ink-primary dark:text-sand-50">Orders</h1>
+              <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">{orders.length} total orders</p>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
               {['all', 'pending', 'processing', 'shipped', 'delivered'].map(s => (
@@ -217,7 +217,7 @@ export default function VendorDashboard() {
                   className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all capitalize ${
                     orderFilter === s
                       ? 'bg-ocean-500/10 text-ocean-600 dark:text-ocean-400'
-                      : 'bg-slate-100 dark:bg-ocean-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-ocean-700'
+                      : 'bg-surface-secondary dark:bg-ocean-800 text-ink-secondary dark:text-ink-tertiary hover:bg-surface-tertiary dark:hover:bg-ocean-700'
                   }`}
                 >
                   {s}
@@ -226,29 +226,29 @@ export default function VendorDashboard() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700 overflow-hidden">
+          <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-ocean-700 bg-slate-50/50 dark:bg-ocean-800/50">
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-5 py-3">Order</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Customer</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Items</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Total</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Status</th>
-                    <th className="text-left text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-3 py-3">Date</th>
-                    <th className="text-right text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-5 py-3"></th>
+                  <tr className="border-b border-border-primary dark:border-ocean-700 bg-surface-primary/50 dark:bg-ocean-800/50">
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-5 py-3">Order</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Customer</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Items</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Total</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Status</th>
+                    <th className="text-left text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-3 py-3">Date</th>
+                    <th className="text-right text-[10px] font-semibold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider px-5 py-3"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredOrders.map(o => (
-                    <tr key={o.id} className="border-t border-slate-100 dark:border-ocean-700/50 hover:bg-slate-50/50 dark:hover:bg-ocean-700/30 transition-colors">
+                    <tr key={o.id} className="border-t border-border-primary dark:border-ocean-700/50 hover:bg-surface-primary/50 dark:hover:bg-ocean-700/30 transition-colors">
                       <td className="px-5 py-3 text-sm font-semibold text-ocean-500">{o.id}</td>
-                      <td className="px-3 py-3 text-sm text-slate-900 dark:text-sand-50">{o.customer}</td>
-                      <td className="px-3 py-3 text-sm text-slate-600 dark:text-slate-400">{o.items}</td>
-                      <td className="px-3 py-3 text-sm font-medium text-slate-900 dark:text-sand-50">${o.total.toFixed(2)}</td>
+                      <td className="px-3 py-3 text-sm text-ink-primary dark:text-sand-50">{o.customer}</td>
+                      <td className="px-3 py-3 text-sm text-ink-secondary dark:text-ink-tertiary">{o.items}</td>
+                      <td className="px-3 py-3 text-sm font-medium text-ink-primary dark:text-sand-50">${o.total.toFixed(2)}</td>
                       <td className="px-3 py-3"><StatusBadge status={o.status} /></td>
-                      <td className="px-3 py-3 text-sm text-slate-500 dark:text-slate-400">{o.date}</td>
+                      <td className="px-3 py-3 text-sm text-ink-tertiary dark:text-ink-tertiary">{o.date}</td>
                       <td className="px-5 py-3 text-right">
                         <button className="text-xs text-ocean-500 hover:underline font-medium">View</button>
                       </td>
@@ -258,7 +258,7 @@ export default function VendorDashboard() {
               </table>
             </div>
             {filteredOrders.length === 0 && (
-              <div className="p-12 text-center text-sm text-slate-500 dark:text-slate-400">No orders with status &quot;{orderFilter}&quot;</div>
+              <div className="p-12 text-center text-sm text-ink-tertiary dark:text-ink-tertiary">No orders with status &quot;{orderFilter}&quot;</div>
             )}
           </div>
         </div>
@@ -267,8 +267,8 @@ export default function VendorDashboard() {
       {activeTab === 'analytics' && (
         <div>
           <div className="mb-6">
-            <h1 className="text-xl font-bold text-slate-900 dark:text-sand-50">Analytics</h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Performance insights for Horizon Salt</p>
+            <h1 className="text-xl font-bold text-ink-primary dark:text-sand-50">Analytics</h1>
+            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">Performance insights for Horizon Salt</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -278,18 +278,18 @@ export default function VendorDashboard() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700 p-5">
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-sand-50 mb-4">Sales by Product</h2>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700 p-5">
+              <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50 mb-4">Sales by Product</h2>
               <div className="space-y-3">
                 {products.filter(p => p.status === 'active').map((p, i) => {
                   const widths = [85, 62, 45, 30, 22];
                   return (
                     <div key={p.id}>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-slate-700 dark:text-slate-300 truncate mr-2">{p.name}</span>
-                        <span className="text-xs font-medium text-slate-900 dark:text-sand-50 flex-shrink-0">{widths[i]}%</span>
+                        <span className="text-xs text-ink-secondary dark:text-slate-300 truncate mr-2">{p.name}</span>
+                        <span className="text-xs font-medium text-ink-primary dark:text-sand-50 flex-shrink-0">{widths[i]}%</span>
                       </div>
-                      <div className="h-2 bg-slate-100 dark:bg-ocean-700 rounded-full overflow-hidden">
+                      <div className="h-2 bg-surface-secondary dark:bg-ocean-700 rounded-full overflow-hidden">
                         <div className="h-full bg-ocean-500 rounded-full transition-all" style={{ width: `${widths[i]}%` }} />
                       </div>
                     </div>
@@ -298,8 +298,8 @@ export default function VendorDashboard() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700 p-5">
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-sand-50 mb-4">Traffic Sources</h2>
+            <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700 p-5">
+              <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50 mb-4">Traffic Sources</h2>
               <div className="space-y-3">
                 {[
                   { source: 'Direct', pct: 42, color: 'bg-ocean-500' },
@@ -311,11 +311,11 @@ export default function VendorDashboard() {
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         <div className={`w-2.5 h-2.5 rounded-full ${item.color}`} />
-                        <span className="text-xs text-slate-700 dark:text-slate-300">{item.source}</span>
+                        <span className="text-xs text-ink-secondary dark:text-slate-300">{item.source}</span>
                       </div>
-                      <span className="text-xs font-medium text-slate-900 dark:text-sand-50">{item.pct}%</span>
+                      <span className="text-xs font-medium text-ink-primary dark:text-sand-50">{item.pct}%</span>
                     </div>
-                    <div className="h-2 bg-slate-100 dark:bg-ocean-700 rounded-full overflow-hidden">
+                    <div className="h-2 bg-surface-secondary dark:bg-ocean-700 rounded-full overflow-hidden">
                       <div className={`h-full ${item.color} rounded-full transition-all`} style={{ width: `${item.pct}%` }} />
                     </div>
                   </div>
@@ -329,8 +329,8 @@ export default function VendorDashboard() {
       {activeTab === 'payouts' && (
         <div>
           <div className="mb-6">
-            <h1 className="text-xl font-bold text-slate-900 dark:text-sand-50">Payouts</h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Earnings and payment history</p>
+            <h1 className="text-xl font-bold text-ink-primary dark:text-sand-50">Payouts</h1>
+            <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">Earnings and payment history</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -339,9 +339,9 @@ export default function VendorDashboard() {
             <KPICard label="Total Earned" value="$18,420.00" change="All time" up />
           </div>
 
-          <div className="bg-white dark:bg-ocean-800 rounded-xl border border-slate-200 dark:border-ocean-700">
-            <div className="p-4 border-b border-slate-200 dark:border-ocean-700">
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-sand-50">Payout History</h2>
+          <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700">
+            <div className="p-4 border-b border-border-primary dark:border-ocean-700">
+              <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50">Payout History</h2>
             </div>
             <div className="divide-y divide-slate-100 dark:divide-ocean-700/50">
               {[
@@ -352,8 +352,8 @@ export default function VendorDashboard() {
               ].map((p, i) => (
                 <div key={i} className="flex items-center justify-between px-5 py-3">
                   <div>
-                    <p className="text-sm font-medium text-slate-900 dark:text-sand-50">${p.amount.toFixed(2)}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{p.date} · Bank Transfer</p>
+                    <p className="text-sm font-medium text-ink-primary dark:text-sand-50">${p.amount.toFixed(2)}</p>
+                    <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{p.date} · Bank Transfer</p>
                   </div>
                   <StatusBadge status={p.status} />
                 </div>
