@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
+import { Search } from 'lucide-react';
 
 interface Event {
     event_id: number;

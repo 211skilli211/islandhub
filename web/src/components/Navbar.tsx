@@ -12,9 +12,9 @@ import { getImageUrl } from '@/lib/api';
 import NotificationCenter from './NotificationCenter';
 import {
   Search, Menu, X, ShoppingCart, Sun, Moon,
-  Home, Store, UtensilsCrossed, ShoppingBag, Bed, Map,
-  Calendar, Users, MessageSquare, Heart, Zap, ChevronRight,
-  User, Settings, LogOut, Bell, Compass
+  Home, UtensilsCrossed, ShoppingBag, Bed, Map,
+  Calendar, Users, Heart, Zap, ChevronRight,
+  User, Settings, LogOut, Compass
 } from 'lucide-react';
 
 // ─── Navigation Data ───
