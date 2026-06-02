@@ -99,6 +99,9 @@ export default function HeroAssetTab() {
     const [uploadingFont, setUploadingFont] = useState<'heading' | 'subtitle' | null>(null);
     const [uploadingIcon, setUploadingIcon] = useState(false);
 
+    // Global visual effects toggle
+    const [particlesEnabled, setParticlesEnabled] = useState(true);
+
     const showOverlay = styleConfig.showOverlay !== false;
 
     const toggleSection = (section: string) => {
@@ -130,6 +133,7 @@ export default function HeroAssetTab() {
                     setTypography(response.data.typography || {});
                     setLayoutTemplate(response.data.layout_template || 'standard');
                     setStyleConfig(response.data.style_config || {});
+                    setParticlesEnabled(response.data.particles_enabled !== false);
                 } else {
                     resetFields();
                 }
@@ -261,7 +265,8 @@ export default function HeroAssetTab() {
                 icon_url: iconUrl,
                 typography,
                 layout_template: layoutTemplate,
-                style_config: styleConfig
+                style_config: styleConfig,
+                particles_enabled: particlesEnabled
             });
             toast.success('Hero asset updated successfully');
         } catch (error) {
@@ -605,6 +610,47 @@ export default function HeroAssetTab() {
                                             </div>
                                         </div>
                                     )}
+
+                                    {/* Visual Effects Toggle */}
+                                    <div className="border border-slate-100 rounded-4xl overflow-hidden">
+                                        <button
+                                            onClick={() => toggleSection('effects')}
+                                            className="w-full flex items-center justify-between p-6 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                                        >
+                                            <span className="text-xs font-black uppercase tracking-widest text-slate-700 flex items-center gap-3">
+                                                <span className="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-sm">✨</span>
+                                                Visual Effects
+                                            </span>
+                                            <span className={`text-slate-400 transition-transform ${expandedSections.includes('effects') ? 'rotate-180' : ''}`}>▼</span>
+                                        </button>
+                                        <AnimatePresence>
+                                            {expandedSections.includes('effects') && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="p-6 space-y-4 overflow-hidden"
+                                                >
+                                                    {/* Particles on/off */}
+                                                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                                        <div>
+                                                            <div className="text-xs font-bold text-slate-700">Rising Particle Effects</div>
+                                                            <div className="text-[10px] text-slate-400 mt-0.5">Floating golden motes across the page background</div>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => setParticlesEnabled(!particlesEnabled)}
+                                                            className={`relative w-12 h-6 rounded-full transition-colors ${particlesEnabled ? 'bg-teal-500' : 'bg-slate-200'}`}
+                                                        >
+                                                            <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${particlesEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                                                        </button>
+                                                    </div>
+                                                    <div className={`text-[10px] font-medium ${particlesEnabled ? 'text-teal-600' : 'text-slate-400'}`}>
+                                                        {particlesEnabled ? '✅ Particles are visible on this page' : '⛔ Particles are hidden on this page'}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
 
                                     {/* Color Overlays */}
                                     <div className="grid grid-cols-2 gap-6">

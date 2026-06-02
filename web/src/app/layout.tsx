@@ -14,11 +14,8 @@ import { Providers } from './providers';
 import AdSpace from "@/components/advertising/AdSpace";
 import FloatingHub from "@/components/FloatingHub";
 import SessionMonitor from "@/components/SessionExpiryModal";
-
 import PageTransition from "@/components/PageTransition";
-import ParticleField from "@/components/ParticleField";
 
-// Memoize static components that don't frequently render
 const MemoizedNavbar = memo(Navbar);
 const MemoizedTextMarquee = memo(TextMarquee);
 const MemoizedFooter = memo(Footer);
@@ -48,7 +45,6 @@ export default function RootLayout({
         className={`${inter.variable} antialiased`}
       >
         <Providers>
-          <ParticleField count={50} />
           <MemoizedNavbar />
           <MemoizedUserSync />
           <MemoizedTextMarquee />
