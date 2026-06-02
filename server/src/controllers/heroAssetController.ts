@@ -22,7 +22,7 @@ export const getHeroAssetByPage = async (req: Request, res: Response) => {
     try {
         const { pageKey } = req.params;
         const result = await pool.query(
-            'SELECT asset_url, asset_type, overlay_color, overlay_opacity, title, subtitle, cta_text, cta_link, cta2_text, cta2_link, icon_url, typography, layout_template, style_config FROM hero_assets WHERE page_key = $1',
+            'SELECT asset_url, asset_type, overlay_color, overlay_opacity, title, subtitle, cta_text, cta_link, cta2_text, cta2_link, icon_url, typography, layout_template, style_config, particles_enabled FROM hero_assets WHERE page_key = $1',
             [pageKey]
         );
 
@@ -50,7 +50,7 @@ export const updateHeroAsset = async (req: Request, res: Response) => {
         const {
             page_key, asset_url, asset_type, overlay_color, overlay_opacity,
             title, subtitle, cta_text, cta_link, cta2_text, cta2_link, icon_url, typography,
-            layout_template, style_config
+            layout_template, style_config, particles_enabled
         } = req.body;
         const adminId = (req as any).user?.id;
 
@@ -65,11 +65,11 @@ export const updateHeroAsset = async (req: Request, res: Response) => {
 
         const result = await pool.query(
             `INSERT INTO hero_assets (
-                page_key, asset_url, asset_type, overlay_color, overlay_opacity, 
-                title, subtitle, cta_text, cta_link, cta2_text, cta2_link, icon_url, typography, 
-                layout_template, style_config, updated_at
+                page_key, asset_url, asset_type, overlay_color, overlay_opacity,
+                title, subtitle, cta_text, cta_link, cta2_text, cta2_link, icon_url, typography,
+                layout_template, style_config, particles_enabled, updated_at
             )
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, NOW())
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, NOW())
              ON CONFLICT (page_key) DO UPDATE SET
                 asset_url = EXCLUDED.asset_url,
                 asset_type = EXCLUDED.asset_type,
@@ -85,6 +85,7 @@ export const updateHeroAsset = async (req: Request, res: Response) => {
                 typography = EXCLUDED.typography,
                 layout_template = EXCLUDED.layout_template,
                 style_config = EXCLUDED.style_config,
+                particles_enabled = EXCLUDED.particles_enabled,
                 updated_at = NOW()
              RETURNING *`,
             [
@@ -102,7 +103,8 @@ export const updateHeroAsset = async (req: Request, res: Response) => {
                 icon_url || null,
                 typography ? (typeof typography === 'string' ? typography : JSON.stringify(typography)) : '{}',
                 layout_template || 'standard',
-                style_config ? (typeof style_config === 'string' ? style_config : JSON.stringify(style_config)) : '{}'
+                style_config ? (typeof style_config === 'string' ? style_config : JSON.stringify(style_config)) : '{}',
+                particles_enabled !== undefined ? particles_enabled : true
             ]
         );
 
