@@ -10,12 +10,15 @@ import { ThemeProvider } from "@/components/ThemeContext";
 import { CartProvider } from "@/contexts/CartContext";
 import FloatingBanner from "@/components/FloatingBanner";
 import UserSync from "@/components/UserSync";
+import { Providers } from './providers';
 import AdSpace from "@/components/advertising/AdSpace";
 import FloatingHub from "@/components/FloatingHub";
 import SessionMonitor from "@/components/SessionExpiryModal";
-import MobileAnnouncement from "@/components/MobileAnnouncement";
-import { NavbarGate, FooterGate } from "@/components/LayoutGates";
 
+import PageTransition from "@/components/PageTransition";
+import ParticleField from "@/components/ParticleField";
+
+// Memoize static components that don't frequently render
 const MemoizedNavbar = memo(Navbar);
 const MemoizedTextMarquee = memo(TextMarquee);
 const MemoizedFooter = memo(Footer);
@@ -32,6 +35,8 @@ export const metadata: Metadata = {
   description: "The premier marketplace for island living, campaigns, and rentals.",
 };
 
+import MobileAnnouncement from '@/components/MobileAnnouncement';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,26 +44,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <ThemeProvider>
-          <CartProvider>
-            <NavbarGate>
-              <MemoizedNavbar />
-              <MemoizedUserSync />
-              <MemoizedTextMarquee />
-              <MemoizedFloatingBanner location="global" />
-              <MobileAnnouncement />
-            </NavbarGate>
-            {children}
-            <Toaster />
-            <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
-            <FloatingHub />
-            <SessionMonitor />
-            <FooterGate>
-              <MemoizedFooter />
-            </FooterGate>
-          </CartProvider>
-        </ThemeProvider>
+      <body
+        className={`${inter.variable} antialiased`}
+      >
+        <Providers>
+          <ParticleField count={50} />
+          <MemoizedNavbar />
+          <MemoizedUserSync />
+          <MemoizedTextMarquee />
+          <MemoizedFloatingBanner location="global" />
+          <MobileAnnouncement />
+          <PageTransition>{children}</PageTransition>
+          <Toaster />
+          <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
+          <FloatingHub />
+          <SessionMonitor />
+          <MemoizedFooter />
+
+        </Providers>
       </body>
     </html>
   );

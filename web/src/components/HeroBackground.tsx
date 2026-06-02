@@ -3,9 +3,8 @@
 import { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
-
-import ShaderBackgroundComponent from './shaders/ShaderBackground';
-import ParticleField from './shaders/ParticleField';
+import ShaderHero from './ShaderHero';
+import ParticleHero from './ParticleHero';
 
 interface HeroBackgroundProps {
     pageKey?: string;
@@ -76,13 +75,10 @@ export default function HeroBackground({
         fetchAsset();
     }, [pageKey, overrideData]);
 
-    const assetUrl = asset?.asset_url || (loading ? null : (defaultImage || '/placeholder-event.svg'));
-    const assetType = asset?.asset_type || 'image';
-    const isVideo = assetType === 'video';
-    const shaderName = asset?.style_config?.shader || asset?.style_config?.shaderName || '';
+    const assetUrl = asset?.asset_url || (loading ? null : defaultImage);
+    const isVideo = asset?.asset_type === 'video';
     const overlayColor = asset?.overlay_color || '#000000';
     const overlayOpacity = asset?.overlay_opacity !== undefined && asset.overlay_opacity !== null ? parseFloat(asset.overlay_opacity) : 0.4;
-    const brandingColor = asset?.branding_color || overrideData?.branding_color || '#14b8a6';
 
     // Content Fields
     const title = asset?.title || asset?.hero_title || fallbackTitle;
@@ -187,10 +183,10 @@ export default function HeroBackground({
 
     return (
         <div className={`relative w-full overflow-hidden ${className}`} style={{ minHeight: '600px', backgroundColor: bgColor }}>
-            <style suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `
+            <style jsx global>{`
                 .text-shadow-glow { text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3); }
                 .text-shadow-outline { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
-            `}} />
+            `}</style>
 
             {/* Background Layer */}
             <div
@@ -200,9 +196,29 @@ export default function HeroBackground({
                     left: `${splitDivide}%`
                 } : { width: '100%', left: 0 }}
             >
+                {/* Shader / Particle backgrounds */}
+                {asset?.asset_type === 'shader' && (
+                    <div className="absolute inset-0">
+                        <ShaderHero
+                            colors={styleConfig?.shaderColors}
+                            speed={styleConfig?.shaderSpeed ?? 1}
+                            intensity={styleConfig?.shaderIntensity ?? 1}
+                        />
+                    </div>
+                )}
+                {asset?.asset_type === 'particle' && (
+                    <div className="absolute inset-0">
+                        <ParticleHero
+                            theme={styleConfig?.particleTheme || 'tropical'}
+                            count={styleConfig?.particleCount ?? 80}
+                            speed={styleConfig?.particleSpeed ?? 1}
+                        />
+                    </div>
+                )}
+
                 <AnimatePresence mode="wait">
                     <motion.div
-                        key={assetUrl}
+                        key={assetUrl || 'none'}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -213,41 +229,11 @@ export default function HeroBackground({
                             transition: 'transform 0.5s ease-out'
                         }}
                     >
-                        {/* Shader background */}
-                        {assetType === 'shader' && shaderName ? (
-                          <ShaderBackgroundComponent
-                            shader={shaderName}
-                            colors={styleConfig.shaderColors}
-                            className="absolute inset-0"
-                            interactive={styleConfig.shaderInteractive}
-                            speed={styleConfig.shaderSpeed || 1}
-                          />
-                        ) : assetType === 'particle' ? (
-                          <div className="absolute inset-0 bg-ink-primary">
-                            <ParticleField
-                              count={styleConfig.particleCount || 80}
-                              color={styleConfig.particleColor || '#06b6d4'}
-                              speed={styleConfig.particleSpeed || 0.5}
-                              size={styleConfig.particleSize || 2}
-                              interactive={styleConfig.particleInteractive}
-                              mouseRadius={styleConfig.mouseRadius || 150}
-                              mouseForce={styleConfig.mouseForce || 0.8}
-                              connectionDistance={styleConfig.connectionDistance || 120}
-                            />
-                          </div>
-                        ) : isVideo && assetUrl ? (
-                            <video autoPlay loop muted playsInline className="w-full h-full object-cover" src={getImageUrl(assetUrl) || undefined} />
-                        ) : assetType === 'image' && assetUrl ? (
-                            <img
-                              src={getImageUrl(assetUrl) || undefined}
-                              alt={title || ''}
-                              className="w-full h-full object-cover"
-                              style={{ objectPosition: `${50 + (offsetX || 0)}% ${50 + (offsetY || 0)}%` }}
-                              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                            />
-                        ) : (
-                            <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${brandingColor}, ${brandingColor}88, #0f172a)` }} />
-                        )}
+                        {isVideo ? (
+                            <video autoPlay loop muted playsInline className="w-full h-full object-cover" src={getImageUrl(assetUrl)} />
+                        ) : (getImageUrl(assetUrl) || defaultImage) ? (
+                            <img src={getImageUrl(assetUrl) || defaultImage} alt={title || 'Hero'} className="w-full h-full object-cover" />
+                        ) : null}
                     </motion.div>
                 </AnimatePresence>
 
@@ -255,7 +241,7 @@ export default function HeroBackground({
                 {showOverlay && (
                     <>
                         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: overlayColor, opacity: overlayOpacity }} />
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
+                        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/40 pointer-events-none" />
                         <BackgroundPatterns type={styleConfig.pattern} color={styleConfig.patternColor} />
                     </>
                 )}
@@ -295,7 +281,7 @@ export default function HeroBackground({
                                                 (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
                                                 }`}
                                         >
-                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-surface-elevated/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-surface-elevated/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
+                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
                                                 {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads') || iconUrl.includes('.')) ? (
                                                     <img
                                                         src={getImageUrl(iconUrl)}
@@ -307,7 +293,7 @@ export default function HeroBackground({
                                                     <span className="text-4xl md:text-8xl drop-shadow-2xl select-none leading-none">{iconUrl}</span>
                                                 )}
                                             </div>
-                                            <div className="absolute inset-0 bg-accent-500/100/20 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none" />
+                                            <div className="absolute inset-0 bg-teal-500/20 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none" />
                                         </motion.div>
                                     )}
 
@@ -362,7 +348,7 @@ export default function HeroBackground({
                                         {cta2Text && cta2Link && (
                                             <a
                                                 href={cta2Link}
-                                                className="inline-block px-8 md:px-12 py-4 md:py-5 bg-surface-elevated/10 backdrop-blur-md border border-surface-elevated/20 hover:bg-surface-elevated/20 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl shadow-black/20 transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
+                                                className="inline-block px-8 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs rounded-2xl shadow-2xl shadow-black/20 transform hover:scale-105 active:scale-95 transition-all pointer-events-auto"
                                             >
                                                 {cta2Text}
                                             </a>
