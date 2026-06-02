@@ -15,6 +15,7 @@ import AdSpace from "@/components/advertising/AdSpace";
 import FloatingHub from "@/components/FloatingHub";
 import SessionMonitor from "@/components/SessionExpiryModal";
 import PageTransition from "@/components/PageTransition";
+import ClientParticles from "@/components/ClientParticles";
 
 const MemoizedNavbar = memo(Navbar);
 const MemoizedTextMarquee = memo(TextMarquee);
@@ -51,6 +52,7 @@ export default function RootLayout({
           <MemoizedFloatingBanner location="global" />
           <MobileAnnouncement />
           <PageTransition>{children}</PageTransition>
+          <ClientParticles />
           <Toaster />
           <AdSpace spaceName="mobile_footer_ad" className="fixed bottom-0 left-0 right-0 z-50 lg:hidden" />
           <FloatingHub />

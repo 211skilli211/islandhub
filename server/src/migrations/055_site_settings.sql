@@ -19,7 +19,8 @@ INSERT INTO site_settings (setting_key, setting_value, setting_type, description
 ('accent_color', '#14b8a6', 'string', 'Accent color'),
 ('site_name', 'IslandHub', 'string', 'Platform name'),
 ('site_description', 'Caribbean Marketplace', 'string', 'Platform description'),
-('maintenance_mode', 'false', 'boolean', 'Enable maintenance mode')
+('maintenance_mode', 'false', 'boolean', 'Enable maintenance mode'),
+('particles_enabled', 'false', 'boolean', 'Enable floating particle effect globally')
 ON CONFLICT (setting_key) DO NOTHING;
 
 -- Create index

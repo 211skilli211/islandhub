@@ -114,28 +114,37 @@ export default function HeroAssetTab() {
         const fetchAsset = async () => {
             setLoading(true);
             try {
-                const response = await api.get(`/admin/hero-assets/${selectedPage}`);
-                if (response.data) {
-                    setAssetUrl(response.data.asset_url || '');
-                    setAssetType(response.data.asset_type || 'image');
-                    setOverlayColor(response.data.overlay_color || '#000000');
-                    setOverlayOpacity(response.data.overlay_opacity !== null ? parseFloat(response.data.overlay_opacity) : 0.4);
+                const [assetRes, settingsRes] = await Promise.all([
+                    api.get(`/admin/hero-assets/${selectedPage}`),
+                    api.get('/site-settings/public')
+                ]);
+                if (assetRes.data) {
+                    setAssetUrl(assetRes.data.asset_url || '');
+                    setAssetType(assetRes.data.asset_type || 'image');
+                    setOverlayColor(assetRes.data.overlay_color || '#000000');
+                    setOverlayOpacity(assetRes.data.overlay_opacity !== null ? parseFloat(assetRes.data.overlay_opacity) : 0.4);
 
                     // Expanded data
-                    setTitle(response.data.title || '');
-                    setSubtitle(response.data.subtitle || '');
-                    setCtaText(response.data.cta_text || '');
-                    setCtaLink(response.data.cta_link || '');
-                    setCta2Text(response.data.cta2_text || '');
-                    setCta2Link(response.data.cta2_link || '');
-                    setShowCta2(!!response.data.cta2_text);
-                    setIconUrl(response.data.icon_url || '');
-                    setTypography(response.data.typography || {});
-                    setLayoutTemplate(response.data.layout_template || 'standard');
-                    setStyleConfig(response.data.style_config || {});
-                    setParticlesEnabled(response.data.particles_enabled !== false);
+                    setTitle(assetRes.data.title || '');
+                    setSubtitle(assetRes.data.subtitle || '');
+                    setCtaText(assetRes.data.cta_text || '');
+                    setCtaLink(assetRes.data.cta_link || '');
+                    setCta2Text(assetRes.data.cta2_text || '');
+                    setCta2Link(assetRes.data.cta2_link || '');
+                    setShowCta2(!!assetRes.data.cta2_text);
+                    setIconUrl(assetRes.data.icon_url || '');
+                    setTypography(assetRes.data.typography || {});
+                    setLayoutTemplate(assetRes.data.layout_template || 'standard');
+                    setStyleConfig(assetRes.data.style_config || {});
                 } else {
                     resetFields();
+                }
+                // Load particles_enabled from global site-settings (fallback to hero-asset value)
+                const globalParticles = settingsRes.data?.particles_enabled;
+                if (globalParticles !== undefined) {
+                    setParticlesEnabled(globalParticles === 'true' || globalParticles === true);
+                } else if (assetRes.data) {
+                    setParticlesEnabled(assetRes.data.particles_enabled !== false);
                 }
             } catch (error) {
                 resetFields();
@@ -268,6 +277,8 @@ export default function HeroAssetTab() {
                 style_config: styleConfig,
                 particles_enabled: particlesEnabled
             });
+            // Save particles_enabled as a global site setting
+            await api.put('/site-settings', { setting_key: 'particles_enabled', setting_value: particlesEnabled });
             toast.success('Hero asset updated successfully');
         } catch (error) {
             toast.error('Failed to update hero asset');

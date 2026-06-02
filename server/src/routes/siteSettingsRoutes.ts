@@ -12,12 +12,12 @@ const router = Router();
 // Public - get theme for frontend
 router.get('/theme', getThemeSettings);
 
-// Public - get founder photo and logo for frontend display
+// Public - get founder photo, logo, and visual toggles for frontend display
 router.get('/public', async (req, res) => {
     try {
         const { pool } = await import('../config/db');
         const result = await pool.query(
-            "SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('founder_photo_url', 'ibt_logo_url', 'site_name', 'site_description')"
+            "SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('founder_photo_url', 'ibt_logo_url', 'site_name', 'site_description', 'particles_enabled')"
         );
         const settings: Record<string, string> = {};
         result.rows.forEach((row: any) => {
