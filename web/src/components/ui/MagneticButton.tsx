@@ -36,7 +36,7 @@ export default function MagneticButton({ children, className, ...props }: Magnet
         'font-semibold text-sm transition-colors',
         'bg-[var(--accent-primary)] text-white hover:bg-[var(--accent-secondary)]',
         'active:scale-[0.98]',
-        className,
+        className ?? '',
       )}
       {...(props as any)}
     >
