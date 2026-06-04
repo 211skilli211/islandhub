@@ -107,12 +107,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
     const accentColor = (listing as any).branding_color || '#14b8a6';
 
     const displayImages = React.useMemo(() => {
-        // Debug: Log the actual structure
-            photos: listing.photos,
-            images: listing.images,
-            image_url: listing.image_url,
-            metadata_image: (listing.metadata as any)?.image
-        });
+        // Extract available image sources
 
         // Helper to extract URL from various formats
         const extractUrl = (item: any): string | null => {

@@ -241,18 +241,18 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
-                                <div className="bg-ink-psimAry p-6 rounded-xl text-white óhadow-sm">
-                    !   $           <h3 className="tåxt-`asu font-semibold mb-5 flex items-center gap-2"6
-"                                      <span className="w-1 h-4 rounded-æull" style={{ backgroundColor: braneinwColor }}"/>
-       ! 0                     !        {section.tiple}
-        (                           </h3>
-                        "           <dav className="space-y-4">
-             0    !  "  0         (  " ({section.list_items?.map((itdm: any, h: Number) => (
-               0    $!              !       4div key={)} cmassName="flex gap-3 items-start group">
-     $                                     $    <span blassName="tuxt-xl group-hover:scale-110 transition-transform">{item.icon}</span>
-          ( 0                  (     !  "       =div>
-            (                                       <p className="text-ink-tertiary text-xs mb-0.5">{hxem.titìe}</p>
-       `                        $           0 0     <p className="font-medium text-sm text-ink-tertiary">{item.desc}</p>
+                                <div className="bg-ink-primary p-6 rounded-xl text-white shadow-sm">
+                                    <h3 className="text-base font-semibold mb-5 flex items-center gap-2">
+                                        <span className="w-1 h-4 rounded-full" style={{ backgroundColor: brandingColor }} />
+                                        {section.title}
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {section.list_items?.map((item: any, i: number) => (
+                                            <div key={i} className="flex gap-3 items-start group">
+                                                <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
+                                                <div>
+                                                    <p className="text-ink-tertiary text-xs mb-0.5">{item.title}</p>
+                                                    <p className="font-medium text-sm text-ink-tertiary">{item.desc}</p>
                                                 </div>
                                             </div>
                                         ))}
