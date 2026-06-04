@@ -41,21 +41,21 @@ export default function EventsHubPage() {
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
       {/* Hero */}
-      <div className="relative bg-gradient-to-br from-purple-900 via-indigo-900 to-ocean-800 text-white overflow-hidden">
+      <div className="relative bg-gradient-to-br from-teal-900 via-teal-900 to-ocean-800 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-purple-500 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#818cf8]/100 rounded-full blur-3xl" />
+          <div className="absolute top-10 left-10 w-72 h-72 bg-teal-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#14b8a6]/100 rounded-full blur-3xl" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-24">
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight">Events Hub</h1>
-          <p className="mt-4 text-lg sm:text-xl text-purple-200 max-w-2xl">
+          <p className="mt-4 text-lg sm:text-xl text-teal-200 max-w-2xl">
             Discover and attend the best events across the Caribbean. Secure your spot with QR-powered digital tickets.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/events/my-tickets" className="px-6 py-3 bg-surface-elevated text-purple-900 rounded-xl font-bold hover:bg-purple-50 transition-colors">
+            <Link href="/events/my-tickets" className="px-6 py-3 bg-surface-elevated text-teal-900 rounded-xl font-bold hover:bg-teal-50 transition-colors">
               My Tickets
             </Link>
-            <Link href="/events/create" className="px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-500 transition-colors border border-purple-400">
+            <Link href="/events/create" className="px-6 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-500 transition-colors border border-teal-400">
               + Create Event
             </Link>
           </div>
@@ -71,7 +71,7 @@ export default function EventsHubPage() {
               placeholder="Search events..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-surface-elevated dark:bg-ocean-800 border border-border-primary dark:border-ocean-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500 dark:text-sand-50"
+              className="w-full pl-10 pr-4 py-3 bg-surface-elevated dark:bg-ocean-800 border border-border-primary dark:border-ocean-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 dark:text-sand-50"
             />
             <svg className="absolute left-3 top-3.5 h-4 w-4 text-ink-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -84,8 +84,8 @@ export default function EventsHubPage() {
                 onClick={() => setCategory(c.value)}
                 className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${
                   category === c.value
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-surface-elevated dark:bg-ocean-800 text-ink-secondary dark:text-sand-200 border border-border-primary dark:border-ocean-700 hover:border-purple-300'
+                    ? 'bg-teal-600 text-white'
+                    : 'bg-surface-elevated dark:bg-ocean-800 text-ink-secondary dark:text-sand-200 border border-border-primary dark:border-ocean-700 hover:border-teal-300'
                 }`}
               >
                 {c.value ? `${categoryIcons[c.value] || '📌'} ${c.label}` : c.label}
@@ -131,12 +131,12 @@ export default function EventsHubPage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
+                    <div className="w-full h-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
                       <span className="text-5xl">{categoryIcons[event.category] || '📌'}</span>
                     </div>
                   )}
                   <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 bg-surface-elevated/90 dark:bg-ocean-900/90 backdrop-blur-sm rounded-full text-xs font-bold text-purple-700 dark:text-purple-300">
+                    <span className="px-3 py-1 bg-surface-elevated/90 dark:bg-ocean-900/90 backdrop-blur-sm rounded-full text-xs font-bold text-teal-700 dark:text-teal-300">
                       {categoryIcons[event.category]} {event.category}
                     </span>
                   </div>
@@ -147,7 +147,7 @@ export default function EventsHubPage() {
                   )}
                 </div>
                 <div className="p-5">
-                  <h3 className="font-black text-lg text-ink-primary dark:text-sand-50 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
+                  <h3 className="font-black text-lg text-ink-primary dark:text-sand-50 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors line-clamp-2">
                     {event.title}
                   </h3>
                   <div className="mt-3 space-y-1.5 text-sm text-ink-tertiary dark:text-ink-tertiary">
@@ -164,7 +164,7 @@ export default function EventsHubPage() {
                   <div className="mt-4 flex items-center justify-between">
                     <div>
                       <span className="text-xs text-ink-tertiary">From</span>
-                      <p className="text-lg font-black text-purple-600 dark:text-purple-400">
+                      <p className="text-lg font-black text-teal-600 dark:text-teal-400">
                         ${event.ticket_tiers?.[0]?.price?.toLocaleString() || '0'} <span className="text-xs font-normal text-ink-tertiary">XCD</span>
                       </p>
                     </div>
@@ -172,7 +172,7 @@ export default function EventsHubPage() {
                       <span className="text-xs text-ink-tertiary">{event.total_capacity - event.tickets_sold} left</span>
                       <div className="w-20 h-1.5 bg-surface-tertiary dark:bg-ocean-700 rounded-full mt-1">
                         <div
-                          className="h-full bg-purple-500 rounded-full"
+                          className="h-full bg-teal-500 rounded-full"
                           style={{ width: `${Math.min(100, (event.tickets_sold / event.total_capacity) * 100)}%` }}
                         />
                       </div>

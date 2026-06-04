@@ -8,7 +8,7 @@ interface BadgeSelectorProps {
 
 const AVAILABLE_BADGES = [
     { id: 'verified', label: 'Verified', emoji: '✅', color: 'bg-blue-100 text-blue-700 border-blue-200' },
-    { id: 'premium', label: 'Premium', emoji: '💎', color: 'bg-purple-100 text-purple-700 border-purple-200' },
+    { id: 'premium', label: 'Premium', emoji: '💎', color: 'bg-teal-100 text-teal-700 border-teal-200' },
     { id: 'eco', label: 'Eco-Friendly', emoji: '🌱', color: 'bg-green-100 text-green-700 border-green-200' },
     { id: 'local', label: 'Local Business', emoji: '🏝️', color: 'bg-accent-500/15 text-accent-500 border-teal-200' },
     { id: 'top_rated', label: 'Top Rated', emoji: '⭐', color: 'bg-yellow-100 text-yellow-700 border-yellow-200' },

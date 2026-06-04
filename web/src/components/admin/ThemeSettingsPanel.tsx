@@ -61,7 +61,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
     const colorPresets = [
         { name: 'Teal', value: '#0d9488' },
         { name: 'Blue', value: '#3b82f6' },
-        { name: 'Indigo', value: '#6366f1' },
+        { name: 'Indigo', value: '#14b8a6' },
         { name: 'Purple', value: '#8b5cf6' },
         { name: 'Pink', value: '#ec4899' },
         { name: 'Rose', value: '#f43f5e' },

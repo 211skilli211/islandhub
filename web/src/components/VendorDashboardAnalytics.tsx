@@ -139,7 +139,7 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                             </div>
                             <div className="w-full bg-surface-secondary rounded-full h-3 overflow-hidden flex">
                                 <div
-                                    className="h-full bg-surface-tertiary transition-all duration-500 group-hover:bg-[#818cf8]/15"
+                                    className="h-full bg-surface-tertiary transition-all duration-500 group-hover:bg-[#14b8a6]/15"
                                     style={{ width: `${Math.min(100, (Number(item.views) / Math.max(...performance.map(p => Number(p.views)))) * 100)}%` }}
                                 />
                                 <div

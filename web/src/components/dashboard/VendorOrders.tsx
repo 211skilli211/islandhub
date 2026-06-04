@@ -209,7 +209,7 @@ function OrderCard({ order, actionLabel, onAction, color, isCampaign }: any) {
                             {order.order_type || 'pickup'}
                         </span>
                         {order.status === 'dispatched' && (
-                            <span className="text-[8px] font-black bg-[#818cf8]/15 text-[#6366f1] px-2 py-0.5 rounded uppercase">With Driver</span>
+                            <span className="text-[8px] font-black bg-[#14b8a6]/15 text-[#14b8a6] px-2 py-0.5 rounded uppercase">With Driver</span>
                         )}
                     </div>
                 </div>

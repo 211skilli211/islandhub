@@ -162,7 +162,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3" onClick={(e) => e.stopPropagation()}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onEdit(listing); }}
-                                    className="text-[#818cf8] hover:text-indigo-900"
+                                    className="text-[#14b8a6] hover:text-teal-900"
                                 >
                                     Edit
                                 </button>

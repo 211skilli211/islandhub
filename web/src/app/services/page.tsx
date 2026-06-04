@@ -37,7 +37,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
     automotive: { bg: 'bg-surface-secondary', text: 'text-ink-secondary', border: 'border-border-primary' },
     health: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-200' },
     marine: { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200' },
-    events: { bg: 'bg-[#818cf8]/10', text: 'text-[#6366f1]', border: 'border-[#818cf8]/20' },
+    events: { bg: 'bg-[#14b8a6]/10', text: 'text-[#14b8a6]', border: 'border-[#14b8a6]/20' },
     digital: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200' },
 };
 

@@ -408,12 +408,12 @@ export default function MemoryDashboard() {
                                     </div>
                                     <div className="flex gap-4">
                                         <button onClick={() => handleAction('/agent/memory/compact', 'Compact')} className="text-[9px] font-black uppercase tracking-widest text-sand-500 hover:text-sand-400">Compaction</button>
-                                        <button onClick={() => handleAction('/agent/memory/sync', 'Sync')} className="text-[9px] font-black uppercase tracking-widest text-[#a5b4fc]0 hover:text-[#818cf8]">Sync</button>
+                                        <button onClick={() => handleAction('/agent/memory/sync', 'Sync')} className="text-[9px] font-black uppercase tracking-widest text-[#a5b4fc]0 hover:text-[#14b8a6]">Sync</button>
                                     </div>
                                 </div>
                                 <div className="grow p-6 overflow-y-auto font-mono text-[10px] leading-loose custom-scrollbar bg-black/40">
                                     {logs.split('\n').map((line, i) => (
-                                        <div key={i} className={`${line.includes('SUCCESS') ? 'text-accent-400' : line.includes('FAILED') ? 'text-[#fb7185]' : line.includes('Saved') ? 'text-[#818cf8]' : 'text-ink-tertiary0'}`}>
+                                        <div key={i} className={`${line.includes('SUCCESS') ? 'text-accent-400' : line.includes('FAILED') ? 'text-[#fb7185]' : line.includes('Saved') ? 'text-[#14b8a6]' : 'text-ink-tertiary0'}`}>
                                             {line}
                                         </div>
                                     ))}

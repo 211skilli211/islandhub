@@ -72,7 +72,7 @@ export default function AuctionsPage() {
             </div>
 
             {/* Info Section */}
-            <div className="bg-gradient-to-r from-teal-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-border-primary">
+            <div className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-border-primary">
                 <h3 className="font-bold text-ink-primary dark:text-white mb-2">Start Selling at Auction</h3>
                 <p className="text-sm text-ink-secondary dark:text-ink-tertiary mb-4">List your items and reach thousands of buyers with real-time bidding</p>
                 <button className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold">Create Auction</button>

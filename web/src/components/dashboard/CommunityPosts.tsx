@@ -75,14 +75,14 @@ export default function CommunityPosts() {
                 </div>
                 <button
                     onClick={() => setShowCreate(!showCreate)}
-                    className={`px-6 py-3 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all ${showCreate ? 'bg-surface-secondary text-ink-secondary' : 'bg-[#818cf8] text-white shadow-lg'}`}
+                    className={`px-6 py-3 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all ${showCreate ? 'bg-surface-secondary text-ink-secondary' : 'bg-[#14b8a6] text-white shadow-lg'}`}
                 >
                     {showCreate ? 'Close Form' : '🚀 Send Broadcast'}
                 </button>
             </div>
 
             {showCreate && (
-                <form onSubmit={handleCreatePost} className="bg-surface-elevated p-8 rounded-[2.5rem] border border-[#818cf8]/20 shadow-xl shadow-indigo-100/20 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300">
+                <form onSubmit={handleCreatePost} className="bg-surface-elevated p-8 rounded-[2.5rem] border border-[#14b8a6]/20 shadow-xl shadow-teal-100/20 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Broadcast Title</label>
@@ -92,7 +92,7 @@ export default function CommunityPosts() {
                                 value={newPost.title}
                                 onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
                                 placeholder="What's happening?"
-                                className="w-full px-5 py-3 rounded-2xl border border-border-primary focus:ring-4 focus:ring-indigo-50 focus:border-[#818cf8] transition-all font-bold"
+                                className="w-full px-5 py-3 rounded-2xl border border-border-primary focus:ring-4 focus:ring-teal-50 focus:border-[#14b8a6] transition-all font-bold"
                             />
                         </div>
                         <div className="space-y-1.5">
@@ -100,7 +100,7 @@ export default function CommunityPosts() {
                             <select
                                 value={newPost.category}
                                 onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
-                                className="w-full px-5 py-3 rounded-2xl border border-border-primary focus:ring-4 focus:ring-indigo-50 focus:border-[#818cf8] font-bold bg-surface-elevated"
+                                className="w-full px-5 py-3 rounded-2xl border border-border-primary focus:ring-4 focus:ring-teal-50 focus:border-[#14b8a6] font-bold bg-surface-elevated"
                             >
                                 <option value="general">📢 General Announcement</option>
                                 <option value="food">🍱 Food & Dining</option>
@@ -118,7 +118,7 @@ export default function CommunityPosts() {
                             value={newPost.content}
                             onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
                             placeholder="Share the details..."
-                            className="w-full px-5 py-4 rounded-[2rem] border border-border-primary focus:ring-4 focus:ring-indigo-50 focus:border-[#818cf8] transition-all font-medium"
+                            className="w-full px-5 py-4 rounded-[2rem] border border-border-primary focus:ring-4 focus:ring-teal-50 focus:border-[#14b8a6] transition-all font-medium"
                         />
                     </div>
 
@@ -126,7 +126,7 @@ export default function CommunityPosts() {
                         <div className="flex-1 w-full">
                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1 block mb-2">Attached Media</label>
                             <div className="flex items-center gap-4">
-                                <label className="flex-1 p-4 rounded-2xl border-2 border-dashed border-border-primary hover:border-indigo-300 transition-all cursor-pointer flex items-center justify-center gap-2">
+                                <label className="flex-1 p-4 rounded-2xl border-2 border-dashed border-border-primary hover:border-teal-300 transition-all cursor-pointer flex items-center justify-center gap-2">
                                     <span className="text-xl">🖼️</span>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary0">Upload Image/Video</span>
                                     <input type="file" className="hidden" accept="image/*,video/*" onChange={handleMediaUpload} />
@@ -140,13 +140,13 @@ export default function CommunityPosts() {
                         </div>
                         <button
                             type="submit"
-                            className="w-full md:w-auto px-10 py-5 bg-[#818cf8] text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-indigo-100"
+                            className="w-full md:w-auto px-10 py-5 bg-[#14b8a6] text-white rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-teal-100"
                         >
                             Broadcast Now
                         </button>
                     </div>
                     <div className="text-center">
-                        <a href="/admin?tab=broadcasts" className="text-xs font-black text-ink-tertiary uppercase tracking-widest hover:text-[#818cf8] transition-colors">
+                        <a href="/admin?tab=broadcasts" className="text-xs font-black text-ink-tertiary uppercase tracking-widest hover:text-[#14b8a6] transition-colors">
                             Manage in Broadcast Hub ➔
                         </a>
                     </div>
@@ -156,7 +156,7 @@ export default function CommunityPosts() {
             <div className="max-w-2xl mx-auto space-y-12">
                 {loading ? (
                     <div className="py-20 text-center">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-indigo-600" />
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600" />
                     </div>
                 ) : posts.length > 0 ? (
                     posts.map((post) => (
@@ -164,7 +164,7 @@ export default function CommunityPosts() {
                             {/* Instagram Header */}
                             <div className="p-6 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full ring-2 ring-indigo-100 p-0.5 overflow-hidden">
+                                    <div className="w-12 h-12 rounded-full ring-2 ring-teal-100 p-0.5 overflow-hidden">
                                         {post.profile_photo_url ? (
                                             <img src={getImageUrl(post.profile_photo_url)} className="w-full h-full object-cover rounded-full" />
                                         ) : (
@@ -199,7 +199,7 @@ export default function CommunityPosts() {
                                     <div className="absolute inset-0 bg-black/0 group-hover/media:bg-black/5 transition-colors pointer-events-none" />
                                 </div>
                             ) : (
-                                <div className="aspect-square bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center p-12 text-center text-white">
+                                <div className="aspect-square bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center p-12 text-center text-white">
                                     <h3 className="text-3xl font-black italic tracking-tighter leading-[1.1]">
                                         "{post.title}"
                                     </h3>
@@ -237,7 +237,7 @@ export default function CommunityPosts() {
                                         <div className="w-8 h-8 rounded-full bg-surface-secondary flex-shrink-0" />
                                         <input
                                             placeholder="Join the conversation..."
-                                            className="w-full bg-surface-secondary/50 border-none rounded-2xl px-4 py-2 text-xs font-bold focus:ring-2 focus:ring-indigo-100 outline-none"
+                                            className="w-full bg-surface-secondary/50 border-none rounded-2xl px-4 py-2 text-xs font-bold focus:ring-2 focus:ring-teal-100 outline-none"
                                         />
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@ export default function CommunityPosts() {
                         <div className="text-6xl mb-6">🌊</div>
                         <h3 className="text-2xl font-black text-ink-primary tracking-tight">The airwaves are quiet</h3>
                         <p className="text-ink-tertiary0 font-medium italic mb-8">Be the first to broadcast from your slice of paradise.</p>
-                        <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-[#818cf8] text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-indigo-100">Send First Broadcast</button>
+                        <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-teal-100">Send First Broadcast</button>
                     </div>
                 )}
             </div>

@@ -69,13 +69,13 @@ export default function AdminDashboard() {
                                         {!campaign.verified && (
                                             <button
                                                 onClick={() => handleVerify(campaign.campaign_id)}
-                                                className="bg-[#818cf8] hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-sm"
+                                                className="bg-[#14b8a6] hover:bg-teal-700 text-white font-bold py-2 px-4 rounded text-sm"
                                             >
                                                 Approve
                                             </button>
                                         )}
                                         {campaign.verified && (
-                                            <Link href={`/campaigns/${campaign.campaign_id}`} className="text-[#818cf8] hover:text-indigo-900 text-sm">
+                                            <Link href={`/campaigns/${campaign.campaign_id}`} className="text-[#14b8a6] hover:text-teal-900 text-sm">
                                                 View
                                             </Link>
                                         )}

@@ -279,8 +279,8 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                             <div className="p-8 space-y-6 overflow-y-auto">
                                 <div className="space-y-4">
                                     {/* Link to Existing Listing */}
-                                    <div className="p-4 bg-[#818cf8]/10 rounded-xl border border-[#818cf8]/20 mb-6">
-                                        <label className="text-[9px] font-black uppercase tracking-widest text-indigo-800 mb-2 block">Link to Existing Listing (Auto-fill)</label>
+                                    <div className="p-4 bg-[#14b8a6]/10 rounded-xl border border-[#14b8a6]/20 mb-6">
+                                        <label className="text-[9px] font-black uppercase tracking-widest text-teal-800 mb-2 block">Link to Existing Listing (Auto-fill)</label>
                                         <select
                                             onChange={(e) => {
                                                 const listingId = parseInt(e.target.value);
@@ -296,7 +296,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                     });
                                                 }
                                             }}
-                                            className="w-full px-4 py-3 text-xs font-bold bg-surface-elevated rounded-xl border border-[#818cf8]/20 focus:border-[#818cf8] transition-all text-indigo-900"
+                                            className="w-full px-4 py-3 text-xs font-bold bg-surface-elevated rounded-xl border border-[#14b8a6]/20 focus:border-[#14b8a6] transition-all text-teal-900"
                                         >
                                             <option value="">Select a listing to link...</option>
                                             {listings.map(l => (
@@ -386,7 +386,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Inclusions Builder */}
-                                        <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 space-y-4">
+                                        <div className="p-5 bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl border border-blue-100 space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-blue-600">Inclusions (What's Included)</label>
                                                 <button
@@ -478,27 +478,27 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Variants Builder */}
-                                        <div className="p-5 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl border border-[#818cf8]/20 space-y-4">
+                                        <div className="p-5 bg-gradient-to-br from-teal-50 to-violet-50 rounded-2xl border border-[#14b8a6]/20 space-y-4">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-[9px] font-black uppercase tracking-widest text-[#818cf8]">Variants (e.g. Size, Spice Level)</label>
+                                                <label className="text-[9px] font-black uppercase tracking-widest text-[#14b8a6]">Variants (e.g. Size, Spice Level)</label>
                                                 <button
                                                     type="button"
                                                     onClick={() => {
                                                         const variants = { ...(editingItem.variants || {}), '': [''] };
                                                         setEditingItem({ ...editingItem, variants });
                                                     }}
-                                                    className="text-[9px] font-black uppercase tracking-widest text-[#818cf8] hover:text-indigo-800 px-2 py-1 bg-surface-elevated rounded-lg shadow-sm"
+                                                    className="text-[9px] font-black uppercase tracking-widest text-[#14b8a6] hover:text-teal-800 px-2 py-1 bg-surface-elevated rounded-lg shadow-sm"
                                                 >
                                                     + Add Variant Group
                                                 </button>
                                             </div>
 
                                             {Object.entries(editingItem.variants || {}).length === 0 ? (
-                                                <p className="text-[10px] text-[#818cf8] italic text-center py-3">No variants. Add groups like "Size" with options "Small, Large".</p>
+                                                <p className="text-[10px] text-[#14b8a6] italic text-center py-3">No variants. Add groups like "Size" with options "Small, Large".</p>
                                             ) : (
                                                 <div className="space-y-3">
                                                     {Object.entries(editingItem.variants || {}).map(([groupName, options], groupIndex) => (
-                                                        <div key={groupIndex} className="bg-surface-elevated p-4 rounded-xl border border-[#818cf8]/20 relative group/variant">
+                                                        <div key={groupIndex} className="bg-surface-elevated p-4 rounded-xl border border-[#14b8a6]/20 relative group/variant">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
@@ -519,7 +519,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                         setEditingItem({ ...editingItem, variants });
                                                                     }}
                                                                     placeholder="Group name (e.g. Size)"
-                                                                    className="flex-1 px-3 py-2 text-xs font-bold bg-[#818cf8]/10 rounded-lg border-0 focus:ring-2 focus:ring-indigo-300"
+                                                                    className="flex-1 px-3 py-2 text-xs font-bold bg-[#14b8a6]/10 rounded-lg border-0 focus:ring-2 focus:ring-teal-300"
                                                                 />
                                                             </div>
                                                             <input
@@ -530,7 +530,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                                     setEditingItem({ ...editingItem, variants });
                                                                 }}
                                                                 placeholder="Options (comma-separated): Small, Medium, Large (+$5)"
-                                                                className="w-full px-3 py-2 text-[10px] font-medium bg-surface-secondary rounded-lg border-0 focus:ring-2 focus:ring-indigo-300"
+                                                                className="w-full px-3 py-2 text-[10px] font-medium bg-surface-secondary rounded-lg border-0 focus:ring-2 focus:ring-teal-300"
                                                             />
                                                         </div>
                                                     ))}

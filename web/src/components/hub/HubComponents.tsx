@@ -80,9 +80,9 @@ export function StoreCard({ store, index, theme, variant }: {
     const bgGradients: Record<string, string> = {
         food: 'from-orange-100 via-amber-50 to-red-50',
         product: 'from-emerald-50 via-teal-50 to-cyan-50',
-        service: 'from-blue-50 via-indigo-50 to-purple-50',
+        service: 'from-blue-50 via-teal-50 to-teal-50',
         tour: 'from-emerald-50 via-green-50 to-teal-50',
-        transport: 'from-sky-50 via-blue-50 to-indigo-50',
+        transport: 'from-sky-50 via-blue-50 to-teal-50',
         rental: 'from-amber-50 via-yellow-50 to-orange-50',
         campaign: 'from-rose-50 via-pink-50 to-red-50',
         community: 'from-green-50 via-emerald-50 to-teal-50',
@@ -107,7 +107,7 @@ export function StoreCard({ store, index, theme, variant }: {
     const btnGradients: Record<string, string> = {
         food: 'from-orange-500 to-red-500',
         product: 'from-emerald-500 to-teal-500',
-        service: 'from-blue-500 to-indigo-500',
+        service: 'from-blue-500 to-teal-500',
         tour: 'from-emerald-500 to-green-500',
         transport: 'from-sky-500 to-blue-500',
         rental: 'from-amber-500 to-orange-500',

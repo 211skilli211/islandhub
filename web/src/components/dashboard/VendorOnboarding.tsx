@@ -411,13 +411,13 @@ export default function VendorOnboarding() {
                                     </Link>
                                     <Link 
                                         href="/create?type=service"
-                                        className="block p-4 bg-purple-50 border border-purple-200 rounded-xl hover:border-purple-500 transition-colors"
+                                        className="block p-4 bg-teal-50 border border-teal-200 rounded-xl hover:border-teal-500 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
                                             <span className="text-2xl">🔧</span>
                                             <div>
-                                                <p className="font-bold text-purple-700">Add Service</p>
-                                                <p className="text-xs text-purple-600">Professional services</p>
+                                                <p className="font-bold text-teal-700">Add Service</p>
+                                                <p className="text-xs text-teal-600">Professional services</p>
                                             </div>
                                         </div>
                                     </Link>

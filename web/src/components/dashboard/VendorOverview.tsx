@@ -34,7 +34,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
             value: requestCount,
             icon: '🚖',
             href: '/dashboard?tab=activity',
-            color: 'bg-[#818cf8]/10 border-[#818cf8]/20'
+            color: 'bg-[#14b8a6]/10 border-[#14b8a6]/20'
         },
         {
             label: 'Total Stores',
@@ -56,11 +56,11 @@ export default function VendorOverview({ subscription, stores, activeStore, list
     // Quick action links
     const quickActions = [
         { label: 'Add Product', href: '/create?type=product', icon: '📦', color: 'bg-sand-500/50' },
-        { label: 'Post Service', href: '/create?type=service', icon: '🛠️', color: 'bg-[#818cf8]/100' },
+        { label: 'Post Service', href: '/create?type=service', icon: '🛠️', color: 'bg-[#14b8a6]/100' },
         { label: 'Edit Branding', href: '/dashboard?tab=branding', icon: '🎨', color: 'bg-pink-500' },
         { label: 'View Analytics', href: '/dashboard/vendor/analytics', icon: '📊', color: 'bg-accent-500/100' },
         { label: 'Manage Orders', href: '/dashboard?tab=orders', icon: '🔥', color: 'bg-orange-500' },
-        { label: 'Promotions', href: '/dashboard?tab=promotions', icon: '🎟️', color: 'bg-purple-500' },
+        { label: 'Promotions', href: '/dashboard?tab=promotions', icon: '🎟️', color: 'bg-teal-500' },
     ];
 
     // Recent activity placeholder
@@ -167,7 +167,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                                 {canHaveMultipleStores ? (
                                     <Link
                                         href="/start"
-                                        className="px-6 py-3 bg-[#818cf8] hover:bg-[#6366f1] text-white rounded-xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-indigo-100"
+                                        className="px-6 py-3 bg-[#14b8a6] hover:bg-[#14b8a6] text-white rounded-xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-teal-100"
                                     >
                                         + Add Another Store
                                     </Link>
@@ -229,13 +229,13 @@ export default function VendorOverview({ subscription, stores, activeStore, list
 
             {/* Subscription Upgrade CTA */}
             {!canHaveMultipleStores && storeCount >= 1 && (
-                <div className="bg-gradient-to-r from-indigo-600 to-teal-500 rounded-4xl p-8 text-white">
+                <div className="bg-gradient-to-r from-teal-600 to-teal-500 rounded-4xl p-8 text-white">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
                             <h3 className="text-xl font-black uppercase tracking-tight">Unlock Multi-Store Functionality</h3>
                             <p className="text-[#a5b4fc] font-medium mt-1">Upgrade to Premium, VIP, or Enterprise to manage multiple stores from one dashboard.</p>
                         </div>
-                        <button className="px-8 py-4 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#818cf8]/10 transition-all shadow-lg">
+                        <button className="px-8 py-4 bg-surface-elevated text-[#14b8a6] rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#14b8a6]/10 transition-all shadow-lg">
                             Upgrade Now
                         </button>
                     </div>

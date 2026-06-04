@@ -26,7 +26,7 @@ export default function VendorAnalyticsPage() {
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-surface-primary dark:bg-ocean-900">
             <div className="text-center">
-                <div className="animate-spin h-12 w-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-teal-600 border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Generating Reports...</p>
             </div>
         </div>
@@ -49,7 +49,7 @@ export default function VendorAnalyticsPage() {
             >
                 <div className="mb-16">
                     <h1 className="text-4xl md:text-6xl font-black text-ink-primary tracking-tight mb-4">
-                        Performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-teal-500">Analytics</span>
+                        Performance <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-500">Analytics</span>
                     </h1>
                     <p className="text-ink-tertiary font-medium text-lg italic max-w-2xl">
                         Deep insights into your business impact. Understand your audience, track conversions, and grow your island presence.

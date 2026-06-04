@@ -388,7 +388,7 @@ function SettingsContent() {
                                                 </div>
                                             </div>
 
-                                            <div className="p-6 bg-gradient-to-r from-teal-50 to-indigo-50 rounded-3xl border border-teal-100">
+                                            <div className="p-6 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-3xl border border-teal-100">
                                                 <div className="flex items-center justify-between">
                                                     <div>
                                                         <h3 className="font-bold text-ink-primary dark:text-white">🤖 AI Auto-Reply</h3>

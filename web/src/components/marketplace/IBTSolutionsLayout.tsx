@@ -17,7 +17,7 @@ interface IBTStoreProps {
 const COOP_SECTORS = [
     { id: 'trades', title: 'Trades & Construction', icon: '🔧', desc: 'Skilled workers, contractors, repair services', gradient: 'from-amber-500 to-orange-600' },
     { id: 'micro_farms', title: 'Micro-Farms', icon: '🌱', desc: 'Local agriculture, fresh produce, farm-to-table', gradient: 'from-emerald-500 to-teal-600' },
-    { id: 'graphic_trends', title: 'Graphic Trends', icon: '🎨', desc: 'Design, branding, digital art, print-on-demand', gradient: 'from-purple-500 to-indigo-600' },
+    { id: 'graphic_trends', title: 'Graphic Trends', icon: '🎨', desc: 'Design, branding, digital art, print-on-demand', gradient: 'from-teal-500 to-teal-600' },
     { id: 'logistics', title: 'Logistics', icon: '🚚', desc: 'Delivery, transport, supply chain', gradient: 'from-blue-500 to-accent-400' },
 ];
 

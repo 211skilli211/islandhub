@@ -78,7 +78,7 @@ export default function DriversTab() {
             header: 'Driver',
             accessor: (driver) => (
                 <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-sm ${driver.role === 'admin' ? 'bg-gradient-to-br from-indigo-500 to-purple-600' : 'bg-gradient-to-br from-teal-500 to-emerald-500'
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-sm ${driver.role === 'admin' ? 'bg-gradient-to-br from-teal-500 to-teal-600' : 'bg-gradient-to-br from-teal-500 to-emerald-500'
                         }`}>
                         {driver.name.charAt(0).toUpperCase()}
                     </div>
@@ -86,7 +86,7 @@ export default function DriversTab() {
                         <div className="flex items-center gap-1.5">
                             <p className="font-bold text-ink-primary leading-none">{driver.name}</p>
                             {driver.role === 'admin' && (
-                                <span className="text-[8px] font-black bg-[#818cf8]/15 text-[#6366f1] px-1 py-0.5 rounded uppercase tracking-tighter">Admin</span>
+                                <span className="text-[8px] font-black bg-[#14b8a6]/15 text-[#14b8a6] px-1 py-0.5 rounded uppercase tracking-tighter">Admin</span>
                             )}
                         </div>
                         <p className="text-xs text-ink-tertiary0 mt-0.5">{driver.email}</p>
@@ -123,7 +123,7 @@ export default function DriversTab() {
                     <div>
                         <p className="text-[10px] font-black uppercase text-ink-tertiary tracking-tighter leading-none mb-1">{driver.v_make || 'Generic'}</p>
                         <p className="font-bold text-ink-primary text-xs">{driver.v_model || 'Vehicle'}</p>
-                        {driver.v_plate && <p className="text-[9px] font-black text-[#818cf8] bg-[#818cf8]/10 px-1 py-0.5 rounded w-fit mt-1">{driver.v_plate}</p>}
+                        {driver.v_plate && <p className="text-[9px] font-black text-[#14b8a6] bg-[#14b8a6]/10 px-1 py-0.5 rounded w-fit mt-1">{driver.v_plate}</p>}
                     </div>
                 </div>
             )
@@ -172,7 +172,7 @@ export default function DriversTab() {
                         <span className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest mb-1">Fleet Operations</span>
                         <a
                             href="/admin/dispatch"
-                            className="px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#818cf8] transition-all shadow-xl shadow-slate-100 flex items-center gap-2"
+                            className="px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#14b8a6] transition-all shadow-xl shadow-slate-100 flex items-center gap-2"
                         >
                             <span className="animate-pulse">🛰️</span> Live Tracking
                         </a>
@@ -193,7 +193,7 @@ export default function DriversTab() {
                         {
                             label: 'KYC Vault',
                             action: 'view_kyc',
-                            className: 'bg-[#818cf8]/10 text-[#818cf8] border-[#818cf8]/20 hover:bg-[#818cf8] hover:text-white',
+                            className: 'bg-[#14b8a6]/10 text-[#14b8a6] border-[#14b8a6]/20 hover:bg-[#14b8a6] hover:text-white',
                             condition: (d) => !!d.license_number
                         },
                         {
@@ -246,7 +246,7 @@ export default function DriversTab() {
 
                             <div className="flex-1 overflow-y-auto p-10 space-y-10">
                                 <section>
-                                    <h4 className="text-[10px] font-black uppercase text-[#818cf8] tracking-widest mb-6 border-b border-indigo-50 pb-2 flex items-center gap-2">
+                                    <h4 className="text-[10px] font-black uppercase text-[#14b8a6] tracking-widest mb-6 border-b border-teal-50 pb-2 flex items-center gap-2">
                                         <span>🛡️</span> Identity & Legal
                                     </h4>
                                     <div className="grid grid-cols-2 gap-8">
@@ -272,7 +272,7 @@ export default function DriversTab() {
                                         </div>
                                         <div className="p-6 border-2 border-border-primary rounded-3xl">
                                             <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest mb-1">License Plate</p>
-                                            <p className="font-black text-[#818cf8] text-lg uppercase tracking-widest">{selectedKYC.v_plate}</p>
+                                            <p className="font-black text-[#14b8a6] text-lg uppercase tracking-widest">{selectedKYC.v_plate}</p>
                                         </div>
                                     </div>
                                 </section>

@@ -75,7 +75,7 @@ export default function AdminCampaignsPage() {
                 </div>
                 <button 
                     onClick={() => setShowCreateCampaign(true)} 
-                    className="px-5 py-2.5 bg-[#818cf8] text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
+                    className="px-5 py-2.5 bg-[#14b8a6] text-white rounded-xl font-bold hover:bg-teal-700 transition-colors"
                 >
                     + New Campaign
                 </button>

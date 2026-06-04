@@ -70,11 +70,11 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
     };
 
     return (
-        <div className="flex flex-col h-full bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden shadow-2xl shadow-indigo-100/20">
+        <div className="flex flex-col h-full bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden shadow-2xl shadow-teal-100/20">
             {/* Header */}
             <div className="p-6 border-b border-border-primary flex items-center justify-between bg-surface-secondary/50">
                 <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-[#818cf8] rounded-full flex items-center justify-center text-white font-black">
+                    <div className="w-10 h-10 bg-[#14b8a6] rounded-full flex items-center justify-center text-white font-black">
                         {otherUserName.charAt(0)}
                     </div>
                     <div>
@@ -85,8 +85,8 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                     </div>
                 </div>
                 {orderId && (
-                    <div className="bg-[#818cf8]/10 px-3 py-1.5 rounded-xl border border-[#818cf8]/20 flex items-center gap-2">
-                        <span className="text-[10px] font-black text-[#818cf8] uppercase tracking-tight italic text-nowrap">Order #{orderId}</span>
+                    <div className="bg-[#14b8a6]/10 px-3 py-1.5 rounded-xl border border-[#14b8a6]/20 flex items-center gap-2">
+                        <span className="text-[10px] font-black text-[#14b8a6] uppercase tracking-tight italic text-nowrap">Order #{orderId}</span>
                     </div>
                 )}
             </div>
@@ -107,7 +107,7 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                             className={`flex ${m.sender_id === currentUser.id ? 'justify-end' : 'justify-start'}`}
                         >
                             <div className={`max-w-[70%] p-5 rounded-3xl font-medium shadow-sm ${m.sender_id === currentUser.id
-                                ? 'bg-[#818cf8] text-white rounded-tr-none'
+                                ? 'bg-[#14b8a6] text-white rounded-tr-none'
                                 : 'bg-surface-elevated text-ink-secondary border border-border-primary rounded-tl-none'
                                 }`}>
                                 {m.content}
@@ -145,12 +145,12 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             placeholder="Type your message..."
-                            className="w-full pl-6 pr-20 py-5 bg-surface-secondary border-transparent rounded-4xl text-ink-primary font-medium focus:ring-2 focus:ring-indigo-100 focus:border-[#818cf8] transition-all"
+                            className="w-full pl-6 pr-20 py-5 bg-surface-secondary border-transparent rounded-4xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-[#14b8a6] transition-all"
                         />
                         <button
                             type="submit"
                             disabled={!newMessage.trim()}
-                            className="absolute right-3 top-3 bottom-3 px-6 bg-[#818cf8] text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-[#6366f1] transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+                            className="absolute right-3 top-3 bottom-3 px-6 bg-[#14b8a6] text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-[#14b8a6] transition-all shadow-lg shadow-teal-100 disabled:opacity-50"
                         >
                             Send
                         </button>

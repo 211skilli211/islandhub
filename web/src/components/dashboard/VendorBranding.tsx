@@ -221,7 +221,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                 <p className="text-sm font-medium text-ink-tertiary">Manage how your shop appears to the island</p>
             </header>
 
-            <section className="bg-indigo-900 p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+            <section className="bg-teal-900 p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                 <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                     <div className="flex-1 space-y-4 text-center md:text-left">
                         <h4 className="text-2xl font-black italic tracking-tighter uppercase">Storefront Template</h4>
@@ -238,12 +238,12 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                     key={t.id}
                                     type="button"
                                     onClick={() => setFormData(prev => ({ ...prev, template_id: t.id }))}
-                                    className={`p-6 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 group ${formData.template_id === t.id ? 'bg-surface-elevated text-indigo-900 border-white shadow-xl scale-105' : 'bg-indigo-800/50 border-indigo-700/50 text-[#a5b4fc] hover:border-indigo-400'}`}
+                                    className={`p-6 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 group ${formData.template_id === t.id ? 'bg-surface-elevated text-teal-900 border-white shadow-xl scale-105' : 'bg-teal-800/50 border-teal-700/50 text-[#a5b4fc] hover:border-teal-400'}`}
                                 >
                                     <span className={`text-3xl transition-transform ${formData.template_id === t.id ? 'scale-110' : 'group-hover:scale-110'}`}>{t.icon}</span>
                                     <div className="text-center">
                                         <p className="text-[10px] font-black uppercase tracking-widest">{t.label}</p>
-                                        <p className={`text-[8px] font-bold ${formData.template_id === t.id ? 'text-[#818cf8]' : 'text-[#818cf8]/50'}`}>{t.desc}</p>
+                                        <p className={`text-[8px] font-bold ${formData.template_id === t.id ? 'text-[#14b8a6]' : 'text-[#14b8a6]/50'}`}>{t.desc}</p>
                                     </div>
                                 </button>
                             ))}
@@ -330,7 +330,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.hero_title}
                                 onChange={(e) => setFormData({ ...formData, hero_title: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold"
                                 placeholder="Large catching header"
                             />
                         </div>
@@ -339,7 +339,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.hero_subtitle}
                                 onChange={(e) => setFormData({ ...formData, hero_subtitle: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold"
                                 placeholder="Underlying text..."
                             />
                         </div>
@@ -348,7 +348,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.hero_cta_text}
                                 onChange={(e) => setFormData({ ...formData, hero_cta_text: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold shadow-sm"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold shadow-sm"
                                 placeholder="e.g. Order Now"
                             />
                         </div>
@@ -357,7 +357,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.hero_cta_link}
                                 onChange={(e) => setFormData({ ...formData, hero_cta_link: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold shadow-sm"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold shadow-sm"
                                 placeholder="/menu or https://..."
                             />
                         </div>
@@ -366,7 +366,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.hero_cta2_text}
                                 onChange={(e) => setFormData({ ...formData, hero_cta2_text: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold shadow-sm"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold shadow-sm"
                                 placeholder="e.g. Contact Us"
                             />
                         </div>
@@ -375,7 +375,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.hero_cta2_link}
                                 onChange={(e) => setFormData({ ...formData, hero_cta2_link: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold shadow-sm"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold shadow-sm"
                                 placeholder="https://..."
                             />
                         </div>
@@ -385,7 +385,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                     <div className="bg-surface-secondary p-8 rounded-[2.5rem] border-2 border-border-primary space-y-6">
                         <div className="flex justify-between items-center">
                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Graphic Overlay / Floating Icon</label>
-                            <label className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-secondary hover:border-[#818cf8] transition-all cursor-pointer">
+                            <label className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-secondary hover:border-[#14b8a6] transition-all cursor-pointer">
                                 Upload Graphic
                                 <input type="file" className="hidden" accept="image/*" onChange={(e) => handleUpload(e, 'hero_icon_url')} />
                             </label>
@@ -397,7 +397,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                     key={icon}
                                     type="button"
                                     onClick={() => setFormData({ ...formData, hero_icon_url: icon })}
-                                    className={`h-12 rounded-xl text-xl flex items-center justify-center transition-all ${formData.hero_icon_url === icon ? 'bg-[#818cf8] text-white shadow-lg scale-110' : 'bg-surface-elevated border border-border-primary hover:border-indigo-300'}`}
+                                    className={`h-12 rounded-xl text-xl flex items-center justify-center transition-all ${formData.hero_icon_url === icon ? 'bg-[#14b8a6] text-white shadow-lg scale-110' : 'bg-surface-elevated border border-border-primary hover:border-teal-300'}`}
                                 >
                                     {icon}
                                 </button>
@@ -410,7 +410,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 <input
                                     value={formData.hero_icon_url}
                                     onChange={(e) => setFormData({ ...formData, hero_icon_url: e.target.value })}
-                                    className="w-full px-5 py-3.5 bg-surface-elevated border border-border-primary rounded-2xl focus:border-[#818cf8] transition-all text-sm font-bold shadow-sm"
+                                    className="w-full px-5 py-3.5 bg-surface-elevated border border-border-primary rounded-2xl focus:border-[#14b8a6] transition-all text-sm font-bold shadow-sm"
                                     placeholder="Paste URL or type emoji..."
                                 />
                             </div>
@@ -468,14 +468,14 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                         key={effect}
                                         type="button"
                                         onClick={() => setFormData({ ...formData, typography: { ...formData.typography, heading: { ...(formData.typography?.heading || {}), effect } } })}
-                                        className={`flex-1 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${formData.typography?.heading?.effect === effect ? 'bg-[#818cf8] text-white shadow-lg' : 'bg-surface-elevated border border-border-primary text-ink-tertiary'}`}
+                                        className={`flex-1 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${formData.typography?.heading?.effect === effect ? 'bg-[#14b8a6] text-white shadow-lg' : 'bg-surface-elevated border border-border-primary text-ink-tertiary'}`}
                                     >
                                         {effect || 'Plain'}
                                     </button>
                                 ))}
                             </div>
 
-                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary0 hover:border-indigo-400 transition-all cursor-pointer">
+                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary0 hover:border-teal-400 transition-all cursor-pointer">
                                 {formData.typography?.heading?.custom_font ? 'Change Custom Font' : 'Upload Heading Font (.ttf)'}
                                 <input type="file" className="hidden" accept=".ttf,.otf" onChange={(e) => handleFontUpload(e, 'heading')} />
                             </label>
@@ -521,14 +521,14 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                         key={effect}
                                         type="button"
                                         onClick={() => setFormData({ ...formData, typography: { ...formData.typography, subtitle: { ...(formData.typography?.subtitle || {}), effect } } })}
-                                        className={`flex-1 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${formData.typography?.subtitle?.effect === effect ? 'bg-[#818cf8] text-white shadow-lg' : 'bg-surface-elevated border border-border-primary text-ink-tertiary'}`}
+                                        className={`flex-1 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${formData.typography?.subtitle?.effect === effect ? 'bg-[#14b8a6] text-white shadow-lg' : 'bg-surface-elevated border border-border-primary text-ink-tertiary'}`}
                                     >
                                         {effect || 'Plain'}
                                     </button>
                                 ))}
                             </div>
 
-                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary0 hover:border-indigo-400 transition-all cursor-pointer">
+                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary0 hover:border-teal-400 transition-all cursor-pointer">
                                 {formData.typography?.subtitle?.custom_font ? 'Change Custom Font' : 'Upload Subtitle Font (.ttf)'}
                                 <input type="file" className="hidden" accept=".ttf,.otf" onChange={(e) => handleFontUpload(e, 'subtitle')} />
                             </label>
@@ -556,7 +556,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <select
                                 value={formData.typography?.model || 'classic'}
                                 onChange={(e) => setFormData({ ...formData, typography: { ...formData.typography, model: e.target.value } })}
-                                className="w-full px-8 py-4.5 bg-surface-secondary rounded-3xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold appearance-none shadow-sm"
+                                className="w-full px-8 py-4.5 bg-surface-secondary rounded-3xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold appearance-none shadow-sm"
                             >
                                 <option value="classic">Classic Premium</option>
                                 <option value="modern">Modern Brutalist</option>
@@ -575,7 +575,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold"
                                 placeholder="e.g. Ital Vegan Kitchen"
                             />
                         </div>
@@ -584,11 +584,11 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <input
                                 value={formData.location}
                                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-bold"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-bold"
                                 placeholder="e.g. Charlestown, Nevis"
                             />
                         </div>
-                        <div className="space-y-2 p-6 bg-surface-secondary rounded-3xl border-2 border-[#818cf8]/20 shadow-sm transition-all hover:bg-surface-elevated hover:border-indigo-300">
+                        <div className="space-y-2 p-6 bg-surface-secondary rounded-3xl border-2 border-[#14b8a6]/20 shadow-sm transition-all hover:bg-surface-elevated hover:border-teal-300">
                             <div className="flex items-center gap-2 mb-1">
                                 <span className="text-lg">🔗</span>
                                 <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Store Slug (Custom URL)</label>
@@ -597,7 +597,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 <input
                                     value={formData.slug}
                                     onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') })}
-                                    className="w-full px-6 py-4 bg-surface-elevated rounded-2xl border-2 border-border-primary focus:border-[#818cf8] transition-all font-bold pr-32"
+                                    className="w-full px-6 py-4 bg-surface-elevated rounded-2xl border-2 border-border-primary focus:border-[#14b8a6] transition-all font-bold pr-32"
                                     placeholder="your-store-name"
                                 />
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-ink-tertiary uppercase">
@@ -613,7 +613,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             <textarea
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] transition-all font-medium h-24 resize-none"
+                                className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] transition-all font-medium h-24 resize-none"
                                 placeholder="A brief description of your store's mission..."
                             />
                         </div>
@@ -626,7 +626,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Promotional Video</label>
-                            <div className="p-6 rounded-4xl border-2 border-dashed border-border-primary flex flex-col items-center gap-4 bg-surface-secondary/50 group hover:border-indigo-300 transition-all">
+                            <div className="p-6 rounded-4xl border-2 border-dashed border-border-primary flex flex-col items-center gap-4 bg-surface-secondary/50 group hover:border-teal-300 transition-all">
                                 {formData.promo_video_url ? (
                                     <div className="w-full aspect-video rounded-xl bg-black overflow-hidden relative">
                                         <video src={getImageUrl(formData.promo_video_url)} className="w-full h-full object-cover" />

@@ -103,7 +103,7 @@ export default function AdminDispatch() {
                 <div className="flex gap-2 p-1 bg-surface-secondary rounded-2xl">
                     <button
                         onClick={() => setActiveTab('dispatch')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'dispatch' ? 'bg-surface-elevated text-[#818cf8] shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
+                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'dispatch' ? 'bg-surface-elevated text-[#14b8a6] shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         Live Dispatch
                     </button>
@@ -135,7 +135,7 @@ export default function AdminDispatch() {
                         <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
                                 <h4 className="font-black text-ink-primary uppercase text-xs tracking-widest">Live Mission Feed</h4>
-                                <span className="px-2 py-1 bg-[#818cf8]/15 text-[#818cf8] rounded-lg text-[10px] font-black">{jobs.length} Active</span>
+                                <span className="px-2 py-1 bg-[#14b8a6]/15 text-[#14b8a6] rounded-lg text-[10px] font-black">{jobs.length} Active</span>
                             </div>
 
                             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
@@ -143,7 +143,7 @@ export default function AdminDispatch() {
                                     <button
                                         key={f}
                                         onClick={() => setSelectedFilter(f)}
-                                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedFilter === f ? 'bg-[#818cf8] text-white shadow-lg' : 'bg-surface-primary dark:bg-ocean-900 text-ink-tertiary'}`}
+                                        className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedFilter === f ? 'bg-[#14b8a6] text-white shadow-lg' : 'bg-surface-primary dark:bg-ocean-900 text-ink-tertiary'}`}
                                     >
                                         {f}
                                     </button>
@@ -152,9 +152,9 @@ export default function AdminDispatch() {
 
                             <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                                 {filteredJobs.map(job => (
-                                    <div key={job.id} className="p-4 bg-surface-primary dark:bg-ocean-900 rounded-2xl border border-border-primary group hover:border-[#818cf8]/20 hover:bg-surface-elevated transition-all">
+                                    <div key={job.id} className="p-4 bg-surface-primary dark:bg-ocean-900 rounded-2xl border border-border-primary group hover:border-[#14b8a6]/20 hover:bg-surface-elevated transition-all">
                                         <div className="flex justify-between items-start mb-2">
-                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-[#818cf8]/15 text-[#6366f1]'}`}>
+                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-[#14b8a6]/15 text-[#14b8a6]'}`}>
                                                 {job.transport_status}
                                             </span>
                                             <span className="text-[10px] font-black text-ink-tertiary">#{job.id}</span>
@@ -171,7 +171,7 @@ export default function AdminDispatch() {
                                                 <button onClick={() => fetchData()} className="p-2 bg-surface-elevated rounded-lg border border-border-primary shadow-sm hover:scale-110 duration-200">📍</button>
                                                 <button
                                                     onClick={() => setSelectedJobForAssign(job)}
-                                                    className="p-2 bg-[#818cf8] text-white rounded-lg shadow-sm font-black text-[8px] uppercase tracking-widest"
+                                                    className="p-2 bg-[#14b8a6] text-white rounded-lg shadow-sm font-black text-[8px] uppercase tracking-widest"
                                                 >
                                                     Assign
                                                 </button>
@@ -206,7 +206,7 @@ export default function AdminDispatch() {
                                     <span className="text-[10px] font-black uppercase text-ink-secondary">Pending Job</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-3 h-3 bg-[#818cf8]/100 rounded-full" />
+                                    <div className="w-3 h-3 bg-[#14b8a6]/100 rounded-full" />
                                     <span className="text-[10px] font-black uppercase text-ink-secondary">Active Job</span>
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -321,7 +321,7 @@ export default function AdminDispatch() {
                                                     <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
                                                         trip.status === 'completed' ? 'bg-accent-500/15 text-accent-500' :
                                                         trip.status === 'cancelled' ? 'bg-[#e11d48]/10 text-[#be123c]' :
-                                                        trip.status === 'in_transit' ? 'bg-[#818cf8]/15 text-[#6366f1]' :
+                                                        trip.status === 'in_transit' ? 'bg-[#14b8a6]/15 text-[#14b8a6]' :
                                                         'bg-sand-500/10 text-sand-500'
                                                     }`}>
                                                         {trip.status}

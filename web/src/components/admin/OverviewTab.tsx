@@ -61,7 +61,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 ],
                 borderColor: [
                     '#0d9488',
-                    '#6366f1',
+                    '#14b8a6',
                     '#f59e0b',
                     '#ef4444',
                 ],
@@ -247,15 +247,15 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                     <Link href="/become-vendor" className="px-4 py-2 bg-ink-primary text-white rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-accent-500 transition-all">Start</Link>
                 </div>
-                <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-[#818cf8] transition-all">
+                <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-[#14b8a6] transition-all">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#818cf8]/10 text-[#818cf8] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📦</div>
+                        <div className="w-12 h-12 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📦</div>
                         <div>
                             <h4 className="font-black text-ink-primary uppercase tracking-widest text-[10px]">Add Listing</h4>
                             <p className="text-[9px] text-ink-tertiary font-medium tracking-tight">Post item or service</p>
                         </div>
                     </div>
-                    <Link href="/create" className="px-4 py-2 bg-ink-primary text-white rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-[#818cf8] transition-all">Add</Link>
+                    <Link href="/create" className="px-4 py-2 bg-ink-primary text-white rounded-xl font-black uppercase tracking-widest text-[9px] hover:bg-[#14b8a6] transition-all">Add</Link>
                 </div>
                 <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-[#e11d48] transition-all">
                     <div className="flex items-center gap-4">
@@ -318,10 +318,10 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest">Memory Context Usage</span>
-                                <span className="text-xs font-black text-[#818cf8]">12.4 KB / 100 KB</span>
+                                <span className="text-xs font-black text-[#14b8a6]">12.4 KB / 100 KB</span>
                             </div>
                             <div className="h-2 w-full bg-surface-secondary rounded-full overflow-hidden">
-                                <div className="h-full bg-[#818cf8]/100 w-[12%]" />
+                                <div className="h-full bg-[#14b8a6]/100 w-[12%]" />
                             </div>
                         </div>
                     </div>
@@ -336,12 +336,12 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     className="bg-surface-elevated p-4 rounded-2xl shadow-lg shadow-black/10/50 border border-border-primary group hover:border-teal-500 hover:-translate-y-1 transition-all text-left w-full"
                 >
                     <div className="flex justify-between items-start mb-2">
-                        <div className="p-2 rounded-xl bg-[#818cf8]/10 text-[#818cf8] group-hover:bg-accent-500/100 group-hover:text-white transition-all">
+                        <div className="p-2 rounded-xl bg-[#14b8a6]/10 text-[#14b8a6] group-hover:bg-accent-500/100 group-hover:text-white transition-all">
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
                         </div>
-                        <span className="text-[8px] font-black bg-[#818cf8]/15 text-[#6366f1] px-1.5 py-0.5 rounded-full uppercase tracking-tighter">Directory</span>
+                        <span className="text-[8px] font-black bg-[#14b8a6]/15 text-[#14b8a6] px-1.5 py-0.5 rounded-full uppercase tracking-tighter">Directory</span>
                     </div>
                     <div className="text-2xl font-black text-ink-primary mb-0.5">{users.total.toLocaleString()}</div>
                     <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest leading-none">Total Users</div>
@@ -521,7 +521,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     {activity.length > 0 ? (isLogExpanded ? activity : activity.slice(0, 5)).map((act: any) => (
                         <div key={act.id} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-surface-secondary/50 transition-all border border-border-primary group">
                             <div className={`w-2 h-2 rounded-full ${act.action.includes('create') ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]' :
-                                act.action.includes('delete') ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]' : 'bg-[#818cf8]/100 shadow-[0_0_8px_rgba(99,102,241,0.5)]'
+                                act.action.includes('delete') ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]' : 'bg-[#14b8a6]/100 shadow-[0_0_8px_rgba(99,102,241,0.5)]'
                                 }`}></div>
                             <div className="flex-1">
                                 <p className="text-sm font-bold text-ink-primary group-hover:text-accent-400 transition-colors uppercase tracking-tight">
@@ -546,7 +546,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
             <div className="mt-12 space-y-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-6">
-                        <div className="bg-[#818cf8] p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
+                        <div className="bg-[#14b8a6] p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 transition-transform group-hover:rotate-45 duration-700">
                                 <svg className="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>
                             </div>
@@ -566,14 +566,14 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                         <button
                                             onClick={handleLaunchBroadcast}
                                             disabled={isLaunching || !newMarquee}
-                                            className="px-5 py-2.5 bg-surface-elevated text-[#818cf8] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#818cf8]/10 transition-all shadow-xl disabled:opacity-50 flex-1 sm:flex-none whitespace-nowrap"
+                                            className="px-5 py-2.5 bg-surface-elevated text-[#14b8a6] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#14b8a6]/10 transition-all shadow-xl disabled:opacity-50 flex-1 sm:flex-none whitespace-nowrap"
                                         >
                                             {isLaunching ? 'Launching...' : 'Launch Now 🚀'}
                                         </button>
                                         <button
                                             onClick={handleSaveTemplate}
                                             disabled={!newMarquee}
-                                            className="px-5 py-2.5 bg-[#818cf8]/100/50 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#818cf8]/100 transition-all border border-white/20 disabled:opacity-50 flex-1 sm:flex-none whitespace-nowrap"
+                                            className="px-5 py-2.5 bg-[#14b8a6]/100/50 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#14b8a6]/100 transition-all border border-white/20 disabled:opacity-50 flex-1 sm:flex-none whitespace-nowrap"
                                         >
                                             Save Template
                                         </button>

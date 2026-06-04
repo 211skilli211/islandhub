@@ -163,7 +163,7 @@ export default function OverviewPage() {
         <StatCard label="Total Revenue" value="$18,420" change="+12.5% vs last" trend="up" color="bg-ocean-500/10 text-ocean-600 dark:text-ocean-400" icon={<DollarSign size={20} />} />
         <StatCard label="Total Orders" value="1,284" change="+8.2% vs last" trend="up" color="bg-sunset-500/10 text-sunset-600 dark:text-sunset-400" icon={<ShoppingCart size={20} />} />
         <StatCard label="Active Stores" value="12" change="+2 new this week" trend="up" color="bg-sand-500/50/10 text-sand-500 dark:text-sand-400" icon={<Store size={20} />} />
-        <StatCard label="Active Users" value="892" change="+3.1% vs last" trend="up" color="bg-purple-500/10 text-purple-600 dark:text-purple-400" icon={<Users size={20} />} />
+        <StatCard label="Active Users" value="892" change="+3.1% vs last" trend="up" color="bg-teal-500/10 text-teal-600 dark:text-teal-400" icon={<Users size={20} />} />
       </div>
 
       {/* Main Grid: Charts + Quick Actions */}
@@ -222,7 +222,7 @@ export default function OverviewPage() {
             </a>
             <a href="/admin/notifications" className="flex items-center justify-between p-3 rounded-xl bg-surface-primary dark:bg-ocean-700/30 hover:bg-ocean-50 dark:hover:bg-ocean-700/50 transition-colors group">
               <div className="flex items-center gap-2">
-                <Megaphone size={14} className="text-purple-500" />
+                <Megaphone size={14} className="text-teal-500" />
                 <span className="text-xs font-medium text-ink-secondary dark:text-ink-tertiary">Push Broadcast</span>
               </div>
               <span className="text-[10px] text-ink-tertiary dark:text-ink-tertiary font-medium">Send</span>
@@ -368,7 +368,7 @@ export default function OverviewPage() {
               const colors: Record<string, string> = {
                 order: 'bg-ocean-500/10 text-ocean-600 dark:text-ocean-400',
                 store: 'bg-emerald-500/100/10 text-emerald-400 dark:text-emerald-400',
-                user: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+                user: 'bg-teal-500/10 text-teal-600 dark:text-teal-400',
                 payout: 'bg-sand-500/50/10 text-sand-500 dark:text-sand-400',
                 delivery: 'bg-accent-500/10 text-accent-600 dark:text-accent-400',
                 report: 'bg-red-500/10 text-red-600 dark:text-red-400',

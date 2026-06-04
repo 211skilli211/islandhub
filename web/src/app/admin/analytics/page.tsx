@@ -243,7 +243,7 @@ export default function AdminAnalyticsDashboard() {
               <p className="text-sm font-bold opacity-80 uppercase tracking-wider">Total Users</p>
               <p className="text-4xl font-bold mt-2">{userStats.total_users.toLocaleString()}</p>
             </div>
-            <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-2xl text-white">
+            <div className="bg-gradient-to-br from-teal-500 to-teal-600 p-6 rounded-2xl text-white">
               <p className="text-sm font-bold opacity-80 uppercase tracking-wider">New Users</p>
               <p className="text-4xl font-bold mt-2">+{userStats.new_users}</p>
               <p className="text-sm opacity-70 mt-1">Last {timeRange} days</p>
@@ -252,7 +252,7 @@ export default function AdminAnalyticsDashboard() {
               <p className="text-sm font-bold opacity-80 uppercase tracking-wider">Active Users</p>
               <p className="text-4xl font-bold mt-2">{userStats.active_users.toLocaleString()}</p>
             </div>
-            <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-2xl text-white">
+            <div className="bg-gradient-to-br from-teal-500 to-teal-600 p-6 rounded-2xl text-white">
               <p className="text-sm font-bold opacity-80 uppercase tracking-wider">Active Buyers</p>
               <p className="text-4xl font-bold mt-2">{userStats.active_buyers}</p>
               <p className="text-sm opacity-70 mt-1">Made purchases</p>

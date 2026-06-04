@@ -37,7 +37,7 @@ export default function QRVerifyPage() {
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center p-4">
       <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-8 max-w-md w-full border border-border-primary dark:border-ocean-700">
         <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-teal-100 dark:bg-teal-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">🎫</span>
           </div>
           <h1 className="text-2xl font-black text-ink-primary dark:text-sand-50">Verify Ticket</h1>
@@ -50,12 +50,12 @@ export default function QRVerifyPage() {
             placeholder="Paste QR token..."
             value={token}
             onChange={e => setToken(e.target.value)}
-            className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 font-mono dark:text-sand-50"
+            className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 font-mono dark:text-sand-50"
           />
           <button
             onClick={handleVerify}
             disabled={verifying || !token.trim()}
-            className="w-full py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors disabled:opacity-50"
+            className="w-full py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors disabled:opacity-50"
           >
             {verifying ? 'Verifying...' : 'Verify Ticket'}
           </button>

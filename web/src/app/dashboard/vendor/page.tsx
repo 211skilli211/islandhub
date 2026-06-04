@@ -41,7 +41,7 @@ function StatusBadge({ status }: { status: string }) {
     low_stock: 'bg-sand-500/50/10 text-sand-500 dark:text-sand-400',
     pending: 'bg-sand-500/50/10 text-sand-500 dark:text-sand-400',
     processing: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
-    shipped: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    shipped: 'bg-teal-500/10 text-teal-600 dark:text-teal-400',
     delivered: 'bg-emerald-500/100/10 text-emerald-400 dark:text-emerald-400',
     cancelled: 'bg-red-500/10 text-red-600 dark:text-red-400',
   };
@@ -304,7 +304,7 @@ export default function VendorDashboard() {
                 {[
                   { source: 'Direct', pct: 42, color: 'bg-ocean-500' },
                   { source: 'Search', pct: 28, color: 'bg-sunset-500' },
-                  { source: 'Social', pct: 18, color: 'bg-purple-500' },
+                  { source: 'Social', pct: 18, color: 'bg-teal-500' },
                   { source: 'Referral', pct: 12, color: 'bg-sand-500/50' },
                 ].map(item => (
                   <div key={item.source}>

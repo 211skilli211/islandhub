@@ -47,7 +47,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
             icon: '📦',
             label: 'Track Order',
             href: '/dashboard/orders',
-            color: 'bg-[#818cf8]/100 hover:bg-[#818cf8]',
+            color: 'bg-[#14b8a6]/100 hover:bg-[#14b8a6]',
         },
         {
             icon: '🌴',
@@ -68,7 +68,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
             icon: '🏪',
             label: 'Vendors',
             href: '/vendors',
-            color: 'bg-purple-500 hover:bg-purple-600',
+            color: 'bg-teal-500 hover:bg-teal-600',
         },
         {
             icon: '❓',
@@ -150,7 +150,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-14 h-14 bg-gradient-to-br from-teal-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-border-primary relative z-50"
+                    className="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-border-primary relative z-50"
                 >
                     <motion.div
                         animate={{ rotate: isOpen ? 45 : 0 }}

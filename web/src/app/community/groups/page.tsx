@@ -123,7 +123,7 @@ export default function GroupsPage() {
                             <motion.div key={group.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all group h-full flex flex-col">
                                     {/* Cover */}
-                                    <div className="h-32 bg-gradient-to-br from-teal-400 via-indigo-400 to-violet-500 relative overflow-hidden">
+                                    <div className="h-32 bg-gradient-to-br from-teal-400 via-cyan-400 to-teal-500 relative overflow-hidden">
                                         {group.cover_image_url ? (
                                             <img src={group.cover_image_url} alt="" className="w-full h-full object-cover" />
                                         ) : (

@@ -154,7 +154,7 @@ export default function DriverDashboard() {
                         </div>
                         <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
                             <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">Completed</p>
-                            <p className="text-2xl font-black text-purple-400">{completedJobs.length}</p>
+                            <p className="text-2xl font-black text-teal-400">{completedJobs.length}</p>
                         </div>
                     </div>
 
@@ -271,8 +271,8 @@ export default function DriverDashboard() {
                                             onClick={() => handleUpdateStatus(job.id, 'in_progress')}
                                             disabled={job.transport_status === 'in_progress'}
                                             className={`py-3 rounded-xl font-black uppercase text-xs tracking-widest border-2 transition-all ${job.transport_status === 'in_progress'
-                                                ? 'bg-[#818cf8] text-white border-[#818cf8]'
-                                                : 'bg-surface-elevated text-[#818cf8] border-[#818cf8]/20 hover:bg-[#818cf8]/10'
+                                                ? 'bg-[#14b8a6] text-white border-[#14b8a6]'
+                                                : 'bg-surface-elevated text-[#14b8a6] border-[#14b8a6]/20 hover:bg-[#14b8a6]/10'
                                                 }`}>
                                             🚗 Start / En Route
                                         </button>
@@ -323,11 +323,11 @@ export default function DriverDashboard() {
                                 </div>
                                 <div className="flex justify-between items-center p-4 bg-surface-primary rounded-2xl">
                                     <span className="font-bold text-ink-secondary">Total Lifetime</span>
-                                    <span className="text-2xl font-black text-[#818cf8]">${earnings.total.toFixed(2)}</span>
+                                    <span className="text-2xl font-black text-[#14b8a6]">${earnings.total.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-4 bg-surface-primary rounded-2xl">
                                     <span className="font-bold text-ink-secondary">Average per Job</span>
-                                    <span className="text-2xl font-black text-purple-600">
+                                    <span className="text-2xl font-black text-teal-600">
                                         ${completedJobs.length > 0 ? (earnings.total / completedJobs.length).toFixed(2) : '0.00'}
                                     </span>
                                 </div>
@@ -404,7 +404,7 @@ export default function DriverDashboard() {
                         </div>
 
                         {/* Vehicle Stats Card */}
-                        <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 p-8 rounded-3xl text-white shadow-2xl overflow-hidden relative">
+                        <div className="bg-gradient-to-br from-teal-700 to-teal-900 p-8 rounded-3xl text-white shadow-2xl overflow-hidden relative">
                             <div className="relative z-10">
                                 <h3 className="text-2xl font-black mb-2">Fleet Performance</h3>
                                 <p className="text-[#a5b4fc] mb-6">Your current vehicle efficiency and stats</p>

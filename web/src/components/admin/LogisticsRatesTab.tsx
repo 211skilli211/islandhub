@@ -99,17 +99,17 @@ export default function LogisticsRatesTab() {
                                     </div>
                                     <div className="flex justify-between items-center text-xs">
                                         <span className="font-bold text-ink-tertiary0">Extra Pax Fee</span>
-                                        <span className="font-black text-[#818cf8]">${rule.extra_passenger_fee}</span>
+                                        <span className="font-black text-[#14b8a6]">${rule.extra_passenger_fee}</span>
                                     </div>
                                 </div>
 
-                                <div className="mt-4 p-4 bg-[#818cf8]/10/50 rounded-2xl border border-[#818cf8]/20/50">
-                                    <p className="text-[9px] font-black text-[#818cf8] uppercase tracking-widest mb-2">Item Multipliers</p>
+                                <div className="mt-4 p-4 bg-[#14b8a6]/10/50 rounded-2xl border border-[#14b8a6]/20/50">
+                                    <p className="text-[9px] font-black text-[#14b8a6] uppercase tracking-widest mb-2">Item Multipliers</p>
                                     <div className="grid grid-cols-2 gap-2">
                                         {rule.item_size_multipliers && Object.entries(rule.item_size_multipliers).map(([size, mult]: any) => (
                                             <div key={size} className="flex justify-between items-center text-[10px]">
                                                 <span className="font-bold text-ink-secondary">{size.replace('_', ' ')}:</span>
-                                                <span className="font-black text-[#6366f1]">x{mult}</span>
+                                                <span className="font-black text-[#14b8a6]">x{mult}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -184,7 +184,7 @@ export default function LogisticsRatesTab() {
                                                 type="number"
                                                 value={editingRule.minimum_fare}
                                                 onChange={(e) => setEditingRule({ ...editingRule, minimum_fare: e.target.value })}
-                                                className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8] transition-all"
+                                                className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#14b8a6] transition-all"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -194,7 +194,7 @@ export default function LogisticsRatesTab() {
                                                 type="number"
                                                 value={editingRule.surge_multiplier}
                                                 onChange={(e) => setEditingRule({ ...editingRule, surge_multiplier: e.target.value })}
-                                                className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8] transition-all"
+                                                className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#14b8a6] transition-all"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -204,7 +204,7 @@ export default function LogisticsRatesTab() {
                                                 type="number"
                                                 value={editingRule.extra_passenger_fee}
                                                 onChange={(e) => setEditingRule({ ...editingRule, extra_passenger_fee: e.target.value })}
-                                                className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#818cf8] transition-all"
+                                                className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl py-3 px-4 font-bold text-ink-primary outline-none focus:border-[#14b8a6] transition-all"
                                             />
                                         </div>
                                     </div>
@@ -223,7 +223,7 @@ export default function LogisticsRatesTab() {
                                                             const newMults = { ...editingRule.item_size_multipliers, [size]: parseFloat(e.target.value) };
                                                             setEditingRule({ ...editingRule, item_size_multipliers: newMults });
                                                         }}
-                                                        className="w-20 bg-surface-elevated border border-border-primary rounded-xl py-2 px-3 text-right font-black text-[#818cf8] focus:border-[#818cf8]"
+                                                        className="w-20 bg-surface-elevated border border-border-primary rounded-xl py-2 px-3 text-right font-black text-[#14b8a6] focus:border-[#14b8a6]"
                                                     />
                                                 </div>
                                             ))}

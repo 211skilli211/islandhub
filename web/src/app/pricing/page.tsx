@@ -12,9 +12,11 @@ const VENDOR_TIERS = [
         commission: '5%',
         listings: '10',
         stores: '1',
+        sensoryTagline: 'Just getting started? Dip your toes in.',
+        sensoryDesc: 'Perfect for side-hustlers testing the waters with a handful of products.',
         features: ['Standard Storefront', 'Local Discovery', 'Community Reviews'],
         color: 'slate',
-        buttonText: 'Start for Free*',
+        buttonText: 'Start — $29/mo',
         link: '/become-vendor'
     },
     {
@@ -24,10 +26,12 @@ const VENDOR_TIERS = [
         commission: '3%',
         listings: '50',
         stores: '3',
+        sensoryTagline: 'Ready to ride the wave?',
+        sensoryDesc: 'For growing businesses hungry for branding, analytics, and serious reach.',
         features: ['Custom Branding', 'Advanced Analytics', 'Priority Support', 'Featured Search Results'],
         color: 'teal',
         recommended: true,
-        buttonText: 'Go Premium',
+        buttonText: 'Start — $99/mo',
         link: '/become-vendor?tier=premium'
     },
     {
@@ -37,9 +41,11 @@ const VENDOR_TIERS = [
         commission: '2%',
         listings: 'Unlimited',
         stores: 'Unlimited',
+        sensoryTagline: 'Built for island-scale empires.',
+        sensoryDesc: 'Unlimited everything. Full API access. A dedicated team in your corner.',
         features: ['Dedicated Account Manager', 'API Access', 'Automated Payouts', 'Verified Badge'],
         color: 'indigo',
-        buttonText: 'Scale Up',
+        buttonText: 'Start — $299/mo',
         link: '/become-vendor?tier=enterprise'
     }
 ];
@@ -50,18 +56,23 @@ const CUSTOMER_TIERS = [
         price: '0',
         discount: '0%',
         multiplier: '1x',
+        sensoryTagline: 'Browse freely. No strings attached.',
         features: ['Full Marketplace Access', 'Standard Rewards'],
-        color: 'slate'
+        color: 'slate',
+        buttonText: 'Start — Free',
+        link: '/register'
     },
     {
         name: 'Island VIP',
         price: '15',
         discount: '10%',
         multiplier: '2x',
+        sensoryTagline: 'Feel the VIP breeze.',
+        sensoryDesc: 'Unlock exclusive deals, faster rewards, and the inside track on island drops.',
         features: ['10% OFF Every Order', 'Double Reward Points', 'Early Access to Deals', 'VIP Support'],
         color: 'amber',
         recommended: true,
-        buttonText: 'Join VIP',
+        buttonText: 'Start — $15/mo',
         link: '/login?redirect=/pricing'
     }
 ];
@@ -72,25 +83,33 @@ const CREATOR_TIERS = [
         price: '0',
         fee: '5%',
         limit: '3',
+        sensoryTagline: 'Spark a cause. Share your story.',
         features: ['Public Campaigns', 'Standard Reporting'],
-        color: 'slate'
+        color: 'slate',
+        buttonText: 'Start — Free',
+        link: '/register'
     },
     {
         name: 'Organization',
         price: '49',
         fee: '3%',
         limit: '10',
+        sensoryTagline: 'Amplify your impact.',
+        sensoryDesc: 'Team tools, promoted campaigns, and analytics that move the needle.',
         features: ['Advanced Analytics', 'Team Access', 'Promoted Campaigns'],
-        color: 'teal'
+        color: 'teal',
+        buttonText: 'Start — $49/mo',
+        link: '/register'
     },
     {
         name: 'Nonprofit',
         price: 'Custom',
         fee: '0%',
         limit: 'Unlimited',
+        sensoryTagline: 'Zero fees. Maximum impact.',
         features: ['Zero Platform Fees', 'Verification Badge', 'Community Spotlight'],
         color: 'emerald',
-        buttonText: 'Verify Status',
+        buttonText: 'Verify Status — $0',
         link: '/contact'
     }
 ];
@@ -113,7 +132,7 @@ export default function PricingPage() {
                         Choose Your <span className="text-accent-400">Island Tier</span>
                     </motion.h1>
                     <p className="text-accent-50/70 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-                        Whether you're selling local artisans, shopping for the best deals, or raising funds for a cause, we have a plan to empower your journey.
+                        Whether you're selling handcrafted treasures, hunting for the best island deals, or rallying support for a cause — the right plan is waiting for you.
                     </p>
                 </div>
             </section>
@@ -155,15 +174,21 @@ export default function PricingPage() {
                                 <div className="absolute top-0 right-0 bg-accent-500/100 px-8 py-3 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-bl-3xl">Best Value</div>
                             )}
 
-                            <h3 className="text-2xl font-black text-ink-primary mb-2">{tier.name}</h3>
-                            <div className="flex items-baseline gap-2 mb-8">
-                                <span className={`text-5xl font-black ${tier.color === 'amber' ? 'text-sand-500' : tier.color === 'indigo' ? 'text-[#818cf8]' : 'text-accent-400'}`}>
+                            <h3 className="text-2xl font-black text-ink-primary mb-1">{tier.name}</h3>
+                            {tier.sensoryTagline && (
+                                <p className="text-xs font-bold uppercase tracking-widest text-accent-400 mb-4">{tier.sensoryTagline}</p>
+                            )}
+                            <div className="flex items-baseline gap-2 mb-2">
+                                <span className={`text-5xl font-black ${tier.color === 'amber' ? 'text-sand-500' : tier.color === 'indigo' ? 'text-[#14b8a6]' : 'text-accent-400'}`}>
                                     {tier.price !== 'Custom' ? `$${tier.price}` : tier.price}
                                 </span>
                                 {tier.price !== 'Custom' && tier.price !== '0' && (
                                     <span className="text-ink-tertiary text-sm font-bold"> /mo</span>
                                 )}
                             </div>
+                            {tier.sensoryDesc && (
+                                <p className="text-sm text-ink-tertiary font-medium italic mb-6">{tier.sensoryDesc}</p>
+                            )}
 
                             <div className="space-y-6 mb-12 flex-1">
                                 {activeRole === 'vendor' && (
@@ -221,7 +246,7 @@ export default function PricingPage() {
                                 <th className="p-8 font-black text-xs uppercase tracking-widest text-ink-tertiary">Feature</th>
                                 <th className="p-8 font-black text-sm text-ink-primary text-center">Basic</th>
                                 <th className="p-8 font-black text-sm text-accent-400 text-center">Premium</th>
-                                <th className="p-8 font-black text-sm text-[#818cf8] text-center">Enterprise</th>
+                                <th className="p-8 font-black text-sm text-[#14b8a6] text-center">Enterprise</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -237,7 +262,7 @@ export default function PricingPage() {
                                     <td className="p-8 font-bold text-ink-secondary">{row.name}</td>
                                     <td className="p-8 text-center text-ink-tertiary font-medium">{row.basic}</td>
                                     <td className="p-8 text-center text-accent-500 font-bold">{row.premium}</td>
-                                    <td className="p-8 text-center text-[#6366f1] font-black">{row.enterprise}</td>
+                                    <td className="p-8 text-center text-[#14b8a6] font-black">{row.enterprise}</td>
                                 </tr>
                             ))}
                         </tbody>

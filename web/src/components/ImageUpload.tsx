@@ -103,7 +103,7 @@ export default function ImageUpload({
 
             <div
                 onClick={() => fileInputRef.current?.click()}
-                className={`relative border-2 border-dashed border-border-primary transition-all cursor-pointer overflow-hidden flex items-center justify-center bg-surface-secondary/50 hover:bg-surface-secondary hover:border-indigo-400 group ${containerClasses}`}
+                className={`relative border-2 border-dashed border-border-primary transition-all cursor-pointer overflow-hidden flex items-center justify-center bg-surface-secondary/50 hover:bg-surface-secondary hover:border-teal-400 group ${containerClasses}`}
             >
                 {preview ? (
                     <>
@@ -112,7 +112,7 @@ export default function ImageUpload({
                             alt="Preview"
                             className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-indigo-900/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                        <div className="absolute inset-0 bg-teal-900/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
                             <span className="text-white text-[10px] font-black uppercase tracking-widest">Update Photo</span>
                         </div>
                     </>
@@ -125,7 +125,7 @@ export default function ImageUpload({
 
                 {uploading && (
                     <div className="absolute inset-0 bg-surface-elevated/90 flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#818cf8]"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#14b8a6]"></div>
                     </div>
                 )}
             </div>

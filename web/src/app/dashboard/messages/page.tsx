@@ -15,7 +15,7 @@ const ChatWindow = dynamicImport(
     {
         loading: () => (
             <div className="h-full flex flex-col items-center justify-center bg-surface-primary">
-                <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-[#14b8a6] border-t-transparent rounded-full mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading Chat...</p>
             </div>
         ),
@@ -97,7 +97,7 @@ function MessageCenterPage() {
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-surface-primary">
             <div className="text-center">
-                <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mx-auto mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-[#14b8a6] border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Opening Secure Channel...</p>
             </div>
         </div>
@@ -107,7 +107,7 @@ function MessageCenterPage() {
         <main className="h-screen bg-surface-primary flex flex-col">
 
             <div className="flex-1 max-w-7xl mx-auto w-full px-4 overflow-hidden py-8">
-                <div className="bg-surface-elevated h-full rounded-[3rem] shadow-2xl shadow-indigo-100/20 flex border border-border-primary overflow-hidden">
+                <div className="bg-surface-elevated h-full rounded-[3rem] shadow-2xl shadow-teal-100/20 flex border border-border-primary overflow-hidden">
 
                     {/* Inbox Sidebar */}
                     <div className="w-80 border-r border-border-primary flex flex-col bg-surface-elevated">
@@ -183,10 +183,10 @@ function MessageCenterPage() {
                                     {initialOtherUserId && !conversations.find(c => c.other_user_id === parseInt(initialOtherUserId)) && (
                                         <button
                                             onClick={() => setSelectedUser({ other_user_id: parseInt(initialOtherUserId), other_user_name: initialOtherUserName })}
-                                            className={`w-full p-8 text-left transition-all ${selectedUser?.other_user_id === parseInt(initialOtherUserId) ? 'bg-[#818cf8]/10/50 border-r-4 border-[#818cf8]' : ''}`}
+                                            className={`w-full p-8 text-left transition-all ${selectedUser?.other_user_id === parseInt(initialOtherUserId) ? 'bg-[#14b8a6]/10/50 border-r-4 border-[#14b8a6]' : ''}`}
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 bg-[#818cf8] rounded-2xl flex items-center justify-center text-white font-black">
+                                                <div className="w-12 h-12 bg-[#14b8a6] rounded-2xl flex items-center justify-center text-white font-black">
                                                     {initialOtherUserName?.charAt(0)}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
@@ -273,7 +273,7 @@ export default function MessagesPage() {
         <Suspense
             fallback={
                 <div className="h-full flex flex-col items-center justify-center bg-surface-primary">
-                    <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mb-4"></div>
+                    <div className="animate-spin h-12 w-12 border-4 border-[#14b8a6] border-t-transparent rounded-full mb-4"></div>
                     <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading Messages...</p>
                 </div>
             }

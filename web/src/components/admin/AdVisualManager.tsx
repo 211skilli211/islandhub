@@ -282,11 +282,11 @@ export default function AdVisualManager() {
                                     <div
                                         key={section.id}
                                         onClick={() => setSelectedSection(section)}
-                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group cursor-pointer ${selectedSection?.id === section.id ? 'border-[#818cf8] bg-[#818cf8]/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
+                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group cursor-pointer ${selectedSection?.id === section.id ? 'border-[#14b8a6] bg-[#14b8a6]/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
                                     >
                                         <div className="flex-1">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${section.section_type === 'homepage' ? 'bg-orange-100 text-orange-600' : 'bg-[#818cf8]/15 text-[#818cf8]'}`}>
+                                                <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${section.section_type === 'homepage' ? 'bg-orange-100 text-orange-600' : 'bg-[#14b8a6]/15 text-[#14b8a6]'}`}>
                                                     {section.section_type === 'homepage' ? 'Homepage' : 'Store'}
                                                 </span>
                                                 <span className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">/{section.name}</span>
@@ -576,7 +576,7 @@ export default function AdVisualManager() {
                                 </div>
                                 <button
                                     onClick={handleSaveSection}
-                                    className="w-full py-5 bg-[#818cf8] text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-[#818cf8]/100 shadow-xl shadow-indigo-900/10 transition-all flex items-center justify-center gap-3"
+                                    className="w-full py-5 bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-[#14b8a6]/100 shadow-xl shadow-teal-900/10 transition-all flex items-center justify-center gap-3"
                                 >
                                     <Save size={16} /> Deploy Site Section
                                 </button>
@@ -691,7 +691,7 @@ export default function AdVisualManager() {
                                     <div className="relative z-10 max-w-2xl">
                                         <h2 className="text-6xl font-black mb-6 leading-tight uppercase italic">{selectedSection.title}</h2>
                                         <p className="text-lg text-ink-secondary mb-10 leading-relaxed">{selectedSection.body}</p>
-                                        <button className="px-10 py-5 bg-[#818cf8] text-white rounded-3xl font-black uppercase text-xs tracking-widest">
+                                        <button className="px-10 py-5 bg-[#14b8a6] text-white rounded-3xl font-black uppercase text-xs tracking-widest">
                                             {selectedSection.cta_text}
                                         </button>
                                     </div>

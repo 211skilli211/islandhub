@@ -42,7 +42,7 @@ export interface BannerFormData {
 
 const COLOR_THEMES = [
     { name: 'Teal', value: 'teal', from: 'from-teal-500', to: 'to-emerald-500', bg: 'bg-accent-500/100', text: 'text-accent-400', light: 'bg-accent-500/10', border: 'border-teal-500', gradient: 'from-teal-500/20 to-emerald-500/20' },
-    { name: 'Indigo', value: 'indigo', from: 'from-indigo-500', to: 'to-purple-500', bg: 'bg-[#818cf8]/100', text: 'text-[#818cf8]', light: 'bg-[#818cf8]/10', border: 'border-[#818cf8]', gradient: 'from-indigo-500/20 to-purple-500/20' },
+    { name: 'Indigo', value: 'indigo', from: 'from-teal-500', to: 'to-teal-500', bg: 'bg-[#14b8a6]/100', text: 'text-[#14b8a6]', light: 'bg-[#14b8a6]/10', border: 'border-[#14b8a6]', gradient: 'from-teal-500/20 to-teal-500/20' },
     { name: 'Rose', value: 'rose', from: 'from-rose-500', to: 'to-pink-500', bg: 'bg-[#e11d48]/50', text: 'text-[#e11d48]', light: 'bg-[#e11d48]/5', border: 'border-[#e11d48]', gradient: 'from-rose-500/20 to-pink-500/20' },
     { name: 'Amber', value: 'amber', from: 'from-amber-500', to: 'to-orange-500', bg: 'bg-sand-500/50', text: 'text-sand-500', light: 'bg-sand-500/5', border: 'border-amber-500', gradient: 'from-amber-500/20 to-orange-500/20' },
     { name: 'Emerald', value: 'emerald', from: 'from-emerald-500', to: 'to-green-500', bg: 'bg-emerald-500/100', text: 'text-emerald-400', light: 'bg-emerald-500/10', border: 'border-emerald-500', gradient: 'from-emerald-500/20 to-green-500/20' },
@@ -228,9 +228,9 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
             case 'community':
                 return {
                     badge: '👥 Community',
-                    badgeColor: 'bg-purple-500 text-white',
+                    badgeColor: 'bg-teal-500 text-white',
                     animation: '',
-                    borderStyle: 'border-2 border-purple-400',
+                    borderStyle: 'border-2 border-teal-400',
                 };
             case 'promotion':
                 return {

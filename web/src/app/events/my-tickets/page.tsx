@@ -38,10 +38,10 @@ export default function MyTicketsPage() {
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
+      <div className="bg-gradient-to-r from-teal-800 to-teal-900 text-white">
         <div className="max-w-4xl mx-auto px-4 py-10">
           <h1 className="text-3xl font-black">My Tickets</h1>
-          <p className="text-purple-200 mt-2">Your QR-powered event tickets</p>
+          <p className="text-teal-200 mt-2">Your QR-powered event tickets</p>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export default function MyTicketsPage() {
             <p className="text-6xl mb-4">🎫</p>
             <h3 className="text-2xl font-black text-ink-primary dark:text-sand-50">No tickets yet</h3>
             <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Browse events and grab your first ticket!</p>
-            <Link href="/events" className="mt-6 inline-block px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
+            <Link href="/events" className="mt-6 inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors">
               Browse Events
             </Link>
           </div>
@@ -93,7 +93,7 @@ export default function MyTicketsPage() {
                                   <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">
                                     📅 {event?.start_date ? formatDate(event.start_date) : 'TBD'} · 📍 {event?.venue || 'TBD'}
                                   </p>
-                                  <p className="text-xs text-purple-600 dark:text-purple-400 font-bold mt-2">
+                                  <p className="text-xs text-teal-600 dark:text-teal-400 font-bold mt-2">
                                     {ticket.tier?.name || 'General'} · Ticket #{ticket.ticket_id}
                                   </p>
                                 </div>
@@ -115,7 +115,7 @@ export default function MyTicketsPage() {
                                 <p className="text-sm text-ink-tertiary dark:text-ink-tertiary">Present this QR code at the venue entrance</p>
                                 <p className="text-xs text-ink-tertiary mt-2 font-mono">Token: {ticket.qr_token}</p>
                                 <div className="mt-4 flex gap-2">
-                                  <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-xs font-bold">{ticket.holder_name}</span>
+                                  <span className="px-2 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded text-xs font-bold">{ticket.holder_name}</span>
                                   <span className="px-2 py-1 bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-ink-tertiary rounded text-xs">{ticket.holder_email}</span>
                                 </div>
                               </div>

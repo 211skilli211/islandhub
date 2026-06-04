@@ -177,7 +177,7 @@ const LAYOUT_TEMPLATES = {
 
 const COLOR_OPTIONS = [
     { name: 'Teal', value: 'teal-600', class: 'bg-accent-500', hex: '#0d9488' },
-    { name: 'Indigo', value: 'indigo-600', class: 'bg-[#818cf8]', hex: '#4f46e5' },
+    { name: 'Indigo', value: 'teal-600', class: 'bg-[#14b8a6]', hex: '#4f46e5' },
     { name: 'Rose', value: 'rose-500', class: 'bg-rose-500', hex: '#f43f5e' },
     { name: 'Amber', value: 'amber-400', class: 'bg-amber-400', hex: '#fbbf24' },
     { name: 'Emerald', value: 'emerald-500', class: 'bg-emerald-500', hex: '#10b981' },
@@ -393,7 +393,7 @@ export default function VendorBrandingPage() {
     if (loading) return (
         <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center">
             <div className="text-center">
-                <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4"></div>
+                <div className="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto mb-4"></div>
                 <p className="text-ink-secondary font-bold">Loading Branding Studio...</p>
             </div>
         </div>
@@ -428,7 +428,7 @@ export default function VendorBrandingPage() {
                                 <button
                                     onClick={() => logoInputRef.current?.click()}
                                     disabled={uploading === 'logo'}
-                                    className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-border-primary hover:border-indigo-400 transition-all group-hover:shadow-lg"
+                                    className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-border-primary hover:border-teal-400 transition-all group-hover:shadow-lg"
                                 >
                                     {vendor.logo_url ? (
                                         <img
@@ -477,7 +477,7 @@ export default function VendorBrandingPage() {
                                 <button
                                     onClick={() => bannerInputRef.current?.click()}
                                     disabled={uploading === 'banner'}
-                                    className="relative w-40 h-16 rounded-xl overflow-hidden border-2 border-border-primary hover:border-indigo-400 transition-all group"
+                                    className="relative w-40 h-16 rounded-xl overflow-hidden border-2 border-border-primary hover:border-teal-400 transition-all group"
                                 >
                                     {vendor.banner_url ? (
                                         <img
@@ -507,7 +507,7 @@ export default function VendorBrandingPage() {
                     {/* Layout Selection with Visual Previews */}
                     <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-xl shadow-black/10/50 border border-border-primary">
                         <h2 className="text-xl font-black text-ink-primary mb-2 flex items-center gap-3">
-                            <span className="w-8 h-8 bg-indigo-50 text-indigo-500 rounded-lg flex items-center justify-center text-sm">🎨</span>
+                            <span className="w-8 h-8 bg-teal-50 text-teal-500 rounded-lg flex items-center justify-center text-sm">🎨</span>
                             Choose Your Store Layout
                         </h2>
                         <p className="text-ink-tertiary font-medium mb-8">Select a template that best fits your {vendor.category?.toLowerCase() || 'business'} type</p>
@@ -519,7 +519,7 @@ export default function VendorBrandingPage() {
                                     type="button"
                                     onClick={() => handleTemplateSelect(template.key)}
                                     className={`relative p-4 rounded-2xl border-2 transition-all text-left ${vendor.template_id === template.key
-                                        ? 'border-indigo-500 bg-indigo-50/50 shadow-lg shadow-indigo-200'
+                                        ? 'border-teal-500 bg-teal-50/50 shadow-lg shadow-teal-200'
                                         : 'border-border-primary hover:border-border-primary hover:bg-surface-primary dark:bg-ocean-900'
                                         }`}
                                 >
@@ -542,7 +542,7 @@ export default function VendorBrandingPage() {
                                             <p className="text-xs text-ink-tertiary font-medium mt-1">{template.description}</p>
                                         </div>
                                         {vendor.template_id === template.key && (
-                                            <span className="w-6 h-6 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xs shrink-0">✓</span>
+                                            <span className="w-6 h-6 bg-teal-500 text-white rounded-full flex items-center justify-center text-xs shrink-0">✓</span>
                                         )}
                                     </div>
 
@@ -569,7 +569,7 @@ export default function VendorBrandingPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {/* Logo Upload */}
-                            <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center hover:border-indigo-400 transition-colors">
+                            <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center hover:border-teal-400 transition-colors">
                                 <input
                                     type="file"
                                     ref={logoInputRef}
@@ -598,12 +598,12 @@ export default function VendorBrandingPage() {
                                     <h3 className="font-bold text-ink-primary mb-1">Store Logo</h3>
                                     <p className="text-sm text-ink-tertiary mb-4">PNG, JPG up to 5MB</p>
                                     {uploading === 'logo' ? (
-                                        <div className="flex items-center justify-center gap-2 text-[#818cf8]">
-                                            <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                                        <div className="flex items-center justify-center gap-2 text-[#14b8a6]">
+                                            <div className="w-5 h-5 border-2 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
                                             <span className="text-sm font-medium">Uploading...</span>
                                         </div>
                                     ) : (
-                                        <span className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-200 transition-colors">
+                                        <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-lg text-sm font-bold hover:bg-teal-200 transition-colors">
                                             {vendor.logo_url ? 'Change Logo' : 'Upload Logo'}
                                         </span>
                                     )}
@@ -611,7 +611,7 @@ export default function VendorBrandingPage() {
                             </div>
 
                             {/* Banner Upload */}
-                            <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center hover:border-indigo-400 transition-colors">
+                            <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center hover:border-teal-400 transition-colors">
                                 <input
                                     type="file"
                                     ref={bannerInputRef}
@@ -642,12 +642,12 @@ export default function VendorBrandingPage() {
                                     <h3 className="font-bold text-ink-primary mb-1">Store Banner / Hero Image</h3>
                                     <p className="text-sm text-ink-tertiary mb-4">Recommended: 1200x400px, JPG/PNG up to 10MB</p>
                                     {uploading === 'banner' ? (
-                                        <div className="flex items-center justify-center gap-2 text-[#818cf8]">
-                                            <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                                        <div className="flex items-center justify-center gap-2 text-[#14b8a6]">
+                                            <div className="w-5 h-5 border-2 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
                                             <span className="text-sm font-medium">Uploading...</span>
                                         </div>
                                     ) : (
-                                        <span className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-200 transition-colors">
+                                        <span className="inline-block px-4 py-2 bg-teal-100 text-teal-700 rounded-lg text-sm font-bold hover:bg-teal-200 transition-colors">
                                             {vendor.banner_url ? 'Change Banner' : 'Upload Banner'}
                                         </span>
                                     )}
@@ -667,7 +667,7 @@ export default function VendorBrandingPage() {
                         <button
                             type="submit"
                             disabled={saving}
-                            className="px-12 py-5 bg-[#818cf8] text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 disabled:opacity-50"
+                            className="px-12 py-5 bg-[#14b8a6] text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-teal-700 transition-all shadow-xl shadow-teal-200 disabled:opacity-50"
                         >
                             {saving ? 'Saving...' : 'Save Changes'}
                         </button>

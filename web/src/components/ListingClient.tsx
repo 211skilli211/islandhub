@@ -783,7 +783,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 {listing.type === 'service' && (
                                     <button
                                         onClick={() => setIsBookingModalOpen(true)}
-                                        className={`w-full p-4 rounded-xl border transition-all text-left ${selectedDate && selectedSlot ? 'bg-[#818cf8]/10 border-[#818cf8]/20' : 'bg-surface-secondary border-border-primary hover:border-border-primary'}`}
+                                        className={`w-full p-4 rounded-xl border transition-all text-left ${selectedDate && selectedSlot ? 'bg-[#14b8a6]/10 border-[#14b8a6]/20' : 'bg-surface-secondary border-border-primary hover:border-border-primary'}`}
                                     >
                                         {selectedDate && selectedSlot ? (
                                             <div>
@@ -831,8 +831,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 <h3 className="text-lg font-semibold text-ink-primary mb-4">Our Specialties</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {Array.isArray(listing.metadata.specialties) && listing.metadata.specialties.map((spec: any, idx: number) => (
-                                        <div key={idx} className="p-3 bg-[#818cf8]/10 rounded-xl">
-                                            <p className="font-medium text-indigo-900 text-sm">{spec.name || spec}</p>
+                                        <div key={idx} className="p-3 bg-[#14b8a6]/10 rounded-xl">
+                                            <p className="font-medium text-teal-900 text-sm">{spec.name || spec}</p>
                                             {spec.description && <p className="text-xs text-[#a78bfa]/70 mt-1">{spec.description}</p>}
                                         </div>
                                     ))}

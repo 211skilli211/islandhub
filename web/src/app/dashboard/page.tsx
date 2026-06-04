@@ -283,7 +283,7 @@ function DashboardPageContent() {
                             <div className="flex items-center gap-3">
                                 <h1 className="text-4xl font-black text-ink-primary dark:text-white tracking-tight">Dashboard</h1>
                                 {subscription && subscription.status === 'active' && (
-                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${subscription.tier_name === 'enterprise' ? 'bg-[#818cf8] text-white' :
+                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${subscription.tier_name === 'enterprise' ? 'bg-[#14b8a6] text-white' :
                                         subscription.tier_name === 'premium' ? 'bg-accent-500 text-white' :
                                             subscription.tier_name === 'vip' ? 'bg-sand-500/50 text-white' :
                                                 'bg-surface-tertiary text-ink-secondary'
@@ -365,7 +365,7 @@ function DashboardPageContent() {
                             </div>
                         </Link>
                         <Link href="/create?type=service" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-[#818cf8]/10 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
+                            <span className="text-3xl p-3 bg-[#14b8a6]/10 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
                             <div>
                                 <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Post Service</p>
                                 <p className="text-[9px] text-ink-tertiary font-medium">Offer your skills</p>
@@ -450,11 +450,11 @@ function DashboardPageContent() {
 
                 {/* Subscription Management Banner */}
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
-                    <div className="bg-gradient-to-r from-indigo-50 to-teal-50 rounded-4xl border border-[#818cf8]/20 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-4xl border border-[#14b8a6]/20 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div className="flex items-center gap-6">
                             <div className="w-16 h-16 bg-surface-elevated rounded-2xl shadow-sm flex items-center justify-center text-3xl">🎫</div>
                             <div>
-                                <h3 className="text-xl font-black text-ink-primary dark:text-white">You're on the <span className="text-[#818cf8] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
+                                <h3 className="text-xl font-black text-ink-primary dark:text-white">You're on the <span className="text-[#14b8a6] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
                                 <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
                                 {subscription.cancel_at_period_end && (
                                     <p className="text-[#e11d48] text-xs font-black uppercase mt-1">Pending Cancellation</p>
@@ -560,7 +560,7 @@ function DashboardPageContent() {
                                                     const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
                                                         pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
                                                         accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
-                                                        in_progress: { icon: '🚚', color: 'bg-[#818cf8]/15 text-[#6366f1]', label: 'In Transit' },
+                                                        in_progress: { icon: '🚚', color: 'bg-[#14b8a6]/15 text-[#14b8a6]', label: 'In Transit' },
                                                         completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
                                                         cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                                                     };
@@ -592,7 +592,7 @@ function DashboardPageContent() {
                                                             {request.driver_id && ['accepted', 'in_progress'].includes(request.transport_status) && (
                                                                 <button
                                                                     onClick={() => setChatRequest(request)}
-                                                                    className="mt-4 w-full py-3 bg-[#818cf8]/10 text-[#818cf8] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#818cf8]/15 transition-all flex items-center justify-center gap-2"
+                                                                    className="mt-4 w-full py-3 bg-[#14b8a6]/10 text-[#14b8a6] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#14b8a6]/15 transition-all flex items-center justify-center gap-2"
                                                                 >
                                                                     💬 Chat with Driver
                                                                 </button>
@@ -626,7 +626,7 @@ function DashboardPageContent() {
                                                             paid: { icon: '💰', color: 'bg-green-100 text-green-700', label: 'Paid' },
                                                             preparing: { icon: '👨‍🍳', color: 'bg-blue-100 text-blue-700', label: 'Preparing' },
                                                             ready: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Ready' },
-                                                            fulfilled: { icon: '🎉', color: 'bg-purple-100 text-purple-700', label: 'Completed' },
+                                                            fulfilled: { icon: '🎉', color: 'bg-teal-100 text-teal-700', label: 'Completed' },
                                                             cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                                                         };
                                                         const status = statusConfig[order.status] || statusConfig.pending;
@@ -665,7 +665,7 @@ function DashboardPageContent() {
                                                         const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
                                                             pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
                                                             accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
-                                                            in_progress: { icon: '🚚', color: 'bg-[#818cf8]/15 text-[#6366f1]', label: 'In Transit' },
+                                                            in_progress: { icon: '🚚', color: 'bg-[#14b8a6]/15 text-[#14b8a6]', label: 'In Transit' },
                                                             completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
                                                             cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                                                         };

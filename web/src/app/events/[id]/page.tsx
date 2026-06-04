@@ -27,7 +27,7 @@ export default function EventDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default function EventDetailPage() {
         <div className="text-center">
           <p className="text-6xl mb-4">🔍</p>
           <h2 className="text-2xl font-black text-ink-primary dark:text-sand-50">Event not found</h2>
-          <Link href="/events" className="mt-4 inline-block text-purple-600 font-bold hover:underline">← Back to Events</Link>
+          <Link href="/events" className="mt-4 inline-block text-teal-600 font-bold hover:underline">← Back to Events</Link>
         </div>
       </div>
     );
@@ -79,12 +79,12 @@ export default function EventDetailPage() {
             className="object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-purple-600 to-indigo-700" />
+          <div className="w-full h-full bg-gradient-to-br from-teal-600 to-teal-800" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-block px-3 py-1 bg-purple-600 text-white rounded-full text-xs font-bold mb-3">{event.category}</span>
+            <span className="inline-block px-3 py-1 bg-teal-600 text-white rounded-full text-xs font-bold mb-3">{event.category}</span>
             <h1 className="text-3xl sm:text-5xl font-black text-white">{event.title}</h1>
           </div>
         </div>
@@ -151,8 +151,8 @@ export default function EventDetailPage() {
                           soldOut
                             ? 'border-border-primary dark:border-ocean-700 opacity-50 cursor-not-allowed'
                             : isSelected
-                              ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
-                              : 'border-border-primary dark:border-ocean-600 hover:border-purple-300'
+                              ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20'
+                              : 'border-border-primary dark:border-ocean-600 hover:border-teal-300'
                         }`}
                       >
                         <div className="flex justify-between items-start">
@@ -162,13 +162,13 @@ export default function EventDetailPage() {
                             {t.perks?.length > 0 && (
                               <div className="mt-2 flex flex-wrap gap-1">
                                 {t.perks.map((perk, i) => (
-                                  <span key={i} className="text-[10px] px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-bold">{perk}</span>
+                                  <span key={i} className="text-[10px] px-2 py-0.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full font-bold">{perk}</span>
                                 ))}
                               </div>
                             )}
                           </div>
                           <div className="text-right">
-                            <p className="font-black text-lg text-purple-600 dark:text-purple-400">${t.price}</p>
+                            <p className="font-black text-lg text-teal-600 dark:text-teal-400">${t.price}</p>
                             <p className="text-[10px] text-ink-tertiary">{t.quantity - t.sold} left</p>
                           </div>
                         </div>
@@ -179,7 +179,7 @@ export default function EventDetailPage() {
                   {selectedTier !== null && tier && (
                     <button
                       onClick={() => setShowConfirm(true)}
-                      className="w-full py-4 bg-purple-600 text-white rounded-xl font-black text-sm hover:bg-purple-700 transition-colors mt-4"
+                      className="w-full py-4 bg-teal-600 text-white rounded-xl font-black text-sm hover:bg-teal-700 transition-colors mt-4"
                     >
                       Get Ticket — ${tier.price} XCD
                     </button>
@@ -193,7 +193,7 @@ export default function EventDetailPage() {
                     </div>
                     <div className="w-full h-2 bg-surface-tertiary dark:bg-ocean-700 rounded-full">
                       <div
-                        className="h-full bg-purple-500 rounded-full transition-all"
+                        className="h-full bg-teal-500 rounded-full transition-all"
                         style={{ width: `${Math.min(100, (event.tickets_sold / event.total_capacity) * 100)}%` }}
                       />
                     </div>
@@ -227,7 +227,7 @@ export default function EventDetailPage() {
               </div>
               <div className="flex justify-between text-sm border-t border-border-primary dark:border-ocean-700 pt-3">
                 <span className="font-black">Total</span>
-                <span className="font-black text-lg text-purple-600">${tier.price} XCD</span>
+                <span className="font-black text-lg text-teal-600">${tier.price} XCD</span>
               </div>
             </div>
             <div className="flex gap-3">
@@ -240,7 +240,7 @@ export default function EventDetailPage() {
               <button
                 onClick={handlePurchase}
                 disabled={purchasing}
-                className="flex-1 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
+                className="flex-1 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-50"
               >
                 {purchasing ? 'Processing...' : `Get Ticket — $${tier.price} XCD`}
               </button>

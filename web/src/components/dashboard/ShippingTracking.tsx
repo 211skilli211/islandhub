@@ -50,7 +50,7 @@ export default function ShippingTracking() {
             case 'pending': return 'bg-gray-100 text-gray-700';
             case 'picked_up': return 'bg-blue-100 text-blue-700';
             case 'in_transit': return 'bg-sand-500/10 text-sand-500';
-            case 'out_for_delivery': return 'bg-purple-100 text-purple-700';
+            case 'out_for_delivery': return 'bg-teal-100 text-teal-700';
             case 'delivered': return 'bg-emerald-500/15 text-emerald-500';
             case 'exception': return 'bg-red-100 text-red-700';
             default: return 'bg-gray-100 text-gray-700';
@@ -76,7 +76,7 @@ export default function ShippingTracking() {
                     <h2 className="text-2xl font-bold text-gray-900">International Shipping & Tracking</h2>
                     <p className="text-gray-600">Track shipments and manage international deliveries</p>
                 </div>
-                <button className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1] transition-colors">
+                <button className="px-4 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6] transition-colors">
                     + New Shipment
                 </button>
             </div>
@@ -90,11 +90,11 @@ export default function ShippingTracking() {
                         placeholder="Enter tracking number..."
                         value={trackingNumber}
                         onChange={(e) => setTrackingNumber(e.target.value)}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     />
                     <button
                         onClick={handleTrack}
-                        className="px-6 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1] transition-colors"
+                        className="px-6 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6] transition-colors"
                     >
                         Track
                     </button>
@@ -162,12 +162,12 @@ export default function ShippingTracking() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-purple-50 rounded-xl p-4 border border-purple-200"
+                    className="bg-teal-50 rounded-xl p-4 border border-teal-200"
                 >
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-teal-600">
                         {shipments.filter(s => s.status === 'out_for_delivery').length}
                     </div>
-                    <div className="text-sm text-purple-700">Out for Delivery</div>
+                    <div className="text-sm text-teal-700">Out for Delivery</div>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -225,15 +225,15 @@ export default function ShippingTracking() {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-[#818cf8]/10 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Schedule Pickup</div>
                     <div className="text-sm text-gray-500">Arrange courier collection</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-[#818cf8]/10 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Customs Documents</div>
                     <div className="text-sm text-gray-500">Upload & manage paperwork</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-[#818cf8]/10 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
                     <div className="font-medium text-gray-900">Insurance</div>
                     <div className="text-sm text-gray-500">Add shipment protection</div>
                 </button>

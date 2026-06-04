@@ -90,7 +90,7 @@ export default function AdminEventsPage() {
         </div>
         <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-5 border border-border-primary dark:border-ocean-700">
           <p className="text-xs text-ink-tertiary dark:text-ink-tertiary font-bold uppercase">Tickets Sold</p>
-          <p className="text-3xl font-black text-purple-600 mt-1">{stats.totalTickets}</p>
+          <p className="text-3xl font-black text-teal-600 mt-1">{stats.totalTickets}</p>
         </div>
         <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-5 border border-border-primary dark:border-ocean-700">
           <p className="text-xs text-ink-tertiary dark:text-ink-tertiary font-bold uppercase">Revenue (XCD)</p>
@@ -106,7 +106,7 @@ export default function AdminEventsPage() {
         <div className="flex gap-3">
           <button
             onClick={() => router.push('/events/verify')}
-            className="px-5 py-2.5 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors"
+            className="px-5 py-2.5 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors"
           >
             🎫 Verify Tickets
           </button>

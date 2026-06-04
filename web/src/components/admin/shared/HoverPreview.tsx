@@ -86,7 +86,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                             <p className="font-black text-ink-primary">{data.name}</p>
                             <p className="text-xs text-ink-tertiary0">{data.email}</p>
                             <span className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ${
-                                data.role === 'admin' ? 'bg-purple-100 text-purple-700' :
+                                data.role === 'admin' ? 'bg-teal-100 text-teal-700' :
                                 data.role?.startsWith('vendor') ? 'bg-accent-500/15 text-accent-500' :
                                 data.role?.startsWith('driver') ? 'bg-sand-500/10 text-sand-500' :
                                 'bg-surface-secondary text-ink-secondary'

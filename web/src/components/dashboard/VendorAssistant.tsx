@@ -84,8 +84,8 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setIsOpen(!isOpen)}
                     className={`fixed bottom-24 lg:bottom-6 right-6 z-9999 flex items-center gap-2 px-5 py-3 rounded-2xl shadow-xl border-2 transition-all ${isOpen
-                        ? 'bg-[#6366f1] text-white border-[#818cf8]'
-                        : 'bg-[#818cf8] text-white border-white/20 hover:bg-[#6366f1]'
+                        ? 'bg-[#14b8a6] text-white border-[#14b8a6]'
+                        : 'bg-[#14b8a6] text-white border-white/20 hover:bg-[#14b8a6]'
                         }`}
                 >
                     <span className="text-lg">{profile.icon}</span>
@@ -105,7 +105,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                         className={`fixed top-0 right-0 bottom-0 w-96 bg-surface-elevated dark:bg-ink-primary border-l border-border-primary dark:border-border-primary shadow-2xl flex flex-col ${hubMode ? 'z-10002' : 'z-40'}`}
                     >
                         {/* Header */}
-                        <div className="p-5 bg-[#818cf8] text-white">
+                        <div className="p-5 bg-[#14b8a6] text-white">
                             <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 bg-surface-elevated/20 rounded-xl flex items-center justify-center text-xl border border-white/30">
@@ -145,7 +145,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                             {messages.map((m, i) => (
                                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     <div className={`max-w-[85%] p-3 rounded-2xl text-sm font-medium ${m.role === 'user'
-                                        ? 'bg-[#818cf8] text-white rounded-tr-none'
+                                        ? 'bg-[#14b8a6] text-white rounded-tr-none'
                                         : 'bg-surface-elevated dark:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary border border-border-primary dark:border-border-primary rounded-tl-none shadow-sm'
                                         }`}>
                                         {m.content}
@@ -171,12 +171,12 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder={profile.placeholder}
-                                    className="flex-1 px-4 py-3 bg-surface-secondary dark:bg-surface-tertiary rounded-xl text-sm font-medium border-transparent focus:ring-2 focus:ring-indigo-100 focus:border-[#818cf8] transition-all dark:text-white"
+                                    className="flex-1 px-4 py-3 bg-surface-secondary dark:bg-surface-tertiary rounded-xl text-sm font-medium border-transparent focus:ring-2 focus:ring-teal-100 focus:border-[#14b8a6] transition-all dark:text-white"
                                 />
                                 <button
                                     type="submit"
                                     disabled={!input.trim()}
-                                    className="p-3 bg-[#818cf8] text-white rounded-xl hover:bg-[#6366f1] transition-colors disabled:opacity-50"
+                                    className="p-3 bg-[#14b8a6] text-white rounded-xl hover:bg-[#14b8a6] transition-colors disabled:opacity-50"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

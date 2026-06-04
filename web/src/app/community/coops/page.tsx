@@ -52,7 +52,7 @@ export default function CoopsPage() {
             </div>
 
             {/* Create Co-op CTA */}
-            <div className="bg-gradient-to-r from-teal-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-border-primary">
+            <div className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-border-primary">
                 <h3 className="font-bold text-ink-primary dark:text-white mb-2">Start a Cooperative</h3>
                 <p className="text-sm text-ink-secondary dark:text-ink-tertiary mb-4">Gather neighbors, friends, or fellow entrepreneurs to unlock collective savings</p>
                 <button className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold">Create Co-op</button>

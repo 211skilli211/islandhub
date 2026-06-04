@@ -70,16 +70,16 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
     const getThemeColors = (theme: string, type: string) => {
         const themes: Record<string, { gradient: string; button: string; text: string; iconBg: string }> = {
             teal: { gradient: 'from-teal-500 to-emerald-500', button: 'bg-accent-500 hover:bg-accent-600', text: 'text-accent-100', iconBg: 'bg-accent-400/20' },
-            indigo: { gradient: 'from-indigo-600 to-blue-700', button: 'bg-indigo-800 hover:bg-black', text: 'text-[#a5b4fc]', iconBg: 'bg-indigo-400/20' },
+            indigo: { gradient: 'from-teal-600 to-blue-700', button: 'bg-teal-800 hover:bg-black', text: 'text-[#a5b4fc]', iconBg: 'bg-teal-400/20' },
             rose: { gradient: 'from-rose-600 to-red-700', button: 'bg-rose-800 hover:bg-black', text: 'text-rose-100', iconBg: 'bg-rose-400/20' },
             amber: { gradient: 'from-amber-500 to-orange-600', button: 'bg-sand-600 hover:bg-black', text: 'text-sand-100', iconBg: 'bg-sand-400/20' },
             emerald: { gradient: 'from-emerald-600 to-green-700', button: 'bg-emerald-800 hover:bg-black', text: 'text-emerald-100', iconBg: 'bg-emerald-400/20' },
             blue: { gradient: 'from-blue-600 to-cyan-700', button: 'bg-blue-800 hover:bg-black', text: 'text-blue-100', iconBg: 'bg-blue-400/20' },
-            purple: { gradient: 'from-purple-600 to-indigo-700', button: 'bg-purple-800 hover:bg-black', text: 'text-purple-100', iconBg: 'bg-purple-400/20' },
+            purple: { gradient: 'from-teal-600 to-teal-800', button: 'bg-teal-800 hover:bg-black', text: 'text-teal-100', iconBg: 'bg-teal-400/20' },
             urgency: { gradient: 'from-red-600 to-orange-700', button: 'bg-surface-elevated text-red-600 hover:bg-surface-elevated/90', text: 'text-red-50', iconBg: 'bg-surface-elevated/20' },
-            community: { gradient: 'from-blue-600 to-indigo-700', button: 'bg-surface-elevated text-blue-600 hover:bg-surface-elevated/90', text: 'text-blue-50', iconBg: 'bg-surface-elevated/20' },
+            community: { gradient: 'from-blue-600 to-teal-700', button: 'bg-surface-elevated text-blue-600 hover:bg-surface-elevated/90', text: 'text-blue-50', iconBg: 'bg-surface-elevated/20' },
             promotion: { gradient: 'from-yellow-400 to-orange-500', button: 'bg-black text-white hover:bg-ink-primary', text: 'text-orange-900/70', iconBg: 'bg-black/10' },
-            high_impact: { gradient: 'from-fuchsia-600 via-purple-600 to-indigo-600', button: 'bg-surface-elevated text-fuchsia-600 hover:shadow-fuchsia-500/50 hover:shadow-lg', text: 'text-white/80', iconBg: 'bg-surface-elevated/30' },
+            high_impact: { gradient: 'from-fuchsia-600 via-teal-600 to-teal-600', button: 'bg-surface-elevated text-fuchsia-600 hover:shadow-fuchsia-500/50 hover:shadow-lg', text: 'text-white/80', iconBg: 'bg-surface-elevated/30' },
             minimal: { gradient: 'from-slate-50 to-slate-200', button: 'bg-ink-primary text-white', text: 'text-ink-tertiary', iconBg: 'bg-surface-tertiary' },
         };
 

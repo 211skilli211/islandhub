@@ -389,7 +389,7 @@ export default function DriverPortal() {
                     {activeView === 'intel' && (
                         <div className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="p-8 bg-[#818cf8] text-white rounded-3xl">
+                                <div className="p-8 bg-[#14b8a6] text-white rounded-3xl">
                                     <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Success Rate</p>
                                     <p className="text-4xl font-black mt-2">{(driverSummary as any).successRate || 100}%</p>
                                 </div>
@@ -427,14 +427,14 @@ export default function DriverPortal() {
 
                     {activeView === 'services' && (
                         <div className="space-y-6">
-                            <div className="bg-gradient-to-br from-indigo-600 to-teal-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+                            <div className="bg-gradient-to-br from-teal-600 to-teal-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                                 <div className="relative z-10">
                                     <h4 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Post Fixed Services 📣</h4>
                                     <p className="text-white/80 text-sm max-w-md font-medium mb-8 leading-relaxed">
                                         Want to offer "Airport Shuttles", "Full Day Tours", or "Construction Hauling"? Create a permanent Hub listing.
                                     </p>
                                     <Link href="/create?type=service">
-                                        <button className="px-10 py-5 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl">
+                                        <button className="px-10 py-5 bg-surface-elevated text-[#14b8a6] rounded-2xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl">
                                             List My Service
                                         </button>
                                     </Link>
@@ -446,7 +446,7 @@ export default function DriverPortal() {
                                 {myServices.map(service => (
                                     <div key={service.id} className="p-6 bg-surface-elevated border border-border-primary rounded-4xl flex justify-between items-center group shadow-sm hover:shadow-md transition-all">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-surface-secondary rounded-2xl flex items-center justify-center text-2xl group-hover:bg-[#818cf8]/10 transition-colors">📦</div>
+                                            <div className="w-14 h-14 bg-surface-secondary rounded-2xl flex items-center justify-center text-2xl group-hover:bg-[#14b8a6]/10 transition-colors">📦</div>
                                             <div>
                                                 <p className="font-black text-ink-primary">{service.title}</p>
                                                 <p className="text-[9px] text-ink-tertiary font-black uppercase tracking-[0.2em] mt-1">{service.category} • {service.status}</p>

@@ -86,7 +86,7 @@ export default function DriverVerification() {
             </div>
 
             {/* Overall Status Card */}
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white">
+            <div className="bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl p-6 text-white">
                 <div className="flex items-center justify-between">
                     <div>
                         <h3 className="text-lg font-semibold opacity-90">Verification Status</h3>
@@ -159,13 +159,13 @@ export default function DriverVerification() {
                                                 setUploadingDoc(item.id);
                                                 setShowUploadModal(true);
                                             }}
-                                            className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1] transition-colors text-sm"
+                                            className="px-4 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6] transition-colors text-sm"
                                         >
                                             Upload
                                         </button>
                                     )}
                                     {item.status === 'pending' && (
-                                        <button className="px-4 py-2 text-[#818cf8] hover:bg-[#818cf8]/10 rounded-lg transition-colors text-sm">
+                                        <button className="px-4 py-2 text-[#14b8a6] hover:bg-[#14b8a6]/10 rounded-lg transition-colors text-sm">
                                             View Details
                                         </button>
                                     )}
@@ -263,7 +263,7 @@ export default function DriverVerification() {
                         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
                             <div className="text-4xl mb-4">📁</div>
                             <p className="text-gray-600 mb-2">Drag and drop your file here, or</p>
-                            <button className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1]">
+                            <button className="px-4 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6]">
                                 Browse Files
                             </button>
                             <p className="text-sm text-gray-500 mt-4">PDF, JPG, PNG up to 5MB</p>
@@ -280,7 +280,7 @@ export default function DriverVerification() {
                                     setShowUploadModal(false);
                                     alert('Document uploaded successfully!');
                                 }}
-                                className="px-4 py-2 bg-[#818cf8] text-white rounded-lg hover:bg-[#6366f1]"
+                                className="px-4 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6]"
                             >
                                 Upload
                             </button>

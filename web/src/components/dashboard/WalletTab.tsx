@@ -91,7 +91,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
         }
     };
 
-    if (loading) return <div className="py-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-4 border-border-primary border-t-indigo-600 mx-auto" /></div>;
+    if (loading) return <div className="py-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-4 border-border-primary border-t-teal-600 mx-auto" /></div>;
 
     return (
         <div className="space-y-8">
@@ -102,7 +102,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                 </div>
                 <button
                     onClick={() => setIsWithdrawModalOpen(true)}
-                    className="px-6 py-3 bg-[#818cf8] text-white rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-indigo-100"
+                    className="px-6 py-3 bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-[10px] tracking-widest flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-teal-100"
                 >
                     <Send size={16} /> Request Payout
                 </button>
@@ -122,9 +122,9 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                     <p className="text-[10px] font-black uppercase tracking-widest text-sand-500 mb-2">Pending</p>
                     <p className="text-3xl font-black text-sand-500">${parseFloat(wallet?.pending_payouts || '0').toFixed(2)}</p>
                 </div>
-                <div className="bg-[#818cf8]/10 p-8 rounded-4xl border border-[#818cf8]/20 shadow-sm">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#818cf8] mb-2">Lifetime</p>
-                    <p className="text-3xl font-black text-[#6366f1]">${parseFloat(wallet?.lifetime_earnings || '0').toFixed(2)}</p>
+                <div className="bg-[#14b8a6]/10 p-8 rounded-4xl border border-[#14b8a6]/20 shadow-sm">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#14b8a6] mb-2">Lifetime</p>
+                    <p className="text-3xl font-black text-[#14b8a6]">${parseFloat(wallet?.lifetime_earnings || '0').toFixed(2)}</p>
                 </div>
             </div>
 
@@ -229,7 +229,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                                             onChange={(e) => setWithdrawAmount(e.target.value)}
                                             step="0.01"
                                             max={wallet?.withdrawable_balance}
-                                            className="w-full pl-12 pr-6 py-5 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#818cf8] outline-none transition-all font-black text-2xl"
+                                            className="w-full pl-12 pr-6 py-5 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-[#14b8a6] outline-none transition-all font-black text-2xl"
                                         />
                                     </div>
                                     <p className="text-[10px] font-bold text-ink-tertiary text-right">Available: ${parseFloat(wallet?.withdrawable_balance || '0').toFixed(2)}</p>
@@ -243,7 +243,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                                                 key={method}
                                                 type="button"
                                                 onClick={() => setPayoutMethod(method)}
-                                                className={`p-4 rounded-2xl border-2 font-bold text-xs capitalize transition-all ${payoutMethod === method ? 'border-[#818cf8] bg-[#818cf8]/10 text-[#6366f1]' : 'border-border-primary hover:border-border-primary'
+                                                className={`p-4 rounded-2xl border-2 font-bold text-xs capitalize transition-all ${payoutMethod === method ? 'border-[#14b8a6] bg-[#14b8a6]/10 text-[#14b8a6]' : 'border-border-primary hover:border-border-primary'
                                                     }`}
                                             >
                                                 {method.replace('_', ' ')}

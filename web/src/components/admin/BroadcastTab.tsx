@@ -131,7 +131,7 @@ export default function BroadcastTab() {
             {/* Global Controls */}
             <div className="bg-ink-primary text-white p-6 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[#818cf8]/100/20 text-[#818cf8] rounded-2xl flex items-center justify-center text-2xl">🎛️</div>
+                    <div className="w-12 h-12 bg-[#14b8a6]/100/20 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl">🎛️</div>
                     <div>
                         <h3 className="text-lg font-black uppercase tracking-widest text-white">Marquee Controls</h3>
                         <p className="text-sm text-ink-tertiary font-medium">Manage global scrolling behavior</p>
@@ -157,7 +157,7 @@ export default function BroadcastTab() {
                     <div className="w-px bg-surface-tertiary h-6 mx-1" />
                     <button
                         onClick={() => updateControls({ direction: controls.direction === 'normal' ? 'reverse' : 'normal' })}
-                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${controls.direction === 'reverse' ? 'bg-[#818cf8] text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
+                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${controls.direction === 'reverse' ? 'bg-[#14b8a6] text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
                     >
                         {controls.direction === 'normal' ? '⬅️ Left' : '➡️ Right'}
                     </button>
@@ -173,7 +173,7 @@ export default function BroadcastTab() {
 
             {/* Current Status Banner */}
             {currentMarquee && (
-                <div className="bg-gradient-to-r from-teal-500/10 to-indigo-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
+                <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 bg-accent-500/100 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-accent-500/15 text-lg">📢</div>
                         <div>
@@ -199,7 +199,7 @@ export default function BroadcastTab() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-xl shadow-black/10/50">
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-[#818cf8]/10 text-[#818cf8] rounded-2xl flex items-center justify-center text-xl">📢</div>
+                        <div className="w-12 h-12 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl flex items-center justify-center text-xl">📢</div>
                         <div>
                             <h3 className="text-xl font-black text-ink-primary">Global Broadcast</h3>
                             <p className="text-sm text-ink-tertiary font-medium">Post live updates to the platform-wide marquee</p>
@@ -211,7 +211,7 @@ export default function BroadcastTab() {
                             value={newMarquee}
                             onChange={(e) => setNewMarquee(e.target.value)}
                             placeholder="What's the buzz on the island today?"
-                            className="w-full h-32 p-4 bg-surface-secondary border border-border-primary rounded-3xl text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-[#818cf8] transition-all resize-none font-medium"
+                            className="w-full h-32 p-4 bg-surface-secondary border border-border-primary rounded-3xl text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-[#14b8a6] transition-all resize-none font-medium"
                         />
 
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -223,9 +223,9 @@ export default function BroadcastTab() {
                                     max="10"
                                     value={priority}
                                     onChange={(e) => setPriority(parseInt(e.target.value))}
-                                    className="flex-1 md:w-24 accent-indigo-600 mx-2"
+                                    className="flex-1 md:w-24 accent-teal-600 mx-2"
                                 />
-                                <span className="font-black text-[#818cf8] text-sm w-4 text-center">{priority}</span>
+                                <span className="font-black text-[#14b8a6] text-sm w-4 text-center">{priority}</span>
                             </div>
 
                             {/* Color and Emoji Picker */}
@@ -236,7 +236,7 @@ export default function BroadcastTab() {
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeEmoji('📢')}
-                                        className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '📢' ? 'bg-[#818cf8]/15 ring-2 ring-indigo-500' : 'hover:bg-surface-tertiary'}`}
+                                        className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '📢' ? 'bg-[#14b8a6]/15 ring-2 ring-teal-500' : 'hover:bg-surface-tertiary'}`}
                                     >
                                         📢
                                     </button>
@@ -281,9 +281,9 @@ export default function BroadcastTab() {
                                     />
                                     <button
                                         type="button"
-                                        onClick={() => setMarqueeTextColor('#6366f1')}
-                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#6366f1' ? 'ring-2 ring-offset-2 ring-indigo-500' : ''}`}
-                                        style={{ backgroundColor: '#6366f1' }}
+                                        onClick={() => setMarqueeTextColor('#14b8a6')}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#14b8a6' ? 'ring-2 ring-offset-2 ring-teal-500' : ''}`}
+                                        style={{ backgroundColor: '#14b8a6' }}
                                     />
                                     <button
                                         type="button"
@@ -318,7 +318,7 @@ export default function BroadcastTab() {
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeTextColor('#a855f7')}
-                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#a855f7' ? 'ring-2 ring-offset-2 ring-purple-500' : ''}`}
+                                        className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#a855f7' ? 'ring-2 ring-offset-2 ring-teal-500' : ''}`}
                                         style={{ backgroundColor: '#a855f7' }}
                                     />
                                     <button
@@ -352,7 +352,7 @@ export default function BroadcastTab() {
                         <button
                             onClick={() => handlePostMarquee(newMarquee)}
                             disabled={!newMarquee}
-                            className="w-full sm:w-auto px-6 py-3 bg-[#818cf8] text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-indigo-100 hover:bg-[#6366f1] hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 whitespace-nowrap"
+                            className="w-full sm:w-auto px-6 py-3 bg-[#14b8a6] text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-teal-100 hover:bg-[#14b8a6] hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 whitespace-nowrap"
                         >
                             Launch Broadcast 🚀
                         </button>
@@ -400,7 +400,7 @@ export default function BroadcastTab() {
                                                 fetchTemplates();
                                             }
                                         }}
-                                        className="p-1.5 bg-[#818cf8]/100/20 text-[#818cf8] rounded-lg scale-75 hover:scale-90 transition-all"
+                                        className="p-1.5 bg-[#14b8a6]/100/20 text-[#14b8a6] rounded-lg scale-75 hover:scale-90 transition-all"
                                     >
                                         ✏️
                                     </button>

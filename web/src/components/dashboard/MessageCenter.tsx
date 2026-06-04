@@ -54,7 +54,7 @@ export default function MessageCenter() {
     if (loading) return (
         <div className="h-[500px] flex items-center justify-center bg-surface-secondary/50 rounded-[3rem]">
             <div className="text-center">
-                <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mx-auto mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-[#14b8a6] border-t-transparent rounded-full mx-auto mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-[10px]">Opening Secure Channel...</p>
             </div>
         </div>
@@ -66,7 +66,7 @@ export default function MessageCenter() {
             <div className="w-80 border-r border-border-primary flex flex-col bg-surface-elevated">
                 <div className="p-8 border-b border-border-primary flex items-center justify-between">
                     <h2 className="text-xl font-black text-ink-primary tracking-tight">Inbox</h2>
-                    <span className="bg-[#818cf8]/10 text-[#818cf8] text-[10px] font-black px-2 py-1 rounded-md">{conversations.length}</span>
+                    <span className="bg-[#14b8a6]/10 text-[#14b8a6] text-[10px] font-black px-2 py-1 rounded-md">{conversations.length}</span>
                 </div>
                 <div className="flex-1 overflow-y-auto scrollbar-hide">
                     {conversations.length === 0 && !initialOtherUserId ? (
@@ -79,10 +79,10 @@ export default function MessageCenter() {
                             {initialOtherUserId && !conversations.find(c => c.other_user_id === parseInt(initialOtherUserId)) && (
                                 <button
                                     onClick={() => setSelectedUser({ other_user_id: parseInt(initialOtherUserId), other_user_name: initialOtherUserName })}
-                                    className={`w-full p-6 text-left transition-all ${selectedUser?.other_user_id === parseInt(initialOtherUserId) ? 'bg-[#818cf8]/10/50 border-r-4 border-[#818cf8]' : ''}`}
+                                    className={`w-full p-6 text-left transition-all ${selectedUser?.other_user_id === parseInt(initialOtherUserId) ? 'bg-[#14b8a6]/10/50 border-r-4 border-[#14b8a6]' : ''}`}
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-[#818cf8] rounded-2xl flex items-center justify-center text-white font-black text-sm">
+                                        <div className="w-10 h-10 bg-[#14b8a6] rounded-2xl flex items-center justify-center text-white font-black text-sm">
                                             {initialOtherUserName?.charAt(0)}
                                         </div>
                                         <div className="flex-1 min-w-0">
@@ -97,10 +97,10 @@ export default function MessageCenter() {
                                 <button
                                     key={conv.other_user_id}
                                     onClick={() => setSelectedUser(conv)}
-                                    className={`w-full p-6 text-left transition-all group ${selectedUser?.other_user_id === conv.other_user_id ? 'bg-[#818cf8]/10/50 border-r-4 border-[#818cf8]' : 'hover:bg-surface-secondary/50'}`}
+                                    className={`w-full p-6 text-left transition-all group ${selectedUser?.other_user_id === conv.other_user_id ? 'bg-[#14b8a6]/10/50 border-r-4 border-[#14b8a6]' : 'hover:bg-surface-secondary/50'}`}
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-surface-secondary group-hover:bg-[#818cf8]/15 rounded-2xl flex items-center justify-center text-ink-tertiary0 group-hover:text-[#818cf8] font-black transition-colors shadow-inner text-sm">
+                                        <div className="w-10 h-10 bg-surface-secondary group-hover:bg-[#14b8a6]/15 rounded-2xl flex items-center justify-center text-ink-tertiary0 group-hover:text-[#14b8a6] font-black transition-colors shadow-inner text-sm">
                                             {conv.other_user_name.charAt(0)}
                                         </div>
                                         <div className="flex-1 min-w-0">

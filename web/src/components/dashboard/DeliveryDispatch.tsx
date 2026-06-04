@@ -106,7 +106,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
         switch (status) {
             case 'pending': return 'bg-sand-500/10 text-sand-500 border-sand-500/20';
             case 'assigned': return 'bg-blue-100 text-blue-700 border-blue-200';
-            case 'picked_up': return 'bg-purple-100 text-purple-700 border-purple-200';
+            case 'picked_up': return 'bg-teal-100 text-teal-700 border-teal-200';
             case 'delivered': return 'bg-emerald-500/15 text-emerald-500 border-emerald-500/20';
             case 'cancelled': return 'bg-red-100 text-red-700 border-red-200';
             default: return 'bg-gray-100 text-gray-700 border-gray-200';
@@ -117,7 +117,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
         switch (status) {
             case 'pending': return 'bg-sand-500/50';
             case 'assigned': return 'bg-blue-500';
-            case 'picked_up': return 'bg-purple-500';
+            case 'picked_up': return 'bg-teal-500';
             case 'delivered': return 'bg-emerald-500/100';
             case 'cancelled': return 'bg-red-500';
             default: return 'bg-gray-500';
@@ -171,10 +171,10 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-purple-50 rounded-xl p-4 border border-purple-200"
+                    className="bg-teal-50 rounded-xl p-4 border border-teal-200"
                 >
-                    <div className="text-2xl font-bold text-purple-600">{inTransitCount}</div>
-                    <div className="text-sm text-purple-700">In Transit</div>
+                    <div className="text-2xl font-bold text-teal-600">{inTransitCount}</div>
+                    <div className="text-sm text-teal-700">In Transit</div>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -289,7 +289,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                     <div className="font-medium text-gray-900">Track Live</div>
                     <div className="text-sm text-gray-500">View real-time driver locations</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-left">
+                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-teal-50 transition-all text-left">
                     <div className="font-medium text-gray-900">Delivery History</div>
                     <div className="text-sm text-gray-500">View completed deliveries</div>
                 </button>

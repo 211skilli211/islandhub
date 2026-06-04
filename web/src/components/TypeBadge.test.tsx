@@ -23,8 +23,8 @@ describe('TypeBadge Component', () => {
     render(<TypeBadge type="rental" />);
     const badge = screen.getByText('Rental');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('bg-purple-100');
-    expect(badge).toHaveClass('text-purple-800');
+    expect(badge).toHaveClass('bg-teal-100');
+    expect(badge).toHaveClass('text-teal-800');
   });
 
   it('renders service badge correctly', () => {

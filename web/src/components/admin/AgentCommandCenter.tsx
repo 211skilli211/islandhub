@@ -488,7 +488,7 @@ export default function AgentCommandCenter() {
                                     {[
                                         { label: 'Intelligence Level', value: sysConfig.autonomyLevel, icon: '🛡️', color: 'text-ink-primary dark:text-white' },
                                         { label: 'Daily Cap', value: `$${sysConfig.dailyLimitUsd}`, icon: '☀️', color: 'text-accent-400' },
-                                        { label: 'Monthly Cap', value: `$${sysConfig.monthlyLimitUsd}`, icon: '🌙', color: 'text-[#818cf8]' },
+                                        { label: 'Monthly Cap', value: `$${sysConfig.monthlyLimitUsd}`, icon: '🌙', color: 'text-[#14b8a6]' },
                                         { label: 'Utilized (MTD)', value: `$${sysConfig.monthlySpend?.toFixed(4) || '0.00'}`, icon: '📊', color: 'text-[#e11d48]' },
                                     ].map((stat, i) => (
                                         <div key={i} className="bg-surface-elevated dark:bg-ink-primary rounded-4xl p-6 border border-border-primary dark:border-border-primary shadow-sm hover:shadow-xl transition-all group">
@@ -520,7 +520,7 @@ export default function AgentCommandCenter() {
                                                     </div>
                                                     <div className="p-4 bg-surface-secondary dark:bg-surface-tertiary/50 rounded-2xl">
                                                         <p className="text-[8px] font-black uppercase tracking-widest text-ink-tertiary mb-1">Utilization</p>
-                                                        <p className="text-sm font-black text-[#818cf8]">${(agent.cost24h || 0).toFixed(4)}</p>
+                                                        <p className="text-sm font-black text-[#14b8a6]">${(agent.cost24h || 0).toFixed(4)}</p>
                                                     </div>
                                                 </div>
 
@@ -602,12 +602,12 @@ export default function AgentCommandCenter() {
                                                 value={chatInput}
                                                 onChange={(e) => setChatInput(e.target.value)}
                                                 placeholder="Inject command instruction packet..."
-                                                className="flex-1 px-8 py-5 bg-surface-secondary dark:bg-surface-tertiary/50 rounded-2xl text-sm font-medium border-2 border-transparent focus:border-[#818cf8] outline-none transition-all dark:text-white"
+                                                className="flex-1 px-8 py-5 bg-surface-secondary dark:bg-surface-tertiary/50 rounded-2xl text-sm font-medium border-2 border-transparent focus:border-[#14b8a6] outline-none transition-all dark:text-white"
                                             />
                                             <button
                                                 type="submit"
                                                 disabled={!chatInput.trim() || chatTyping}
-                                                className="px-10 py-5 bg-[#818cf8] hover:bg-[#818cf8]/100 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest disabled:opacity-50 shadow-xl shadow-indigo-600/20 transition-all active:scale-95"
+                                                className="px-10 py-5 bg-[#14b8a6] hover:bg-[#14b8a6]/100 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest disabled:opacity-50 shadow-xl shadow-teal-600/20 transition-all active:scale-95"
                                             >
                                                 Inject
                                             </button>
@@ -657,7 +657,7 @@ export default function AgentCommandCenter() {
                                                     <button onClick={() => toggleAgent(agent.agent_id, agent.is_active)} className="px-4 py-2 bg-surface-secondary dark:bg-surface-tertiary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-tertiary0 hover:bg-surface-secondary dark:hover:bg-surface-tertiary transition-all">
                                                         {agent.is_active ? 'Suspend' : 'Resume'}
                                                     </button>
-                                                    <button onClick={() => setEditingAgent(agent)} className="px-6 py-2 bg-[#818cf8] hover:bg-[#818cf8]/100 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-indigo-600/20">
+                                                    <button onClick={() => setEditingAgent(agent)} className="px-6 py-2 bg-[#14b8a6] hover:bg-[#14b8a6]/100 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-teal-600/20">
                                                         Modify
                                                     </button>
                                                 </div>
@@ -739,7 +739,7 @@ export default function AgentCommandCenter() {
                                                 </div>
                                             ))}
                                         </div>
-                                        <button onClick={saveSettings} className="px-12 py-5 bg-ink-primary dark:bg-[#818cf8] text-white rounded-2xl font-black uppercase text-[11px] tracking-widest shadow-xl shadow-slate-900/20 active:scale-95 transition-all">
+                                        <button onClick={saveSettings} className="px-12 py-5 bg-ink-primary dark:bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-[11px] tracking-widest shadow-xl shadow-slate-900/20 active:scale-95 transition-all">
                                             Update System Core
                                         </button>
                                     </div>
@@ -749,11 +749,11 @@ export default function AgentCommandCenter() {
                                     <div className="space-y-8">
                                         <div className="flex justify-between items-center">
                                             <h3 className="text-2xl font-black text-ink-primary dark:text-white">Neural Bridges</h3>
-                                            <button onClick={() => setShowNewProvider(!showNewProvider)} className="px-6 py-3 bg-[#818cf8] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-600/20">{showNewProvider ? 'Close Terminal' : 'Open Connection'}</button>
+                                            <button onClick={() => setShowNewProvider(!showNewProvider)} className="px-6 py-3 bg-[#14b8a6] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-teal-600/20">{showNewProvider ? 'Close Terminal' : 'Open Connection'}</button>
                                         </div>
 
                                         {showNewProvider && (
-                                            <div className="bg-surface-secondary dark:bg-surface-elevated/5 p-8 rounded-4xl border border-[#818cf8]/30 animate-in slide-in-from-top-4 duration-500">
+                                            <div className="bg-surface-secondary dark:bg-surface-elevated/5 p-8 rounded-4xl border border-[#14b8a6]/30 animate-in slide-in-from-top-4 duration-500">
                                                 <h4 className="text-sm font-black text-[#a5b4fc]0 uppercase tracking-widest mb-6">Initialize New Bridge Tunnel</h4>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                                     <input placeholder="Provider ID (e.g. openrouter)" className="bg-surface-elevated dark:bg-ink-primary p-4 rounded-2xl text-xs font-mono dark:text-white" value={newProviderData.provider_name} onChange={e => setNewProviderData({ ...newProviderData, provider_name: e.target.value })} />
@@ -761,7 +761,7 @@ export default function AgentCommandCenter() {
                                                     <input placeholder="API Base URL (optional)" className="bg-surface-elevated dark:bg-ink-primary p-4 rounded-2xl text-xs font-mono dark:text-white" value={newProviderData.api_base_url} onChange={e => setNewProviderData({ ...newProviderData, api_base_url: e.target.value })} />
                                                     <input placeholder="API Secret Key" type="password" className="bg-surface-elevated dark:bg-ink-primary p-4 rounded-2xl text-xs font-mono dark:text-white" value={newProviderData.api_key} onChange={e => setNewProviderData({ ...newProviderData, api_key: e.target.value })} />
                                                 </div>
-                                                <button onClick={addProvider} className="w-full py-4 bg-[#818cf8] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em]">Authorize and Bind Bridge</button>
+                                                <button onClick={addProvider} className="w-full py-4 bg-[#14b8a6] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em]">Authorize and Bind Bridge</button>
                                             </div>
                                         )}
 
@@ -807,7 +807,7 @@ export default function AgentCommandCenter() {
                                                         <button 
                                                             onClick={() => testProviderConnection(p.provider_name)}
                                                             disabled={testingProvider === p.provider_name}
-                                                            className="px-6 py-3 bg-[#818cf8] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest disabled:opacity-50"
+                                                            className="px-6 py-3 bg-[#14b8a6] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest disabled:opacity-50"
                                                         >
                                                             {testingProvider === p.provider_name ? 'Testing...' : 'Test Connection'}
                                                         </button>
@@ -861,7 +861,7 @@ export default function AgentCommandCenter() {
                                                 workflows.map(wf => (
                                                     <div key={wf.workflow_id} className="bg-surface-elevated dark:bg-ink-primary rounded-4xl p-8 border border-border-primary dark:border-border-primary shadow-sm hover:shadow-xl transition-all">
                                                         <div className="flex justify-between items-start mb-6">
-                                                            <div className="w-12 h-12 bg-[#818cf8]/10 dark:bg-[#818cf8]/100/10 rounded-2xl flex items-center justify-center text-2xl">🔗</div>
+                                                            <div className="w-12 h-12 bg-[#14b8a6]/10 dark:bg-[#14b8a6]/100/10 rounded-2xl flex items-center justify-center text-2xl">🔗</div>
                                                             <span className="px-3 py-1 bg-accent-500/100/10 text-accent-400 text-[8px] font-black uppercase tracking-widest rounded-full">Operational</span>
                                                         </div>
                                                         <h4 className="text-lg font-black dark:text-white mb-2">{wf.name}</h4>
@@ -911,7 +911,7 @@ export default function AgentCommandCenter() {
                                     <div>
                                         <label className="block text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Icon Representation</label>
                                         <input value={editingAgent.icon} onChange={e => setEditingAgent({ ...editingAgent, icon: e.target.value })} maxLength={4}
-                                            className="w-full h-24 bg-surface-elevated dark:bg-ink-primary rounded-2xl text-center text-5xl outline-none focus:ring-4 ring-indigo-500/10 transition-all border border-border-primary dark:border-white/5 shadow-inner" />
+                                            className="w-full h-24 bg-surface-elevated dark:bg-ink-primary rounded-2xl text-center text-5xl outline-none focus:ring-4 ring-teal-500/10 transition-all border border-border-primary dark:border-white/5 shadow-inner" />
                                     </div>
                                     <div>
                                         <label className="block text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Display name</label>
@@ -942,13 +942,13 @@ export default function AgentCommandCenter() {
                                         value={editingAgent.system_prompt}
                                         onChange={e => setEditingAgent({ ...editingAgent, system_prompt: e.target.value })}
                                         rows={18}
-                                        className="w-full p-8 bg-surface-secondary dark:bg-black/20 rounded-4xl text-[11px] font-mono leading-relaxed outline-none focus:ring-4 ring-indigo-500/5 transition-all dark:text-ink-tertiary border border-border-primary dark:border-white/5 custom-scrollbar"
+                                        className="w-full p-8 bg-surface-secondary dark:bg-black/20 rounded-4xl text-[11px] font-mono leading-relaxed outline-none focus:ring-4 ring-teal-500/5 transition-all dark:text-ink-tertiary border border-border-primary dark:border-white/5 custom-scrollbar"
                                         placeholder="Define the core logic, personality, and behavioral constraints..."
                                     />
                                     <div className="flex gap-4">
                                         <div className="flex-1">
                                             <label className="block text-[8px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Temperature: {editingAgent.temperature}</label>
-                                            <input type="range" min="0" max="1" step="0.1" value={editingAgent.temperature} onChange={e => setEditingAgent({ ...editingAgent, temperature: parseFloat(e.target.value) })} className="w-full accent-indigo-500" />
+                                            <input type="range" min="0" max="1" step="0.1" value={editingAgent.temperature} onChange={e => setEditingAgent({ ...editingAgent, temperature: parseFloat(e.target.value) })} className="w-full accent-teal-500" />
                                         </div>
                                         <div className="flex-1">
                                             <label className="block text-[8px] font-black uppercase tracking-widest text-ink-tertiary mb-2 px-1">Response Token Limit</label>
@@ -960,7 +960,7 @@ export default function AgentCommandCenter() {
 
                                 <div className="flex gap-4 pt-6 border-t border-border-primary dark:border-border-primary">
                                     <button onClick={() => saveAgent(editingAgent)}
-                                        className="flex-1 py-5 bg-ink-primary dark:bg-[#818cf8] text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-2xl shadow-indigo-600/20 active:scale-95 transition-all">
+                                        className="flex-1 py-5 bg-ink-primary dark:bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-2xl shadow-teal-600/20 active:scale-95 transition-all">
                                         Initialize Entity Logic
                                     </button>
                                     <button onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}

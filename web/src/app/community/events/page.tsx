@@ -314,7 +314,7 @@ export default function EventsPage() {
                                                     {event.status}
                                                 </span>
                                                 {event.is_virtual && (
-                                                    <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                                    <span className="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-[10px] font-black uppercase tracking-widest">
                                                         📺 Virtual
                                                     </span>
                                                 )}

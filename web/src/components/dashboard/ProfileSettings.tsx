@@ -143,7 +143,7 @@ export default function ProfileSettings() {
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Banner Color</label>
                                 <div className="flex flex-wrap gap-2 mb-2">
-                                    {['#0d9488', '#6366f1', '#f43f5e', '#f59e0b', '#8b5cf6', '#0ea5e9', '#10b981', '#1e293b'].map(color => (
+                                    {['#0d9488', '#14b8a6', '#f43f5e', '#f59e0b', '#8b5cf6', '#0ea5e9', '#10b981', '#1e293b'].map(color => (
                                         <button
                                             key={color}
                                             onClick={() => setFormData({ ...formData, banner_color: color })}

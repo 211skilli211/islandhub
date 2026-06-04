@@ -90,7 +90,7 @@ export const ChatWindow = dynamic(
     {
         loading: () => (
             <div className="h-full flex flex-col items-center justify-center bg-surface-secondary">
-                <div className="animate-spin h-12 w-12 border-4 border-[#818cf8] border-t-transparent rounded-full mb-4"></div>
+                <div className="animate-spin h-12 w-12 border-4 border-[#14b8a6] border-t-transparent rounded-full mb-4"></div>
                 <p className="font-black text-ink-tertiary uppercase tracking-widest text-xs">Loading Chat...</p>
             </div>
         ),

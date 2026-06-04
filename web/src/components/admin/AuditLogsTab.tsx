@@ -21,7 +21,7 @@ export default function AuditLogsTab() {
             header: 'Action Agent',
             accessor: (l) => (
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#818cf8]/10 flex items-center justify-center text-[10px] font-black text-[#818cf8] border border-[#818cf8]/20">
+                    <div className="w-8 h-8 rounded-lg bg-[#14b8a6]/10 flex items-center justify-center text-[10px] font-black text-[#14b8a6] border border-[#14b8a6]/20">
                         {l.admin_name?.charAt(0) || 'S'}
                     </div>
                     <div>
@@ -36,7 +36,7 @@ export default function AuditLogsTab() {
             accessor: (l) => (
                 <span className={`px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${l.action.includes('delete') ? 'bg-[#e11d48]/10 text-[#be123c]' :
                         l.action.includes('create') ? 'bg-emerald-500/15 text-emerald-500' :
-                            l.action.includes('assign') ? 'bg-[#818cf8]/15 text-[#6366f1]' :
+                            l.action.includes('assign') ? 'bg-[#14b8a6]/15 text-[#14b8a6]' :
                                 'bg-surface-secondary text-ink-tertiary0'
                     }`}>
                     {l.action.replace(/_/g, ' ')}
@@ -86,7 +86,7 @@ export default function AuditLogsTab() {
 
     return (
         <div className="space-y-6">
-            <div className="bg-gradient-to-r from-slate-900 to-indigo-900 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+            <div className="bg-gradient-to-r from-slate-900 to-teal-900 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                 <div className="relative z-10">
                     <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-2">Audit Intelligence Hub 📜</h2>
                     <p className="text-ink-tertiary font-bold uppercase text-[10px] tracking-widest">Permanent Immutable Record of Administrative Operations</p>

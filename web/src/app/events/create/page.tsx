@@ -181,13 +181,13 @@ export default function CreateEventPage() {
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white">
+      <div className="bg-gradient-to-r from-teal-800 to-teal-900 text-white">
         <div className="max-w-3xl mx-auto px-4 py-10">
-          <button onClick={() => router.back()} className="text-purple-200 hover:text-white text-sm mb-4 flex items-center gap-1">
+          <button onClick={() => router.back()} className="text-teal-200 hover:text-white text-sm mb-4 flex items-center gap-1">
             ← Back
           </button>
           <h1 className="text-3xl font-black">Create Event</h1>
-          <p className="text-purple-200 mt-2">Set up your event with ticketed entry</p>
+          <p className="text-teal-200 mt-2">Set up your event with ticketed entry</p>
         </div>
       </div>
 
@@ -200,14 +200,14 @@ export default function CreateEventPage() {
               onClick={() => goToStep(s)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
                 step === s
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-teal-600 text-white'
                   : step > s
-                    ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
+                    ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300'
                     : 'bg-surface-secondary dark:bg-ocean-800 text-ink-tertiary'
               }`}
             >
               <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
-                step === s ? 'bg-surface-elevated text-purple-600' : step > s ? 'bg-purple-600 text-white' : 'bg-surface-tertiary dark:bg-ocean-700'
+                step === s ? 'bg-surface-elevated text-teal-600' : step > s ? 'bg-teal-600 text-white' : 'bg-surface-tertiary dark:bg-ocean-700'
               }`}>{step > s ? '✓' : s}</span>
               {s === 1 ? 'Details' : s === 2 ? 'Tickets' : 'Review'}
             </button>
@@ -224,28 +224,28 @@ export default function CreateEventPage() {
                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Event Title *</label>
                 <input type="text" value={title} onChange={e => setTitle(e.target.value)}
                   placeholder="e.g. Caribbean Music Festival 2026"
-                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Description</label>
                 <textarea value={description} onChange={e => setDescription(e.target.value)}
                   placeholder="Tell people what your event is about..." rows={4}
-                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50 resize-none" />
+                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50 resize-none" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Category</label>
                   <select value={category} onChange={e => setCategory(e.target.value)}
-                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50">
+                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50">
                     {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Total Capacity</label>
                   <input type="number" value={totalCapacity} onChange={e => setTotalCapacity(e.target.value)} min="1"
-                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                 </div>
               </div>
 
@@ -253,26 +253,26 @@ export default function CreateEventPage() {
                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Venue *</label>
                 <input type="text" value={venue} onChange={e => setVenue(e.target.value)}
                   placeholder="e.g. Warner Park Sporting Complex"
-                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Address</label>
                 <input type="text" value={address} onChange={e => setAddress(e.target.value)}
                   placeholder="e.g. Basseterre, St. Kitts"
-                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                  className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Start Date *</label>
                   <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}
-                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">Start Time</label>
                   <input type="time" value={startTime} onChange={e => setStartTime(e.target.value)}
-                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                 </div>
               </div>
 
@@ -280,12 +280,12 @@ export default function CreateEventPage() {
                 <div>
                   <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">End Date</label>
                   <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
-                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-1">End Time</label>
                   <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)}
-                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                    className="w-full px-4 py-3 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                 </div>
               </div>
 
@@ -305,7 +305,7 @@ export default function CreateEventPage() {
                     </div>
                   ) : (
                     <button onClick={() => coverInputRef.current?.click()}
-                      className="w-full h-48 border-2 border-dashed border-border-primary dark:border-ocean-600 rounded-xl flex flex-col items-center justify-center text-ink-tertiary hover:border-purple-400 hover:text-purple-500 transition-colors">
+                      className="w-full h-48 border-2 border-dashed border-border-primary dark:border-ocean-600 rounded-xl flex flex-col items-center justify-center text-ink-tertiary hover:border-teal-400 hover:text-teal-500 transition-colors">
                       <span className="text-3xl mb-2">📷</span>
                       <span className="font-bold text-sm">Upload Cover Image</span>
                       <span className="text-xs mt-1">Recommended: 1200×800px</span>
@@ -325,7 +325,7 @@ export default function CreateEventPage() {
                     </div>
                   ) : (
                     <button onClick={() => bannerInputRef.current?.click()}
-                      className="w-full h-32 border-2 border-dashed border-border-primary dark:border-ocean-600 rounded-xl flex flex-col items-center justify-center text-ink-tertiary hover:border-purple-400 hover:text-purple-500 transition-colors">
+                      className="w-full h-32 border-2 border-dashed border-border-primary dark:border-ocean-600 rounded-xl flex flex-col items-center justify-center text-ink-tertiary hover:border-teal-400 hover:text-teal-500 transition-colors">
                       <span className="text-2xl mb-1">🖼️</span>
                       <span className="font-bold text-sm">Upload Banner Image</span>
                       <span className="text-xs mt-1">Recommended: 1920×600px</span>
@@ -336,7 +336,7 @@ export default function CreateEventPage() {
             </div>
 
             <button onClick={() => goToStep(2)}
-              className="w-full py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
+              className="w-full py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors">
               Next: Ticket Tiers →
             </button>
           </div>
@@ -359,19 +359,19 @@ export default function CreateEventPage() {
                       <label className="block text-xs font-bold text-ink-tertiary mb-1">Tier Name *</label>
                       <input type="text" value={tier.name} onChange={e => updateTier(idx, 'name', e.target.value)}
                         placeholder="e.g. General Admission"
-                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-ink-tertiary mb-1">Price (XCD) *</label>
                       <input type="number" value={tier.price} onChange={e => updateTier(idx, 'price', e.target.value)}
                         placeholder="75.00" min="0" step="0.01"
-                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-ink-tertiary mb-1">Quantity *</label>
                       <input type="number" value={tier.quantity} onChange={e => updateTier(idx, 'quantity', e.target.value)}
                         placeholder="100" min="1"
-                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                     </div>
                   </div>
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -379,13 +379,13 @@ export default function CreateEventPage() {
                       <label className="block text-xs font-bold text-ink-tertiary mb-1">Description</label>
                       <input type="text" value={tier.description} onChange={e => updateTier(idx, 'description', e.target.value)}
                         placeholder="Access to all general areas"
-                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-ink-tertiary mb-1">Perks (comma-separated)</label>
                       <input type="text" value={tier.perks} onChange={e => updateTier(idx, 'perks', e.target.value)}
                         placeholder="VIP lounge, Free drinks, Meet & greet"
-                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:text-sand-50" />
+                        className="w-full px-3 py-2.5 bg-surface-primary dark:bg-ocean-900 border border-border-primary dark:border-ocean-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 dark:text-sand-50" />
                     </div>
                   </div>
                   <div className="mt-4 p-3 bg-surface-primary dark:bg-ocean-900 rounded-lg flex items-center justify-between">
@@ -393,14 +393,14 @@ export default function CreateEventPage() {
                       <span className="font-bold text-sm text-ink-primary dark:text-sand-50">{tier.name || 'Unnamed Tier'}</span>
                       {tier.description && <span className="text-xs text-ink-tertiary ml-2">— {tier.description}</span>}
                     </div>
-                    <span className="font-black text-purple-600 dark:text-purple-400">${tier.price || '0'} XCD</span>
+                    <span className="font-black text-teal-600 dark:text-teal-400">${tier.price || '0'} XCD</span>
                   </div>
                 </div>
               ))}
             </div>
 
             <button onClick={addTier}
-              className="w-full py-3 border-2 border-dashed border-border-primary dark:border-ocean-600 text-ink-tertiary dark:text-ink-tertiary rounded-xl font-bold hover:border-purple-400 hover:text-purple-600 transition-colors">
+              className="w-full py-3 border-2 border-dashed border-border-primary dark:border-ocean-600 text-ink-tertiary dark:text-ink-tertiary rounded-xl font-bold hover:border-teal-400 hover:text-teal-600 transition-colors">
               + Add Another Tier
             </button>
 
@@ -410,7 +410,7 @@ export default function CreateEventPage() {
                 ← Back
               </button>
               <button onClick={() => goToStep(3)}
-                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors">
+                className="flex-1 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors">
                 Review →
               </button>
             </div>
@@ -477,7 +477,7 @@ export default function CreateEventPage() {
                         <span className="font-bold text-sm text-ink-primary dark:text-sand-50">{tier.name}</span>
                         <span className="text-xs text-ink-tertiary ml-2">× {tier.quantity} tickets</span>
                       </div>
-                      <span className="font-black text-purple-600 dark:text-purple-400">${tier.price} XCD</span>
+                      <span className="font-black text-teal-600 dark:text-teal-400">${tier.price} XCD</span>
                     </div>
                   ))}
                 </div>
@@ -499,7 +499,7 @@ export default function CreateEventPage() {
                 ← Edit Tickets
               </button>
               <button onClick={handleSubmit} disabled={uploading}
-                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors disabled:opacity-50">
+                className="flex-1 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors disabled:opacity-50">
                 {uploading ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

@@ -128,7 +128,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     {item.selected_sides && Array.isArray(item.selected_sides) && item.selected_sides.length > 0 && (
                                                                         <div className="mt-1 flex flex-wrap gap-1">
                                                                             {item.selected_sides.map((side: any) => (
-                                                                                <span key={side.name} className="text-[9px] bg-[#818cf8]/10 text-[#818cf8] px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
+                                                                                <span key={side.name} className="text-[9px] bg-[#14b8a6]/10 text-[#14b8a6] px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
                                                                                     Side: {side.name}
                                                                                 </span>
                                                                             ))}
@@ -142,7 +142,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                         </p>
                                                                     )}
                                                                     {item.appointment_slot && (
-                                                                        <p className="text-[10px] text-[#818cf8] font-bold mt-1 uppercase tracking-wider flex items-center gap-1">
+                                                                        <p className="text-[10px] text-[#14b8a6] font-bold mt-1 uppercase tracking-wider flex items-center gap-1">
                                                                             <ClockIcon className="w-3 h-3" /> {item.appointment_slot}
                                                                         </p>
                                                                     )}
@@ -189,9 +189,9 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 
                                                             {/* Side Suggestions */}
                                                             {item.side_ids && item.side_ids.length > 0 && (!item.selected_sides || item.selected_sides.length === 0) && (
-                                                                <div className="mt-3 p-3 bg-[#818cf8]/10/50 rounded-xl border border-[#818cf8]/20/50">
+                                                                <div className="mt-3 p-3 bg-[#14b8a6]/10/50 rounded-xl border border-[#14b8a6]/20/50">
                                                                     <div className="flex items-center justify-between">
-                                                                        <p className="text-[10px] font-black uppercase text-[#818cf8] tracking-widest">Complete your meal?</p>
+                                                                        <p className="text-[10px] font-black uppercase text-[#14b8a6] tracking-widest">Complete your meal?</p>
                                                                         <Link
                                                                             href={`/store/${item.store_slug}`}
                                                                             onClick={onClose}

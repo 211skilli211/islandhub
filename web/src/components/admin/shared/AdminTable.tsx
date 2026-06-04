@@ -577,7 +577,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                             typeof col.accessor === 'function' ? col.accessor(item) : (item[col.accessor] as React.ReactNode)
                                                         )}
                                                         {loadingRows.includes(item[idKey] as any) && idx === 0 && (
-                                                            <span className="inline-flex items-center ml-2 px-2 py-0.5 rounded text-[10px] bg-[#818cf8]/10 text-[#818cf8] animate-pulse">
+                                                            <span className="inline-flex items-center ml-2 px-2 py-0.5 rounded text-[10px] bg-[#14b8a6]/10 text-[#14b8a6] animate-pulse">
                                                                 Wait...
                                                             </span>
                                                         )}

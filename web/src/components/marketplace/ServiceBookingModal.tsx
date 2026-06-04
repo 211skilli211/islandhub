@@ -117,7 +117,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                             )}
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
-                                                    <span className="px-3 py-1 bg-[#818cf8]/15 text-[#818cf8] rounded-full text-[10px] font-black uppercase tracking-widest">Service Booking</span>
+                                                    <span className="px-3 py-1 bg-[#14b8a6]/15 text-[#14b8a6] rounded-full text-[10px] font-black uppercase tracking-widest">Service Booking</span>
                                                     <span className="text-ink-tertiary font-medium text-sm">⏱️ {service.duration}</span>
                                                 </div>
                                                 <h2 className="text-4xl font-black text-ink-primary uppercase tracking-tighter italic leading-none">{service.service_name}</h2>
@@ -139,7 +139,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                         value={bookingDate}
                                                         onChange={(e) => setBookingDate(e.target.value)}
                                                         min={new Date().toISOString().split('T')[0]}
-                                                        className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl px-6 py-4 font-bold text-ink-primary focus:border-[#818cf8] focus:outline-none transition-all"
+                                                        className="w-full bg-surface-secondary border-2 border-border-primary rounded-2xl px-6 py-4 font-bold text-ink-primary focus:border-[#14b8a6] focus:outline-none transition-all"
                                                     />
                                                 </div>
 
@@ -153,8 +153,8 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                                 key={slot}
                                                                 onClick={() => setSelectedSlot(slot)}
                                                                 className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedSlot === slot
-                                                                    ? 'bg-[#818cf8] text-white shadow-lg scale-[1.02]'
-                                                                    : 'bg-surface-elevated border-2 border-border-primary text-ink-tertiary0 hover:border-[#818cf8]/20'
+                                                                    ? 'bg-[#14b8a6] text-white shadow-lg scale-[1.02]'
+                                                                    : 'bg-surface-elevated border-2 border-border-primary text-ink-tertiary0 hover:border-[#14b8a6]/20'
                                                                     }`}
                                                             >
                                                                 {slot}
@@ -197,7 +197,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                             key={addon.name}
                                                             onClick={() => toggleAddon(addon)}
                                                             className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all ${isSelected
-                                                                ? 'bg-[#818cf8] text-white shadow-md'
+                                                                ? 'bg-[#14b8a6] text-white shadow-md'
                                                                 : 'bg-surface-elevated text-ink-secondary hover:bg-surface-elevated hover:shadow-sm'
                                                                 }`}
                                                         >

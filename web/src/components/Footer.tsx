@@ -130,7 +130,7 @@ export default function Footer() {
                 type="submit"
                 className="px-5 py-2.5 bg-accent-500 text-white rounded-xl text-sm font-bold hover:bg-accent-600 transition-colors whitespace-nowrap"
               >
-                Subscribe
+                Start
               </button>
             </form>
           </div>

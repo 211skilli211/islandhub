@@ -204,7 +204,7 @@ export default function AdManagementTab() {
                         </div>
                         <div className="p-8 bg-surface-elevated border border-border-primary rounded-[2.5rem] shadow-sm">
                             <div className="flex items-center gap-4 mb-4">
-                                <div className="p-3 bg-[#818cf8]/10 text-[#818cf8] rounded-2xl"><BarChart2 size={24} /></div>
+                                <div className="p-3 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl"><BarChart2 size={24} /></div>
                                 <h3 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Global Reach</h3>
                             </div>
                             <p className="text-4xl font-black text-ink-primary">24.5k</p>

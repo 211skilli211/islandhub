@@ -7,7 +7,7 @@ import L from 'leaflet';
 
 // Status-based marker colors for jobs
 const getJobIcon = (status: string) => {
-    let color = '#6366f1'; // indigo (accepted/in_progress)
+    let color = '#14b8a6'; // indigo (accepted/in_progress)
     if (status === 'pending') color = '#f59e0b'; // amber
     if (status === 'completed') color = '#10b981'; // emerald
     if (status === 'cancelled') color = '#f43f5e'; // rose
@@ -131,7 +131,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                             <Popup>
                                 <div className="text-center min-w-[200px]">
                                     <div className="flex items-center justify-center gap-2 mb-2">
-                                        <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-[#818cf8]/15 text-[#6366f1]'}`}>
+                                        <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${job.transport_status === 'pending' ? 'bg-sand-500/10 text-sand-500' : 'bg-[#14b8a6]/15 text-[#14b8a6]'}`}>
                                             {job.service_type || 'Job'}
                                         </span>
                                         <span className="text-[10px] font-black text-ink-tertiary">#{job.id}</span>
@@ -139,7 +139,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                                     <h3 className="font-black text-ink-primary text-sm mb-1">{job.title}</h3>
                                     <div className="text-[10px] text-ink-tertiary0 mb-2 space-y-1 text-left px-2">
                                         <p><span className="font-bold text-accent-400 uppercase tracking-tighter">Requester:</span> {job.owner_name || job.userName || 'Anonymous'}</p>
-                                        <p><span className="font-bold text-[#818cf8] uppercase tracking-tighter">Driver:</span> {job.driver_name || 'Unassigned'}</p>
+                                        <p><span className="font-bold text-[#14b8a6] uppercase tracking-tighter">Driver:</span> {job.driver_name || 'Unassigned'}</p>
                                     </div>
                                     <div className="flex justify-between items-center mt-2 pt-2 border-t border-border-primary gap-4">
                                         <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary0 rounded text-[9px] font-black uppercase">{job.transport_status}</span>
@@ -149,7 +149,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                                                     e.stopPropagation();
                                                     onAssignJob(job.id, -1); // Signal to open modal by passing -1
                                                 }}
-                                                className="px-3 py-1 bg-[#818cf8] text-white rounded-lg font-black text-[9px] uppercase tracking-widest hover:bg-[#6366f1]"
+                                                className="px-3 py-1 bg-[#14b8a6] text-white rounded-lg font-black text-[9px] uppercase tracking-widest hover:bg-[#14b8a6]"
                                             >
                                                 Assign
                                             </button>
@@ -163,7 +163,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                         {pickupPos && dropoffPos && (
                             <Polyline
                                 positions={[pickupPos, dropoffPos]}
-                                color={job.transport_status === 'pending' ? '#fbbf24' : '#6366f1'}
+                                color={job.transport_status === 'pending' ? '#fbbf24' : '#14b8a6'}
                                 weight={3}
                                 dashArray="5, 10"
                                 opacity={0.6}

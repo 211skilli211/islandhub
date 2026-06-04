@@ -79,13 +79,13 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Share your experience..."
-                    className="w-full px-6 py-4 bg-surface-elevated border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all h-24 mb-6"
+                    className="w-full px-6 py-4 bg-surface-elevated border-transparent rounded-2xl text-ink-primary font-medium focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all h-24 mb-6"
                     required
                 />
                 <button
                     type="submit"
                     disabled={submitting}
-                    className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+                    className="px-8 py-4 bg-teal-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-teal-700 transition-all shadow-lg shadow-teal-100 disabled:opacity-50"
                 >
                     {submitting ? 'Posting...' : 'Post Review'}
                 </button>
@@ -109,7 +109,7 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                                 transition={{ delay: idx * 0.1 }}
                                 className="p-8 bg-surface-elevated border border-border-primary rounded-[2.5rem] shadow-sm flex gap-6"
                             >
-                                <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-xl shadow-inner font-black text-indigo-500 shrink-0">
+                                <div className="w-12 h-12 bg-teal-50 rounded-full flex items-center justify-center text-xl shadow-inner font-black text-teal-500 shrink-0">
                                     {review.reviewer_name?.charAt(0) || 'U'}
                                 </div>
                                 <div className="flex-1">

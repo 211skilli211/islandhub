@@ -262,7 +262,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                             className="px-6 py-3 text-white rounded-lg font-medium text-sm transition-all active:scale-95"
                             style={{ backgroundColor: brandingColor }}
                         >
-                            Subscribe
+                            Start
                         </button>
                     </div>
                 </div>

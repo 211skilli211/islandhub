@@ -18,7 +18,7 @@ const CREATE_OPTIONS = [
         description: 'Offer your skills. From taxi rides and boat charters to cleaning and repairs.',
         icon: '🛠️',
         href: '/create?type=service',
-        color: 'from-indigo-400 to-indigo-600'
+        color: 'from-teal-400 to-teal-600'
     },
     {
         title: 'Start Campaign',
@@ -101,7 +101,7 @@ export default function StartHubPage() {
                 <div className="mt-20 p-12 bg-surface-tertiary rounded-[3rem] text-center text-white relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                         <div className="absolute top-0 left-10 w-40 h-40 bg-accent-500/100 blur-[100px]" />
-                        <div className="absolute bottom-0 right-10 w-40 h-40 bg-[#818cf8]/100 blur-[100px]" />
+                        <div className="absolute bottom-0 right-10 w-40 h-40 bg-[#14b8a6]/100 blur-[100px]" />
                     </div>
 
                     <h2 className="text-3xl font-black mb-4">Not sure where to begin?</h2>

@@ -38,7 +38,7 @@ const PRESETS: Record<string, any> = {
         glow: 'rgba(219, 39, 119, 0.4)',
         dot: 'bg-pink-300',
         text: 'text-white',
-        fadeFrom: 'from-purple-900'
+        fadeFrom: 'from-teal-900'
     },
     neon_green: {
         background: 'linear-gradient(135deg, #000000 0%, #064e3b 100%)',
@@ -63,9 +63,9 @@ const PRESETS: Record<string, any> = {
     white_black: {
         background: 'linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%)',
         textColor: '#000000',
-        accentColor: '#6366f1',
+        accentColor: '#14b8a6',
         glow: 'rgba(99, 102, 241, 0.2)',
-        dot: 'bg-[#818cf8]',
+        dot: 'bg-[#14b8a6]',
         text: 'text-black',
         fadeFrom: 'from-white'
     },

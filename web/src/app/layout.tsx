@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { memo } from 'react';
 import Navbar from "@/components/Navbar";
@@ -23,8 +23,8 @@ const MemoizedFooter = memo(Footer);
 const MemoizedFloatingBanner = memo(FloatingBanner);
 const MemoizedUserSync = memo(UserSync);
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased`}
+        className={`${geist.variable} antialiased`}
       >
         <Providers>
           <MemoizedNavbar />

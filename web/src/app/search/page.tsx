@@ -83,7 +83,7 @@ function SearchContent() {
                     </button>
                     <button
                         onClick={() => setActiveTab('vendors')}
-                        className={`px-6 py-2 rounded-full font-bold transition-all ${activeTab === 'vendors' ? 'bg-[#818cf8] text-white shadow-xl scale-105' : 'bg-surface-primary text-ink-tertiary hover:bg-surface-secondary'}`}
+                        className={`px-6 py-2 rounded-full font-bold transition-all ${activeTab === 'vendors' ? 'bg-[#14b8a6] text-white shadow-xl scale-105' : 'bg-surface-primary text-ink-tertiary hover:bg-surface-secondary'}`}
                     >
                         Vendors ({vendors.length})
                     </button>
@@ -121,7 +121,7 @@ function SearchContent() {
                                             </p>
                                             <div className="flex items-center justify-between pt-4 border-t border-border-primary">
                                                 <span className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Storefront</span>
-                                                <span className="text-[#818cf8] font-black text-sm group-hover:underline">Visit Store ↗</span>
+                                                <span className="text-[#14b8a6] font-black text-sm group-hover:underline">Visit Store ↗</span>
                                             </div>
                                         </div>
                                     </Link>

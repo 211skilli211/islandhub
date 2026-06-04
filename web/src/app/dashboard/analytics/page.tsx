@@ -233,11 +233,11 @@ export default function VendorAnalyticsDashboard() {
                         <p className="text-2xl font-bold text-green-700">{stats?.completed_orders || 0}</p>
                         <p className="text-sm text-green-600 font-medium">Completed</p>
                     </div>
-                    <div className="bg-purple-50 border border-purple-200 p-4 rounded-xl">
-                        <p className="text-2xl font-bold text-purple-700">
+                    <div className="bg-teal-50 border border-teal-200 p-4 rounded-xl">
+                        <p className="text-2xl font-bold text-teal-700">
                             ${(stats?.revenue_7d || 0).toFixed(2)}
                         </p>
-                        <p className="text-sm text-purple-600 font-medium">Revenue (7d)</p>
+                        <p className="text-sm text-teal-600 font-medium">Revenue (7d)</p>
                     </div>
                 </div>
 
@@ -339,7 +339,7 @@ export default function VendorAnalyticsDashboard() {
                                 <p className="text-sm text-ink-secondary mt-1">Returning</p>
                             </div>
                             <div className="text-center">
-                                <p className="text-3xl font-bold text-purple-600">
+                                <p className="text-3xl font-bold text-teal-600">
                                     ${customerStats.avg_customer_value?.toFixed(2)}
                                 </p>
                                 <p className="text-sm text-ink-secondary mt-1">Avg Customer Value</p>

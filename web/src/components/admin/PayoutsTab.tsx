@@ -67,7 +67,7 @@ export default function PayoutsTab() {
                 <div>
                     <div className="font-bold text-ink-primary">{row.user_name}</div>
                     <div className="text-xs text-ink-tertiary0">{row.user_email}</div>
-                    <span className={`inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${row.partner_type === 'vendor' ? 'bg-purple-100 text-purple-700' : 'bg-orange-100 text-orange-700'
+                    <span className={`inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${row.partner_type === 'vendor' ? 'bg-teal-100 text-teal-700' : 'bg-orange-100 text-orange-700'
                         }`}>
                         {row.partner_type}
                     </span>

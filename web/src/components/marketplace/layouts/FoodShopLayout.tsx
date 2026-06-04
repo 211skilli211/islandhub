@@ -709,7 +709,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 {store.aims && (
                                     <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-[#818cf8]/10 dark:bg-indigo-900/30 text-[#818cf8] dark:text-[#818cf8] rounded-lg flex items-center justify-center text-lg">🎯</span>
+                                            <span className="w-8 h-8 bg-[#14b8a6]/10 dark:bg-teal-900/30 text-[#14b8a6] dark:text-[#14b8a6] rounded-lg flex items-center justify-center text-lg">🎯</span>
                                             <h3 className="text-base font-semibold text-ink-primary">Strategic Aims</h3>
                                         </div>
                                         <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
@@ -824,7 +824,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                             <span className="text-xl group-hover:scale-110 transition-transform">🌐</span>
                                             <div>
                                                 <p className="text-ink-tertiary text-xs mb-0.5">Official Website</p>
-                                                <p className="font-medium text-white group-hover:text-[#818cf8] transition-colors">Visit Official Site →</p>
+                                                <p className="font-medium text-white group-hover:text-[#14b8a6] transition-colors">Visit Official Site →</p>
                                             </div>
                                         </a>
                                     )}

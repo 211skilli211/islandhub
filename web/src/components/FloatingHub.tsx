@@ -62,7 +62,7 @@ export default function FloatingHub() {
                                 className="flex items-center gap-3 px-4 py-3 bg-surface-secondary text-ink-primary rounded-2xl shadow-xl border border-border-primary hover:scale-105 transition-transform group"
                             >
                                 <span className="font-bold text-sm">Open Store Assistant</span>
-                                <span className="text-xl bg-[#818cf8]/100/10 p-2 rounded-xl group-hover:bg-[#818cf8]/100/20 transition-colors">{AGENT_PROFILES?.vendor?.icon || '🏪'}</span>
+                                <span className="text-xl bg-[#14b8a6]/100/10 p-2 rounded-xl group-hover:bg-[#14b8a6]/100/20 transition-colors">{AGENT_PROFILES?.vendor?.icon || '🏪'}</span>
                             </button>
                         )}
                         {showMenu && (
@@ -71,7 +71,7 @@ export default function FloatingHub() {
                                 className="flex items-center gap-3 px-4 py-3 bg-surface-secondary text-ink-primary rounded-2xl shadow-xl border border-border-primary hover:scale-105 transition-transform group"
                             >
                                 <span className="font-bold text-sm">Quick Actions</span>
-                                <span className="text-xl bg-[#818cf8]/100/10 p-2 rounded-xl group-hover:bg-[#818cf8]/100/20 transition-colors">⚡</span>
+                                <span className="text-xl bg-[#14b8a6]/100/10 p-2 rounded-xl group-hover:bg-[#14b8a6]/100/20 transition-colors">⚡</span>
                             </button>
                         )}
 
@@ -105,7 +105,7 @@ export default function FloatingHub() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={toggleHub}
-                    className="w-[52px] h-[52px] bg-gradient-to-br from-teal-500 via-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-border-primary relative z-10001"
+                    className="w-[52px] h-[52px] bg-gradient-to-br from-teal-500 via-teal-600 to-teal-600 rounded-full flex items-center justify-center text-white shadow-2xl border-4 border-white dark:border-border-primary relative z-10001"
                 >
                     <AnimatePresence mode="wait">
                         {isOpen ? (

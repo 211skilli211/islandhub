@@ -47,7 +47,7 @@ export default function LogisticsHub() {
     if (loading && myRequests.length === 0) {
         return (
             <div className="py-20 text-center">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-indigo-600" />
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600" />
                 <p className="mt-4 text-ink-tertiary0 font-black uppercase text-[10px] tracking-widest">Tracking Journeys...</p>
             </div>
         );
@@ -64,7 +64,7 @@ export default function LogisticsHub() {
 
             {user?.role !== 'driver' && !user?.is_verified_driver && (
                 <div className="mb-12">
-                    <div className="bg-gradient-to-r from-teal-600 to-indigo-600 p-8 rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-indigo-100">
+                    <div className="bg-gradient-to-r from-teal-600 to-teal-600 p-8 rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-teal-100">
                         <div className="flex items-center gap-6">
                             <div className="w-16 h-16 bg-surface-elevated/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl">🚀</div>
                             <div>
@@ -74,7 +74,7 @@ export default function LogisticsHub() {
                         </div>
                         <button
                             onClick={() => (document.getElementById('driver-onboarding') as HTMLElement)?.scrollIntoView({ behavior: 'smooth' })}
-                            className="px-8 py-4 bg-surface-elevated text-[#818cf8] rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl"
+                            className="px-8 py-4 bg-surface-elevated text-[#14b8a6] rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl"
                         >
                             Start Application ➔
                         </button>
@@ -94,7 +94,7 @@ export default function LogisticsHub() {
                         const statusConfig: Record<string, { icon: string; color: string; label: string }> = {
                             pending: { icon: '⏳', color: 'bg-sand-500/10 text-sand-500', label: 'Finding Driver' },
                             accepted: { icon: '✅', color: 'bg-accent-500/15 text-accent-500', label: 'Driver Assigned' },
-                            in_progress: { icon: '🚚', color: 'bg-[#818cf8]/15 text-[#6366f1]', label: 'In Transit' },
+                            in_progress: { icon: '🚚', color: 'bg-[#14b8a6]/15 text-[#14b8a6]', label: 'In Transit' },
                             completed: { icon: '🏁', color: 'bg-surface-secondary text-ink-secondary', label: 'Completed' },
                             cancelled: { icon: '❌', color: 'bg-[#e11d48]/10 text-[#be123c]', label: 'Cancelled' }
                         };
@@ -103,7 +103,7 @@ export default function LogisticsHub() {
 
                         return (
                             <div key={request.id} className="p-8 bg-surface-elevated border border-border-primary rounded-[2rem] shadow-sm hover:shadow-xl transition-all relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 w-24 h-24 bg-surface-secondary rounded-bl-[3rem] -mr-8 -mt-8 group-hover:bg-[#818cf8]/10 transition-colors" />
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-surface-secondary rounded-bl-[3rem] -mr-8 -mt-8 group-hover:bg-[#14b8a6]/10 transition-colors" />
 
                                 <div className="flex flex-col md:flex-row justify-between gap-6 relative z-10">
                                     <div className="flex items-center gap-6">
@@ -128,7 +128,7 @@ export default function LogisticsHub() {
                                     <div className="flex flex-col items-end justify-center">
                                         <div className="text-3xl font-black text-ink-primary tracking-tighter italic">${Number(request.price || 0).toFixed(2)}</div>
                                         {request.driver_name && (
-                                            <div className="text-[10px] font-black text-[#818cf8] mt-1 uppercase tracking-widest">
+                                            <div className="text-[10px] font-black text-[#14b8a6] mt-1 uppercase tracking-widest">
                                                 Driver: {request.driver_name}
                                             </div>
                                         )}
@@ -140,7 +140,7 @@ export default function LogisticsHub() {
                                         <>
                                             <button
                                                 onClick={() => setChatRequest(request)}
-                                                className="flex-1 py-4 bg-[#818cf8] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#6366f1] transition-all flex items-center justify-center gap-3 shadow-lg shadow-indigo-100"
+                                                className="flex-1 py-4 bg-[#14b8a6] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#14b8a6] transition-all flex items-center justify-center gap-3 shadow-lg shadow-teal-100"
                                             >
                                                 💬 Chat
                                             </button>
@@ -208,7 +208,7 @@ export default function LogisticsHub() {
                                 <DispatchMap jobs={[trackingJob]} />
                                 <div className="absolute top-8 left-8 p-6 bg-surface-elevated rounded-3xl shadow-2xl z-[1000] border border-border-primary max-w-xs">
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="w-12 h-12 bg-[#818cf8]/10 rounded-2xl flex items-center justify-center text-2xl">👨‍✈️</div>
+                                        <div className="w-12 h-12 bg-[#14b8a6]/10 rounded-2xl flex items-center justify-center text-2xl">👨‍✈️</div>
                                         <div>
                                             <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Your Driver</p>
                                             <p className="font-black text-ink-primary">{trackingJob.driver_name || 'Assigned'}</p>

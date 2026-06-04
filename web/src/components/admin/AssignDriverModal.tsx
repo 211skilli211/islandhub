@@ -51,18 +51,18 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                                     <button
                                         key={driver.user_id}
                                         onClick={() => onAssign(driver.user_id)}
-                                        className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary flex items-center justify-between group hover:border-[#818cf8] hover:bg-[#818cf8]/10 transition-all"
+                                        className="w-full p-4 bg-surface-secondary rounded-2xl border border-border-primary flex items-center justify-between group hover:border-[#14b8a6] hover:bg-[#14b8a6]/10 transition-all"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 bg-surface-elevated rounded-xl flex items-center justify-center text-2xl shadow-sm group-hover:bg-[#818cf8] group-hover:text-white transition-colors">
+                                            <div className="w-12 h-12 bg-surface-elevated rounded-xl flex items-center justify-center text-2xl shadow-sm group-hover:bg-[#14b8a6] group-hover:text-white transition-colors">
                                                 {driver.vehicle_category === 'scooter' ? '🛵' : driver.vehicle_category === 'van' ? '🚐' : '🚗'}
                                             </div>
                                             <div className="text-left">
-                                                <p className="font-black text-ink-primary group-hover:text-indigo-900">{driver.name}</p>
+                                                <p className="font-black text-ink-primary group-hover:text-teal-900">{driver.name}</p>
                                                 <p className="text-[10px] text-ink-tertiary0 font-bold uppercase tracking-tight">{driver.make} {driver.model}</p>
                                             </div>
                                         </div>
-                                        <div className="px-4 py-2 bg-surface-elevated rounded-xl text-[9px] font-black uppercase text-[#818cf8] border border-[#818cf8]/20 group-hover:bg-[#818cf8] group-hover:text-white group-hover:border-[#818cf8] transition-all">
+                                        <div className="px-4 py-2 bg-surface-elevated rounded-xl text-[9px] font-black uppercase text-[#14b8a6] border border-[#14b8a6]/20 group-hover:bg-[#14b8a6] group-hover:text-white group-hover:border-[#14b8a6] transition-all">
                                             Select
                                         </div>
                                     </button>

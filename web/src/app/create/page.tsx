@@ -725,7 +725,7 @@ export default function CreatePage() {
                                 {selectedCategory?.layout_type === 'service' && !selectedCategory?.category_key?.includes('food') && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className="w-2 h-8 bg-purple-500 rounded-full" />
+                                            <div className="w-2 h-8 bg-teal-500 rounded-full" />
                                             <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Service Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

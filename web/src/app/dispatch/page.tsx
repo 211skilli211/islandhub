@@ -119,7 +119,7 @@ export default function StandaloneDispatchPage() {
                             <div className="flex gap-3">
                                 <div className="bg-surface-primary px-4 py-2 rounded-xl border border-border-primary text-center">
                                     <p className="text-[9px] uppercase font-black text-ink-tertiary tracking-widest">Jobs</p>
-                                    <p className="text-xl font-black text-[#818cf8]">{jobs.length}</p>
+                                    <p className="text-xl font-black text-[#14b8a6]">{jobs.length}</p>
                                 </div>
                                 <div className="bg-surface-primary px-4 py-2 rounded-xl border border-border-primary text-center">
                                     <p className="text-[9px] uppercase font-black text-ink-tertiary tracking-widest">Drivers</p>
@@ -201,7 +201,7 @@ export default function StandaloneDispatchPage() {
                                             <p className="text-xs text-ink-tertiary mb-2">{job.pickup_location} ➝ {job.dropoff_location}</p>
                                             <div className="flex justify-between items-center mt-3 pt-3 border-t border-border-primary/50">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-5 h-5 bg-indigo-100 rounded-full flex items-center justify-center text-[10px]">
+                                                    <div className="w-5 h-5 bg-teal-100 rounded-full flex items-center justify-center text-[10px]">
                                                         {job.driver_id ? '👨‍✈️' : '🤖'}
                                                     </div>
                                                     <span className="text-[10px] font-bold text-ink-secondary">
