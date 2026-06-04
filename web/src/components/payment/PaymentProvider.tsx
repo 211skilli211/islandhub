@@ -27,7 +27,6 @@ export default function PaymentProvider({ children }: { children: React.ReactNod
         const loadPaymentSDKs = async () => {
             try {
                 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-                    console.warn("Stripe key is missing");
                     return;
                 }
 

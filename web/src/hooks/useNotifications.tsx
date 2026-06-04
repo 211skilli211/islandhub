@@ -46,7 +46,6 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
         eventSourceRef.current = eventSource;
 
         eventSource.onopen = () => {
-            console.log('[SSE] Connected to notification stream');
         };
 
         eventSource.onerror = (error) => {
@@ -58,7 +57,6 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
                 clearTimeout(reconnectTimeoutRef.current);
             }
             reconnectTimeoutRef.current = setTimeout(() => {
-                console.log('[SSE] Attempting to reconnect...');
                 connect();
             }, 5000);
         };
@@ -66,7 +64,6 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
         // Handle new job event (for drivers)
         eventSource.addEventListener('new_job', (event) => {
             const data: NotificationEvent = JSON.parse(event.data);
-            console.log('[SSE] New job received:', data);
 
             // Show toast notification
             toast.custom((t) => (
@@ -97,7 +94,6 @@ options.onNewJob?.(data);
 // Handle job accepted event (for customers)
 eventSource.addEventListener('job_accepted', (event) => {
     const data: NotificationEvent = JSON.parse(event.data);
-    console.log('[SSE] Job accepted:', data);
 
     toast.success(data.message || 'A driver has accepted your request!', {
         icon: '✅',
@@ -110,7 +106,6 @@ eventSource.addEventListener('job_accepted', (event) => {
 // Handle status update event (for customers)
 eventSource.addEventListener('job_status_updated', (event) => {
     const data: NotificationEvent = JSON.parse(event.data);
-    console.log('[SSE] Status updated:', data);
 
     const icons: Record<string, string> = {
         in_progress: '🚚',

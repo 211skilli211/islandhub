@@ -66,7 +66,6 @@ export default function HeroBackground({
                     setAsset(response.data);
                 }
             } catch (error) {
-                console.log(`No custom hero asset found for ${pageKey}, using defaults.`);
             } finally {
                 // Ensure loading is set to false immediately after attempt
                 setLoading(false);

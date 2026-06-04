@@ -131,7 +131,6 @@ export default function CreatePage() {
                     const catRes = await api.get('/categories?withSubtypes=true');
                     catData = catRes.data;
                 } catch (catErr) {
-                    console.warn('Failed to load categories', catErr);
                     catData = [];
                 }
 
@@ -145,7 +144,6 @@ export default function CreatePage() {
                     if (storesErr.response?.status === 404) {
                         vendorStores = [];
                     } else {
-                        console.warn('Failed to load stores', storesErr);
                         vendorStores = [];
                     }
                 }

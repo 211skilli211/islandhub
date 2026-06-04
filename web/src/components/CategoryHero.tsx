@@ -38,7 +38,6 @@ export default function CategoryHero({
                         setHeroAsset(res.data);
                     }
                 } catch (e) {
-                    console.log(`No hero asset found for ${pageKey}`);
                 }
             };
             fetchHeroAsset();

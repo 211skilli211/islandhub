@@ -108,7 +108,6 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
     const displayImages = React.useMemo(() => {
         // Debug: Log the actual structure
-        console.log('Listing image data:', {
             photos: listing.photos,
             images: listing.images,
             image_url: listing.image_url,
@@ -133,7 +132,6 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                 .filter(Boolean) as string[];
 
             if (photoUrls.length > 0) {
-                console.log('Using photos:', photoUrls);
                 return photoUrls;
             }
         }
@@ -145,25 +143,21 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                 .filter(Boolean) as string[];
 
             if (imageUrls.length > 0) {
-                console.log('Using images:', imageUrls);
                 return imageUrls;
             }
         }
 
         // Fallback to single image
         if (listing.image_url) {
-            console.log('Using image_url:', listing.image_url);
             return [listing.image_url];
         }
 
         // Last resort: metadata image
         const metadataImage = (listing.metadata as any)?.image;
         if (metadataImage) {
-            console.log('Using metadata image:', metadataImage);
             return [metadataImage];
         }
 
-        console.log('No images found');
         return [];
     }, [listing]);
 

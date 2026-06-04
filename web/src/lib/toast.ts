@@ -120,5 +120,4 @@ export type ToastStyle = 'modern-dark' | 'clean-light' | 'teal-accent' | 'neumor
 
 export function setToastStyle(_style: ToastStyle) {
   // No-op: toast style now auto-detects from dark mode
-  console.warn('setToastStyle is deprecated. Toast style now auto-detects from theme.');
 }

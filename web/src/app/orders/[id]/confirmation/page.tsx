@@ -143,7 +143,7 @@ export default function OrderConfirmationPage() {
 
                                     {item.rental_dates && (
                                         <p className="text-xs text-accent-400 mt-1">
-                                            Rental: {new Date(item.rental_dates.start).toLocaleDateString()} - {new Date(item.rental_dates.end).toLocaleDateString()}
+                                            {(() => { const s = new Date(item.rental_dates.start); const e = new Date(item.rental_dates.end); const days = Math.round((e.getTime() - s.getTime()) / 86400000); const fmt = { weekday: 'short', month: 'short', day: 'numeric' } as const; return `Rental: ${s.toLocaleDateString('en-US', fmt)} to ${e.toLocaleDateString('en-US', fmt)} (${days} ${days === 1 ? 'Night' : 'Nights'})`; })()}
                                         </p>
                                     )}
                                     {item.service_details && (

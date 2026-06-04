@@ -207,7 +207,7 @@ export default function CheckoutPage() {
 
                                             {item.rental_start_date && (
                                                 <p className="text-xs text-accent-400 mt-1">
-                                                    {new Date(item.rental_start_date).toLocaleDateString()} - {new Date(item.rental_end_date!).toLocaleDateString()}
+                                                    {(() => { const s = new Date(item.rental_start_date); const e = new Date(item.rental_end_date!); const days = Math.round((e.getTime() - s.getTime()) / 86400000); const fmt = { weekday: 'short', month: 'short', day: 'numeric' } as const; return `${s.toLocaleDateString('en-US', fmt)} to ${e.toLocaleDateString('en-US', fmt)} (${days} ${days === 1 ? 'Night' : 'Nights'})`; })()}
                                                 </p>
                                             )}
                                             {item.service_package && (

@@ -17,14 +17,12 @@ const getBaseUrl = () => {
         // If the frontend is running on localhost, we always assume the backend is too.
         // This prevents stale tunnel/production URLs in .env from breaking local dev.
         if (isLocal) {
-            console.log('[API] Running on localhost, using http://localhost:5001');
             return 'http://localhost:5001';
         }
 
         // Priority 3: Tunnel logic
         // If we are on a tunnel (e.g., *.trycloudflare.com), and the backend is served through the same tunnel
         if (hostname.includes('trycloudflare.com')) {
-            console.log('[API] Running on Cloudflare tunnel, using same hostname');
             return `${protocol}//${hostname}`;
         }
 
@@ -32,7 +30,6 @@ const getBaseUrl = () => {
         // If we're accessing via IP address (mobile/LAN), use that IP with backend port
         if (isIpAddress) {
             const lanUrl = `${protocol}//${hostname}:5001`;
-            console.log('[API] Detected LAN/Mobile IP access, using:', lanUrl);
             return lanUrl;
         }
 
@@ -40,7 +37,6 @@ const getBaseUrl = () => {
         // If we're on a real device/LAN IP but the env points to localhost, we MUST override
         if (!isLocal && (!envUrl || envUrl.includes('localhost') || envUrl.includes('127.0.0.1'))) {
             const fallbackUrl = `${protocol}//${hostname}:5001`;
-            console.log('[API] Non-localhost access with localhost env, using:', fallbackUrl);
             return fallbackUrl;
         }
     }
@@ -51,17 +47,14 @@ const getBaseUrl = () => {
         const { hostname } = window.location;
         const isLocal = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
         if (!isLocal && !envUrl) {
-            console.log('[API] Production mode, using Render backend');
             return 'https://islandhub.onrender.com';
         }
     }
-    console.log('[API] Using environment URL:', envUrl || 'http://localhost:5001');
     return envUrl || 'http://localhost:5001';
 };
 
 export const BASE_URL = getBaseUrl();
 if (typeof window !== 'undefined') {
-    console.log('[API] Final resolved API BASE_URL:', BASE_URL);
 }
 
 export const DEFAULT_PLACEHOLDER = 'file-1769965232226-73669333.jpg';
@@ -102,7 +95,6 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
         // Log for debugging (can be removed later)
-        // console.log('Original Request:', config.url);
 
         // Ensure relative URLs are handled correctly
         const isAbsolute = /^https?:\/\//i.test(config.url || '');
@@ -118,7 +110,6 @@ api.interceptors.request.use(
             config.url = path;
         }
 
-        // console.log('Transformed Request:', config.url);
 
         // Check if we are running on the client side
         if (typeof window !== 'undefined') {
@@ -156,7 +147,6 @@ api.interceptors.response.use(
             // Only dispatch session expiry for non-auth endpoints
             // (Auth endpoints returning 401 are likely bad credentials, not session expiry)
             if (!isAuthEndpoint && typeof window !== 'undefined') {
-                console.warn('Session may have expired - dispatching event');
                 window.dispatchEvent(new CustomEvent('session-expired', { 
                     detail: { status: 401, url: originalRequest?.url }
                 }));

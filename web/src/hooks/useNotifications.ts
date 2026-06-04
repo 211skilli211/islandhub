@@ -41,7 +41,6 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
         eventSourceRef.current = eventSource;
 
         eventSource.onopen = () => {
-            console.log('[SSE] Connected to notification stream');
         };
 
         eventSource.onerror = () => {

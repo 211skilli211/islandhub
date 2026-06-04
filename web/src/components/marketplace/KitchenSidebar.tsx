@@ -273,7 +273,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                         {/* Footer CTA */}
                         <div className="p-8 border-t border-border-primary">
                             <button className="w-full py-5 bg-[#e11d48]/50 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-xl shadow-rose-100 hover:bg-[#e11d48] hover:-translate-y-1 transition-all active:scale-95">
-                                Finalize Kitchen Order
+                                Place Order — {cartItems.reduce((s: number, i: any) => s + (i.price || 0) * (i.qty || 1), 0).toFixed(2)} XCD
                             </button>
                         </div>
                     </motion.div>

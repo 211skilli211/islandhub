@@ -211,7 +211,7 @@ export default function EventDetailPage() {
       {showConfirm && tier && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 max-w-md w-full border border-border-primary dark:border-ocean-700">
-            <h3 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Confirm Purchase</h3>
+            <h3 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Complete Your Booking</h3>
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
                 <span className="text-ink-tertiary">Event</span>
@@ -242,7 +242,7 @@ export default function EventDetailPage() {
                 disabled={purchasing}
                 className="flex-1 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50"
               >
-                {purchasing ? 'Processing...' : 'Confirm & Pay'}
+                {purchasing ? 'Processing...' : `Get Ticket — $${tier.price} XCD`}
               </button>
             </div>
           </div>
