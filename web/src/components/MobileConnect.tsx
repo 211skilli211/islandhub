@@ -25,16 +25,16 @@ export default function MobileConnect() {
     if (!url) return null;
 
     return (
-        <div className="bg-gray-900 text-white py-12">
+        <div className="bg-ink-900 text-white py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
                 <div className="mb-8 md:mb-0">
                     <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                         Take IslandFund with you.
                     </h2>
-                    <p className="mt-3 text-xl text-gray-300">
+                    <p className="mt-3 text-xl text-ink-300">
                         Scan the QR code to test the mobile experience on your phone.
                         <br />
-                        <span className="text-sm text-gray-400">(Ensure your phone is on the same Wi-Fi)</span>
+                        <span className="text-sm text-ink-400">(Ensure your phone is on the same Wi-Fi)</span>
                     </p>
                     <a href={url} className="block mt-4 text-accent-400 hover:underline">{url}</a>
                 </div>

@@ -97,9 +97,9 @@ export default function KYBVerificationPage() {
             pending: 'bg-yellow-100 text-yellow-800',
             active: 'bg-green-100 text-green-800',
             rejected: 'bg-red-100 text-red-800',
-            suspended: 'bg-gray-100 text-gray-800'
+            suspended: 'bg-ink-100 text-ink-800'
         };
-        return styles[status] || 'bg-gray-100 text-gray-800';
+        return styles[status] || 'bg-ink-100 text-ink-800';
     };
 
     return (
@@ -109,19 +109,19 @@ export default function KYBVerificationPage() {
                 <div className="flex gap-2">
                     <button
                         onClick={() => setStatusFilter('pending')}
-                        className={`px-4 py-2 rounded-lg ${statusFilter === 'pending' ? 'bg-yellow-500 text-white' : 'bg-gray-200'}`}
+                        className={`px-4 py-2 rounded-lg ${statusFilter === 'pending' ? 'bg-yellow-500 text-white' : 'bg-ink-200'}`}
                     >
                         Pending ({pagination.total})
                     </button>
                     <button
                         onClick={() => setStatusFilter('active')}
-                        className={`px-4 py-2 rounded-lg ${statusFilter === 'active' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+                        className={`px-4 py-2 rounded-lg ${statusFilter === 'active' ? 'bg-green-500 text-white' : 'bg-ink-200'}`}
                     >
                         Active
                     </button>
                     <button
                         onClick={() => setStatusFilter('rejected')}
-                        className={`px-4 py-2 rounded-lg ${statusFilter === 'rejected' ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
+                        className={`px-4 py-2 rounded-lg ${statusFilter === 'rejected' ? 'bg-red-500 text-white' : 'bg-ink-200'}`}
                     >
                         Rejected
                     </button>
@@ -131,13 +131,13 @@ export default function KYBVerificationPage() {
             {loading ? (
                 <div className="text-center py-12">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto"></div>
-                    <p className="mt-4 text-gray-500">Loading vendors...</p>
+                    <p className="mt-4 text-ink-500">Loading vendors...</p>
                 </div>
             ) : vendors.length === 0 ? (
-                <div className="text-center py-12 bg-gray-50 rounded-xl">
+                <div className="text-center py-12 bg-ink-50 rounded-xl">
                     <div className="text-6xl mb-4">📋</div>
-                    <h3 className="text-xl font-semibold text-gray-700 mb-2">No {statusFilter} vendors</h3>
-                    <p className="text-gray-500">
+                    <h3 className="text-xl font-semibold text-ink-700 mb-2">No {statusFilter} vendors</h3>
+                    <p className="text-ink-500">
                         {statusFilter === 'pending'
                             ? 'All vendors have been reviewed!'
                             : `No ${statusFilter} vendors found`}
@@ -146,10 +146,10 @@ export default function KYBVerificationPage() {
             ) : (
                 <div className="grid gap-6">
                     {vendors.map((vendor) => (
-                        <div key={vendor.id} className="bg-surface-elevated dark:bg-ocean-800 rounded-xl shadow-sm border border-gray-100 dark:border-ocean-700 overflow-hidden">
+                        <div key={vendor.id} className="bg-surface-elevated dark:bg-ocean-800 rounded-xl shadow-sm border border-ink-100 dark:border-ocean-700 overflow-hidden">
                             <div className="flex">
                                 {/* Store Logo */}
-                                <div className="w-48 h-48 shrink-0 bg-gray-100 relative">
+                                <div className="w-48 h-48 shrink-0 bg-ink-100 relative">
                                     {vendor.store_logo ? (
                                         <Image
                                             src={vendor.store_logo}
@@ -158,7 +158,7 @@ export default function KYBVerificationPage() {
                                             className="object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                        <div className="w-full h-full flex items-center justify-center text-ink-400">
                                             <span className="text-4xl">🏪</span>
                                         </div>
                                     )}
@@ -168,11 +168,11 @@ export default function KYBVerificationPage() {
                                 <div className="flex-1 p-6">
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
-                                            <h3 className="text-xl font-bold text-gray-900">
+                                            <h3 className="text-xl font-bold text-ink-900">
                                                 {vendor.store_name || vendor.business_name}
                                             </h3>
-                                            <p className="text-gray-500">{vendor.owner_name} ({vendor.owner_email})</p>
-                                            <p className="text-sm text-gray-400 mt-1">
+                                            <p className="text-ink-500">{vendor.owner_name} ({vendor.owner_email})</p>
+                                            <p className="text-sm text-ink-400 mt-1">
                                                 Category: <span className="font-medium">{vendor.store_category || vendor.sub_type}</span>
                                             </p>
                                         </div>
@@ -181,9 +181,9 @@ export default function KYBVerificationPage() {
                                         </span>
                                     </div>
 
-                                    <p className="text-gray-600 mb-4 line-clamp-2">{vendor.description || vendor.bio}</p>
+                                    <p className="text-ink-600 mb-4 line-clamp-2">{vendor.description || vendor.bio}</p>
 
-                                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                                    <div className="flex items-center gap-4 text-sm text-ink-500 mb-4">
                                         <span>📍 {vendor.location || 'Not specified'}</span>
                                         <span>📧 {vendor.contact_email}</span>
                                         {vendor.contact_phone && <span>📞 {vendor.contact_phone}</span>}
@@ -218,7 +218,7 @@ export default function KYBVerificationPage() {
                                         )}
                                         <button
                                             onClick={() => setSelectedVendor(vendor)}
-                                            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+                                            className="px-4 py-2 bg-ink-200 text-ink-700 rounded-lg hover:bg-ink-300 transition-colors font-medium"
                                         >
                                             View Details
                                         </button>
@@ -248,7 +248,7 @@ export default function KYBVerificationPage() {
                     <button
                         onClick={() => setPagination(prev => ({ ...prev, page: prev.page - 1 }))}
                         disabled={pagination.page === 1}
-                        className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
+                        className="px-4 py-2 bg-ink-200 rounded-lg disabled:opacity-50"
                     >
                         Previous
                     </button>
@@ -258,7 +258,7 @@ export default function KYBVerificationPage() {
                     <button
                         onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
                         disabled={pagination.page === pagination.totalPages}
-                        className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
+                        className="px-4 py-2 bg-ink-200 rounded-lg disabled:opacity-50"
                     >
                         Next
                     </button>
@@ -270,14 +270,14 @@ export default function KYBVerificationPage() {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 w-full max-w-md">
                         <h3 className="text-xl font-bold mb-4">Reject Vendor</h3>
-                        <p className="text-gray-600 mb-4">
+                        <p className="text-ink-600 mb-4">
                             Please provide a reason for rejecting <strong>{selectedVendor?.store_name || selectedVendor?.business_name}</strong>
                         </p>
                         <textarea
                             value={rejectReason}
                             onChange={(e) => setRejectReason(e.target.value)}
                             placeholder="Enter rejection reason..."
-                            className="w-full p-3 border border-gray-300 rounded-lg h-32 resize-none"
+                            className="w-full p-3 border border-ink-300 rounded-lg h-32 resize-none"
                         />
                         <div className="flex gap-3 mt-4">
                             <button
@@ -293,7 +293,7 @@ export default function KYBVerificationPage() {
                                     setRejectReason('');
                                     setSelectedVendor(null);
                                 }}
-                                className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                                className="flex-1 px-4 py-2 bg-ink-200 text-ink-700 rounded-lg hover:bg-ink-300"
                             >
                                 Cancel
                             </button>
@@ -311,7 +311,7 @@ export default function KYBVerificationPage() {
                                 <h2 className="text-2xl font-bold">{selectedVendor.store_name || selectedVendor.business_name}</h2>
                                 <button
                                     onClick={() => setSelectedVendor(null)}
-                                    className="text-gray-400 hover:text-gray-600 text-2xl"
+                                    className="text-ink-400 hover:text-ink-600 text-2xl"
                                 >
                                     ×
                                 </button>
@@ -319,36 +319,36 @@ export default function KYBVerificationPage() {
 
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <h3 className="font-semibold text-gray-700 mb-2">Business Info</h3>
+                                    <h3 className="font-semibold text-ink-700 mb-2">Business Info</h3>
                                     <div className="space-y-2 text-sm">
-                                        <p><span className="text-gray-500">Owner:</span> {selectedVendor.owner_name}</p>
-                                        <p><span className="text-gray-500">Email:</span> {selectedVendor.owner_email}</p>
-                                        <p><span className="text-gray-500">Category:</span> {selectedVendor.store_category || selectedVendor.sub_type}</p>
-                                        <p><span className="text-gray-500">Location:</span> {selectedVendor.location || 'N/A'}</p>
-                                        <p><span className="text-gray-500">Phone:</span> {selectedVendor.contact_phone || 'N/A'}</p>
-                                        <p><span className="text-gray-500">Status:</span>
+                                        <p><span className="text-ink-500">Owner:</span> {selectedVendor.owner_name}</p>
+                                        <p><span className="text-ink-500">Email:</span> {selectedVendor.owner_email}</p>
+                                        <p><span className="text-ink-500">Category:</span> {selectedVendor.store_category || selectedVendor.sub_type}</p>
+                                        <p><span className="text-ink-500">Location:</span> {selectedVendor.location || 'N/A'}</p>
+                                        <p><span className="text-ink-500">Phone:</span> {selectedVendor.contact_phone || 'N/A'}</p>
+                                        <p><span className="text-ink-500">Status:</span>
                                             <span className={`ml-1 px-2 py-0.5 rounded-full text-xs ${getStatusBadge(selectedVendor.status)}`}>
                                                 {selectedVendor.status}
                                             </span>
                                         </p>
-                                        <p><span className="text-gray-500">KYC Verified:</span>
+                                        <p><span className="text-ink-500">KYC Verified:</span>
                                             <span className={`ml-1 ${selectedVendor.kyb_verified ? 'text-green-600' : 'text-yellow-600'}`}>
                                                 {selectedVendor.kyb_verified ? '✓ Yes' : 'Pending'}
                                             </span>
                                         </p>
-                                        <p><span className="text-gray-500">Applied:</span> {new Date(selectedVendor.created_at).toLocaleDateString()}</p>
+                                        <p><span className="text-ink-500">Applied:</span> {new Date(selectedVendor.created_at).toLocaleDateString()}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-gray-700 mb-2">Description</h3>
-                                    <p className="text-sm text-gray-600">{selectedVendor.description || selectedVendor.bio || 'No description provided'}</p>
+                                    <h3 className="font-semibold text-ink-700 mb-2">Description</h3>
+                                    <p className="text-sm text-ink-600">{selectedVendor.description || selectedVendor.bio || 'No description provided'}</p>
                                 </div>
                             </div>
 
                             {selectedVendor.logo_url && (
                                 <div className="mt-6">
-                                    <h3 className="font-semibold text-gray-700 mb-2">Store Logo</h3>
-                                    <div className="w-24 h-24 rounded-lg overflow-hidden bg-gray-100">
+                                    <h3 className="font-semibold text-ink-700 mb-2">Store Logo</h3>
+                                    <div className="w-24 h-24 rounded-lg overflow-hidden bg-ink-100">
                                         <Image
                                             src={selectedVendor.logo_url}
                                             alt="Logo"
@@ -362,8 +362,8 @@ export default function KYBVerificationPage() {
 
                             {selectedVendor.banner_url && (
                                 <div className="mt-6">
-                                    <h3 className="font-semibold text-gray-700 mb-2">Banner Image</h3>
-                                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
+                                    <h3 className="font-semibold text-ink-700 mb-2">Banner Image</h3>
+                                    <div className="w-full h-40 rounded-lg overflow-hidden bg-ink-100">
                                         <Image
                                             src={selectedVendor.banner_url}
                                             alt="Banner"

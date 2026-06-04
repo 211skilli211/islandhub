@@ -29,14 +29,14 @@ export default function ForgotPasswordPage() {
     if (sent) {
         return (
             <>
-                <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+                <div className="min-h-screen bg-ink-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
                         <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                             <span className="text-3xl">✓</span>
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900">Check your email</h2>
-                        <p className="mt-2 text-sm text-gray-600">We sent a password reset link to <strong>{email}</strong></p>
-                        <p className="mt-4 text-xs text-gray-500">The link expires in 15 minutes</p>
+                        <h2 className="text-2xl font-bold text-ink-900">Check your email</h2>
+                        <p className="mt-2 text-sm text-ink-600">We sent a password reset link to <strong>{email}</strong></p>
+                        <p className="mt-4 text-xs text-ink-500">The link expires in 15 minutes</p>
                         <div className="mt-6">
                             <Link href="/login" className="text-accent-400 hover:text-accent-500 font-medium">
                                 Back to login

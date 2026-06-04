@@ -99,7 +99,7 @@ export function NaturalLanguageSearch() {
             {/* Search Input */}
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
+                    <Search className="h-5 w-5 text-ink-400" />
                 </div>
                 <input
                     type="text"
@@ -107,12 +107,12 @@ export function NaturalLanguageSearch() {
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Try: Show me products under $50 in St. Kitts..."
-                    className="w-full pl-12 pr-24 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all"
+                    className="w-full pl-12 pr-24 py-4 text-lg border-2 border-ink-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all"
                 />
                 <div className="absolute inset-y-0 right-0 pr-2 flex items-center gap-2">
                     <button
                         onClick={() => { }}
-                        className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                        className="p-2 text-ink-400 hover:text-ink-600 transition-colors"
                         title="Voice search"
                     >
                         <Mic className="h-5 w-5" />
@@ -120,7 +120,7 @@ export function NaturalLanguageSearch() {
                     <button
                         onClick={handleSearch}
                         disabled={loading || !query.trim()}
-                        className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium"
+                        className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-ink-300 disabled:cursor-not-allowed transition-colors font-medium"
                     >
                         {loading ? 'Searching...' : 'Search'}
                     </button>
@@ -136,7 +136,7 @@ export function NaturalLanguageSearch() {
                             setQuery(item.query);
                             setTimeout(handleSearch, 100);
                         }}
-                        className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors flex items-center gap-1"
+                        className="px-3 py-1.5 text-sm bg-ink-100 hover:bg-ink-200 text-ink-700 rounded-full transition-colors flex items-center gap-1"
                     >
                         <Sparkles className="h-3 w-3 text-blue-500" />
                         {item.label}
@@ -167,7 +167,7 @@ export function NaturalLanguageSearch() {
             {/* Results */}
             {results.length > 0 && (
                 <div className="mt-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                    <h3 className="text-lg font-semibold text-ink-900 mb-4">
                         Found {results.length} results
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -175,7 +175,7 @@ export function NaturalLanguageSearch() {
                             <a
                                 key={result.id}
                                 href={result.url}
-                                className="block p-4 bg-surface-elevated border border-gray-200 rounded-xl hover:shadow-lg transition-shadow"
+                                className="block p-4 bg-surface-elevated border border-ink-200 rounded-xl hover:shadow-lg transition-shadow"
                             >
                                 {result.image && (
                                     <img
@@ -189,9 +189,9 @@ export function NaturalLanguageSearch() {
                                         <span className="text-xs font-medium text-blue-600 uppercase tracking-wide">
                                             {result.type}
                                         </span>
-                                        <h4 className="font-semibold text-gray-900 mt-1">{result.title}</h4>
+                                        <h4 className="font-semibold text-ink-900 mt-1">{result.title}</h4>
                                         {result.location && (
-                                            <p className="text-sm text-gray-500">{result.location}</p>
+                                            <p className="text-sm text-ink-500">{result.location}</p>
                                         )}
                                     </div>
                                     {result.price && (
@@ -209,7 +209,7 @@ export function NaturalLanguageSearch() {
             {/* No Results */}
             {!loading && results.length === 0 && query && !error && (
                 <div className="mt-8 text-center">
-                    <p className="text-gray-500">No results found. Try a different search.</p>
+                    <p className="text-ink-500">No results found. Try a different search.</p>
                 </div>
             )}
         </div>

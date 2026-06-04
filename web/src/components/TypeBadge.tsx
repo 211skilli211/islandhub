@@ -11,7 +11,7 @@ const badges: Record<ListingType, { label: string; color: string }> = {
 
 export default function TypeBadge({ type }: { type?: string }) {
     const key = (type || 'product').toLowerCase() as ListingType;
-    const badge = badges[key] || { label: type || 'Listing', color: 'bg-gray-100 text-gray-800' };
+    const badge = badges[key] || { label: type || 'Listing', color: 'bg-ink-100 text-ink-800' };
 
     return (
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badge.color}`}>

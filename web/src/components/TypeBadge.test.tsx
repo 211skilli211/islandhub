@@ -39,15 +39,15 @@ describe('TypeBadge Component', () => {
     render(<TypeBadge type="unknown" />);
     const badge = screen.getByText('unknown');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('bg-gray-100');
-    expect(badge).toHaveClass('text-gray-800');
+    expect(badge).toHaveClass('bg-ink-100');
+    expect(badge).toHaveClass('text-ink-800');
   });
 
   it('handles empty string type', () => {
     const { container } = render(<TypeBadge type="" />);
     const badge = container.querySelector('span');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('bg-gray-100');
+    expect(badge).toHaveClass('bg-ink-100');
     expect(badge).toHaveTextContent('');
   });
 

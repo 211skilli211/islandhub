@@ -48,7 +48,7 @@ const COLOR_THEMES = [
     { name: 'Emerald', value: 'emerald', from: 'from-emerald-500', to: 'to-green-500', bg: 'bg-emerald-500/100', text: 'text-emerald-400', light: 'bg-emerald-500/10', border: 'border-emerald-500', gradient: 'from-emerald-500/20 to-green-500/20' },
     { name: 'Blue', value: 'blue', from: 'from-blue-500', to: 'to-cyan-500', bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50', border: 'border-blue-500', gradient: 'from-blue-500/20 to-cyan-500/20' },
     { name: 'Violet', value: 'violet', from: 'from-violet-500', to: 'to-fuchsia-500', bg: 'bg-violet-500', text: 'text-violet-600', light: 'bg-violet-50', border: 'border-violet-500', gradient: 'from-violet-500/20 to-fuchsia-500/20' },
-    { name: 'Slate', value: 'slate', from: 'from-slate-500', to: 'to-gray-500', bg: 'bg-surface-secondary0', text: 'text-ink-secondary', light: 'bg-surface-secondary', border: 'border-border-primary0', gradient: 'from-slate-500/20 to-gray-500/20' },
+    { name: 'Slate', value: 'slate', from: 'from-slate-500', to: 'to-ink-500', bg: 'bg-surface-secondary0', text: 'text-ink-secondary', light: 'bg-surface-secondary', border: 'border-border-primary0', gradient: 'from-slate-500/20 to-ink-500/20' },
 ];
 
 const LOCATIONS = [

@@ -77,7 +77,7 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
                             </div>
                         </div>
                     </div>
-                    <div className="flex border-l border-gray-200">
+                    <div className="flex border-l border-ink-200">
                         <button
                             onClick={() => toast.dismiss(t.id)}
                             className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-bold text-accent-400 hover:text-accent-500 focus:outline-none"

@@ -47,13 +47,13 @@ export default function ShippingTracking() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'pending': return 'bg-gray-100 text-gray-700';
+            case 'pending': return 'bg-ink-100 text-ink-700';
             case 'picked_up': return 'bg-blue-100 text-blue-700';
             case 'in_transit': return 'bg-sand-500/10 text-sand-500';
             case 'out_for_delivery': return 'bg-teal-100 text-teal-700';
             case 'delivered': return 'bg-emerald-500/15 text-emerald-500';
             case 'exception': return 'bg-red-100 text-red-700';
-            default: return 'bg-gray-100 text-gray-700';
+            default: return 'bg-ink-100 text-ink-700';
         }
     };
 
@@ -73,8 +73,8 @@ export default function ShippingTracking() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">International Shipping & Tracking</h2>
-                    <p className="text-gray-600">Track shipments and manage international deliveries</p>
+                    <h2 className="text-2xl font-bold text-ink-900">International Shipping & Tracking</h2>
+                    <p className="text-ink-600">Track shipments and manage international deliveries</p>
                 </div>
                 <button className="px-4 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6] transition-colors">
                     + New Shipment
@@ -82,15 +82,15 @@ export default function ShippingTracking() {
             </div>
 
             {/* Tracking Search */}
-            <div className="bg-surface-elevated rounded-xl border border-gray-200 p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">Track Your Package</h3>
+            <div className="bg-surface-elevated rounded-xl border border-ink-200 p-6">
+                <h3 className="font-semibold text-ink-900 mb-4">Track Your Package</h3>
                 <div className="flex gap-4">
                     <input
                         type="text"
                         placeholder="Enter tracking number..."
                         value={trackingNumber}
                         onChange={(e) => setTrackingNumber(e.target.value)}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                        className="flex-1 px-4 py-2 border border-ink-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     />
                     <button
                         onClick={handleTrack}
@@ -104,12 +104,12 @@ export default function ShippingTracking() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-6 p-4 bg-gray-50 rounded-lg"
+                        className="mt-6 p-4 bg-ink-50 rounded-lg"
                     >
                         <div className="flex items-center justify-between mb-4">
                             <div>
-                                <div className="font-medium text-gray-900">{searchResult.tracking_number}</div>
-                                <div className="text-sm text-gray-500">via {searchResult.carrier}</div>
+                                <div className="font-medium text-ink-900">{searchResult.tracking_number}</div>
+                                <div className="text-sm text-ink-500">via {searchResult.carrier}</div>
                             </div>
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(searchResult.status)}`}>
                                 {getStatusIcon(searchResult.status)} {searchResult.status.replace('_', ' ')}
@@ -117,20 +117,20 @@ export default function ShippingTracking() {
                         </div>
                         <div className="grid grid-cols-2 gap-4 text-sm">
                             <div>
-                                <span className="text-gray-500">From:</span>
-                                <span className="ml-2 text-gray-900">{searchResult.origin}</span>
+                                <span className="text-ink-500">From:</span>
+                                <span className="ml-2 text-ink-900">{searchResult.origin}</span>
                             </div>
                             <div>
-                                <span className="text-gray-500">To:</span>
-                                <span className="ml-2 text-gray-900">{searchResult.destination}</span>
+                                <span className="text-ink-500">To:</span>
+                                <span className="ml-2 text-ink-900">{searchResult.destination}</span>
                             </div>
                             <div>
-                                <span className="text-gray-500">ETA:</span>
-                                <span className="ml-2 text-gray-900">{searchResult.estimated_delivery}</span>
+                                <span className="text-ink-500">ETA:</span>
+                                <span className="ml-2 text-ink-900">{searchResult.estimated_delivery}</span>
                             </div>
                             <div>
-                                <span className="text-gray-500">Last Update:</span>
-                                <span className="ml-2 text-gray-900">{searchResult.last_update}</span>
+                                <span className="text-ink-500">Last Update:</span>
+                                <span className="ml-2 text-ink-900">{searchResult.last_update}</span>
                             </div>
                         </div>
                     </motion.div>
@@ -142,10 +142,10 @@ export default function ShippingTracking() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gray-50 rounded-xl p-4 border border-gray-200"
+                    className="bg-ink-50 rounded-xl p-4 border border-ink-200"
                 >
-                    <div className="text-2xl font-bold text-gray-600">{shipments.length}</div>
-                    <div className="text-sm text-gray-700">Total Shipments</div>
+                    <div className="text-2xl font-bold text-ink-600">{shipments.length}</div>
+                    <div className="text-sm text-ink-700">Total Shipments</div>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -183,39 +183,39 @@ export default function ShippingTracking() {
             </div>
 
             {/* Shipments List */}
-            <div className="bg-surface-elevated rounded-xl border border-gray-200 overflow-hidden">
-                <div className="px-6 py-4 border-b border-gray-200">
-                    <h3 className="font-semibold text-gray-900">All Shipments</h3>
+            <div className="bg-surface-elevated rounded-xl border border-ink-200 overflow-hidden">
+                <div className="px-6 py-4 border-b border-ink-200">
+                    <h3 className="font-semibold text-ink-900">All Shipments</h3>
                 </div>
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-ink-100">
                     {shipments.map((shipment) => (
                         <motion.div
                             key={shipment.id}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            className="px-6 py-4 hover:bg-gray-50 transition-colors"
+                            className="px-6 py-4 hover:bg-ink-50 transition-colors"
                         >
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <span className="text-2xl">{getStatusIcon(shipment.status)}</span>
                                     <div>
-                                        <div className="font-medium text-gray-900">{shipment.tracking_number}</div>
-                                        <div className="text-sm text-gray-500">
+                                        <div className="font-medium text-ink-900">{shipment.tracking_number}</div>
+                                        <div className="text-sm text-ink-500">
                                             {shipment.origin} → {shipment.destination}
                                         </div>
-                                        <div className="text-sm text-gray-600 mt-1">{shipment.carrier}</div>
+                                        <div className="text-sm text-ink-600 mt-1">{shipment.carrier}</div>
                                     </div>
                                 </div>
                                 <div className="text-right">
                                     <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(shipment.status)}`}>
                                         {shipment.status.replace('_', ' ')}
                                     </span>
-                                    <div className="text-sm text-gray-500 mt-1">
+                                    <div className="text-sm text-ink-500 mt-1">
                                         ETA: {shipment.estimated_delivery}
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-2 text-xs text-gray-500">
+                            <div className="mt-2 text-xs text-ink-500">
                                 Last update: {shipment.last_update}
                             </div>
                         </motion.div>
@@ -225,17 +225,17 @@ export default function ShippingTracking() {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
-                    <div className="font-medium text-gray-900">Schedule Pickup</div>
-                    <div className="text-sm text-gray-500">Arrange courier collection</div>
+                <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
+                    <div className="font-medium text-ink-900">Schedule Pickup</div>
+                    <div className="text-sm text-ink-500">Arrange courier collection</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
-                    <div className="font-medium text-gray-900">Customs Documents</div>
-                    <div className="text-sm text-gray-500">Upload & manage paperwork</div>
+                <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
+                    <div className="font-medium text-ink-900">Customs Documents</div>
+                    <div className="text-sm text-ink-500">Upload & manage paperwork</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
-                    <div className="font-medium text-gray-900">Insurance</div>
-                    <div className="text-sm text-gray-500">Add shipment protection</div>
+                <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
+                    <div className="font-medium text-ink-900">Insurance</div>
+                    <div className="text-sm text-ink-500">Add shipment protection</div>
                 </button>
             </div>
         </div>

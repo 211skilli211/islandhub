@@ -37,7 +37,7 @@ import BuyerDashboard from './buyer/page';
 const CreateListingModal = dynamic(
     () => import('@/components/CreateListingModal'),
     {
-        loading: () => <div className="fixed inset-0 bg-surface-tertiary/20 backdrop-blur-sm flex items-center justify-center"><div className="bg-surface-elevated p-8 rounded-2xl">Loading...</div></div>,
+        loading: () => <div className="fixed inset-0 bg-surface-tertiary/40 flex items-center justify-center"><div className="bg-surface-elevated p-8 rounded-2xl">Loading...</div></div>,
         ssr: false
     }
 );

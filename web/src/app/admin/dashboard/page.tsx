@@ -48,18 +48,18 @@ export default function AdminDashboard() {
     if (loading) return <div className="p-10">Loading Admin Dashboard...</div>;
 
     return (
-        <div className="min-h-screen bg-gray-50 py-10">
+        <div className="min-h-screen bg-ink-50 py-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h1>
+                <h1 className="text-3xl font-bold text-ink-900 mb-8">Admin Dashboard</h1>
 
                 <div className="bg-surface-elevated dark:bg-ocean-800 shadow overflow-hidden sm:rounded-md">
-                    <ul className="divide-y divide-gray-200">
+                    <ul className="divide-y divide-ink-200">
                         {campaigns.map((campaign) => (
                             <li key={campaign.campaign_id}>
                                 <div className="px-4 py-4 sm:px-6 flex items-center justify-between">
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-accent-400 truncate">{campaign.title}</p>
-                                        <p className="flex items-center text-sm text-gray-500">
+                                        <p className="flex items-center text-sm text-ink-500">
                                             Status: <span className={`ml-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${campaign.verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                                                 {campaign.verified ? 'Verified' : 'Pending Verification'}
                                             </span>
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
                             </li>
                         ))}
                         {campaigns.length === 0 && (
-                            <li className="px-4 py-8 text-center text-gray-500">No campaigns found.</li>
+                            <li className="px-4 py-8 text-center text-ink-500">No campaigns found.</li>
                         )}
                     </ul>
                 </div>

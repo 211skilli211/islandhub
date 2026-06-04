@@ -113,7 +113,7 @@ export default function HeroBackground({
             case 'modern': return 'Outfit, sans-serif';
             case 'serif': return 'Playfair Display, serif';
             case 'display': return 'Bebas Neue, sans-serif';
-            default: return 'Inter, sans-serif';
+            default: return 'Geist, sans-serif';
         }
     };
 
@@ -280,7 +280,7 @@ export default function HeroBackground({
                                                 (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
                                                 }`}
                                         >
-                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 backdrop-blur-2xl rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
+                                            <div className="w-20 h-20 md:w-40 md:h-40 flex items-center justify-center p-4 md:p-8 bg-white/10 rounded-4xl md:rounded-[3.5rem] border border-white/20 shadow-2xl overflow-hidden group hover:scale-110 transition-transform duration-500">
                                                 {(iconUrl.startsWith('http') || iconUrl.startsWith('/') || iconUrl.includes('uploads') || iconUrl.includes('.')) ? (
                                                     <img
                                                         src={getImageUrl(iconUrl)}

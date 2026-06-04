@@ -109,7 +109,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
             case 'picked_up': return 'bg-teal-100 text-teal-700 border-teal-200';
             case 'delivered': return 'bg-emerald-500/15 text-emerald-500 border-emerald-500/20';
             case 'cancelled': return 'bg-red-100 text-red-700 border-red-200';
-            default: return 'bg-gray-100 text-gray-700 border-gray-200';
+            default: return 'bg-ink-100 text-ink-700 border-ink-200';
         }
     };
 
@@ -120,7 +120,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
             case 'picked_up': return 'bg-teal-500';
             case 'delivered': return 'bg-emerald-500/100';
             case 'cancelled': return 'bg-red-500';
-            default: return 'bg-gray-500';
+            default: return 'bg-ink-500';
         }
     };
 
@@ -137,8 +137,8 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Delivery Dispatch</h2>
-                    <p className="text-gray-600">Manage and track all delivery requests</p>
+                    <h2 className="text-2xl font-bold text-ink-900">Delivery Dispatch</h2>
+                    <p className="text-ink-600">Manage and track all delivery requests</p>
                 </div>
                 <button
                     onClick={fetchJobs}
@@ -189,10 +189,10 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="bg-gray-50 rounded-xl p-4 border border-gray-200"
+                    className="bg-ink-50 rounded-xl p-4 border border-ink-200"
                 >
-                    <div className="text-2xl font-bold text-gray-600">{totalCount}</div>
-                    <div className="text-sm text-gray-700">Total</div>
+                    <div className="text-2xl font-bold text-ink-600">{totalCount}</div>
+                    <div className="text-sm text-ink-700">Total</div>
                 </motion.div>
             </div>
 
@@ -204,7 +204,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                         onClick={() => setStatusFilter(status)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${statusFilter === status
                                 ? 'bg-emerald-600 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                : 'bg-ink-100 text-ink-700 hover:bg-ink-200'
                             }`}
                     >
                         {status === 'all' ? 'All' : status.replace('_', ' ')}
@@ -220,42 +220,42 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
             )}
 
             {/* Delivery List */}
-            <div className="bg-surface-elevated rounded-xl border border-gray-200 overflow-hidden">
-                <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900">Active Deliveries</h3>
-                    <span className="text-sm text-gray-500">{filteredJobs.length} jobs</span>
+            <div className="bg-surface-elevated rounded-xl border border-ink-200 overflow-hidden">
+                <div className="px-6 py-4 border-b border-ink-200 flex items-center justify-between">
+                    <h3 className="font-semibold text-ink-900">Active Deliveries</h3>
+                    <span className="text-sm text-ink-500">{filteredJobs.length} jobs</span>
                 </div>
 
                 {loading ? (
                     <div className="p-8 text-center">
                         <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-600 border-t-transparent"></div>
-                        <p className="text-gray-500 mt-2">Loading deliveries...</p>
+                        <p className="text-ink-500 mt-2">Loading deliveries...</p>
                     </div>
                 ) : filteredJobs.length === 0 ? (
                     <div className="p-8 text-center">
                         <div className="text-4xl mb-2">📦</div>
-                        <p className="text-gray-500">No delivery requests found</p>
-                        <p className="text-sm text-gray-400 mt-1">
+                        <p className="text-ink-500">No delivery requests found</p>
+                        <p className="text-sm text-ink-400 mt-1">
                             {statusFilter !== 'all' ? 'Try changing the filter' : 'New requests will appear here'}
                         </p>
                     </div>
                 ) : (
-                    <div className="divide-y divide-gray-100">
+                    <div className="divide-y divide-ink-100">
                         {filteredJobs.map((job) => (
                             <motion.div
                                 key={job.id}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                                className="px-6 py-4 hover:bg-ink-50 cursor-pointer transition-colors"
                                 onClick={() => setSelectedJob(job)}
                             >
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-4">
                                         <div className={`w-3 h-3 rounded-full ${getStatusDot(job.status)}`} />
                                         <div>
-                                            <div className="font-medium text-gray-900">{job.customer_name}</div>
-                                            <div className="text-sm text-gray-500">{job.customer_address}</div>
-                                            <div className="text-sm text-gray-600 mt-1">
+                                            <div className="font-medium text-ink-900">{job.customer_name}</div>
+                                            <div className="text-sm text-ink-500">{job.customer_address}</div>
+                                            <div className="text-sm text-ink-600 mt-1">
                                                 {job.items.slice(0, 2).join(', ')}
                                                 {job.items.length > 2 && ` +${job.items.length - 2} more`}
                                             </div>
@@ -266,9 +266,9 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                                             {job.status.replace('_', ' ')}
                                         </span>
                                         {job.driver_name && (
-                                            <div className="text-sm text-gray-500 mt-1">🚗 {job.driver_name}</div>
+                                            <div className="text-sm text-ink-500 mt-1">🚗 {job.driver_name}</div>
                                         )}
-                                        <div className="text-xs text-gray-400 mt-1">
+                                        <div className="text-xs text-ink-400 mt-1">
                                             {formatTime(job.created_at)}
                                         </div>
                                     </div>
@@ -281,17 +281,17 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-emerald-300 hover:bg-emerald-500/10 transition-all text-left">
-                    <div className="font-medium text-gray-900">Assign Driver</div>
-                    <div className="text-sm text-gray-500">Match pending orders to available drivers</div>
+                <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-emerald-300 hover:bg-emerald-500/10 transition-all text-left">
+                    <div className="font-medium text-ink-900">Assign Driver</div>
+                    <div className="text-sm text-ink-500">Match pending orders to available drivers</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all text-left">
-                    <div className="font-medium text-gray-900">Track Live</div>
-                    <div className="text-sm text-gray-500">View real-time driver locations</div>
+                <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-blue-300 hover:bg-blue-50 transition-all text-left">
+                    <div className="font-medium text-ink-900">Track Live</div>
+                    <div className="text-sm text-ink-500">View real-time driver locations</div>
                 </button>
-                <button className="p-4 bg-surface-elevated rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-teal-50 transition-all text-left">
-                    <div className="font-medium text-gray-900">Delivery History</div>
-                    <div className="text-sm text-gray-500">View completed deliveries</div>
+                <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-teal-300 hover:bg-teal-50 transition-all text-left">
+                    <div className="font-medium text-ink-900">Delivery History</div>
+                    <div className="text-sm text-ink-500">View completed deliveries</div>
                 </button>
             </div>
         </div>

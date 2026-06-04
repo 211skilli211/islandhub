@@ -40,6 +40,25 @@
     --color-input-bg: var(--input-bg);
     --color-input-border: var(--input-border);
 
+    /* Ink (Caribbean-tinted text neutrals) */
+    --color-ink-950: #0A1628;
+    --color-ink-900: #0F1729;
+    --color-ink-800: #1A2436;
+    --color-ink-700: #2A3444;
+    --color-ink-600: #4A5568;
+    --color-ink-500: #6B7B8D;
+    --color-ink-400: #94A3B8;
+    --color-ink-300: #CBD5E1;
+    --color-ink-200: #E2E8F0;
+    --color-ink-100: #F1F5F9;
+    --color-ink-50: #F8FAFC;
+
+    /* Surface (Caribbean-tinted backgrounds) */
+    --color-surface-0: #0A1628;
+    --color-surface-1: #0F2744;
+    --color-surface-2: #1A3A5C;
+    --color-surface-3: #264D73;
+
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
 }

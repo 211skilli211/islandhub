@@ -116,7 +116,7 @@ export default function RegisterPage() {
 
     if (registrationSuccess) {
         return (
-            <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div className="min-h-screen bg-ink-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="bg-surface-elevated py-8 px-4 shadow sm:rounded-3xl sm:px-10 text-center space-y-6">
                         <div className="w-20 h-20 bg-accent-500/10 text-accent-400 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
