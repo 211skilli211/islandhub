@@ -847,7 +847,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsBookingModalOpen(false)}
-                            className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm"
+                            className="absolute inset-0 bg-ink-950/50 backdrop-blur-sm"
                         />
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}
@@ -937,7 +937,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedItemForAddons(null)}
-                            className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm"
+                            className="absolute inset-0 bg-ink-950/50 backdrop-blur-sm"
                         />
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}

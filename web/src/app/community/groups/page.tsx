@@ -90,7 +90,7 @@ export default function GroupsPage() {
                     </motion.p>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="relative max-w-md mx-auto">
                         <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-tertiary" />
-                        <input type="text" placeholder="Search groups..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3.5 bg-surface-elevated/95 backdrop-blur-sm rounded-2xl text-ink-primary font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 shadow-xl" />
+                        <input type="text" placeholder="Search groups..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3.5 bg-surface-elevated/95 backdrop-blur-sm rounded-2xl text-ink-primary font-medium placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-teal-400 shadow-xl" />
                     </motion.div>
                 </div>
             </HeroBackground>

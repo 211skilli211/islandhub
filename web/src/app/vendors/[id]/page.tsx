@@ -45,7 +45,7 @@ export default function VendorProfilePage() {
                 style={vendor.banner_url ? { backgroundImage: `url(${getImageUrl(vendor.banner_url)})` } : {}}
             >
                 {!vendor.banner_url && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900 to-slate-900 opacity-90"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900 to-ink-900 opacity-90"></div>
                 )}
                 <div className="absolute inset-0 flex items-center justify-center opacity-10">
                     <span className="text-9xl font-black text-white uppercase tracking-tighter">

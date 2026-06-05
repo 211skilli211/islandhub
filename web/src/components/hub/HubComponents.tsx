@@ -68,9 +68,9 @@ export function StarIcon({ className = "w-3.5 h-3.5" }: { className?: string }) 
 }
 
 // ─── Store Card ───────────────────────────────────────────────
-export function StoreCard({ store, index, theme, variant }: {
-    store: Store; index: number; theme: HubTheme; variant: string;
-}) {
+export function StoreCard({ store, index, theme, variant, hubType }: {
+    store: Store; index: number; theme: HubTheme; variant: string; hubType?: string;
+})
     const storeName = store.name || store.business_name || 'Unknown Store';
     const rating = store.rating ? Number(store.rating).toFixed(1) : '4.9';
     const subtypeLabel = store.subtype
@@ -129,8 +129,8 @@ export function StoreCard({ store, index, theme, variant }: {
             whileHover={{ y: -6, scale: 1.02 }}
         >
             <Link
-                href={`/store/${store.slug}`}
-                className="group block bg-surface-elevated dark:bg-ocean-800 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 ring-1 ring-slate-200 dark:ring-ocean-700 hover:ring-slate-300 dark:hover:ring-ocean-600"
+                href={`/hub/${hubType || store.category || 'food'}/${store.slug}`}
+                className="group block bg-surface-elevated dark:bg-ocean-800 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 ring-1 ring-ink-200 dark:ring-ocean-700 hover:ring-ink-300 dark:hover:ring-ocean-600"
             >
                 <div className="relative h-48 overflow-hidden">
                     {store.banner_url ? (
@@ -226,7 +226,7 @@ export function HubHero({ config, totalStores, searchTerm, onSearch, children }:
                     </svg>
                     <input type="text" placeholder={config.searchPlaceholder} value={searchTerm}
                         onChange={(e) => onSearch(e.target.value)}
-                        className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-ocean-800 rounded-2xl text-ink-primary dark:text-sand-50 font-semibold placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-2xl shadow-black/20" />
+                        className="w-full pl-12 pr-4 py-4 bg-surface-elevated dark:bg-ocean-800 rounded-2xl text-ink-primary dark:text-sand-50 font-semibold placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-2xl shadow-black/20" />
                 </div>
 
                 <div className="flex items-center justify-center gap-8 mt-7">
@@ -268,7 +268,7 @@ export function CategoryFilterBar({ categories, activeCategory, onCategoryChange
                                 className={`relative inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold transition-all duration-200 whitespace-nowrap ${
                                     isActive
                                         ? `bg-gradient-to-r ${theme.gradient} text-white shadow-lg`
-                                        : `bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-ink-tertiary hover:${theme.lightBg} ${theme.lightText} ring-1 ring-slate-200 dark:ring-ocean-600`
+                                        : `bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-ink-tertiary hover:${theme.lightBg} ${theme.lightText} ring-1 ring-ink-200 dark:ring-ocean-600`
                                 }`}>
                                 <span className="text-base">{cat.icon}</span>
                                 <span>{cat.title}</span>
@@ -311,7 +311,7 @@ export function HubLoadingSkeleton() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {[1, 2, 3, 4].map(i => (
-                <div key={i} className="h-72 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-ocean-800 dark:via-ocean-700 dark:to-ocean-800 animate-pulse rounded-3xl ring-1 ring-slate-200 dark:ring-ocean-700" />
+                <div key={i} className="h-72 bg-gradient-to-br from-ink-100 via-ink-50 to-ink-100 dark:from-ocean-800 dark:via-ocean-700 dark:to-ocean-800 animate-pulse rounded-3xl ring-1 ring-ink-200 dark:ring-ocean-700" />
             ))}
         </div>
     );

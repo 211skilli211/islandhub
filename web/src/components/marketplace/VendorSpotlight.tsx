@@ -112,7 +112,7 @@ export default function VendorSpotlight() {
                                     ) : (
                                         <div className="w-full h-full bg-gradient-to-r from-teal-500/10 to-blue-500/10" />
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-slate-800 via-transparent to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-ink-800 via-transparent to-transparent" />
                                 </div>
 
                                 <div className="px-8 pb-10 relative z-10 -mt-8">

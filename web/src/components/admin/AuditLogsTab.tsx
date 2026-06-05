@@ -86,7 +86,7 @@ export default function AuditLogsTab() {
 
     return (
         <div className="space-y-6">
-            <div className="bg-gradient-to-r from-slate-900 to-teal-900 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+            <div className="bg-gradient-to-r from-ink-900 to-teal-900 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                 <div className="relative z-10">
                     <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-2">Audit Intelligence Hub 📜</h2>
                     <p className="text-ink-tertiary font-bold uppercase text-[10px] tracking-widest">Permanent Immutable Record of Administrative Operations</p>

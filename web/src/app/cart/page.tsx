@@ -52,7 +52,7 @@ export default function CartPage() {
                         {items.map((item) => (
                             <div key={item.item_id} className="bg-surface-elevated p-6 rounded-[2rem] shadow-sm border border-border-primary flex gap-6 items-center">
                                 {/* Thumbnail */}
-                                <div className="w-24 h-24 rounded-2xl bg-surface-secondary overflow-hidden flex-shrink-0 border border-slate-50">
+                                <div className="w-24 h-24 rounded-2xl bg-surface-secondary overflow-hidden flex-shrink-0 border border-ink-50 dark:border-ink-800">
                                     {item.image_url ? (
                                         <img
                                             src={getImageUrl(item.image_url)}
@@ -60,7 +60,7 @@ export default function CartPage() {
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold text-xs uppercase">No Image</div>
+                                        <div className="w-full h-full flex items-center justify-center text-ink-300 dark:text-ink-400 font-bold text-xs uppercase">No Image</div>
                                     )}
                                 </div>
 

@@ -64,7 +64,7 @@ export default function HowItWorksPage() {
     return (
         <main className="min-h-screen bg-surface-primary">
             {/* Hero */}
-            <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 py-32 px-4 relative overflow-hidden">
+            <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-ink-900 py-32 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/100/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-500/50/10 rounded-full blur-[100px]" />
                 <div className="max-w-5xl mx-auto text-center relative z-10">

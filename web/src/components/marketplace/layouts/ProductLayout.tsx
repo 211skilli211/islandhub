@@ -59,7 +59,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
     return (
         <div className="bg-surface-elevated dark:bg-ink-primary dark:bg-surface-tertiary min-h-screen font-sans">
             {/* Premium Lifestyle Hero */}
-            <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-slate-950">
+            <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-ink-950">
                 <HeroBackground
                     overrideData={{
                         asset_url: store.banner_url,

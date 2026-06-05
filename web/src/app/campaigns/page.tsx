@@ -302,7 +302,7 @@ export default function DonationsHubPage() {
             Create a campaign, share your story, and let islanders and supporters worldwide contribute to your cause. Zero platform fees for verified nonprofits.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/campaigns/new" className="px-10 py-4 bg-white text-accent-600 font-bold rounded-2xl hover:bg-surface-secondary transition-all shadow-xl text-sm uppercase tracking-wider">
+            <Link href="/campaigns/new" className="px-10 py-4 bg-white dark:bg-ink-900 text-accent-600 font-bold rounded-2xl hover:bg-surface-secondary transition-all shadow-xl text-sm uppercase tracking-wider">
               Start a Campaign
             </Link>
             <Link href="/how-it-works" className="px-8 py-4 bg-surface-elevated/10 backdrop-blur text-white font-bold rounded-2xl hover:bg-surface-elevated/20 transition-all text-sm border border-white/10">

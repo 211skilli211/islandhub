@@ -33,7 +33,7 @@ const CATEGORIES = [
   { id: 'stays',   label: 'Stays & Homes',  icon: '🏠', desc: 'Villas, apartments, studios', gradient: 'from-ocean-500 to-brand-700',    subtypes: ['stays','apartment','villa','condo','studio','home','house'] },
   { id: 'vehicles', label: 'Vehicles',        icon: '🚗', desc: 'Cars, jeeps, ATVs, bikes', gradient: 'from-sunset-500 to-sunset-700',  subtypes: ['car','vehicle','suv','scooter','bike','motorcycle','jeep'] },
   { id: 'sea',     label: 'Sea & Aquatic',   icon: '⛵', desc: 'Boats, jet skis, yachts',  gradient: 'from-turquoise-400 to-ocean-600', subtypes: ['boat','yacht','jet_ski','sea','water','marine','charter'] },
-  { id: 'equipment', label: 'Equipment',     icon: '🔧', desc: 'Tools, gear, machinery',   gradient: 'from-slate-500 to-surface-tertiary', subtypes: ['equipment','tools','gear','machinery'] },
+  { id: 'equipment', label: 'Equipment',     icon: '🔧', desc: 'Tools, gear, machinery',   gradient: 'from-ink-500 to-surface-tertiary', subtypes: ['equipment','tools','gear','machinery'] },
   { id: 'property', label: 'Land & Property', icon: '🏘️', desc: 'Land, commercial, warehouses', gradient: 'from-brand-600 to-brand-800', subtypes: ['land','property','real_estate','commercial','warehouse'] },
 ];
 

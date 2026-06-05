@@ -486,7 +486,7 @@ export default function VendorBrandingPage() {
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-r from-slate-100 to-slate-200 flex items-center justify-center">
+                                        <div className="w-full h-full bg-gradient-to-r from-sand-100 to-sand-200 flex items-center justify-center">
                                             <span className="text-xs text-ink-tertiary">No Banner</span>
                                         </div>
                                     )}
@@ -525,7 +525,7 @@ export default function VendorBrandingPage() {
                                 >
                                     {/* Template Preview Image */}
                                     <div className="aspect-video bg-surface-secondary rounded-xl mb-4 overflow-hidden relative">
-                                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+                                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-sand-50 to-sand-100">
                                             <span className="text-4xl">{template.icon}</span>
                                         </div>
                                         {/* Simulated layout preview overlay */}
@@ -634,7 +634,7 @@ export default function VendorBrandingPage() {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-slate-100 to-slate-200">
+                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-sand-100 to-sand-200">
                                                 <span className="text-ink-tertiary">No banner uploaded</span>
                                             </div>
                                         )}

@@ -37,7 +37,7 @@ export default function RequestServicesSection() {
     ];
 
     return (
-        <section className="py-12 md:py-20 px-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+        <section className="py-12 md:py-20 px-4 bg-gradient-to-b from-sand-50 to-white dark:from-ink-800 dark:to-ink-900">
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="text-center mb-8 md:mb-12">

@@ -67,7 +67,7 @@ export default function RevenueTab() {
         <div className="space-y-8 animate-in fade-in duration-700">
             {/* Financial Overview Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-[2.5rem] text-white shadow-2xl">
+                <div className="bg-gradient-to-br from-ink-900 to-ink-800 p-8 rounded-[2.5rem] text-white shadow-2xl">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-2">Total Managed Volume</p>
                     <h2 className="text-4xl font-black mb-4">${Number(summary.gross_volume || 0).toLocaleString()}</h2>
                     <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">

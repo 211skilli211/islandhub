@@ -120,9 +120,9 @@ export default function DriverDashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pb-20">
+        <div className="min-h-screen bg-gradient-to-b from-sand-50 to-white pb-20">
             {/* Header */}
-            <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 pt-24 pb-8 rounded-b-[3rem] shadow-2xl">
+            <div className="bg-gradient-to-br from-ink-900 via-ink-800 to-ink-900 text-white p-6 pt-24 pb-8 rounded-b-[3rem] shadow-2xl">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex justify-between items-start mb-6">
                         <div>

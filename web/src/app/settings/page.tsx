@@ -304,17 +304,17 @@ function SettingsContent() {
                                             <div>
                                                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary dark:text-ink-tertiary mb-2">Display Name</label>
                                                 <input value={accountData.name} onChange={e => setAccountData({ ...accountData, name: e.target.value })} 
-                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-accent-400" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary dark:text-ink-tertiary mb-2">Bio</label>
                                                 <textarea value={accountData.bio} onChange={e => setAccountData({ ...accountData, bio: e.target.value })} rows={3}
-                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-accent-400" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-bold text-ink-secondary dark:text-ink-tertiary dark:text-ink-tertiary mb-2">Country</label>
                                                 <input value={accountData.country} onChange={e => setAccountData({ ...accountData, country: e.target.value })} 
-                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-400" />
+                                                    className="w-full px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-accent-400" />
                                             </div>
                                         </div>
 
@@ -323,7 +323,7 @@ function SettingsContent() {
                                             {changingEmail ? (
                                                 <div className="flex gap-3">
                                                     <input value={emailData.email} onChange={e => setEmailData({ ...emailData, email: e.target.value })} placeholder="new@email.com"
-                                                        className="flex-1 px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-slate-400" />
+                                                        className="flex-1 px-4 py-3 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl font-medium text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500" />
                                                     <button onClick={handleChangeEmail} disabled={saving} className="px-6 py-3 bg-accent-500 text-white rounded-2xl font-bold text-sm">Verify</button>
                                                     <button onClick={() => setChangingEmail(false)} className="px-4 py-3 text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary">Cancel</button>
                                                 </div>

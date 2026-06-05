@@ -139,7 +139,7 @@ function HubPage({ config }: { config: HubPageConfig }) {
                     !loading && filteredStores.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                             {filteredStores.map((store, idx) => (
-                                <StoreCard key={store.store_id || store.id} store={store} index={idx} theme={config.theme} variant={config.storeCardVariant} />
+                                <StoreCard key={store.store_id || store.id} store={store} index={idx} theme={config.theme} variant={config.storeCardVariant} hubType={config.type} />
                             ))}
                         </div>
                     )
@@ -164,7 +164,7 @@ function HubPage({ config }: { config: HubPageConfig }) {
                                 {loading ? <HubLoadingSkeleton /> : (
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                                         {stores.map((store, idx) => (
-                                            <StoreCard key={store.store_id || store.id} store={store} index={idx} theme={config.theme} variant={config.storeCardVariant} />
+                                            <StoreCard key={store.store_id || store.id} store={store} index={idx} theme={config.theme} variant={config.storeCardVariant} hubType={config.type} />
                                         ))}
                                     </div>
                                 )}

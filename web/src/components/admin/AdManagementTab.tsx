@@ -210,14 +210,14 @@ export default function AdManagementTab() {
                             <p className="text-4xl font-black text-ink-primary">24.5k</p>
                             <p className="text-[9px] text-emerald-400 font-black uppercase tracking-widest mt-2">↑ 12% This month</p>
                         </div>
-                        <div className="p-8 bg-slate-950 rounded-[2.5rem] shadow-xl text-white">
+                        <div className="p-8 bg-ink-950 rounded-[2.5rem] shadow-xl text-white">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="p-3 bg-surface-elevated/10 text-white rounded-2xl"><Plus size={24} /></div>
                                 <h3 className="text-sm font-black text-white/50 uppercase tracking-widest">Quick Deploy</h3>
                             </div>
                             <button
                                 onClick={() => setIsAdModalOpen(true)}
-                                className="w-full py-3 bg-surface-elevated text-slate-950 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
+                                className="w-full py-3 bg-surface-elevated text-ink-900 dark:text-ink-50 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
                             >
                                 Launch New Campaign
                             </button>

@@ -296,7 +296,7 @@ export default function StoriesPage() {
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {['Food', 'Beach', 'Events', 'Business', 'Sports', 'Art'].map((highlight, index) => (
                             <div key={highlight} className="bg-surface-elevated rounded-3xl p-6 text-center border border-border-primary hover:border-teal-200 transition-colors cursor-pointer">
-                                <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center text-2xl">
+                                <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-sand-100 to-sand-200 rounded-full flex items-center justify-center text-2xl">
                                     {['🍽️', '🏖️', '🎉', '💼', '⚽', '🎨'][index]}
                                 </div>
                                 <span className="text-xs font-black text-ink-secondary uppercase tracking-wider">{highlight}</span>

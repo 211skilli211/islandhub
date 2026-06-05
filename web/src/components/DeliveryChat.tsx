@@ -91,7 +91,7 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
             className="fixed bottom-4 right-4 w-96 h-[500px] bg-surface-elevated rounded-3xl shadow-2xl border border-border-primary flex flex-col overflow-hidden z-50"
         >
             {/* Header */}
-            <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-ink-900 to-ink-800 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-accent-500/100 rounded-full flex items-center justify-center text-white font-black">
                         {otherUserName?.charAt(0).toUpperCase()}

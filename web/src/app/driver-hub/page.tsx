@@ -105,7 +105,7 @@ export default function DriverHubOnboarding() {
                                 </Link>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/3 aspect-square bg-gradient-to-br from-slate-800 to-slate-900 rounded-[3rem] border border-white/10 flex items-center justify-center text-8xl shadow-inner">
+                        <div className="w-full md:w-1/3 aspect-square bg-gradient-to-br from-ink-800 to-ink-900 rounded-[3rem] border border-white/10 flex items-center justify-center text-8xl shadow-inner">
                             👨‍✈️
                         </div>
                     </div>

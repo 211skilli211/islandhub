@@ -139,7 +139,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-sand-50 to-teal-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-lg">
                 <div className="text-center mb-8">
                     <span className="inline-block px-4 py-2 bg-accent-500/15 text-accent-500 rounded-full text-xs font-black uppercase tracking-widest mb-4">
@@ -304,7 +304,7 @@ export default function RegisterPage() {
                                             required
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
                                         />
                                     </div>
                                     <div>
@@ -317,7 +317,7 @@ export default function RegisterPage() {
                                             required
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
+                                            className="w-full px-4 py-3 rounded-xl border border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-surface-tertiary text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:border-teal-500 focus:ring-2 focus:ring-accent-400 transition-all duration-200"
                                         />
                                     </div>
                                     <button

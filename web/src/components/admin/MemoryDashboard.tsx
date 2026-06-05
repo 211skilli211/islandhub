@@ -389,7 +389,7 @@ export default function MemoryDashboard() {
                         {/* Split Editor / Logs */}
                         <div className="grow flex flex-col">
                             {/* Main Editor */}
-                            <div className="grow p-8 bg-slate-950/30">
+                            <div className="grow p-8 bg-ink-950/30">
                                 <textarea
                                     value={fileContent}
                                     onChange={e => setFileContent(e.target.value)}
@@ -400,7 +400,7 @@ export default function MemoryDashboard() {
                             </div>
 
                             {/* Procedure Console */}
-                            <div className="h-64 border-t border-white/5 bg-slate-950 flex flex-col">
+                            <div className="h-64 border-t border-white/5 bg-ink-950 flex flex-col">
                                 <div className="px-8 py-3 flex items-center justify-between bg-ink-primary/40">
                                     <div className="flex items-center gap-3">
                                         <div className="w-2 h-2 rounded-full bg-accent-500/100 animate-pulse shadow-glow" />

@@ -90,7 +90,7 @@ function ResetPasswordContent() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>
@@ -108,7 +108,7 @@ function ResetPasswordContent() {
                                         required
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
+                                        className="block w-full px-4 py-3 rounded-xl bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary text-ink-primary dark:text-white placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-teal-500 transition-all duration-200 shadow-sm"
                                     />
                                 </div>
                             </div>

@@ -103,7 +103,7 @@ export default function SmartSearch() {
                     onFocus={() => query.length >= 2 && setShowDropdown(true)}
                     onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
                     placeholder="Search for restaurants, items, services, or rentals..."
-                    className="w-full px-6 py-4 bg-surface-elevated/90 backdrop-blur-md border border-border-primary rounded-4xl text-ink-primary text-lg placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
+                    className="w-full px-6 py-4 bg-surface-elevated/90 backdrop-blur-md border border-border-primary rounded-4xl text-ink-primary text-lg placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
                 />
 
                 <button

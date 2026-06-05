@@ -80,7 +80,7 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
             community: { gradient: 'from-blue-600 to-teal-700', button: 'bg-surface-elevated text-blue-600 hover:bg-surface-elevated/90', text: 'text-blue-50', iconBg: 'bg-surface-elevated/20' },
             promotion: { gradient: 'from-yellow-400 to-orange-500', button: 'bg-black text-white hover:bg-ink-primary', text: 'text-orange-900/70', iconBg: 'bg-black/10' },
             high_impact: { gradient: 'from-sunset-500 via-teal-600 to-teal-800', button: 'bg-surface-elevated text-sunset-500 hover:shadow-sunset-500/50 hover:shadow-lg', text: 'text-white/80', iconBg: 'bg-surface-elevated/30' },
-            minimal: { gradient: 'from-slate-50 to-slate-200', button: 'bg-ink-primary text-white', text: 'text-ink-tertiary', iconBg: 'bg-surface-tertiary' },
+            minimal: { gradient: 'from-sand-50 to-sand-200', button: 'bg-ink-primary text-white', text: 'text-ink-tertiary', iconBg: 'bg-surface-tertiary' },
         };
 
         if (type === 'urgency') return themes.urgency;

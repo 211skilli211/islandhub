@@ -48,7 +48,7 @@ const COLOR_THEMES = [
     { name: 'Emerald', value: 'emerald', from: 'from-emerald-500', to: 'to-green-500', bg: 'bg-emerald-500/100', text: 'text-emerald-400', light: 'bg-emerald-500/10', border: 'border-emerald-500', gradient: 'from-emerald-500/20 to-green-500/20' },
     { name: 'Blue', value: 'blue', from: 'from-blue-500', to: 'to-cyan-500', bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50', border: 'border-blue-500', gradient: 'from-blue-500/20 to-cyan-500/20' },
     { name: 'Sunset', value: 'sunset', from: 'from-sunset-500', to: 'to-sunset-400', bg: 'bg-sunset-500', text: 'text-sunset-600', light: 'bg-sunset-50', border: 'border-sunset-500', gradient: 'from-sunset-500/20 to-sunset-400/20' },
-    { name: 'Slate', value: 'slate', from: 'from-slate-500', to: 'to-ink-500', bg: 'bg-surface-secondary0', text: 'text-ink-secondary', light: 'bg-surface-secondary', border: 'border-border-primary0', gradient: 'from-slate-500/20 to-ink-500/20' },
+    { name: 'Slate', value: 'slate', from: 'from-ink-500', to: 'to-ink-500', bg: 'bg-surface-secondary0', text: 'text-ink-secondary', light: 'bg-surface-secondary', border: 'border-border-primary0', gradient: 'from-ink-500/20 to-ink-500/20' },
 ];
 
 const LOCATIONS = [
@@ -957,7 +957,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
 
                         {/* Enhanced Controls: Texture, Opacity, & Custom Colors */}
-                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-border-primary">
+                        <div className="bg-gradient-to-br from-sand-50 to-sand-100 rounded-2xl p-6 border border-border-primary">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="text-xl">🎨</span>
                                 <label className="block text-sm font-bold text-ink-secondary">
@@ -1026,7 +1026,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 </div>
 
                                 {/* Hero Image Overlay Section - Prominent */}
-                                <div className="mt-6 p-4 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl border-2 border-teal-200 dark:border-teal-700">
+                                <div className="mt-6 p-4 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-ink-800 dark:to-ink-700 rounded-2xl border-2 border-teal-200 dark:border-teal-700">
                                     <div className="flex items-center gap-2 mb-4">
                                         <div className="w-8 h-8 bg-accent-500 rounded-lg flex items-center justify-center">
                                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

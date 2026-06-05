@@ -217,7 +217,7 @@ export default function SeaRentalsPage() {
           <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
             Turn your watercraft into income. List on IslandHub and connect with island explorers.
           </p>
-          <Link href="/become-vendor" className="px-10 py-4 bg-white text-turquoise-600 font-bold rounded-2xl hover:bg-cyan-50 transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
+          <Link href="/become-vendor" className="px-10 py-4 bg-white dark:bg-ink-900 text-turquoise-600 font-bold rounded-2xl hover:bg-cyan-50 transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
             Start Listing
           </Link>
         </div>

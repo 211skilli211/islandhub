@@ -112,7 +112,7 @@ export default function AdminEventsPage() {
           </button>
           <button
             onClick={() => router.push('/events/create')}
-            className="px-5 py-2.5 bg-surface-tertiary dark:bg-slate-950 text-white rounded-xl font-bold hover:bg-surface-tertiary transition-colors"
+            className="px-5 py-2.5 bg-surface-tertiary dark:bg-ink-950 text-white rounded-xl font-bold hover:bg-surface-tertiary transition-colors"
           >
             + New Event
           </button>

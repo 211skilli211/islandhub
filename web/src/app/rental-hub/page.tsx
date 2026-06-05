@@ -36,7 +36,7 @@ export default function RentalHubPage() {
             icon: '🛠️',
             description: 'Event gear, power tools & marine equipment',
             link: '/rental-hub/equipment-tools',
-            gradient: 'from-slate-500 to-surface-tertiary',
+            gradient: 'from-ink-500 to-surface-tertiary',
         },
         {
             id: 'property',

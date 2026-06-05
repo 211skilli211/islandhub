@@ -548,7 +548,7 @@ export default function AgentCommandCenter() {
                                             <button
                                                 key={a.agent_id}
                                                 onClick={() => { setChatAgent(a.agent_id); setConversationId(''); }}
-                                                className={`w-full p-3 rounded-2xl flex items-center gap-3 transition-all ${chatAgent === a.agent_id ? 'bg-surface-elevated dark:bg-surface-tertiary shadow-sm ring-1 ring-slate-100 dark:ring-white/5' : 'opacity-60 grayscale hover:opacity-100 hover:grayscale-0'}`}
+                                                className={`w-full p-3 rounded-2xl flex items-center gap-3 transition-all ${chatAgent === a.agent_id ? 'bg-surface-elevated dark:bg-surface-tertiary shadow-sm ring-1 ring-ink-100 dark:ring-ink-700' : 'opacity-60 grayscale hover:opacity-100 hover:grayscale-0'}`}
                                             >
                                                 <span className="text-xl">{a.icon}</span>
                                                 <span className="text-[10px] font-black uppercase tracking-widest text-ink-secondary dark:text-ink-tertiary truncate">{a.display_name}</span>
@@ -558,7 +558,7 @@ export default function AgentCommandCenter() {
                                 </div>
 
                                 {/* Main Conversation */}
-                                <div className="flex-1 flex flex-col bg-surface-secondary dark:bg-slate-950/20">
+                                <div className="flex-1 flex flex-col bg-surface-secondary dark:bg-ink-950/20">
                                     {/* Sub-header */}
                                     <div className="px-8 py-5 border-b border-border-primary dark:border-border-primary bg-surface-elevated/50 dark:bg-ink-primary/50 backdrop-blur-md flex items-center justify-between">
                                         <div className="flex items-center gap-3">
@@ -886,7 +886,7 @@ export default function AgentCommandCenter() {
 
             {/* Editing Agent Modal (Persistent across tabs if needed, but usually tied to Agents tab) */}
             {editingAgent && activeSection === 'agents' && (
-                <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-xl z-100 flex items-center justify-center p-8 overflow-y-auto" onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}>
+                <div className="fixed inset-0 bg-ink-950/80 backdrop-blur-xl z-100 flex items-center justify-center p-8 overflow-y-auto" onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}>
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}

@@ -248,7 +248,7 @@ export default function VehiclesPage() {
           <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
             Turn your car, jeep, or ATV into an income source. List it on IslandHub and start earning.
           </p>
-          <Link href="/become-vendor" className="px-10 py-4 bg-white text-sunset-600 font-bold rounded-2xl hover:bg-sand-50 transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
+          <Link href="/become-vendor" className="px-10 py-4 bg-white dark:bg-ink-900 text-sunset-600 dark:text-sand-50 font-bold rounded-2xl hover:bg-sand-50 transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
             Start Earning
           </Link>
         </div>

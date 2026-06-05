@@ -222,7 +222,7 @@ export default function EquipmentToolsPage() {
           <p className="text-ink-secondary text-lg mb-8 max-w-xl mx-auto">
             List your tools, gear, or machinery and earn from every rental.
           </p>
-          <Link href="/become-vendor" className="px-10 py-4 bg-white text-ink-primary font-bold rounded-2xl hover:bg-surface-secondary transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
+          <Link href="/become-vendor" className="px-10 py-4 bg-white dark:bg-ink-900 text-ink-primary font-bold rounded-2xl hover:bg-surface-secondary transition-all shadow-xl text-sm uppercase tracking-wider inline-block">
             List Equipment
           </Link>
         </div>

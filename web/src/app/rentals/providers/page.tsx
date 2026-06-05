@@ -67,7 +67,7 @@ export default function RentalProvidersPage() {
                             placeholder="Find a rental provider..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full px-8 py-5 bg-surface-primary border-2 border-border-primary rounded-4xl text-ink-primary focus:outline-none focus:border-[#14b8a6] transition-all font-bold placeholder-slate-300 shadow-sm"
+                            className="w-full px-8 py-5 bg-surface-primary border-2 border-border-primary rounded-4xl text-ink-primary focus:outline-none focus:border-[#14b8a6] transition-all font-bold placeholder-ink-300 dark:placeholder-ink-500 shadow-sm"
                         />
                     </div>
                     <Link href="/rentals" className="px-8 py-5 bg-surface-tertiary text-white rounded-4xl font-black uppercase tracking-widest text-[10px] hover:bg-surface-tertiary transition-all">

@@ -312,7 +312,7 @@ export default function BroadcastTab() {
                                     <button
                                         type="button"
                                         onClick={() => setMarqueeTextColor('#ffffff')}
-                                        className={`w-6 h-6 rounded-full transition-all border border-border-primary ${marqueeTextColor === '#ffffff' ? 'ring-2 ring-offset-2 ring-slate-300' : ''}`}
+                                        className={`w-6 h-6 rounded-full transition-all border border-border-primary ${marqueeTextColor === '#ffffff' ? 'ring-2 ring-offset-2 ring-ink-300 dark:ring-ink-600' : ''}`}
                                         style={{ backgroundColor: '#ffffff' }}
                                     />
                                     <button

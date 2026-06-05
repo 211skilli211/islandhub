@@ -95,7 +95,7 @@ export default function UserDetailPage() {
                 {/* Main Card */}
                 <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg overflow-hidden">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white p-6 flex items-center gap-4">
+                    <div className="bg-gradient-to-r from-ink-900 to-ink-800 dark:from-ink-950 dark:to-ink-900 text-white p-6 flex items-center gap-4">
                         <div className="h-16 w-16 bg-accent-500/100 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
                             {userData.name?.charAt(0)?.toUpperCase() || 'U'}
                         </div>

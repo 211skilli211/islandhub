@@ -134,7 +134,7 @@ export default function FAQPage() {
     return (
         <main className="min-h-screen bg-surface-primary">
             {/* Hero */}
-            <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-slate-900 py-24 px-4 relative overflow-hidden">
+            <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-ink-900 py-24 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/100/10 rounded-full blur-[100px]" />
                 <div className="max-w-3xl mx-auto text-center relative z-10">
                     <span className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-white/10">

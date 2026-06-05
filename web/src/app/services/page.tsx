@@ -99,7 +99,7 @@ function ServiceCard({ store, index }: { store: Store; index: number }) {
                 className="group block bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-xl hover:shadow-blue-500/8 hover:border-blue-300 transition-all duration-300"
             >
                 {/* Top accent bar */}
-                <div className="h-1.5 bg-gradient-to-r from-blue-500 via-blue-600 to-slate-600" />
+                <div className="h-1.5 bg-gradient-to-r from-blue-500 via-blue-600 to-ink-600" />
 
                 <div className="p-5">
                     {/* Header: logo + name + rating */}
@@ -286,7 +286,7 @@ export default function ServicesHubPage() {
                             placeholder="Search by service, skill, or provider..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-14 pr-5 py-4 bg-surface-elevated rounded-2xl text-ink-primary font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-lg focus:shadow-blue-500/10 shadow-xl border border-border-primary"
+                            className="w-full pl-14 pr-5 py-4 bg-surface-elevated rounded-2xl text-ink-primary font-medium placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-lg focus:shadow-blue-500/10 shadow-xl border border-border-primary"
                         />
                     </div>
 
@@ -524,7 +524,7 @@ export default function ServicesHubPage() {
             ═══════════════════════════════════════════════════════════════ */}
             <section className="relative overflow-hidden">
                 {/* Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-slate-800" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-ink-800" />
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-surface-tertiary/20 rounded-full blur-3xl" />

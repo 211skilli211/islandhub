@@ -135,7 +135,7 @@ export default function ListingDetailPage() {
                 {/* Main Card */}
                 <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg overflow-hidden">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white p-6">
+                    <div className="bg-gradient-to-r from-ink-900 to-ink-800 dark:from-ink-950 dark:to-ink-900 text-white p-6">
                         <div className="flex justify-between items-start">
                             <div className="flex-1">
                                 <h1 className="text-2xl font-bold">{listing.title}</h1>

@@ -215,7 +215,7 @@ function DashboardPageContent() {
                                     onClick={() => setIsDetailModalOpen(false)}
                                     className="absolute top-6 right-6 w-10 h-10 bg-surface-elevated rounded-full flex items-center justify-center text-ink-primary shadow-xl hover:scale-110 transition-all font-black"
                                 >✕</button>
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-ink-900 to-transparent" />
                                 <div className="absolute bottom-8 left-8">
                                     <span className="px-3 py-1 bg-accent-500/100 text-white rounded-lg text-[9px] font-black uppercase tracking-widest mb-4 inline-block">
                                         {selectedListing.type}

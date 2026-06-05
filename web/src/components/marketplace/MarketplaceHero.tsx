@@ -99,11 +99,11 @@ export default function MarketplaceHero({ onSearch }: MarketplaceHeroProps) {
                             placeholder="What are you looking for today?..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className={`w-full px-10 py-7 bg-surface-tertiary/80 backdrop-blur-2xl border-2 border-white/10 rounded-[2.2rem] text-white text-lg placeholder-slate-500 focus:outline-none focus:border-${themeColorName}-400/50 transition-all font-medium`}
+                            className={`w-full px-10 py-7 bg-surface-tertiary/80 backdrop-blur-2xl border-2 border-white/10 rounded-[2.2rem] text-white text-lg placeholder-ink-500 dark:placeholder-ink-400 focus:outline-none focus:border-${themeColorName}-400/50 transition-all font-medium`}
                         />
                         <button
                             type="submit"
-                            className={`absolute right-4 top-4 bottom-4 px-10 bg-surface-elevated text-slate-950 rounded-[1.8rem] font-black text-sm uppercase tracking-widest ${theme.btn} hover:text-white transition-all shadow-xl shadow-black/40 active:scale-95`}
+                            className={`absolute right-4 top-4 bottom-4 px-10 bg-surface-elevated text-ink-900 dark:text-ink-50 rounded-[1.8rem] font-black text-sm uppercase tracking-widest ${theme.btn} hover:text-white transition-all shadow-xl shadow-black/40 active:scale-95`}
                         >
                             Explore
                         </button>

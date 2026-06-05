@@ -181,7 +181,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                                                         <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Total Add-ons</span>
                                                         <span className="text-2xl font-black italic">${cartTotal.toFixed(2)}</span>
                                                     </div>
-                                                    <Link href="/checkout" className="w-full py-3 bg-surface-elevated text-slate-950 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-[#e11d48]/50 hover:text-white transition-all flex items-center justify-center">
+                                                    <Link href="/checkout" className="w-full py-3 bg-surface-elevated text-ink-900 dark:text-ink-50 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-[#e11d48]/50 hover:text-white transition-all flex items-center justify-center">
                                                         Sync to Checkout
                                                     </Link>
                                                 </div>
