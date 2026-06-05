@@ -11,6 +11,7 @@ import {
     HubLoadingSkeleton, HubEmptyState,
 } from '@/components/hub/HubComponents';
 import { getHubConfig } from '@/lib/hubConfigs';
+import { useSegmentTheme } from '@/components/SegmentThemeProvider';
 
 function categorizeStore(store: Store, config: HubPageConfig): string {
     const subtype = (store.subtype || '').toLowerCase();
@@ -28,6 +29,7 @@ function categorizeStore(store: Store, config: HubPageConfig): string {
 }
 
 function HubPage({ config }: { config: HubPageConfig }) {
+    const { theme: segmentTheme } = useSegmentTheme();
     const [allStores, setAllStores] = useState<Store[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');

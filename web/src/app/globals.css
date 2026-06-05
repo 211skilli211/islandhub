@@ -40,6 +40,13 @@
     --color-input-bg: var(--input-bg);
     --color-input-border: var(--input-border);
 
+    /* Segment theme tokens (dynamic per-route) */
+    --color-segment-accent: var(--segment-accent, var(--accent-primary));
+    --color-segment-accent-hover: var(--segment-accent-hover, var(--accent-secondary));
+    --color-segment-accent-muted: var(--segment-accent-muted, var(--accent-muted));
+    --color-segment-cta: var(--segment-cta-bg, var(--accent-primary));
+    --color-segment-icon: var(--segment-icon-tint, var(--accent-muted));
+
     /* Ink (Caribbean-tinted text neutrals) */
     --color-ink-950: #0A1628;
     --color-ink-900: #0F1729;
