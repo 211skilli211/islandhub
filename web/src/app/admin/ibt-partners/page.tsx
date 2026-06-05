@@ -38,7 +38,7 @@ export default function AdminIBTPartnersPage() {
             description: 'Manage hero images and banners for partner landing pages',
             icon: Image,
             href: '/admin/assets-hero',
-            color: 'bg-violet-500',
+            color: 'bg-sunset-500',
         },
     ];
 
@@ -81,7 +81,7 @@ export default function AdminIBTPartnersPage() {
                         <div className="text-xs text-ink-tertiary font-bold uppercase tracking-wider mt-1">Products</div>
                     </div>
                     <div className="text-center p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl">
-                        <div className="text-2xl font-black text-violet-600">2</div>
+                        <div className="text-2xl font-black text-sunset-500">2</div>
                         <div className="text-xs text-ink-tertiary font-bold uppercase tracking-wider mt-1">Hero Assets</div>
                     </div>
                     <div className="text-center p-4 bg-surface-primary dark:bg-surface-tertiary rounded-xl">

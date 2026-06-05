@@ -38,7 +38,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
     health: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-200' },
     marine: { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200' },
     events: { bg: 'bg-[#14b8a6]/10', text: 'text-[#14b8a6]', border: 'border-[#14b8a6]/20' },
-    digital: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200' },
+    digital: { bg: 'bg-teal-50', text: 'text-teal-700', border: 'border-teal-200' },
 };
 
 function categorizeStore(store: Store): string {

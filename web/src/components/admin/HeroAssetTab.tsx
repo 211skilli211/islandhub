@@ -43,7 +43,7 @@ export default function HeroAssetTab() {
             <p className="text-xs text-ink-tertiary">{asset.asset_type} · {asset.title || 'Untitled'}</p>
           </div>
           <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-            asset.asset_type === 'video' ? 'bg-violet-100 text-violet-700' :
+            asset.asset_type === 'video' ? 'bg-teal-100 text-teal-700' :
             asset.asset_type === 'shader' ? 'bg-cyan-100 text-cyan-700' :
             asset.asset_type === 'particle' ? 'bg-amber-100 text-amber-700' :
             'bg-emerald-100 text-emerald-700'

@@ -478,7 +478,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
 
                                         {/* Variants Builder */}
-                                        <div className="p-5 bg-gradient-to-br from-teal-50 to-violet-50 rounded-2xl border border-[#14b8a6]/20 space-y-4">
+                                        <div className="p-5 bg-gradient-to-br from-teal-50 to-teal-50 rounded-2xl border border-[#14b8a6]/20 space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-[#14b8a6]">Variants (e.g. Size, Spice Level)</label>
                                                 <button

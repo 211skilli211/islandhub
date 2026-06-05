@@ -35,7 +35,7 @@ export default function MarketplaceHero({ onSearch }: MarketplaceHeroProps) {
     // Color Maps
     const colorMap: any = {
         teal: { bg: 'from-teal-500/10 to-emerald-500/10', text: 'text-accent-400', btn: 'hover:bg-accent-400' },
-        indigo: { bg: 'from-teal-500/10 to-violet-500/10', text: 'text-[#14b8a6]', btn: 'hover:bg-teal-400' },
+        indigo: { bg: 'from-teal-500/10 to-teal-500/10', text: 'text-[#14b8a6]', btn: 'hover:bg-teal-400' },
         rose: { bg: 'from-rose-500/10 to-pink-500/10', text: 'text-[#fb7185]', btn: 'hover:bg-rose-400' },
         amber: { bg: 'from-amber-500/10 to-orange-500/10', text: 'text-sand-400', btn: 'hover:bg-sand-400' },
         blue: { bg: 'from-blue-500/10 to-sky-500/10', text: 'text-blue-400', btn: 'hover:bg-blue-400' },

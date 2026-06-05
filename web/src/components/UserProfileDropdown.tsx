@@ -30,7 +30,7 @@ export default function UserProfileDropdown() {
         const gradients = [
             'from-teal-400 to-teal-600',
             'from-blue-400 to-blue-600',
-            'from-violet-400 to-violet-600',
+            'from-teal-400 to-teal-600',
             'from-pink-400 to-rose-500',
             'from-orange-400 to-amber-500',
             'from-emerald-400 to-emerald-600',
