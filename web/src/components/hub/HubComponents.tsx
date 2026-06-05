@@ -70,7 +70,7 @@ export function StarIcon({ className = "w-3.5 h-3.5" }: { className?: string }) 
 // ─── Store Card ───────────────────────────────────────────────
 export function StoreCard({ store, index, theme, variant, hubType }: {
     store: Store; index: number; theme: HubTheme; variant: string; hubType?: string;
-})
+}) {
     const storeName = store.name || store.business_name || 'Unknown Store';
     const rating = store.rating ? Number(store.rating).toFixed(1) : '4.9';
     const subtypeLabel = store.subtype
