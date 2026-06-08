@@ -27,6 +27,8 @@ function SearchContent() {
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'all' | 'listings' | 'vendors'>('all');
+    const [currentPage, setCurrentPage] = useState(1);
+    const perPage = 12;
 
     useEffect(() => {
         if (query) {
@@ -48,6 +50,9 @@ function SearchContent() {
 
     const listings = results.filter(r => r.result_type === 'listing');
     const vendors = results.filter(r => r.result_type === 'vendor');
+
+    // Reset pagination when tab changes
+    useEffect(() => { setCurrentPage(1); }, [activeTab]);
 
     const displayResults = activeTab === 'all'
         ? results
@@ -94,8 +99,9 @@ function SearchContent() {
                         <div className="animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-accent-400"></div>
                     </div>
                 ) : displayResults.length > 0 ? (
+                    <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {displayResults.map((result, idx) => (
+                        {displayResults.slice((currentPage - 1) * 12, currentPage * 12).map((result, idx) => (
                             <div key={`${result.result_type}-${result.id}-${idx}`} className="group">
                                 {result.result_type === 'listing' ? (
                                     <ListingCard listing={result} />
@@ -129,6 +135,29 @@ function SearchContent() {
                             </div>
                         ))}
                     </div>
+                    {/* Pagination */}
+                    {displayResults.length > perPage && (
+                        <div className="flex items-center justify-center gap-2 mt-12">
+                            <button
+                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                disabled={currentPage === 1}
+                                className="px-4 py-2 rounded-xl bg-surface-primary text-ink-secondary font-bold disabled:opacity-30 hover:bg-surface-secondary transition-colors"
+                            >← Prev</button>
+                            {Array.from({ length: Math.ceil(displayResults.length / perPage) }, (_, i) => i + 1).map(p => (
+                                <button
+                                    key={p}
+                                    onClick={() => setCurrentPage(p)}
+                                    className={`w-10 h-10 rounded-xl font-bold transition-all ${currentPage === p ? 'bg-accent-500 text-white shadow-lg' : 'bg-surface-primary text-ink-secondary hover:bg-surface-secondary'}`}
+                                >{p}</button>
+                            ))}
+                            <button
+                                onClick={() => setCurrentPage(p => p + 1)}
+                                disabled={currentPage >= Math.ceil(displayResults.length / perPage)}
+                                className="px-4 py-2 rounded-xl bg-surface-primary text-ink-secondary font-bold disabled:opacity-30 hover:bg-surface-secondary transition-colors"
+                            >Next →</button>
+                        </div>
+                    )}
+                </>
                 ) : (
                     <div className="text-center py-20 bg-surface-primary rounded-3xl border-2 border-dashed border-border-primary">
                         <div className="text-6xl mb-4">🏝️🔍</div>

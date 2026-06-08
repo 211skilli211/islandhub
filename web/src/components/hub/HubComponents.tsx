@@ -147,10 +147,15 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
                     {subtypeLabel && (
-                        <div className="absolute top-3 left-3">
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5">
                             <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-elevated/90 dark:bg-ocean-700/90 shadow-lg backdrop-blur-sm ${theme.lightText}`}>
                                 {subtypeLabel}
                             </span>
+                            {store.is_trending && (
+                                <span className="inline-flex items-center px-2 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-orange-500/90 text-white shadow-lg backdrop-blur-sm animate-pulse">
+                                    🔥 Trending
+                                </span>
+                            )}
                         </div>
                     )}
 
