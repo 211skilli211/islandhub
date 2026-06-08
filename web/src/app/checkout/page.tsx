@@ -155,6 +155,14 @@ export default function CheckoutPage() {
         }
     };
 
+    const formatRentalDate = (start: string, end: string) => {
+        const s = new Date(start);
+        const e = new Date(end);
+        const days = Math.round((e.getTime() - s.getTime()) / 86400000);
+        const fmt = { weekday: 'short', month: 'short', day: 'numeric' } as const;
+        return `${s.toLocaleDateString('en-US', fmt)} to ${e.toLocaleDateString('en-US', fmt)} (${days} ${days === 1 ? 'Night' : 'Nights'})`;
+    };
+
     if (!cart || itemCount === 0) {
         return (
             <div className="min-h-screen bg-surface-secondary flex items-center justify-center">
@@ -207,7 +215,7 @@ export default function CheckoutPage() {
 
                                             {item.rental_start_date && (
                                                 <p className="text-xs text-accent-400 mt-1">
-                                                    {(() => { const s = new Date(item.rental_start_date); const e = new Date(item.rental_end_date!); const days = Math.round((e.getTime() - s.getTime()) / 86400000); const fmt = { weekday: 'short', month: 'short', day: 'numeric' } as const; return `${s.toLocaleDateString('en-US', fmt)} to ${e.toLocaleDateString('en-US', fmt)} (${days} ${days === 1 ? 'Night' : 'Nights'})`; })()}
+                                                    {formatRentalDate(item.rental_start_date, item.rental_end_date!)}
                                                 </p>
                                             )}
                                             {item.service_package && (
