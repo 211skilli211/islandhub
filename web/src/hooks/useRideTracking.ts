@@ -80,7 +80,7 @@ export function useRideTracking(tripId: string | null, pollIntervalMs = 8000) {
 export function useDriverLocationBroadcast(isOnline: boolean, intervalMs = 5000) {
   const [location, setLocation] = useState<GeolocationPosition | null>(null);
   const [error, setError] = useState('');
-  const watchRef = useRef<number>();
+  const watchRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (!isOnline || !navigator.geolocation) return;
