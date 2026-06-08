@@ -154,6 +154,8 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     }, [type, price]);
 
     const router = useRouter();
+    const [isWishlisted, setIsWishlisted] = useState(false);
+    const [showZoom, setShowZoom] = useState(false);
 
     const getDetailHref = useCallback(() => {
         if (onClick) return '#';
@@ -271,12 +273,28 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
 
     return (
         <CardWrapper>
-            <div className="relative aspect-4/3 overflow-hidden">
+            <div className="relative aspect-[16/10] overflow-hidden cursor-zoom-in" onMouseEnter={() => setShowZoom(true)} onMouseLeave={() => setShowZoom(false)}>
                 <img
                     src={imageUrl || '/assets/placeholder-listing.png'}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ${showZoom ? 'scale-150' : ''}`}
                     alt={listing.title}
                 />
+                {/* Wishlist Heart */}
+                <button
+                    onClick={(e) => { e.stopPropagation(); setIsWishlisted(!isWishlisted); }}
+                    className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/60 transition-colors group/heart"
+                    aria-label="Add to wishlist"
+                >
+                    <svg
+                        className={`w-4 h-4 transition-all duration-300 ${isWishlisted ? 'text-red-500 scale-110' : 'text-white group-hover/heart:scale-110'}`}
+                        fill={isWishlisted ? 'currentColor' : 'none'}
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        viewBox="0 0 24 24"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </button>
                 <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-col gap-2">
                     <div className="flex items-center gap-2">
                         <TypeBadge type={type} />

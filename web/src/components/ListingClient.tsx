@@ -261,7 +261,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                     {/* Main Content */}
                     <div className="lg:col-span-7 space-y-8">
                         {/* Image Gallery */}
-                        <div className="relative aspect-4/3 bg-surface-tertiary rounded-2xl overflow-hidden shadow-sm">
+                        <div className="relative aspect-[16/10] bg-surface-tertiary rounded-2xl overflow-hidden shadow-sm">
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={activeImage}
