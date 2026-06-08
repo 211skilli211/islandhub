@@ -53,8 +53,8 @@ export default function DriverApp() {
   const [incomingOffer, setIncomingOffer] = useState<IncomingOffer | null>(null);
   const [locationSharing, setLocationSharing] = useState(false);
   const [activeTab, setActiveTab] = useState<'home' | 'map' | 'earnings'>('home');
-  const watchRef = useRef<number>();
-  const pollRef = useRef<ReturnType<typeof setInterval>>();
+  const watchRef = useRef<number | undefined>(undefined);
+  const pollRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   // Auth guard
   useEffect(() => {
