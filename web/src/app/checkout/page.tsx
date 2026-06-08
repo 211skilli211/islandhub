@@ -334,13 +334,6 @@ export default function CheckoutPage() {
                         </div>
                     </div>
 
-                        {/* Payment Method */}
-                        <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
-                            <h2 className="text-2xl font-bold text-ink-primary mb-6">Payment Method</h2>
-                            {/* ... payment method labels ... */}
-                        </div>
-                    </div>
-
                     {/* Price Breakdown Sidebar */}
                     <div className="lg:col-span-1">
                         <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 sticky top-24">
