@@ -9,6 +9,7 @@ import api from '@/lib/api';
 import toast from '@/lib/toast';
 import Link from 'next/link';
 import IncomingRideModal from '@/components/driver/IncomingRideModal';
+import DriverEarnings from '@/components/driver/DriverEarnings';
 
 const LiveTrackingMap = dynamic(() => import('@/components/transport/LiveTrackingMap'), { ssr: false });
 
