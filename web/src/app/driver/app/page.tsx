@@ -293,8 +293,24 @@ export default function DriverApp() {
             driver={driverLocation ? { id: 'me', name: 'You', lat: driverLocation.lat, lng: driverLocation.lng, icon: (status.vehicle_type as any) || 'car' } : null}
             pickup={tripPickup}
             dropoff={tripDropoff}
+            routePolyline={
+              driverLocation && tripPickup && tripDropoff
+                ? [
+                    { lat: driverLocation.lat, lng: driverLocation.lng },
+                    { lat: tripPickup.lat, lng: tripPickup.lng },
+                    { lat: tripDropoff.lat, lng: tripDropoff.lng },
+                  ]
+                : driverLocation && tripPickup
+                  ? [{ lat: driverLocation.lat, lng: driverLocation.lng }, { lat: tripPickup.lat, lng: tripPickup.lng }]
+                  : []
+            }
           />
         </div>
+      )}
+
+      {/* Earnings Tab */}
+      {activeTab === 'earnings' && (
+        <DriverEarnings />
       )}
 
       {/* Bottom Navigation */}
