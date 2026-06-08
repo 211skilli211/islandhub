@@ -37,7 +37,7 @@ export function useRideTracking(tripId: string | null, pollIntervalMs = 8000) {
   const [locationHistory, setLocationHistory] = useState<DriverLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const historyRef = useRef<DriverLocation[]>([]);
 
   const fetchStatus = useCallback(async () => {
