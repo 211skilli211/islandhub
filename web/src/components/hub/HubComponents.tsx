@@ -21,6 +21,7 @@ export interface Store {
     subtype: string;
     slug: string;
     rating?: number;
+    is_trending?: boolean;
 }
 
 export interface HubCategory {
