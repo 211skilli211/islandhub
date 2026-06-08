@@ -608,6 +608,170 @@ export const getMyDispatchRequests = async (req: Request, res: Response) => {
     }
 };
 
+// ─── Rider-side tracking ────────────────────────────────────────────────────
+
+// Get active ride for the authenticated rider
+export const getRiderActiveTrip = async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const result = await pool.query(
+            `SELECT t.trip_id, t.status, t.pickup_address, t.dropoff_address,
+                    t.pickup_lat, t.pickup_lng, t.dropoff_lat, t.dropoff_lng,
+                    t.fare_amount, t.service_type,
+                    u.name as driver_name, u.phone as driver_phone,
+                    dl.vehicle_type as driver_vehicle,
+                    dl.latitude as driver_lat, dl.longitude as driver_lng
+             FROM trips t
+             LEFT JOIN users u ON u.user_id = t.driver_id
+             LEFT JOIN driver_locations dl ON dl.driver_id = t.driver_id
+             WHERE t.rider_id = $1 AND t.status IN ('assigned', 'arrived', 'picked_up', 'in_transit')
+             ORDER BY t.created_at DESC LIMIT 1`,
+            [user.id]
+        );
+        res.json({ ride: result.rows[0] || null });
+    } catch (error) {
+        console.error('Get rider active trip error:', error);
+        res.status(500).json({ error: 'Failed to get active trip' });
+    }
+};
+
+// Track a specific trip by ID (for shared tracking link)
+export const trackTripById = async (req: Request, res: Response) => {
+    try {
+        const { tripId } = req.params;
+        const result = await pool.query(
+            `SELECT t.trip_id, t.status, t.pickup_address, t.dropoff_address,
+                    t.pickup_lat, t.pickup_lng, t.dropoff_lat, t.dropoff_lng,
+                    t.fare_amount, t.distance_km,
+                    u.name as driver_name,
+                    dl.vehicle_type as driver_vehicle,
+                    dl.latitude as driver_lat, dl.longitude as driver_lng
+             FROM trips t
+             LEFT JOIN users u ON u.user_id = t.driver_id
+             LEFT JOIN driver_locations dl ON dl.driver_id = t.driver_id
+             WHERE t.trip_id = $1`,
+            [tripId]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Trip not found' });
+        }
+        res.json({ trip: result.rows[0] });
+    } catch (error) {
+        console.error('Track trip error:', error);
+        res.status(500).json({ error: 'Failed to track trip' });
+    }
+};
+
+// Cancel a trip (rider-side)
+export const cancelRide = async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const { tripId } = req.params;
+
+        const trip = await pool.query(
+            `SELECT * FROM trips WHERE trip_id = $1 AND rider_id = $2`,
+            [tripId, user.id]
+        );
+        if (trip.rows.length === 0) {
+            return res.status(404).json({ error: 'Trip not found' });
+        }
+        const t = trip.rows[0];
+        if (['completed', 'cancelled'].includes(t.status)) {
+            return res.status(400).json({ error: 'Trip already finished' });
+        }
+
+        await pool.query(
+            `UPDATE trips SET status = 'cancelled', cancelled_at = NOW() WHERE trip_id = $1`,
+            [tripId]
+        );
+
+        // Re-enable driver availability
+        if (t.driver_id) {
+            await pool.query(
+                `UPDATE driver_locations SET is_available = TRUE WHERE driver_id = $1`,
+                [t.driver_id]
+            );
+        }
+
+        res.json({ success: true, message: 'Ride cancelled' });
+    } catch (error) {
+        console.error('Cancel ride error:', error);
+        res.status(500).json({ error: 'Failed to cancel ride' });
+    }
+};
+
+// Record a location point (for trail history)
+export const recordLocationPoint = async (req: Request, res: Response) => {
+    try {
+        const user = (req as any).user;
+        const { trip_id, latitude, longitude } = req.body;
+
+        await pool.query(
+            `INSERT INTO trip_location_history (trip_id, driver_id, latitude, longitude)
+             VALUES ($1, $2, $3, $4)`,
+            [trip_id, user.id, latitude, longitude]
+        );
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Record location error:', error);
+        res.status(500).json({ error: 'Failed to record location' });
+    }
+};
+
+// Get location history for a trip (polyline data)
+export const getTripLocationHistory = async (req: Request, res: Response) => {
+    try {
+        const { tripId } = req.params;
+        const result = await pool.query(
+            `SELECT latitude, longitude, recorded_at
+             FROM trip_location_history
+             WHERE trip_id = $1
+             ORDER BY recorded_at ASC`,
+            [tripId]
+        );
+        res.json({ points: result.rows });
+    } catch (error) {
+        console.error('Get location history error:', error);
+        res.status(500).json({ error: 'Failed to get location history' });
+    }
+};
+
+// SSE endpoint for live driver tracking
+export const streamDriverLocation = async (req: Request, res: Response) => {
+    try {
+        const { tripId } = req.params;
+
+        res.setHeader('Content-Type', 'text/event-stream');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Connection', 'keep-alive');
+        res.flushHeaders();
+
+        const sendLocation = async () => {
+            try {
+                const result = await pool.query(
+                    `SELECT dl.latitude, dl.longitude, dl.last_location_update
+                     FROM driver_locations dl
+                     JOIN trips t ON t.driver_id = dl.driver_id
+                     WHERE t.trip_id = $1 AND t.status IN ('assigned', 'arrived', 'picked_up', 'in_transit')
+                     LIMIT 1`,
+                    [tripId]
+                );
+                if (result.rows.length > 0) {
+                    res.write(`data: ${JSON.stringify(result.rows[0])}\n\n`);
+                }
+            } catch { /* silent */ }
+        };
+
+        await sendLocation();
+        const interval = setInterval(sendLocation, 5000);
+
+        req.on('close', () => { clearInterval(interval); });
+    } catch (error) {
+        console.error('SSE error:', error);
+        res.status(500).json({ error: 'SSE failed' });
+    }
+};
+
 export default {
     updateDriverLocation,
     toggleDriverOnline,
@@ -621,5 +785,11 @@ export default {
     getCurrentTrip,
     rateTrip,
     updateFare,
-    getMyDispatchRequests
+    getMyDispatchRequests,
+    getRiderActiveTrip,
+    trackTripById,
+    cancelRide,
+    recordLocationPoint,
+    getTripLocationHistory,
+    streamDriverLocation,
 };

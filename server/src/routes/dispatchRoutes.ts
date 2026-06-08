@@ -13,7 +13,13 @@ import {
     getCurrentTrip,
     rateTrip,
     updateFare,
-    getMyDispatchRequests
+    getMyDispatchRequests,
+    getRiderActiveTrip,
+    trackTripById,
+    cancelRide,
+    recordLocationPoint,
+    getTripLocationHistory,
+    streamDriverLocation,
 } from '../controllers/dispatchController';
 
 const router = Router();
@@ -40,5 +46,15 @@ router.get('/earnings', authenticateJWT, getDriverEarnings);
 
 // Fare management (admin)
 router.post('/fare/update', authenticateJWT, isAdmin, updateFare);
+
+// ─── Rider-side ride tracking ───────────────────────────────────────────────
+router.get('/rides/active', authenticateJWT, getRiderActiveTrip);
+router.get('/rides/tracking/:tripId', trackTripById);
+router.post('/rides/:tripId/cancel', authenticateJWT, cancelRide);
+
+// ─── Live location & polyline ───────────────────────────────────────────────
+router.post('/location/record', authenticateJWT, recordLocationPoint);
+router.get('/rides/:tripId/location-history', getTripLocationHistory);
+router.get('/rides/:tripId/location-stream', streamDriverLocation);
 
 export default router;
