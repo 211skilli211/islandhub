@@ -14,17 +14,21 @@ export default function CartPage() {
         return (
             <div className="min-h-screen bg-surface-primary flex flex-col justify-center items-center py-20 px-4">
                 <div className="bg-surface-elevated p-12 rounded-[2.5rem] shadow-2xl shadow-black/10/50 border border-white text-center max-w-lg w-full">
-                    <div className="text-7xl mb-8 animate-bounce">🛒</div>
-                    <h1 className="text-4xl font-black text-ink-primary mb-4">Your cart is empty</h1>
-                    <p className="text-ink-tertiary text-lg mb-10 leading-relaxed">
-                        Looks like you haven't added any island treasures yet. Start exploring our unique offerings!
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-surface-secondary flex items-center justify-center">
+                        <svg className="w-10 h-10 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" /></svg>
+                    </div>
+                    <h1 className="text-3xl font-black text-ink-primary mb-3">Your cart is empty</h1>
+                    <p className="text-ink-tertiary text-base mb-8 leading-relaxed">
+                        Discover island treasures — fresh food, local products, tours & more from Caribbean vendors.
                     </p>
-                    <Link
-                        href="/listings"
-                        className="inline-block px-10 py-5 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black text-lg shadow-xl shadow-teal-100 transition-all transform hover:-translate-y-1 active:scale-95"
-                    >
-                        Start Shopping
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <Link href="/listings" className="px-8 py-4 bg-accent-500 hover:bg-accent-600 text-white rounded-xl font-bold text-base shadow-lg transition-all">
+                            Browse Marketplace
+                        </Link>
+                        <Link href="/food" className="px-8 py-4 bg-surface-secondary hover:bg-surface-tertiary text-ink-primary rounded-xl font-bold text-base border border-border-primary transition-all">
+                            Order Food 🍴
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
