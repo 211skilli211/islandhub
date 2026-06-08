@@ -104,11 +104,13 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
 
     const renderMeta = useCallback(() => {
         if (type === 'product' && listing.metadata?.inventory_count !== undefined) {
+            const count = listing.metadata.inventory_count;
+            const isLow = count > 0 && count <= 5;
             return (
                 <div className="flex items-center gap-2 mt-3">
-                    <div className={`w-1.5 h-1.5 rounded-full ${listing.metadata.inventory_count > 0 ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`}></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">
-                        {listing.metadata.inventory_count > 0 ? `${listing.metadata.inventory_count} in stock` : 'Out of stock'}
+                    <div className={`w-1.5 h-1.5 rounded-full ${count > 0 ? (isLow ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500') : 'bg-red-500'}`}></div>
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${count === 0 ? 'text-red-500' : isLow ? 'text-amber-500' : 'text-ink-tertiary'}`}>
+                        {count === 0 ? 'Out of stock' : isLow ? `Only ${count} left!` : `${count} in stock`}
                     </span>
                 </div>
             )
@@ -125,7 +127,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
         }
         if ((type === 'service' || type === 'rental') && (duration || listing.metadata?.duration)) {
             return (
-                <div className="flex items-center gap-2 mt-3">
+                <div className="flex items-center gap-2 mt-3 flex-wrap">
                     <span className="text-[10px] font-black uppercase tracking-widest text-accent-400 bg-accent-500/10 px-2 py-1 rounded-md">
                         ⏱ {duration || listing.metadata?.duration}
                     </span>
@@ -141,14 +143,15 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     }, [type, listing.metadata, duration, capacity]);
 
     const renderAction = useCallback(() => {
+        const priceStr = price ? ` • $${price.toFixed(2)}` : '';
         switch (type) {
-            case 'product': return 'Add to Cart';
+            case 'product': return `Add to Cart${priceStr}`;
             case 'campaign': return 'Donate Now';
             case 'rental': return 'Review Dates';
-            case 'service': return 'Book Now';
+            case 'service': return `Book Now${priceStr}`;
             default: return 'Explore';
         }
-    }, [type]);
+    }, [type, price]);
 
     const router = useRouter();
 

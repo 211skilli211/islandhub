@@ -387,12 +387,29 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                                 <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.item_name || item.name} />
                                                             </div>
                                                         )}
-                                                        <div className="flex-1">
-                                                            <div className="flex justify-between items-start mb-1">
-                                                                <h4 className="font-medium text-ink-primary">{item.item_name || item.name}</h4>
-                                                                <span className="font-semibold text-[#e11d48]">${item.price}</span>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex justify-between items-start mb-1 gap-2">
+                                                                <h4 className="font-medium text-ink-primary truncate">{item.item_name || item.name}</h4>
+                                                                <span className="font-semibold text-[#e11d48] shrink-0">${item.price}</span>
                                                             </div>
-                                                            <p className="text-ink-tertiary text-sm">{item.description}</p>
+                                                            <p className="text-ink-tertiary text-sm line-clamp-2">{item.description}</p>
+                                                            <div className="flex items-center gap-3 mt-2">
+                                                                {item.rating != null && (
+                                                                    <span className="flex items-center gap-0.5 text-xs font-bold text-amber-500">
+                                                                        ★ {typeof item.rating === 'number' ? item.rating.toFixed(1) : item.rating}
+                                                                    </span>
+                                                                )}
+                                                                {item.prep_time && (
+                                                                    <span className="flex items-center gap-0.5 text-xs text-ink-tertiary">
+                                                                        ⏱ {item.prep_time}
+                                                                    </span>
+                                                                )}
+                                                                {item.popular && (
+                                                                    <span className="text-[9px] font-black uppercase tracking-wider text-orange-500 bg-orange-500/10 px-1.5 py-0.5 rounded">
+                                                                        Popular
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                             {item.addons && JSON.parse(typeof item.addons === 'string' ? item.addons : JSON.stringify(item.addons)).length > 0 && (
                                                                 <span className="mt-2 text-xs font-medium text-emerald-400">+ Addons Available</span>
                                                             )}
@@ -811,10 +828,10 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         className="w-full py-3.5 rounded-xl font-medium text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                         style={{ backgroundColor: isAdding ? '#94a3b8' : accentColor }}
                                     >
-                                        {isAdding ? 'Adding...' : listing.type === 'campaign' ? 'Contribute Now' : listing.type === 'service' ? 'Request Appointment' : 'Add to Cart'}
+                                        {isAdding ? 'Adding...' : listing.type === 'campaign' ? 'Contribute Now' : listing.type === 'service' ? `Request Appointment · $${calculateTotal().toFixed(2)}` : `Add to Cart · $${calculateTotal().toFixed(2)}`}
                                     </button>
                                     <p className="text-center mt-3 text-xs text-ink-tertiary">
-                                        Secure transactions by IslandHub
+                                        🔒 Secure transactions by IslandHub
                                     </p>
                                 </div>
                             </div>
@@ -837,6 +854,24 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                     </div>
                 </div>
             </main>
+
+            {/* Mobile Sticky Bar */}
+            <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-surface-elevated/95 backdrop-blur-xl border-t border-border-primary p-3 shadow-2xl">
+                <div className="flex items-center justify-between gap-3 max-w-7xl mx-auto">
+                    <div className="min-w-0">
+                        <p className="text-xs text-ink-tertiary truncate">{listing.title}</p>
+                        <p className="text-lg font-black text-ink-primary">${calculateTotal().toFixed(2)} <span className="text-xs font-normal text-ink-tertiary">XCD</span></p>
+                    </div>
+                    <button
+                        onClick={handleAction}
+                        disabled={isAdding}
+                        className="shrink-0 px-6 py-3 rounded-xl font-bold text-white text-sm disabled:opacity-50"
+                        style={{ backgroundColor: isAdding ? '#94a3b8' : accentColor }}
+                    >
+                        {isAdding ? '...' : listing.type === 'service' ? 'Book' : listing.type === 'campaign' ? 'Donate' : 'Add to Cart'}
+                    </button>
+                </div>
+            </div>
 
             {/* Booking Modal */}
             <AnimatePresence>
