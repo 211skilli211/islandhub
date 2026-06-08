@@ -346,7 +346,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         <ul className="space-y-2">
                                             {(listing.metadata as any).inclusions.map((item: string, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-ink-secondary">
-                                                    <span className="text-emerald-400 mt-0.5">•</span>
+                                                    <span className="text-emerald-400 mt-0.5">-</span>
                                                     {item}
                                                 </li>
                                             ))}
@@ -364,7 +364,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         <ul className="space-y-2">
                                             {(listing.metadata as any).exclusions.map((item: string, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-ink-tertiary">
-                                                    <span className="text-[#fb7185] mt-0.5">•</span>
+                                                    <span className="text-[#fb7185] mt-0.5">-</span>
                                                     {item}
                                                 </li>
                                             ))}
@@ -837,7 +837,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         className="w-full py-3.5 rounded-xl font-medium text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                         style={{ backgroundColor: isAdding ? '#94a3b8' : accentColor }}
                                     >
-                                        {isAdding ? 'Adding...' : listing.type === 'campaign' ? 'Contribute Now' : listing.type === 'service' ? `Request Appointment · $${calculateTotal().toFixed(2)}` : `Add to Cart · $${calculateTotal().toFixed(2)}`}
+                                        {isAdding ? 'Adding...' : listing.type === 'campaign' ? 'Contribute Now' : listing.type === 'service' ? `Request Appointment — $${calculateTotal().toFixed(2)}` : `Add to Cart — $${calculateTotal().toFixed(2)}`}
                                     </button>
                                     <p className="text-center mt-3 text-xs text-ink-tertiary">
                                         🔒 Secure transactions by IslandHub
