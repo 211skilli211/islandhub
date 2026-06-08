@@ -195,6 +195,48 @@ export default function TourDetailPage() {
                         </div>
                     </div>
 
+                    {/* Guide Profile */}
+                    <section className="bg-surface-primary rounded-3xl border border-border-primary overflow-hidden">
+                        <div className="p-8">
+                            <h2 className="text-lg font-black text-ink-primary uppercase tracking-tight italic mb-6">Your Guide</h2>
+                            <div className="flex items-start gap-5">
+                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-3xl shadow-lg shrink-0">
+                                    🧭
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h3 className="text-xl font-black text-ink-primary">{tour.guide_name || tour.vendor_name || 'Local Expert Guide'}</h3>
+                                        <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 rounded-full text-[9px] font-black uppercase tracking-wider">Verified</span>
+                                    </div>
+                                    <p className="text-xs text-ink-tertiary font-bold uppercase tracking-widest mb-3">{tour.guide_title || 'Certified Tour Operator'}</p>
+                                    <p className="text-sm text-ink-secondary leading-relaxed line-clamp-3">
+                                        {tour.guide_bio || `Experienced local guide with deep knowledge of ${tour.location || 'the island'}. Passionate about sharing authentic Caribbean experiences and hidden gems.`}
+                                    </p>
+                                    <div className="flex items-center gap-4 mt-4">
+                                        {tour.guide_languages && (
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-xs">🌐</span>
+                                                <span className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">{tour.guide_languages}</span>
+                                            </div>
+                                        )}
+                                        {tour.guide_experience_years && (
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-xs">⭐</span>
+                                                <span className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">{tour.guide_experience_years} years exp</span>
+                                            </div>
+                                        )}
+                                        {tour.guide_rating && (
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-xs text-amber-500">★</span>
+                                                <span className="text-[10px] font-bold text-amber-500">{tour.guide_rating} rating</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     {/* Media Gallery (Compact for now) */}
                     <section>
                         <h2 className="text-2xl font-black text-ink-primary uppercase tracking-tight italic mb-6">Experience Gallery</h2>

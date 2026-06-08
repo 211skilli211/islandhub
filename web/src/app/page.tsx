@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { RecentlyViewedSection, BackToTop } from '@/components/ui/RecentlyViewed';
+import { ShimmerGrid } from '@/components/ui/ShimmerCard';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
@@ -629,6 +631,9 @@ export default function Home() {
         </section>
       ))}
 
+      {/* Recently Viewed */}
+      <RecentlyViewedSection />
+
       {/* Final CTA */}
       <section className={cnTheme('py-24 text-center theme-transition', getBgClass('primary'))}>
         <h2 className={cnTheme('text-4xl font-black mb-6 tracking-tight', getTextClass('primary'))}>Ready to join the movement?</h2>
@@ -641,6 +646,8 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      {/* Back to Top */}
+      <BackToTop />
     </main>
   );
 }

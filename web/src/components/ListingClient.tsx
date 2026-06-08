@@ -11,6 +11,7 @@ import Link from 'next/link';
 import ReviewSection from '@/components/ReviewSection';
 import AvailabilityCalendar from '@/components/AvailabilityCalendar';
 import KitchenSidebar from '@/components/marketplace/KitchenSidebar';
+import { addRecentlyViewed } from '@/components/ui/RecentlyViewed';
 
 export interface Listing {
     id: number;
@@ -101,6 +102,14 @@ export default function ListingClient({ listing }: { listing: Listing }) {
     useEffect(() => {
         if (!listing.id) return;
         api.post(`/listings/${listing.id}/view`).catch(err => console.error("View track err:", err));
+        // Track for Recently Viewed
+        addRecentlyViewed({
+            id: listing.id,
+            title: listing.title,
+            image_url: listing.image_url || '',
+            price: Number(listing.price) || 0,
+            type: listing.type,
+        });
     }, [listing.id]);
 
     const theme = CATEGORY_THEMES[listing.type === 'product' && listing.category?.toLowerCase() === 'food' ? 'food' : listing.type] || CATEGORY_THEMES.product;

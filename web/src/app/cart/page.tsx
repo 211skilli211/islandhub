@@ -50,6 +50,14 @@ export default function CartPage() {
                     </Link>
                 </div>
 
+                {/* Urgency Banner */}
+                <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl flex items-center gap-3">
+                    <span className="text-xl">⚡</span>
+                    <p className="text-sm font-bold text-amber-800 dark:text-amber-300">
+                        Items in your cart are not reserved. Complete checkout to secure your order.
+                    </p>
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     {/* Items List */}
                     <div className="lg:col-span-2 space-y-4">

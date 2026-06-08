@@ -30,7 +30,15 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   title: "IslandHub",
-  description: "The premier marketplace for island living, campaigns, and rentals.",
+  description: "The Caribbean's community-driven marketplace — food, products, tours, rentals, rides.",
+  manifest: "/manifest.json",
+  themeColor: "#0d9488",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "IslandHub",
+  },
+  formatDetection: { telephone: false },
 };
 
 import MobileAnnouncement from '@/components/MobileAnnouncement';
