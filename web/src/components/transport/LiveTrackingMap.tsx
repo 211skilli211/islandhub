@@ -91,7 +91,12 @@ export default function LiveTrackingMap({
       zoom,
       zoomControl: false,
       attributionControl: false,
-      interactive,
+      dragging: interactive,
+      touchZoom: interactive,
+      scrollWheelZoom: interactive,
+      doubleClickZoom: interactive,
+      boxZoom: interactive,
+      keyboard: interactive,
     });
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
