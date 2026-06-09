@@ -1,17 +1,17 @@
 import { redirect } from 'next/navigation';
 
 /**
- * /hub/[type]/[provider] → Level 3: Dedicated Vendor Storefront
+ * /hub/[type]/store/[slug] → Level 3: Dedicated Vendor Storefront
  * Bridges the hub funnel into the existing /store/[slug] storefront.
  * This ensures the marketplace hierarchy is complete:
- *   /hub (gateway) → /hub/[type] (aggregator) → /hub/[type]/[provider] (storefront)
+ *   /hub (gateway) → /hub/[type] (aggregator) → /hub/[type]/store/[slug] (storefront)
  */
-export default function HubProviderPage({
+export default function HubStorePage({
   params,
 }: {
-  params: { type: string; provider: string };
+  params: { type: string; slug: string };
 }) {
   // Redirect to the fully-featured storefront at /store/[slug]
   // The store page already has catalog, branding, and commerce logic
-  redirect(`/store/${params.provider}`);
+  redirect(`/store/${params.slug}`);
 }
