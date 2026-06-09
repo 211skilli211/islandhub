@@ -1,2 +1,2 @@
-import { FoodHubPage } from '@/components/hub/HubPage';
-export default FoodHubPage;
+import { redirect } from 'next/navigation';
+export default function Page() { redirect('/hub/food'); }
