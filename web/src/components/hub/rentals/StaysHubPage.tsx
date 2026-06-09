@@ -39,7 +39,7 @@ interface RentalProperty {
 // ─── Rental Card (Airbnb-style) ──────────────────────────────────────────────
 
 function RentalCard({ property: p, index }: { property: RentalProperty; index: number }) {
-  const images = p.images?.length ? p.images : p.banner_url ? [getImageUrl(p.banner_url)] : [];
+  const images = (p.images?.length ? p.images : p.banner_url ? [getImageUrl(p.banner_url)] : []).filter(Boolean) as string[];
   const name = p.name || p.business_name || 'Property';
   const price = p.price_per_night || 85;
 

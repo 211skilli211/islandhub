@@ -298,47 +298,47 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-body-md font-semibold text-ink-primary hover:bg-surface-secondary rounded-xl transition-colors"
+                    className="block px-4 py-3 text-body-md font-bold text-white hover:bg-white/10 rounded-xl transition-colors"
                   >
                     {link.label}
                   </Link>
                 ))}
 
-                <div className="my-3 border-t border-border-primary" />
-                <div className="px-4 py-2 text-caption-xs text-ink-tertiary">Marketplace Hubs</div>
+                <div className="my-3 border-t border-white/10" />
+                <div className="px-4 py-2 text-caption-xs text-white/40 font-semibold uppercase tracking-wider">Marketplace Hubs</div>
 
                 {EXPLORE_HUBS.filter(h => h.group === 'Marketplace').map((hub) => (
                   <Link
                     key={hub.href}
                     href={hub.href}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary rounded-xl transition-colors"
+                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white rounded-xl transition-colors"
                   >
                     <span>{hub.emoji}</span>
                     {hub.label}
                   </Link>
                 ))}
 
-                <div className="my-3 border-t border-border-primary" />
-                <div className="px-4 py-2 text-caption-xs text-ink-tertiary">Explore</div>
+                <div className="my-3 border-t border-white/10" />
+                <div className="px-4 py-2 text-caption-xs text-white/40 font-semibold uppercase tracking-wider">Explore</div>
 
                 {EXPLORE_HUBS.filter(h => h.group !== 'Marketplace').map((hub) => (
                   <Link
                     key={hub.href}
                     href={hub.href}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary rounded-xl transition-colors"
+                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white rounded-xl transition-colors"
                   >
                     <span>{hub.emoji}</span>
                     {hub.label}
                   </Link>
                 ))}
 
-                <div className="my-3 border-t border-border-primary" />
+                <div className="my-3 border-t border-white/10" />
                 <Link
                   href="/store/ibt-solutions"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-brand-600 hover:bg-brand-50 rounded-xl transition-colors"
+                  className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-bold text-accent-400 hover:bg-white/10 rounded-xl transition-colors"
                 >
                   <span>⚡</span>
                   IBT Solutions
@@ -346,12 +346,12 @@ export default function Navbar() {
               </div>
 
               {/* Mobile auth area */}
-              <div className="p-4 border-t border-border-primary shrink-0 space-y-3">
+              <div className="p-4 border-t border-white/10 shrink-0 space-y-3">
                 {mounted && (
                   isAuthenticated ? (
                     <>
                       <div className="flex items-center gap-3 px-2">
-                        <div className="w-10 h-10 rounded-full bg-accent-100 flex items-center justify-center text-accent-700 font-bold text-sm overflow-hidden">
+                        <div className="w-10 h-10 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 font-bold text-sm overflow-hidden">
                           {user?.avatar_url ? (
                             <img src={getImageUrl(user.avatar_url)} alt="" className="w-full h-full object-cover" />
                           ) : (
@@ -359,54 +359,37 @@ export default function Navbar() {
                           )}
                         </div>
                         <div>
-                          <div className="text-body-sm font-bold text-ink-primary">{user?.name}</div>
-                          <div className="text-caption text-ink-tertiary">{user?.email}</div>
+                          <div className="text-body-sm font-bold text-white">{user?.name}</div>
+                          <div className="text-caption text-white/50">{user?.email}</div>
                         </div>
                       </div>
-                      <Link
-                        href="/profile"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"
-                      >
+                      <Link href="/profile" onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-white/80 bg-white/5 rounded-xl text-center hover:bg-white/10 transition-colors">
                         Edit Profile
                       </Link>
-                      <Link
-                        href="/dashboard"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary bg-surface-secondary rounded-xl text-center hover:bg-surface-tertiary transition-colors"
-                      >
+                      <Link href="/dashboard" onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-white/80 bg-white/5 rounded-xl text-center hover:bg-white/10 transition-colors">
                         Dashboard
                       </Link>
                       {user?.role === 'admin' && (
-                        <Link
-                          href="/admin"
-                          onClick={() => setMobileOpen(false)}
-                          className="block w-full px-4 py-3 text-body-sm font-bold text-accent-600 bg-accent-50 rounded-xl text-center hover:bg-accent-100 transition-colors"
-                        >
+                        <Link href="/admin" onClick={() => setMobileOpen(false)}
+                          className="block w-full px-4 py-3 text-body-sm font-bold text-accent-400 bg-accent-500/10 rounded-xl text-center hover:bg-accent-500/20 transition-colors">
                           Admin Panel
                         </Link>
                       )}
-                      <button
-                        onClick={() => { handleLogout(); setMobileOpen(false); }}
-                        className="w-full px-4 py-3 text-body-sm font-semibold text-coral-600 bg-coral-50 rounded-xl text-center hover:bg-coral-100 transition-colors"
-                      >
+                      <button onClick={() => { handleLogout(); setMobileOpen(false); }}
+                        className="w-full px-4 py-3 text-body-sm font-semibold text-red-400 bg-red-500/10 rounded-xl text-center hover:bg-red-500/20 transition-colors">
                         Log out
                       </button>
                     </>
                   ) : (
                     <>
-                      <Link
-                        href="/login"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-ink-primary border border-border-primary rounded-xl text-center hover:bg-surface-secondary transition-colors"
-                      >
+                      <Link href="/login" onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-white border border-white/20 rounded-xl text-center hover:bg-white/10 transition-colors">
                         Log in
                       </Link>
-                      <Link
-                        href="/register"
-                        onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl text-center shadow-sm"
-                      >
+                      <Link href="/register" onClick={() => setMobileOpen(false)}
+                        className="block w-full px-4 py-3 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl text-center shadow-sm">
                         Join IslandHub
                       </Link>
                     </>
