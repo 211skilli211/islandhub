@@ -25,7 +25,7 @@ function DriverCard({ driver }: { driver: Driver }) {
                 <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
                 <p className="text-xs text-ink-tertiary">{driver.vehicle_type || 'Standard'}</p>
               </div>
-              {driver.rating && <RatingBadge rating={driver.rating} size="sm" showCount={false" />}
+              {driver.rating && <RatingBadge rating={driver.rating} size="sm" showCount={false} />}
             </div>
             <div className="flex items-center gap-2 mt-1">
               {driver.eta_minutes && <span className="px-1.5 py-0.5 rounded bg-sky-500/10 text-[10px] font-bold text-sky-600">🚗 {driver.eta_minutes} min away</span>}
