@@ -1,34 +1,20 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import RestaurantsHubPage from '@/components/hub/food/RestaurantsHubPage';
-import KitchensHubPage from '@/components/hub/food/KitchensHubPage';
-import CafesHubPage from '@/components/hub/food/CafesHubPage';
-import GrillsHubPage from '@/components/hub/food/GrillsHubPage';
+import LandToursHubPage from '@/components/hub/tours/LandToursHubPage';
+import SeaToursHubPage from '@/components/hub/tours/SeaToursHubPage';
+import AdventureToursHubPage from '@/components/hub/tours/AdventureToursHubPage';
+import CharterToursHubPage from '@/components/hub/tours/CharterToursHubPage';
 
-/**
- * /hub/food/[category] — Food sub-hub pages
- * Each category has a distinct card style and layout.
- */
-export default function FoodCategoryPage() {
+export default function ToursCategoryPage() {
   const params = useParams();
   const category = params?.category as string;
 
   switch (category) {
-    case 'restaurant':
-    case 'restaurants':
-      return <RestaurantsHubPage />;
-    case 'kitchen':
-    case 'kitchens':
-      return <KitchensHubPage />;
-    case 'cafe':
-    case 'cafes':
-      return <CafesHubPage />;
-    case 'grill':
-    case 'grills':
-      return <GrillsHubPage />;
-    default:
-      // Fallback to restaurants
-      return <RestaurantsHubPage />;
+    case 'land': return <LandToursHubPage />;
+    case 'sea': return <SeaToursHubPage />;
+    case 'adventure': return <AdventureToursHubPage />;
+    case 'charter': case 'charters': return <CharterToursHubPage />;
+    default: return <LandToursHubPage />;
   }
 }
