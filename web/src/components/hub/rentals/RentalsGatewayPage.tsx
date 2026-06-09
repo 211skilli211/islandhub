@@ -43,31 +43,31 @@ export default function RentalsGatewayPage() {
       </section>
 
       {/* Sub-hub Cards */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="max-w-6xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {subHubs.map((sub, i) => (
             <motion.div
               key={sub.categoryId}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.05 }}
             >
               <Link
                 href={`/hub/rentals/${sub.categoryId}`}
-                className="group block p-6 rounded-2xl border border-border-primary bg-surface-elevated hover:border-accent-500/30 hover:shadow-xl transition-all duration-300"
+                className="group block p-4 rounded-xl border border-border-primary bg-surface-elevated hover:border-accent-500/30 hover:shadow-md transition-all"
               >
-                <div className="text-4xl mb-3">
+                <div className="text-3xl mb-2">
                   {emojiMap[sub.categoryId] || '📦'}
                 </div>
-                <h2 className="text-xl font-bold text-ink-primary mb-1 group-hover:text-accent-500 transition-colors">
+                <h2 className="text-sm font-bold text-ink-primary mb-0.5 group-hover:text-accent-500 transition-colors">
                   {sub.pageTitle}
                 </h2>
-                <p className="text-sm text-ink-secondary mb-3">
+                <p className="text-[10px] text-ink-tertiary line-clamp-2">
                   {descriptionMap[sub.categoryId] || sub.subtitle}
                 </p>
-                <div className="flex items-center gap-1 text-sm font-medium text-accent-500 group-hover:translate-x-1 transition-transform">
+                <span className="mt-2 inline-flex items-center gap-0.5 text-[10px] font-medium text-accent-500 group-hover:translate-x-1 transition-transform">
                   Browse →
-                </div>
+                </span>
               </Link>
             </motion.div>
           ))}
