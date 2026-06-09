@@ -48,7 +48,7 @@ export function useFocusVisible() {
 const FILTER_PREFIX = 'islandhub_filter_';
 
 export function getPersistedFilter(key: string): string {
-  if (typeof window === 'undefined') || typeof localStorage === 'undefined') return '';
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') return '';
   try { return localStorage.getItem(FILTER_PREFIX + key) || ''; } catch { return ''; }
 }
 
