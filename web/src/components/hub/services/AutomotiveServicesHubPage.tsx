@@ -54,7 +54,7 @@ export default function AutomotiveServicesHubPage() {
         const filtered = rawData
           .filter((s: any) => subtypes.includes((s.subtype || '').toLowerCase()))
           .slice(0, 8)
-          .map((s: any, i) => ({
+          .map((s: any, i: number) => ({
             id: s.store_id || s.id,
             name: s.name || s.business_name,
             slug: s.slug,
