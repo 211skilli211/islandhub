@@ -1,20 +1,20 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import LandToursHubPage from '@/components/hub/tours/LandToursHubPage';
-import SeaToursHubPage from '@/components/hub/tours/SeaToursHubPage';
-import AdventureToursHubPage from '@/components/hub/tours/AdventureToursHubPage';
-import CharterToursHubPage from '@/components/hub/tours/CharterToursHubPage';
+import ShopsHubPage from '@/components/hub/products/ShopsHubPage';
+import SpecialtyHubPage from '@/components/hub/products/SpecialtyHubPage';
+import FashionHubPage from '@/components/hub/products/FashionHubPage';
+import HealthHubPage from '@/components/hub/products/HealthHubPage';
 
-export default function ToursCategoryPage() {
+export default function ProductsCategoryPage() {
   const params = useParams();
   const category = params?.category as string;
 
   switch (category) {
-    case 'land': return <LandToursHubPage />;
-    case 'sea': return <SeaToursHubPage />;
-    case 'adventure': return <AdventureToursHubPage />;
-    case 'charter': case 'charters': return <CharterToursHubPage />;
-    default: return <LandToursHubPage />;
+    case 'shop': case 'shops': return <ShopsHubPage />;
+    case 'specialty': return <SpecialtyHubPage />;
+    case 'fashion': return <FashionHubPage />;
+    case 'health': return <HealthHubPage />;
+    default: return <ShopsHubPage />;
   }
 }
