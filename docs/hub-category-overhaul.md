@@ -1,366 +1,340 @@
-# Hub Category Overhaul — Implementation Plan
+# IslandHub — Complete Category Experience Map
 
-> 2026-06-06 — Based on user feedback
-
-## Core Principle
-Each hub category gets a **distinct, purpose-built experience**. No generic template. Airbnb is only the reference for rentals — every other category has its own reference design.
+> 2026-06-06 — Every hub type and every category gets a distinct experience.
+> Airbnb is ONLY the reference for vacation stays. Every other category has its own reference.
 
 ---
 
-## Hub-by-Hub Design
+## The 8 Hub Types → 35+ Categories
 
-### 1. 🏠 RENTALS — Multi-Hub (SPECIAL ATTENTION)
+### 1. 🍽️ FOOD & DINING
+**Hub Reference:** UberEats, DoorDash, Grubhub
 
-**Reference:** Airbnb (stays), Turo/Hertz (car rentals), Fat Llama (tools), GetMyBoat (sea rentals)
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Kitchens** | kitchen, cloud_kitchen, home_cooking | CloudKitchens, Kitchen United | Menu cards showing cuisine type, prep time, "Accepting orders" status. Detail = menu + cart sidebar |
+| **Restaurants** | restaurant, dining, fine_dining | OpenTable, Resy | Restaurant cards with cuisine type, price range ($-$$$$), rating, "Open/Closed". Detail = menu categories + order sidebar + reviews |
+| **Cafés** | cafe, coffee, bakery, pastry | Blue Bottle, Stumptown | Café cards with "Now serving", pastry menu preview. Detail = drink menu + pastry case + "Order for pickup" |
+| **Grills & Bars** | grill, bar, bbq, nightlife, pub | Yelp Nightlife, Untappd | Bar cards with vibe tag (casual/late-night/live music), happy hour times. Detail = drink menu + food menu + events calendar |
 
-**Rental is NOT one category — it's a collection of sub-hubs:**
+**Food Hub Page Layout:**
+- Hero: "Island Flavors" + search bar
+- Filter chips: All | Kitchens | Restaurants | Cafés | Grills
+- Cards: image, name, cuisine type, rating, delivery time, "Open/Closed" badge, price range
+- Detail: menu categories left, sticky order sidebar right, "Checkout $X" CTA
 
-```
-/hub/rentals                    → Rental gateway (sub-hub cards)
-/hub/rentals/stays              → Vacation homes, villas, beach houses
-/hub/rentals/stays/[slug]       → Property detail (Airbnb-style)
-/hub/rentals/cars               → Car rentals (Turo-style)
-/hub/rentals/cars/[slug]        → Car detail + booking
-/hub/rentals/sea                → Boat/yacht/sea rentals (GetMyBoat-style)
-/hub/rentals/sea/[slug]        → Boat detail + booking
-/hub/rentals/tools              → Equipment/tools (Fat Llama-style)
-/hub/rentals/tools/[slug]       → Tool detail + rental period picker
-/hub/rentals/longterm           → Monthly/annual leases
-/hub/rentals/longterm/[slug]    → Long-term listing detail
-```
+---
 
-**Stays Detail Page (Airbnb-style):**
-- Full-width image gallery (5+ photos, swipeable)
-- Left: description, amenities grid, house rules, reviews
-- Right: sticky booking card (price/night, date range picker, guest count, total, "Reserve" CTA)
+### 2. 🛍️ PRODUCTS & SHOPPING
+**Hub Reference:** Etsy, Shopify, Amazon
+
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Shops** | shop, retail, general | Shopify stores, Etsy | Shop cards with product preview grid (4 images), shop name, rating. Detail = shop page with product grid |
+| **Specialty** | specialty_food, artisan, craft, handmade | Etsy, Uncommon Goods | Artisan cards with craft type, "Handmade in St. Kitts", story snippet. Detail = product story + gallery + "Add to Cart" |
+| **Fashion** | fashion, clothing, shoes, accessories | Zara, ASOS, Farfetch | Fashion cards with product image, brand, price, "New Arrival" tag. Detail = size selector, color swatches, "Add to Cart" |
+| **Health & Beauty** | health_beauty, wellness, supplements | Sephora, The Ordinary | Product cards with key ingredient, skin type, rating. Detail = ingredient list, how-to-use, reviews |
+
+**Products Hub Page Layout:**
+- Hero: "Island Marketplace" + category filter
+- Filter chips: All | Shops | Specialty | Fashion | Health
+- Cards: product image, name, price, rating, "In Stock" / "Ships today"
+- Detail: image gallery left, variants + CTA right, reviews below
+
+---
+
+### 3. 🛠️ SERVICES
+**Hub Reference:** Booksy, StyleSeat, Thumbtack, TaskRabbit
+
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Professional** | professional_services, legal, consulting, accounting | LinkedIn ProFinder, Upwork | Provider cards with specialty, credentials, hourly rate, "Available this week". Detail = service list + calendar booking |
+| **Automotive** | automotive, car_repair, detailing | YourMechanic, Wrench | Service cards with "Mobile service available", rating, starting price. Detail = service menu + "Book Appointment" + location |
+| **Health & Beauty** | health_beauty, spa, wellness, salon | Booksy, StyleSeat | Provider cards with photo, specialty, next available time. Detail = service list + time slots + "Book Now" |
+| **Marine** | marine, boat_service, diving | Marine service directories | Service cards with boat type, certification, "Insured". Detail = service description + availability calendar |
+| **Events** | event_services, catering, entertainment, planning | The Knot, EventUp | Provider cards with event type, portfolio preview, "Available [date]". Detail = portfolio gallery + package options + inquiry form |
+
+**Services Hub Page Layout:**
+- Hero: "Island Services" + search
+- Filter chips: All | Professional | Automotive | Health & Beauty | Marine | Events
+- Cards: provider photo, name, specialty, rating, next available, starting price
+- Detail: service list left, booking calendar right, provider bio + reviews
+
+---
+
+### 4. 🗺️ TOURS & ADVENTURES
+**Hub Reference:** Airbnb Experiences, Viator, GetYourGuide
+
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Land Tours** | land, hiking, history, nature, culture | Viator, GetYourGuide | Tour cards with duration, difficulty, group size, "X spots left". Detail = immersive hero + itinerary + booking widget |
+| **Sea & Water** | sea, snorkeling, sailing, fishing, diving | PADI, Snorkel Tours | Tour cards with water activity type, equipment included, "Best in morning". Detail = marine life preview + gear list + booking |
+| **Adventure** | adventure, zipline, atv, extreme | Viator Extreme, Manawa | Tour cards with thrill level (1-5), age requirement, " adrenaline". Detail = video hero + safety info + booking |
+| **Charters** | charter, yacht, private_boat | GetMyBoat, Boatsetter | Charter cards with boat type, capacity, captain included, half/full day pricing. Detail = boat gallery + amenities + booking |
+
+**Tours Hub Page Layout:**
+- Hero: "Island Adventures" + search
+- Filter chips: All | Land | Sea | Adventure | Charters
+- Cards: hero image, title, duration, rating, price/person, "X spots left"
+- Detail: full-bleed hero (70vh), about left, booking widget right (date, time, guests, total), guide profile, reviews
+
+---
+
+### 5. 🚕 TRANSPORT
+**Hub Reference:** Uber, Lyft, Lugg, Roadie
+
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Ride Hailing** | ride, taxi, ride_hail | Uber, Lyft | Map-centric. Pickup/dropoff inputs, vehicle type, fare estimate, "Driver 2 min away". Detail = live tracking |
+| **Delivery** | delivery, courier, package | Roadie, GoShare | Package cards with size/weight, pickup/dropoff, "Deliver by [time]". Detail = tracking + proof of delivery |
+| **Boat Charters** | boat, ferry, charter, marine | GetMyBoat, Ferry apps | Route cards with schedule, capacity, "Next departure 2:00 PM". Detail = route map + booking |
+| **Moving** | moving, relocation, heavy | Lugg, TaskRabbit | Moving cards with truck size, crew size, "Available today". Detail = inventory checklist + quote |
+
+**Transport Hub Page Layout:**
+- Hero: Map preview with service type tabs
+- Tabs: Rides | Delivery | Boats | Moving
+- Rides: pickup/dropoff + vehicle select + "Book Ride $X"
+- Delivery: package details + route + "Schedule Delivery"
+- Boats: route + schedule + "Book Passage"
+- Moving: home size + inventory + "Get Quote"
+
+---
+
+### 6. 🏠 RENTALS (MULTI-HUB)
+**Each rental category is a SUB-HUB with its own experience**
+
+#### 6a. 🏖️ VACATION STAYS
+**Reference:** Airbnb, Vrbo, Booking.com
+
+| Subtype | Reference | Experience |
+|---------|-----------|------------|
+| stays, vacation, airbnb, short_term | Airbnb | Property cards: image, title, location, price/night, rating, "Superhost". Detail: image gallery, amenities grid, calendar booking, host profile, reviews, map |
+
+**Stays Detail Page:**
+- Full-width image gallery (swipeable, 5+ photos)
+- Left: title, location, guests/beds/baths, description, amenities (icon grid), house rules
+- Right: sticky booking card — price/night, date range picker, guest count, cleaning fee, service fee, total, "Reserve" CTA
 - Map showing location
-- Host profile
+- Host profile (photo, name, response rate, "Superhost" badge)
+- Reviews section (rating breakdown + individual reviews)
 - Similar properties below
 
-**Car Rental Detail (Turo-style):**
-- Car image gallery
-- Specs: make/model/year, transmission, seats, fuel type
-- Left: description, features, delivery options
-- Right: price/day, date range, pickup/dropoff location, total, "Book this Car"
-- Owner profile
+#### 6b. 🚗 CAR RENTALS
+**Reference:** Turo, Hertz, Enterprise
+
+| Subtype | Reference | Experience |
+|---------|-----------|------------|
+| (car rental subtypes to be defined) | Turo | Car cards: image, make/model/year, transmission, seats, price/day, rating, "Book instantly". Detail: car gallery, specs, features, owner profile, trip protection |
+
+**Car Detail Page:**
+- Image gallery (exterior + interior photos)
+- Left: make/model/year, specs (transmission, fuel, seats, luggage), features (Bluetooth, GPS, child seat), description, owner profile
+- Right: price/day, date range picker, pickup/dropoff location, delivery option, total, "Book this Car" CTA
 - Rating + trip count
+- Similar cars below
 
-**Sea Rental Detail (GetMyBoat-style):**
-- Boat image gallery
-- Specs: boat type, capacity, captain included?, half/full day pricing
-- Left: description, what's included, meeting point
-- Right: date picker, time slot, passenger count, total, "Book this Boat"
+#### 6c. 🚤 SEA / BOAT RENTALS
+**Reference:** GetMyBoat, Boatsetter, Click&Boat
 
-**Tools Detail (Fat Llama-style):**
-- Tool image
-- Specs: category, brand, condition
-- Left: description, availability calendar
-- Right: price/day or price/week, rental period, delivery option, total, "Rent this"
+| Subtype | Reference | Experience |
+|---------|-----------|------------|
+| (boat rental subtypes to be defined) | GetMyBoat | Boat cards: image, boat type, capacity, captain included?, half-day/full-day price. Detail: boat gallery, specs, meeting point, booking |
 
----
+**Boat Detail Page:**
+- Image gallery (on-water photos)
+- Left: boat type, length, capacity, captain included, what's included (fishing gear, snorkel, cooler), meeting point, description
+- Right: date picker, time slot (half day/full day), passenger count, total, "Book this Boat" CTA
+- Captain profile (if included)
+- Similar boats below
 
-### 2. 🍽️ FOOD — Menu-First Experience
+#### 6d. 🔧 EQUIPMENT & TOOLS
+**Reference:** Fat Llama, ToolMates, Home Depot Rental
 
-**Reference:** UberEats, DoorDash, Grubhub
+| Subtype | Reference | Experience |
+|---------|-----------|------------|
+| equipment, tools, gear, rental_equipment | Fat Llama | Tool cards: image, name, category, price/day, price/week, condition, "Available". Detail: specs, availability calendar, delivery option |
 
-```
-/hub/food                       → Food hub (restaurant cards)
-/hub/food/restaurants           → Full-service restaurants
-/hub/food/restaurants/[slug]    → Restaurant menu page
-/hub/food/kitchens              → Cloud/home kitchens
-/hub/food/kitchens/[slug]      → Kitchen menu page
-/hub/food/cafes                 → Cafés & bakeries
-/hub/food/cafes/[slug]         → Café menu page
-/hub/food/grills                → BBQ, grills & bars
-/hub/food/grills/[slug]        → Grill menu page
-```
+**Equipment Detail Page:**
+- Image gallery
+- Left: tool name, category, brand, condition (New/Good/Fair), description, specifications, delivery options
+- Right: price/day, price/week, rental period picker, delivery/pickup option, total, "Rent this" CTA
+- Owner profile
+- Similar equipment below
 
-**Food Store Page (UberEats-style):**
-- Hero: restaurant image + name + cuisine type + rating + "Open/Closed" badge
-- Left: menu categories (appetizers, mains, sides, drinks) with items
-- Each item: name, description, price, photo, "+ Add" button + quantity control
-- Right: sticky order summary (selected items, subtotal, delivery fee, total, "Checkout" CTA with total)
-- Restaurant info: delivery area, hours, rating summary
+#### 6e. 🏢 LONG-TERM RENTALS
+**Reference:** Zillow Rentals, Apartments.com, Rent.com
 
----
+| Subtype | Reference | Experience |
+|---------|-----------|------------|
+| long_term, monthly, annual, apartment | Zillow | Property cards: image, address, beds/baths, price/month, "Available [date]". Detail: gallery, floor plan, amenities, apply now |
 
-### 3. 🗺️ TOURS — Dynamic Category Pages
-
-**Reference:** Airbnb Experiences, Viator, GetYourGuide
-
-```
-/hub/tours                      → Tour hub (dynamic, shows all tour types)
-/hub/tours/[category]           → Dynamic: land, sea, adventure, charter
-/hub/tours/[category]/[slug]    → Tour detail (immersive)
-```
-
-**Why dynamic for tours?** Tour categories share the SAME layout pattern (hero + booking widget) but with category-specific theming. One `TourCategoryPage` component handles all subtypes via config.
-
-**Tour Detail Page (Airbnb Experiences-style):**
-- Full-bleed hero image (70vh, parallax)
-- Category badge ("Land Tour" / "Sea Adventure" etc.)
-- Title, location, rating, review count, duration, group size, "spots left"
-- Left: about, what's included, itinerary, guide profile, reviews
-- Right: sticky booking card (date picker, time slot, guest count, per-person price, total, "Book Now" CTA)
-- Free cancellation policy
-- Similar tours below
+**Long-Term Detail Page:**
+- Image gallery
+- Left: address, beds/baths/sqft, description, amenities, pet policy, parking, utilities included
+- Right: price/month, available date, lease terms, "Schedule Tour" / "Apply Now" CTA
+- Map + neighborhood info
+- Similar properties below
 
 ---
 
-### 4. 🛍️ PRODUCTS — Shop-First Experience
+### 7. 🎫 EVENTS & TICKETS
+**Hub Reference:** Eventbrite, Ticketmaster, Meetup
 
-**Reference:** Etsy, Shopify stores, Amazon
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Community** | community, local, neighborhood | Meetup, Facebook Events | Event cards: image, title, date (day-of-week), venue, "X going". Detail: description, attendee list, "RSVP" |
+| **Environment** | environment, eco, conservation, green | Eventbrite (cause events) | Event cards: image, cause type, date, "X volunteers needed". Detail: mission, impact, "Join Event" |
+| **Education** | education, school, learning, scholarship | Eventbrite (workshops) | Event cards: image, topic, instructor, date, "X seats left". Detail: curriculum, instructor bio, "Register" |
+| **Health** | health, medical, hospital, wellness | Eventbrite (health) | Event cards: image, event type, date, "Free" / price. Detail: description, location, "Get Tickets" |
 
-```
-/hub/products                   → Product hub (shop grid)
-/hub/products/shops             → General retail stores
-/hub/products/shops/[slug]      → Shop page with product listings
-/hub/products/specialty         → Artisan & specialty goods
-/hub/products/fashion           → Clothing & accessories
-/hub/products/[category]/[id]   → Individual product detail
-```
-
-**Product Detail Page:**
-- Image gallery (zoom on hover, thumbnail strip)
-- Left: title, price, rating, description, variants (size/color), quantity
-- Right: "Add to Cart" + "Buy Now" CTAs with total, shipping estimate, return policy
-- Reviews section
-- Similar products
+**Events Hub Page Layout:**
+- Hero: "Island Events" + date filter (Today / This Week / This Month / All)
+- Filter chips: All | Community | Environment | Education | Health
+- Cards: event image, title, date (day-of-week format), venue, price/free, "X tickets left"
+- Detail: hero image left, ticket selector right (type, quantity, total, "Get Tickets" CTA), description, venue map
 
 ---
 
-### 5. 🛠️ SERVICES — Booking Calendar Experience
+### 8. ❤️ CAMPAIGNS & CAUSES
+**Hub Reference:** GoFundMe, Kickstarter, Patreon
 
-**Reference:** Booksy, StyleSeat, Thumbtack
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Community** | community, local, neighborhood | GoFundMe (community) | Campaign cards: image, title, % raised, "$X of $Y goal", "X days left". Detail: story, updates, donor list, "Contribute" |
+| **Environment** | environment, eco, conservation, green | Kickstarter (eco) | Campaign cards: image, title, impact metric ("Plant 1000 trees"), % funded. Detail: environmental impact, timeline, "Back this Project" |
+| **Education** | education, school, learning, scholarship | GoFundMe (education) | Campaign cards: image, title, beneficiary, "$X raised", "X supporters". Detail: student story, budget breakdown, "Donate" |
+| **Health** | health, medical, hospital, wellness | GoFundMe (medical) | Campaign cards: image, title, urgency ("Emergency"), "$X of $Y". Detail: medical story, hospital verification, "Help Now" |
 
-```
-/hub/services                   → Service hub (provider cards)
-/hub/services/[category]        → professional, automotive, health, marine, events
-/hub/services/[category]/[slug] → Provider detail + booking
-```
-
-**Service Provider Page:**
-- Provider photo, name, specialty, rating, "Next available: Today"
-- Left: service list (each with price, duration, "Book" button)
-- Right: booking calendar (date picker, available time slots, selected service, total, "Book Appointment" CTA)
-- About the provider, reviews
-- Similar providers
-
----
-
-### 6. 🚕 TRANSPORT — Ride/Move Experience
-
-**Reference:** Uber, Lyft, Lugg (moving)
-
-```
-/hub/transport                  → Transport hub
-/hub/transport/[category]       → ride, delivery, boat, moving
-/hub/transport/[category]/[id]  → Booking flow
-```
-
-**Transport Booking (Uber-style):**
-- Map-centric layout (pickup/dropoff markers + route)
-- Left: ride type selection, vehicle type, fare estimate
-- Right: pickup input, dropoff input, "Book Ride" CTA with total
-- For delivery: package size, sender/receiver info
-- For moving: home size, inventory checklist
+**Campaigns Hub Page Layout:**
+- Hero: "Island Causes" + impact stats ("$X raised, Y campaigns")
+- Filter chips: All | Community | Environment | Education | Health
+- Cards: campaign image, title, category badge, progress bar (% raised), "$X of $Y", "X days left", "X supporters"
+- Detail: hero image, story left, donation widget right (amount selector, "Contribute $X" CTA), updates, donor wall
 
 ---
 
-### 7. 🎫 EVENTS — Ticket Experience
+### 9. 🌴 COMMUNITY
+**Hub Reference:** Facebook Groups, Nextdoor, Discord
 
-**Reference:** Eventbrite, Ticketmaster
+| Category | Subtypes | Reference | Experience |
+|----------|----------|-----------|------------|
+| **Events** | event, meetup, gathering | Meetup, Facebook Events | Event cards: image, title, date, "X attending", location. Detail: description, attendee list, "RSVP" |
+| **Stories** | story, post, update | Instagram, Facebook Feed | Story cards: image, author, preview text, "X likes", "Y comments". Detail: full post, comments, reactions |
+| **Groups** | group, club, association | Facebook Groups, Discord | Group cards: icon, name, description, "X members", "Active now". Detail: group feed, members, join button |
 
-```
-/hub/events                     → Events hub
-/hub/events/[slug]              → Event detail + ticket selection
-```
-
-**Event Detail:**
-- Hero image with event title, date, venue, organizer
-- Left: description, schedule, venue info, organizer profile
-- Right: ticket type selector (GA, VIP, Early Bird), quantity, total, "Get Tickets" CTA
-- "Only 12 tickets left" urgency
-- Map to venue
-
----
-
-### 8. ❤️ CAMPAIGNS — Fundraiser Experience
-
-**Reference:** GoFundMe, Kickstarter
-
-```
-/hub/campaigns                  → Campaigns hub
-/hub/campaigns/[category]       → community, environment, education, health
-/hub/campaigns/[category]/[slug] → Campaign detail
-```
-
-**Campaign Detail:**
-- Hero image with campaign title, goal bar (% raised)
-- Left: story, updates, backer list
-- Right: donation amount selector, "Contribute" CTA
-- Urgency: "7 days left", "$2,340 of $5,000 goal"
+**Community Hub Page Layout:**
+- Hero: "Island Community" + "New Post" button
+- Tabs: Events | Stories | Groups
+- Events: calendar view + list
+- Stories: feed layout (cards with images, author, preview)
+- Groups: grid of group cards with member count
 
 ---
 
-### 9. 🌴 COMMUNITY — Social Feed Experience
-
-**Reference:** Facebook Groups, Nextdoor
+## Route Structure
 
 ```
-/hub/community                  → Community hub
-/hub/community/[category]       → events, stories, groups
+/hub                                    → Gateway (category cards)
+/hub/food                               → Food hub
+/hub/food/[category]                    → kitchens | restaurants | cafes | grills
+/hub/food/[category]/[slug]             → Individual store/menu page
+/hub/products                           → Products hub
+/hub/products/[category]                → shops | specialty | fashion | health
+/hub/products/[category]/[slug]         → Individual shop/product page
+/hub/services                           → Services hub
+/hub/services/[category]                → professional | automotive | health | marine | events
+/hub/services/[category]/[slug]         → Individual provider page
+/hub/tours                              → Tours hub
+/hub/tours/[category]                   → land | sea | adventure | charter
+/hub/tours/[category]/[slug]            → Individual tour page
+/hub/transport                          → Transport hub
+/hub/transport/[category]               → ride | delivery | boat | moving
+/hub/transport/[category]/[slug]        → Individual booking page
+/hub/rentals                            → Rentals gateway (sub-hub cards)
+/hub/rentals/stays                      → Vacation stays (Airbnb-style)
+/hub/rentals/stays/[slug]               → Property detail
+/hub/rentals/cars                       → Car rentals (Turo-style)
+/hub/rentals/cars/[slug]                → Car detail
+/hub/rentals/sea                        → Boat/sea rentals (GetMyBoat-style)
+/hub/rentals/sea/[slug]                 → Boat detail
+/hub/rentals/tools                      → Equipment/tools (Fat Llama-style)
+/hub/rentals/tools/[slug]               → Tool detail
+/hub/rentals/longterm                   → Long-term leases (Zillow-style)
+/hub/rentals/longterm/[slug]            → Property detail
+/hub/events                             → Events hub
+/hub/events/[category]                  → community | environment | education | health
+/hub/events/[category]/[slug]           → Event detail + tickets
+/hub/campaigns                          → Campaigns hub
+/hub/campaigns/[category]               → community | environment | education | health
+/hub/campaigns/[category]/[slug]        → Campaign detail + donate
+/hub/community                          → Community hub
+/hub/community/[category]               → events | stories | groups
 ```
 
 ---
 
-## Implementation Priority
+## Implementation Order
 
-### Phase 1: Mobile Fix + Foundation ✅
-- [x] Fix mobile menu overlay opacity/blur
-- [ ] Create subtype route structure: `/hub/[type]/[subtype]/page.tsx`
-- [ ] Create dynamic listing route: `/hub/[type]/[subtype]/[slug]/page.tsx`
-- [ ] Update hubConfigs.ts with subtype configs
+### Phase 1: Foundation
+- [ ] Subtype route structure: `/hub/[type]/[category]/page.tsx`
+- [ ] Dynamic listing route: `/hub/[type]/[category]/[slug]/page.tsx`
+- [ ] Update hubConfigs.ts with per-category layout config
+- [ ] Shared: BookingWidget, ImageGallery, PriceTag, RatingBadge, FilterBar
 
-### Phase 2: Rentals (Multi-Hub) — MOST COMPLEX
-- [ ] Rental gateway page (`/hub/rentals`) with sub-hub cards
-- [ ] Stays hub page (Airbnb-style property cards)
-- [ ] Stays detail page (full Airbnb clone: gallery, amenities, calendar booking)
+### Phase 2: Rentals (5 sub-hubs, most complex)
+- [ ] Stays hub + detail (Airbnb-style)
 - [ ] Cars hub + detail (Turo-style)
 - [ ] Sea hub + detail (GetMyBoat-style)
 - [ ] Tools hub + detail (Fat Llama-style)
-- [ ] Long-term hub + detail
-- [ ] Shared: rental booking widget (date range picker, price calculator, "Reserve")
-- [ ] DB: `rental_properties` table (property_type, bedrooms, bathrooms, amenities_json, etc.)
+- [ ] Long-term hub + detail (Zillow-style)
+- [ ] DB: rental_properties table
 
-### Phase 3: Tours (Dynamic)
-- [ ] Tour category page component (handles all subtypes via config)
-- [ ] Tour detail page (immersive hero, booking widget, guide profile)
-- [ ] Shared: tour booking widget (date, time, guest count, "spots left")
-- [ ] DB: `tour_listings` table (tour_type, duration, max_guides, includes_json, guide_id)
+### Phase 3: Food (4 categories)
+- [ ] Kitchens hub + detail
+- [ ] Restaurants hub + detail
+- [ ] Cafés hub + detail
+- [ ] Grills hub + detail
+- [ ] DB: food_menus table
 
-### Phase 4: Food (Menu-First)
-- [ ] Food hub with restaurant cards (cuisine type, "Open/Closed", delivery time)
-- [ ] Restaurant detail page (menu + order sidebar)
-- [ ] Shared: menu item component, order summary sidebar
-- [ ] DB: `food_menus` table (store_id, items_json or normalized)
+### Phase 4: Tours (4 categories, dynamic)
+- [ ] Dynamic tour category page (handles all 4 via config)
+- [ ] Tour detail page (immersive hero + booking widget)
+- [ ] DB: tour_listings table
 
-### Phase 5: Products (Shop)
-- [ ] Product hub with shop cards
-- [ ] Shop detail page (product listings)
-- [ ] Product detail page (gallery, variants, reviews)
-- [ ] Product card component (price, rating, quick-add)
+### Phase 5: Products (4 categories)
+- [ ] Shops hub + detail
+- [ ] Specialty hub + detail
+- [ ] Fashion hub + detail
+- [ ] Health hub + detail
 
-### Phase 6: Services + Transport + Events + Campaigns + Community
-- [ ] Service provider cards + booking calendar
-- [ ] Transport booking flow
+### Phase 6: Services (5 categories)
+- [ ] Professional hub + detail
+- [ ] Automotive hub + detail
+- [ ] Health & Beauty hub + detail
+- [ ] Marine hub + detail
+- [ ] Events hub + detail
+
+### Phase 7: Transport (4 categories)
+- [ ] Ride Hailing hub + booking flow
+- [ ] Delivery hub + booking flow
+- [ ] Boat Charters hub + booking
+- [ ] Moving hub + quote flow
+
+### Phase 8: Events (4 categories)
+- [ ] Dynamic event category page
 - [ ] Event detail + ticket selection
-- [ ] Campaign detail + donation
-- [ ] Community feed
 
-### Phase 7: Cleanup
-- [ ] Remove old generic StoreCard where no longer needed
-- [ ] Update all nav links to point to new routes
-- [ ] Add new routes to sitemap
-- [ ] Performance audit (image lazy loading, code splitting)
+### Phase 9: Campaigns (4 categories)
+- [ ] Dynamic campaign category page
+- [ ] Campaign detail + donation widget
 
----
+### Phase 10: Community (3 categories)
+- [ ] Events tab
+- [ ] Stories feed
+- [ ] Groups directory
 
-## Key Subtype Config Extensions
-
-Each hub config in `hubConfigs.ts` needs:
-
-```typescript
-subtypes: {
-  [subtypeId: string]: {
-    title: string
-    emoji: string
-    description: string
-    theme: HubTheme
-    layout: 'grid' | 'list' | 'map' | 'immersive'
-    cardComponent: string  // Which card component to use
-    detailPage: string     // Which detail page component
-    filters: string[]      // Filter options specific to this subtype
-  }
-}
-```
-
----
-
-## DB Schema Additions
-
-```sql
--- Rental properties (extends stores)
-CREATE TABLE rental_properties (
-  id SERIAL PRIMARY KEY,
-  store_id INTEGER REFERENCES stores(id),
-  property_type VARCHAR(30),  -- 'stay', 'car', 'boat', 'tool', 'longterm'
-  bedrooms INTEGER,
-  bathrooms INTEGER,
-  max_guests INTEGER,
-  amenities JSONB,
-  price_per_night DECIMAL(10,2),
-  price_per_day DECIMAL(10,2),
-  price_per_week DECIMAL(10,2),
-  location_lat DECIMAL(10,6),
-  location_lng DECIMAL(10,6),
-  booking_settings JSONB,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Tour listings (extends stores)
-CREATE TABLE tour_listings (
-  id SERIAL PRIMARY KEY,
-  store_id INTEGER REFERENCES stores(id),
-  tour_type VARCHAR(30),  -- 'land', 'sea', 'adventure', 'charter'
-  duration_minutes INTEGER,
-  max_guests INTEGER,
-  difficulty VARCHAR(20),
-  includes JSONB,
-  price_per_person DECIMAL(10,2),
-  guide_id INTEGER,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Food menus
-CREATE TABLE food_menus (
-  id SERIAL PRIMARY KEY,
-  store_id INTEGER REFERENCES stores(id),
-  item_name VARCHAR(200),
-  description TEXT,
-  price DECIMAL(10,2),
-  category VARCHAR(50),  -- 'appetizer', 'main', 'side', 'drink'
-  prep_time_minutes INTEGER,
-  image_url TEXT,
-  is_available BOOLEAN DEFAULT true,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-```
-
----
-
-## Shared Components Needed
-
-1. `BookingWidget` — configurable booking sidebar (date picker, guest/quantity, price breakdown, CTA)
-2. `ImageGallery` — swipeable image gallery with thumbnails
-3. `PriceTag` — price display (per night, per person, per day, "from $X")
-4. `RatingBadge` — star count + review count
-5. `AvailabilityBadge` — "Open/Closed", "3 spots left", "Available now"
-6. `UrgencyCue` — "Only 2 left", "Booked 12 times today", "Ends in 3h"
-7. `FilterBar` — dynamic filter chips
-8. `MapPreview` — Leaflet map for location display
-
----
-
-## Estimated Effort
-
-| Phase | Scope | Est. Tool Calls |
-|-------|-------|----------------|
-| 1 | Foundation + routing | ~15 patches |
-| 2 | Rentals (multi-hub) | ~40 patches |
-| 3 | Tours (dynamic) | ~20 patches |
-| 4 | Food (menu) | ~20 patches |
-| 5 | Products (shop) | ~15 patches |
-| 6 | Services + rest | ~25 patches |
-| 7 | Cleanup | ~10 patches |
-| **Total** | | **~145 patches** |
+### Phase 11: Cleanup
+- [ ] Remove old generic StoreCard
+- [ ] Update nav links
+- [ ] Sitemap + SEO
+- [ ] Performance audit
