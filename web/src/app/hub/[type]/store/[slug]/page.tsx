@@ -233,7 +233,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
               <h3 className="text-lg font-bold text-ink-primary">Book Service</h3>
               <button onClick={() => setBookingProvider(null)} className="p-2 rounded-xl hover:bg-surface-secondary text-ink-secondary">✕</button>
             </div>
-            <BookingWidget provider={bookingProvider} mode="calendar" />
+            <BookingWidget type="calendar" />
           </div>
         </div>
       )}
