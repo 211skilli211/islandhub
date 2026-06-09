@@ -51,47 +51,46 @@ function RentalCard({ property: p, index }: { property: RentalProperty; index: n
       transition={{ delay: index * 0.05 }}
     >
       <Link href={`/hub/rentals/stays/${p.slug}`} className="block group">
-        <div className="space-y-2">
-          {/* Image */}
+        <div className="space-y-1.5">
+          {/* Image — square on mobile, video on desktop */}
           <div className="relative">
             <ImageGallery
               images={images}
               alt={name}
-              aspectRatio="video"
+              aspectRatio="square"
               carousel={false}
               className="rounded-xl"
             />
             {/* Wishlist heart */}
             <button
-              className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-ink-secondary hover:text-red-500 transition-colors"
+              className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-ink-secondary hover:text-red-500 transition-colors"
               onClick={(e) => { e.preventDefault(); }}
             >
               ♡
             </button>
             {/* Trending badge */}
             {p.is_trending && (
-              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
+              <div className="absolute top-2 left-2 px-1.5 py-0.5 rounded-md bg-amber-500 text-white text-[9px] font-bold">
                 🔥 Trending
               </div>
             )}
           </div>
 
-          {/* Info */}
+          {/* Info — compact */}
           <div className="space-y-0.5">
-            <div className="flex items-start justify-between gap-2">
-              <h3 className="text-sm font-semibold text-ink-primary group-hover:text-accent-500 transition-colors truncate">
+            <div className="flex items-start justify-between gap-1">
+              <h3 className="text-xs font-semibold text-ink-primary group-hover:text-accent-500 transition-colors line-clamp-2 leading-tight">
                 {name}
               </h3>
               {p.rating ? (
                 <RatingBadge rating={p.rating} size="sm" showCount={false} />
               ) : null}
             </div>
-            <p className="text-xs text-ink-tertiary">
+            <p className="text-[10px] text-ink-tertiary">
               {p.bedrooms ? `${p.bedrooms} bed` : 'Property'}
               {p.bathrooms ? ` · ${p.bathrooms} bath` : ''}
               {p.max_guests ? ` · ${p.max_guests} guests` : ''}
             </p>
-            <p className="text-xs text-ink-tertiary line-clamp-1">{p.description}</p>
             <PriceTag price={price} suffix="/night" size="sm" />
           </div>
         </div>
@@ -298,15 +297,15 @@ export default function StaysHubPage() {
         />
       </div>
 
-      {/* Property Grid */}
+      {/* Property Grid — 2-col mobile, 3-4 col desktop */}
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="space-y-2">
-                <div className="aspect-video bg-surface-secondary rounded-xl animate-pulse" />
-                <div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" />
-                <div className="h-3 bg-surface-secondary rounded animate-pulse w-1/2" />
+                <div className="aspect-square bg-surface-secondary rounded-xl animate-pulse" />
+                <div className="h-3 bg-surface-secondary rounded animate-pulse w-3/4" />
+                <div className="h-2.5 bg-surface-secondary rounded animate-pulse w-1/2" />
               </div>
             ))}
           </div>
@@ -319,7 +318,7 @@ export default function StaysHubPage() {
             onAction={() => setActiveFilter('All')}
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {filteredProperties.map((property, i) => (
               <RentalCard key={property.store_id || property.id} property={property} index={i} />
             ))}

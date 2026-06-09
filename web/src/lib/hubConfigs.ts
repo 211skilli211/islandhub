@@ -168,6 +168,8 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         categories: [
             { id: 'all', title: 'All', icon: '🏠', desc: '', subtypes: [] },
             { id: 'stays', title: 'Vacation Stays', icon: '🏖️', desc: 'Short-term vacation rentals', subtypes: ['stays', 'vacation', 'airbnb', 'short_term'] },
+            { id: 'cars', title: 'Car Rentals', icon: '🚗', desc: 'Rent a car and explore', subtypes: ['car', 'auto', 'vehicle'] },
+            { id: 'sea', title: 'Boat & Sea', icon: '🚤', desc: 'Boats and watercraft', subtypes: ['boat', 'sea', 'marine', 'watercraft'] },
             { id: 'longterm', title: 'Long-term', icon: '🏢', desc: 'Monthly & annual rentals', subtypes: ['long_term', 'monthly', 'annual', 'apartment'] },
             { id: 'equipment', title: 'Equipment', icon: '🔧', desc: 'Tools, gear & equipment', subtypes: ['equipment', 'tools', 'gear', 'rental_equipment'] },
         ],
@@ -539,6 +541,26 @@ export const CATEGORY_LAYOUTS: Record<string, CategoryLayoutConfig> = {
     hasBooking: true, bookingWidget: 'date-range',
     filters: ['Category', 'Brand', 'Condition', 'Price/Day', 'Delivery'],
     sortOptions: ['Popular', 'Price: Low', 'Rating', 'Available'],
+  },
+  'rentals-cars': {
+    hubType: 'rentals', categoryId: 'cars',
+    pageTitle: 'Car Rentals',
+    subtitle: 'Rent a car and explore the island',
+    reference: 'Turo, Hertz',
+    pageLayout: 'grid', cardVariant: 'rental-car', detailType: 'rental-car-detail',
+    hasBooking: true, bookingWidget: 'date-range',
+    filters: ['Transmission', 'Seats', 'Price/Day', 'Instant Book'],
+    sortOptions: ['Popular', 'Price: Low', 'Rating', 'Newest'],
+  },
+  'rentals-sea': {
+    hubType: 'rentals', categoryId: 'sea',
+    pageTitle: 'Boat & Sea Rentals',
+    subtitle: 'Boats, jet skis, and watercraft',
+    reference: 'GetMyBoat, Boatsetter',
+    pageLayout: 'grid', cardVariant: 'rental-boat', detailType: 'rental-boat-detail',
+    hasBooking: true, bookingWidget: 'date-time',
+    filters: ['Boat Type', 'Capacity', 'Captain Included', 'Price/Half Day'],
+    sortOptions: ['Popular', 'Price: Low', 'Rating', 'Capacity'],
   },
 
   // ─── EVENTS ────────────────────────────────────────────────────────────
