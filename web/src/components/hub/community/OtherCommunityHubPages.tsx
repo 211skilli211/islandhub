@@ -1,16 +1,17 @@
 'use client';
 import React from 'react';
-import CommunityDirectoryHubPage from './CommunityDirectoryHubPage';
+import CommunityEventsHubPage from './CommunityEventsHubPage';
+import CommunityStoriesHubPage from './CommunityStoriesHubPage';
+import CommunityGroupsHubPage from './CommunityGroupsHubPage';
 
-export function EnvironmentCommunityHubPage() {
-  return <CommunityDirectoryHubPage />;
+export function CommunityEventsSubHubPage() {
+  return <CommunityEventsHubPage />;
 }
-export function EducationCommunityHubPage() {
-  return <CommunityDirectoryHubPage />;
+
+export function CommunityStoriesSubHubPage() {
+  return <CommunityStoriesHubPage />;
 }
-export function HealthCommunityHubPage() {
-  return <CommunityDirectoryHubPage />;
-}
-export function SportsCommunityHubPage() {
-  return <CommunityDirectoryHubPage />;
+
+export function CommunityGroupsSubHubPage() {
+  return <CommunityGroupsHubPage />;
 }

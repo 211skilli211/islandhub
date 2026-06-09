@@ -7,12 +7,16 @@ import { getRentalSubHubs } from '@/lib/hubConfigs';
 
 const emojiMap: Record<string, string> = {
   stays: '🏖️',
+  cars: '🚗',
+  sea: '🚤',
   longterm: '🏢',
   equipment: '🔧',
 };
 
 const descriptionMap: Record<string, string> = {
   stays: 'Vacation homes, villas, and beach houses',
+  cars: 'Rent a car and explore the island',
+  sea: 'Boats, jet skis, and watercraft',
   longterm: 'Monthly and annual leases',
   equipment: 'Tools, gear, and equipment for rent',
 };

@@ -51,6 +51,9 @@ import { EnvironmentCampaignsHubPage, EducationCampaignsHubPage, HealthCampaigns
 
 // Community
 import CommunityDirectoryHubPage from '@/components/hub/community/CommunityDirectoryHubPage';
+import CommunityEventsHubPage from '@/components/hub/community/CommunityEventsHubPage';
+import CommunityStoriesHubPage from '@/components/hub/community/CommunityStoriesHubPage';
+import CommunityGroupsHubPage from '@/components/hub/community/CommunityGroupsHubPage';
 
 export default function HubCategoryPage() {
   const params = useParams();
@@ -147,7 +150,12 @@ export default function HubCategoryPage() {
 
   // Community
   if (type === 'community') {
-    return <CommunityDirectoryHubPage />;
+    switch (category) {
+      case 'events': return <CommunityEventsHubPage />;
+      case 'stories': return <CommunityStoriesHubPage />;
+      case 'groups': return <CommunityGroupsHubPage />;
+      default: return <CommunityDirectoryHubPage />;
+    }
   }
 
   // Fallback

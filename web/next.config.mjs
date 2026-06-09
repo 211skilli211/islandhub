@@ -22,6 +22,16 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  async redirects() {
+    return [
+      { source: '/stores', destination: '/hub', permanent: true },
+      { source: '/food', destination: '/hub/food', permanent: true },
+      { source: '/products', destination: '/hub/products', permanent: true },
+      { source: '/rentals', destination: '/hub/rentals', permanent: true },
+      { source: '/tours', destination: '/hub/tours', permanent: true },
+      { source: '/listings', destination: '/hub', permanent: true },
+    ];
+  },
   async rewrites() {
     return [
       {

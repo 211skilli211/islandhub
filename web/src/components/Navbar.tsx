@@ -14,24 +14,23 @@ import NotificationCenter from './NotificationCenter';
 import { Search, Menu, X, ShoppingCart, Sun, Moon } from 'lucide-react';
 
 const NAV_LINKS = [
-  { href: '/stores', label: 'Explore' },
-  { href: '/food', label: 'Food', color: 'coral' },
-  { href: '/products', label: 'Shop', color: 'accent' },
-  { href: '/rentals', label: 'Stays', color: 'palm' },
-  { href: '/tours', label: 'Tours', color: 'sand' },
+  { href: '/hub', label: 'Explore' },
+  { href: '/hub/food', label: 'Food', color: 'coral' },
+  { href: '/hub/products', label: 'Shop', color: 'accent' },
+  { href: '/hub/rentals', label: 'Rentals', color: 'palm' },
+  { href: '/hub/tours', label: 'Tours', color: 'sand' },
 ];
 
 const EXPLORE_HUBS = [
-  { href: '/food', label: 'Food & Dining', emoji: '🍽️', group: 'Marketplace' },
-  { href: '/products', label: 'Local Shopping', emoji: '🛍️', group: 'Marketplace' },
-  { href: '/services', label: 'Services', emoji: '🛠️', group: 'Marketplace' },
-  { href: '/rentals', label: 'Rentals', emoji: '🏠', group: 'Marketplace' },
-  { href: '/events', label: 'Events & Tickets', emoji: '🎫', group: 'Explore' },
-  { href: '/tours', label: 'Tours', emoji: '🗺️', group: 'Explore' },
-  { href: '/transport', label: 'Transport', emoji: '🚕', group: 'Explore' },
-  { href: '/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },
-  { href: '/community', label: 'Community', emoji: '🌴', group: 'Impact' },
-  { href: '/listings', label: 'Marketplace', emoji: '🏪', group: 'Marketplace' },
+  { href: '/hub/food', label: 'Food & Dining', emoji: '🍽️', group: 'Marketplace' },
+  { href: '/hub/products', label: 'Local Shopping', emoji: '🛍️', group: 'Marketplace' },
+  { href: '/hub/services', label: 'Services', emoji: '🛠️', group: 'Marketplace' },
+  { href: '/hub/rentals', label: 'Rentals', emoji: '🏠', group: 'Marketplace' },
+  { href: '/hub/transport', label: 'Transport', emoji: '🚕', group: 'Marketplace' },
+  { href: '/hub/events', label: 'Events & Tickets', emoji: '🎫', group: 'Explore' },
+  { href: '/hub/tours', label: 'Tours', emoji: '🗺️', group: 'Explore' },
+  { href: '/hub/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },
+  { href: '/hub/community', label: 'Community', emoji: '🌴', group: 'Impact' },
 ];
 
 export default function Navbar() {
@@ -134,8 +133,8 @@ export default function Navbar() {
                         ))}
                         <div className="my-2 border-t border-border-primary" />
                         <Link
-                          href="/store/ibt-solutions"
-                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-brand-600 hover:bg-brand-50 transition-colors"
+                          href="/hub/services"
+                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-amber-500 hover:bg-amber-500/10 transition-colors"
                         >
                           <span className="text-base">⚡</span>
                           IBT Solutions
@@ -336,9 +335,9 @@ export default function Navbar() {
 
                 <div className="my-3 border-t border-white/10" />
                 <Link
-                  href="/store/ibt-solutions"
+                  href="/hub/services"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-bold text-accent-400 hover:bg-white/10 rounded-xl transition-colors"
+                  className="flex items-center gap-3 px-4 py-3 text-body-sm font-bold text-amber-400 hover:bg-amber-500/10 rounded-xl transition-colors"
                 >
                   <span>⚡</span>
                   IBT Solutions
