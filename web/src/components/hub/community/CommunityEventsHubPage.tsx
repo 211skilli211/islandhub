@@ -48,7 +48,7 @@ function EventCard({ event }: { event: CommunityEvent }) {
   );
 }
 
-export default function CommunityEventsHubPage() {
+export default function CommunityHubEventsPage() {
   const [events, setEvents] = useState<CommunityEvent[]>([]);
   const [loading, setLoading] = useState(true);
 

@@ -51,7 +51,7 @@ import { EnvironmentCampaignsHubPage, EducationCampaignsHubPage, HealthCampaigns
 
 // Community
 import CommunityDirectoryHubPage from '@/components/hub/community/CommunityDirectoryHubPage';
-import CommunityEventsHubPage from '@/components/hub/community/CommunityEventsHubPage';
+import CommunityHubEventsPage from '@/components/hub/community/CommunityEventsHubPage';
 import CommunityStoriesHubPage from '@/components/hub/community/CommunityStoriesHubPage';
 import CommunityGroupsHubPage from '@/components/hub/community/CommunityGroupsHubPage';
 
@@ -151,7 +151,7 @@ export default function HubCategoryPage() {
   // Community
   if (type === 'community') {
     switch (category) {
-      case 'events': return <CommunityEventsHubPage />;
+      case 'events': return <CommunityHubEventsPage />;
       case 'stories': return <CommunityStoriesHubPage />;
       case 'groups': return <CommunityGroupsHubPage />;
       default: return <CommunityDirectoryHubPage />;
