@@ -249,7 +249,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[60] bg-surface-overlay backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-lg lg:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -257,7 +257,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated shadow-2xl lg:hidden flex flex-col overflow-y-auto"
+              className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated/95 backdrop-blur-xl shadow-2xl lg:hidden flex flex-col overflow-y-auto"
             >
               {/* Mobile header */}
               <div className="flex items-center justify-between p-5 border-b border-border-primary shrink-0">

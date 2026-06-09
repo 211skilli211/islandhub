@@ -230,7 +230,7 @@ export default function Sidebar({
         {mobileOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[55] bg-surface-overlay backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-lg lg:hidden"
               onClick={() => setMobileOpen(false)} />
             <motion.aside initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 350, damping: 35 }}
