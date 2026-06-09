@@ -50,6 +50,7 @@ function SearchContent() {
 
     const listings = results.filter(r => r.result_type === 'listing');
     const vendors = results.filter(r => r.result_type === 'vendor');
+    const providers = results.filter(r => r.result_type === 'provider');
 
     // Reset pagination when tab changes
     useEffect(() => { setCurrentPage(1); }, [activeTab]);

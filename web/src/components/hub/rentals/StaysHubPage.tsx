@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { getRentalSubHubs, getHubConfig } from '@/lib/hubConfigs';
 import { ImageGallery, RatingBadge, PriceTag, AvailabilityBadge, FilterBar, EmptyState } from '@/components/hub/SharedComponents';
 import BookingWidget from '@/components/hub/BookingWidget';
+import FeaturedMarquee from '@/components/hub/FeaturedMarquee';
 import api, { getImageUrl } from '@/lib/api';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -234,6 +235,13 @@ export default function StaysHubPage() {
 
   const filters = ['All', 'Houses', 'Villas', 'Apartments', 'Beachfront', 'Pet Friendly', 'Pool'];
   const sortOptions = ['Popular', 'Price: Low', 'Price: High', 'Rating', 'Newest'];
+  const [featuredProviders, setFeaturedProviders] = useState<any[]>([]);
+
+  useEffect(() => {
+    api.get('/search/featured?type=rentals&limit=10').then(res => {
+      if (Array.isArray(res.data) && res.data.length > 0) setFeaturedProviders(res.data);
+    }).catch(() => {});
+  }, []);
 
   const filteredProperties = useMemo(() => {
     let result = properties;
@@ -243,6 +251,8 @@ export default function StaysHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
+      {/* Featured providers marquee */}
+      <FeaturedMarquee providers={featuredProviders} hubType="rentals" />
       {/* Hero */}
       <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-16 px-4">
         <div className="max-w-7xl mx-auto">
