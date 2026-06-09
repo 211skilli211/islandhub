@@ -256,3 +256,419 @@ export function getHubConfig(type: string): HubPageConfig | undefined {
 export function getAllHubTypes(): string[] {
     return Object.keys(HUB_CONFIGS);
 }
+
+// ─── Category-Level Layout Config ───────────────────────────────────────────
+// Each hub type + category combination gets its own layout specification.
+// This drives which card component, detail page, and UX pattern to use.
+
+export interface CategoryLayoutConfig {
+  /** Hub type this belongs to */
+  hubType: string;
+  /** Category slug (matches hubConfig.categories[].id) */
+  categoryId: string;
+  /** Human-readable page title */
+  pageTitle: string;
+  /** Hero subtitle */
+  subtitle: string;
+  /** Design reference for this category */
+  reference: string;
+  /** Layout pattern for the category page */
+  pageLayout: 'grid' | 'list' | 'map' | 'immersive' | 'menu-first' | 'feed';
+  /** Card style variant */
+  cardVariant: string;
+  /** Detail page type */
+  detailType: string;
+  /** Whether this category needs a booking widget */
+  hasBooking: boolean;
+  /** Booking widget type (if hasBooking) */
+  bookingWidget?: 'date-range' | 'date-time' | 'quote' | 'ticket' | 'donation' | 'cart' | 'calendar';
+  /** Filter chips specific to this category */
+  filters: string[];
+  /** Sort options */
+  sortOptions: string[];
+}
+
+export const CATEGORY_LAYOUTS: Record<string, CategoryLayoutConfig> = {
+  // ─── FOOD ───────────────────────────────────────────────────────────────
+  'food-kitchen': {
+    hubType: 'food', categoryId: 'kitchen',
+    pageTitle: 'Cloud Kitchens & Home Cooking',
+    subtitle: 'Fresh home-cooked meals delivered to your door',
+    reference: 'CloudKitchens, Kitchen United',
+    pageLayout: 'grid', cardVariant: 'food-kitchen', detailType: 'food-menu',
+    hasBooking: true, bookingWidget: 'cart',
+    filters: ['Cuisine', 'Dietary', 'Price', 'Rating'],
+    sortOptions: ['Popular', 'Rating', 'Delivery Time', 'Price'],
+  },
+  'food-restaurant': {
+    hubType: 'food', categoryId: 'restaurant',
+    pageTitle: 'Restaurants & Fine Dining',
+    subtitle: 'Full-service dining across St. Kitts & Nevis',
+    reference: 'OpenTable, Resy',
+    pageLayout: 'menu-first', cardVariant: 'food-restaurant', detailType: 'food-menu',
+    hasBooking: true, bookingWidget: 'cart',
+    filters: ['Cuisine', 'Price Range', 'Open Now', 'Rating', 'Outdoor Seating'],
+    sortOptions: ['Popular', 'Rating', 'Price', 'Distance'],
+  },
+  'food-cafe': {
+    hubType: 'food', categoryId: 'cafe',
+    pageTitle: 'Cafés & Bakeries',
+    subtitle: 'Coffee, pastries, and light bites',
+    reference: 'Blue Bottle, Stumptown',
+    pageLayout: 'grid', cardVariant: 'food-cafe', detailType: 'food-menu',
+    hasBooking: true, bookingWidget: 'cart',
+    filters: ['Open Now', 'Price', 'Dietary'],
+    sortOptions: ['Popular', 'Rating', 'Distance'],
+  },
+  'food-grill': {
+    hubType: 'food', categoryId: 'grill',
+    pageTitle: 'Grills, Bars & Nightlife',
+    subtitle: 'BBQ, grills, and island nightlife',
+    reference: 'Yelp Nightlife, Untappd',
+    pageLayout: 'grid', cardVariant: 'food-bar', detailType: 'food-menu',
+    hasBooking: true, bookingWidget: 'cart',
+    filters: ['Vibe', 'Happy Hour', 'Live Music', 'Rating'],
+    sortOptions: ['Popular', 'Rating', 'Distance'],
+  },
+
+  // ─── PRODUCTS ───────────────────────────────────────────────────────────
+  'products-shop': {
+    hubType: 'products', categoryId: 'shop',
+    pageTitle: 'Island Shops & Retail',
+    subtitle: 'General retail stores across the Caribbean',
+    reference: 'Shopify stores, Etsy',
+    pageLayout: 'grid', cardVariant: 'product-shop', detailType: 'product-shop-page',
+    hasBooking: false,
+    filters: ['Category', 'Price', 'Rating', 'In Stock'],
+    sortOptions: ['Popular', 'Newest', 'Price: Low', 'Price: High'],
+  },
+  'products-specialty': {
+    hubType: 'products', categoryId: 'specialty',
+    pageTitle: 'Artisan & Specialty Goods',
+    subtitle: 'Handcrafted products made in the Caribbean',
+    reference: 'Etsy, Uncommon Goods',
+    pageLayout: 'grid', cardVariant: 'product-artisan', detailType: 'product-detail',
+    hasBooking: false,
+    filters: ['Craft Type', 'Price', 'Handmade', 'Local'],
+    sortOptions: ['Popular', 'Newest', 'Price: Low', 'Price: High'],
+  },
+  'products-fashion': {
+    hubType: 'products', categoryId: 'fashion',
+    pageTitle: 'Fashion & Accessories',
+    subtitle: 'Clothing, shoes, and island style',
+    reference: 'Zara, ASOS',
+    pageLayout: 'grid', cardVariant: 'product-fashion', detailType: 'product-detail',
+    hasBooking: false,
+    filters: ['Size', 'Brand', 'Price', 'Style', 'Gender'],
+    sortOptions: ['Popular', 'Newest', 'Price: Low', 'Price: High'],
+  },
+  'products-health': {
+    hubType: 'products', categoryId: 'health',
+    pageTitle: 'Health & Beauty',
+    subtitle: 'Wellness, supplements, and self-care',
+    reference: 'Sephora, The Ordinary',
+    pageLayout: 'grid', cardVariant: 'product-health', detailType: 'product-detail',
+    hasBooking: false,
+    filters: ['Skin Type', 'Concern', 'Brand', 'Price'],
+    sortOptions: ['Popular', 'Rating', 'Price: Low', 'Price: High'],
+  },
+
+  // ─── SERVICES ───────────────────────────────────────────────────────────
+  'services-professional': {
+    hubType: 'services', categoryId: 'professional',
+    pageTitle: 'Professional Services',
+    subtitle: 'Legal, consulting, accounting, and business services',
+    reference: 'LinkedIn ProFinder, Upwork',
+    pageLayout: 'list', cardVariant: 'service-provider', detailType: 'service-booking',
+    hasBooking: true, bookingWidget: 'calendar',
+    filters: ['Specialty', 'Availability', 'Price', 'Rating', 'Credentials'],
+    sortOptions: ['Rating', 'Price', 'Availability'],
+  },
+  'services-automotive': {
+    hubType: 'services', categoryId: 'automotive',
+    pageTitle: 'Automotive Services',
+    subtitle: 'Car repair, detailing, and maintenance',
+    reference: 'YourMechanic, Wrench',
+    pageLayout: 'list', cardVariant: 'service-auto', detailType: 'service-booking',
+    hasBooking: true, bookingWidget: 'calendar',
+    filters: ['Service Type', 'Mobile Service', 'Price', 'Rating'],
+    sortOptions: ['Rating', 'Distance', 'Price'],
+  },
+  'services-health': {
+    hubType: 'services', categoryId: 'health',
+    pageTitle: 'Health & Beauty Services',
+    subtitle: 'Spa, salon, and wellness treatments',
+    reference: 'Booksy, StyleSeat',
+    pageLayout: 'list', cardVariant: 'service-beauty', detailType: 'service-booking',
+    hasBooking: true, bookingWidget: 'calendar',
+    filters: ['Treatment', 'Gender', 'Price', 'Rating', 'Next Available'],
+    sortOptions: ['Rating', 'Price', 'Next Available'],
+  },
+  'services-marine': {
+    hubType: 'services', categoryId: 'marine',
+    pageTitle: 'Marine Services',
+    subtitle: 'Boat services, diving, and water activities',
+    reference: 'Marine service directories',
+    pageLayout: 'list', cardVariant: 'service-marine', detailType: 'service-booking',
+    hasBooking: true, bookingWidget: 'calendar',
+    filters: ['Service Type', 'Certification', 'Insured', 'Price'],
+    sortOptions: ['Rating', 'Price', 'Availability'],
+  },
+  'services-events': {
+    hubType: 'services', categoryId: 'events',
+    pageTitle: 'Event Services',
+    subtitle: 'Catering, planning, and entertainment',
+    reference: 'The Knot, EventUp',
+    pageLayout: 'list', cardVariant: 'service-event', detailType: 'service-inquiry',
+    hasBooking: true, bookingWidget: 'quote',
+    filters: ['Event Type', 'Price', 'Rating', 'Availability'],
+    sortOptions: ['Rating', 'Price', 'Experience'],
+  },
+
+  // ─── TOURS ──────────────────────────────────────────────────────────────
+  'tours-land': {
+    hubType: 'tours', categoryId: 'land',
+    pageTitle: 'Land Tours & Hiking',
+    subtitle: 'Hiking trails, history walks, and nature tours',
+    reference: 'Viator, GetYourGuide',
+    pageLayout: 'immersive', cardVariant: 'tour-card', detailType: 'tour-detail',
+    hasBooking: true, bookingWidget: 'date-time',
+    filters: ['Duration', 'Difficulty', 'Group Size', 'Price'],
+    sortOptions: ['Popular', 'Rating', 'Duration', 'Price'],
+  },
+  'tours-sea': {
+    hubType: 'tours', categoryId: 'sea',
+    pageTitle: 'Sea & Water Adventures',
+    subtitle: 'Snorkeling, sailing, fishing, and diving',
+    reference: 'PADI, Snorkel Tours',
+    pageLayout: 'immersive', cardVariant: 'tour-card', detailType: 'tour-detail',
+    hasBooking: true, bookingWidget: 'date-time',
+    filters: ['Activity', 'Equipment Included', 'Price', 'Duration'],
+    sortOptions: ['Popular', 'Rating', 'Duration', 'Price'],
+  },
+  'tours-adventure': {
+    hubType: 'tours', categoryId: 'adventure',
+    pageTitle: 'Adventure & Extreme',
+    subtitle: 'Zip-lining, ATV, and extreme experiences',
+    reference: 'Viator Extreme, Manawa',
+    pageLayout: 'immersive', cardVariant: 'tour-adventure', detailType: 'tour-detail',
+    hasBooking: true, bookingWidget: 'date-time',
+    filters: ['Thrill Level', 'Age Requirement', 'Price', 'Duration'],
+    sortOptions: ['Popular', 'Rating', 'Thrill Level'],
+  },
+  'tours-charter': {
+    hubType: 'tours', categoryId: 'charter',
+    pageTitle: 'Private Charters',
+    subtitle: 'Private boat and yacht charters',
+    reference: 'GetMyBoat, Boatsetter',
+    pageLayout: 'immersive', cardVariant: 'tour-charter', detailType: 'tour-detail',
+    hasBooking: true, bookingWidget: 'date-time',
+    filters: ['Boat Type', 'Duration', 'Capacity', 'Captain Included'],
+    sortOptions: ['Popular', 'Rating', 'Price', 'Capacity'],
+  },
+
+  // ─── TRANSPORT ──────────────────────────────────────────────────────────
+  'transport-ride': {
+    hubType: 'transport', categoryId: 'ride',
+    pageTitle: 'Ride Hailing',
+    subtitle: 'Quick rides across St. Kitts & Nevis',
+    reference: 'Uber, Lyft',
+    pageLayout: 'map', cardVariant: 'transport-map', detailType: 'transport-ride-booking',
+    hasBooking: true, bookingWidget: 'quote',
+    filters: ['Vehicle Type', 'ETA', 'Price'],
+    sortOptions: ['Nearest', 'Price', 'Rating'],
+  },
+  'transport-delivery': {
+    hubType: 'transport', categoryId: 'delivery',
+    pageTitle: 'Package Delivery',
+    subtitle: 'Send packages and goods across the island',
+    reference: 'Roadie, GoShare',
+    pageLayout: 'list', cardVariant: 'transport-delivery', detailType: 'transport-delivery-booking',
+    hasBooking: true, bookingWidget: 'quote',
+    filters: ['Package Size', 'Urgency', 'Price'],
+    sortOptions: ['Price', 'Speed', 'Rating'],
+  },
+  'transport-boat': {
+    hubType: 'transport', categoryId: 'boat',
+    pageTitle: 'Boat Charters & Ferries',
+    subtitle: 'Private boat and ferry services',
+    reference: 'GetMyBoat, Ferry operators',
+    pageLayout: 'list', cardVariant: 'transport-boat', detailType: 'transport-boat-booking',
+    hasBooking: true, bookingWidget: 'date-time',
+    filters: ['Route', 'Schedule', 'Capacity', 'Price'],
+    sortOptions: ['Schedule', 'Price', 'Duration'],
+  },
+  'transport-moving': {
+    hubType: 'transport', categoryId: 'moving',
+    pageTitle: 'Moving & Relocation',
+    subtitle: 'Relocation and heavy lifting services',
+    reference: 'Lugg, TaskRabbit',
+    pageLayout: 'list', cardVariant: 'transport-moving', detailType: 'transport-moving-quote',
+    hasBooking: true, bookingWidget: 'quote',
+    filters: ['Truck Size', 'Crew Size', 'Availability', 'Price'],
+    sortOptions: ['Price', 'Availability', 'Rating'],
+  },
+
+  // ─── RENTALS ────────────────────────────────────────────────────────────
+  'rentals-stays': {
+    hubType: 'rentals', categoryId: 'stays',
+    pageTitle: 'Vacation Stays',
+    subtitle: 'Vacation homes, villas, and beach houses',
+    reference: 'Airbnb, Vrbo',
+    pageLayout: 'grid', cardVariant: 'rental-property', detailType: 'rental-stay-detail',
+    hasBooking: true, bookingWidget: 'date-range',
+    filters: ['Property Type', 'Bedrooms', 'Bathrooms', 'Amenities', 'Price/Night', 'Instant Book', 'Superhost'],
+    sortOptions: ['Popular', 'Price: Low', 'Price: High', 'Rating', 'Newest'],
+  },
+  'rentals-longterm': {
+    hubType: 'rentals', categoryId: 'longterm',
+    pageTitle: 'Long-Term Rentals',
+    subtitle: 'Monthly and annual leases',
+    reference: 'Zillow, Apartments.com',
+    pageLayout: 'list', cardVariant: 'rental-longterm', detailType: 'rental-longterm-detail',
+    hasBooking: true, bookingWidget: 'quote',
+    filters: ['Property Type', 'Bedrooms', 'Bathrooms', 'Price/Month', 'Pet Policy', 'Available Date'],
+    sortOptions: ['Price: Low', 'Price: High', 'Newest', 'Available Soon'],
+  },
+  'rentals-equipment': {
+    hubType: 'rentals', categoryId: 'equipment',
+    pageTitle: 'Equipment & Tools',
+    subtitle: 'Tools, gear, and equipment for rent',
+    reference: 'Fat Llama, ToolMates',
+    pageLayout: 'grid', cardVariant: 'rental-equipment', detailType: 'rental-equipment-detail',
+    hasBooking: true, bookingWidget: 'date-range',
+    filters: ['Category', 'Brand', 'Condition', 'Price/Day', 'Delivery'],
+    sortOptions: ['Popular', 'Price: Low', 'Rating', 'Available'],
+  },
+
+  // ─── EVENTS ────────────────────────────────────────────────────────────
+  'events-community': {
+    hubType: 'events', categoryId: 'community',
+    pageTitle: 'Community Events',
+    subtitle: 'Local gatherings, meetups, and social events',
+    reference: 'Meetup, Facebook Events',
+    pageLayout: 'feed', cardVariant: 'event-card', detailType: 'event-detail',
+    hasBooking: true, bookingWidget: 'ticket',
+    filters: ['Date', 'Category', 'Free/Paid', 'Location'],
+    sortOptions: ['Date', 'Popular', 'Distance'],
+  },
+  'events-environment': {
+    hubType: 'events', categoryId: 'environment',
+    pageTitle: 'Environmental Events',
+    subtitle: 'Eco, conservation, and green initiatives',
+    reference: 'Eventbrite (cause events)',
+    pageLayout: 'feed', cardVariant: 'event-card', detailType: 'event-detail',
+    hasBooking: true, bookingWidget: 'ticket',
+    filters: ['Date', 'Cause Type', 'Volunteer', 'Free/Paid'],
+    sortOptions: ['Date', 'Popular'],
+  },
+  'events-education': {
+    hubType: 'events', categoryId: 'education',
+    pageTitle: 'Education & Workshops',
+    subtitle: 'Learning, training, and skill-building',
+    reference: 'Eventbrite (workshops)',
+    pageLayout: 'feed', cardVariant: 'event-card', detailType: 'event-detail',
+    hasBooking: true, bookingWidget: 'ticket',
+    filters: ['Date', 'Topic', 'Price', 'Level'],
+    sortOptions: ['Date', 'Popular', 'Price'],
+  },
+  'events-health': {
+    hubType: 'events', categoryId: 'health',
+    pageTitle: 'Health & Wellness Events',
+    subtitle: 'Medical camps, fitness, and wellness',
+    reference: 'Eventbrite (health)',
+    pageLayout: 'feed', cardVariant: 'event-card', detailType: 'event-detail',
+    hasBooking: true, bookingWidget: 'ticket',
+    filters: ['Date', 'Event Type', 'Free/Paid'],
+    sortOptions: ['Date', 'Popular'],
+  },
+
+  // ─── CAMPAIGNS ─────────────────────────────────────────────────────────
+  'campaigns-community': {
+    hubType: 'campaigns', categoryId: 'community',
+    pageTitle: 'Community Fundraisers',
+    subtitle: 'Local community projects and causes',
+    reference: 'GoFundMe (community)',
+    pageLayout: 'grid', cardVariant: 'campaign-card', detailType: 'campaign-detail',
+    hasBooking: true, bookingWidget: 'donation',
+    filters: ['Status', 'Goal', 'Days Left'],
+    sortOptions: ['Most Urgent', 'Most Funded', 'Newest'],
+  },
+  'campaigns-environment': {
+    hubType: 'campaigns', categoryId: 'environment',
+    pageTitle: 'Environmental Causes',
+    subtitle: 'Eco, conservation, and green projects',
+    reference: 'Kickstarter (eco)',
+    pageLayout: 'grid', cardVariant: 'campaign-card', detailType: 'campaign-detail',
+    hasBooking: true, bookingWidget: 'donation',
+    filters: ['Impact Type', 'Goal', 'Status'],
+    sortOptions: ['Most Urgent', 'Most Funded', 'Impact'],
+  },
+  'campaigns-education': {
+    hubType: 'campaigns', categoryId: 'education',
+    pageTitle: 'Education & Scholarships',
+    subtitle: 'Schools, learning, and student support',
+    reference: 'GoFundMe (education)',
+    pageLayout: 'grid', cardVariant: 'campaign-card', detailType: 'campaign-detail',
+    hasBooking: true, bookingWidget: 'donation',
+    filters: ['Beneficiary', 'Goal', 'Status'],
+    sortOptions: ['Most Urgent', 'Most Funded', 'Newest'],
+  },
+  'campaigns-health': {
+    hubType: 'campaigns', categoryId: 'health',
+    pageTitle: 'Health & Medical',
+    subtitle: 'Medical treatment and health causes',
+    reference: 'GoFundMe (medical)',
+    pageLayout: 'grid', cardVariant: 'campaign-card', detailType: 'campaign-detail',
+    hasBooking: true, bookingWidget: 'donation',
+    filters: ['Urgency', 'Goal', 'Status'],
+    sortOptions: ['Most Urgent', 'Most Funded', 'Newest'],
+  },
+
+  // ─── COMMUNITY ─────────────────────────────────────────────────────────
+  'community-events': {
+    hubType: 'community', categoryId: 'events',
+    pageTitle: 'Community Events',
+    subtitle: 'Upcoming local events and meetups',
+    reference: 'Meetup, Facebook Events',
+    pageLayout: 'feed', cardVariant: 'community-event', detailType: 'event-detail',
+    hasBooking: false,
+    filters: ['Date', 'Category', 'Location'],
+    sortOptions: ['Date', 'Popular'],
+  },
+  'community-stories': {
+    hubType: 'community', categoryId: 'stories',
+    pageTitle: 'Island Stories',
+    subtitle: 'Community stories and updates',
+    reference: 'Instagram, Facebook Feed',
+    pageLayout: 'feed', cardVariant: 'community-story', detailType: 'story-detail',
+    hasBooking: false,
+    filters: ['Type', 'Author', 'Recent'],
+    sortOptions: ['Recent', 'Popular', 'Trending'],
+  },
+  'community-groups': {
+    hubType: 'community', categoryId: 'groups',
+    pageTitle: 'Community Groups',
+    subtitle: 'Interest-based groups and clubs',
+    reference: 'Facebook Groups, Discord',
+    pageLayout: 'grid', cardVariant: 'community-group', detailType: 'group-detail',
+    hasBooking: false,
+    filters: ['Category', 'Members', 'Activity'],
+    sortOptions: ['Members', 'Active', 'Newest'],
+  },
+};
+
+/** Get category layout config by hub type + category id */
+export function getCategoryLayout(hubType: string, categoryId: string): CategoryLayoutConfig | undefined {
+    return CATEGORY_LAYOUTS[`${hubType}-${categoryId}`];
+}
+
+/** Get all category configs for a hub type */
+export function getHubCategories(hubType: string): CategoryLayoutConfig[] {
+    return Object.values(CATEGORY_LAYOUTS).filter(c => c.hubType === hubType);
+}
+
+/** Get all rental sub-hub configs */
+export function getRentalSubHubs(): CategoryLayoutConfig[] {
+    return Object.values(CATEGORY_LAYOUTS).filter(c => c.hubType === 'rentals');
+}
