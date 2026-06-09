@@ -11,32 +11,32 @@ import LongTermHubPage from '@/components/hub/rentals/LongTermHubPage';
 import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
 
 // Food
-import { RestaurantsHubPage, KitchensHubPage, CafesHubPage, GrillsHubPage } from '@/components/hub/food/RestaurantsHubPage';
+import RestaurantsHubPage from '@/components/hub/food/RestaurantsHubPage';
 
 // Tours
-import { LandToursHubPage, SeaToursHubPage, AdventureToursHubPage, CharterToursHubPage } from '@/components/hub/tours/LandToursHubPage';
+import { LandToursHubPage } from '@/components/hub/tours/LandToursHubPage';
 
 // Products
-import { ShopsHubPage, SpecialtyHubPage, FashionHubPage, HealthHubPage } from '@/components/hub/products/ShopsHubPage';
+import { ShopsHubPage } from '@/components/hub/products/ShopsHubPage';
 
 // Services
-import { ProfessionalServicesHubPage, AutomotiveServicesHubPage, BeautyServicesHubPage, MarineServicesHubPage, EventServicesHubPage } from '@/components/hub/services/ProfessionalServicesHubPage';
+import { ProfessionalServicesHubPage } from '@/components/hub/services/ProfessionalServicesHubPage';
 
 // Transport
-import { RideHailingHubPage, DeliveryHubPage, BoatTransportHubPage, MovingHubPage } from '@/components/hub/transport/RideHailingHubPage';
+import { RideHailingHubPage } from '@/components/hub/transport/RideHailingHubPage';
 
 // Events
 import CommunityEventsHubPage from '@/components/hub/events/CommunityEventsHubPage';
 import { EnvironmentEventsHubPage, EducationEventsHubPage, HealthEventsHubPage } from '@/components/hub/events/OtherEventsHubPages';
 
 // Campaigns
-import { CommunityCampaignsHubPage, EnvironmentCampaignsHubPage, EducationCampaignsHubPage, HealthCampaignsHubPage } from '@/components/hub/campaigns/CommunityCampaignsHubPage';
+import { CommunityCampaignsHubPage } from '@/components/hub/campaigns/CommunityCampaignsHubPage';
 
-// Community
-import CommunityDirectoryHubPage from '@/components/hub/community/CommunityDirectoryHubPage';
-import CommunityHubEventsPage from '@/components/hub/community/CommunityEventsHubPage';
-import CommunityStoriesHubPage from '@/components/hub/community/CommunityStoriesHubPage';
-import CommunityGroupsHubPage from '@/components/hub/community/CommunityGroupsHubPage';
+// Community — all are named exports (export function)
+import { CommunityDirectoryHubPage } from '@/components/hub/community/CommunityDirectoryHubPage';
+import { CommunityHubEventsPage } from '@/components/hub/community/CommunityEventsHubPage';
+import { CommunityStoriesHubPage } from '@/components/hub/community/CommunityStoriesHubPage';
+import { CommunityGroupsHubPage } from '@/components/hub/community/CommunityGroupsHubPage';
 
 export default function HubCategoryPage() {
   const params = useParams();
@@ -59,9 +59,7 @@ export default function HubCategoryPage() {
   if (type === 'food') {
     switch (category) {
       case 'restaurants': return <RestaurantsHubPage />;
-      case 'kitchens': return <KitchensHubPage />;
-      case 'cafes': return <CafesHubPage />;
-      case 'grills': return <GrillsHubPage />;
+      case 'kitchens': case 'cafes': case 'grills': return <RestaurantsHubPage />;
       default: return <RestaurantsHubPage />;
     }
   }
@@ -70,9 +68,7 @@ export default function HubCategoryPage() {
   if (type === 'tours') {
     switch (category) {
       case 'land': return <LandToursHubPage />;
-      case 'sea': return <SeaToursHubPage />;
-      case 'adventure': return <AdventureToursHubPage />;
-      case 'charter': return <CharterToursHubPage />;
+      case 'sea': case 'adventure': case 'charter': return <LandToursHubPage />;
       default: return <LandToursHubPage />;
     }
   }
@@ -81,9 +77,7 @@ export default function HubCategoryPage() {
   if (type === 'products') {
     switch (category) {
       case 'shops': return <ShopsHubPage />;
-      case 'specialty': return <SpecialtyHubPage />;
-      case 'fashion': return <FashionHubPage />;
-      case 'health': return <HealthHubPage />;
+      case 'specialty': case 'fashion': case 'health': return <ShopsHubPage />;
       default: return <ShopsHubPage />;
     }
   }
@@ -92,10 +86,7 @@ export default function HubCategoryPage() {
   if (type === 'services') {
     switch (category) {
       case 'professional': return <ProfessionalServicesHubPage />;
-      case 'automotive': return <AutomotiveServicesHubPage />;
-      case 'health': case 'beauty': return <BeautyServicesHubPage />;
-      case 'marine': return <MarineServicesHubPage />;
-      case 'events': case 'event': return <EventServicesHubPage />;
+      case 'automotive': case 'health': case 'beauty': case 'marine': case 'events': case 'event': return <ProfessionalServicesHubPage />;
       default: return <ProfessionalServicesHubPage />;
     }
   }
@@ -104,9 +95,7 @@ export default function HubCategoryPage() {
   if (type === 'transport') {
     switch (category) {
       case 'ride': case 'rides': case 'taxi': return <RideHailingHubPage />;
-      case 'delivery': return <DeliveryHubPage />;
-      case 'boat': case 'ferry': return <BoatTransportHubPage />;
-      case 'moving': return <MovingHubPage />;
+      case 'delivery': case 'boat': case 'ferry': case 'moving': return <RideHailingHubPage />;
       default: return <RideHailingHubPage />;
     }
   }
@@ -124,9 +113,7 @@ export default function HubCategoryPage() {
   // Campaigns
   if (type === 'campaigns') {
     switch (category) {
-      case 'environment': return <EnvironmentCampaignsHubPage />;
-      case 'education': return <EducationCampaignsHubPage />;
-      case 'health': return <HealthCampaignsHubPage />;
+      case 'environment': case 'education': case 'health': return <CommunityCampaignsHubPage />;
       default: return <CommunityCampaignsHubPage />;
     }
   }
