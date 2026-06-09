@@ -1,35 +1,34 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import StaysHubPage from '@/components/hub/rentals/StaysHubPage';
-import CarsHubPage from '@/components/hub/rentals/CarsHubPage';
-import SeaHubPage from '@/components/hub/rentals/SeaHubPage';
-import ToolsHubPage from '@/components/hub/rentals/ToolsHubPage';
-import LongTermHubPage from '@/components/hub/rentals/LongTermHubPage';
-import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
-import { getCategoryLayout } from '@/lib/hubConfigs';
+import RestaurantsHubPage from '@/components/hub/food/RestaurantsHubPage';
+import KitchensHubPage from '@/components/hub/food/KitchensHubPage';
+import CafesHubPage from '@/components/hub/food/CafesHubPage';
+import GrillsHubPage from '@/components/hub/food/GrillsHubPage';
 
 /**
- * /hub/rentals/[category] — Rental sub-hub pages
- * Each sub-hub has a completely different layout and card style.
+ * /hub/food/[category] — Food sub-hub pages
+ * Each category has a distinct card style and layout.
  */
-export default function RentalsCategoryPage() {
+export default function FoodCategoryPage() {
   const params = useParams();
   const category = params?.category as string;
 
   switch (category) {
-    case 'stays':
-      return <StaysHubPage />;
-    case 'cars':
-      return <CarsHubPage />;
-    case 'sea':
-      return <SeaHubPage />;
-    case 'equipment':
-    case 'tools':
-      return <ToolsHubPage />;
-    case 'longterm':
-      return <LongTermHubPage />;
+    case 'restaurant':
+    case 'restaurants':
+      return <RestaurantsHubPage />;
+    case 'kitchen':
+    case 'kitchens':
+      return <KitchensHubPage />;
+    case 'cafe':
+    case 'cafes':
+      return <CafesHubPage />;
+    case 'grill':
+    case 'grills':
+      return <GrillsHubPage />;
     default:
-      return <RentalsGatewayPage />;
+      // Fallback to restaurants
+      return <RestaurantsHubPage />;
   }
 }
