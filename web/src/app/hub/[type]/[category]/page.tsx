@@ -1,34 +1,58 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { getHubConfig } from '@/lib/hubConfigs';
-import HubTypePage from '@/components/hub/HubPage';
+import StaysHubPage from '@/components/hub/rentals/StaysHubPage';
+import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
+import { getCategoryLayout } from '@/lib/hubConfigs';
 
 /**
- * Fallback subtype page — renders the generic HubPage for now.
- * Each hub type will override this with a dedicated component as we build them.
- * 
- * Routes: /hub/food/restaurants, /hub/tours/land, /hub/rentals/stays, etc.
+ * /hub/rentals/[category] — Rental sub-hub pages
+ * - /hub/rentals/stays → Airbnb-style property listings
+ * - /hub/rentals/longterm → Zillow-style (placeholder)
+ * - /hub/rentals/equipment → Fat Llama-style (placeholder)
  */
-export default function HubCategoryPage() {
+export default function RentalsCategoryPage() {
   const params = useParams();
-  const type = params?.type as string;
   const category = params?.category as string;
-  const config = getHubConfig(type);
 
-  if (!config) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-surface-secondary">
-        <div className="text-center">
-          <span className="text-6xl mb-4 block">🏝️</span>
-          <h1 className="text-2xl font-bold text-ink-primary mb-2">Category Not Found</h1>
-          <p className="text-ink-tertiary">The category &quot;{category}&quot; in &quot;{type}&quot; doesn&apos;t exist.</p>
-        </div>
-      </div>
-    );
+  // Route to dedicated sub-hub components
+  switch (category) {
+    case 'stays':
+      return <StaysHubPage />;
+    case 'longterm':
+    case 'equipment':
+    case 'cars':
+    case 'sea':
+      // TODO: Build dedicated pages for these sub-hubs
+      return <SubHubPlaceholder category={category} />;
+    default:
+      // No category specified → show rental gateway
+      return <RentalsGatewayPage />;
   }
+}
 
-  // For now, render the generic HubPage filtered by category
-  // TODO: Replace with dedicated category components per hub type
-  return <HubTypePage />;
+function SubHubPlaceholder({ category }: { category: string }) {
+  const config = getCategoryLayout('rentals', category);
+  return (
+    <div className="min-h-screen bg-surface-primary">
+      <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-16 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl font-black text-white mb-2">
+            {config?.pageTitle || category}
+          </h1>
+          <p className="text-lg text-teal-200">{config?.subtitle}</p>
+        </div>
+      </section>
+      <div className="max-w-6xl mx-auto px-4 py-16 text-center">
+        <div className="text-5xl mb-4">🚧</div>
+        <h2 className="text-xl font-bold text-ink-primary mb-2">Coming Soon</h2>
+        <p className="text-ink-secondary mb-4">
+          The {config?.pageTitle || category} experience is being built with {config?.reference || 'a custom design'}.
+        </p>
+        <a href="/hub/rentals" className="text-accent-500 font-medium hover:underline">
+          ← Back to Rentals
+        </a>
+      </div>
+    </div>
+  );
 }
