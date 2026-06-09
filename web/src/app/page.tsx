@@ -9,14 +9,14 @@ import { useCampaigns, useListings } from '@/lib/hooks/use-swr';
 import { useAuthStore } from '@/lib/auth';
 import RecommendedForYou from '@/components/recommendations/RecommendedForYou';
 import VendorSpotlight from '@/components/marketplace/VendorSpotlight';
-import ListingCard from '@/components/ListingCard';
 import HeroBackground from '@/components/HeroBackground';
 import RequestServicesSection from '@/components/RequestServicesSection';
 import AdSpace from '@/components/advertising/AdSpace';
 import IslandPulse from '@/components/IslandPulse';
 import BrandMarquee from '@/components/BrandMarquee';
-import { ProductCard, CarouselSection, ContentSection } from '@/components/hub/ListingCard';
-import { HeroSlider, DealCard, CategoryTiles } from '@/components/hub/MarketplaceSections';
+import { ProductCard, CarouselSection } from '@/components/hub/ListingCard';
+import { HeroSlider, DealCard, CategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
+import { CompactCard } from '@/components/hub/CompactCard';
 
 export default function Home() {
   const { user } = useAuthStore();
@@ -171,9 +171,18 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {featuredCampaigns.map((campaign: any) => (
-                <motion.div key={campaign.id} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                  <ListingCard listing={campaign} />
-                </motion.div>
+                <CompactCard
+                  key={campaign.id}
+                  href={`/hub/campaigns/community/${campaign.slug || campaign.id}`}
+                  imageUrl={campaign.image_url}
+                  emoji="❤️"
+                  title={campaign.title || campaign.name}
+                  subtitle={campaign.category || 'Campaign'}
+                  badge={campaign.urgency}
+                  badgeColor="bg-rose-500"
+                  meta={[`$${campaign.current_amount || 0} of $${campaign.goal_amount || 0}`].filter(Boolean)}
+                  ctaLabel="Contribute"
+                />
               ))}
             </div>
           )}
@@ -190,9 +199,18 @@ export default function Home() {
           ) : featuredTours.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {featuredTours.map((tour: any) => (
-                <motion.div key={tour.id} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                  <ListingCard listing={tour} />
-                </motion.div>
+                <CompactCard
+                  key={tour.id}
+                  href={`/hub/tours/land/${tour.slug || tour.id}`}
+                  imageUrl={tour.image_url || tour.banner_url}
+                  emoji="🗺️"
+                  title={tour.title || tour.name || tour.business_name}
+                  subtitle={[tour.duration, tour.difficulty].filter(Boolean).join(' · ')}
+                  price={tour.price}
+                  priceSuffix="/person"
+                  rating={tour.rating}
+                  ctaLabel="Book Now"
+                />
               ))}
             </div>
           ) : (
