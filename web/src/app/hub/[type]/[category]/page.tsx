@@ -32,11 +32,11 @@ import { EnvironmentEventsHubPage, EducationEventsHubPage, HealthEventsHubPage }
 // Campaigns — CommunityCampaignsHubPage.tsx exports all 4 as named
 import { CommunityCampaignsHubPage, EnvironmentCampaignsHubPage, EducationCampaignsHubPage, HealthCampaignsHubPage } from '@/components/hub/campaigns/CommunityCampaignsHubPage';
 
-// Community — all 4 are named exports
+// Community — Directory is named export, rest are default exports
 import { CommunityDirectoryHubPage } from '@/components/hub/community/CommunityDirectoryHubPage';
-import { CommunityHubEventsPage } from '@/components/hub/community/CommunityEventsHubPage';
-import { CommunityStoriesHubPage } from '@/components/hub/community/CommunityStoriesHubPage';
-import { CommunityGroupsHubPage } from '@/components/hub/community/CommunityGroupsHubPage';
+import CommunityHubEventsPage from '@/components/hub/community/CommunityEventsHubPage';
+import CommunityStoriesHubPage from '@/components/hub/community/CommunityStoriesHubPage';
+import CommunityGroupsHubPage from '@/components/hub/community/CommunityGroupsHubPage';
 
 export default function HubCategoryPage() {
   const params = useParams();
