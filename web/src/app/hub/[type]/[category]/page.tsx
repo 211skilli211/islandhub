@@ -11,10 +11,7 @@ import LongTermHubPage from '@/components/hub/rentals/LongTermHubPage';
 import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
 
 // Food
-import RestaurantsHubPage from '@/components/hub/food/RestaurantsHubPage';
-import KitchensHubPage from '@/components/hub/food/KitchensHubPage';
-import CafesHubPage from '@/components/hub/food/CafesHubPage';
-import GrillsHubPage from '@/components/hub/food/GrillsHubPage';
+import { RestaurantsHubPage, KitchensHubPage, CafesHubPage, GrillsHubPage } from '@/components/hub/food/RestaurantsHubPage';
 
 // Tours
 import LandToursHubPage from '@/components/hub/tours/LandToursHubPage';
