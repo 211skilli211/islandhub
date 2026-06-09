@@ -10,29 +10,29 @@ import ToolsHubPage from '@/components/hub/rentals/ToolsHubPage';
 import LongTermHubPage from '@/components/hub/rentals/LongTermHubPage';
 import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
 
-// Food
-import RestaurantsHubPage from '@/components/hub/food/RestaurantsHubPage';
+// Food — RestaurantsHubPage.tsx exports default RestaurantsHubPage + named KitchensHubPage, CafesHubPage, GrillsHubPage
+import RestaurantsHubPage, { KitchensHubPage, CafesHubPage, GrillsHubPage } from '@/components/hub/food/RestaurantsHubPage';
 
-// Tours
-import { LandToursHubPage } from '@/components/hub/tours/LandToursHubPage';
+// Tours — LandToursHubPage.tsx exports all 4 as named
+import { LandToursHubPage, SeaToursHubPage, AdventureToursHubPage, CharterToursHubPage } from '@/components/hub/tours/LandToursHubPage';
 
-// Products
-import { ShopsHubPage } from '@/components/hub/products/ShopsHubPage';
+// Products — ShopsHubPage.tsx exports all 4 as named
+import { ShopsHubPage, SpecialtyHubPage, FashionHubPage, HealthHubPage } from '@/components/hub/products/ShopsHubPage';
 
-// Services
-import { ProfessionalServicesHubPage } from '@/components/hub/services/ProfessionalServicesHubPage';
+// Services — ProfessionalServicesHubPage.tsx exports all 5 as named
+import { ProfessionalServicesHubPage, AutomotiveServicesHubPage, BeautyServicesHubPage, MarineServicesHubPage, EventServicesHubPage } from '@/components/hub/services/ProfessionalServicesHubPage';
 
-// Transport
-import { RideHailingHubPage } from '@/components/hub/transport/RideHailingHubPage';
+// Transport — RideHailingHubPage.tsx exports all 4 as named
+import { RideHailingHubPage, DeliveryHubPage, BoatTransportHubPage, MovingHubPage } from '@/components/hub/transport/RideHailingHubPage';
 
-// Events
+// Events — CommunityEventsHubPage.tsx exports default + EventsHubPage factory; OtherEventsHubPages.tsx exports 3 named
 import CommunityEventsHubPage from '@/components/hub/events/CommunityEventsHubPage';
 import { EnvironmentEventsHubPage, EducationEventsHubPage, HealthEventsHubPage } from '@/components/hub/events/OtherEventsHubPages';
 
-// Campaigns
-import { CommunityCampaignsHubPage } from '@/components/hub/campaigns/CommunityCampaignsHubPage';
+// Campaigns — CommunityCampaignsHubPage.tsx exports all 4 as named
+import { CommunityCampaignsHubPage, EnvironmentCampaignsHubPage, EducationCampaignsHubPage, HealthCampaignsHubPage } from '@/components/hub/campaigns/CommunityCampaignsHubPage';
 
-// Community — all are named exports (export function)
+// Community — all 4 are named exports
 import { CommunityDirectoryHubPage } from '@/components/hub/community/CommunityDirectoryHubPage';
 import { CommunityHubEventsPage } from '@/components/hub/community/CommunityEventsHubPage';
 import { CommunityStoriesHubPage } from '@/components/hub/community/CommunityStoriesHubPage';
@@ -59,7 +59,9 @@ export default function HubCategoryPage() {
   if (type === 'food') {
     switch (category) {
       case 'restaurants': return <RestaurantsHubPage />;
-      case 'kitchens': case 'cafes': case 'grills': return <RestaurantsHubPage />;
+      case 'kitchens': return <KitchensHubPage />;
+      case 'cafes': return <CafesHubPage />;
+      case 'grills': return <GrillsHubPage />;
       default: return <RestaurantsHubPage />;
     }
   }
@@ -68,7 +70,9 @@ export default function HubCategoryPage() {
   if (type === 'tours') {
     switch (category) {
       case 'land': return <LandToursHubPage />;
-      case 'sea': case 'adventure': case 'charter': return <LandToursHubPage />;
+      case 'sea': return <SeaToursHubPage />;
+      case 'adventure': return <AdventureToursHubPage />;
+      case 'charter': return <CharterToursHubPage />;
       default: return <LandToursHubPage />;
     }
   }
@@ -77,7 +81,9 @@ export default function HubCategoryPage() {
   if (type === 'products') {
     switch (category) {
       case 'shops': return <ShopsHubPage />;
-      case 'specialty': case 'fashion': case 'health': return <ShopsHubPage />;
+      case 'specialty': return <SpecialtyHubPage />;
+      case 'fashion': return <FashionHubPage />;
+      case 'health': return <HealthHubPage />;
       default: return <ShopsHubPage />;
     }
   }
@@ -86,7 +92,10 @@ export default function HubCategoryPage() {
   if (type === 'services') {
     switch (category) {
       case 'professional': return <ProfessionalServicesHubPage />;
-      case 'automotive': case 'health': case 'beauty': case 'marine': case 'events': case 'event': return <ProfessionalServicesHubPage />;
+      case 'automotive': return <AutomotiveServicesHubPage />;
+      case 'health': case 'beauty': return <BeautyServicesHubPage />;
+      case 'marine': return <MarineServicesHubPage />;
+      case 'events': case 'event': return <EventServicesHubPage />;
       default: return <ProfessionalServicesHubPage />;
     }
   }
@@ -95,7 +104,9 @@ export default function HubCategoryPage() {
   if (type === 'transport') {
     switch (category) {
       case 'ride': case 'rides': case 'taxi': return <RideHailingHubPage />;
-      case 'delivery': case 'boat': case 'ferry': case 'moving': return <RideHailingHubPage />;
+      case 'delivery': return <DeliveryHubPage />;
+      case 'boat': case 'ferry': return <BoatTransportHubPage />;
+      case 'moving': return <MovingHubPage />;
       default: return <RideHailingHubPage />;
     }
   }
@@ -113,7 +124,9 @@ export default function HubCategoryPage() {
   // Campaigns
   if (type === 'campaigns') {
     switch (category) {
-      case 'environment': case 'education': case 'health': return <CommunityCampaignsHubPage />;
+      case 'environment': return <EnvironmentCampaignsHubPage />;
+      case 'education': return <EducationCampaignsHubPage />;
+      case 'health': return <HealthCampaignsHubPage />;
       default: return <CommunityCampaignsHubPage />;
     }
   }
