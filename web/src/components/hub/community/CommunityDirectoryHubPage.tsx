@@ -70,7 +70,7 @@ export default function CommunityDirectoryHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🏛️ Community Directory</h1>
           <p className="text-violet-200 mb-4">Local organizations, clubs, and nonprofits</p>

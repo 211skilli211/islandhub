@@ -16,7 +16,7 @@ function EventCard({ event }: { event: EventItem }) {
   const img = event.image_url ? getImageUrl(event.image_url) : undefined;
   return (
     <Link href={`/hub/events/community/${event.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/10] bg-gradient-to-br from-green-800 to-emerald-900">
           {img ? <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" /> : (
             <div className="w-full h-full flex items-center justify-center text-4xl">📅</div>
@@ -88,7 +88,7 @@ export function EventsHubPage({ category, title, subtitle, emoji, gradient, subt
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className={`bg-gradient-to-br ${gradient} py-12 px-4`}>
+      <section className={`bg-gradient-to-br ${gradient} py-6 px-4`}>
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">{emoji} {title}</h1>
           <p className="text-white/70 mb-4">{subtitle}</p>
@@ -116,9 +116,9 @@ export function EventsHubPage({ category, title, subtitle, emoji, gradient, subt
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/10] bg-surface-secondary animate-pulse" />
                 <div className="p-4"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>
@@ -127,7 +127,7 @@ export function EventsHubPage({ category, title, subtitle, emoji, gradient, subt
         ) : events.length === 0 ? (
           <EmptyState emoji={emoji} title={`No ${category} events`} message="Check back later for new events." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {events.map((e) => <EventCard key={e.id} event={e} />)}
           </div>
         )}

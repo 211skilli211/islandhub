@@ -20,7 +20,7 @@ function ToolCard({ tool }: { tool: ToolListing }) {
   const weeklyPrice = tool.price_per_week || price * 5;
   return (
     <Link href={`/hub/rentals/tools/${tool.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all h-full">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all h-full">
         <div className="relative aspect-square bg-surface-secondary">
           {tool.image_url ? (
             <img src={tool.image_url} alt={name} className="w-full h-full object-cover" loading="lazy" />
@@ -97,7 +97,7 @@ export default function ToolsHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-zinc-800 via-zinc-900 to-neutral-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-zinc-800 via-zinc-900 to-neutral-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🔧 Equipment & Tools</h1>
           <p className="text-zinc-300 mb-4">Rent tools and equipment for your projects</p>
@@ -119,9 +119,9 @@ export default function ToolsHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-square bg-surface-secondary animate-pulse" />
                 <div className="p-3 space-y-1">
                   <div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" />
@@ -132,7 +132,7 @@ export default function ToolsHubPage() {
         ) : tools.length === 0 ? (
           <EmptyState emoji="🔧" title="No equipment available" message="Check back later for new tools and equipment." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {tools.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
           </div>
         )}

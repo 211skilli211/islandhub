@@ -23,7 +23,7 @@ function TourCard({ tour, index }: { tour: TourListing; index: number }) {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
       <Link href={`/hub/tours/land/${tour.slug}`} className="block group">
-        <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+        <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
           {/* Image */}
           <div className="relative aspect-[16/10] bg-gradient-to-br from-emerald-800 to-teal-900">
             {img ? (
@@ -130,7 +130,7 @@ export default function LandToursHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🥾 Land Tours & Hiking</h1>
           <p className="text-emerald-200 mb-4">Hiking trails, history walks, and nature tours</p>
@@ -157,9 +157,9 @@ export default function LandToursHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/10] bg-surface-secondary animate-pulse" />
                 <div className="p-4 space-y-2">
                   <div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" />
@@ -171,7 +171,7 @@ export default function LandToursHubPage() {
         ) : tours.length === 0 ? (
           <EmptyState emoji="🥾" title="No land tours found" message="Check back later for new tour listings." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {tours.map((tour, i) => <TourCard key={tour.id} tour={tour} index={i} />)}
           </div>
         )}

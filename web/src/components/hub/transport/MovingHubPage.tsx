@@ -79,7 +79,7 @@ export default function MovingHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-slate-800 via-zinc-900 to-neutral-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-slate-800 via-zinc-900 to-neutral-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🚚 Moving & Relocation</h1>
           <p className="text-slate-300 mb-4">Relocation and heavy lifting services</p>

@@ -20,7 +20,7 @@ function AdventureCard({ tour }: { tour: AdventureTour }) {
 
   return (
     <Link href={`/hub/tours/adventure/${tour.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/10] bg-gradient-to-br from-red-900 to-orange-900">
           {img ? <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" /> : (
             <div className="w-full h-full flex items-center justify-center text-4xl">🧗</div>
@@ -99,7 +99,7 @@ export default function AdventureToursHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-red-900 via-orange-900 to-amber-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-red-900 via-orange-900 to-amber-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🧗 Adventure & Extreme</h1>
           <p className="text-red-200 mb-4">Zip-lining, ATV, and extreme experiences</p>
@@ -126,9 +126,9 @@ export default function AdventureToursHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/10] bg-surface-secondary animate-pulse" />
                 <div className="p-4"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>
@@ -137,7 +137,7 @@ export default function AdventureToursHubPage() {
         ) : tours.length === 0 ? (
           <EmptyState emoji="🧗" title="No adventure tours found" message="Check back later for extreme experience listings." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {tours.map((tour) => <AdventureCard key={tour.id} tour={tour} />)}
           </div>
         )}

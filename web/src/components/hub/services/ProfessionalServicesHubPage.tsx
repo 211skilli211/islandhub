@@ -93,7 +93,7 @@ export default function ProfessionalServicesHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">💼 Professional Services</h1>
           <p className="text-blue-200 mb-4">Legal, consulting, accounting, and business services</p>

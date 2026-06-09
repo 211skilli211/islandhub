@@ -18,7 +18,7 @@ function LongTermCard({ listing }: { listing: LongTermListing }) {
   const price = listing.price_per_month || 800;
   return (
     <Link href={`/hub/rentals/longterm/${listing.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/9] bg-surface-secondary">
           {listing.image_url ? (
             <img src={listing.image_url} alt={name} className="w-full h-full object-cover" loading="lazy" />
@@ -98,7 +98,7 @@ export default function LongTermHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-slate-800 via-slate-900 to-zinc-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-slate-800 via-slate-900 to-zinc-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🏢 Long-Term Rentals</h1>
           <p className="text-slate-300 mb-4">Monthly and annual leases across St. Kitts & Nevis</p>
@@ -120,9 +120,9 @@ export default function LongTermHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/9] bg-surface-secondary animate-pulse" />
                 <div className="p-4 space-y-2">
                   <div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" />
@@ -133,7 +133,7 @@ export default function LongTermHubPage() {
         ) : listings.length === 0 ? (
           <EmptyState emoji="🏢" title="No long-term rentals" message="Check back later for new lease listings." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {listings.map((listing) => <LongTermCard key={listing.id} listing={listing} />)}
           </div>
         )}

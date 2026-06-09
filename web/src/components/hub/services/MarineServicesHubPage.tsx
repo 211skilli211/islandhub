@@ -79,7 +79,7 @@ export default function MarineServicesHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">⚓ Marine Services</h1>
           <p className="text-cyan-200 mb-4">Boat services, diving, and water activities</p>

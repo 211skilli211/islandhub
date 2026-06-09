@@ -79,7 +79,7 @@ export default function RideHailingHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-sky-900 via-blue-900 to-indigo-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-sky-900 via-blue-900 to-indigo-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🚕 Ride Hailing</h1>
           <p className="text-sky-200 mb-4">Quick rides across St. Kitts & Nevis</p>

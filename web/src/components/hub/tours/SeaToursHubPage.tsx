@@ -19,7 +19,7 @@ function SeaCard({ tour }: { tour: SeaTour }) {
 
   return (
     <Link href={`/hub/tours/sea/${tour.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/10] bg-gradient-to-br from-cyan-800 to-blue-900">
           {img ? <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" /> : (
             <div className="w-full h-full flex items-center justify-center text-4xl">🌊</div>
@@ -99,7 +99,7 @@ export default function SeaToursHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-cyan-900 via-blue-900 to-indigo-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🌊 Sea & Water Adventures</h1>
           <p className="text-cyan-200 mb-4">Snorkeling, sailing, fishing, and diving</p>
@@ -126,9 +126,9 @@ export default function SeaToursHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/10] bg-surface-secondary animate-pulse" />
                 <div className="p-4"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>
@@ -137,7 +137,7 @@ export default function SeaToursHubPage() {
         ) : tours.length === 0 ? (
           <EmptyState emoji="🌊" title="No sea tours found" message="Check back later for water adventure listings." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {tours.map((tour) => <SeaCard key={tour.id} tour={tour} />)}
           </div>
         )}

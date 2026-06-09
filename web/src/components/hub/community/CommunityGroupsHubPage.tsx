@@ -16,11 +16,11 @@ function GroupCard({ group }: { group: Group }) {
   const name = group.name || 'Group';
   return (
     <Link href={`/hub/community/groups/${group.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary p-5 hover:border-accent-500/30 hover:shadow-lg transition-all">
-        <div className="flex items-start gap-3">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-2xl shrink-0">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary p-3 hover:border-accent-500/30 hover:shadow-md transition-all">
+        <div className="flex items-start gap-2.5">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-xl shrink-0">
             {group.image_url ? (
-              <img src={group.image_url} alt={name} className="w-full h-full object-cover rounded-2xl" loading="lazy" />
+              <img src={group.image_url} alt={name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
             ) : (
               '👥'
             )}
@@ -53,7 +53,7 @@ export default function CommunityGroupsHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 py-16 px-4">
+      <section className="bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 py-6 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-black text-white mb-3">
             👥 Community Groups
@@ -68,11 +68,11 @@ export default function CommunityGroupsHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary p-5">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary p-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl bg-surface-secondary animate-pulse" />
+                  <div className="w-12 h-12 rounded-xl bg-surface-secondary animate-pulse" />
                   <div className="flex-1"><div className="h-4 bg-surface-secondary rounded animate-pulse w-1/2" /></div>
                 </div>
               </div>
@@ -81,7 +81,7 @@ export default function CommunityGroupsHubPage() {
         ) : groups.length === 0 ? (
           <EmptyState emoji="👥" title="No groups yet" message="Start a group and bring the community together!" />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
             {groups.map((g) => <GroupCard key={g.id} group={g} />)}
           </div>
         )}

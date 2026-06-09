@@ -17,7 +17,7 @@ function ArtisanCard({ product }: { product: ArtisanProduct }) {
   const price = product.price || 24;
   return (
     <Link href={`/hub/products/specialty/${product.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-square bg-gradient-to-br from-violet-800 to-purple-900">
           {img ? <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" /> : (
             <div className="w-full h-full flex items-center justify-center text-4xl">🎨</div>
@@ -83,7 +83,7 @@ export default function SpecialtyHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🎨 Artisan & Specialty Goods</h1>
           <p className="text-violet-200 mb-4">Handcrafted products made in the Caribbean</p>
@@ -112,7 +112,7 @@ export default function SpecialtyHubPage() {
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-square bg-surface-secondary animate-pulse" />
                 <div className="p-3"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>

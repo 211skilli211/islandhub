@@ -15,7 +15,7 @@ function EventCard({ provider }: { provider: EventServiceProvider }) {
   const name = provider.name || 'Event Provider';
   return (
     <Link href={`/hub/services/events/${provider.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/9] bg-gradient-to-br from-violet-800 to-purple-900">
           <div className="w-full h-full flex items-center justify-center text-4xl">🎉</div>
           {provider.portfolio_size && (
@@ -78,7 +78,7 @@ export default function EventServicesHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🎉 Event Services</h1>
           <p className="text-violet-200 mb-4">Catering, planning, and entertainment</p>
@@ -106,9 +106,9 @@ export default function EventServicesHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/9] bg-surface-secondary animate-pulse" />
                 <div className="p-4"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>
@@ -117,7 +117,7 @@ export default function EventServicesHubPage() {
         ) : providers.length === 0 ? (
           <EmptyState emoji="🎉" title="No event services found" message="Check back later for event service listings." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {providers.map((p) => <EventCard key={p.id} provider={p} />)}
           </div>
         )}

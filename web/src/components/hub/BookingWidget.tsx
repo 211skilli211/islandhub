@@ -176,7 +176,7 @@ export default function BookingWidget({
   }, [type, grandTotal]);
 
   return (
-    <div className={`bg-surface-elevated rounded-2xl border border-border-primary p-5 space-y-4 ${className}`}>
+    <div className={`bg-surface-elevated rounded-xl border border-border-primary p-3 space-y-4 ${className}`}>
       {/* Price + Rating */}
       <div className="flex items-end justify-between">
         <PriceTag price={pricePerUnit} suffix={unitLabel} size="lg" />

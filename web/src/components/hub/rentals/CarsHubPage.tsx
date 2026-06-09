@@ -26,7 +26,7 @@ function CarCard({ car, index }: { car: CarListing; index: number }) {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
       <Link href={`/hub/rentals/cars/${car.slug}`} className="block group">
-        <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+        <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
           {/* Image */}
           <div className="relative aspect-[16/10] bg-surface-secondary">
             {car.image_url ? (
@@ -127,7 +127,7 @@ export default function CarsHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-sky-900 via-blue-900 to-indigo-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-sky-900 via-blue-900 to-indigo-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">🚗 Car Rentals</h1>
           <p className="text-sky-200 mb-4">Rent a car and explore the island at your own pace</p>
@@ -149,9 +149,9 @@ export default function CarsHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/10] bg-surface-secondary animate-pulse" />
                 <div className="p-4 space-y-2">
                   <div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" />
@@ -163,7 +163,7 @@ export default function CarsHubPage() {
         ) : cars.length === 0 ? (
           <EmptyState emoji="🚗" title="No cars available" message="Check back later for new car rentals." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {cars.map((car, i) => <CarCard key={car.store_id || car.id} car={car} index={i} />)}
           </div>
         )}

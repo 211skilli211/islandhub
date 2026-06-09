@@ -27,7 +27,7 @@ export default function RentalsGatewayPage() {
   return (
     <div className="min-h-screen bg-surface-primary">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-16 px-4">
+      <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-6 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

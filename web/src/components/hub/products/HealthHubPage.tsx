@@ -18,7 +18,7 @@ function HealthCard({ product }: { product: HealthProduct }) {
   const price = product.price || 18;
   return (
     <Link href={`/hub/products/health/${product.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-square bg-gradient-to-br from-teal-800 to-emerald-900">
           {img ? <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" /> : (
             <div className="w-full h-full flex items-center justify-center text-4xl">💊</div>
@@ -82,7 +82,7 @@ export default function HealthHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-teal-900 via-emerald-900 to-green-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-teal-900 via-emerald-900 to-green-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">💊 Health & Beauty</h1>
           <p className="text-teal-200 mb-4">Wellness, supplements, and self-care</p>
@@ -111,7 +111,7 @@ export default function HealthHubPage() {
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-square bg-surface-secondary animate-pulse" />
                 <div className="p-3"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>

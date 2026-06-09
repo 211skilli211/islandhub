@@ -17,7 +17,7 @@ function BeautyCard({ provider }: { provider: BeautyProvider }) {
   const name = provider.name || 'Provider';
   return (
     <Link href={`/hub/services/health/${provider.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
+      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/9] bg-gradient-to-br from-pink-800 to-rose-900">
           <div className="w-full h-full flex items-center justify-center text-4xl">💆</div>
         </div>
@@ -86,7 +86,7 @@ export default function BeautyServicesHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-pink-900 via-rose-900 to-fuchsia-900 py-12 px-4">
+      <section className="bg-gradient-to-br from-pink-900 via-rose-900 to-fuchsia-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">💆 Health & Beauty Services</h1>
           <p className="text-pink-200 mb-4">Spa, salon, and wellness treatments</p>
@@ -114,9 +114,9 @@ export default function BeautyServicesHubPage() {
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
+              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
                 <div className="aspect-[16/9] bg-surface-secondary animate-pulse" />
                 <div className="p-4"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
               </div>
@@ -125,7 +125,7 @@ export default function BeautyServicesHubPage() {
         ) : providers.length === 0 ? (
           <EmptyState emoji="💆" title="No beauty services found" message="Check back later for spa and salon listings." />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {providers.map((p) => <BeautyCard key={p.id} provider={p} />)}
           </div>
         )}
