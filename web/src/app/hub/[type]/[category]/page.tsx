@@ -1,20 +1,22 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import ShopsHubPage from '@/components/hub/products/ShopsHubPage';
-import SpecialtyHubPage from '@/components/hub/products/SpecialtyHubPage';
-import FashionHubPage from '@/components/hub/products/FashionHubPage';
-import HealthHubPage from '@/components/hub/products/HealthHubPage';
+import ProfessionalServicesHubPage from '@/components/hub/services/ProfessionalServicesHubPage';
+import AutomotiveServicesHubPage from '@/components/hub/services/AutomotiveServicesHubPage';
+import BeautyServicesHubPage from '@/components/hub/services/BeautyServicesHubPage';
+import MarineServicesHubPage from '@/components/hub/services/MarineServicesHubPage';
+import EventServicesHubPage from '@/components/hub/services/EventServicesHubPage';
 
-export default function ProductsCategoryPage() {
+export default function ServicesCategoryPage() {
   const params = useParams();
   const category = params?.category as string;
 
   switch (category) {
-    case 'shop': case 'shops': return <ShopsHubPage />;
-    case 'specialty': return <SpecialtyHubPage />;
-    case 'fashion': return <FashionHubPage />;
-    case 'health': return <HealthHubPage />;
-    default: return <ShopsHubPage />;
+    case 'professional': return <ProfessionalServicesHubPage />;
+    case 'automotive': return <AutomotiveServicesHubPage />;
+    case 'health': case 'beauty': return <BeautyServicesHubPage />;
+    case 'marine': return <MarineServicesHubPage />;
+    case 'events': case 'event': return <EventServicesHubPage />;
+    default: return <ProfessionalServicesHubPage />;
   }
 }
