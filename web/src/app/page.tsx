@@ -1,8 +1,6 @@
 'use client';
 
-import { RecentlyViewedSection, BackToTop } from '@/components/ui/RecentlyViewed';
-import { ShimmerGrid } from '@/components/ui/ShimmerCard';
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
@@ -17,637 +15,268 @@ import RequestServicesSection from '@/components/RequestServicesSection';
 import AdSpace from '@/components/advertising/AdSpace';
 import IslandPulse from '@/components/IslandPulse';
 import BrandMarquee from '@/components/BrandMarquee';
-// Theme-aware classes helper
-import {
-  getBgClass,
-  getTextClass,
-  getBorderClass,
-  getCardBaseClasses,
-  getButtonClasses,
-  getLinkClasses,
-  getShadowClass,
-  cnTheme
-} from '@/lib/theme-helpers';
+import { ProductCard, CarouselSection, ContentSection } from '@/components/hub/ListingCard';
+import { HeroSlider, DealCard, CategoryTiles } from '@/components/hub/MarketplaceSections';
 
 export default function Home() {
   const { user } = useAuthStore();
 
+  const { data: campaignsData, isLoading: campaignsLoading } = useCampaigns(true);
+  const { data: toursData, isLoading: toursLoading } = useListings({ category: 'tour', sub_category: 'culture,land,sea,rail,adventure,charter', featured: true, limit: 10 });
+  const { data: rentalsData, isLoading: rentalsLoading } = useListings({ category: 'rental', sub_category: 'Apartment,Stays,Car,Boat,Yacht,Gear,Land,Sea', limit: 20 });
+  const { data: shopsData, isLoading: shopsLoading } = useListings({ category: 'product', featured: true, limit: 8 });
 
-  // --- SWR Hooks for Data Fetching with Caching & Deduplication ---
-  const { data: campaignsData, isLoading: campaignsLoading } = useCampaigns(true); // featured=true
-
-  // Signature Experiences (Tours)
-  const { data: toursData, isLoading: toursLoading } = useListings({
-    category: 'tour',
-    sub_category: 'culture,land,sea,rail,adventure,charter',
-    featured: true,
-    limit: 10
-  });
-
-  // Diverse Rentals (Excluding Tools & Equipment)
-  const { data: rentalsData, isLoading: rentalsLoading } = useListings({
-    category: 'rental',
-    sub_category: 'Apartment,Stays,Car,Boat,Yacht,Gear,Land,Sea',
-    limit: 20
-  });
-
-  // Marketplace category counts — fetched from API
-  const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
-  const [subscriptionTiers, setSubscriptionTiers] = useState<{ vip: number; vendor: number }>({ vip: 15, vendor: 99 });
-
-  // Note: Promo Banners and Home Sections would ideally have their own SWR hooks.
-  // For now, keeping them in a useEffect until their hooks are created.
   const [promoBanners, setPromoBanners] = useState<any[]>([]);
-  const [homeSections, setHomeSections] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchAdditionalData = async () => {
-      try {
-        const [bannersRes, homeSectionsRes, countsRes, tiersRes] = await Promise.all([
-          api.get('/promotions/active?location=home_hero'),
-          api.get('/homepage'),
-          api.get('/stats/categories').catch(() => null),
-          api.get('/config/subscription-tiers').catch(() => null),
-        ]);
-        setPromoBanners(bannersRes.data);
-        setHomeSections(homeSectionsRes.data || []);
-        if (countsRes?.data) setCategoryCounts(countsRes.data);
-        if (tiersRes?.data) setSubscriptionTiers(tiersRes.data);
-      } catch (error) {
-        console.error('Failed to fetch additional home data', error);
-      }
-    };
-    fetchAdditionalData();
+    api.get('/promotions/active?location=home_hero').then(res => setPromoBanners(res.data)).catch(() => {});
   }, []);
 
-
-  // Helper to extract listings array from API response (handles both { listings: [] } and [] formats)
   const extractListings = (data: any) => {
     if (!data) return [];
     return Array.isArray(data) ? data : data.listings || [];
   };
 
-  // --- Memoized Calculations ---
-  const featuredCampaigns = useMemo(() => {
-    const data = extractListings(campaignsData);
-    return data.slice(0, 3);
-  }, [campaignsData]);
-
-  const featuredTours = useMemo(() => {
-    const data = extractListings(toursData);
-    return data.slice(0, 3);
-  }, [toursData]);
+  const featuredCampaigns = useMemo(() => extractListings(campaignsData).slice(0, 4), [campaignsData]);
+  const featuredTours = useMemo(() => extractListings(toursData).slice(0, 4), [toursData]);
+  const featuredShops = useMemo(() => extractListings(shopsData), [shopsData]);
 
   const diverseFeaturedRentals = useMemo(() => {
-    const allRentals = extractListings(rentalsData);
-    if (allRentals.length === 0) return [];
-
-    // Prioritize variety: Try to get one of each sub_category first
-    const types = ['Apartment', 'Stays', 'Car', 'Boat', 'Yacht', 'Land', 'Sea', 'Gear'];
+    const all = extractListings(rentalsData);
+    if (!all.length) return [];
     const diverse: any[] = [];
-    const seenTypes = new Set();
-
-    // 1. First pass: Unique types (up to 6)
-    allRentals.forEach((r: any) => {
-      const subCat = r.sub_category?.toLowerCase() || '';
-      if (!seenTypes.has(subCat) && diverse.length < 6) {
-        diverse.push(r);
-        seenTypes.add(subCat);
-      }
+    const seen = new Set();
+    all.forEach((r: any) => {
+      const sub = r.sub_category?.toLowerCase() || '';
+      if (!seen.has(sub) && diverse.length < 4) { diverse.push(r); seen.add(sub); }
     });
-
-    // 2. Second pass: Fill up to 6 with whatever is available
-    if (diverse.length < 6) {
-      allRentals.forEach((r: any) => {
-        if (!diverse.find(d => d.id === r.id) && diverse.length < 6) {
-          diverse.push(r);
-        }
-      });
-    }
-
+    if (diverse.length < 4) all.forEach((r: any) => { if (!diverse.find(d => d.id === r.id) && diverse.length < 4) diverse.push(r); });
     return diverse;
   }, [rentalsData]);
 
-  const loading = useMemo(() => {
-    return campaignsLoading || toursLoading || rentalsLoading;
-  }, [campaignsLoading, toursLoading, rentalsLoading]);
+  const loading = campaignsLoading || toursLoading || rentalsLoading;
 
+  // Hero slides from API or defaults
+  const heroSlides = useMemo(() => {
+    if (promoBanners?.length > 0) {
+      return promoBanners.slice(0, 3).map((b: any) => ({
+        id: b.id || Math.random().toString(),
+        badge: b.badge,
+        headline: b.headline || b.title,
+        subheadline: b.subheadline || b.description,
+        ctaText: b.cta_text || 'Shop Now',
+        ctaHref: b.cta_link || b.link || '/hub',
+        gradient: b.gradient || 'from-teal-700 via-cyan-800 to-teal-900',
+      }));
+    }
+    return [
+      { id: 's1', badge: 'IslandHub', headline: 'The Caribbean Commerce Hub', subheadline: 'Connected directly to local artisans, restaurants, and community causes. Support the islands with every purchase.', ctaText: 'Browse Marketplace', ctaHref: '/hub', gradient: 'from-teal-700 via-cyan-800 to-teal-900' },
+      { id: 's2', headline: 'Discover Local Experiences', subheadline: 'From volcano treks to scenic railway journeys. Discover the best curated adventures across St. Kitts & Nevis.', ctaText: 'Explore Tours', ctaHref: '/hub/tours', gradient: 'from-emerald-700 via-teal-800 to-cyan-900' },
+      { id: 's3', headline: 'Premium Island Living', subheadline: 'From luxury villas to high-performance vehicles and private yachts. Rent the best the islands have to offer.', ctaText: 'View Rentals', ctaHref: '/hub/rentals', gradient: 'from-amber-700 via-orange-800 to-amber-900' },
+    ];
+  }, [promoBanners]);
 
+  const categoryTiles = [
+    { id: 'food', label: 'Food & Dining', emoji: '🍽️', href: '/hub/food' },
+    { id: 'products', label: 'Shopping', emoji: '🛍️', href: '/hub/products' },
+    { id: 'services', label: 'Services', emoji: '🛠️', href: '/hub/services' },
+    { id: 'rentals', label: 'Rentals', emoji: '🏠', href: '/hub/rentals' },
+    { id: 'tours', label: 'Tours', emoji: '🗺️', href: '/hub/tours' },
+    { id: 'transport', label: 'Transport', emoji: '🚕', href: '/hub/transport' },
+    { id: 'events', label: 'Events', emoji: '🎫', href: '/hub/events' },
+    { id: 'campaigns', label: 'Campaigns', emoji: '❤️', href: '/hub/campaigns' },
+    { id: 'community', label: 'Community', emoji: '🌴', href: '/hub/community' },
+  ];
 
   return (
-    <main className={cnTheme('min-h-screen theme-transition', getBgClass('primary'))}>
-      <HeroBackground
-        pageKey="home"
-        align="center"
-      >
-        <section className="relative py-12 md:py-24 px-4 overflow-hidden">
-          <div className="max-w-7xl mx-auto relative z-10 text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-block px-4 py-2 bg-surface-elevated/5 backdrop-blur-xl border border-white/10 rounded-full text-accent-400 text-[10px] font-black uppercase tracking-[0.3em] mb-10"
-            >
-              🏝 Welcome to the Heart of the Islands
-            </motion.div>
+    <main className="min-h-screen bg-surface-primary">
 
-            {/* Dynamic Ad Space (Site-wide Banners) */}
-            <AdSpace
-              spaceName="homepage_hero"
-              className="max-w-4xl mx-auto mb-12 h-20 md:h-24"
-              autoRotate={true}
-            />
+      {/* ═══ HERO SLIDER (Best Buy style) ═══ */}
+      <HeroBackground pageKey="home" align="center">
+        <section className="relative py-8 md:py-16 px-4 overflow-hidden">
+          <div className="max-w-7xl mx-auto relative z-10">
+            {/* Hero carousel */}
+            <HeroSlider slides={heroSlides} autoPlay autoPlayInterval={6000} className="mb-6 md:mb-8" />
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[0.95] md:leading-[0.9]"
-            >
-              The Caribbean <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-emerald-400 to-accent-200">Commerce Hub</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-accent-50 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed opacity-80"
-            >
-              Connected directly to local artisans, restaurants, and community causes.
-              Support the islands with every purchase.
-            </motion.p>
-
-            {/* Smart Search Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="max-w-3xl mx-auto relative group mb-12"
-            >
+            {/* Smart Search */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="max-w-3xl mx-auto relative mb-6">
               <SmartSearch />
             </motion.div>
 
-            {/* Quick Landing Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-wrap justify-center gap-4"
-            >
-              <Link href="/listings" className={cnTheme(getButtonClasses('primary'))}>
+            {/* Quick CTAs */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex flex-wrap justify-center gap-3">
+              <Link href="/hub" className="px-5 py-2.5 bg-white text-teal-900 text-sm font-bold rounded-xl hover:bg-white/90 transition-colors">
                 Browse Marketplace 🛒
               </Link>
-              <Link href="/community" className={cnTheme(getButtonClasses('outline'), 'text-white border-white/20 hover:bg-surface-elevated/10')}>
-                Join Community 🏝
+              <Link href="/hub/community" className="px-5 py-2.5 text-white text-sm font-bold rounded-xl border border-white/20 hover:bg-white/10 transition-colors">
+                Join Community 🏝️
               </Link>
             </motion.div>
           </div>
         </section>
       </HeroBackground>
 
-
-      {/* Request Services Section - Taxi, Food, Delivery */}
+      {/* ═══ REQUEST SERVICES ═══ */}
       <RequestServicesSection />
 
-      {/* Interstitial Ad Space */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
-        <AdSpace
-          spaceName="homepage_interstitial"
-          className="h-32 md:h-48 rounded-4xl overflow-hidden border-4 border-surface-elevated shadow-2xl"
-        />
-      </div>
-
-      {/* Marketplace Section - Using theme-aware classes */}
-      <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBgClass('secondary'))}>
-        <div className={cnTheme(getCardBaseClasses(false), 'p-8 md:p-24 rounded-[3rem] md:rounded-[4rem] relative overflow-hidden group', getShadowClass('lg'))}>
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-accent-500/10 transition-colors duration-1000" />
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="inline-block px-4 py-1.5 bg-(--accent-primary)/10 text-(--accent-primary) rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-                🛍️ The Island Market
-              </div>
-              <h2 className={cnTheme('text-4xl md:text-6xl font-black mb-8 tracking-tighter leading-tight italic', getTextClass('primary'))}>
-                The ultimate hub for <br />
-                <span className="text-(--accent-primary)">Local Commerce.</span>
-              </h2>
-              <p className={cnTheme('text-xl mb-12 leading-relaxed italic', getTextClass('secondary'))}>
-                From fresh island produce to boutique fashion and professional services. Explore the best of what our community has to offer.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/listings" className={cnTheme(getButtonClasses('primary'), 'text-center')}>
-                  Enter Marketplace
-                </Link>
-                <Link href="/become-vendor" className={cnTheme(getButtonClasses('outline'), getBorderClass('primary'))}>
-                  Open Your Store/Host
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                { label: 'Fresh Food', count: categoryCounts.food ?? 0, icon: '🍴', href: '/food' },
-                { label: 'Local Brands/Hosts', count: categoryCounts.product ?? 0, icon: '📦', href: '/products' },
-                { label: 'Rentals', count: categoryCounts.rental ?? 0, icon: '🏠', href: '/rentals' },
-                { label: 'Services', count: categoryCounts.service ?? 0, icon: '🛠️', href: '/services' }
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={cnTheme(
-                    getCardBaseClasses(true),
-                    'hover:shadow-xl hover:-translate-y-2',
-                    getBorderClass('primary'),
-                    'hover:border-(--accent-primary)/30',
-                    'theme-transition group/tile'
-                  )}
-                >
-                  <span className="text-3xl mb-4 block group-hover/tile:scale-110 transition-transform">{item.icon}</span>
-                  <h4 className={cnTheme('text-2xl font-black leading-none mb-1', getTextClass('primary'))}>{item.count}</h4>
-                  <p className={cnTheme('text-[10px] font-black uppercase tracking-widest theme-transition', getTextClass('tertiary'), 'group-hover/tile:text-(--accent-primary)')}>{item.label}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
+      {/* ═══ SHOP BY CATEGORY TILES (3-col mobile) ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <CategoryTiles title="Shop by Category" tiles={categoryTiles} columns={3} />
       </section>
 
-      {/* IBT Solutions Section */}
-      <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBgClass('secondary'))}>
-        <div className={cnTheme(getCardBaseClasses(false), 'p-8 md:p-16 rounded-[3rem] md:rounded-[4rem] relative overflow-hidden', getShadowClass('lg'))}>
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-block px-4 py-1.5 bg-accent-500/10 text-accent-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-                💼 Business Solutions
+      {/* ═══ TRENDING / FEATURED SHOPS (horizontal carousel) ═══ */}
+      {!shopsLoading && featuredShops.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4">
+          <CarouselSection title="🔥 Featured Shops" seeMoreHref="/hub/products">
+            {featuredShops.map((shop: any) => (
+              <div key={shop.id} className="shrink-0 w-[150px]">
+                <ProductCard
+                  id={shop.id}
+                  name={shop.name || shop.business_name || 'Shop'}
+                  slug={shop.slug}
+                  imageUrl={shop.banner_url || shop.image_url}
+                  emoji="🏪"
+                  rating={shop.rating}
+                  href={`/hub/products/shops/${shop.slug}`}
+                  variant="store"
+                />
               </div>
-              <h2 className={cnTheme('text-4xl md:text-5xl font-black mb-6 tracking-tighter leading-tight italic', getTextClass('primary'))}>
-                IBT <span className="text-accent-400">Solutions</span>
-              </h2>
-              <p className={cnTheme('text-lg mb-8 leading-relaxed', getTextClass('secondary'))}>
-                AI-powered digital employees, web development, business automation, and a growing co-operative federation — everything your Caribbean business needs to compete.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/store/ibt-solutions" className={cnTheme(getButtonClasses('primary'), 'text-center')}>
-                  Explore Services →
-                </Link>
-                <Link href="/store/ibt-solutions/coops" className={cnTheme(getButtonClasses('outline'), 'text-center')}>
-                  Join Co-ops 🤝
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: '🤖', title: 'AI Employees', desc: '24/7 digital workforce', slug: 'ai-digital-employees' },
-                { icon: '💻', title: 'Web & App Design', desc: 'Custom development', slug: 'web-app-design' },
-                { icon: '⚙️', title: 'Automation', desc: 'Streamline operations', slug: 'business-automation' },
-                { icon: '🤝', title: 'Co-ops', desc: 'Join the federation', slug: 'coops' },
-              ].map((item) => (
-                <Link
-                  key={item.slug}
-                  href={item.slug === 'coops' ? '/store/ibt-solutions/coops' : `/store/ibt-solutions/services/${item.slug}`}
-                  className={cnTheme(getCardBaseClasses(true), 'hover:shadow-lg hover:-translate-y-1 text-center group')}
-                >
-                  <span className="text-3xl mb-3 block group-hover:scale-110 transition-transform">{item.icon}</span>
-                  <h4 className={cnTheme('text-sm font-black mb-1', getTextClass('primary'))}>{item.title}</h4>
-                  <p className={cnTheme('text-[10px] font-bold uppercase tracking-widest', getTextClass('tertiary'))}>{item.desc}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Campaigns */}
-      <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBorderClass('primary'))}>
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-4xl">❤️</span>
-              <h2 className={cnTheme('text-4xl md:text-5xl font-black tracking-tight', getTextClass('primary'))}>Active Campaigns</h2>
-            </div>
-            <p className={cnTheme('font-medium max-w-xl', getTextClass('secondary'))}>
-              Be part of something bigger. Support community-led projects that are making a real difference across the islands.
-            </p>
-          </div>
-          <Link href="/campaigns" className={cnTheme(getButtonClasses('primary'))}>
-            View All Campaigns <span>→</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-          <div className="lg:col-span-3">
-            {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className={cnTheme('h-96 animate-pulse rounded-[2.5rem]', getBgClass('secondary'), getBorderClass('primary'))} />
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {featuredCampaigns.map((campaign: any, idx: number) => (
-                  <motion.div
-                    key={campaign.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                  >
-                    <ListingCard listing={campaign} />
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="lg:col-span-1">
-            <IslandPulse />
-          </div>
-        </div>
-      </section>
-
-      {/* Signature Experiences (Tours) */}
-      <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 theme-transition', getBorderClass('primary'), getBgClass('secondary'))}>
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-4xl">🗺️</span>
-              <h2 className={cnTheme('text-4xl md:text-5xl font-black tracking-tight', getTextClass('primary'))}>Signature Experiences</h2>
-            </div>
-            <p className={cnTheme('font-medium max-w-xl', getTextClass('secondary'))}>
-              From volcano treks to scenic railway journeys. Discover the best curated adventures across St. Kitts & Nevis.
-            </p>
-          </div>
-          <Link href="/tours" className={cnTheme(getButtonClasses('primary'), 'bg-sand-500 hover:bg-sand-600')}>
-            Explore All Tours <span>→</span>
-          </Link>
-        </div>
-
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => (
-              <div key={i} className={cnTheme('h-96 animate-pulse rounded-[2.5rem]', getBgClass('primary'), getBorderClass('primary'))} />
             ))}
+          </CarouselSection>
+        </section>
+      )}
+
+      {/* ═══ HOT DEALS (2-col DealCard grid) ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <ContentSection title="🏷️ Hot Deals" seeMoreHref="/hub/products">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <DealCard emoji="📱" offerText="Save on electronics & gadgets" description="Latest phones, tablets, and accessories" ctaText="Shop now" ctaHref="/hub/products/shops" />
+            <DealCard emoji="👗" offerText="Fashion & accessories sale" description="Caribbean style at up to 40% off" ctaText="Shop now" ctaHref="/hub/products/fashion" />
+            <DealCard emoji="🏠" offerText="Vacation rental deals" description="Early booking discounts on island stays" ctaText="View deals" ctaHref="/hub/rentals/stays" />
+            <DealCard emoji="🗺️" offerText="Tour bundle offers" description="Book 2 tours and save 15%" ctaText="Explore" ctaHref="/hub/tours" />
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredTours.length > 0 ? (
-              featuredTours.map((tour: any, idx: number) => (
-                <motion.div
-                  key={tour.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <ListingCard listing={tour} />
-                </motion.div>
-              ))
-            ) : (
-              <div className={cnTheme('col-span-3 py-20 text-center rounded-[3rem] border-2 border-dashed', getBorderClass('primary'), getBgClass('primary'))}>
-                <p className={cnTheme('italic', getTextClass('tertiary'))}>
-                  Premium experiences coming soon to this section.
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+        </ContentSection>
       </section>
 
-      {/* Brand Marquee - Featured Brands */}
+      {/* ═══ BRAND MARQUEE ═══ */}
       <BrandMarquee type="brand" />
 
-      {/* Island Rentals Section */}
-      <section className={cnTheme('max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32 theme-transition', getBorderClass('primary'))}>
-        <div className="relative mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-10">
-            <div>
-              <div className={cnTheme('inline-flex items-center gap-3 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-6', getBgClass('tertiary'), getTextClass('primary'))}>
-                🏝️ Premium Experiences
-              </div>
-              <h2 className={cnTheme('text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6 italic', getTextClass('primary'))}>
-                Your Island <br />
-                <span className={cnTheme('font-medium tracking-normal not-italic', getTextClass('primary'))}>Journey Starts Here</span>
-              </h2>
-              <p className={cnTheme('text-xl font-medium max-w-xl leading-relaxed', getTextClass('secondary'))}>
-                From luxury villas to high-performance vehicles and private yachts. Rent the best the islands have to offer.
-              </p>
+      {/* ═══ FEATURED CAMPAIGNS (2-col mobile) ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <ContentSection title="❤️ Active Campaigns" seeMoreHref="/hub/campaigns">
+          {loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {[1,2,3,4].map(i => <div key={i} className="h-64 bg-surface-secondary rounded-xl animate-pulse" />)}
             </div>
-            <Link href="/rentals" className={cnTheme(getButtonClasses('primary'), 'bg-brand-500 hover:bg-brand-600 flex items-center gap-3')}>
-              View All Rentals <span className="text-xl">→</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Featured Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {diverseFeaturedRentals.map((item: any) => (
-            <motion.div
-              key={item.id}
-              whileHover={{ y: -10 }}
-              className={cnTheme(
-                getCardBaseClasses(false),
-                'overflow-hidden flex flex-col group',
-                getShadowClass('lg'),
-                'theme-transition'
-              )}
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={getImageUrl(
-                    (Array.isArray(item.photos) && item.photos.length > 0) ? item.photos[0] :
-                      (Array.isArray(item.images) && item.images.length > 0) ? item.images[0] :
-                        item.image_url || item.image || '/assets/placeholder-listing.png'
-                  )}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  alt={item.title}
-                />
-                <div className={cnTheme('absolute top-4 right-4 backdrop-blur px-4 py-2 rounded-2xl font-black shadow-xl', getBgClass('primary'), getTextClass('primary'))}>
-                  <p className={cnTheme('text-[10px] uppercase tracking-widest opacity-60 leading-none mb-1', getTextClass('tertiary'))}>From</p>
-                  <p className="text-xl leading-none italic">${item.price}<span className={cnTheme('text-[10px] font-bold not-italic ml-1', getTextClass('tertiary'))}>
-                    {item.sub_category === 'stays' ? '/night' : item.sub_category === 'land' ? '/day' : '/trip'}
-                  </span></p>
-                </div>
-              </div>
-              <div className={cnTheme('p-8 pb-10 flex-1 flex flex-col items-center text-center theme-transition', getBgClass('primary'))}>
-                <h3 className={cnTheme('text-2xl font-black mb-6 tracking-tight italic uppercase', getTextClass('primary'))}>{item.title}</h3>
-                <Link
-                  href={`/listings/${item.id}`}
-                  className={cnTheme(getButtonClasses('primary'), 'w-full')}
-                >
-                  Book Now ➔
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {featuredCampaigns.map((campaign: any) => (
+                <motion.div key={campaign.id} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                  <ListingCard listing={campaign} />
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </ContentSection>
       </section>
 
-      {/* Vendor Spotlight */}
-      <section className={cnTheme('py-12 theme-transition', getBgClass('secondary'))}>
+      {/* ═══ SIGNATURE EXPERIENCES / TOURS (2-col mobile) ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6 bg-surface-secondary/50">
+        <ContentSection title="🗺️ Signature Experiences" seeMoreHref="/hub/tours">
+          {loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {[1,2,3,4].map(i => <div key={i} className="h-64 bg-surface-secondary rounded-xl animate-pulse" />)}
+            </div>
+          ) : featuredTours.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {featuredTours.map((tour: any) => (
+                <motion.div key={tour.id} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                  <ListingCard listing={tour} />
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-surface-elevated rounded-2xl border-2 border-dashed border-border-primary">
+              <p className="text-ink-tertiary italic">Premium experiences coming soon.</p>
+            </div>
+          )}
+        </ContentSection>
+      </section>
+
+      {/* ═══ ISLAND RENTALS (2-col mobile, compact cards) ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <ContentSection title="🏠 Island Rentals" subtitle="From villas, cars, to boats" seeMoreHref="/hub/rentals">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {diverseFeaturedRentals.map((item: any) => (
+              <motion.div key={item.id} whileHover={{ y: -4 }}>
+                <Link href={`/hub/rentals/stays/${item.slug || item.id}`} className="block group">
+                  <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 transition-all">
+                    <div className="relative aspect-square bg-surface-secondary">
+                      <img
+                        src={getImageUrl((Array.isArray(item.photos) && item.photos[0]) ? item.photos[0] : (Array.isArray(item.images) && item.images[0]) ? item.images[0] : item.image_url || '/assets/placeholder-listing.png')}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute bottom-2 left-2 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-lg">
+                        <span className="text-xs font-bold text-ink-primary">${item.price}</span>
+                        <span className="text-[9px] text-ink-tertiary ml-0.5">
+                          {item.sub_category === 'stays' ? '/night' : item.sub_category === 'car' ? '/day' : item.sub_category === 'boat' || item.sub_category === 'sea' ? '/trip' : '/day'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-2.5">
+                      <h3 className="text-xs font-bold text-ink-primary group-hover:text-accent-500 line-clamp-2 leading-tight">{item.title}</h3>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </ContentSection>
+      </section>
+
+      {/* ═══ IBT SOLUTIONS (compact 2-col cards) ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <ContentSection title="💼 Business Solutions" subtitle="AI, web, automation & co-ops" seeMoreHref="/hub/services">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { icon: '🤖', title: 'AI Employees', desc: '24/7 digital workforce', href: '/hub/services/professional' },
+              { icon: '💻', title: 'Web & App Design', desc: 'Custom development', href: '/hub/services/professional' },
+              { icon: '⚙️', title: 'Automation', desc: 'Streamline operations', href: '/hub/services/professional' },
+              { icon: '🤝', title: 'Co-ops', desc: 'Join the federation', href: '/store/ibt-solutions/coops' },
+            ].map((item) => (
+              <Link key={item.title} href={item.href} className="group bg-surface-elevated rounded-xl border border-border-primary p-4 text-center hover:border-accent-500/30 transition-all">
+                <span className="text-2xl mb-2 block group-hover:scale-110 transition-transform">{item.icon}</span>
+                <h4 className="text-xs font-bold text-ink-primary mb-0.5">{item.title}</h4>
+                <p className="text-[9px] text-ink-tertiary uppercase tracking-wider">{item.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </ContentSection>
+      </section>
+
+      {/* ═══ VENDOR SPOTLIGHT ═══ */}
+      <section className="py-6 bg-surface-secondary/50">
         <VendorSpotlight />
       </section>
 
-      {/* Subscription Teaser Section */}
-      <section className={cnTheme('py-24 relative overflow-hidden theme-transition', getBgClass('primary'))}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className={cnTheme('inline-block px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-6', getBgClass('tertiary'), getTextClass('primary'))}
-            >
-              ⭐ Elevate Your Experience
-            </motion.div>
-            <h2 className={cnTheme('text-4xl md:text-6xl font-black mb-6 tracking-tight italic', getTextClass('primary'))}>
-              Exclusive              <span className="text-accent-400">Island Tiers</span>
-            </h2>
-            <p className={cnTheme('font-medium max-w-2xl mx-auto text-lg leading-relaxed', getTextClass('secondary'))}>
-              Unlock the full potential of IslandHub with our premium memberships.
-              Higher rewards, lower fees, and elite visibility.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {/* VIP Customer Teaser */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={cnTheme(
-                'group relative p-12 rounded-[3.5rem] overflow-hidden theme-transition',
-                getBgClass('secondary')
-              )}
-              style={{
-                background: 'linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(217,119,6,0.1) 100%)'
-              }}
-            >
-              <div className="relative z-10">
-                <span className="text-5xl mb-8 block">✨</span>
-                <h3 className={cnTheme('text-3xl font-black mb-4 tracking-tight', getTextClass('primary'))}>Island VIP Customer</h3>
-                <p className={cnTheme('mb-8 leading-relaxed', getTextClass('secondary'))}>
-                  Join the elite shoppers. Get 10% OFF every order, double reward points, and early access to limited edition island products.
-                </p>
-                <div className="flex items-center gap-2 mb-10">
-                  <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>${subscriptionTiers.vip}</span>
-                  <span className={cnTheme('font-bold uppercase tracking-widest text-[10px]', getTextClass('tertiary'))}>/ month</span>
-                </div>
-                <Link href="/pricing" className={cnTheme(getButtonClasses('primary'), 'bg-sand-500 hover:bg-sand-600 inline-flex items-center gap-3')}>
-                  Claim VIP Status <span>→</span>
-                </Link>
-              </div>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-sand-500/5 blur-[80px] rounded-full group-hover:bg-sand-500/10 transition-colors" />
-            </motion.div>
-
-            {/* Premium Vendor Teaser */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={cnTheme(
-                'group relative p-12 rounded-[3.5rem] overflow-hidden theme-transition',
-                getBgClass('secondary')
-              )}
-              style={{
-                background: 'linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(8,145,178,0.1) 100%)'
-              }}
-            >
-              <div className="relative z-10">
-                <span className="text-5xl mb-8 block">🛡️</span>
-                <h3 className={cnTheme('text-3xl font-black mb-4 tracking-tight', getTextClass('primary'))}>Premium Vendor</h3>
-                <p className={cnTheme('mb-8 leading-relaxed', getTextClass('secondary'))}>
-                  Scale your business with advanced analytics, custom branding, lower commission rates, and featured storefront visibility.
-                </p>
-                <div className="flex items-center gap-2 mb-10">
-                  <span className={cnTheme('text-4xl font-black', getTextClass('primary'))}>${subscriptionTiers.vendor}</span>
-                  <span className={cnTheme('font-bold uppercase tracking-widest text-[10px]', getTextClass('tertiary'))}>/ month</span>
-                </div>
-                <Link href="/pricing" className={cnTheme(getButtonClasses('primary'), 'inline-flex items-center gap-3')}>
-                  Upgrade Business <span>→</span>
-                </Link>
-              </div>
-              <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-500/5 blur-[80px] rounded-full group-hover:bg-accent-500/10 transition-colors" />
-            </motion.div>
-          </div>
-
-          <div className="mt-16 text-center">
-            <Link href="/pricing" className={cnTheme(getLinkClasses('secondary'), 'flex items-center justify-center gap-2')}>
-              View all available tiers and feature comparison <span>→</span>
-            </Link>
-          </div>
-        </div>
+      {/* ═══ RECOMMENDED FOR YOU ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <RecommendedForYou />
       </section>
 
-      {/* Dynamic Site Sections (Dynamic) */}
-      {homeSections.filter(s => s.section_type === 'homepage').map((section, idx) => (
-        <section key={section.id || idx} className={cnTheme('py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 theme-transition', getBgClass('primary'))}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className={cnTheme('bg-gradient-to-br rounded-[3rem] p-12 md:p-24 relative overflow-hidden theme-transition', getBgClass('secondary'))}
-            style={{
-              background: `linear-gradient(135deg, ${section.style_config?.from || 'var(--accent-primary)'}, ${section.style_config?.to || 'var(--success-primary)'})`
-            }}
-          >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-surface-elevated/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
-
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className={cnTheme('text-4xl md:text-6xl font-black mb-10 tracking-tighter leading-none italic uppercase', getTextClass('inverse'))}>
-                  {section.title}
-                </h2>
-                <p className={cnTheme('text-lg md:text-xl font-medium mb-12 leading-relaxed', getTextClass('inverse'), 'opacity-80')}>
-                  {section.body}
-                </p>
-
-                {/* Custom List Items if present */}
-                {section.list_items && section.list_items.length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
-                    {section.list_items.map((item: any, i: number) => (
-                      <div key={i} className="flex gap-4">
-                        <div className="text-2xl">{item.icon}</div>
-                        <div>
-                          <p className={cnTheme('font-black text-white text-lg', getTextClass('inverse'))}>{item.title}</p>
-                          <p className={cnTheme('text-xs font-bold uppercase tracking-widest', getTextClass('inverse'), 'opacity-60')}>{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.cta_text && (
-                  <Link href={section.cta_link || '#'} className="inline-flex items-center justify-center px-6 py-3 font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 theme-transition shadow-2xl bg-surface-elevated text-accent-500 hover:bg-surface-secondary focus:ring-accent-400">
-                    {section.cta_text}
-                  </Link>
-                )}
-              </div>
-              {section.image_url && (
-                <div className={cnTheme('relative aspect-square md:aspect-auto md:h-[500px] rounded-[3rem] overflow-hidden border-8 shadow-2xl group', getBorderClass('primary'))}>
-                  <img src={getImageUrl(section.image_url)} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000" alt="" />
-                </div>
-              )}
-            </div>
-          </motion.div>
-        </section>
-      ))}
-
-      {/* Recently Viewed */}
-      <RecentlyViewedSection />
-
-      {/* Final CTA */}
-      <section className={cnTheme('py-24 text-center theme-transition', getBgClass('primary'))}>
-        <h2 className={cnTheme('text-4xl font-black mb-6 tracking-tight', getTextClass('primary'))}>Ready to join the movement?</h2>
-        <div className="flex flex-col sm:flex-row justify-center gap-6">
-          <Link href="/register" className={getButtonClasses('primary')}>
-            Become a Vendor/Host
-          </Link>
-          <Link href="/register" className={cnTheme(getButtonClasses('outline'), getBorderClass('primary'))}>
-            Create an Account
-          </Link>
-        </div>
+      {/* ═══ ISLAND PULSE ═══ */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <IslandPulse />
       </section>
-      {/* Back to Top */}
-      <BackToTop />
+
+      {/* ═══ BACK TO TOP ═══ */}
+      <div className="max-w-7xl mx-auto px-4 pb-8 text-center">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-xs text-ink-tertiary hover:text-accent-500 transition-colors">
+          ↑ Back to top
+        </button>
+      </div>
     </main>
   );
 }
