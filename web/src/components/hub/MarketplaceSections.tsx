@@ -274,6 +274,7 @@ export function PromoCard({ imageUrl, emoji, headline, description, ctaText = 'E
 
 interface ContentSectionProps {
   title: string;
+  subtitle?: string;
   titleAlign?: 'left' | 'center';
   seeMoreHref?: string;
   seeMoreLabel?: string;
@@ -281,13 +282,14 @@ interface ContentSectionProps {
   className?: string;
 }
 
-export function ContentSection({ title, titleAlign = 'center', seeMoreHref, seeMoreLabel = 'See more', children, className = '' }: ContentSectionProps) {
+export function ContentSection({ title, subtitle, titleAlign = 'center', seeMoreHref, seeMoreLabel = 'See more', children, className = '' }: ContentSectionProps) {
   return (
     <section className={`py-5 ${className}`}>
-      <div className={`flex items-center justify-between mb-3 ${titleAlign === 'center' ? 'text-center' : ''}`}>
+      <div className={`mb-3 ${titleAlign === 'center' ? 'text-center' : ''}`}>
         <h2 className={`text-base font-bold text-ink-primary ${titleAlign === 'center' ? 'mx-auto' : ''}`}>{title}</h2>
+        {subtitle && <p className="text-xs text-ink-tertiary mt-0.5">{subtitle}</p>}
         {seeMoreHref && (
-          <Link href={seeMoreHref} className="text-xs font-medium text-accent-500 hover:text-accent-400 shrink-0">
+          <Link href={seeMoreHref} className="text-xs font-medium text-accent-500 hover:text-accent-400 shrink-0 mt-1 inline-block">
             {seeMoreLabel} →
           </Link>
         )}
