@@ -102,7 +102,7 @@ function RentalCard({ property: p, index }: { property: RentalProperty; index: n
 // ─── Rental Detail Page (Airbnb-style) ───────────────────────────────────────
 
 function RentalDetail({ property: p }: { property: RentalProperty }) {
-  const images = p.images?.length ? p.images : p.banner_url ? [getImageUrl(p.banner_url)] : [];
+  const images = (p.images?.length ? p.images : p.banner_url ? [getImageUrl(p.banner_url)] : []).filter(Boolean) as string[];
   const name = p.name || p.business_name || 'Property';
   const price = p.price_per_night || 85;
 
