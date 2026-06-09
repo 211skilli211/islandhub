@@ -124,74 +124,73 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.06, duration: 0.45 }}
-            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ delay: index * 0.04, duration: 0.3 }}
         >
             <Link
                 href={`/hub/${hubType || store.category || 'food'}/${store.slug}`}
-                className="group block bg-surface-elevated dark:bg-ocean-800 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 ring-1 ring-ink-200 dark:ring-ocean-700 hover:ring-ink-300 dark:hover:ring-ocean-600"
+                className="group block bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-md transition-all"
             >
-                <div className="relative h-48 overflow-hidden">
+                {/* Image — square, compact */}
+                <div className="relative aspect-square overflow-hidden">
                     {store.banner_url ? (
                         <img
                             src={getImageUrl(store.banner_url)}
                             alt={storeName}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                     ) : (
                         <div className={`w-full h-full bg-gradient-to-br ${bgGradients[variant] || bgGradients.product} flex items-center justify-center`}>
-                            <span className="text-6xl">{emojiMap[variant] || '🏪'}</span>
+                            <span className="text-4xl">{emojiMap[variant] || '🏪'}</span>
                         </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
+                    {/* Subtype badge */}
                     {subtypeLabel && (
-                        <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-elevated/90 dark:bg-ocean-700/90 shadow-lg backdrop-blur-sm ${theme.lightText}`}>
+                        <div className="absolute top-2 left-2">
+                            <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-white/90 text-ink-primary shadow-sm`}>
                                 {subtypeLabel}
                             </span>
-                            {store.is_trending && (
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-orange-500/90 text-white shadow-lg backdrop-blur-sm animate-pulse">
-                                    🔥 Trending
-                                </span>
-                            )}
                         </div>
                     )}
-
-                    <div className="absolute bottom-0 left-4 translate-y-1/2 w-14 h-14 rounded-2xl overflow-hidden border-[3px] border-white dark:border-ocean-700 shadow-xl bg-surface-elevated dark:bg-ocean-800 z-10 group-hover:scale-110 transition-transform duration-300">
+                    {/* Trending */}
+                    {store.is_trending && (
+                        <div className="absolute top-2 right-2">
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500 text-white shadow-sm">
+                                🔥
+                            </span>
+                        </div>
+                    )}
+                    {/* Logo thumbnail */}
+                    <div className="absolute bottom-2 left-2 w-8 h-8 rounded-lg overflow-hidden border-2 border-white dark:border-ocean-700 shadow-md bg-surface-elevated dark:bg-ocean-800 z-10">
                         {store.logo_url ? (
-                            <img src={getImageUrl(store.logo_url)} alt={storeName} className="w-full h-full object-cover" />
+                            <img src={getImageUrl(store.logo_url)} alt="" className="w-full h-full object-cover" />
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center text-xl font-black text-white uppercase" style={{ backgroundColor: accentColors[variant] || '#0ea5e9' }}>
+                            <div className="w-full h-full flex items-center justify-center text-xs font-black text-white uppercase" style={{ backgroundColor: accentColors[variant] || '#0ea5e9' }}>
                                 {storeName.charAt(0)}
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className="pt-10 pb-5 px-4">
-                    <div className="flex items-center gap-1.5 mb-2">
-                        <StarIcon className="w-4 h-4 text-sand-400" />
-                        <span className="text-sm font-bold text-ink-primary dark:text-sand-50">{rating}</span>
-                        <span className="text-[11px] text-ink-tertiary ml-1">({Math.floor(Math.random() * 200) + 50} reviews)</span>
+                {/* Info — compact */}
+                <div className="p-2.5">
+                    {/* Rating */}
+                    <div className="flex items-center gap-1 mb-0.5">
+                        <StarIcon className="w-3 h-3 text-amber-400" />
+                        <span className="text-[10px] font-bold text-ink-primary">{rating}</span>
+                        <span className="text-[9px] text-ink-tertiary">({Math.floor(Math.random() * 200) + 50})</span>
                     </div>
 
-                    <h3 className="text-base font-extrabold text-ink-primary dark:text-sand-50 group-hover:text-ocean-600 dark:group-hover:text-ocean-400 transition-colors line-clamp-1 mb-1.5">
+                    {/* Name — 2 lines max */}
+                    <h3 className="text-xs font-bold text-ink-primary dark:text-sand-50 group-hover:text-accent-500 transition-colors line-clamp-2 leading-tight mb-1">
                         {storeName}
                     </h3>
 
-                    <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary line-clamp-2 leading-relaxed mb-4 min-h-[2rem]">
-                        {store.description || `Discover ${storeName} on IslandHub.`}
-                    </p>
-
-                    <div className="flex items-center gap-2">
-                        <span className={`flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r ${btnGradients[variant] || btnGradients.product} text-white text-xs font-bold rounded-xl shadow-lg transition-all`}>
+                    {/* CTA button — compact */}
+                    <div className="flex items-center gap-1.5">
+                        <span className={`inline-flex items-center justify-center px-2.5 py-1.5 bg-gradient-to-r ${btnGradients[variant] || btnGradients.product} text-white text-[10px] font-bold rounded-lg shadow-sm`}>
                             {labels[variant] || 'View'}
-                        </span>
-                        <span className={`inline-flex items-center justify-center px-3 py-2.5 ${theme.lightBg} ${theme.lightText} text-xs font-bold rounded-xl ring-1 ${theme.ring}`}>
-                            View
                         </span>
                     </div>
                 </div>

@@ -139,7 +139,7 @@ function HubPage({ config }: { config: HubPageConfig }) {
 
                 {(searchTerm || activeCategory !== 'all') ? (
                     !loading && filteredStores.length > 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                             {filteredStores.map((store, idx) => (
                                 <StoreCard key={store.store_id || store.id} store={store} index={idx} theme={config.theme} variant={config.storeCardVariant} hubType={config.type} />
                             ))}
@@ -150,21 +150,21 @@ function HubPage({ config }: { config: HubPageConfig }) {
                         const stores = storesByCategory[cat.id] || [];
                         if (!loading && stores.length === 0) return null;
                         return (
-                            <section key={cat.id} className="mb-12">
-                                <div className={`flex items-center justify-between mb-5 ${config.theme.lightBg} px-5 py-3 rounded-2xl ring-1 ${config.theme.ring}`}>
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-3xl">{cat.icon}</span>
+                            <section key={cat.id} className="mb-8">
+                                <div className={`flex items-center justify-between mb-3 ${config.theme.lightBg} px-4 py-2.5 rounded-xl`}>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xl">{cat.icon}</span>
                                         <div>
-                                            <h2 className="text-xl font-extrabold text-ink-primary dark:text-sand-50">{cat.title}</h2>
-                                            <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary font-medium">{cat.desc}</p>
+                                            <h2 className="text-sm font-bold text-ink-primary dark:text-sand-50">{cat.title}</h2>
+                                            <p className="text-[10px] text-ink-tertiary">{cat.desc}</p>
                                         </div>
                                     </div>
-                                    <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r ${config.theme.gradient} text-white shadow-md`}>
-                                        {loading ? '…' : stores.length} {stores.length === 1 ? 'place' : 'places'}
+                                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold bg-gradient-to-r ${config.theme.gradient} text-white shadow-sm`}>
+                                        {loading ? '…' : stores.length}
                                     </span>
                                 </div>
                                 {loading ? <HubLoadingSkeleton /> : (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                                         {stores.map((store, idx) => (
                                             <StoreCard key={store.store_id || store.id} store={store} index={idx} theme={config.theme} variant={config.storeCardVariant} hubType={config.type} />
                                         ))}
