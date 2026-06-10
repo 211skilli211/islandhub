@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, LogOut, User, Menu } from 'lucide-react';
+import { ChevronLeft, ChevronRight, LogOut, User, Menu, X, Home } from 'lucide-react';
 
 export interface SidebarItem {
   id: string;
@@ -33,8 +33,7 @@ export interface SidebarProps {
   storageKey?: string;
   mobileOpen?: boolean;
   setMobileOpen?: (open: boolean) => void;
-  defaultState?: 'closed' | 'rail' | 'expanded';
-  toggleTop?: string;
+  defaultState?: 'rail' | 'expanded';
 }
 
 const RAIL_WIDTH = 56;
@@ -66,9 +65,8 @@ export default function Sidebar({
   mobileOpen: externalMobileOpen,
   setMobileOpen: externalSetMobileOpen,
   defaultState = 'rail',
-  toggleTop = '10px',
 }: SidebarProps) {
-  const [state, setState] = useState<'closed' | 'rail' | 'expanded'>(defaultState);
+  const [state, setState] = useState<'rail' | 'expanded'>(defaultState);
   const [internalMobileOpen, setInternalMobileOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
@@ -78,7 +76,7 @@ export default function Sidebar({
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(storageKey);
-      if (saved === 'closed' || saved === 'rail' || saved === 'expanded') setState(saved);
+      if (saved === 'rail' || saved === 'expanded') setState(saved);
     }
   }, [storageKey]);
 
@@ -97,83 +95,169 @@ export default function Sidebar({
     setState(prev => prev === 'expanded' ? 'rail' : 'expanded');
   }, []);
 
-  const openRail = useCallback(() => {
-    if (state === 'closed') setState('rail');
-  }, [state]);
-
   const isRail = state === 'rail';
-  const isExpanded = state === 'expanded';
-  const isClosed = state === 'closed';
-  const showSidebar = isRail || isExpanded;
-  const mainMarginLeft = isRail ? RAIL_WIDTH : 0;
 
   return (
     <div className="min-h-screen bg-surface-primary">
 
-      {/* CLOSED STATE: Visible hamburger button to open sidebar */}
-      {isClosed && (
+      {/* ══════════════════════════════════════════════════════════════════════════
+          MOBILE HEADER — Single hamburger. Only visible < lg.
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <div className="lg:hidden sticky top-0 z-30 bg-surface-primary/80 backdrop-blur-lg border-b border-border-primary px-4 py-3 flex items-center justify-between">
         <button
-          onClick={openRail}
-          className="fixed z-[70] p-2.5 rounded-lg bg-surface-elevated hover:bg-surface-tertiary text-ink-secondary hover:text-ink-primary transition-all shadow-lg border border-border-primary"
-          style={{ top: toggleTop, left: '12px' }}
-          aria-label="Open sidebar"
+          onClick={() => setMobileOpen(true)}
+          className="p-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary transition-colors"
+          aria-label="Open menu"
         >
-          <Menu size={16} />
+          <Menu size={20} />
         </button>
-      )}
+        <div className="flex items-center gap-2">
+          <TitleIcon size={16} className="text-brand-400" />
+          <span className="font-bold text-sm text-ink-primary">{title}</span>
+        </div>
+        <div className="w-8" />
+      </div>
 
-      {/* RAIL/EXPANDED: Toggle button pinned at top of sidebar */}
-      {showSidebar && (
-        <button
-          onClick={toggleExpand}
-          className="fixed z-[70] p-1.5 rounded-md bg-surface-elevated/90 hover:bg-surface-tertiary text-ink-secondary hover:text-ink-primary transition-all border border-border-primary"
-          style={{
-            top: toggleTop,
-            left: isRail ? `${RAIL_WIDTH + 2}px` : `${EXPANDED_WIDTH - 32}px`,
-          }}
-          aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+      <div className="flex">
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            MOBILE DRAWER — Full overlay, only < lg
+            ══════════════════════════════════════════════════════════════════════ */}
+        {mobileOpen && (
+          <div
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-lg lg:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
+        <aside className={`
+          fixed inset-y-0 left-0 z-50 w-[280px] bg-surface-elevated text-ink-primary flex flex-col border-r border-border-primary
+          transition-transform duration-300 ease-in-out lg:hidden
+          ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}>
+          {/* Mobile drawer header */}
+          <div className="flex items-center justify-between px-4 py-4 border-b border-border-primary shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                <TitleIcon size={15} className="text-brand-400" />
+              </div>
+              <span className="font-semibold text-sm text-ink-primary">{title}</span>
+            </div>
+            <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-surface-tertiary text-ink-secondary" aria-label="Close menu">
+              <X size={16} />
+            </button>
+          </div>
+          {/* Mobile user */}
+          {user && (
+            <Link href="/profile" onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-2.5 px-4 py-3 border-b border-border-primary text-ink-secondary hover:text-ink-primary">
+              <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
+                {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={14} className="text-brand-400" />}
+              </div>
+              <div className="min-w-0">
+                <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
+                {user.role && <div className="text-[10px] text-ink-tertiary truncate">{user.role}</div>}
+              </div>
+            </Link>
+          )}
+          {/* Mobile back */}
+          <div className="px-4 py-2 border-b border-border-primary">
+            <Link href={backHref} onClick={() => setMobileOpen(false)} className="flex items-center gap-1.5 text-[11px] text-ink-tertiary hover:text-ink-secondary">
+              <ChevronLeft size={12} />{backLabel}
+            </Link>
+          </div>
+          {/* Mobile nav */}
+          <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
+            {items.map((item) => {
+              const Icon = item.icon;
+              const active = isActiveNav(item, pathname);
+              return (
+                <Link key={item.id} href={item.href} onClick={() => setMobileOpen(false)}
+                  className={`flex items-center gap-2.5 px-3 py-3 rounded-lg transition-all ${active ? 'bg-accent-500/10 text-accent-500' : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`}>
+                  <Icon size={17} className="shrink-0" />
+                  <span className="font-medium text-[13px] truncate">{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+          {/* Mobile footer */}
+          <div className="p-3 border-t border-border-primary shrink-0 space-y-1">
+            <Link href="/profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary transition-colors">
+              <User size={15} className="shrink-0" /><span className="text-[12px] font-medium">Profile</span>
+            </Link>
+            <button onClick={() => { onLogout(); setMobileOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors w-full">
+              <LogOut size={15} className="shrink-0" /><span className="text-[12px] font-medium">Log out</span>
+            </button>
+          </div>
+        </aside>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            DESKTOP SIDEBAR — Rail/Expanded, only >= lg
+            ══════════════════════════════════════════════════════════════════════ */}
+        <aside
+          className="hidden lg:flex fixed left-0 top-0 bottom-0 z-[60] flex-col bg-surface-elevated border-r border-border-primary transition-all duration-300"
+          style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
+          onMouseLeave={() => setHoveredItem(null)}
         >
-          {isExpanded ? <ChevronLeft size={14} /> : <Menu size={14} />}
-        </button>
-      )}
-
-      {/* DESKTOP SIDEBAR PANEL — fixed top-0, overlays when expanded */}
-      <AnimatePresence>
-        {showSidebar && (
-          <motion.aside
-            initial={{ x: -EXPANDED_WIDTH, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -EXPANDED_WIDTH, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-            className="fixed left-0 top-0 bottom-0 z-[60] flex flex-col bg-surface-elevated border-r border-border-primary"
-            style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            {/* Header */}
-            <div className={`shrink-0 flex items-center border-b border-border-primary ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
-              {!isRail && (
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center shrink-0">
-                    <TitleIcon size={15} className="text-brand-400" />
-                  </div>
-                  <span className="font-semibold text-[13px] text-ink-primary truncate">{title}</span>
-                </div>
-              )}
-              {isRail && (
-                <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
+          {/* Desktop header */}
+          <div className={`shrink-0 flex items-center border-b border-border-primary ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
+            {!isRail && (
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center shrink-0">
                   <TitleIcon size={15} className="text-brand-400" />
                 </div>
-              )}
-            </div>
+                <span className="font-semibold text-[13px] text-ink-primary truncate">{title}</span>
+              </div>
+            )}
+            {isRail && (
+              <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                <TitleIcon size={15} className="text-brand-400" />
+              </div>
+            )}
+          </div>
 
-            {/* Nav items */}
-            <nav className="flex-1 overflow-y-auto py-2 space-y-0.5">
+          {/* Desktop rail/expanded toggle */}
+          <button
+            onClick={toggleExpand}
+            className="absolute -right-3 top-6 z-[70] p-1 rounded-full bg-surface-elevated border border-border-primary text-ink-secondary hover:text-ink-primary hover:bg-surface-tertiary transition-all shadow-sm"
+            aria-label={isRail ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isRail ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+          </button>
+
+          {/* Desktop user */}
+          {user && (
+            <Link href="/profile"
+              className={`shrink-0 border-b border-border-primary flex items-center transition-colors text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2.5'}`}
+              title={isRail ? user.name : undefined}>
+              <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
+                {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={13} className="text-brand-400" />}
+              </div>
+              {!isRail && (
+                <div className="min-w-0 flex-1">
+                  <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
+                  {user.role && <div className="text-[10px] text-ink-tertiary truncate">{user.role}</div>}
+                </div>
+              )}
+            </Link>
+          )}
+
+          {/* Desktop back */}
+          <div className={`shrink-0 border-b border-border-primary ${isRail ? 'py-2' : 'py-2 px-3'}`}>
+            <Link href={backHref} className={`flex items-center text-ink-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`} title={isRail ? backLabel : undefined}>
+              <ChevronLeft size={12} />
+              {!isRail && <span className="text-[11px]">{backLabel}</span>}
+            </Link>
+          </div>
+
+          {/* Desktop nav */}
+          <nav className="flex-1 overflow-y-auto py-2 space-y-0.5">
+            <div className="px-2">
               {items.map((item) => {
                 const Icon = item.icon;
                 const active = isActiveNav(item, pathname);
                 const isHovered = hoveredItem === item.id;
                 return (
-                  <div key={item.id} className="relative px-2"
+                  <div key={item.id} className="relative"
                     onMouseEnter={() => isRail && setHoveredItem(item.id)}
                     onMouseLeave={() => setHoveredItem(null)}>
                     <Link href={item.href}
@@ -195,104 +279,35 @@ export default function Sidebar({
                   </div>
                 );
               })}
-            </nav>
-
-            {/* Footer: Profile + Logout */}
-            <div className={`shrink-0 border-t border-border-primary ${isRail ? 'p-2' : 'p-3'}`}>
-              {user && (
-                <Link href="/profile"
-                  className={`flex items-center rounded-lg transition-colors mb-1 ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2'} text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary`}
-                  title={isRail ? user.name : undefined}>
-                  <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
-                    {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={13} className="text-brand-400" />}
-                  </div>
-                  {!isRail && (
-                    <div className="min-w-0 flex-1">
-                      <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
-                      {user.role && <div className="text-[10px] text-ink-tertiary truncate">{user.role}</div>}
-                    </div>
-                  )}
-                </Link>
-              )}
-              <button onClick={onLogout}
-                className={`flex items-center rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
-                title={isRail ? 'Log out' : undefined}>
-                <LogOut size={isRail ? 18 : 15} className="shrink-0" />
-                {!isRail && <span className="text-[12px] font-medium">Log out</span>}
-              </button>
             </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
+          </nav>
 
-      {/* MOBILE OVERLAY DRAWER */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-lg lg:hidden"
-              onClick={() => setMobileOpen(false)} />
-            <motion.aside initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }}
-              transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-              className="fixed left-0 top-0 bottom-0 z-[65] w-[280px] bg-surface-elevated text-ink-primary flex flex-col lg:hidden overflow-y-auto border-r border-border-primary">
-              <div className="flex items-center justify-between px-4 py-4 border-b border-border-primary shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
-                    <TitleIcon size={15} className="text-brand-400" />
-                  </div>
-                  <span className="font-semibold text-[13px] text-ink-primary">{title}</span>
-                </div>
-                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-surface-tertiary text-ink-secondary">
-                  <ChevronLeft size={16} />
-                </button>
-              </div>
-              {user && (
-                <Link href="/profile" onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2.5 px-4 py-3 border-b border-border-primary text-ink-secondary hover:text-ink-primary">
-                  <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
-                    {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={14} className="text-brand-400" />}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
-                    {user.role && <div className="text-[10px] text-ink-tertiary truncate">{user.role}</div>}
-                  </div>
-                </Link>
-              )}
-              <div className="px-4 py-2 border-b border-border-primary">
-                <Link href={backHref} onClick={() => setMobileOpen(false)} className="flex items-center gap-1.5 text-[11px] text-ink-tertiary hover:text-ink-secondary">
-                  <ChevronLeft size={12} />{backLabel}
-                </Link>
-              </div>
-              <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
-                {items.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActiveNav(item, pathname);
-                  return (
-                    <Link key={item.id} href={item.href} onClick={() => setMobileOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all ${active ? 'bg-accent-500/10 text-accent-500' : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`}>
-                      <Icon size={16} className="shrink-0" />
-                      <span className="font-medium text-[13px] truncate">{item.label}</span>
-                    </Link>
-                  );
-                })}
-              </nav>
-              <div className="shrink-0 border-t border-border-primary p-3 space-y-1">
-                <Link href="/profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary transition-colors">
-                  <User size={15} className="shrink-0" /><span className="text-[12px] font-medium">Profile</span>
-                </Link>
-                <button onClick={() => { onLogout(); setMobileOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors w-full">
-                  <LogOut size={15} className="shrink-0" /><span className="text-[12px] font-medium">Log out</span>
-                </button>
-              </div>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+          {/* Desktop footer */}
+          <div className={`shrink-0 border-t border-border-primary ${isRail ? 'p-2' : 'p-3'}`}>
+            {user && (
+              <Link href="/profile"
+                className={`flex items-center rounded-lg transition-colors mb-1 text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2'}`}
+                title={isRail ? 'Profile' : undefined}>
+                <User size={isRail ? 18 : 15} className="shrink-0" />
+                {!isRail && <span className="text-[12px] font-medium">Profile</span>}
+              </Link>
+            )}
+            <button onClick={onLogout}
+              className={`flex items-center rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
+              title={isRail ? 'Log out' : undefined}>
+              <LogOut size={isRail ? 18 : 15} className="shrink-0" />
+              {!isRail && <span className="text-[12px] font-medium">Log out</span>}
+            </button>
+          </div>
+        </aside>
 
-      {/* MAIN CONTENT */}
-      <main className="transition-all duration-300 ease-out" style={{ marginLeft: mainMarginLeft }}>
-        <div className="p-4 md:p-6 lg:p-8">{children}</div>
-      </main>
+        {/* ══════════════════════════════════════════════════════════════════════
+            MAIN CONTENT — NO margin-left on mobile, only on desktop >= lg
+            ══════════════════════════════════════════════════════════════════════ */}
+        <main className={`flex-1 min-h-screen transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[240px]'}`}>
+          <div className="p-4 md:p-6 lg:p-8">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }

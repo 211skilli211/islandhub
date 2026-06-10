@@ -3,7 +3,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
 import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
@@ -57,7 +56,6 @@ const navGroups = [
   { id: 'ibt-partners', label: 'IBT Partners', items: secondaryNavItems.filter(i => i.parent === 'ibt-partners') },
 ];
 
-type SidebarState = 'closed' | 'rail' | 'expanded';
 const RAIL_WIDTH = 56;
 const EXPANDED_WIDTH = 260;
 
@@ -65,24 +63,15 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
-  const [state, setState] = useState<SidebarState>('rail');
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Desktop only: 'rail' | 'expanded'. Mobile always uses overlay drawer.
+  const [desktopState, setDesktopState] = useState<'rail' | 'expanded'>('rail');
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['compliance']);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('admin-sidebar-state');
-      if (saved === 'closed' || saved === 'rail' || saved === 'expanded') setState(saved);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') localStorage.setItem('admin-sidebar-state', state);
-  }, [state]);
-
+  // Close mobile drawer on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
+  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -102,266 +91,224 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     toast.success('Logged out');
   };
 
-  const isRail = state === 'rail';
-  const isExpanded = state === 'expanded';
-  const isClosed = state === 'closed';
-  const showSidebar = isRail || isExpanded;
+  const isRail = desktopState === 'rail';
+
+  // ─── Shared navigation items (used in both mobile drawer and desktop sidebar) ───
+  const renderNavItems = (isMobile: boolean) => (
+    <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
+      {adminNavItems.map((item) => {
+        const Icon = item.icon;
+        const active = isActive(item.href);
+        const hasChildren = navGroups.find(g => g.id === item.id);
+        const isGroupExpanded = expandedGroups.includes(item.id);
+
+        return (
+          <div key={item.id}>
+            <div className="flex items-center gap-1">
+              <Link
+                href={item.href}
+                onClick={() => isMobile && setMobileOpen(false)}
+                className={`flex items-center gap-2.5 rounded-lg transition-all flex-1 ${
+                  isMobile ? 'px-3 py-3' : (isRail ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5')
+                } ${active ? 'bg-accent-500/10 text-accent-500' : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`}
+              >
+                <Icon size={isMobile ? 18 : (isRail ? 20 : 17)} className="shrink-0" />
+                {(isMobile || !isRail) && (
+                  <span className="font-medium text-[13px] truncate">{item.label}</span>
+                )}
+              </Link>
+              {hasChildren && !isRail && !isMobile && (
+                <button onClick={() => toggleGroup(item.id)} className="p-1 rounded-md hover:bg-surface-tertiary transition-colors">
+                  <ChevronDown size={14} className={`text-ink-tertiary transition-transform ${isGroupExpanded ? 'rotate-180' : ''}`} />
+                </button>
+              )}
+            </div>
+            {/* Sub-items: show on mobile always, on desktop only when expanded */}
+            {hasChildren && (isMobile || isGroupExpanded) && (
+              <div className={`mt-0.5 space-y-0.5 ${isMobile ? 'ml-4' : 'ml-5'}`}>
+                {hasChildren.items.map(sub => {
+                  const SubIcon = sub.icon;
+                  const subActive = isActive(sub.href);
+                  return (
+                    <Link
+                      key={sub.id}
+                      href={sub.href}
+                      onClick={() => isMobile && setMobileOpen(false)}
+                      className={`flex items-center gap-2.5 rounded-lg transition-all ${
+                        isMobile ? 'px-3 py-2.5' : 'px-3 py-2'
+                      } ${subActive ? 'text-accent-500 bg-accent-500/10' : 'text-ink-tertiary hover:text-ink-secondary hover:bg-surface-tertiary'}`}
+                    >
+                      <SubIcon size={15} className="shrink-0" />
+                      <span className="font-medium truncate text-[12px]">{sub.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </nav>
+  );
 
   return (
     <div className="min-h-screen bg-surface-primary">
 
-      {/* EDGE TAB — visible when closed */}
-      {isClosed && (
+      {/* ══════════════════════════════════════════════════════════════════════════
+          MOBILE HEADER — Single hamburger, single close. Only visible < lg.
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <div className="lg:hidden sticky top-0 z-30 bg-surface-primary/80 backdrop-blur-lg border-b border-border-primary px-4 py-3 flex items-center justify-between">
         <button
-          onClick={() => setState('rail')}
-          className="fixed left-0 top-0 bottom-0 z-[60] w-2.5 bg-brand-950/70 hover:bg-brand-900 transition-colors cursor-pointer group border-r border-brand-800/30"
-          aria-label="Open sidebar"
+          onClick={() => setMobileOpen(true)}
+          className="p-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary transition-colors"
+          aria-label="Open menu"
         >
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 opacity-0 group-hover:opacity-80 transition-opacity">
-            <ChevronRight size={9} className="text-brand-400" />
-          </div>
+          <Menu size={20} />
         </button>
-      )}
+        <span className="font-bold text-sm text-ink-primary">Admin</span>
+        <div className="w-8" /> {/* Spacer for centering */}
+      </div>
 
-      {/* TOGGLE BUTTON */}
-      {showSidebar && (
-        <button
-          onClick={() => setState(isExpanded ? 'rail' : 'expanded')}
-          className="fixed z-[70] p-1.5 rounded-md bg-surface-elevated/90 hover:bg-surface-tertiary text-ink-secondary hover:text-ink-primary transition-all border border-border-primary"
-          style={{
-            top: '10px',
-            left: isRail ? `${RAIL_WIDTH + 2}px` : `${EXPANDED_WIDTH - 32}px`,
-          }}
-          aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
-        >
-          {isExpanded ? <ChevronLeft size={14} /> : <Menu size={14} />}
-        </button>
-      )}
+      <div className="flex">
 
-      {/* MOBILE OVERLAY */}
-      <AnimatePresence>
+        {/* ══════════════════════════════════════════════════════════════════════
+            MOBILE DRAWER — Full overlay, only < lg
+            ══════════════════════════════════════════════════════════════════════ */}
         {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-lg lg:hidden"
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.aside
-              initial={{ x: -EXPANDED_WIDTH }}
-              animate={{ x: 0 }}
-              exit={{ x: -EXPANDED_WIDTH }}
-              transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-              className="fixed left-0 top-0 bottom-0 z-[65] w-[280px] bg-surface-elevated text-ink-primary flex flex-col lg:hidden overflow-y-auto border-r border-border-primary"
-            >
-              <div className="flex items-center justify-between px-4 py-4 border-b border-border-primary shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
-                    <Settings size={15} className="text-accent-500" />
-                  </div>
-                  <span className="font-bold text-sm">Admin</span>
-                </div>
-                <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-surface-tertiary text-ink-secondary">
-                  <X size={16} />
-                </button>
-              </div>
-              {user && (
-                <Link href="/profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5 px-4 py-3 border-b border-border-primary text-ink-secondary hover:text-ink-primary">
-                  <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
-                    {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={14} className="text-accent-500" />}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
-                    <div className="text-[10px] text-ink-tertiary">{user.role || 'Admin'}</div>
-                  </div>
-                </Link>
-              )}
-              <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
-                {adminNavItems.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.href);
-                  const hasChildren = navGroups.find(g => g.id === item.id);
-                  return (
-                    <div key={item.id}>
-                      <Link href={item.href} onClick={() => setMobileOpen(false)}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all ${active ? 'bg-accent-500/10 text-accent-500' : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`}>
-                        <Icon size={17} className="shrink-0" />
-                        <span className="font-medium text-[13px] truncate">{item.label}</span>
-                      </Link>
-                      {hasChildren && (
-                        <div className="ml-5 mt-0.5 space-y-0.5">
-                          {hasChildren.items.map(sub => {
-                            const SubIcon = sub.icon;
-                            const subActive = isActive(sub.href);
-                            return (
-                              <Link key={sub.id} href={sub.href} onClick={() => setMobileOpen(false)}
-                                className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[12px] transition-all ${subActive ? 'text-accent-500 bg-accent-500/10' : 'text-ink-tertiary hover:text-ink-secondary hover:bg-surface-tertiary'}`}>
-                                <SubIcon size={15} className="shrink-0" />
-                                <span className="font-medium truncate">{sub.label}</span>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </nav>
-              <div className="p-3 border-t border-border-primary shrink-0 space-y-1">
-                <Link href="/profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary transition-colors">
-                  <User size={15} className="shrink-0" />
-                  <span className="text-[12px] font-medium">Profile</span>
-                </Link>
-                <button onClick={() => { handleLogout(); setMobileOpen(false); }} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors w-full">
-                  <LogOut size={15} className="shrink-0" />
-                  <span className="text-[12px] font-medium">Log out</span>
-                </button>
-              </div>
-            </motion.aside>
-          </>
+          <div
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-lg lg:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
         )}
-      </AnimatePresence>
+        <aside className={`
+          fixed inset-y-0 left-0 z-50 w-[280px] bg-surface-elevated text-ink-primary flex flex-col border-r border-border-primary
+          transition-transform duration-300 ease-in-out lg:hidden
+          ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}>
+          {/* Mobile drawer header */}
+          <div className="flex items-center justify-between px-4 py-4 border-b border-border-primary shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                <Settings size={15} className="text-accent-500" />
+              </div>
+              <span className="font-bold text-sm">Admin Panel</span>
+            </div>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-1.5 rounded-lg hover:bg-surface-tertiary text-ink-secondary"
+              aria-label="Close menu"
+            >
+              <X size={16} />
+            </button>
+          </div>
+          {/* Mobile user info */}
+          {user && (
+            <Link href="/profile" onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-2.5 px-4 py-3 border-b border-border-primary text-ink-secondary hover:text-ink-primary">
+              <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
+                {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={14} className="text-accent-500" />}
+              </div>
+              <div className="min-w-0">
+                <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
+                <div className="text-[10px] text-ink-tertiary">{user.role || 'Admin'}</div>
+              </div>
+            </Link>
+          )}
+          {renderNavItems(true)}
+          {/* Mobile footer */}
+          <div className="p-3 border-t border-border-primary shrink-0 space-y-1">
+            <Link href="/" onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary transition-colors">
+              <Home size={15} className="shrink-0" />
+              <span className="text-[12px] font-medium">Back to Home</span>
+            </Link>
+            <button onClick={() => { handleLogout(); setMobileOpen(false); }}
+              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors w-full">
+              <LogOut size={15} className="shrink-0" />
+              <span className="text-[12px] font-medium">Log out</span>
+            </button>
+          </div>
+        </aside>
 
-      {/* DESKTOP SIDEBAR — starts at top-0, overlays navbar when expanded */}
-      <AnimatePresence>
-        {showSidebar && (
-          <motion.aside
-            initial={{ x: -EXPANDED_WIDTH, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -EXPANDED_WIDTH, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-            className="fixed left-0 top-0 bottom-0 z-[60] bg-surface-elevated text-ink-primary flex flex-col border-r border-border-primary hidden lg:flex"
-            style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            {/* Header */}
-            <div className={`shrink-0 flex items-center border-b border-border-primary ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
-              {!isRail && (
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center shrink-0">
-                    <Settings size={15} className="text-accent-500" />
-                  </div>
-                  <span className="font-bold text-sm tracking-tight truncate text-ink-primary">Admin</span>
-                </div>
-              )}
-              {isRail && (
-                <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
+        {/* ══════════════════════════════════════════════════════════════════════
+            DESKTOP SIDEBAR — Rail/Expanded, only >= lg
+            ══════════════════════════════════════════════════════════════════════ */}
+        <aside
+          className="hidden lg:flex fixed left-0 top-0 bottom-0 z-[60] bg-surface-elevated text-ink-primary flex-col border-r border-border-primary transition-all duration-300"
+          style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
+        >
+          {/* Desktop header */}
+          <div className={`shrink-0 flex items-center border-b border-border-primary ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
+            {!isRail && (
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center shrink-0">
                   <Settings size={15} className="text-accent-500" />
                 </div>
-              )}
-            </div>
-
-            {/* User */}
-            {user && (
-              <Link href="/profile"
-                className={`shrink-0 border-b border-border-primary flex items-center transition-colors text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2.5'}`}
-                title={isRail ? user.name : undefined}>
-                <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-bold shrink-0 overflow-hidden">
-                  {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : (user.name?.charAt(0).toUpperCase() || 'U')}
-                </div>
-                {!isRail && (
-                  <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-[12px] truncate text-ink-primary">{user.name}</p>
-                    <p className="text-[10px] text-ink-tertiary capitalize">{user.role || 'Admin'}</p>
-                  </div>
-                )}
-              </Link>
-            )}
-
-            {/* Back to Home */}
-            <div className={`shrink-0 border-b border-border-primary ${isRail ? 'py-2' : 'py-2 px-3'}`}>
-              <Link href="/" className={`flex items-center text-ink-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`} title={isRail ? 'Back to Home' : undefined}>
-                <ArrowLeft size={12} />
-                {!isRail && <span className="text-[11px]">Back to Home</span>}
-              </Link>
-            </div>
-
-            {/* Nav */}
-            <nav className="flex-1 overflow-y-auto py-2 space-y-0.5">
-              <div className="px-2">
-                {adminNavItems.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.href);
-                  const hasChildren = navGroups.find(g => g.id === item.id);
-                  const isGroupExpanded = expandedGroups.includes(item.id);
-                  const isHovered = hoveredItem === item.id;
-
-                  const itemClass = isRail
-                    ? `flex items-center justify-center rounded-lg transition-all duration-150 group relative px-0 py-2.5${active ? ' bg-accent-500/10 text-accent-500' : ' text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`
-                    : `flex items-center gap-2.5 rounded-lg transition-all duration-150 group relative px-3 py-2.5${active ? ' bg-accent-500/10 text-accent-500' : ' text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`;
-
-                  return (
-                    <div key={item.id} onMouseEnter={() => isRail && setHoveredItem(item.id)} onMouseLeave={() => setHoveredItem(null)}>
-                      <div className="flex items-center gap-1">
-                        <Link href={item.href} className={itemClass} title={isRail ? item.label : undefined}>
-                          {active && (
-                            <motion.div layoutId="admin-sidebar-active" className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-accent-400 rounded-r-full" transition={{ type: 'spring', stiffness: 300, damping: 30 }} />
-                          )}
-                          <Icon size={isRail ? 20 : 17} className="shrink-0" />
-                          {!isRail && <span className="font-medium text-[13px] truncate">{item.label}</span>}
-                        </Link>
-                        {hasChildren && !isRail && (
-                          <button onClick={() => toggleGroup(item.id)} className="p-1 rounded-md hover:bg-surface-tertiary transition-colors">
-                            <ChevronDown size={14} className={`text-ink-tertiary transition-transform ${isGroupExpanded ? 'rotate-180' : ''}`} />
-                          </button>
-                        )}
-                      </div>
-
-                      {isRail && isHovered && (
-                        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 bg-surface-tertiary text-ink-primary text-[12px] font-medium rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none border border-border-primary">
-                          {item.label}
-                          <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-surface-tertiary" />
-                        </div>
-                      )}
-
-                      {hasChildren && isGroupExpanded && !isRail && (
-                        <div className="ml-5 mt-0.5 space-y-0.5">
-                          {hasChildren.items.map(sub => {
-                            const SubIcon = sub.icon;
-                            const subActive = isActive(sub.href);
-                            return (
-                              <Link key={sub.id} href={sub.href}
-                                className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[12px] transition-all ${subActive ? 'text-accent-500 bg-accent-500/10' : 'text-ink-tertiary hover:text-ink-secondary hover:bg-surface-tertiary'}`}>
-                                <SubIcon size={15} className="shrink-0" />
-                                <span className="font-medium truncate">{sub.label}</span>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                <span className="font-bold text-sm tracking-tight truncate text-ink-primary">Admin</span>
               </div>
-            </nav>
+            )}
+            {isRail && (
+              <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
+                <Settings size={15} className="text-accent-500" />
+              </div>
+            )}
+          </div>
 
-            {/* Footer */}
-            <div className={`shrink-0 border-t border-border-primary ${isRail ? 'p-2' : 'p-3'}`}>
-              <button onClick={handleLogout}
-                className={`flex items-center rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
-                title={isRail ? 'Log out' : undefined}>
-                <LogOut size={isRail ? 18 : 15} className="shrink-0" />
-                {!isRail && <span className="font-medium text-[12px]">Log out</span>}
-              </button>
-            </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
-
-      {/* MAIN CONTENT */}
-      <main className="transition-all duration-300 ease-out" style={{ marginLeft: isRail ? RAIL_WIDTH : 0 }}>
-        <div className="lg:hidden sticky top-0 z-30 bg-surface-primary/80 backdrop-blur-lg border-b border-border-primary px-4 py-3 flex items-center justify-between">
-          <button onClick={() => setMobileOpen(true)} className="p-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary transition-colors">
-            <Menu size={20} />
+          {/* Desktop toggle — rail/expanded */}
+          <button
+            onClick={() => setDesktopState(isRail ? 'expanded' : 'rail')}
+            className="absolute -right-3 top-6 z-[70] p-1 rounded-full bg-surface-elevated border border-border-primary text-ink-secondary hover:text-ink-primary hover:bg-surface-tertiary transition-all shadow-sm"
+            aria-label={isRail ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isRail ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
           </button>
-          <span className="font-bold text-sm text-ink-primary">Admin</span>
-          <div className="w-8" />
-        </div>
-        <AdminBreadcrumb />
-        <div className="p-4 md:p-6 lg:p-8">{children}</div>
-      </main>
+
+          {/* Desktop user */}
+          {user && (
+            <Link href="/profile"
+              className={`shrink-0 border-b border-border-primary flex items-center transition-colors text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary ${isRail ? 'justify-center p-2' : 'gap-2.5 px-3 py-2.5'}`}
+              title={isRail ? user.name : undefined}>
+              <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-bold shrink-0 overflow-hidden">
+                {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : (user.name?.charAt(0).toUpperCase() || 'U')}
+              </div>
+              {!isRail && (
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-[12px] truncate text-ink-primary">{user.name}</p>
+                  <p className="text-[10px] text-ink-tertiary capitalize">{user.role || 'Admin'}</p>
+                </div>
+              )}
+            </Link>
+          )}
+
+          {/* Back to home */}
+          <div className={`shrink-0 border-b border-border-primary ${isRail ? 'py-2' : 'py-2 px-3'}`}>
+            <Link href="/" className={`flex items-center text-ink-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`} title={isRail ? 'Back to Home' : undefined}>
+              <ArrowLeft size={12} />
+              {!isRail && <span className="text-[11px]">Back to Home</span>}
+            </Link>
+          </div>
+
+          {renderNavItems(false)}
+
+          {/* Desktop footer */}
+          <div className={`shrink-0 border-t border-border-primary ${isRail ? 'p-2' : 'p-3'}`}>
+            <button onClick={handleLogout}
+              className={`flex items-center rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
+              title={isRail ? 'Log out' : undefined}>
+              <LogOut size={isRail ? 18 : 15} className="shrink-0" />
+              {!isRail && <span className="font-medium text-[12px]">Log out</span>}
+            </button>
+          </div>
+        </aside>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            MAIN CONTENT — margin-left ONLY on desktop (>= lg)
+            ══════════════════════════════════════════════════════════════════════ */}
+        <main className={`flex-1 min-h-screen transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[260px]'}`}>
+          <AdminBreadcrumb />
+          <div className="p-4 md:p-6 lg:p-8">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }
