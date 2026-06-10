@@ -276,7 +276,7 @@ function DashboardPageContent() {
             </AnimatePresence>
 
             {/* Header */}
-            <div className="bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary pt-12 pb-16">
+            <div className="bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary pt-6 pb-8 sm:pt-12 sm:pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
                         <div>
@@ -297,16 +297,16 @@ function DashboardPageContent() {
                                     </span>
                                 )}
                             </div>
-                            <div className="flex flex-col md:flex-row md:items-center gap-4 mt-4">
-                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Welcome back, {user?.name} 👋</p>
+                            <div className="flex flex-col gap-3 mt-4">
+                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-sm">Welcome back, {user?.name} 👋</p>
                                 {viewMode === 'vendor' && stores.length > 0 && (
-                                    <div className="flex flex-wrap items-center gap-4">
-                                        {/* Store Selector */}
-                                        <div className="relative group">
+                                    <div className="flex flex-col gap-3">
+                                        {/* Store Selector — full width on mobile */}
+                                        <div className="relative group w-full">
                                             <select
                                                 value={activeStoreId || ''}
                                                 onChange={(e) => setActiveStoreId(Number(e.target.value))}
-                                                className="appearance-none bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-xl px-4 py-2 pr-10 text-[10px] font-black uppercase tracking-widest hover:border-teal-500 focus:outline-none transition-all shadow-sm cursor-pointer"
+                                                className="appearance-none bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-xl px-4 py-2.5 pr-10 text-[10px] font-black uppercase tracking-widest hover:border-teal-500 focus:outline-none transition-all shadow-sm cursor-pointer w-full"
                                             >
                                                 {stores.map(s => {
                                                     const sid = s.store_id || s.id;
@@ -320,23 +320,24 @@ function DashboardPageContent() {
                                             </div>
                                         </div>
 
-                                        <div className="flex gap-2">
+                                        {/* Action buttons — wrap on mobile, single row on desktop */}
+                                        <div className="flex flex-wrap gap-2">
                                             <button
                                                 onClick={() => setActiveTab('settings')}
-                                                className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-accent-400 transition-all shadow-sm"
+                                                className="flex-1 min-w-[100px] px-3 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-accent-400 transition-all shadow-sm text-center"
                                             >
                                                 Edit Profile
                                             </button>
                                             <button
                                                 onClick={() => setActiveTab('branding')}
-                                                className="px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-accent-400 transition-all shadow-sm"
+                                                className="flex-1 min-w-[100px] px-3 py-2 bg-surface-elevated border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest hover:border-teal-500 hover:text-accent-400 transition-all shadow-sm text-center"
                                             >
                                                 Edit Store
                                             </button>
                                             {activeStoreId && (
-                                                <Link href={`/store/${stores.find(s => (s.store_id || s.id) === activeStoreId)?.slug || ''}`}>
-                                                    <button className="px-4 py-2 bg-accent-500/10 border border-teal-100 text-accent-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-accent-500/15 transition-all">
-                                                        View Storefront
+                                                <Link href={`/store/${stores.find(s => (s.store_id || s.id) === activeStoreId)?.slug || ''}`} className="flex-1 min-w-[100px]">
+                                                    <button className="w-full px-3 py-2 bg-accent-500/10 border border-teal-100 text-accent-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-accent-500/15 transition-all text-center">
+                                                        View Store
                                                     </button>
                                                 </Link>
                                             )}
@@ -355,34 +356,34 @@ function DashboardPageContent() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                        className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4"
                     >
-                        <Link href="/create?type=product" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-sand-500/5 rounded-2xl group-hover:scale-110 transition-all">📦</span>
+                        <Link href="/create?type=product" className="p-4 sm:p-6 bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
+                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-sand-500/5 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all">📦</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Add Product</p>
-                                <p className="text-[9px] text-ink-tertiary font-medium">List a new item</p>
+                                <p className="text-[9px] sm:text-[10px] font-black uppercase text-ink-primary tracking-widest">Add Product</p>
+                                <p className="text-[8px] sm:text-[9px] text-ink-tertiary font-medium">List a new item</p>
                             </div>
                         </Link>
-                        <Link href="/create?type=service" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-[#14b8a6]/10 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
+                        <Link href="/create?type=service" className="p-4 sm:p-6 bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
+                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-[#14b8a6]/10 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Post Service</p>
-                                <p className="text-[9px] text-ink-tertiary font-medium">Offer your skills</p>
+                                <p className="text-[9px] sm:text-[10px] font-black uppercase text-ink-primary tracking-widest">Post Service</p>
+                                <p className="text-[8px] sm:text-[9px] text-ink-tertiary font-medium">Offer your skills</p>
                             </div>
                         </Link>
-                        <Link href="/campaigns/new" className="p-6 bg-surface-elevated rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-[#e11d48]/5 rounded-2xl group-hover:scale-110 transition-all">📣</span>
+                        <Link href="/campaigns/new" className="p-4 sm:p-6 bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
+                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-[#e11d48]/5 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all">📣</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-ink-primary tracking-widest">Start Campaign</p>
-                                <p className="text-[9px] text-ink-tertiary font-medium">Raise island funds</p>
+                                <p className="text-[9px] sm:text-[10px] font-black uppercase text-ink-primary tracking-widest">Start Campaign</p>
+                                <p className="text-[8px] sm:text-[9px] text-ink-tertiary font-medium">Raise island funds</p>
                             </div>
                         </Link>
-                        <Link href="/start" className="p-6 bg-surface-tertiary rounded-4xl shadow-xl shadow-black/10 border border-border-primary hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-3 group text-center">
-                            <span className="text-3xl p-3 bg-surface-tertiary rounded-2xl group-hover:rotate-12 transition-all">✨</span>
+                        <Link href="/start" className="p-4 sm:p-6 bg-accent-500 rounded-2xl sm:rounded-4xl shadow-xl shadow-black/10 border border-accent-600 hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
+                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-white/20 rounded-xl sm:rounded-2xl group-hover:rotate-12 transition-all">✨</span>
                             <div>
-                                <p className="text-[10px] font-black uppercase text-white tracking-widest">Creation Hub</p>
-                                <p className="text-[9px] text-ink-tertiary font-medium">Launch more</p>
+                                <p className="text-[9px] sm:text-[10px] font-black uppercase text-white tracking-widest">Creation Hub</p>
+                                <p className="text-[8px] sm:text-[9px] text-white/70 font-medium">Launch more</p>
                             </div>
                         </Link>
                     </motion.div>
@@ -450,21 +451,21 @@ function DashboardPageContent() {
 
                 {/* Subscription Management Banner */}
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
-                    <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-4xl border border-[#14b8a6]/20 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div className="flex items-center gap-6">
-                            <div className="w-16 h-16 bg-surface-elevated rounded-2xl shadow-sm flex items-center justify-center text-3xl">🎫</div>
+                    <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl sm:rounded-4xl border border-[#14b8a6]/20 p-4 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+                        <div className="flex items-center gap-3 sm:gap-6">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-surface-elevated rounded-xl sm:rounded-2xl shadow-sm flex items-center justify-center text-2xl sm:text-3xl shrink-0">🎫</div>
                             <div>
-                                <h3 className="text-xl font-black text-ink-primary dark:text-white">You're on the <span className="text-[#14b8a6] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
-                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
+                                <h3 className="text-base sm:text-xl font-black text-ink-primary dark:text-white">You're on the <span className="text-[#14b8a6] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
+                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-xs sm:text-base">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
                                 {subscription.cancel_at_period_end && (
-                                    <p className="text-[#e11d48] text-xs font-black uppercase mt-1">Pending Cancellation</p>
+                                    <p className="text-[#e11d48] text-[10px] sm:text-xs font-black uppercase mt-1">Pending Cancellation</p>
                                 )}
                             </div>
                         </div>
-                        <div className="flex gap-3">
+                        <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
                             {activeStore?.slug && (
-                                <Link href={`/store/${activeStore.slug}`} className="px-8 py-5 bg-surface-elevated text-ink-secondary rounded-2xl font-black uppercase tracking-widest text-xs border border-border-primary hover:bg-surface-primary transition-all">
-                                    Preview Storefront
+                                <Link href={`/store/${activeStore.slug}`} className="flex-1 sm:flex-none px-4 py-2 sm:px-8 sm:py-5 bg-surface-elevated text-ink-secondary rounded-lg sm:rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs border border-border-primary hover:bg-surface-primary transition-all text-center">
+                                    Preview Store
                                 </Link>
                             )}
                             {!subscription.cancel_at_period_end && (
@@ -480,7 +481,7 @@ function DashboardPageContent() {
                                             }
                                         }
                                     }}
-                                    className="px-6 py-3 bg-[#e11d48]/5 text-[#e11d48] rounded-xl font-bold hover:bg-[#e11d48]/10 transition-all"
+                                    className="flex-1 sm:flex-none px-4 py-2 sm:px-6 sm:py-3 bg-[#e11d48]/5 text-[#e11d48] rounded-lg sm:rounded-xl font-bold hover:bg-[#e11d48]/10 transition-all text-[10px] sm:text-xs"
                                 >
                                     Cancel
                                 </button>
