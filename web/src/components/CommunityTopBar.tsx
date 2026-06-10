@@ -39,7 +39,7 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
         <div className="sticky top-18 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
             <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
-                    {/* Left: Menu + Search */}
+                    {/* Left: Menu */}
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onMenuToggle}
@@ -48,34 +48,21 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                         >
                             <Menu size={20} />
                         </button>
-                        <form onSubmit={handleSearch} className="hidden sm:block">
-                            <div className="relative">
-                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
-                                <input
-                                    type="text"
-                                    placeholder="Search community..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-48 pl-9 pr-3 py-1.5 bg-surface-secondary border border-border-primary rounded-lg text-xs text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all"
-                                />
-                            </div>
-                        </form>
                     </div>
 
-                    {/* Right: Search + Actions */}
-                    <div className="flex items-center gap-2">
-                        <form onSubmit={handleSearch} className="hidden sm:block">
-                            <div className="relative">
-                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-48 pl-9 pr-3 py-1.5 bg-surface-secondary border border-border-primary rounded-lg text-xs text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all"
-                                />
-                            </div>
-                        </form>
+                    {/* Center: Search */}
+                    <form onSubmit={handleSearch} className="flex-1 max-w-xs mx-2 sm:mx-4">
+                        <div className="relative">
+                            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                            <input
+                                type="text"
+                                placeholder="Search community..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-9 pr-3 py-1.5 bg-surface-secondary border border-border-primary rounded-lg text-xs text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-400 transition-all"
+                            />
+                        </div>
+                    </form>
                         {isAuthenticated && (
                             <button className="p-2 rounded-lg hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors relative">
                                 <Bell size={18} />
