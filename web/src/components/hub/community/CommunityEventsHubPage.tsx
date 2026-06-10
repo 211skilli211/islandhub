@@ -72,7 +72,7 @@ export default function CommunityHubEventsPage() {
         </div>
       </section>
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <FilterBar filters={['Today', 'This Week', 'This Month', 'Free', 'Paid']} sortOptions={['Date', 'Popular', 'Distance']} activeSort="Date" onSortChange={() => {}} />
+        <FilterBar filters={['Today', 'This Week', 'This Month', 'Free', 'Paid']} activeFilter="Today" onFilterChange={() => {}} sortOptions={['Date', 'Popular', 'Distance']} activeSort="Date" onSortChange={() => {}} />
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
