@@ -214,7 +214,6 @@ export default function AgentChat({ hubMode = false, onHubClose }: AgentChatProp
                 )}
             </AnimatePresence>
 
-            {/* Toggle Button - only show if NOT in hubMode */}
             {!hubMode && (
                 <motion.button
                     whileHover={{ scale: 1.05 }}

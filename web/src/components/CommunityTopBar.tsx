@@ -86,7 +86,6 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                 </div>
             </div>
 
-            {/* Mobile nav scroll */}
             <div className="lg:hidden overflow-x-auto scrollbar-thin border-t border-border-primary/50">
                 <div className="flex items-center gap-1 px-4 py-2">
                     {COMMUNITY_NAV.map(link => {
