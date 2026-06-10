@@ -102,8 +102,8 @@ export default function SmartSearch() {
                     onKeyDown={handleKeyDown}
                     onFocus={() => query.length >= 2 && setShowDropdown(true)}
                     onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
-                    placeholder="Search for restaurants, items, services, or rentals..."
-                    className="w-full px-6 py-4 bg-surface-elevated/90 backdrop-blur-md border border-border-primary rounded-4xl text-ink-primary text-lg placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
+                    placeholder="Search restaurants, items, services..."
+                    className="w-full pl-6 pr-28 py-4 bg-surface-elevated/90 backdrop-blur-md border border-border-primary rounded-4xl text-ink-primary text-lg placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-400/10 shadow-lg shadow-teal-500/5 transition-all"
                 />
 
                 <button
@@ -114,7 +114,7 @@ export default function SmartSearch() {
                 </button>
 
                 {isLoading && (
-                    <div className="absolute right-28 top-1/2 -translate-y-1/2">
+                    <div className="absolute right-[100px] top-1/2 -translate-y-1/2">
                         <div className="animate-spin h-5 w-5 border-2 border-accent-400 border-t-transparent rounded-full" />
                     </div>
                 )}
