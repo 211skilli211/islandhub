@@ -299,22 +299,22 @@ export function AdminTable<T extends Record<string, any>>({
     };
 
     return (
-        <div className="space-y-4">
-            {/* Toolbar */}
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-surface-elevated p-4 rounded-xl border border-border-primary shadow-sm">
-                <div className="flex flex-wrap gap-4 items-center w-full md:w-auto">
+        <div className="space-y-3">
+            {/* Toolbar — compact on desktop, stacked on mobile */}
+            <div className="flex flex-col md:flex-row gap-3 justify-between items-start md:items-center bg-surface-elevated p-3 rounded-xl border border-border-primary">
+                <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">
                     {/* Search */}
                     {searchable && (
-                        <div className="relative flex-1 md:flex-none md:w-64">
+                        <div className="relative flex-1 md:flex-none md:w-56">
                             <input
                                 type="text"
                                 placeholder={searchPlaceholder}
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-teal-500 transition-all"
+                                className="w-full pl-9 pr-3 py-1.5 bg-surface-secondary border border-border-primary rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-500 transition-all"
                             />
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-ink-tertiary">
-                                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-ink-tertiary">
+                                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
@@ -327,8 +327,7 @@ export function AdminTable<T extends Record<string, any>>({
                         onSortChange={setSort}
                         options={columns
                             .filter(c => c.sortKey || typeof c.accessor === 'string')
-                            .map(c => ({ label: c.header, value: (c.sortKey || c.accessor) as string }))
-                        }
+                            .map(c => ({ label: c.header, value: (c.sortKey || c.accessor) as string }))}
                     />
 
                     {/* Filters */}
@@ -339,141 +338,116 @@ export function AdminTable<T extends Record<string, any>>({
                             config={filtersConfig}
                         />
                     )}
-
-                    {/* Export */}
-                    <button
-                        onClick={() => {
-                            const params = new URLSearchParams();
-                            params.append('export', 'csv');
-
-                            // If rows selected, export only those
-                            if (selectedRows.length > 0) {
-                                params.append('ids', selectedRows.join(','));
-                            } else {
-                                // Otherwise export based on current filters
-                                params.append('sortBy', sort.sortBy);
-                                params.append('sortOrder', sort.sortOrder);
-                                if (search) params.append('search', search);
-                                Object.entries(filters).forEach(([k, v]) => {
-                                    if (v) params.append(k, v);
-                                });
-                                if (endpoint.includes('campaigns')) params.append('admin', 'true');
-                            }
-
-                            const url = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'}${endpoint}?${params.toString()}`;
-                            window.open(url, '_blank');
-                        }}
-                        className={`flex items-center gap-2 px-3 py-2 border rounded-lg text-sm font-bold transition-all shadow-sm ${selectedRows.length > 0
-                            ? 'bg-accent-500 text-white border-teal-600 hover:bg-accent-600'
-                            : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-teal-500 hover:text-accent-400'
-                            }`}
-                    >
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        {selectedRows.length > 0 ? `Export (${selectedRows.length})` : 'Export CSV'}
-                    </button>
                 </div>
 
-                <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">
-                    {/* View Toggles */}
-                    <div className="flex bg-surface-secondary p-1 rounded-lg border border-border-primary">
+                <div className="flex flex-wrap gap-2 items-center w-full md:w-auto justify-end">
+                    {/* View Toggle: Table / Card */}
+                    <div className="flex bg-surface-secondary p-0.5 rounded-lg border border-border-primary">
+                        <button
+                            onClick={() => setViewType('table')}
+                            className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all ${viewType === 'table' ? 'bg-accent-500 text-white shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
+                            title="Table View"
+                        >
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        </button>
+                        <button
+                            onClick={() => setViewType('card')}
+                            className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all ${viewType === 'card' ? 'bg-accent-500 text-white shadow-sm' : 'text-ink-tertiary hover:text-ink-secondary'}`}
+                            title="Card View"
+                        >
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                        </button>
+                    </div>
+
+                    {/* Compact toggle */}
                     <button
                         onClick={() => setIsCompact(!isCompact)}
-                        className={`p-2 rounded-lg border transition-all ${isCompact ? 'bg-accent-500/10 border-teal-300 text-accent-400' : 'bg-surface-elevated border-border-primary text-ink-tertiary0 hover:border-border-primary'}`}
+                        className={`px-2 py-1 border rounded-lg text-[10px] font-bold transition-all ${isCompact ? 'bg-accent-500/10 border-accent-300 text-accent-500' : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'}`}
                         title={isCompact ? 'Expanded View' : 'Compact View'}
                     >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
+                        {isCompact ? 'Expand' : 'Compact'}
                     </button>
 
                     {/* Column Settings */}
                     <div className="relative">
                         <button
                             onClick={() => setShowColumnSettings(!showColumnSettings)}
-                            className={`p-2 rounded-lg border transition-all ${showColumnSettings ? 'bg-accent-500/10 border-teal-300 text-accent-400' : 'bg-surface-elevated border-border-primary text-ink-tertiary0 hover:border-border-primary'}`}
+                            className={`p-1.5 rounded-lg border transition-all ${showColumnSettings ? 'bg-accent-500/10 border-accent-300 text-accent-500' : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'}`}
                             title="Column Settings"
                         >
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                             </svg>
                         </button>
-                        
                         {showColumnSettings && isMounted && createPortal(
                             <div className="fixed inset-0 z-9999" onClick={() => setShowColumnSettings(false)}>
-                                <div 
-                                    className="absolute bg-surface-elevated rounded-xl shadow-2xl border border-border-primary py-3 animate-in fade-in slide-in-from-top-2 duration-200 w-64"
-                                    style={{ top: '180px', right: '20px' }}
+                                <div
+                                    className="absolute bg-surface-elevated rounded-xl shadow-2xl border border-border-primary py-2 w-56"
+                                    style={{ top: '160px', right: '16px' }}
                                     onClick={e => e.stopPropagation()}
                                 >
-                                    <div className="px-3 py-2 border-b border-border-primary mb-2">
-                                        <p className="text-xs font-black text-ink-tertiary0 uppercase tracking-widest">Columns</p>
+                                    <div className="px-3 py-1.5 border-b border-border-primary mb-1">
+                                        <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest">Columns</p>
                                     </div>
-                                    <div className="max-h-64 overflow-y-auto">
+                                    <div className="max-h-56 overflow-y-auto">
                                         {columns.map((col, idx) => (
-                                            <label
-                                                key={idx}
-                                                className="flex items-center gap-3 px-3 py-2 hover:bg-surface-secondary cursor-pointer"
-                                            >
+                                            <label key={idx} className="flex items-center gap-2.5 px-3 py-1.5 hover:bg-surface-secondary cursor-pointer">
                                                 <input
                                                     type="checkbox"
                                                     checked={!hiddenColumns.includes(idx)}
                                                     onChange={() => {
-                                                        if (hiddenColumns.includes(idx)) {
-                                                            setHiddenColumns(prev => prev.filter(i => i !== idx));
-                                                        } else {
-                                                            setHiddenColumns(prev => [...prev, idx]);
-                                                        }
+                                                        if (hiddenColumns.includes(idx)) setHiddenColumns(prev => prev.filter(i => i !== idx));
+                                                        else setHiddenColumns(prev => [...prev, idx]);
                                                     }}
-                                                    className="w-4 h-4 rounded border-border-primary text-accent-400"
+                                                    className="w-3.5 h-3.5 rounded border-border-primary text-accent-500"
                                                 />
-                                                <span className="text-sm font-medium text-ink-secondary">{col.header}</span>
+                                                <span className="text-xs font-medium text-ink-secondary">{col.header}</span>
                                             </label>
                                         ))}
                                     </div>
-                                    <div className="px-3 py-2 border-t border-border-primary mt-2 flex gap-2">
-                                        <button 
-                                            onClick={() => {
-                                                setHiddenColumns([]);
-                                                setColumnOrder(columns.map((_, idx) => idx));
-                                            }}
-                                            className="text-xs text-ink-tertiary0 hover:text-accent-400"
-                                        >
-                                            Reset All
-                                        </button>
+                                    <div className="px-3 py-1.5 border-t border-border-primary mt-1">
+                                        <button onClick={() => { setHiddenColumns([]); setColumnOrder(columns.map((_, idx) => idx)); }}
+                                            className="text-[10px] text-ink-tertiary hover:text-accent-500 font-medium">Reset All</button>
                                     </div>
                                 </div>
                             </div>,
                             document.body
                         )}
                     </div>
-                </div>
 
-                    <div className="h-6 w-px bg-surface-tertiary hidden md:block"></div>
-
+                    {/* Export */}
                     <button
-                        onClick={() => setIsCompact(!isCompact)}
-                        className={`px-3 py-2 border rounded-lg text-xs font-bold transition-all ${isCompact ? 'bg-accent-500/10 border-teal-200 text-accent-400' : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-border-primary'}`}
+                        onClick={() => {
+                            const params = new URLSearchParams();
+                            params.append('export', 'csv');
+                            if (selectedRows.length > 0) params.append('ids', selectedRows.join(','));
+                            else {
+                                params.append('sortBy', sort.sortBy);
+                                params.append('sortOrder', sort.sortOrder);
+                                if (search) params.append('search', search);
+                                Object.entries(filters).forEach(([k, v]) => { if (v) params.append(k, v); });
+                            }
+                            window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'}${endpoint}?${params.toString()}`, '_blank');
+                        }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1.5 border rounded-lg text-[10px] font-bold transition-all ${selectedRows.length > 0 ? 'bg-accent-500 text-white border-accent-600 hover:bg-accent-600' : 'bg-surface-elevated border-border-primary text-ink-secondary hover:border-accent-500 hover:text-accent-500'}`}
                     >
-                        {isCompact ? 'Expanded Mode' : 'Compact Mode'}
+                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                        {selectedRows.length > 0 ? `Export (${selectedRows.length})` : 'CSV'}
                     </button>
 
-                    {/* Bulk Actions Toolbar */}
+                    {/* Bulk Actions */}
                     {bulkActions && selectedRows.length > 0 && (
-                        <div className="flex gap-2 animate-in fade-in slide-in-from-top-2">
+                        <div className="flex gap-1.5">
                             {Object.keys(bulkActions).map(action => (
-                                <button
-                                    key={action}
-                                    onClick={() => handleBulkClick(action)}
-                                    className="px-3 py-1.5 bg-surface-tertiary text-white text-sm font-bold rounded-lg hover:bg-surface-tertiary shadow-lg shadow-black/10 transition-all capitalize"
-                                >
+                                <button key={action} onClick={() => handleBulkClick(action)}
+                                    className="px-2.5 py-1.5 bg-accent-500 text-white text-[10px] font-bold rounded-lg hover:bg-accent-600 transition-all capitalize">
                                     {action} ({selectedRows.length})
                                 </button>
                             ))}
                         </div>
                     )}
                 </div>
+            </div>
             </div>
 
             {/* Table */}
