@@ -10,7 +10,7 @@ import {
   LayoutDashboard, Users, Package, ShoppingCart, Store,
   Settings, BarChart3, Truck, Megaphone, Shield,
   FileText, CreditCard, Radio, DollarSign, Car,
-  Image, UserCheck, Building2, Bot,
+  Image, UserCheck, Building2, Bot, Award,
   ClipboardList, ChevronLeft, ChevronRight, LogOut,
   Home, ArrowLeft, Menu, X, Ticket, ChevronDown, User
 } from 'lucide-react';
@@ -32,6 +32,7 @@ const adminNavItems = [
   { id: 'broadcasts', label: 'Broadcasts', icon: Radio, href: '/admin/broadcasts' },
   { id: 'logistics', label: 'Logistics', icon: Truck, href: '/admin/logistics' },
   { id: 'media', label: 'Media', icon: Image, href: '/admin/assets' },
+  { id: 'brands', label: 'Brands', icon: Award, href: '/admin/brands' },
   { id: 'ibt-partners', label: 'IBT Partners', icon: Building2, href: '/admin/ibt-partners' },
   { id: 'ads', label: 'Ads', icon: Megaphone, href: '/admin/ads' },
   { id: 'agent', label: 'Agent', icon: Bot, href: '/admin/agent' },

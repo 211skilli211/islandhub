@@ -116,6 +116,9 @@ export default function Home() {
         </section>
       </HeroBackground>
 
+      {/* ═══ BRAND MARQUEE ═══ */}
+      <BrandMarquee title="Trusted by leading Caribbean brands" speed={30} />
+
       {/* ═══ REQUEST SERVICES ═══ */}
       <RequestServicesSection />
 

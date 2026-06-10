@@ -668,6 +668,68 @@ export const deleteMarqueeTemplate = async (req: Request, res: Response) => {
     }
 };
 
+// --- Brand Logos (Marquee) ---
+
+export const getBrandLogos = async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM brand_logos WHERE is_active = true ORDER BY sort_order ASC, created_at ASC'
+        );
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching brand logos:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+export const createBrandLogo = async (req: Request, res: Response) => {
+    try {
+        const { name, image_url, link_url, sort_order } = req.body;
+        if (!image_url) return res.status(400).json({ message: 'Image URL is required' });
+        const result = await pool.query(
+            'INSERT INTO brand_logos (name, image_url, link_url, sort_order) VALUES ($1, $2, $3, $4) RETURNING *',
+            [name || '', image_url, link_url || '', sort_order || 0]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error creating brand logo:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+export const updateBrandLogo = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { name, image_url, link_url, sort_order, is_active } = req.body;
+        const result = await pool.query(
+            `UPDATE brand_logos SET
+                name = COALESCE($1, name),
+                image_url = COALESCE($2, image_url),
+                link_url = COALESCE($3, link_url),
+                sort_order = COALESCE($4, sort_order),
+                is_active = COALESCE($5, is_active),
+                updated_at = NOW()
+            WHERE id = $6 RETURNING *`,
+            [name, image_url, link_url, sort_order, is_active, id]
+        );
+        if (result.rows.length === 0) return res.status(404).json({ message: 'Brand logo not found' });
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Error updating brand logo:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+export const deleteBrandLogo = async (req: Request, res: Response) => {
+    try {
+        await pool.query('DELETE FROM brand_logos WHERE id = $1', [req.params.id]);
+        res.json({ message: 'Brand logo deleted' });
+    } catch (error) {
+        console.error('Error deleting brand logo:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 // --- Promotional Banners ---
 
 export const getPromotionalBanners = async (req: Request, res: Response) => {

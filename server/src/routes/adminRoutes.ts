@@ -3,6 +3,7 @@ import {
     getDashboardStats, createUser, requestChanges, getChangeRequests, exportData, getAuditLogs, updateUser,
     getAllSubscriptions, updateSubscriptionManual, getUsers, deleteUser, getDrivers,
     getMarqueeTemplates, saveMarqueeTemplate, updateMarqueeTemplate, deleteMarqueeTemplate,
+    getBrandLogos, createBrandLogo, updateBrandLogo, deleteBrandLogo,
     getPromotionalBanners, createPromotionalBanner, updatePromotionalBanner, deletePromotionalBanner, togglePromotionalBanner,
     getOrders, dispatchOrder, updateCampaign
 } from '../controllers/adminController';
@@ -61,6 +62,12 @@ router.get('/marquee/templates', authenticateJWT, isAdmin, getMarqueeTemplates);
 router.post('/marquee/templates', authenticateJWT, isAdmin, saveMarqueeTemplate);
 router.patch('/marquee/templates/:id', authenticateJWT, isAdmin, updateMarqueeTemplate);
 router.delete('/marquee/templates/:id', authenticateJWT, isAdmin, deleteMarqueeTemplate);
+
+// Brand Logos (Marquee)
+router.get('/brands', authenticateJWT, isAdmin, getBrandLogos);
+router.post('/brands', authenticateJWT, isAdmin, createBrandLogo);
+router.patch('/brands/:id', authenticateJWT, isAdmin, updateBrandLogo);
+router.delete('/brands/:id', authenticateJWT, isAdmin, deleteBrandLogo);
 
 // Promotional Banners
 router.get('/promotions/banners', authenticateJWT, isAdmin, getPromotionalBanners);
