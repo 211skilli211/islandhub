@@ -95,7 +95,7 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
                 {slide.badge}
               </span>
             )}
-            <h2 className="text-xl sm:text-3xl font-black leading-tight mb-1.5">{slide.headline}</h2>
+            <h2 className="text-xl sm:text-3xl font-black text-white mb-1.5 leading-tight">{slide.headline}</h2>
             {slide.subheadline && (
               <p className="text-sm sm:text-base text-white/80 mb-3 line-clamp-2">{slide.subheadline}</p>
             )}
@@ -191,7 +191,7 @@ export function CategoryTiles({ title, tiles, columns = 3, className = '' }: Cat
               {tile.imageUrl ? (
                 <img src={tile.imageUrl} alt={tile.label} className="w-full h-full object-cover" loading="lazy" />
               ) : (
-                <span className="text-2xl">{tile.emoji || '📦'}</span>
+                <span className="text-2xl leading-none">{tile.emoji || '📦'}</span>
               )}
             </div>
             <span className="text-[10px] sm:text-xs font-medium text-ink-secondary group-hover:text-accent-500 text-center leading-tight">
@@ -285,11 +285,11 @@ interface ContentSectionProps {
 export function ContentSection({ title, subtitle, titleAlign = 'center', seeMoreHref, seeMoreLabel = 'See more', children, className = '' }: ContentSectionProps) {
   return (
     <section className={`py-5 ${className}`}>
-      <div className={`mb-3 ${titleAlign === 'center' ? 'text-center' : ''}`}>
-        <h2 className={`text-base font-bold text-ink-primary ${titleAlign === 'center' ? 'mx-auto' : ''}`}>{title}</h2>
-        {subtitle && <p className="text-xs text-ink-tertiary mt-0.5">{subtitle}</p>}
+      <div className={`mb-4 ${titleAlign === 'center' ? 'text-center' : ''}`}>
+        <h2 className={`text-base font-bold text-ink-primary leading-tight ${titleAlign === 'center' ? 'mx-auto' : ''}`}>{title}</h2>
+        {subtitle && <p className="text-xs text-ink-tertiary mt-1 leading-relaxed">{subtitle}</p>}
         {seeMoreHref && (
-          <Link href={seeMoreHref} className="text-xs font-medium text-accent-500 hover:text-accent-400 shrink-0 mt-1 inline-block">
+          <Link href={seeMoreHref} className="text-xs font-medium text-accent-500 hover:text-accent-400 shrink-0 mt-1.5 inline-block">
             {seeMoreLabel} →
           </Link>
         )}

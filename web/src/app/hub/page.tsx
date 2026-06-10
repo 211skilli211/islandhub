@@ -43,11 +43,11 @@ export default function HubRootPage() {
                 href={`/hub/${cat.slug}`}
                 className="group block p-4 rounded-xl border border-border-primary bg-surface-elevated hover:border-accent-500/30 hover:shadow-md transition-all"
               >
-                <div className={`w-10 h-10 rounded-lg ${cat.lightBg} flex items-center justify-center text-xl mb-2`}>
+                <div className={`w-full h-12 rounded-lg ${cat.lightBg} flex items-center justify-center gap-1 mb-3 text-lg leading-none`}>
                   {cat.emoji}
                 </div>
-                <h2 className="text-sm font-bold text-ink-primary mb-0.5">{cat.title}</h2>
-                <p className="text-[10px] text-ink-tertiary line-clamp-2">{cat.subtitle}</p>
+                <h2 className="text-sm font-bold text-ink-primary mb-0.5 leading-tight">{cat.title}</h2>
+                <p className="text-[10px] text-ink-tertiary line-clamp-2 leading-relaxed">{cat.subtitle}</p>
                 <span className={`mt-2 inline-flex items-center gap-0.5 text-[10px] font-medium ${cat.lightText}`}>
                   Explore →
                 </span>

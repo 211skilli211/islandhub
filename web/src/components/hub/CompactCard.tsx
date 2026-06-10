@@ -43,7 +43,7 @@ export function CompactCard({
           {img ? (
             <img src={img} alt={title} className="w-full h-full object-cover" loading="lazy" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-surface-secondary to-surface-tertiary">
+            <div className="w-full h-full flex items-center justify-center text-3xl leading-none bg-gradient-to-br from-surface-secondary to-surface-tertiary">
               {emoji}
             </div>
           )}
@@ -142,7 +142,7 @@ export function CompactHubPage({
       {/* Hero — compact */}
       <section className={`bg-gradient-to-br ${gradient} py-6 px-4`}>
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-1">{emoji} {title}</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight">{emoji} {title}</h1>
           <p className="text-sm text-white/70 max-w-xl mx-auto">{subtitle}</p>
         </div>
       </section>
