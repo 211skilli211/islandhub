@@ -10,6 +10,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
+# Normalize line endings (strip Windows \r from any .ts files)
+RUN find . -name "*.ts" -exec sed -i 's/\r$//' {} +
+
 # Build TypeScript
 RUN npm run build
 
