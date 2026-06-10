@@ -64,7 +64,7 @@ export default function CommunityGroupsHubPage() {
         </div>
       </section>
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <FilterBar filters={['All', 'Active', 'New', 'Popular']} sortOptions={['Members', 'Active', 'Newest']} activeSort="Members" onSortChange={() => {}} />
+        <FilterBar filters={['All', 'Active', 'New', 'Popular']} activeFilter="All" onFilterChange={() => {}} sortOptions={['Members', 'Active', 'Newest']} activeSort="Members" onSortChange={() => {}} />
       </div>
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
