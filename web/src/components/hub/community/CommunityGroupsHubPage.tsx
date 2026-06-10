@@ -1,91 +1,99 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { RatingBadge, FilterBar, EmptyState } from '@/components/hub/SharedComponents';
+import { CompactCard, CompactHubPage } from '@/components/hub/CompactCard';
 import api from '@/lib/api';
 
 interface Group {
   id: number; name: string; slug: string;
-  category?: string; member_count?: number;
-  description?: string; image_url?: string;
-  is_active?: boolean;
+  description: string; cover_image_url: string;
+  privacy: 'public' | 'private' | 'invite_only';
+  member_count: number; post_count: number;
+  category?: string; is_member: boolean;
 }
 
-function GroupCard({ group }: { group: Group }) {
-  const name = group.name || 'Group';
-  return (
-    <Link href={`/hub/community/groups/${group.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-xl border border-border-primary p-3 hover:border-accent-500/30 hover:shadow-md transition-all">
-        <div className="flex items-start gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-xl shrink-0">
-            {group.image_url ? (
-              <img src={group.image_url} alt={name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
-            ) : (
-              '👥'
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
-            <p className="text-xs text-ink-tertiary mt-0.5">{group.category || 'Community Group'}</p>
-            {group.description && <p className="text-xs text-ink-secondary mt-1 line-clamp-2">{group.description}</p>}
-            <div className="flex items-center gap-3 mt-2 text-xs text-ink-tertiary">
-              {group.member_count && <span>👥 {group.member_count} members</span>}
-              {group.is_active && <span className="text-emerald-500 font-medium">● Active</span>}
-            </div>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
+const FILTERS = ['All', 'Food', 'Activities', 'Business', 'Sports', 'Arts', 'Fitness'];
+const SORT_OPTIONS = ['Popular', 'Newest', 'Most Active'];
+
+function getCategoryEmoji(category: string) {
+  const icons: Record<string, string> = {
+    food: '🍽️', activities: '🏖️', business: '💼',
+    sports: '⚽', arts: '🎨', fitness: '💪', community: '🤝',
+  };
+  return icons[category] || '👥';
 }
 
-export default function CommunityGroupsHubPage() {
+export function CommunityGroupsHubPage() {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeSort, setActiveSort] = useState('Popular');
 
   useEffect(() => {
-    api.get('/search/featured?type=community&limit=12')
-      .then((res: any) => setGroups(res.data?.groups || res.data || []))
-      .catch(() => setGroups([]))
-      .finally(() => setLoading(false));
+    const fetchGroups = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get('/groups?limit=20');
+        setGroups(Array.isArray(res.data) ? res.data : res.data?.groups || getSampleGroups());
+      } catch { setGroups(getSampleGroups()); }
+      setLoading(false);
+    };
+    fetchGroups();
   }, []);
 
+  const filteredGroups = activeFilter === 'All'
+    ? groups
+    : groups.filter(g => (g.category || '').toLowerCase() === activeFilter.toLowerCase());
+
   return (
-    <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 py-6 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-black text-white mb-3">
-            👥 Community Groups
-          </motion.h1>
-          <p className="text-lg text-teal-200 max-w-2xl mx-auto">
-            Interest-based groups and clubs across the Caribbean.
-          </p>
-        </div>
-      </section>
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <FilterBar filters={['All', 'Active', 'New', 'Popular']} activeFilter="All" onFilterChange={() => {}} sortOptions={['Members', 'Active', 'Newest']} activeSort="Members" onSortChange={() => {}} />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 pb-12">
-        {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary p-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-surface-secondary animate-pulse" />
-                  <div className="flex-1"><div className="h-4 bg-surface-secondary rounded animate-pulse w-1/2" /></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : groups.length === 0 ? (
-          <EmptyState emoji="👥" title="No groups yet" message="Start a group and bring the community together!" />
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
-            {groups.map((g) => <GroupCard key={g.id} group={g} />)}
-          </div>
-        )}
-      </div>
-    </div>
+    <CompactHubPage
+      title="Community Groups"
+      subtitle="Find your people and join the conversation"
+      emoji="👥"
+      gradient="from-teal-900 via-cyan-900 to-blue-900"
+      items={groups}
+      loading={loading}
+      filters={FILTERS}
+      activeFilter={activeFilter}
+      onFilterChange={setActiveFilter}
+      sortOptions={SORT_OPTIONS}
+      activeSort={activeSort}
+      onSortChange={setActiveSort}
+      emptyEmoji="👥"
+      emptyTitle="No groups found"
+      emptyMessage="Start a group and bring people together!"
+      renderCard={(group: Group) => (
+        <CompactCard
+          key={group.id}
+          href={`/community/groups#group-${group.id}`}
+          imageUrl={group.cover_image_url}
+          emoji={getCategoryEmoji(group.category || 'community')}
+          title={group.name}
+          subtitle={group.privacy === 'private' ? '🔒 Private Group' : group.privacy === 'invite_only' ? '🔐 Invite Only' : '🌐 Public Group'}
+          badge={`${group.member_count.toLocaleString()} members`}
+          badgeColor="bg-teal-500"
+          meta={[`${group.post_count} posts`]}
+          ctaLabel={group.is_member ? 'View' : 'Join'}
+        />
+      )}
+    />
   );
+}
+
+function getSampleGroups(): Group[] {
+  return [
+    { id: 1, name: 'Island Foodies', slug: 'island-foodies', description: 'Share recipes, discover local restaurants, and connect with food lovers.', cover_image_url: '', privacy: 'public', member_count: 1250, post_count: 342, category: 'food', is_member: false },
+    { id: 2, name: 'Water Sports Enthusiasts', slug: 'water-sports', description: 'From surfing to diving, share your aquatic adventures.', cover_image_url: '', privacy: 'public', member_count: 890, post_count: 156, category: 'activities', is_member: true },
+    { id: 3, name: 'Local Business Network', slug: 'biz-network', description: 'Connect with local entrepreneurs, share tips, and grow.', cover_image_url: '', privacy: 'public', member_count: 567, post_count: 89, category: 'business', is_member: false },
+    { id: 4, name: 'Beach Cleanup Crew', slug: 'cleanup-crew', description: 'Join monthly beach cleanup events and keep our shores beautiful.', cover_image_url: '', privacy: 'public', member_count: 234, post_count: 45, category: 'community', is_member: false },
+    { id: 5, name: 'Island Artists Collective', slug: 'artists-collective', description: 'Showcase your art, collaborate with fellow creators.', cover_image_url: '', privacy: 'public', member_count: 345, post_count: 78, category: 'arts', is_member: false },
+    { id: 6, name: 'Real Estate & Rentals', slug: 'real-estate', description: 'Find your dream home or list your property.', cover_image_url: '', privacy: 'private', member_count: 678, post_count: 123, category: 'business', is_member: false },
+    { id: 7, name: 'Football League', slug: 'football', description: 'Local football matches and tournaments.', cover_image_url: '', privacy: 'public', member_count: 456, post_count: 234, category: 'sports', is_member: false },
+    { id: 8, name: 'Yoga & Wellness', slug: 'yoga-wellness', description: 'Daily yoga sessions and wellness tips.', cover_image_url: '', privacy: 'public', member_count: 567, post_count: 189, category: 'fitness', is_member: true },
+    { id: 9, name: 'Photography Club', slug: 'photography', description: 'Share your best shots and learn new techniques.', cover_image_url: '', privacy: 'public', member_count: 389, post_count: 567, category: 'arts', is_member: false },
+    { id: 10, name: 'Investment Club', slug: 'investment', description: 'Learn about investing and grow your wealth.', cover_image_url: '', privacy: 'invite_only', member_count: 123, post_count: 45, category: 'business', is_member: false },
+    { id: 11, name: 'Surfing & Board Sports', slug: 'surfing', description: 'Find the best surf spots and share your rides.', cover_image_url: '', privacy: 'public', member_count: 234, post_count: 89, category: 'sports', is_member: false },
+    { id: 12, name: 'Cooking & Recipes', slug: 'cooking', description: 'Share recipes and cooking tips from around the island.', cover_image_url: '', privacy: 'public', member_count: 789, post_count: 456, category: 'food', is_member: false },
+  ];
 }

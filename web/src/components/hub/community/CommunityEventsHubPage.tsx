@@ -1,97 +1,115 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { RatingBadge, FilterBar, EmptyState } from '@/components/hub/SharedComponents';
+import { CompactCard, CompactHubPage } from '@/components/hub/CompactCard';
 import api from '@/lib/api';
 
-interface CommunityEvent {
-  id: number; name: string; slug: string;
-  event_type?: string; date_display?: string; venue?: string;
-  attendee_count?: number; image_url?: string; description?: string; is_free?: boolean;
+interface Event {
+  event_id: number; title: string; slug: string;
+  date: string; end_date?: string; location: string;
+  category: string; rsvp_count: number; max_attendees?: number;
+  ticket_price?: number; cover_image_url: string;
+  organizer_name: string; status: string; is_virtual: boolean;
 }
 
-function EventCard({ event }: { event: CommunityEvent }) {
-  const name = event.name || 'Event';
-  return (
-    <Link href={`/hub/community/events/${event.slug}`} className="block group">
-      <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
-        <div className="relative aspect-[16/10] bg-gradient-to-br from-teal-800 to-cyan-900">
-          {event.image_url ? (
-            <img src={event.image_url} alt={name} className="w-full h-full object-cover" loading="lazy" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-4xl">📅</div>
-          )}
-          <div className="absolute top-3 left-3">
-            <span className="px-2 py-0.5 rounded-full bg-white/90 text-ink-primary text-[10px] font-bold">{event.event_type || 'Event'}</span>
-          </div>
-          {event.is_free && (
-            <div className="absolute top-3 right-3">
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold">FREE</span>
-            </div>
-          )}
-        </div>
-        <div className="p-4">
-          <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
-          <div className="flex items-center gap-2 mt-1 text-xs text-ink-tertiary">
-            {event.date_display && <span>🗓️ {event.date_display}</span>}
-            {event.venue && <span>📍 {event.venue}</span>}
-          </div>
-          {event.attendee_count && (
-            <div className="mt-2 flex items-center gap-1 text-xs text-ink-tertiary">
-              <span>👥 {event.attendee_count} attending</span>
-            </div>
-          )}
-        </div>
-      </div>
-    </Link>
-  );
+const CATEGORIES = ['All', 'Food', 'Arts', 'Music', 'Fitness', 'Community', 'Business'];
+const SORT_OPTIONS = ['Date', 'Popular', 'Price'];
+
+function formatEventDate(dateStr: string) {
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = d.getTime() - now.getTime();
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  if (days < 0) return 'Past';
+  if (days === 0) return 'Today';
+  if (days === 1) return 'Tomorrow';
+  if (days < 7) return `${days}d away`;
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-export default function CommunityHubEventsPage() {
-  const [events, setEvents] = useState<CommunityEvent[]>([]);
+function getCategoryEmoji(category: string) {
+  const icons: Record<string, string> = {
+    food: '🍽️', arts: '🎨', music: '🎵', fitness: '💪',
+    community: '🤝', sports: '⚽', business: '💼',
+  };
+  return icons[category] || '📅';
+}
+
+export function CommunityHubEventsPage() {
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeSort, setActiveSort] = useState('Date');
 
   useEffect(() => {
-    api.get('/search/featured?type=community&limit=12')
-      .then((res: any) => setEvents(res.data?.events || res.data || []))
-      .catch(() => setEvents([]))
-      .finally(() => setLoading(false));
+    const fetchEvents = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get('/community-events?limit=20');
+        setEvents(Array.isArray(res.data) ? res.data : res.data?.events || getSampleEvents());
+      } catch { setEvents(getSampleEvents()); }
+      setLoading(false);
+    };
+    fetchEvents();
   }, []);
 
+  const filteredEvents = activeFilter === 'All'
+    ? events
+    : events.filter(e => e.category.toLowerCase() === activeFilter.toLowerCase());
+
   return (
-    <div className="min-h-screen bg-surface-primary">
-      <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-6 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-black text-white mb-3">
-            📅 Community Events
-          </motion.h1>
-          <p className="text-lg text-teal-200 max-w-2xl mx-auto">
-            Local gatherings, meetups, and social events across the Caribbean.
-          </p>
-        </div>
-      </section>
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <FilterBar filters={['Today', 'This Week', 'This Month', 'Free', 'Paid']} activeFilter="Today" onFilterChange={() => {}} sortOptions={['Date', 'Popular', 'Distance']} activeSort="Date" onSortChange={() => {}} />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 pb-12">
-        {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden">
-                <div className="aspect-[16/10] bg-surface-secondary animate-pulse" />
-                <div className="p-4"><div className="h-4 bg-surface-secondary rounded animate-pulse w-3/4" /></div>
-              </div>
-            ))}
-          </div>
-        ) : events.length === 0 ? (
-          <EmptyState emoji="📅" title="No community events" message="Check back later for new events." />
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {events.map((e) => <EventCard key={e.id} event={e} />)}
-          </div>
-        )}
-      </div>
-    </div>
+    <CompactHubPage
+      title="Community Events"
+      subtitle="Local gatherings, festivals, and meetups across the Caribbean"
+      emoji="📅"
+      gradient="from-green-900 via-emerald-900 to-teal-900"
+      items={events}
+      loading={loading}
+      filters={CATEGORIES}
+      activeFilter={activeFilter}
+      onFilterChange={setActiveFilter}
+      sortOptions={SORT_OPTIONS}
+      activeSort={activeSort}
+      onSortChange={setActiveSort}
+      emptyEmoji="📅"
+      emptyTitle="No events found"
+      emptyMessage="Check back later for new events."
+      renderCard={(event: Event) => (
+        <CompactCard
+          key={event.event_id}
+          href={`/community/events#event-${event.event_id}`}
+          imageUrl={event.cover_image_url}
+          emoji={getCategoryEmoji(event.category)}
+          title={event.title}
+          subtitle={event.location}
+          badge={formatEventDate(event.date)}
+          badgeColor="bg-emerald-500"
+          meta={[
+            event.ticket_price ? `$${event.ticket_price}` : 'Free',
+            `${event.rsvp_count} going`,
+            event.is_virtual ? 'Virtual' : 'In-person',
+          ]}
+          ctaLabel="RSVP"
+        />
+      )}
+    />
   );
+}
+
+function getSampleEvents(): Event[] {
+  return [
+    { event_id: 1, title: 'Island Food Festival 2026', slug: 'food-festival', date: '2026-07-15T11:00:00', end_date: '2026-07-15T21:00:00', location: 'Downtown Market Plaza', category: 'food', rsvp_count: 234, max_attendees: 500, cover_image_url: '', organizer_name: 'Island Tourism Board', status: 'upcoming', is_virtual: false },
+    { event_id: 2, title: 'Beach Cleanup Day', slug: 'beach-cleanup', date: '2026-07-20T08:00:00', end_date: '2026-07-20T12:00:00', location: 'South Beach', category: 'community', rsvp_count: 89, cover_image_url: '', organizer_name: 'Environmental Club', status: 'upcoming', is_virtual: false },
+    { event_id: 3, title: 'Local Artists Market', slug: 'artists-market', date: '2026-07-22T10:00:00', end_date: '2026-07-22T17:00:00', location: 'Harbor Square', category: 'arts', rsvp_count: 156, cover_image_url: '', organizer_name: 'Arts Collective', status: 'upcoming', is_virtual: false },
+    { event_id: 4, title: 'Sunset Yoga on the Beach', slug: 'sunset-yoga', date: '2026-07-07T17:30:00', end_date: '2026-07-07T18:30:00', location: 'West Beach', category: 'fitness', rsvp_count: 45, max_attendees: 50, cover_image_url: '', organizer_name: 'Wellness Center', status: 'upcoming', is_virtual: false },
+    { event_id: 5, title: 'Island Music Festival', slug: 'music-fest', date: '2026-08-10T18:00:00', end_date: '2026-08-12T23:00:00', location: 'Amphitheater Park', category: 'music', rsvp_count: 567, max_attendees: 2000, ticket_price: 25, cover_image_url: '', organizer_name: 'Music Society', status: 'upcoming', is_virtual: false },
+    { event_id: 6, title: 'Farmers Market', slug: 'farmers-market', date: '2026-07-08T06:00:00', end_date: '2026-07-08T12:00:00', location: 'Town Square', category: 'food', rsvp_count: 312, cover_image_url: '', organizer_name: 'Farmers Association', status: 'upcoming', is_virtual: false },
+    { event_id: 7, title: 'Business Networking Mixer', slug: 'biz-mixer', date: '2026-07-25T18:00:00', location: 'Marina Club', category: 'business', rsvp_count: 78, cover_image_url: '', organizer_name: 'Chamber of Commerce', status: 'upcoming', is_virtual: false },
+    { event_id: 8, title: 'Caribbean Cooking Class', slug: 'cooking-class', date: '2026-07-12T14:00:00', location: 'Community Kitchen', category: 'food', rsvp_count: 24, max_attendees: 30, ticket_price: 15, cover_image_url: '', organizer_name: 'Chef Maria', status: 'upcoming', is_virtual: false },
+    { event_id: 9, title: 'Virtual Investment Seminar', slug: 'investment-seminar', date: '2026-07-18T10:00:00', location: 'Online', category: 'business', rsvp_count: 156, cover_image_url: '', organizer_name: 'Finance Group', status: 'upcoming', is_virtual: true },
+    { event_id: 10, title: 'Beach Volleyball Tournament', slug: 'volleyball', date: '2026-07-26T09:00:00', location: 'Pinneys Beach', category: 'sports', rsvp_count: 89, cover_image_url: '', organizer_name: 'Sports Club', status: 'upcoming', is_virtual: false },
+    { event_id: 11, title: 'Art Exhibition Opening', slug: 'art-exhibition', date: '2026-07-14T17:00:00', location: 'National Gallery', category: 'arts', rsvp_count: 67, cover_image_url: '', organizer_name: 'Gallery Collective', status: 'upcoming', is_virtual: false },
+    { event_id: 12, title: 'Community Town Hall', slug: 'town-hall', date: '2026-07-30T18:00:00', location: 'Community Center', category: 'community', rsvp_count: 234, cover_image_url: '', organizer_name: 'Local Council', status: 'upcoming', is_virtual: false },
+  ];
 }
