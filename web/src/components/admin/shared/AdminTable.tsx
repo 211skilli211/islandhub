@@ -448,10 +448,7 @@ export function AdminTable<T extends Record<string, any>>({
                     )}
                 </div>
             </div>
-            </div>
 
-            {/* Table */}
-            {/* Table / Card View Toggle or Responsive Logic */}
             <div className="bg-surface-elevated rounded-xl border border-border-primary shadow-sm overflow-hidden min-h-[400px]">
                 {/* Desktop Table View */}
                 {viewType === 'table' && (
