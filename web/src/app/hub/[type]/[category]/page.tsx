@@ -139,6 +139,12 @@ export default function HubCategoryPage() {
       case 'stories': return <CommunityStoriesHubPage />;
       case 'groups': return <CommunityGroupsHubPage />;
       case 'auctions': return <CommunityAuctionsHubPage />;
+      case 'business': return <CommunityBusinessHubPage />;
+      case 'coops': return <CommunityCoopsHubPage />;
+      case 'jobs': return <CommunityJobsHubPage />;
+      case 'marketplace': return <CommunityMarketplaceHubPage />;
+      case 'map': return <CommunityMapHubPage />;
+      case 'feed': return <CommunityFeedHubPage />;
       default: return <CommunityDirectoryHubPage />;
     }
   }
