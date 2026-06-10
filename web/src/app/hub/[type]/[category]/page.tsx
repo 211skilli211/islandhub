@@ -34,10 +34,15 @@ import { CommunityCampaignsHubPage, EnvironmentCampaignsHubPage, EducationCampai
 
 // Community — all named exports from their respective files
 import { CommunityDirectoryHubPage } from '@/components/hub/community/CommunityDirectoryHubPage';
+import { CommunityAuctionsHubPage } from '@/components/hub/community/CommunityDirectoryHubPage';
 import { CommunityHubEventsPage } from '@/components/hub/community/CommunityEventsHubPage';
 import { CommunityStoriesHubPage } from '@/components/hub/community/CommunityStoriesHubPage';
 import { CommunityGroupsHubPage } from '@/components/hub/community/CommunityGroupsHubPage';
-import { CommunityAuctionsHubPage } from '@/components/hub/community/CommunityDirectoryHubPage';
+import { CommunityBusinessHubPage } from '@/components/hub/community/CommunityBusinessHubPage';
+import { CommunityCoopsHubPage } from '@/components/hub/community/CommunityCoopsHubPage';
+import { CommunityJobsHubPage } from '@/components/hub/community/CommunityJobsHubPage';
+import { CommunityMarketplaceHubPage } from '@/components/hub/community/CommunityMarketplaceHubPage';
+import CommunityMapHubPage from '@/components/hub/community/CommunityMapHubPage';
 
 export default function HubCategoryPage() {
   const params = useParams();
@@ -144,7 +149,6 @@ export default function HubCategoryPage() {
       case 'jobs': return <CommunityJobsHubPage />;
       case 'marketplace': return <CommunityMarketplaceHubPage />;
       case 'map': return <CommunityMapHubPage />;
-      case 'feed': return <CommunityFeedHubPage />;
       default: return <CommunityDirectoryHubPage />;
     }
   }
