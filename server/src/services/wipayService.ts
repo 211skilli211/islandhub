@@ -6,6 +6,7 @@ import crypto from 'crypto';
 interface WiPayPaymentResponse {
     success: boolean;
     paymentUrl?: string;
+    redirectUrl?: string;
     transactionId?: string;
     error?: string;
 }

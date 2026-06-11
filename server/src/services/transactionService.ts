@@ -12,7 +12,7 @@ export class TransactionService {
             switch (provider) {
                 case 'wipay':
                     const wipayResult = await WiPayService.createPayment(amount, 'XCD', `txn_${Date.now()}`, `user_${userId}@example.com`, callbackUrl);
-                    externalId = wipayResult.transactionId;
+                    externalId = wipayResult.transactionId || `wipay_${Date.now()}`;
                     break;
                 case 'paypal':
                     // Placeholder - assuming we create a PayPal order
