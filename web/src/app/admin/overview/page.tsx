@@ -5,7 +5,7 @@ import Link from 'next/link';
 import {
   Radio, Megaphone, BarChart3, TrendingUp, Users, Store, DollarSign, ShoppingCart,
   ArrowUpRight, ArrowDownRight, Activity, Package, Eye, Target, ChevronRight,
-  Truck, Shield, CreditCard, Bot, Settings, Home
+  Truck, Shield, CreditCard, Bot, Settings, Home, Award
 } from 'lucide-react';
 
 // ─── Stat Card ───────────────────────────────────────────────────────────────
