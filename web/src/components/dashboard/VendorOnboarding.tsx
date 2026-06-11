@@ -123,7 +123,7 @@ export default function VendorOnboarding() {
                         <span className="text-3xl">🎉</span>
                     </div>
                     <h3 className="text-xl font-black text-ink-primary mb-2">You're All Set!</h3>
-                    <p className="text-ink-tertiary0 mb-6">Your vendor profile is complete and ready to go.</p>
+                    <p className="text-ink-tertiary mb-6">Your vendor profile is complete and ready to go.</p>
                     <div className="flex gap-3 justify-center">
                         <Link 
                             href="/create" 
@@ -205,7 +205,7 @@ export default function VendorOnboarding() {
                         {currentStep === 0 && (
                             <div className="space-y-4">
                                 <h3 className="text-lg font-black text-ink-primary">Business Profile</h3>
-                                <p className="text-ink-tertiary0 text-sm">Tell us about your business</p>
+                                <p className="text-ink-tertiary text-sm">Tell us about your business</p>
                                 
                                 <div className="grid gap-4">
                                     <div>
@@ -268,7 +268,7 @@ export default function VendorOnboarding() {
                         {currentStep === 1 && (
                             <div className="space-y-4">
                                 <h3 className="text-lg font-black text-ink-primary">Store Setup</h3>
-                                <p className="text-ink-tertiary0 text-sm">Customize your storefront to attract customers</p>
+                                <p className="text-ink-tertiary text-sm">Customize your storefront to attract customers</p>
 
                                 <div className="grid gap-4">
                                     <div>
@@ -309,7 +309,7 @@ export default function VendorOnboarding() {
                         {currentStep === 2 && (
                             <div className="space-y-4">
                                 <h3 className="text-lg font-black text-ink-primary">Compliance Requirements</h3>
-                                <p className="text-ink-tertiary0 text-sm">Complete verification to unlock all features</p>
+                                <p className="text-ink-tertiary text-sm">Complete verification to unlock all features</p>
 
                                 {compliance ? (
                                     <div className="bg-surface-secondary p-4 rounded-xl">
@@ -323,7 +323,7 @@ export default function VendorOnboarding() {
                                                 style={{ width: `${compliance.percentage}%` }}
                                             />
                                         </div>
-                                        <p className="text-xs text-ink-tertiary0 mt-2">
+                                        <p className="text-xs text-ink-tertiary mt-2">
                                             {compliance.completed} of {compliance.total} requirements completed
                                         </p>
                                     </div>
@@ -343,7 +343,7 @@ export default function VendorOnboarding() {
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <p className="font-bold text-ink-secondary">Complete Compliance</p>
-                                                <p className="text-xs text-ink-tertiary0">Submit required documents</p>
+                                                <p className="text-xs text-ink-tertiary">Submit required documents</p>
                                             </div>
                                             <span className="text-accent-400">→</span>
                                         </div>
@@ -355,7 +355,7 @@ export default function VendorOnboarding() {
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <p className="font-bold text-ink-secondary">Verify Identity (KYC)</p>
-                                                <p className="text-xs text-ink-tertiary0">Submit ID verification</p>
+                                                <p className="text-xs text-ink-tertiary">Submit ID verification</p>
                                             </div>
                                             <span className="text-accent-400">→</span>
                                         </div>
@@ -382,7 +382,7 @@ export default function VendorOnboarding() {
                         {currentStep === 3 && (
                             <div className="space-y-4">
                                 <h3 className="text-lg font-black text-ink-primary">Create Your First Listing</h3>
-                                <p className="text-ink-tertiary0 text-sm">Start selling by adding your first product or service</p>
+                                <p className="text-ink-tertiary text-sm">Start selling by adding your first product or service</p>
 
                                 <div className="grid gap-3">
                                     <Link 

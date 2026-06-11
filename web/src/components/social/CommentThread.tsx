@@ -135,7 +135,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                         {!isReply && (
                             <button
                                 onClick={() => setReplyingTo(replyingTo === comment.comment_id ? null : comment.comment_id)}
-                                className="text-xs font-bold text-ink-tertiary0 hover:text-accent-400 uppercase tracking-wide"
+                                className="text-xs font-bold text-ink-tertiary hover:text-accent-400 uppercase tracking-wide"
                             >
                                 Reply
                             </button>

@@ -29,7 +29,7 @@ export default function SponsorSection() {
                         <span className="text-sand-500 text-4xl">✨</span>
                         Featured Partners
                     </h2>
-                    <p className="text-ink-tertiary0 font-medium mt-2">Verified local businesses we highly recommend.</p>
+                    <p className="text-ink-tertiary font-medium mt-2">Verified local businesses we highly recommend.</p>
                 </div>
             </div>
 

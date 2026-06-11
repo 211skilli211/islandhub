@@ -610,7 +610,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         <h2 className="text-2xl font-black text-ink-primary">
                             {mode === 'create' ? 'Create Promotional Banner' : 'Edit Banner'}
                         </h2>
-                        <p className="text-sm text-ink-tertiary0 mt-1">
+                        <p className="text-sm text-ink-tertiary mt-1">
                             Design and preview your banner before publishing
                         </p>
                     </div>
@@ -745,7 +745,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     >
                                         <span className="text-2xl">{preset.icon}</span>
                                         <p className="text-[10px] font-black uppercase tracking-widest">{preset.name}</p>
-                                        <p className="text-[9px] text-ink-tertiary0 text-center leading-tight">{preset.description}</p>
+                                        <p className="text-[9px] text-ink-tertiary text-center leading-tight">{preset.description}</p>
                                     </button>
                                 ))}
                             </div>
@@ -773,7 +773,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 📍 Show Banner On These Pages
                             </label>
-                            <p className="text-xs text-ink-tertiary0 mb-4">
+                            <p className="text-xs text-ink-tertiary mb-4">
                                 Select which pages should display this banner. You can choose multiple pages.
                             </p>
 
@@ -836,7 +836,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 >
                                     <div className="text-2xl mb-2">📱</div>
                                     <p className="text-xs font-bold text-ink-secondary mb-1">Hero Embed</p>
-                                    <p className="text-[10px] text-ink-tertiary0">Shows in hero section</p>
+                                    <p className="text-[10px] text-ink-tertiary">Shows in hero section</p>
                                 </button>
                                 <button
                                     type="button"
@@ -848,10 +848,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 >
                                     <div className="text-2xl mb-2">💬</div>
                                     <p className="text-xs font-bold text-ink-secondary mb-1">Floating Card</p>
-                                    <p className="text-[10px] text-ink-tertiary0">Overlay at bottom</p>
+                                    <p className="text-[10px] text-ink-tertiary">Overlay at bottom</p>
                                 </button>
                             </div>
-                            <p className="text-xs text-ink-tertiary0 mt-2">
+                            <p className="text-xs text-ink-tertiary mt-2">
                                 {formData.mobile_mode === 'hero'
                                     ? '✓ Desktop & Mobile: Banner appears in hero section'
                                     : '✓ Desktop: Hero section | Mobile: Dismissible floating card'}
@@ -968,7 +968,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             <div className="space-y-6">
                                 {/* Texture Pattern */}
                                 <div>
-                                    <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                    <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                         Background Texture
                                     </label>
                                     <div className="grid grid-cols-3 gap-2">
@@ -992,7 +992,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Texture Opacity */}
                                 <div>
                                     <div className="flex justify-between mb-2">
-                                        <label className="block text-xs font-bold text-ink-tertiary0 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary uppercase tracking-wider">
                                             Texture Opacity
                                         </label>
                                         <span className="text-xs font-bold text-accent-400">{formData.texture_opacity || 25}%</span>
@@ -1010,7 +1010,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Background Opacity */}
                                 <div>
                                     <div className="flex justify-between mb-2">
-                                        <label className="block text-xs font-bold text-ink-tertiary0 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary uppercase tracking-wider">
                                             Background Opacity
                                         </label>
                                         <span className="text-xs font-bold text-accent-400">{formData.background_opacity || 100}%</span>
@@ -1035,12 +1035,12 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         </div>
                                         <div>
                                             <h4 className="text-sm font-black text-ink-primary dark:text-white">Hero Image Overlay</h4>
-                                            <p className="text-[10px] text-ink-tertiary0 dark:text-ink-tertiary">Controls visibility of text on hero image</p>
+                                            <p className="text-[10px] text-ink-tertiary dark:text-ink-tertiary">Controls visibility of text on hero image</p>
                                         </div>
                                     </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                             Overlay Color
                                         </label>
                                         <div className="flex items-center gap-2">
@@ -1060,7 +1060,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </div>
                                     <div>
                                         <div className="flex justify-between mb-2">
-                                            <label className="block text-xs font-bold text-ink-tertiary0 uppercase tracking-wider">
+                                            <label className="block text-xs font-bold text-ink-tertiary uppercase tracking-wider">
                                                 Overlay Opacity
                                             </label>
                                             <span className="text-xs font-bold text-accent-400">{formData.overlay_opacity || 0}%</span>
@@ -1080,7 +1080,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Button Toggle & Text */}
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                             Show Button
                                         </label>
                                         <button
@@ -1095,7 +1095,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         </button>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                             Button Text
                                         </label>
                                         <input
@@ -1111,7 +1111,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
 
                                 {/* Button Style */}
                                 <div>
-                                    <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                    <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                         Button Style
                                     </label>
                                     <div className="grid grid-cols-4 gap-2">
@@ -1135,7 +1135,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 {/* Custom Button Colors */}
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                             Button Text Color
                                         </label>
                                         <div className="flex items-center gap-2">
@@ -1156,7 +1156,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-ink-tertiary0 mb-2 uppercase tracking-wider">
+                                        <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                             Button Background
                                         </label>
                                         <div className="flex items-center gap-2">
@@ -1224,7 +1224,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </button>
                                 </div>
                             </div>
-                            <p className="text-xs text-ink-tertiary0">
+                            <p className="text-xs text-ink-tertiary">
                                 See exactly how your banner will appear on the site
                             </p>
                         </div>
@@ -1278,19 +1278,19 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </h4>
                                     <div className="space-y-2 text-[11px]">
                                         <div className="flex justify-between">
-                                            <span className="text-ink-tertiary0">Alignment:</span>
+                                            <span className="text-ink-tertiary">Alignment:</span>
                                             <span className="font-medium text-ink-primary capitalize">{formData.alignment}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-ink-tertiary0">Mobile Mode:</span>
+                                            <span className="text-ink-tertiary">Mobile Mode:</span>
                                             <span className="font-medium text-ink-primary capitalize">{formData.mobile_mode}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-ink-tertiary0">Color Theme:</span>
+                                            <span className="text-ink-tertiary">Color Theme:</span>
                                             <div className={`w-4 h-4 rounded ${selectedTheme.bg}`} />
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-ink-tertiary0">Template Type:</span>
+                                            <span className="text-ink-tertiary">Template Type:</span>
                                             <span className="font-medium text-ink-primary capitalize">{formData.template_type}</span>
                                         </div>
                                     </div>

@@ -82,7 +82,7 @@ export default function IslandPulse() {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="text-[10px] font-black text-ink-primary leading-tight group-hover:text-[#e11d48] transition-colors line-clamp-1">{event.title}</p>
-                                <p className="text-[9px] text-ink-tertiary0 font-bold line-clamp-1 mt-0.5">{event.subtype}</p>
+                                <p className="text-[9px] text-ink-tertiary font-bold line-clamp-1 mt-0.5">{event.subtype}</p>
                                 <div className="flex items-center gap-2 mt-1">
                                     <span className="text-[8px] font-black text-ink-tertiary uppercase flex items-center gap-1">
                                         <Clock size={10} /> {new Date(event.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

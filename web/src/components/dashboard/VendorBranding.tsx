@@ -203,7 +203,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
             <div className="p-20 text-center bg-gradient-to-br from-sand-50 to-sand-100 rounded-[3rem] border-2 border-dashed border-border-primary">
                 <div className="text-5xl mb-4">🏪</div>
                 <h3 className="text-xl font-black text-ink-primary uppercase tracking-tight mb-2">Set Up Your Store</h3>
-                <p className="text-ink-tertiary0 font-medium mb-8 max-w-md mx-auto">Create your first store to unlock branding customization and start selling on IslandHub.</p>
+                <p className="text-ink-tertiary font-medium mb-8 max-w-md mx-auto">Create your first store to unlock branding customization and start selling on IslandHub.</p>
                 <a
                     href="/start"
                     className="inline-block px-8 py-4 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-accent-500/10"
@@ -269,7 +269,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 )}
                             </div>
                             <div className="flex-1 space-y-3 w-full">
-                                <p className="text-[10px] font-medium text-ink-tertiary0">Represent your brand with a high-quality logo (Square 1:1 recommended).</p>
+                                <p className="text-[10px] font-medium text-ink-tertiary">Represent your brand with a high-quality logo (Square 1:1 recommended).</p>
                                 <div className="flex flex-wrap justify-center sm:justify-start gap-2">
                                     <label className="inline-block px-4 sm:px-6 py-2 bg-surface-elevated text-ink-primary border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest cursor-pointer hover:bg-surface-secondary transition-all">
                                         {formData.logo_url ? 'Change' : 'Upload Logo'}
@@ -297,11 +297,11 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 {formData.banner_url ? (
                                     <img src={getImageUrl(formData.banner_url)} className="w-full h-full object-cover opacity-80" alt="Banner" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-xl font-black text-ink-tertiary0">🏝️ Hub Background</div>
+                                    <div className="w-full h-full flex items-center justify-center text-xl font-black text-ink-tertiary">🏝️ Hub Background</div>
                                 )}
                             </div>
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                                <p className="text-[10px] font-medium text-ink-tertiary0">Wide panoramic image for your store header.</p>
+                                <p className="text-[10px] font-medium text-ink-tertiary">Wide panoramic image for your store header.</p>
                                 <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                                     <label className="px-4 sm:px-6 py-2 bg-surface-elevated text-ink-primary border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest cursor-pointer hover:bg-surface-secondary transition-all flex-1 sm:flex-none text-center">
                                         {formData.banner_url ? 'Replace' : 'Choose'}
@@ -475,7 +475,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 ))}
                             </div>
 
-                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary0 hover:border-teal-400 transition-all cursor-pointer">
+                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary hover:border-teal-400 transition-all cursor-pointer">
                                 {formData.typography?.heading?.custom_font ? 'Change Custom Font' : 'Upload Heading Font (.ttf)'}
                                 <input type="file" className="hidden" accept=".ttf,.otf" onChange={(e) => handleFontUpload(e, 'heading')} />
                             </label>
@@ -528,7 +528,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 ))}
                             </div>
 
-                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary0 hover:border-teal-400 transition-all cursor-pointer">
+                            <label className="flex items-center justify-center px-4 py-3 bg-surface-elevated border-2 border-dashed border-border-primary rounded-2xl text-[10px] font-black uppercase text-ink-tertiary hover:border-teal-400 transition-all cursor-pointer">
                                 {formData.typography?.subtitle?.custom_font ? 'Change Custom Font' : 'Upload Subtitle Font (.ttf)'}
                                 <input type="file" className="hidden" accept=".ttf,.otf" onChange={(e) => handleFontUpload(e, 'subtitle')} />
                             </label>
@@ -640,7 +640,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 ) : (
                                     <div className="text-center py-4">
                                         <span className="text-3xl mb-2 block">🎬</span>
-                                        <p className="text-[10px] font-black uppercase text-ink-tertiary0">Add Shop Intro Video</p>
+                                        <p className="text-[10px] font-black uppercase text-ink-tertiary">Add Shop Intro Video</p>
                                     </div>
                                 )}
                                 <label className="bg-surface-elevated px-6 py-2 rounded-xl text-[10px] font-black uppercase text-ink-primary shadow-sm border border-border-primary cursor-pointer hover:bg-surface-secondary">
@@ -664,7 +664,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 ) : (
                                     <div className="text-center py-4">
                                         <span className="text-3xl mb-2 block">🎵</span>
-                                        <p className="text-[10px] font-black uppercase text-ink-tertiary0">Upload Shop Atmosphere</p>
+                                        <p className="text-[10px] font-black uppercase text-ink-tertiary">Upload Shop Atmosphere</p>
                                     </div>
                                 )}
                                 <label className="bg-surface-elevated px-6 py-2 rounded-xl text-[10px] font-black uppercase text-ink-primary shadow-sm border border-border-primary cursor-pointer hover:bg-surface-secondary">

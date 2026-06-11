@@ -100,7 +100,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                         <div className="text-center min-w-[150px]">
                             <p className="text-[10px] font-black text-accent-400 uppercase tracking-widest mb-1">Active Driver</p>
                             <h4 className="font-black text-ink-primary text-sm mb-1">{driver.name}</h4>
-                            <p className="text-[10px] text-ink-tertiary0">{driver.make} {driver.model} ({driver.vehicle_category})</p>
+                            <p className="text-[10px] text-ink-tertiary">{driver.make} {driver.model} ({driver.vehicle_category})</p>
                             <div className="mt-2 text-[9px] font-bold text-ink-tertiary">
                                 Last online: {new Date(driver.last_online).toLocaleTimeString()}
                             </div>
@@ -137,12 +137,12 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                                         <span className="text-[10px] font-black text-ink-tertiary">#{job.id}</span>
                                     </div>
                                     <h3 className="font-black text-ink-primary text-sm mb-1">{job.title}</h3>
-                                    <div className="text-[10px] text-ink-tertiary0 mb-2 space-y-1 text-left px-2">
+                                    <div className="text-[10px] text-ink-tertiary mb-2 space-y-1 text-left px-2">
                                         <p><span className="font-bold text-accent-400 uppercase tracking-tighter">Requester:</span> {job.owner_name || job.userName || 'Anonymous'}</p>
                                         <p><span className="font-bold text-[#14b8a6] uppercase tracking-tighter">Driver:</span> {job.driver_name || 'Unassigned'}</p>
                                     </div>
                                     <div className="flex justify-between items-center mt-2 pt-2 border-t border-border-primary gap-4">
-                                        <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary0 rounded text-[9px] font-black uppercase">{job.transport_status}</span>
+                                        <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary rounded text-[9px] font-black uppercase">{job.transport_status}</span>
                                         {job.transport_status === 'pending' && onAssignJob ? (
                                             <button
                                                 onClick={(e) => {

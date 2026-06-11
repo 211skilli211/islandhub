@@ -105,7 +105,7 @@ export default function VendorPromotions({ storeId }: VendorPromotionsProps) {
             <div className="flex justify-between items-center">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Promotions & Offers</h2>
-                    <p className="text-ink-tertiary0 font-medium">Create and manage discounts for your storefront</p>
+                    <p className="text-ink-tertiary font-medium">Create and manage discounts for your storefront</p>
                 </div>
                 <button
                     onClick={() => setIsCreateModalOpen(true)}
@@ -123,7 +123,7 @@ export default function VendorPromotions({ storeId }: VendorPromotionsProps) {
                 <div className="py-20 text-center bg-surface-secondary/50 rounded-[3rem] border-2 border-dashed border-border-primary">
                     <Tag size={48} className="mx-auto text-ink-tertiary mb-4" />
                     <h3 className="text-xl font-black text-ink-primary">No Promotions Yet</h3>
-                    <p className="text-ink-tertiary0 font-medium max-w-xs mx-auto mb-8">Offer special discounts or coupon codes to boost your sales.</p>
+                    <p className="text-ink-tertiary font-medium max-w-xs mx-auto mb-8">Offer special discounts or coupon codes to boost your sales.</p>
                     <button
                         onClick={() => setIsCreateModalOpen(true)}
                         className="px-8 py-4 bg-accent-500 text-white rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl shadow-accent-500/10"
@@ -149,7 +149,7 @@ export default function VendorPromotions({ storeId }: VendorPromotionsProps) {
                                 <div className="space-y-1">
                                     {getStatusBadge(promo.approval_status)}
                                     <h3 className="text-2xl font-black text-ink-primary italic uppercase tracking-tighter">{promo.title}</h3>
-                                    <p className="text-ink-tertiary0 font-medium text-sm">{promo.subtitle}</p>
+                                    <p className="text-ink-tertiary font-medium text-sm">{promo.subtitle}</p>
                                 </div>
                                 <div className="flex gap-2">
                                     <button onClick={() => handleDelete(promo.promo_id)} className="p-2 text-ink-tertiary hover:text-[#e11d48] transition-colors">
@@ -195,7 +195,7 @@ export default function VendorPromotions({ storeId }: VendorPromotionsProps) {
                             <div className="p-8 border-b border-border-primary flex justify-between items-center bg-surface-secondary">
                                 <div>
                                     <h3 className="text-2xl font-black text-ink-primary uppercase italic">New Promotion</h3>
-                                    <p className="text-ink-tertiary0 text-xs font-medium">All promotions require admin approval</p>
+                                    <p className="text-ink-tertiary text-xs font-medium">All promotions require admin approval</p>
                                 </div>
                                 <button onClick={() => setIsCreateModalOpen(false)} className="text-ink-tertiary hover:text-ink-secondary">
                                     <Plus className="rotate-45" size={24} />

@@ -95,7 +95,7 @@ export default function CrossVendorCart() {
             <div className="text-center py-20 bg-surface-elevated rounded-[3rem] border border-border-primary shadow-sm mx-auto max-w-4xl">
                 <span className="text-8xl mb-6 block">🛒</span>
                 <h2 className="text-3xl font-black text-ink-primary mb-2">Your cart is empty</h2>
-                <p className="text-ink-tertiary0 text-lg mb-8">Add items from multiple vendors to get started!</p>
+                <p className="text-ink-tertiary text-lg mb-8">Add items from multiple vendors to get started!</p>
                 <a href="/listings" className="inline-block px-8 py-4 bg-accent-500 text-white rounded-2xl font-bold uppercase tracking-widest text-sm hover:bg-accent-600 transition-all">
                     Browse Marketplace
                 </a>
@@ -124,7 +124,7 @@ export default function CrossVendorCart() {
                                     <span className="text-3xl bg-surface-secondary w-12 h-12 flex items-center justify-center rounded-xl">🏪</span>
                                     <div>
                                         <h3 className="font-bold text-ink-primary text-lg">{group.vendorName}</h3>
-                                        <p className="text-sm text-ink-tertiary0 font-medium">
+                                        <p className="text-sm text-ink-tertiary font-medium">
                                             {group.items.length} item{group.items.length !== 1 ? 's' : ''}
                                         </p>
                                     </div>
@@ -207,7 +207,7 @@ export default function CrossVendorCart() {
                                             />
                                             <div className="flex-1">
                                                 <p className={`font-bold ${group.selectedShipping?.id === option.id ? 'text-accent-700' : 'text-ink-secondary'}`}>{option.name}</p>
-                                                <p className="text-xs text-ink-tertiary0 font-medium">{option.estimatedDays}</p>
+                                                <p className="text-xs text-ink-tertiary font-medium">{option.estimatedDays}</p>
                                             </div>
                                             <span className="font-black text-ink-primary">
                                                 {option.price === 0 ? 'FREE' : `$${option.price}`}
@@ -252,7 +252,7 @@ export default function CrossVendorCart() {
 
                     {/* Vendor Count Badge */}
                     <div className="mt-8 pt-6 border-t border-border-primary text-center">
-                        <p className="text-sm text-ink-tertiary0 font-medium">
+                        <p className="text-sm text-ink-tertiary font-medium">
                             Ordering from <span className="font-black text-ink-primary">{vendorGroups.length}</span> vendor{vendorGroups.length !== 1 ? 's' : ''}
                         </p>
                     </div>

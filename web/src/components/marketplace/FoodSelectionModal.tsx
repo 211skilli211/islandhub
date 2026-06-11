@@ -113,7 +113,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                             <div className="px-10 pb-10 space-y-8">
                                 <div>
                                     <h2 className="text-3xl font-black text-ink-primary tracking-tight italic uppercase">{item.name}</h2>
-                                    <p className="text-ink-tertiary0 font-medium mt-2 leading-relaxed">{item.description}</p>
+                                    <p className="text-ink-tertiary font-medium mt-2 leading-relaxed">{item.description}</p>
                                 </div>
 
                                 {/* Variants */}
@@ -128,7 +128,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                                     className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border-2 text-left
                                                         ${selectedVariant[category] === opt
                                                             ? 'bg-ink-primary border-border-primary text-white shadow-lg'
-                                                            : 'bg-surface-secondary border-transparent text-ink-tertiary0 hover:bg-surface-secondary'}`}
+                                                            : 'bg-surface-secondary border-transparent text-ink-tertiary hover:bg-surface-secondary'}`}
                                                 >
                                                     {opt}
                                                 </button>

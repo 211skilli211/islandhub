@@ -98,7 +98,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
             <div className="flex justify-between items-center">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Financial Hub</h2>
-                    <p className="text-ink-tertiary0 font-medium">Manage your earnings and payouts</p>
+                    <p className="text-ink-tertiary font-medium">Manage your earnings and payouts</p>
                 </div>
                 <button
                     onClick={() => setIsWithdrawModalOpen(true)}
@@ -177,7 +177,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                                 {payouts.map((pr) => (
                                     <div key={pr.request_id} className="p-6 flex justify-between items-center bg-surface-secondary/30">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 bg-surface-secondary rounded-xl flex items-center justify-center text-ink-tertiary0">
+                                            <div className="w-10 h-10 bg-surface-secondary rounded-xl flex items-center justify-center text-ink-tertiary">
                                                 <DollarSign size={18} />
                                             </div>
                                             <div>

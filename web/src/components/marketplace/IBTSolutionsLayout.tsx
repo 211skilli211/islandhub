@@ -105,7 +105,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                         <h2 className="text-4xl md:text-5xl font-black text-ink-primary tracking-tight italic uppercase mb-4">
                             Professional <span className="text-accent-400">Services</span>
                         </h2>
-                        <p className="text-ink-tertiary0 text-lg max-w-2xl mx-auto">
+                        <p className="text-ink-tertiary text-lg max-w-2xl mx-auto">
                             From AI to web development — comprehensive solutions for modern Caribbean businesses.
                         </p>
                     </div>
@@ -135,7 +135,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                                     <p className="text-accent-400 font-bold text-sm mb-3">
                                         {service.price ? (typeof service.price === 'string' && service.price.startsWith('$') ? service.price : `$${Number(service.price).toLocaleString()}${service.metadata?.pricing_model === 'monthly' ? '/mo' : ''}`) : 'Contact for pricing'}
                                     </p>
-                                    <p className="text-ink-tertiary0 text-sm leading-relaxed mb-6">{service.description}</p>
+                                    <p className="text-ink-tertiary text-sm leading-relaxed mb-6">{service.description}</p>
                                     <Link
                                         href={`/store/ibt-solutions/services/${slug}`}
                                         className="inline-flex items-center gap-2 text-accent-400 font-bold text-sm hover:gap-3 transition-all"
@@ -156,7 +156,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                         <h2 className="text-4xl md:text-5xl font-black text-ink-primary tracking-tight italic uppercase mb-4">
                             IBT Co-operative <span className="text-accent-400">Federation</span>
                         </h2>
-                        <p className="text-ink-tertiary0 text-lg max-w-2xl mx-auto">
+                        <p className="text-ink-tertiary text-lg max-w-2xl mx-auto">
                             Join a community of small businesses, skilled workers, and entrepreneurs united in democratically-governed cooperatives.
                         </p>
                     </div>

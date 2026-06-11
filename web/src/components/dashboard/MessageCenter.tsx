@@ -100,7 +100,7 @@ export default function MessageCenter() {
                                     className={`w-full p-6 text-left transition-all group ${selectedUser?.other_user_id === conv.other_user_id ? 'bg-[#14b8a6]/10/50 border-r-4 border-[#14b8a6]' : 'hover:bg-surface-secondary/50'}`}
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-surface-secondary group-hover:bg-[#14b8a6]/15 rounded-2xl flex items-center justify-center text-ink-tertiary0 group-hover:text-[#14b8a6] font-black transition-colors shadow-inner text-sm">
+                                        <div className="w-10 h-10 bg-surface-secondary group-hover:bg-[#14b8a6]/15 rounded-2xl flex items-center justify-center text-ink-tertiary group-hover:text-[#14b8a6] font-black transition-colors shadow-inner text-sm">
                                             {conv.other_user_name.charAt(0)}
                                         </div>
                                         <div className="flex-1 min-w-0">
@@ -110,7 +110,7 @@ export default function MessageCenter() {
                                                     {new Date(conv.last_message_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}
                                                 </span>
                                             </div>
-                                            <p className="text-[10px] text-ink-tertiary0 font-medium truncate italic opacity-80">
+                                            <p className="text-[10px] text-ink-tertiary font-medium truncate italic opacity-80">
                                                 {conv.last_message || 'Start chatting...'}
                                             </p>
                                         </div>
@@ -136,7 +136,7 @@ export default function MessageCenter() {
                             💬
                         </div>
                         <h3 className="text-2xl font-black text-ink-primary tracking-tight mb-4 italic uppercase">Island Comms</h3>
-                        <p className="text-ink-tertiary0 font-medium max-w-md leading-relaxed italic text-sm">
+                        <p className="text-ink-tertiary font-medium max-w-md leading-relaxed italic text-sm">
                             Real-time encrypted messaging for secure island commerce.
                         </p>
                     </div>

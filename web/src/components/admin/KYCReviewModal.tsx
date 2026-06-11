@@ -71,7 +71,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                 <div className="p-6 border-b border-border-primary flex justify-between items-start">
                     <div>
                         <h3 className="text-xl font-black text-ink-primary">KYC Review</h3>
-                        <p className="text-sm text-ink-tertiary0">{submission.business_name}</p>
+                        <p className="text-sm text-ink-tertiary">{submission.business_name}</p>
                         <p className="text-xs text-ink-tertiary">{submission.email}</p>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-surface-secondary rounded-lg">✕</button>
@@ -100,7 +100,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                             <div className="grid grid-cols-2 gap-4">
                                 {documentEntries.map(([key, url]) => (
                                     <div key={key} className="bg-surface-secondary rounded-xl p-4">
-                                        <p className="text-xs font-bold text-ink-tertiary0 uppercase mb-2">{key.replace(/_/g, ' ')}</p>
+                                        <p className="text-xs font-bold text-ink-tertiary uppercase mb-2">{key.replace(/_/g, ' ')}</p>
                                         {url && (String(url).startsWith('http') || String(url).includes('uploads')) ? (
                                             <a 
                                                 href={getImageUrl(url as string)} 

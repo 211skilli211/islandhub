@@ -49,7 +49,7 @@ export default function BadgeSelector({ selectedBadges = [], onChange, readonly 
                             `}
                         >
                             <span className="text-lg">{badge.emoji}</span>
-                            <span className={`font-bold text-xs uppercase tracking-wider ${isSelected ? '' : 'text-ink-tertiary0'}`}>
+                            <span className={`font-bold text-xs uppercase tracking-wider ${isSelected ? '' : 'text-ink-tertiary'}`}>
                                 {badge.label}
                             </span>
                             {isSelected && !readonly && (

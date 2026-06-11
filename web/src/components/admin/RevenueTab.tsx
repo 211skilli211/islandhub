@@ -72,7 +72,7 @@ export default function RevenueTab() {
                     <h2 className="text-4xl font-black mb-4">${Number(summary.gross_volume || 0).toLocaleString()}</h2>
                     <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
                         <span>↑ 14%</span>
-                        <span className="text-ink-tertiary0 font-medium">vs last month</span>
+                        <span className="text-ink-tertiary font-medium">vs last month</span>
                     </div>
                 </div>
 

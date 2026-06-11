@@ -55,7 +55,7 @@ export default function AddAssetModal({ onClose, onSuccess }: AddAssetModalProps
                     </div>
 
                     <div className="flex gap-3 mt-6">
-                        <button type="button" onClick={onClose} className="flex-1 py-3 text-ink-tertiary0 font-bold">Cancel</button>
+                        <button type="button" onClick={onClose} className="flex-1 py-3 text-ink-tertiary font-bold">Cancel</button>
                         <button type="submit" disabled={loading || !file} className="flex-1 py-3 bg-accent-500 text-white rounded-xl font-bold shadow-lg disabled:opacity-50">
                             {loading ? 'Uploading...' : 'Confirm Upload'}
                         </button>

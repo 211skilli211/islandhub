@@ -101,7 +101,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                 <div className="absolute top-6 right-6 z-10">
                                     <button
                                         onClick={onClose}
-                                        className="p-3 bg-surface-secondary text-ink-tertiary0 rounded-2xl hover:bg-surface-tertiary transition-colors"
+                                        className="p-3 bg-surface-secondary text-ink-tertiary rounded-2xl hover:bg-surface-tertiary transition-colors"
                                     >
                                         <XMarkIcon className="w-6 h-6" />
                                     </button>
@@ -121,7 +121,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                     <span className="text-ink-tertiary font-medium text-sm">⏱️ {service.duration}</span>
                                                 </div>
                                                 <h2 className="text-4xl font-black text-ink-primary uppercase tracking-tighter italic leading-none">{service.service_name}</h2>
-                                                <p className="mt-4 text-ink-tertiary0 font-medium text-lg leading-relaxed">{service.description}</p>
+                                                <p className="mt-4 text-ink-tertiary font-medium text-lg leading-relaxed">{service.description}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                                 onClick={() => setSelectedSlot(slot)}
                                                                 className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedSlot === slot
                                                                     ? 'bg-[#14b8a6] text-white shadow-lg scale-[1.02]'
-                                                                    : 'bg-surface-elevated border-2 border-border-primary text-ink-tertiary0 hover:border-[#14b8a6]/20'
+                                                                    : 'bg-surface-elevated border-2 border-border-primary text-ink-tertiary hover:border-[#14b8a6]/20'
                                                                     }`}
                                                             >
                                                                 {slot}
@@ -174,7 +174,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                         {service.faqs.map((faq: any, idx: number) => (
                                                             <div key={idx} className="bg-surface-secondary rounded-2xl p-5 border border-border-primary">
                                                                 <p className="text-[10px] font-black uppercase text-ink-primary mb-2">Q: {faq.question}</p>
-                                                                <p className="text-[11px] font-medium text-ink-tertiary0 leading-relaxed">
+                                                                <p className="text-[11px] font-medium text-ink-tertiary leading-relaxed">
                                                                     {faq.answer}
                                                                 </p>
                                                             </div>

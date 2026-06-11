@@ -27,7 +27,7 @@ const SortControls: React.FC<SortControlsProps> = ({ sort, onSortChange, options
 
             <button
                 onClick={() => onSortChange({ ...sort, sortOrder: sort.sortOrder === 'asc' ? 'desc' : 'asc' })}
-                className="p-1.5 rounded-md hover:bg-surface-secondary text-ink-tertiary0 transition-colors"
+                className="p-1.5 rounded-md hover:bg-surface-secondary text-ink-tertiary transition-colors"
                 title={`Current: ${sort.sortOrder === 'asc' ? 'Ascending' : 'Descending'}`}
             >
                 {sort.sortOrder === 'asc' ? (

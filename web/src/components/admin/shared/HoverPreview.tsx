@@ -84,7 +84,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                         )}
                         <div className="text-center">
                             <p className="font-black text-ink-primary">{data.name}</p>
-                            <p className="text-xs text-ink-tertiary0">{data.email}</p>
+                            <p className="text-xs text-ink-tertiary">{data.email}</p>
                             <span className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ${
                                 data.role === 'admin' ? 'bg-teal-100 text-teal-700' :
                                 data.role?.startsWith('vendor') ? 'bg-accent-500/15 text-accent-500' :
@@ -128,7 +128,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                             </span>
                         </div>
                         {data.owner_name && (
-                            <p className="text-xs text-ink-tertiary0">By {data.owner_name}</p>
+                            <p className="text-xs text-ink-tertiary">By {data.owner_name}</p>
                         )}
                     </div>
                 );
@@ -143,7 +143,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                         )}
                         <div className="text-center">
                             <p className="font-black text-ink-primary">{data.business_name || data.store_name}</p>
-                            <span className="text-xs text-ink-tertiary0">Vendor Store</span>
+                            <span className="text-xs text-ink-tertiary">Vendor Store</span>
                         </div>
                         <p className="text-xs text-ink-tertiary">
                             Created: {data.created_at ? new Date(data.created_at).toLocaleDateString() : 'N/A'}
@@ -179,7 +179,7 @@ export default function HoverPreview({ data, type, children }: HoverPreviewProps
                                 <img src={image} alt="" className="max-w-full max-h-full object-contain" />
                             </div>
                         )}
-                        <p className="text-xs text-ink-tertiary0 text-center">ID: {data.id}</p>
+                        <p className="text-xs text-ink-tertiary text-center">ID: {data.id}</p>
                     </div>
                 );
 

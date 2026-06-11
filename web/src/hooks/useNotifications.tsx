@@ -73,7 +73,7 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
                             <div className="text-2xl mr-3">📦</div>
                             <div className="flex-1">
                                 <p className="text-sm font-black text-ink-primary">New Job Available!</p>
-                                <p className="mt-1 text-xs text-ink-tertiary0">{data.title} - ${data.price}</p>
+                                <p className="mt-1 text-xs text-ink-tertiary">{data.title} - ${data.price}</p>
                             </div>
                         </div>
                     </div>

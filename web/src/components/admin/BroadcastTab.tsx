@@ -150,7 +150,7 @@ export default function BroadcastTab() {
                                 </option>
                             ))}
                         </select>
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-tertiary0">
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-tertiary">
                             <ChevronRight size={14} className="rotate-90" />
                         </div>
                     </div>

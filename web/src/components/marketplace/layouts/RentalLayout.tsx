@@ -140,7 +140,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                     store.subtype?.includes('apartment') || store.subtype?.includes('villa') ? 'Available Stays' :
                                         'Our Current Fleet'}
                             </h2>
-                            <p className="text-ink-tertiary0 text-sm">Select a category to filter the inventory</p>
+                            <p className="text-ink-tertiary text-sm">Select a category to filter the inventory</p>
                         </div>
                         <div className="flex gap-2 flex-wrap">
                             {(store.subtype?.toLowerCase().includes('boat') || store.subtype?.toLowerCase().includes('sea')
@@ -221,18 +221,18 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                         >
                                             {item.title}
                                         </h3>
-                                        <p className="text-ink-tertiary0 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">{item.description}</p>
+                                        <p className="text-ink-tertiary text-sm leading-relaxed mb-4 flex-1 line-clamp-2">{item.description}</p>
 
                                         <div className="grid grid-cols-2 gap-3 mb-4 pt-4 border-t border-border-primary">
                                             <div className="flex items-center gap-2">
                                                 <span className="text-base">{item.metadata?.seats ? '👤' : '📦'}</span>
-                                                <span className="text-xs text-ink-tertiary0">
+                                                <span className="text-xs text-ink-tertiary">
                                                     {item.metadata?.seats ? `${item.metadata.seats} Seats` : item.metadata?.capacity ? `${item.metadata.capacity} Capacity` : 'General Use'}
                                                 </span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <span className="text-base">{item.metadata?.transmission ? '⚙️' : '🏷️'}</span>
-                                                <span className="text-xs text-ink-tertiary0">
+                                                <span className="text-xs text-ink-tertiary">
                                                     {item.metadata?.transmission || item.metadata?.condition || 'Standard'}
                                                 </span>
                                             </div>

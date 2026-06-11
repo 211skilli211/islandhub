@@ -52,7 +52,7 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
                         ⭐
                     </div>
                     <h2 className="text-2xl font-black text-ink-primary uppercase tracking-widest mb-2">Rate Your Driver</h2>
-                    <p className="text-ink-tertiary0 font-medium mb-8">How was your experience with <span className="text-ink-primary font-bold">{driverName}</span>?</p>
+                    <p className="text-ink-tertiary font-medium mb-8">How was your experience with <span className="text-ink-primary font-bold">{driverName}</span>?</p>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Star Rating */}

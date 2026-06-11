@@ -164,7 +164,7 @@ export default function AdManagementTab() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h2 className="text-3xl font-black text-ink-primary tracking-tight uppercase italic">Advertising Hub</h2>
-                    <p className="text-ink-tertiary0 font-medium">Control site-wide visibility and approve merchant offers</p>
+                    <p className="text-ink-tertiary font-medium">Control site-wide visibility and approve merchant offers</p>
                 </div>
                 <div className="flex gap-2 p-1 bg-surface-secondary rounded-2xl border border-border-primary">
                     <button

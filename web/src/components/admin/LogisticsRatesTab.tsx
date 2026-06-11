@@ -43,7 +43,7 @@ export default function LogisticsRatesTab() {
             <div className="flex justify-between items-center bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-xl shadow-black/10/40">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Logistics Rate Controls</h2>
-                    <p className="text-ink-tertiary0 font-medium text-sm">Configure fares, surcharges, and multipliers across service types</p>
+                    <p className="text-ink-tertiary font-medium text-sm">Configure fares, surcharges, and multipliers across service types</p>
                 </div>
                 <div className="flex gap-2">
                     <button onClick={fetchRules} className="p-3 bg-surface-secondary text-ink-secondary rounded-xl hover:bg-surface-secondary transition-all font-bold">
@@ -90,15 +90,15 @@ export default function LogisticsRatesTab() {
 
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center text-xs">
-                                        <span className="font-bold text-ink-tertiary0">Min. Fare</span>
+                                        <span className="font-bold text-ink-tertiary">Min. Fare</span>
                                         <span className="font-black text-ink-primary">${rule.minimum_fare}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-xs">
-                                        <span className="font-bold text-ink-tertiary0">Surge Multiplier</span>
+                                        <span className="font-bold text-ink-tertiary">Surge Multiplier</span>
                                         <span className="font-black text-sand-500">x{rule.surge_multiplier}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-xs">
-                                        <span className="font-bold text-ink-tertiary0">Extra Pax Fee</span>
+                                        <span className="font-bold text-ink-tertiary">Extra Pax Fee</span>
                                         <span className="font-black text-[#14b8a6]">${rule.extra_passenger_fee}</span>
                                     </div>
                                 </div>

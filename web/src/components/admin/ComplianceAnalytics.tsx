@@ -73,7 +73,7 @@ export default function ComplianceAnalytics() {
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-xl font-black text-ink-primary">Compliance Analytics</h2>
-                    <p className="text-sm text-ink-tertiary0">Track vendor compliance across the platform</p>
+                    <p className="text-sm text-ink-tertiary">Track vendor compliance across the platform</p>
                 </div>
                 <div className="flex gap-2">
                     {(['7d', '30d', '90d'] as const).map((range) => (

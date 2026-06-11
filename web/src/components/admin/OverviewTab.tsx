@@ -511,7 +511,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                     <button
                         onClick={() => setIsLogExpanded(!isLogExpanded)}
-                        className="px-4 py-2 bg-surface-secondary text-ink-tertiary0 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-surface-secondary transition-all border border-border-primary"
+                        className="px-4 py-2 bg-surface-secondary text-ink-tertiary rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-surface-secondary transition-all border border-border-primary"
                     >
                         {isLogExpanded ? 'Collapse ▴' : `Expand (${activity.length}) ▾`}
                     </button>
@@ -644,7 +644,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                             <div className="flex justify-between items-end">
                                                 <div>
                                                     <div className="flex items-center gap-2 mb-1">
-                                                        <p className={`text-[8px] font-black uppercase tracking-widest ${banner.is_active ? 'text-accent-400' : 'text-ink-tertiary0'}`}>
+                                                        <p className={`text-[8px] font-black uppercase tracking-widest ${banner.is_active ? 'text-accent-400' : 'text-ink-tertiary'}`}>
                                                             {banner.location?.replace('_hero', '') || 'General'}
                                                         </p>
                                                         {banner.target_url && <span className="text-[8px] text-ink-secondary font-mono bg-surface-tertiary px-1 rounded">→ {banner.target_url}</span>}
@@ -705,7 +705,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                     <span className="text-xl group-hover:scale-125 transition-transform">⚡</span>
                                     <div className="flex-1 overflow-hidden">
                                         <div className="text-xs font-black uppercase tracking-widest text-[#a5b4fc] truncate">{mission.name}</div>
-                                        <div className="text-[9px] font-medium text-ink-tertiary0 uppercase tracking-tight truncate">Level {mission.priority} Priority</div>
+                                        <div className="text-[9px] font-medium text-ink-tertiary uppercase tracking-tight truncate">Level {mission.priority} Priority</div>
                                     </div>
                                     <svg className="w-4 h-4 text-white/20 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" /></svg>
                                 </button>

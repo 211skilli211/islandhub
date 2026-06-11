@@ -183,7 +183,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                                             )}
                                         </div>
                                         {conv.listing_title && (
-                                            <p className="text-[10px] text-ink-tertiary0 truncate">{conv.listing_title}</p>
+                                            <p className="text-[10px] text-ink-tertiary truncate">{conv.listing_title}</p>
                                         )}
                                         {conv.last_message && (
                                             <p className="text-xs text-ink-tertiary truncate mt-1">{conv.last_message}</p>

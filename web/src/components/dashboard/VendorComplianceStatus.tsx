@@ -69,7 +69,7 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
             case 'approved': return 'bg-green-100 text-green-700 border-green-200';
             case 'submitted': return 'bg-sand-500/10 text-sand-500 border-sand-500/20';
             case 'rejected': return 'bg-red-100 text-red-700 border-red-200';
-            default: return 'bg-surface-secondary text-ink-tertiary0 border-border-primary';
+            default: return 'bg-surface-secondary text-ink-tertiary border-border-primary';
         }
     };
 
@@ -122,13 +122,13 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
                 <div className="flex items-center justify-between mb-4">
                     <div>
                         <h3 className="text-lg font-black text-ink-primary">Vendor Compliance</h3>
-                        <p className="text-sm text-ink-tertiary0">Complete all requirements to verify your business</p>
+                        <p className="text-sm text-ink-tertiary">Complete all requirements to verify your business</p>
                     </div>
                     <div className={`text-center px-4 py-2 rounded-xl ${
                         summary.isCompliant ? 'bg-green-50 border border-green-200' : 'bg-sand-500/5 border border-sand-500/20'
                     }`}>
                         <p className="text-2xl font-black text-ink-primary">{summary.percentage}%</p>
-                        <p className="text-xs text-ink-tertiary0">Complete</p>
+                        <p className="text-xs text-ink-tertiary">Complete</p>
                     </div>
                 </div>
 

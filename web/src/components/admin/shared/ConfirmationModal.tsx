@@ -20,7 +20,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink-primary/50 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-surface-elevated rounded-2xl shadow-xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
                 <h3 className="text-lg font-black text-ink-primary mb-2">{title}</h3>
-                <p className="text-ink-tertiary0 mb-6">{message}</p>
+                <p className="text-ink-tertiary mb-6">{message}</p>
 
                 <div className="flex justify-end gap-3">
                     <button

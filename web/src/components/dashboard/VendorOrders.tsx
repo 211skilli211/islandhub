@@ -96,7 +96,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
         return (
             <div className="py-20 text-center">
                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-rose-500" />
-                <p className="mt-4 text-ink-tertiary0 font-black uppercase text-[10px] tracking-widest">Hydrating Dashboard...</p>
+                <p className="mt-4 text-ink-tertiary font-black uppercase text-[10px] tracking-widest">Hydrating Dashboard...</p>
             </div>
         );
     }
@@ -108,7 +108,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">
                         {isFood ? 'Live Kitchen KDS' : isTaxi ? 'Fleet Dispatch' : isService ? 'Booking Manager' : 'Orders & Requests'}
                     </h2>
-                    <p className="text-ink-tertiary0 text-xs font-bold">Real-time store workflow</p>
+                    <p className="text-ink-tertiary text-xs font-bold">Real-time store workflow</p>
                 </div>
                 <button
                     onClick={() => fetchOrders()}
@@ -205,7 +205,7 @@ function OrderCard({ order, actionLabel, onAction, color, isCampaign }: any) {
                         )}
                     </div>
                     <div className="mt-1 flex gap-2">
-                        <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded ${order.order_type === 'delivery' ? 'bg-blue-100 text-blue-700' : 'bg-surface-secondary text-ink-tertiary0'}`}>
+                        <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded ${order.order_type === 'delivery' ? 'bg-blue-100 text-blue-700' : 'bg-surface-secondary text-ink-tertiary'}`}>
                             {order.order_type || 'pickup'}
                         </span>
                         {order.status === 'dispatched' && (
@@ -213,7 +213,7 @@ function OrderCard({ order, actionLabel, onAction, color, isCampaign }: any) {
                         )}
                     </div>
                 </div>
-                <span className={`text-[10px] font-black px-2 py-1 rounded-lg ${elapsed > 15 ? 'bg-[#e11d48]/10 text-[#e11d48]' : 'bg-surface-secondary text-ink-tertiary0'}`}>
+                <span className={`text-[10px] font-black px-2 py-1 rounded-lg ${elapsed > 15 ? 'bg-[#e11d48]/10 text-[#e11d48]' : 'bg-surface-secondary text-ink-tertiary'}`}>
                     {elapsed}m
                 </span>
             </div>

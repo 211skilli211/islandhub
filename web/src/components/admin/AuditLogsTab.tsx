@@ -37,7 +37,7 @@ export default function AuditLogsTab() {
                 <span className={`px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${l.action.includes('delete') ? 'bg-[#e11d48]/10 text-[#be123c]' :
                         l.action.includes('create') ? 'bg-emerald-500/15 text-emerald-500' :
                             l.action.includes('assign') ? 'bg-[#14b8a6]/15 text-[#14b8a6]' :
-                                'bg-surface-secondary text-ink-tertiary0'
+                                'bg-surface-secondary text-ink-tertiary'
                     }`}>
                     {l.action.replace(/_/g, ' ')}
                 </span>
@@ -55,7 +55,7 @@ export default function AuditLogsTab() {
         {
             header: 'Deep Intelligence',
             accessor: (l) => (
-                <div className="max-w-[200px] text-[10px] text-ink-tertiary0 font-medium truncate">
+                <div className="max-w-[200px] text-[10px] text-ink-tertiary font-medium truncate">
                     {l.new_values ? JSON.stringify(l.new_values) : 'No extra data'}
                 </div>
             )

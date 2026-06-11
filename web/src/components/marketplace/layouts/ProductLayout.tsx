@@ -137,7 +137,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                     {loading ? (
                         <div className="py-16 text-center">
                             <div className="w-10 h-10 border-4 border-border-primary dark:border-border-primary border-t-slate-900 rounded-full animate-spin mx-auto mb-3" />
-                            <p className="text-xs text-ink-tertiary dark:text-ink-tertiary0">Loading Boutique...</p>
+                            <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Loading Boutique...</p>
                         </div>
                     ) : (
                         <div className="space-y-12">
@@ -232,7 +232,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                                             <div key={i} className="flex gap-3 items-start group">
                                                 <span className="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
                                                 <div>
-                                                    <p className="text-ink-tertiary dark:text-ink-tertiary0 text-xs mb-0.5">{item.title}</p>
+                                                    <p className="text-ink-tertiary dark:text-ink-tertiary text-xs mb-0.5">{item.title}</p>
                                                     <p className="font-medium text-sm text-ink-tertiary">{item.desc}</p>
                                                 </div>
                                             </div>
@@ -250,7 +250,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                 <div className="max-w-2xl mx-auto px-4 md:px-6 text-center">
                     <span className="text-3xl mb-4 block">📩</span>
                     <h2 className="text-2xl md:text-3xl font-semibold text-ink-primary dark:text-white mb-3">Join The Pulse Club</h2>
-                    <p className="text-ink-tertiary0 dark:text-ink-tertiary dark:text-ink-tertiary0 mb-8">Get early access to drops, smart tech updates, and exclusive island styling tips.</p>
+                    <p className="text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary mb-8">Get early access to drops, smart tech updates, and exclusive island styling tips.</p>
                     <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
                         <input
                             type="email"
@@ -274,12 +274,12 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
                         <div className="col-span-1 md:col-span-2">
                             <h4 className="text-xl font-semibold mb-4" style={{ color: brandingColor }}>🏝️ {store.business_name}</h4>
-                            <p className="text-ink-tertiary0 dark:text-ink-tertiary dark:text-ink-tertiary0 text-sm max-w-sm mb-6 leading-relaxed">
+                            <p className="text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary text-sm max-w-sm mb-6 leading-relaxed">
                                 {store.bio || "Hand-picked local products that embody the spirit of paradise. Quality, sustainable, and authentic."}
                             </p>
                             <div className="flex gap-3">
                                 {['fb', 'ig', 'tw', 'wa'].map(sm => (
-                                    <div key={sm} className="w-9 h-9 rounded-lg bg-surface-secondary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary flex items-center justify-center text-ink-tertiary dark:text-ink-tertiary0 hover:text-ink-secondary dark:text-ink-tertiary hover:bg-surface-secondary transition-all cursor-pointer text-xs font-medium uppercase">
+                                    <div key={sm} className="w-9 h-9 rounded-lg bg-surface-secondary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary flex items-center justify-center text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:text-ink-tertiary hover:bg-surface-secondary transition-all cursor-pointer text-xs font-medium uppercase">
                                         {sm}
                                     </div>
                                 ))}
@@ -287,7 +287,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                         </div>
                         <div>
                             <h5 className="text-xs font-semibold uppercase tracking-wide text-ink-primary dark:text-white mb-4">Boutique Services</h5>
-                            <ul className="space-y-2 text-sm text-ink-tertiary0 dark:text-ink-tertiary dark:text-ink-tertiary0">
+                            <ul className="space-y-2 text-sm text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary">
                                 <li className="hover:text-ink-secondary cursor-pointer transition-colors">Size Guides</li>
                                 <li className="hover:text-ink-secondary cursor-pointer transition-colors">Smart Tech Setup</li>
                                 <li className="hover:text-ink-secondary cursor-pointer transition-colors">Eco-Returns</li>
@@ -306,10 +306,10 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                         </div>
                     </div>
                     <div className="pt-8 border-t border-border-primary dark:border-border-primary flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-xs text-ink-tertiary dark:text-ink-tertiary0">
+                        <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">
                             © 2024 {store.business_name}. Verified Hub Merchant.
                         </p>
-                        <div className="flex gap-6 text-xs text-ink-tertiary dark:text-ink-tertiary0">
+                        <div className="flex gap-6 text-xs text-ink-tertiary dark:text-ink-tertiary">
                             <a href="#" className="hover:text-ink-secondary transition-colors">Terms</a>
                             <a href="#" className="hover:text-ink-secondary transition-colors">Privacy</a>
             <a href="#" className="hover:text-ink-secondary transition-colors">License</a>

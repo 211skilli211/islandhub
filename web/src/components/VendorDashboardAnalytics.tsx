@@ -112,7 +112,7 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                             <div key={index} className="flex justify-between items-center text-xs">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
-                                    <span className="font-bold text-ink-tertiary0 uppercase tracking-widest">{entry.type}</span>
+                                    <span className="font-bold text-ink-tertiary uppercase tracking-widest">{entry.type}</span>
                                 </div>
                                 <span className="font-black text-ink-primary">{entry.units} Sold</span>
                             </div>

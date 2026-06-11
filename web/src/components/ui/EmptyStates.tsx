@@ -20,7 +20,7 @@ export function EmptyState({ icon, title, description, actionLabel, actionHref, 
                 {icon}
             </div>
             <h3 className="text-xl font-black text-ink-primary mb-2">{title}</h3>
-            <p className="text-ink-tertiary0 mb-8 max-w-md mx-auto">{description}</p>
+            <p className="text-ink-tertiary mb-8 max-w-md mx-auto">{description}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 {actionLabel && actionHref && (
                     <Link

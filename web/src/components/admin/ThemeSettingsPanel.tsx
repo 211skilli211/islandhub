@@ -83,7 +83,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
         <div className="space-y-8">
             <div>
                 <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-4">Site Theme</h3>
-                <p className="text-sm text-ink-tertiary0 dark:text-ink-tertiary mb-6">Control the default theme for the entire platform</p>
+                <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mb-6">Control the default theme for the entire platform</p>
             </div>
 
             {/* Theme Selection */}
@@ -142,7 +142,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                         >
                             <div className="text-xl mb-1">{style.icon}</div>
                             <div className="font-bold text-xs">{style.name}</div>
-                            <div className="text-[10px] text-ink-tertiary0 dark:text-ink-tertiary">{style.desc}</div>
+                            <div className="text-[10px] text-ink-tertiary dark:text-ink-tertiary">{style.desc}</div>
                         </button>
                     ))}
                 </div>
@@ -150,7 +150,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
 
             {/* Preview */}
             <div className="p-6 bg-surface-secondary dark:bg-surface-tertiary rounded-2xl">
-                <h4 className="text-xs font-bold text-ink-tertiary dark:text-ink-tertiary0 uppercase mb-3">Preview</h4>
+                <h4 className="text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase mb-3">Preview</h4>
                 <div className="flex gap-3">
                     <div 
                         className="px-4 py-2 rounded-lg text-white font-bold"

@@ -98,7 +98,7 @@ export default function AssetLibrary() {
             <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                 <div>
                     <h2 className="text-xl font-black text-ink-primary">Media Library</h2>
-                    <p className="text-sm text-ink-tertiary0">{filteredAssets.length} assets</p>
+                    <p className="text-sm text-ink-tertiary">{filteredAssets.length} assets</p>
                 </div>
                 <div className="flex flex-wrap gap-3">
                     {/* Search */}
@@ -117,13 +117,13 @@ export default function AssetLibrary() {
                     <div className="flex bg-surface-secondary p-1 rounded-lg border border-border-primary">
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'grid' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary0'}`}
+                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'grid' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary'}`}
                         >
                             Grid
                         </button>
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'list' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary0'}`}
+                            className={`px-3 py-1.5 rounded-md text-sm font-bold ${viewMode === 'list' ? 'bg-surface-elevated text-accent-400 shadow-sm' : 'text-ink-tertiary'}`}
                         >
                             List
                         </button>
@@ -141,7 +141,7 @@ export default function AssetLibrary() {
                             className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all ${
                                 dateFilter === date 
                                     ? 'bg-accent-500 text-white' 
-                                    : 'bg-surface-elevated border border-border-primary text-ink-tertiary0 hover:border-teal-300'
+                                    : 'bg-surface-elevated border border-border-primary text-ink-tertiary hover:border-teal-300'
                             }`}
                         >
                             {date === 'all' ? 'All Time' : date === 'today' ? 'Today' : date === 'week' ? 'This Week' : 'This Month'}
@@ -160,7 +160,7 @@ export default function AssetLibrary() {
             ) : filteredAssets.length === 0 ? (
                 <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary">
                     <div className="text-5xl mb-4">📂</div>
-                    <p className="text-ink-tertiary0 font-medium">No assets found</p>
+                    <p className="text-ink-tertiary font-medium">No assets found</p>
                     <p className="text-xs text-ink-tertiary mt-1">Try adjusting your filters</p>
                 </div>
             ) : viewMode === 'grid' ? (
@@ -234,10 +234,10 @@ export default function AssetLibrary() {
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm font-medium text-ink-secondary">{asset.filename}</td>
-                                    <td className="px-4 py-3 text-xs text-ink-tertiary0 uppercase">{asset.file_type || 'unknown'}</td>
-                                    <td className="px-4 py-3 text-xs text-ink-tertiary0">{formatFileSize(asset.file_size)}</td>
-                                    <td className="px-4 py-3 text-xs text-ink-tertiary0">{asset.user_name || 'System'}</td>
-                                    <td className="px-4 py-3 text-xs text-ink-tertiary0">{new Date(asset.created_at).toLocaleDateString()}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary uppercase">{asset.file_type || 'unknown'}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary">{formatFileSize(asset.file_size)}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary">{asset.user_name || 'System'}</td>
+                                    <td className="px-4 py-3 text-xs text-ink-tertiary">{new Date(asset.created_at).toLocaleDateString()}</td>
                                     <td className="px-4 py-3 text-right">
                                         <button onClick={() => openPreview(asset)} className="text-accent-400 hover:underline text-xs font-bold">View</button>
                                     </td>
@@ -265,7 +265,7 @@ export default function AssetLibrary() {
                                 ) : (
                                     <div className="text-center p-12">
                                         <span className="text-6xl mb-4 block">{getFileTypeIcon(selectedAsset.file_type)}</span>
-                                        <p className="text-ink-tertiary0">Preview not available for this file type</p>
+                                        <p className="text-ink-tertiary">Preview not available for this file type</p>
                                     </div>
                                 )}
                             </div>

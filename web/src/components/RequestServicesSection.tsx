@@ -47,7 +47,7 @@ export default function RequestServicesSection() {
                     <h2 className="text-3xl md:text-5xl font-black text-ink-primary dark:text-white mb-3 tracking-tight">
                         How can we help you today?
                     </h2>
-                    <p className="text-ink-tertiary0 dark:text-ink-tertiary font-medium text-sm md:text-base max-w-2xl mx-auto">
+                    <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-sm md:text-base max-w-2xl mx-auto">
                         Request rides, order food, or send packages — all in one platform
                     </p>
                 </div>
@@ -104,15 +104,15 @@ export default function RequestServicesSection() {
                 <div className="mt-8 md:mt-12 grid grid-cols-3 gap-3 md:gap-6 max-w-3xl mx-auto">
                     <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
                         <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">24/7</div>
-                        <div className="text-[10px] md:text-xs text-ink-tertiary0 dark:text-ink-tertiary font-bold uppercase tracking-wider">Available</div>
+                        <div className="text-[10px] md:text-xs text-ink-tertiary dark:text-ink-tertiary font-bold uppercase tracking-wider">Available</div>
                     </div>
                     <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
                         <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">5min</div>
-                        <div className="text-[10px] md:text-xs text-ink-tertiary0 dark:text-ink-tertiary font-bold uppercase tracking-wider">Avg Wait</div>
+                        <div className="text-[10px] md:text-xs text-ink-tertiary dark:text-ink-tertiary font-bold uppercase tracking-wider">Avg Wait</div>
                     </div>
                     <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
                         <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">100+</div>
-                        <div className="text-[10px] md:text-xs text-ink-tertiary0 dark:text-ink-tertiary font-bold uppercase tracking-wider">Drivers</div>
+                        <div className="text-[10px] md:text-xs text-ink-tertiary dark:text-ink-tertiary font-bold uppercase tracking-wider">Drivers</div>
                     </div>
                 </div>
             </div>

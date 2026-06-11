@@ -112,7 +112,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     <h2 className="text-lg font-black text-ink-primary">
                         {filterConfig.title}
                     </h2>
-                    <span className="text-sm text-ink-tertiary0">
+                    <span className="text-sm text-ink-tertiary">
                         {sortedListings.length} {sortedListings.length === 1 ? 'result' : 'results'}
                     </span>
                     {activeFilterCount > 0 && (
@@ -215,7 +215,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     })}
                     <button
                         onClick={() => handleFilterChange({})}
-                        className="px-3 py-1 text-xs font-bold text-ink-tertiary0 hover:text-ink-secondary"
+                        className="px-3 py-1 text-xs font-bold text-ink-tertiary hover:text-ink-secondary"
                     >
                         Clear all
                     </button>
@@ -256,7 +256,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         <div className="text-center py-20">
                             <div className="text-6xl mb-4">🔍</div>
                             <h3 className="text-xl font-black text-ink-primary mb-2">No results found</h3>
-                            <p className="text-ink-tertiary0 mb-6">Try adjusting your filters or search terms</p>
+                            <p className="text-ink-tertiary mb-6">Try adjusting your filters or search terms</p>
                             <button
                                 onClick={() => handleFilterChange({})}
                                 className="px-6 py-3 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors"

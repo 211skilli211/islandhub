@@ -103,7 +103,7 @@ export default function DynamicForm({ category, subType, metadata, onChange }: D
                                 key={opt.value}
                                 type="button"
                                 onClick={() => toggle(opt.value)}
-                                className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${selected.includes(opt.value) ? 'bg-accent-500 text-white shadow-lg' : 'bg-surface-secondary text-ink-tertiary0 hover:bg-surface-tertiary'}`}
+                                className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${selected.includes(opt.value) ? 'bg-accent-500 text-white shadow-lg' : 'bg-surface-secondary text-ink-tertiary hover:bg-surface-tertiary'}`}
                             >
                                 {opt.label}
                             </button>

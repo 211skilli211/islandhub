@@ -68,19 +68,19 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
     if (!banner || isDismissed) return null;
 
     const getThemeColors = (theme: string, type: string) => {
-        const themes: Record<string, { gradient: string; button: string; text: string; iconBg: string }> = {
-            teal: { gradient: 'from-teal-500 to-emerald-500', button: 'bg-accent-500 hover:bg-accent-600', text: 'text-accent-100', iconBg: 'bg-accent-400/20' },
-            indigo: { gradient: 'from-teal-600 to-blue-700', button: 'bg-teal-800 hover:bg-black', text: 'text-[#a5b4fc]', iconBg: 'bg-teal-400/20' },
-            rose: { gradient: 'from-rose-600 to-red-700', button: 'bg-rose-800 hover:bg-black', text: 'text-rose-100', iconBg: 'bg-rose-400/20' },
-            amber: { gradient: 'from-amber-500 to-orange-600', button: 'bg-sand-600 hover:bg-black', text: 'text-sand-100', iconBg: 'bg-sand-400/20' },
-            emerald: { gradient: 'from-emerald-600 to-green-700', button: 'bg-emerald-800 hover:bg-black', text: 'text-emerald-100', iconBg: 'bg-emerald-400/20' },
-            blue: { gradient: 'from-blue-600 to-cyan-700', button: 'bg-blue-800 hover:bg-black', text: 'text-blue-100', iconBg: 'bg-blue-400/20' },
-            purple: { gradient: 'from-teal-600 to-teal-800', button: 'bg-teal-800 hover:bg-black', text: 'text-teal-100', iconBg: 'bg-teal-400/20' },
-            urgency: { gradient: 'from-red-600 to-orange-700', button: 'bg-surface-elevated text-red-600 hover:bg-surface-elevated/90', text: 'text-red-50', iconBg: 'bg-surface-elevated/20' },
-            community: { gradient: 'from-blue-600 to-teal-700', button: 'bg-surface-elevated text-blue-600 hover:bg-surface-elevated/90', text: 'text-blue-50', iconBg: 'bg-surface-elevated/20' },
-            promotion: { gradient: 'from-yellow-400 to-orange-500', button: 'bg-black text-white hover:bg-ink-primary', text: 'text-orange-900/70', iconBg: 'bg-black/10' },
-            high_impact: { gradient: 'from-sunset-500 via-teal-600 to-teal-800', button: 'bg-surface-elevated text-sunset-500 hover:shadow-sunset-500/50 hover:shadow-lg', text: 'text-white/80', iconBg: 'bg-surface-elevated/30' },
-            minimal: { gradient: 'from-sand-50 to-sand-200', button: 'bg-ink-primary text-white', text: 'text-ink-tertiary', iconBg: 'bg-surface-tertiary' },
+        const themes: Record<string, { gradient: string; button: string; text: string; textMain: string; iconBg: string }> = {
+            teal: { gradient: 'from-teal-500 to-emerald-500', button: 'bg-accent-500 hover:bg-accent-600', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-accent-400/20' },
+            indigo: { gradient: 'from-teal-600 to-blue-700', button: 'bg-teal-800 hover:bg-black', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-teal-400/20' },
+            rose: { gradient: 'from-rose-600 to-red-700', button: 'bg-rose-800 hover:bg-black', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-rose-400/20' },
+            amber: { gradient: 'from-amber-500 to-orange-600', button: 'bg-sand-600 hover:bg-black', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-sand-400/20' },
+            emerald: { gradient: 'from-emerald-600 to-green-700', button: 'bg-emerald-800 hover:bg-black', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-emerald-400/20' },
+            blue: { gradient: 'from-blue-600 to-cyan-700', button: 'bg-blue-800 hover:bg-black', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-blue-400/20' },
+            purple: { gradient: 'from-teal-600 to-teal-800', button: 'bg-teal-800 hover:bg-black', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-teal-400/20' },
+            urgency: { gradient: 'from-red-600 to-orange-700', button: 'bg-surface-elevated text-red-600 hover:bg-surface-elevated/90', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-surface-elevated/20' },
+            community: { gradient: 'from-blue-600 to-teal-700', button: 'bg-surface-elevated text-blue-600 hover:bg-surface-elevated/90', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-surface-elevated/20' },
+            promotion: { gradient: 'from-yellow-400 to-orange-500', button: 'bg-black text-white hover:bg-ink-primary', text: 'text-orange-900/70', textMain: 'text-orange-950', iconBg: 'bg-black/10' },
+            high_impact: { gradient: 'from-sunset-500 via-teal-600 to-teal-800', button: 'bg-surface-elevated text-sunset-500 hover:shadow-sunset-500/50 hover:shadow-lg', text: 'text-white/80', textMain: 'text-white', iconBg: 'bg-surface-elevated/30' },
+            minimal: { gradient: 'from-sand-50 to-sand-200', button: 'bg-ink-primary text-white', text: 'text-ink-tertiary', textMain: 'text-ink-primary', iconBg: 'bg-surface-tertiary' },
         };
 
         if (type === 'urgency') return themes.urgency;
@@ -131,11 +131,11 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                             )}
 
                             <div className="flex-1 min-w-0">
-                                <h4 className={`text-white font-black uppercase tracking-tight leading-tight mb-1 ${alignment === 'center' ? 'text-xl' : 'text-sm'}`}>
+                                <h4 className={`${colors.textMain} font-black uppercase tracking-tight leading-tight mb-1 ${alignment === 'center' ? 'text-xl' : 'text-sm'}`}>
                                     {banner.title}
                                 </h4>
                                 {banner.subtitle && (
-                                    <p className={`${colors.text} text-xs font-bold leading-snug opacity-90`}>
+                                    <p className={`${colors.text} text-xs font-bold leading-snug`}>
                                         {banner.subtitle}
                                     </p>
                                 )}

@@ -63,14 +63,14 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
         <div className="space-y-8">
             <div>
                 <h2 className="text-2xl font-black text-ink-primary tracking-tight">Reputation Manager</h2>
-                <p className="text-ink-tertiary0 font-medium">Hear what your customers are saying and respond to feedback</p>
+                <p className="text-ink-tertiary font-medium">Hear what your customers are saying and respond to feedback</p>
             </div>
 
             {reviews.length === 0 ? (
                 <div className="py-20 text-center bg-surface-secondary/50 rounded-[3rem] border-2 border-dashed border-border-primary">
                     <Star size={48} className="mx-auto text-ink-tertiary mb-4" />
                     <h3 className="text-xl font-black text-ink-primary">No Reviews Yet</h3>
-                    <p className="text-ink-tertiary0 font-medium max-w-xs mx-auto">Great service leads to great reviews. Keep up the good work!</p>
+                    <p className="text-ink-tertiary font-medium max-w-xs mx-auto">Great service leads to great reviews. Keep up the good work!</p>
                 </div>
             ) : (
                 <div className="space-y-6">
@@ -121,7 +121,7 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
                                     <div className="absolute -top-3 left-8 px-3 py-1 bg-surface-elevated border border-border-primary rounded-full text-[8px] font-black uppercase tracking-widest text-ink-tertiary">
                                         Your Response
                                     </div>
-                                    <p className="text-ink-tertiary0 font-bold text-sm leading-relaxed">
+                                    <p className="text-ink-tertiary font-bold text-sm leading-relaxed">
                                         {review.reply_text}
                                     </p>
                                     <p className="text-[8px] font-black text-ink-tertiary uppercase tracking-widest mt-4">

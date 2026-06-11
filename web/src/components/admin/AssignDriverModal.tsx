@@ -59,7 +59,7 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                                             </div>
                                             <div className="text-left">
                                                 <p className="font-black text-ink-primary group-hover:text-teal-900">{driver.name}</p>
-                                                <p className="text-[10px] text-ink-tertiary0 font-bold uppercase tracking-tight">{driver.make} {driver.model}</p>
+                                                <p className="text-[10px] text-ink-tertiary font-bold uppercase tracking-tight">{driver.make} {driver.model}</p>
                                             </div>
                                         </div>
                                         <div className="px-4 py-2 bg-surface-elevated rounded-xl text-[9px] font-black uppercase text-[#14b8a6] border border-[#14b8a6]/20 group-hover:bg-[#14b8a6] group-hover:text-white group-hover:border-[#14b8a6] transition-all">

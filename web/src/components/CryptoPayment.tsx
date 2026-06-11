@@ -70,7 +70,7 @@ const CryptoPayment = ({ campaignId, orderId, amount, currency = 'USD', onSucces
                 <div className="flex justify-center mb-4">
                     <QRCodeSVG value={chargeData.qrCodeUrl} size={200} />
                 </div>
-                <p className="text-ink-tertiary0 font-medium text-sm mb-4">
+                <p className="text-ink-tertiary font-medium text-sm mb-4">
                     Scan with your crypto wallet to complete the payment
                 </p>
                 <a
@@ -82,7 +82,7 @@ const CryptoPayment = ({ campaignId, orderId, amount, currency = 'USD', onSucces
                     Open in Wallet
                 </a>
             </div>
-            <div className="text-sm text-ink-tertiary0 font-medium space-y-2">
+            <div className="text-sm text-ink-tertiary font-medium space-y-2">
                 <p>💡 Payment will be confirmed automatically once received on the blockchain</p>
                 <p>📧 You'll receive a receipt email when the transaction is complete</p>
             </div>

@@ -102,7 +102,7 @@ export default function DriverOnboarding() {
                 <h2 className="text-2xl font-black text-ink-primary uppercase italic tracking-tighter mb-2">
                     Verification {status.verification_status}
                 </h2>
-                <p className="text-ink-tertiary0 font-medium mb-8">
+                <p className="text-ink-tertiary font-medium mb-8">
                     {status.verification_status === 'pending'
                         ? "Our team is reviewing your documents. This usually takes 24-48 hours."
                         : status.verification_status === 'approved'
@@ -125,7 +125,7 @@ export default function DriverOnboarding() {
         <div className="max-w-3xl mx-auto">
             <header className="text-center mb-12">
                 <h2 className="text-4xl font-black text-ink-primary italic uppercase tracking-tighter mb-2">Driver Verification Hub</h2>
-                <p className="text-ink-tertiary0 font-medium">Complete your profile to unlock high-standard logistics jobs.</p>
+                <p className="text-ink-tertiary font-medium">Complete your profile to unlock high-standard logistics jobs.</p>
             </header>
 
             <div className="flex gap-2 mb-10 overflow-x-auto pb-4 scrollbar-hide">

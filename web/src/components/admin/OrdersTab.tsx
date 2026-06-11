@@ -62,7 +62,7 @@ export default function OrdersTab() {
                 <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${o.status === 'paid' ? 'bg-green-100 text-green-700' :
                     o.status === 'pending' ? 'bg-sand-500/10 text-sand-500' :
                         o.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                            'bg-surface-secondary text-ink-tertiary0'
+                            'bg-surface-secondary text-ink-tertiary'
                     }`}>
                     {o.status}
                 </span>
@@ -101,7 +101,7 @@ export default function OrdersTab() {
             <div className="flex justify-between items-center">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Global Orders</h2>
-                    <p className="text-ink-tertiary0 text-sm font-medium">Monitoring all platform transactions</p>
+                    <p className="text-ink-tertiary text-sm font-medium">Monitoring all platform transactions</p>
                 </div>
             </div>
 

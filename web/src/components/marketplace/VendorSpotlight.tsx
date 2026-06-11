@@ -140,7 +140,7 @@ export default function VendorSpotlight() {
                                             ))}
                                         </div>
                                         <span className="text-ink-primary dark:text-white font-black text-sm">{vendor.rating?.toFixed(1) || '5.0'}</span>
-                                        <span className="text-ink-tertiary0 dark:text-ink-tertiary text-[9px] font-bold uppercase tracking-widest ml-2">Rating</span>
+                                        <span className="text-ink-tertiary dark:text-ink-tertiary text-[9px] font-bold uppercase tracking-widest ml-2">Rating</span>
                                     </div>
 
                                     <div className="inline-flex items-center gap-3 text-ink-primary dark:text-white font-black text-xs uppercase tracking-widest group-hover:text-accent-400 dark:group-hover:text-accent-400 transition-colors">

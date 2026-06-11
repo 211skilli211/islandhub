@@ -81,7 +81,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Dashboard Overview</h2>
-                    <p className="text-ink-tertiary0 font-medium">Welcome back! Here's what's happening with your stores.</p>
+                    <p className="text-ink-tertiary font-medium">Welcome back! Here's what's happening with your stores.</p>
                 </div>
                 {activeStore?.slug && (
                     <Link
@@ -111,7 +111,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                         <Link href={stat.href} className="block text-center">
                             <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">{stat.icon}</div>
                             <div className="text-2xl sm:text-3xl font-black text-ink-primary">{stat.value}</div>
-                            <div className="text-[8px] sm:text-[10px] font-black uppercase text-ink-tertiary0 tracking-widest mt-1">{stat.label}</div>
+                            <div className="text-[8px] sm:text-[10px] font-black uppercase text-ink-tertiary tracking-widest mt-1">{stat.label}</div>
                         </Link>
                     </motion.div>
                 ))}
@@ -132,7 +132,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h3 className="text-lg sm:text-xl font-black text-ink-primary uppercase tracking-tight truncate">{activeStore?.name || 'Your Store'}</h3>
-                                <p className="text-ink-tertiary0 font-medium text-xs sm:text-sm mt-1 line-clamp-2">{activeStore?.description || 'No description set yet'}</p>
+                                <p className="text-ink-tertiary font-medium text-xs sm:text-sm mt-1 line-clamp-2">{activeStore?.description || 'No description set yet'}</p>
 
                                 {activeStore?.slug && (
                                     <div className="mt-3 sm:mt-4 flex flex-wrap gap-2">
@@ -172,7 +172,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                                         + Add Another Store
                                     </Link>
                                 ) : (
-                                    <div className="px-4 py-2 sm:px-6 sm:py-3 bg-surface-secondary text-ink-tertiary0 rounded-lg sm:rounded-xl font-black uppercase text-[10px] sm:text-xs tracking-widest">
+                                    <div className="px-4 py-2 sm:px-6 sm:py-3 bg-surface-secondary text-ink-tertiary rounded-lg sm:rounded-xl font-black uppercase text-[10px] sm:text-xs tracking-widest">
                                         🔒 Locked
                                     </div>
                                 )}

@@ -77,7 +77,7 @@ function StatusBadge({ status }: { status: string }) {
     return (
         <span className="flex items-center gap-2 px-2 py-1 bg-surface-secondary dark:bg-ink-primary/50 rounded-full border border-border-primary dark:border-white/5">
             <span className={`w-1.5 h-1.5 rounded-full ${colors[status] || colors.unknown} ${status === 'online' ? 'animate-pulse' : ''} shadow-lg`} />
-            <span className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary0 dark:text-ink-tertiary">{status}</span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary dark:text-ink-tertiary">{status}</span>
         </span>
     );
 }
@@ -623,7 +623,7 @@ export default function AgentCommandCenter() {
                                 <div className="flex justify-between items-center bg-ink-primary rounded-3xl p-6 border border-border-primary shadow-xl">
                                     <div>
                                         <h3 className="text-white font-black text-lg">Neural Registry</h3>
-                                        <p className="text-[10px] text-ink-tertiary0 tracking-widest uppercase">Manage {agentConfigs.length} initialized entities</p>
+                                        <p className="text-[10px] text-ink-tertiary tracking-widest uppercase">Manage {agentConfigs.length} initialized entities</p>
                                     </div>
                                     <button
                                         onClick={() => { setShowNewAgent(true); setEditingAgent({ id: 0, agent_id: '', display_name: '', description: '', model: 'anthropic/claude-sonnet-4', system_prompt: '', temperature: 0.5, max_tokens: 4096, tools: [], allowed_roles: ['customer'], is_system: false, is_active: true, autonomy_level: 'supervised', icon: '🤖', color: '#0ea5e9' }); }}
@@ -644,7 +644,7 @@ export default function AgentCommandCenter() {
                                                     <div>
                                                         <div className="flex items-center gap-3 mb-1">
                                                             <h4 className="font-black text-xl text-ink-primary dark:text-white leading-none">{agent.display_name}</h4>
-                                                            {agent.is_system && <span className="text-[9px] bg-surface-secondary dark:bg-surface-elevated/5 rounded-full px-3 py-1 font-black text-ink-tertiary0 tracking-widest uppercase">System Core</span>}
+                                                            {agent.is_system && <span className="text-[9px] bg-surface-secondary dark:bg-surface-elevated/5 rounded-full px-3 py-1 font-black text-ink-tertiary tracking-widest uppercase">System Core</span>}
                                                         </div>
                                                         <p className="text-[10px] font-mono text-ink-tertiary leading-none tracking-widest uppercase">{agent.agent_id} / {agent.model}</p>
                                                     </div>
@@ -654,7 +654,7 @@ export default function AgentCommandCenter() {
                                                     <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${agent.is_active ? 'bg-accent-500/10 text-accent-400 dark:bg-accent-500/100/10 dark:text-accent-400' : 'bg-[#e11d48]/5 text-[#e11d48]'}`}>
                                                         {agent.is_active ? 'Online' : 'Suspended'}
                                                     </div>
-                                                    <button onClick={() => toggleAgent(agent.agent_id, agent.is_active)} className="px-4 py-2 bg-surface-secondary dark:bg-surface-tertiary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-tertiary0 hover:bg-surface-secondary dark:hover:bg-surface-tertiary transition-all">
+                                                    <button onClick={() => toggleAgent(agent.agent_id, agent.is_active)} className="px-4 py-2 bg-surface-secondary dark:bg-surface-tertiary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-tertiary hover:bg-surface-secondary dark:hover:bg-surface-tertiary transition-all">
                                                         {agent.is_active ? 'Suspend' : 'Resume'}
                                                     </button>
                                                     <button onClick={() => setEditingAgent(agent)} className="px-6 py-2 bg-[#14b8a6] hover:bg-[#14b8a6]/100 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-teal-600/20">
@@ -673,7 +673,7 @@ export default function AgentCommandCenter() {
                                                         <span>System Prompt</span>
                                                         <span className="opacity-0 group-hover:opacity-100 transition-opacity">Neural Code</span>
                                                     </h5>
-                                                    <p className="text-[10px] text-ink-tertiary0 font-mono line-clamp-3 leading-relaxed">{agent.system_prompt}</p>
+                                                    <p className="text-[10px] text-ink-tertiary font-mono line-clamp-3 leading-relaxed">{agent.system_prompt}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -719,7 +719,7 @@ export default function AgentCommandCenter() {
                                     <div className="space-y-10 max-w-4xl">
                                         <div>
                                             <h3 className="font-black text-2xl text-ink-primary dark:text-white mb-2">Core Parameters</h3>
-                                            <p className="text-sm text-ink-tertiary0">Global weights and governance protocols for all intelligence entities.</p>
+                                            <p className="text-sm text-ink-tertiary">Global weights and governance protocols for all intelligence entities.</p>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                             {Object.entries(settings).map(([key, value]) => (
@@ -791,7 +791,7 @@ export default function AgentCommandCenter() {
                                                     <div className="grid grid-cols-3 gap-8 mb-8">
                                                         <div className="bg-surface-elevated dark:bg-ink-primary p-6 rounded-3xl">
                                                             <p className="text-[8px] font-black uppercase text-ink-tertiary mb-1">Throughput</p>
-                                                            <p className="text-lg font-black dark:text-white">{p.rate_limit_rpm} <span className="text-[10px] font-bold text-ink-tertiary0 opacity-50">RPM</span></p>
+                                                            <p className="text-lg font-black dark:text-white">{p.rate_limit_rpm} <span className="text-[10px] font-bold text-ink-tertiary opacity-50">RPM</span></p>
                                                         </div>
                                                         <div className="bg-surface-elevated dark:bg-ink-primary p-6 rounded-3xl">
                                                             <p className="text-[8px] font-black uppercase text-ink-tertiary mb-1">Budget Allocation</p>
@@ -844,7 +844,7 @@ export default function AgentCommandCenter() {
                                         <div className="flex justify-between items-center bg-ink-primary rounded-3xl p-8 border border-border-primary shadow-xl">
                                             <div>
                                                 <h3 className="text-2xl font-black text-white">Neural Swarm Matrix</h3>
-                                                <p className="text-[10px] text-ink-tertiary0 tracking-widest uppercase mt-1">Coordination layer for multi-agent procedures</p>
+                                                <p className="text-[10px] text-ink-tertiary tracking-widest uppercase mt-1">Coordination layer for multi-agent procedures</p>
                                             </div>
                                             <button className="px-8 py-4 bg-accent-500 hover:bg-accent-500/100 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all active:scale-95 shadow-lg shadow-teal-600/20">
                                                 + Initialize New Procedure
@@ -865,7 +865,7 @@ export default function AgentCommandCenter() {
                                                             <span className="px-3 py-1 bg-accent-500/100/10 text-accent-400 text-[8px] font-black uppercase tracking-widest rounded-full">Operational</span>
                                                         </div>
                                                         <h4 className="text-lg font-black dark:text-white mb-2">{wf.name}</h4>
-                                                        <p className="text-xs text-ink-tertiary0 mb-6 line-clamp-2">{wf.description}</p>
+                                                        <p className="text-xs text-ink-tertiary mb-6 line-clamp-2">{wf.description}</p>
                                                         <div className="flex items-center gap-2">
                                                             <div className="flex -space-x-3">
                                                                 {[1, 2, 3].map(i => <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-border-primary bg-surface-tertiary dark:bg-surface-tertiary shadow-sm" />)}

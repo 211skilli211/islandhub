@@ -66,7 +66,7 @@ export default function PayoutsTab() {
             accessor: (row) => (
                 <div>
                     <div className="font-bold text-ink-primary">{row.user_name}</div>
-                    <div className="text-xs text-ink-tertiary0">{row.user_email}</div>
+                    <div className="text-xs text-ink-tertiary">{row.user_email}</div>
                     <span className={`inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${row.partner_type === 'vendor' ? 'bg-teal-100 text-teal-700' : 'bg-orange-100 text-orange-700'
                         }`}>
                         {row.partner_type}
@@ -87,7 +87,7 @@ export default function PayoutsTab() {
             header: 'Method',
             accessor: (row) => (
                 <div className="flex items-center gap-2">
-                    <div className="p-1.5 bg-surface-secondary rounded-lg text-ink-tertiary0">
+                    <div className="p-1.5 bg-surface-secondary rounded-lg text-ink-tertiary">
                         {row.payout_method === 'bank_transfer' ? <CreditCard size={14} /> : <Wallet size={14} />}
                     </div>
                     <div className="flex flex-col">
@@ -108,7 +108,7 @@ export default function PayoutsTab() {
                     processing: 'bg-blue-100 text-blue-700',
                     completed: 'bg-emerald-500/15 text-emerald-500',
                     rejected: 'bg-[#e11d48]/10 text-[#be123c]',
-                    cancelled: 'bg-surface-secondary text-ink-tertiary0'
+                    cancelled: 'bg-surface-secondary text-ink-tertiary'
                 };
                 return (
                     <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${colors[row.status] || colors.pending}`}>
@@ -120,7 +120,7 @@ export default function PayoutsTab() {
         {
             header: 'Date',
             accessor: (row) => (
-                <div className="text-xs text-ink-tertiary0 flex items-center gap-1">
+                <div className="text-xs text-ink-tertiary flex items-center gap-1">
                     <Calendar size={12} />
                     {new Date(row.created_at).toLocaleDateString()}
                 </div>
@@ -133,7 +133,7 @@ export default function PayoutsTab() {
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Payout Requests</h2>
-                    <p className="text-ink-tertiary0 font-medium">Manage withdrawal requests from vendors and drivers</p>
+                    <p className="text-ink-tertiary font-medium">Manage withdrawal requests from vendors and drivers</p>
                 </div>
 
                 {/* Summary Cards could go here */}

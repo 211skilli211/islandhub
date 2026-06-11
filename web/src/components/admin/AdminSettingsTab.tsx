@@ -32,10 +32,10 @@ export default function AdminSettingsTab({
             return (
                 <div key={key} className="flex items-center justify-between p-4 bg-surface-secondary dark:bg-surface-tertiary/50 rounded-2xl border border-border-primary dark:border-border-primary/50">
                     <div>
-                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary dark:text-ink-tertiary0 mb-1 block">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary dark:text-ink-tertiary mb-1 block">
                             {key.replace(/_/g, ' ')}
                         </label>
-                        <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary">Toggle {key.split('_').slice(1).join(' ')} status</p>
+                        <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Toggle {key.split('_').slice(1).join(' ')} status</p>
                     </div>
                     <button
                         onClick={() => setSettings({ ...settings, [key]: !boolVal })}
@@ -52,7 +52,7 @@ export default function AdminSettingsTab({
 
         return (
             <div key={key} className="flex flex-col gap-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary dark:text-ink-tertiary0 px-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary dark:text-ink-tertiary px-1">
                     {key.replace(/_/g, ' ')}
                 </label>
                 <div className="relative group">
@@ -101,7 +101,7 @@ export default function AdminSettingsTab({
                 <div className="max-w-3xl">
                     <div className="mb-10">
                         <h2 className="text-2xl font-black text-ink-primary dark:text-white capitalize mb-2">{settingsTab} Configurations</h2>
-                        <p className="text-ink-tertiary0 dark:text-ink-tertiary text-sm">Manage your platform's {settingsTab} behavior and global variables.</p>
+                        <p className="text-ink-tertiary dark:text-ink-tertiary text-sm">Manage your platform's {settingsTab} behavior and global variables.</p>
                     </div>
 
                     {settingsTab === 'export' ? (
@@ -112,7 +112,7 @@ export default function AdminSettingsTab({
                             >
                                 <div className="w-12 h-12 rounded-2xl bg-[#14b8a6]/100/10 text-[#a5b4fc]0 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">📊</div>
                                 <h4 className="font-black text-ink-primary dark:text-white uppercase text-xs tracking-widest mb-1">Export User Directory</h4>
-                                <p className="text-ink-tertiary0 text-[10px]">Download all registered users as CSV.</p>
+                                <p className="text-ink-tertiary text-[10px]">Download all registered users as CSV.</p>
                             </button>
                             <button
                                 onClick={() => handleExport('listings')}
@@ -120,7 +120,7 @@ export default function AdminSettingsTab({
                             >
                                 <div className="w-12 h-12 rounded-2xl bg-accent-500/100/10 text-accent-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🏺</div>
                                 <h4 className="font-black text-ink-primary dark:text-white uppercase text-xs tracking-widest mb-1">Export Marketplace</h4>
-                                <p className="text-ink-tertiary0 text-[10px]">Download all active listings as CSV.</p>
+                                <p className="text-ink-tertiary text-[10px]">Download all active listings as CSV.</p>
                             </button>
                         </div>
                     ) : settingsTab === 'theme' ? (
@@ -137,7 +137,7 @@ export default function AdminSettingsTab({
                             </div>
 
                             <div className="pt-10 mt-10 border-t border-border-primary dark:border-border-primary flex items-center justify-between">
-                                <div className="text-xs text-ink-tertiary dark:text-ink-tertiary0">
+                                <div className="text-xs text-ink-tertiary dark:text-ink-tertiary">
                                     Last saved: {new Date().toLocaleDateString()}
                                 </div>
                                 <button

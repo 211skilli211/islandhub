@@ -193,7 +193,7 @@ export default function HubTypePage() {
                 <div className="text-center">
                     <span className="text-6xl mb-4 block">🏝️</span>
                     <h1 className="text-2xl font-bold text-ink-primary dark:text-sand-50 mb-2">Hub Not Found</h1>
-                    <p className="text-ink-tertiary0 dark:text-ink-tertiary">The hub type &quot;{type}&quot; doesn&apos;t exist.</p>
+                    <p className="text-ink-tertiary dark:text-ink-tertiary">The hub type &quot;{type}&quot; doesn&apos;t exist.</p>
                 </div>
             </div>
         );

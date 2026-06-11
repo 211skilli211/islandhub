@@ -131,7 +131,7 @@ export default function SubscriptionsTab() {
                                         </span>
                                     </td>
                                     <td className="p-6">
-                                        <div className="text-xs font-bold text-ink-tertiary0">
+                                        <div className="text-xs font-bold text-ink-tertiary">
                                             {sub.current_period_end ? new Date(sub.current_period_end).toLocaleDateString() : 'N/A'}
                                         </div>
                                         {sub.cancel_at_period_end && (

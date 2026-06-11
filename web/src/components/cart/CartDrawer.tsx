@@ -110,7 +110,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     {item.selected_variant && typeof item.selected_variant === 'object' && (
                                                                         <div className="mt-2 flex flex-wrap gap-1">
                                                                             {Object.entries(item.selected_variant).map(([key, val]) => (
-                                                                                <span key={key} className="text-[9px] bg-surface-elevated border border-border-primary text-ink-tertiary0 px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
+                                                                                <span key={key} className="text-[9px] bg-surface-elevated border border-border-primary text-ink-tertiary px-2 py-0.5 rounded-lg font-black uppercase tracking-tight">
                                                                                     {key}: {String(val)}
                                                                                 </span>
                                                                             ))}
@@ -209,7 +209,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                 <div className="flex flex-col items-center justify-center h-full text-center">
                                                     <ShoppingCartIcon className="w-16 h-16 text-ink-tertiary mb-4" />
                                                     <p className="text-ink-secondary font-medium">Your cart is empty</p>
-                                                    <p className="text-sm text-ink-tertiary0 mt-1">Add items to get started</p>
+                                                    <p className="text-sm text-ink-tertiary mt-1">Add items to get started</p>
                                                 </div>
                                             )}
                                         </div>

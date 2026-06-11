@@ -131,7 +131,7 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                                 {hubMode && (
                                     <button
                                         onClick={onHubClose}
-                                        className="mt-2 w-full py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-tertiary0 dark:text-ink-tertiary rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary dark:hover:bg-surface-tertiary transition-colors"
+                                        className="mt-2 w-full py-2 bg-surface-secondary dark:bg-surface-tertiary text-ink-tertiary dark:text-ink-tertiary rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary dark:hover:bg-surface-tertiary transition-colors"
                                     >
                                         Back to Hub
                                     </button>

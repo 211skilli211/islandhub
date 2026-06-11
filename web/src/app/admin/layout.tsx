@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
-import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
 import {
   LayoutDashboard, Users, Package, ShoppingCart, Store,
   Settings, BarChart3, Truck, Megaphone, Shield,
@@ -192,7 +191,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
                 <Settings size={15} className="text-accent-500" />
               </div>
-              <span className="font-bold text-sm">Admin Panel</span>
+              <span className="font-bold text-sm text-ink-primary">Admin Panel</span>
             </div>
             <button
               onClick={() => setMobileOpen(false)}
@@ -306,7 +305,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             MAIN CONTENT — margin-left ONLY on desktop (>= lg)
             ══════════════════════════════════════════════════════════════════════ */}
         <main className={`flex-1 min-h-screen min-w-0 transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[260px]'}`}>
-          <AdminBreadcrumb />
           <div className="p-4 md:p-6 lg:p-8 overflow-x-auto">{children}</div>
         </main>
       </div>

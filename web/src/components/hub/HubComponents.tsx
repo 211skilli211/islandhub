@@ -330,7 +330,7 @@ export function HubEmptyState({ emoji, title, message, onClear }: {
         <div className="text-center py-24">
             <span className="text-7xl mb-5 block">{emoji}</span>
             <h3 className="text-2xl font-extrabold text-ink-primary dark:text-sand-50 mb-2">{title}</h3>
-            <p className="text-ink-tertiary0 dark:text-ink-tertiary mb-8 max-w-md mx-auto">{message}</p>
+            <p className="text-ink-tertiary dark:text-ink-tertiary mb-8 max-w-md mx-auto">{message}</p>
             <button onClick={onClear} className="inline-flex items-center gap-2 px-8 py-3.5 bg-ocean-500 hover:bg-ocean-400 text-white font-bold rounded-2xl transition-all shadow-xl">
                 View All
             </button>

@@ -63,7 +63,7 @@ export function DashboardSidebar({ navItems, activeTab, onTabChange, expandedIte
                   className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                     activeTab === child.id
                       ? 'bg-accent-500/10 dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
-                      : 'text-ink-tertiary0 dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
+                      : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
                   }`}
                 >
                   {child.icon}
@@ -106,7 +106,7 @@ export default function DashboardLayout({
       <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary">
         <div>
           <p className="text-sm font-semibold text-ink-primary dark:text-white">{title}</p>
-          {subtitle && <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary">{subtitle}</p>}
+          {subtitle && <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{subtitle}</p>}
         </div>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -128,7 +128,7 @@ export default function DashboardLayout({
       }`}>
         <div className="hidden lg:block p-4 border-b border-border-primary dark:border-border-primary">
           <p className="text-sm font-semibold text-ink-primary dark:text-white">{title}</p>
-          {subtitle && <p className="text-xs text-ink-tertiary0 dark:text-ink-tertiary mt-0.5">{subtitle}</p>}
+          {subtitle && <p className="text-xs text-ink-tertiary dark:text-ink-tertiary mt-0.5">{subtitle}</p>}
         </div>
         <DashboardSidebar
           navItems={navItems}

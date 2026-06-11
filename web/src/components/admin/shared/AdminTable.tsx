@@ -654,7 +654,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                 <button
                                                     key={action.action}
                                                     onClick={(e) => { e.stopPropagation(); handleRowClick(action.action, item); }}
-                                                    className="p-1.5 rounded-full bg-surface-elevated/90 backdrop-blur text-ink-tertiary0 hover:text-accent-400 shadow-sm border border-border-primary"
+                                                    className="p-1.5 rounded-full bg-surface-elevated/90 backdrop-blur text-ink-tertiary hover:text-accent-400 shadow-sm border border-border-primary"
                                                     title={action.label}
                                                 >
                                                     {/* Use icon if available, else simple fallback */}

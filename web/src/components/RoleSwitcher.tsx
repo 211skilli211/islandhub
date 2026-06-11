@@ -12,7 +12,7 @@ export default function RoleSwitcher({ viewMode, setViewMode, showDriverView, sh
         <div className="flex bg-surface-secondary p-1 rounded-xl">
             <button
                 onClick={() => setViewMode('buyer')}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'buyer' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary0 hover:text-ink-primary'
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'buyer' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'
                     }`}
             >
                 Shopping
@@ -20,7 +20,7 @@ export default function RoleSwitcher({ viewMode, setViewMode, showDriverView, sh
             {showVendorView && (
                 <button
                     onClick={() => setViewMode('vendor')}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'vendor' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary0 hover:text-ink-primary'
+                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'vendor' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'
                         }`}
                 >
                     Selling
@@ -29,7 +29,7 @@ export default function RoleSwitcher({ viewMode, setViewMode, showDriverView, sh
             {showDriverView && (
                 <button
                     onClick={() => setViewMode('driver')}
-                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'driver' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary0 hover:text-ink-primary'
+                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${viewMode === 'driver' ? 'bg-surface-elevated text-ink-primary shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'
                         }`}
                 >
                     Logistics

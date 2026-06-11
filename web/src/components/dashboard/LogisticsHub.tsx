@@ -48,7 +48,7 @@ export default function LogisticsHub() {
         return (
             <div className="py-20 text-center">
                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600" />
-                <p className="mt-4 text-ink-tertiary0 font-black uppercase text-[10px] tracking-widest">Tracking Journeys...</p>
+                <p className="mt-4 text-ink-tertiary font-black uppercase text-[10px] tracking-widest">Tracking Journeys...</p>
             </div>
         );
     }
@@ -58,7 +58,7 @@ export default function LogisticsHub() {
             <header className="flex justify-between items-center">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight italic uppercase">My Journeys</h2>
-                    <p className="text-ink-tertiary0 text-xs font-bold">Live tracking & dispatch portal</p>
+                    <p className="text-ink-tertiary text-xs font-bold">Live tracking & dispatch portal</p>
                 </div>
             </header>
 
@@ -86,7 +86,7 @@ export default function LogisticsHub() {
                 <div className="py-20 text-center bg-surface-secondary rounded-[3rem] border-2 border-dashed border-border-primary">
                     <div className="text-5xl mb-4">🚖</div>
                     <h3 className="text-xl font-black text-ink-primary uppercase italic">No Active Journeys</h3>
-                    <p className="text-ink-tertiary0 font-medium mb-8">Ready to explore? Book a ride or request a delivery.</p>
+                    <p className="text-ink-tertiary font-medium mb-8">Ready to explore? Book a ride or request a delivery.</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6">

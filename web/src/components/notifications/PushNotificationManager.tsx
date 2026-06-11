@@ -155,7 +155,7 @@ export default function PushNotificationManager() {
                                     />
                                     <div>
                                         <p className="text-sm font-bold text-ink-primary dark:text-white">{item.label}</p>
-                                        <p className="text-xs text-ink-tertiary0">{item.desc}</p>
+                                        <p className="text-xs text-ink-tertiary">{item.desc}</p>
                                     </div>
                                 </label>
                             ))}

@@ -34,7 +34,7 @@ export default function CategorySection({ id, title, icon, listings, loading, vi
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-ink-tertiary0 font-medium max-w-xl"
+                        className="text-ink-tertiary font-medium max-w-xl"
                     >
                         Handpicked featured {title.toLowerCase()} from our verified local vendors.
                         Support the island economy by choosing local.

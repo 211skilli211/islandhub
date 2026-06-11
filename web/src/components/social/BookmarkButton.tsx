@@ -62,7 +62,7 @@ export default function BookmarkButton({
                 inline-flex items-center justify-center rounded-full transition-all
                 ${bookmarked
                     ? 'bg-accent-500/15 text-accent-400'
-                    : 'bg-surface-secondary text-ink-tertiary0 hover:bg-surface-tertiary'
+                    : 'bg-surface-secondary text-ink-tertiary hover:bg-surface-tertiary'
                 }
                 ${sizeClasses[size]}
             `}

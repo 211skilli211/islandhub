@@ -63,7 +63,7 @@ export default function GuestWelcomeModal() {
 
                     <button
                         onClick={handleClose}
-                        className="block w-full py-3 px-4 text-ink-tertiary0 font-medium hover:text-ink-secondary underline text-sm mt-4"
+                        className="block w-full py-3 px-4 text-ink-tertiary font-medium hover:text-ink-secondary underline text-sm mt-4"
                     >
                         Wait, I'll just keep shopping
                     </button>

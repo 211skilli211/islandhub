@@ -214,7 +214,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             <p className="text-[10px] text-ink-tertiary mt-1 line-clamp-2">{item.description}</p>
                                             <div className="flex flex-wrap gap-1.5 mt-2">
                                                 {item.duration && (
-                                                    <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary0 rounded text-[8px] font-black uppercase tracking-widest">⏱️ {item.duration}</span>
+                                                    <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary rounded text-[8px] font-black uppercase tracking-widest">⏱️ {item.duration}</span>
                                                 )}
                                                 {item.donation_suggested && (
                                                     <span className="px-2 py-0.5 bg-sand-500/5 text-sand-500 rounded text-[8px] font-black uppercase tracking-widest">Donation</span>

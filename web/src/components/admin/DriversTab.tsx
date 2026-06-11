@@ -89,7 +89,7 @@ export default function DriversTab() {
                                 <span className="text-[8px] font-black bg-[#14b8a6]/15 text-[#14b8a6] px-1 py-0.5 rounded uppercase tracking-tighter">Admin</span>
                             )}
                         </div>
-                        <p className="text-xs text-ink-tertiary0 mt-0.5">{driver.email}</p>
+                        <p className="text-xs text-ink-tertiary mt-0.5">{driver.email}</p>
                     </div>
                 </div>
             )
@@ -165,7 +165,7 @@ export default function DriversTab() {
             <div className="flex flex-col md:flex-row items-center justify-between bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-sm gap-6">
                 <div>
                     <h2 className="text-4xl font-black text-ink-primary italic uppercase tracking-tighter">Strategic Fleet Intelligence</h2>
-                    <p className="text-ink-tertiary0 font-bold uppercase text-[10px] tracking-[0.2em] mt-2">Global Driver Verification & Performance Monitoring</p>
+                    <p className="text-ink-tertiary font-bold uppercase text-[10px] tracking-[0.2em] mt-2">Global Driver Verification & Performance Monitoring</p>
                 </div>
                 <div className="flex gap-3">
                     <div className="flex flex-col items-end">

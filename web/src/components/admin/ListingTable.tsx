@@ -70,7 +70,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                             <div className="flex justify-between items-start mb-2">
                                 <h3 className="font-bold text-ink-primary group-hover:text-accent-400 transition-colors line-clamp-1">{listing.title}</h3>
                             </div>
-                            <p className="text-sm text-ink-tertiary0 mb-4">{listing.category}</p>
+                            <p className="text-sm text-ink-tertiary mb-4">{listing.category}</p>
 
                             <div className="mt-auto flex items-center justify-between border-t border-border-primary pt-4">
                                 <span className="font-bold text-ink-secondary">
@@ -108,12 +108,12 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
             <table className="min-w-full divide-y divide-slate-200 hidden md:table">
                 <thead className="bg-surface-secondary">
                     <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary0 uppercase tracking-wider">Title</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary0 uppercase tracking-wider">Type</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary0 uppercase tracking-wider">Value</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary0 uppercase tracking-wider">Category</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary0 uppercase tracking-wider">Created</th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-ink-tertiary0 uppercase tracking-wider">Actions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary uppercase tracking-wider">Title</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary uppercase tracking-wider">Type</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary uppercase tracking-wider">Value</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary uppercase tracking-wider">Category</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-ink-tertiary uppercase tracking-wider">Created</th>
+                        <th className="px-6 py-3 text-right text-xs font-medium text-ink-tertiary uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody className="bg-surface-elevated divide-y divide-slate-200">
@@ -130,7 +130,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                                     </div>
                                     <div>
                                         <div className="text-sm font-medium text-ink-primary">{listing.title}</div>
-                                        <div className="text-xs text-ink-tertiary0">ID: {listing.id}</div>
+                                        <div className="text-xs text-ink-tertiary">ID: {listing.id}</div>
                                     </div>
                                 </div>
                             </td>
@@ -148,15 +148,15 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                                     </span>
                                 )}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-tertiary0">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-tertiary">
                                 {listing.type === 'campaign'
                                     ? `Goal: $${Number(listing.goal_amount).toLocaleString()}`
                                     : `$${Number(listing.price).toLocaleString()}`}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-tertiary0">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-tertiary">
                                 {listing.category}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-tertiary0">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-tertiary">
                                 {new Date(listing.created_at).toLocaleDateString()}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3" onClick={(e) => e.stopPropagation()}>
@@ -190,7 +190,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-ink-primary line-clamp-1">{listing.title}</h3>
-                                    <span className="text-xs text-ink-tertiary0">{listing.category}</span>
+                                    <span className="text-xs text-ink-tertiary">{listing.category}</span>
                                 </div>
                             </div>
                         </div>

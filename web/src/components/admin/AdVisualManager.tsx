@@ -317,7 +317,7 @@ export default function AdVisualManager() {
                                         style_config: {},
                                         is_active: true
                                     })}
-                                    className="w-full p-5 rounded-3xl border-2 border-dashed border-border-primary text-ink-tertiary font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 hover:border-border-primary hover:text-ink-tertiary0 transition-all bg-surface-secondary/50"
+                                    className="w-full p-5 rounded-3xl border-2 border-dashed border-border-primary text-ink-tertiary font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 hover:border-border-primary hover:text-ink-tertiary transition-all bg-surface-secondary/50"
                                 >
                                     <Plus size={18} /> New Section
                                 </button>
@@ -340,7 +340,7 @@ export default function AdVisualManager() {
                             </h3>
                             <button
                                 onClick={() => selectedSpace ? setSelectedSpace(null) : setSelectedSection(null)}
-                                className="text-ink-tertiary hover:text-ink-tertiary0 transition-colors"
+                                className="text-ink-tertiary hover:text-ink-tertiary transition-colors"
                             >
                                 ✕
                             </button>

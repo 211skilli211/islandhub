@@ -237,9 +237,9 @@ export default function MemoryDashboard() {
                         <div key={i} className="bg-surface-elevated dark:bg-ink-primary rounded-2xl p-6 border border-border-primary dark:border-border-primary hover:border-teal-500/30 transition-all">
                             <div className="flex items-center justify-between mb-4">
                                 <h4 className="font-black text-ink-primary dark:text-white">{skill.skill_name}</h4>
-                                <span className="text-[10px] px-3 py-1 bg-surface-secondary dark:bg-surface-tertiary rounded-full uppercase font-bold text-ink-tertiary0">{skill.category}</span>
+                                <span className="text-[10px] px-3 py-1 bg-surface-secondary dark:bg-surface-tertiary rounded-full uppercase font-bold text-ink-tertiary">{skill.category}</span>
                             </div>
-                            <p className="text-sm text-ink-tertiary0 mb-4">{skill.description}</p>
+                            <p className="text-sm text-ink-tertiary mb-4">{skill.description}</p>
                             <button 
                                 onClick={() => executeSkill(skill.skill_name, { test: true })}
                                 className="w-full py-2 bg-accent-500 text-white rounded-xl text-[10px] font-black uppercase"
@@ -274,7 +274,7 @@ export default function MemoryDashboard() {
                         <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent-500/80 mb-6 font-mono">Context Buffer</h4>
                         <div className="flex items-baseline gap-2 mb-2">
                             <span className="text-4xl font-black text-white">{kbSize}</span>
-                            <span className="text-xs font-bold text-ink-tertiary0 tracking-widest uppercase">KB</span>
+                            <span className="text-xs font-bold text-ink-tertiary tracking-widest uppercase">KB</span>
                         </div>
 
                         <div className="h-1.5 w-full bg-surface-tertiary rounded-full overflow-hidden mb-4">
@@ -285,7 +285,7 @@ export default function MemoryDashboard() {
                             />
                         </div>
 
-                        <div className="flex justify-between items-center text-[9px] font-bold text-ink-tertiary0 uppercase font-mono">
+                        <div className="flex justify-between items-center text-[9px] font-bold text-ink-tertiary uppercase font-mono">
                             <span>Last Updated</span>
                             <span className="text-ink-tertiary">{status?.lastUpdated ? new Date(status.lastUpdated).toLocaleTimeString() : '---'}</span>
                         </div>
@@ -342,7 +342,7 @@ export default function MemoryDashboard() {
                             {/* Ungrouped files */}
                             {files.filter(f => !f.includes('/')).length > 0 && (
                                 <div className="space-y-2">
-                                    <h5 className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary0 px-3">Root Files</h5>
+                                    <h5 className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary px-3">Root Files</h5>
                                     {files.filter(f => !f.includes('/')).map(file => (
                                         <button
                                             key={file}
@@ -371,7 +371,7 @@ export default function MemoryDashboard() {
                                     <div className="w-3 h-3 rounded-full bg-emerald-500/100 shadow-lg shadow-emerald-500/20" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink-tertiary0 leading-none mb-1">Editing Neural Node</span>
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-ink-tertiary leading-none mb-1">Editing Neural Node</span>
                                     <span className="text-xs font-bold text-ink-tertiary font-mono italic">{selectedFile}</span>
                                 </div>
                             </div>
@@ -404,7 +404,7 @@ export default function MemoryDashboard() {
                                 <div className="px-8 py-3 flex items-center justify-between bg-ink-primary/40">
                                     <div className="flex items-center gap-3">
                                         <div className="w-2 h-2 rounded-full bg-accent-500/100 animate-pulse shadow-glow" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary0">Telemetry Stream</span>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Telemetry Stream</span>
                                     </div>
                                     <div className="flex gap-4">
                                         <button onClick={() => handleAction('/agent/memory/compact', 'Compact')} className="text-[9px] font-black uppercase tracking-widest text-sand-500 hover:text-sand-400">Compaction</button>
@@ -413,7 +413,7 @@ export default function MemoryDashboard() {
                                 </div>
                                 <div className="grow p-6 overflow-y-auto font-mono text-[10px] leading-loose custom-scrollbar bg-black/40">
                                     {logs.split('\n').map((line, i) => (
-                                        <div key={i} className={`${line.includes('SUCCESS') ? 'text-accent-400' : line.includes('FAILED') ? 'text-[#fb7185]' : line.includes('Saved') ? 'text-[#14b8a6]' : 'text-ink-tertiary0'}`}>
+                                        <div key={i} className={`${line.includes('SUCCESS') ? 'text-accent-400' : line.includes('FAILED') ? 'text-[#fb7185]' : line.includes('Saved') ? 'text-[#14b8a6]' : 'text-ink-tertiary'}`}>
                                             {line}
                                         </div>
                                     ))}

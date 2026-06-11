@@ -154,7 +154,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                         <div className="flex items-end justify-between mb-6 border-b border-border-primary pb-4">
                                             <div>
                                                 <h2 className="text-xl font-semibold text-ink-primary">{section.section_name}</h2>
-                                                <p className="text-ink-tertiary0 dark:text-ink-tertiary text-sm">Professional {section.section_name.toLowerCase()} for your needs</p>
+                                                <p className="text-ink-tertiary dark:text-ink-tertiary text-sm">Professional {section.section_name.toLowerCase()} for your needs</p>
                                             </div>
                                             <span className="text-xs text-ink-tertiary">Section {section.priority}</span>
                                         </div>
@@ -188,7 +188,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                                                                 <h3 className="text-base font-semibold text-ink-primary">{service.service_name}</h3>
                                                                 <span className="bg-ink-primary dark:bg-surface-tertiary text-white px-2.5 py-1 rounded-lg text-xs font-medium">${service.price}</span>
                                                             </div>
-                                                            <p className="text-ink-tertiary0 text-sm leading-relaxed mb-4 line-clamp-2">{service.description}</p>
+                                                            <p className="text-ink-tertiary text-sm leading-relaxed mb-4 line-clamp-2">{service.description}</p>
                                                         </div>
                                                     </motion.div>
                                                 </div>
@@ -281,7 +281,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                     </div>
                     <div className="flex gap-4 items-center">
                         <div className="text-right hidden md:block">
-                            <p className="text-xs text-ink-tertiary0 mb-0.5">Ready to book?</p>
+                            <p className="text-xs text-ink-tertiary mb-0.5">Ready to book?</p>
                             <p className="text-sm font-medium">Secure your session today</p>
                         </div>
                         <button

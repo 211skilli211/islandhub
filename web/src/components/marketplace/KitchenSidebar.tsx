@@ -171,7 +171,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                                                 <div className="space-y-4 mb-8">
                                                     {cartItems.map((item) => (
                                                         <div key={item.cart_item_id || item.item_id} className="flex justify-between items-center text-xs font-bold py-2 border-b border-dashed border-border-primary">
-                                                            <span className="text-ink-tertiary0">{item.title} x{item.quantity}</span>
+                                                            <span className="text-ink-tertiary">{item.title} x{item.quantity}</span>
                                                             <span className="text-ink-primary">${(parseFloat(item.price_snapshot) * item.quantity).toFixed(2)}</span>
                                                         </div>
                                                     ))}

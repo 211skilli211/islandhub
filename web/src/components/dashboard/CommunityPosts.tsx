@@ -128,7 +128,7 @@ export default function CommunityPosts() {
                             <div className="flex items-center gap-4">
                                 <label className="flex-1 p-4 rounded-2xl border-2 border-dashed border-border-primary hover:border-teal-300 transition-all cursor-pointer flex items-center justify-center gap-2">
                                     <span className="text-xl">🖼️</span>
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary0">Upload Image/Video</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Upload Image/Video</span>
                                     <input type="file" className="hidden" accept="image/*,video/*" onChange={handleMediaUpload} />
                                 </label>
                                 {newPost.media_url && (
@@ -248,7 +248,7 @@ export default function CommunityPosts() {
                     <div className="py-20 text-center bg-surface-secondary rounded-[4rem] border-2 border-dashed border-border-primary">
                         <div className="text-6xl mb-6">🌊</div>
                         <h3 className="text-2xl font-black text-ink-primary tracking-tight">The airwaves are quiet</h3>
-                        <p className="text-ink-tertiary0 font-medium italic mb-8">Be the first to broadcast from your slice of paradise.</p>
+                        <p className="text-ink-tertiary font-medium italic mb-8">Be the first to broadcast from your slice of paradise.</p>
                         <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-teal-100">Send First Broadcast</button>
                     </div>
                 )}
