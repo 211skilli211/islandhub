@@ -21,6 +21,15 @@ const navItems = [
     { id: 'settings', label: 'Settings', icon: '⚙️', href: '/settings' },
 ];
 
+const communityItems = [
+    { id: 'community', label: 'Community', icon: '🌴', href: '/community' },
+    { id: 'stories', label: 'Stories', icon: '📸', href: '/community/stories' },
+    { id: 'groups', label: 'Groups', icon: '👥', href: '/community/groups' },
+    { id: 'events', label: 'Events', icon: '🎉', href: '/community/events' },
+    { id: 'auctions', label: 'Auctions', icon: '🔨', href: '/community/auctions' },
+    { id: 'coops', label: 'Co-ops', icon: '🤝', href: '/community/coops' },
+];
+
 const adminItems = [
     { id: 'overview', label: 'Overview', icon: '📊', href: '/admin' },
     { id: 'users', label: 'Users', icon: '👥', href: '/admin/users' },
@@ -115,6 +124,53 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                             </li>
                         ))}
                     </ul>
+
+                    {/* Community Section */}
+                    {!collapsed && (
+                        <div className="mt-4 pt-4 border-t border-border-primary">
+                            <p className="px-4 mb-2 text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Community</p>
+                            <ul className="space-y-1 px-3">
+                                {communityItems.map((item) => (
+                                    <li key={item.id}>
+                                        <Link
+                                            href={item.href}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`flex items-center gap-3 px-4 py-2 rounded-xl transition-all ${
+                                                isActive(item.href)
+                                                    ? 'bg-accent-500 text-white shadow-lg'
+                                                    : 'text-ink-tertiary hover:bg-surface-tertiary hover:text-white'
+                                            }`}
+                                        >
+                                            <span className="text-lg shrink-0">{item.icon}</span>
+                                            <span className="font-bold text-xs truncate">{item.label}</span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    {collapsed && (
+                        <div className="mt-4 pt-4 border-t border-border-primary">
+                            <ul className="space-y-1 px-3">
+                                {communityItems.slice(0, 3).map((item) => (
+                                    <li key={item.id}>
+                                        <Link
+                                            href={item.href}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`flex items-center justify-center p-3 rounded-xl transition-all ${
+                                                isActive(item.href)
+                                                    ? 'bg-accent-500 text-white shadow-lg'
+                                                    : 'text-ink-tertiary hover:bg-surface-tertiary hover:text-white'
+                                            }`}
+                                            title={item.label}
+                                        >
+                                            <span className="text-lg">{item.icon}</span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </nav>
 
                 <button

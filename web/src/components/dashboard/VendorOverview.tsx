@@ -227,6 +227,30 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                 </Link>
             </div>
 
+            {/* Community Hub */}
+            <div className="bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm p-4 sm:p-8">
+                <h3 className="text-xs sm:text-sm font-black text-ink-secondary uppercase tracking-widest mb-4 sm:mb-6">Community Hub</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                    {[
+                        { href: '/community/stories', emoji: '📸', label: 'Stories', color: 'from-violet-500 to-purple-600' },
+                        { href: '/community/groups', emoji: '👥', label: 'Groups', color: 'from-blue-500 to-cyan-600' },
+                        { href: '/community/events', emoji: '🎉', label: 'Events', color: 'from-amber-500 to-orange-600' },
+                        { href: '/community/auctions', emoji: '🔨', label: 'Auctions', color: 'from-yellow-500 to-amber-600' },
+                        { href: '/community/coops', emoji: '🤝', label: 'Co-ops', color: 'from-teal-500 to-emerald-600' },
+                        { href: '/community/business', emoji: '🏢', label: 'Business', color: 'from-rose-500 to-pink-600' },
+                    ].map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gradient-to-br ${item.color} rounded-xl text-white hover:scale-[1.02] hover:shadow-lg transition-all group`}
+                        >
+                            <span className="text-lg sm:text-xl group-hover:scale-110 transition-transform">{item.emoji}</span>
+                            <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider">{item.label}</span>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+
             {/* Subscription Upgrade CTA */}
             {!canHaveMultipleStores && storeCount >= 1 && (
                 <div className="bg-gradient-to-r from-teal-600 to-teal-500 rounded-2xl sm:rounded-4xl p-4 sm:p-8 text-white">
