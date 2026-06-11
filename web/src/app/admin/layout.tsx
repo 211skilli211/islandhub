@@ -110,7 +110,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 onClick={() => isMobile && setMobileOpen(false)}
                 className={`flex items-center gap-2.5 rounded-lg transition-all flex-1 ${
                   isMobile ? 'px-3 py-3' : (isRail ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5')
-                } ${active ? 'bg-accent-500/10 text-accent-500' : 'text-ink-secondary hover:bg-surface-tertiary hover:text-ink-primary'}`}
+                } ${active ? 'bg-teal-50 text-teal-700 font-bold' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
               >
                 <Icon size={isMobile ? 18 : (isRail ? 20 : 17)} className="shrink-0" />
                 {(isMobile || !isRail) && (
@@ -180,36 +180,28 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             onClick={() => setMobileOpen(false)}
           />
         )}
-        <aside className={`
-          fixed inset-y-0 left-0 z-50 w-[280px] bg-surface-elevated text-ink-primary flex flex-col border-r border-border-primary
-          transition-transform duration-300 ease-in-out lg:hidden
-          ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
-        `}>
+        <aside className={`fixed inset-y-0 left-0 z-50 w-[280px] bg-white text-gray-900 flex flex-col border-r border-gray-200 transition-transform duration-300 ease-in-out lg:hidden ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           {/* Mobile drawer header */}
-          <div className="flex items-center justify-between px-4 py-4 border-b border-border-primary shrink-0">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100 shrink-0">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
-                <Settings size={15} className="text-accent-500" />
+              <div className="w-7 h-7 rounded-lg bg-teal-50 flex items-center justify-center">
+                <Settings size={15} className="text-teal-600" />
               </div>
-              <span className="font-bold text-sm text-ink-primary">Admin Panel</span>
+              <span className="font-bold text-sm text-gray-900">Admin Panel</span>
             </div>
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="p-1.5 rounded-lg hover:bg-surface-tertiary text-ink-secondary"
-              aria-label="Close menu"
-            >
+            <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Close menu">
               <X size={16} />
             </button>
           </div>
           {/* Mobile user info */}
           {user && (
             <Link href="/profile" onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-2.5 px-4 py-3 border-b border-border-primary text-ink-secondary hover:text-ink-primary">
-              <div className="w-7 h-7 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
-                {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={14} className="text-accent-500" />}
+              className="flex items-center gap-2.5 px-4 py-3 border-b border-gray-100 text-gray-600 hover:text-gray-900">
+              <div className="w-7 h-7 rounded-full bg-teal-50 flex items-center justify-center shrink-0 overflow-hidden">
+                {user.avatar_url ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" /> : <User size={14} className="text-teal-600" />}
               </div>
               <div className="min-w-0">
-                <div className="text-[12px] font-semibold text-ink-primary truncate">{user.name}</div>
+                <div className="text-[12px] font-semibold text-gray-900 truncate">{user.name}</div>
                 <div className="text-[10px] text-ink-tertiary">{user.role || 'Admin'}</div>
               </div>
             </Link>
@@ -234,22 +226,22 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             DESKTOP SIDEBAR — Rail/Expanded, only >= lg
             ══════════════════════════════════════════════════════════════════════ */}
         <aside
-          className="hidden lg:flex fixed left-0 top-0 bottom-0 z-[60] bg-surface-elevated text-ink-primary flex-col border-r border-border-primary transition-all duration-300"
+          className="hidden lg:flex fixed left-0 top-0 bottom-0 z-[60] bg-white text-gray-900 flex-col border-r border-gray-200 transition-all duration-300"
           style={{ width: isRail ? RAIL_WIDTH : EXPANDED_WIDTH }}
         >
           {/* Desktop header */}
-          <div className={`shrink-0 flex items-center border-b border-border-primary ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
+          <div className={`shrink-0 flex items-center border-b border-gray-100 ${isRail ? 'justify-center px-0 py-4' : 'px-4 py-4'}`}>
             {!isRail && (
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center shrink-0">
-                  <Settings size={15} className="text-accent-500" />
+                <div className="w-7 h-7 rounded-lg bg-teal-50 flex items-center justify-center shrink-0">
+                  <Settings size={15} className="text-teal-600" />
                 </div>
-                <span className="font-bold text-sm tracking-tight truncate text-ink-primary">Admin</span>
+                <span className="font-bold text-sm tracking-tight truncate text-gray-900">Admin</span>
               </div>
             )}
             {isRail && (
-              <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center">
-                <Settings size={15} className="text-accent-500" />
+              <div className="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center">
+                <Settings size={15} className="text-teal-600" />
               </div>
             )}
           </div>
@@ -273,16 +265,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               </div>
               {!isRail && (
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold text-[12px] truncate text-ink-primary">{user.name}</p>
-                  <p className="text-[10px] text-ink-tertiary capitalize">{user.role || 'Admin'}</p>
+                  <p className="font-semibold text-[12px] truncate text-gray-900">{user.name}</p>
+                  <p className="text-[10px] text-gray-500 capitalize">{user.role || 'Admin'}</p>
                 </div>
               )}
             </Link>
           )}
 
           {/* Back to home */}
-          <div className={`shrink-0 border-b border-border-primary ${isRail ? 'py-2' : 'py-2 px-3'}`}>
-            <Link href="/" className={`flex items-center text-ink-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`} title={isRail ? 'Back to Home' : undefined}>
+          <div className={`shrink-0 border-b border-gray-100 ${isRail ? 'py-2' : 'py-2 px-3'}`}>
+            <Link href="/" className={`flex items-center text-gray-500 hover:text-gray-700 transition-colors ${isRail ? 'justify-center' : 'gap-1.5'}`} title={isRail ? 'Back to Home' : undefined}>
               <ArrowLeft size={12} />
               {!isRail && <span className="text-[11px]">Back to Home</span>}
             </Link>
@@ -291,9 +283,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           {renderNavItems(false)}
 
           {/* Desktop footer */}
-          <div className={`shrink-0 border-t border-border-primary ${isRail ? 'p-2' : 'p-3'}`}>
+          <div className={`shrink-0 border-t border-gray-100 ${isRail ? 'p-2' : 'p-3'}`}>
             <button onClick={handleLogout}
-              className={`flex items-center rounded-lg text-ink-tertiary hover:bg-surface-tertiary hover:text-ink-secondary transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
+              className={`flex items-center rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors ${isRail ? 'justify-center p-2 w-full' : 'gap-2.5 px-3 py-2 w-full'}`}
               title={isRail ? 'Log out' : undefined}>
               <LogOut size={isRail ? 18 : 15} className="shrink-0" />
               {!isRail && <span className="font-medium text-[12px]">Log out</span>}

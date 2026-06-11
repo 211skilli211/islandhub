@@ -60,13 +60,14 @@ if (typeof window !== 'undefined') {
 export const DEFAULT_PLACEHOLDER = 'file-1769965232226-73669333.jpg';
 
 export const getImageUrl = (path?: string | { url?: string } | null) => {
-    if (!path) return undefined;
+    if (!path) return '';
     // Handle photo objects with url property
     if (typeof path === 'object' && path.url) {
         path = path.url;
     }
     // Ensure path is a string
-    if (typeof path !== 'string') return undefined;
+    if (typeof path !== 'string') return '';
+    if (!path.trim()) return '';
     if (path.startsWith('http')) return path;
 
     // Already a full media file URL — return as-is with base
@@ -81,6 +82,7 @@ export const getImageUrl = (path?: string | { url?: string } | null) => {
         cleanPath = cleanPath.replace('/uploads/', '');
     }
     const filename = cleanPath.startsWith('/') ? cleanPath.slice(1) : cleanPath;
+    if (!filename) return '';
     return `${BASE_URL}/api/media/file/${filename}`;
 };
 
