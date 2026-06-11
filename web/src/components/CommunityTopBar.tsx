@@ -39,7 +39,6 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
         <div className="sticky top-18 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
             <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
-                    {/* Left: Menu */}
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onMenuToggle}
@@ -50,7 +49,6 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                         </button>
                     </div>
 
-                    {/* Center: Search */}
                     <form onSubmit={handleSearch} className="flex-1 max-w-xs mx-2 sm:mx-4">
                         <div className="relative">
                             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
@@ -63,6 +61,8 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                             />
                         </div>
                     </form>
+
+                    <div className="flex items-center gap-2">
                         {isAuthenticated && (
                             <button className="p-2 rounded-lg hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors relative">
                                 <Bell size={18} />
