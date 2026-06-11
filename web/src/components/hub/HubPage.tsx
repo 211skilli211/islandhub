@@ -118,7 +118,7 @@ function HubPage({ config }: { config: HubPageConfig }) {
                 totalStores={filteredStores.length} storesByCategory={storesByCategory} loading={loading}
             />
 
-            {!loading && filteredStores.length > 0 && <BrandMarquee type="brand" />}
+            {!loading && filteredStores.length > 0 && <BrandMarquee title="Featured Partners" speed={35} />}
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <AnimatePresence>

@@ -162,7 +162,7 @@ export default function Home() {
       </section>
 
       {/* ═══ BRAND MARQUEE ═══ */}
-      <BrandMarquee type="brand" />
+      <BrandMarquee title="Trusted by leading Caribbean brands" speed={40} />
 
       {/* ═══ FEATURED CAMPAIGNS (2-col mobile) ═══ */}
       <section className="max-w-7xl mx-auto px-4 py-6">
