@@ -11,7 +11,7 @@ interface BrandLogo {
 }
 
 interface BrandMarqueeProps {
-    speed?: number; // seconds for one full loop
+    speed?: number;
     className?: string;
     title?: string;
 }
@@ -21,10 +21,20 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/brands')
-            .then(res => res.json())
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        if (!apiUrl) {
+            setLoading(false);
+            return;
+        }
+        fetch(`${apiUrl}/api/brands`)
+            .then(res => {
+                if (!res.ok) throw new Error('Not ok');
+                return res.json();
+            })
             .then(data => {
-                setBrands(data);
+                if (Array.isArray(data)) {
+                    setBrands(data);
+                }
                 setLoading(false);
             })
             .catch(() => setLoading(false));
@@ -32,7 +42,6 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
 
     if (loading || brands.length === 0) return null;
 
-    // Duplicate the list for seamless infinite scroll
     const doubled = [...brands, ...brands];
 
     return (
