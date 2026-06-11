@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { sql } from '../db';
+import { Router, Request, Response } from 'express';
+import { pool } from '../config/db';
 
 const router = Router();
 
@@ -7,9 +7,9 @@ const router = Router();
  * Global search across listings, stores, providers, and products.
  * Query params: q (search term), type (all|listing|vendor|provider), limit, offset
  */
-router.get('/search', async (req, res) => {
+router.get('/search', async (req: Request, res: Response) => {
   try {
-    const { q, type = 'all', limit = 20, offset = 0 } = req.query;
+    const { q, type = 'all', limit = '20', offset = '0' } = req.query;
     const searchTerm = (q as string || '').trim();
     const searchPattern = `%${searchTerm}%`;
     const resultLimit = Math.min(parseInt(limit as string) || 20, 100);
@@ -23,8 +23,8 @@ router.get('/search', async (req, res) => {
 
     // Search listings/stores
     if (type === 'all' || type === 'listing' || type === 'stores') {
-      const storeResults = await sql`
-        SELECT
+      const storeResults = await pool.query(
+        `SELECT
           s.id::text as id,
           s.name as business_name,
           s.name,
@@ -41,94 +41,94 @@ router.get('/search', async (req, res) => {
         FROM stores s
         WHERE s.is_active = true
           AND (
-            s.name ILIKE ${searchPattern}
-            OR s.description ILIKE ${searchPattern}
-            OR s.subtype ILIKE ${searchPattern}
-            OR s.business_name ILIKE ${searchPattern}
+            s.name ILIKE $1
+            OR s.description ILIKE $1
+            OR s.subtype ILIKE $1
+            OR s.business_name ILIKE $1
           )
-        LIMIT ${resultLimit} OFFSET ${resultOffset}
-      `;
-      results.push(...storeResults);
+        LIMIT $2 OFFSET $3`,
+        [searchPattern, resultLimit, resultOffset]
+      );
+      results.push(...storeResults.rows);
     }
 
     // Search service providers
     if (type === 'all' || type === 'service_provider' || type === 'provider' || type === 'vendor') {
-      const providers = await sql`
-        SELECT
+      const providers = await pool.query(
+        `SELECT
           sp.id::text as id,
           sp.name as business_name,
           sp.name,
           sp.specialty as description,
           sp.slug,
           sp.name as vendor_name,
-          '',
+          '' as location,
           sp.image_url as logo_url,
           sp.profession as subtype,
-          sp.is_featured as is_featured,
+          sp.is_featured,
           'service_provider' as type,
           'vendor' as result_type
         FROM service_providers sp
-        WHERE (
-          sp.name ILIKE ${searchPattern}
-          OR sp.specialty ILIKE ${searchPattern}
-          OR sp.description ILIKE ${searchPattern}
-        )
-        LIMIT ${resultLimit} OFFSET ${resultOffset}
-      `;
-      results.push(...providers);
+          WHERE sp.name ILIKE $1
+          OR sp.specialty ILIKE $1
+          OR sp.description ILIKE $1
+        LIMIT $2 OFFSET $3`,
+        [searchPattern, resultLimit, resultOffset]
+      );
+      results.push(...providers.rows);
     }
 
     // Search tour operators
     if (type === 'all' || type === 'tour_operator' || type === 'vendor') {
-      const tours = await sql`
-        SELECT
+      const tours = await pool.query(
+        `SELECT
           sp.id::text as id,
           sp.name as business_name,
           sp.name,
           sp.specialty as description,
           sp.slug,
           sp.name as vendor_name,
-          '',
+          '' as location,
           sp.image_url as logo_url,
           'tour_operator' as subtype,
-          sp.is_featured as is_featured,
+          sp.is_featured,
           'tour_operator' as type,
           'vendor' as result_type
         FROM service_providers sp
         WHERE sp.specialty ILIKE '%tour%'
           AND (
-            sp.name ILIKE ${searchPattern}
-            OR sp.specialty ILIKE ${searchPattern}
+            sp.name ILIKE $1
+            OR sp.specialty ILIKE $1
           )
-        LIMIT ${resultLimit} OFFSET ${resultOffset}
-      `;
-      results.push(...tours);
+        LIMIT $2 OFFSET $3`,
+        [searchPattern, resultLimit, resultOffset]
+      );
+      results.push(...tours.rows);
     }
 
     // Search coop members (vendors)
     if (type === 'all' || type === 'coop_member' || type === 'vendor') {
-      const coops = await sql`
-        SELECT
+      const coops = await pool.query(
+        `SELECT
           sp.id::text as id,
           sp.name as business_name,
           sp.name,
           sp.specialty as description,
           sp.slug,
           sp.name as vendor_name,
-          '',
+          '' as location,
           sp.image_url as logo_url,
           'coop_member' as subtype,
-          sp.is_featured as is_featured,
+          sp.is_featured,
           'coop_member' as type,
           'vendor' as result_type
         FROM service_providers sp
-        WHERE (
-          sp.name ILIKE ${searchPattern}
-          OR sp.specialty ILIKE ${searchPattern}
-        )
-        LIMIT ${resultLimit} OFFSET ${resultOffset}
-      `;
-      results.push(...coops);
+          WHERE sp.name ILIKE $1
+          OR sp.specialty ILIKE $1
+        LIMIT $2 OFFSET $3`,
+        [searchPattern, resultLimit, resultOffset]
+      );
+      results.push(...coops.rows);
     }
 
     // Deduplicate by id
@@ -151,15 +151,15 @@ router.get('/search', async (req, res) => {
  * Get featured providers for a hub type (for marquee display).
  * Query params: type (hub type), subtype (category), limit
  */
-router.get('/featured', async (req, res) => {
+router.get('/featured', async (req: Request, res: Response) => {
   try {
-    const { type, subtype, limit = 10 } = req.query;
+    const { type, subtype, limit = '10' } = req.query;
     const resultLimit = Math.min(parseInt(limit as string) || 10, 20);
 
     let query;
     if (type === 'rentals' || type === 'cars' || type === 'tours') {
-      query = sql`
-        SELECT
+      query = await pool.query(
+        `SELECT
           sp.id::text as id,
           sp.name as business_name,
           sp.name,
@@ -172,11 +172,12 @@ router.get('/featured', async (req, res) => {
         FROM service_providers sp
         WHERE sp.is_featured = true
         ORDER BY sp.rating DESC NULLS LAST
-        LIMIT ${resultLimit}
-      `;
+        LIMIT $1`,
+        [resultLimit]
+      );
     } else {
-      query = sql`
-        SELECT
+      query = await pool.query(
+        `SELECT
           s.id::text as id,
           s.name as business_name,
           s.name,
@@ -189,12 +190,12 @@ router.get('/featured', async (req, res) => {
         FROM stores s
         WHERE s.is_active = true AND s.is_featured = true
         ORDER BY s.created_at DESC
-        LIMIT ${resultLimit}
-      `;
+        LIMIT $1`,
+        [resultLimit]
+      );
     }
 
-    const results = await query;
-    res.json(results);
+    res.json(query.rows);
   } catch (error) {
     console.error('Featured providers error:', error);
     res.status(500).json({ error: 'Failed to fetch featured providers' });
@@ -205,15 +206,14 @@ router.get('/featured', async (req, res) => {
  * Get all listings/products for a provider/store.
  * Query params: slug, type (store|provider)
  */
-router.get('/provider/:slug/listings', async (req, res) => {
+router.get('/provider/:slug/listings', async (req: Request, res: Response) => {
   try {
     const { slug } = req.params;
     const { type = 'store' } = req.query;
 
     if (type === 'provider') {
-      // Get service provider and their services
-      const providers = await sql`
-        SELECT
+      const providers = await pool.query(
+        `SELECT
           sp.id::text as id,
           sp.name,
           sp.slug,
@@ -228,27 +228,28 @@ router.get('/provider/:slug/listings', async (req, res) => {
           sp.hourly_rate,
           sp.is_verified
         FROM service_providers sp
-        WHERE sp.slug = ${slug}
-        LIMIT 1
-      `;
+        WHERE sp.slug = $1
+        LIMIT 1`,
+        [slug]
+      );
 
-      if (providers.length === 0) {
+      if (providers.rows.length === 0) {
         return res.status(404).json({ error: 'Provider not found' });
       }
 
-      const services = await sql`
-        SELECT * FROM services
-        WHERE provider_id = ${providers[0].id}
+      const services = await pool.query(
+        `SELECT * FROM services
+        WHERE provider_id = $1
         AND is_active = true
         ORDER BY created_at DESC
-        LIMIT 50
-      `;
+        LIMIT 50`,
+        [providers.rows[0].id]
+      );
 
-      res.json({ provider: providers[0], services });
+      res.json({ provider: providers.rows[0], services: services.rows });
     } else {
-      // Get store and its listings
-      const stores = await sql`
-        SELECT
+      const stores = await pool.query(
+        `SELECT
           s.id::text as id,
           s.name,
           s.slug,
@@ -262,31 +263,34 @@ router.get('/provider/:slug/listings', async (req, res) => {
           s.email,
           s.website
         FROM stores s
-        WHERE s.slug = ${slug} AND s.is_active = true
-        LIMIT 1
-      `;
+        WHERE s.slug = $1 AND s.is_active = true
+        LIMIT 1`,
+        [slug]
+      );
 
-      if (stores.length === 0) {
+      if (stores.rows.length === 0) {
         return res.status(404).json({ error: 'Store not found' });
       }
 
-      const listings = await sql`
-        SELECT * FROM listings
-        WHERE store_id = ${stores[0].id}
+      const listings = await pool.query(
+        `SELECT * FROM listings
+        WHERE store_id = $1
         AND is_active = true
         ORDER BY created_at DESC
-        LIMIT 50
-      `;
+        LIMIT 50`,
+        [stores.rows[0].id]
+      );
 
-      const products = await sql`
-        SELECT * FROM products
-        WHERE store_id = ${stores[0].id}
+      const products = await pool.query(
+        `SELECT * FROM products
+        WHERE store_id = $1
         AND is_active = true
         ORDER BY created_at DESC
-        LIMIT 50
-      `;
+        LIMIT 50`,
+        [stores.rows[0].id]
+      );
 
-      res.json({ store: stores[0], listings, products });
+      res.json({ store: stores.rows[0], listings: listings.rows, products: products.rows });
     }
   } catch (error) {
     console.error('Provider listings error:', error);
