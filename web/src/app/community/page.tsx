@@ -5,7 +5,9 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
-import HeroBackground from '@/components/HeroBackground';
+import Aurora from '@/components/react-bits/backgrounds/Aurora';
+import BlurText from '@/components/react-bits/text/BlurText';
+import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
 
 interface StoryPreview {
   id: number;
@@ -85,9 +87,19 @@ export default function CommunityFeedPage() {
 
   return (
     <main className="min-h-screen bg-surface-primary">
-      {/* Hero */}
-      <HeroBackground pageKey="community" className="py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto relative z-30 px-4 sm:px-6 text-center">
+      {/* Hero with Aurora */}
+      <section className="relative overflow-hidden py-16 sm:py-24">
+        <div className="absolute inset-0 z-0">
+          <Aurora
+            colorStops={['#5b21b6', '#7c3aed', '#4c1d95']}
+            amplitude={1.5}
+            blend={0.35}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 z-[1]" />
+
+        <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -95,49 +107,48 @@ export default function CommunityFeedPage() {
           >
             Island Community 🌴
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 tracking-tighter"
-          >
-            Your Island, Your Community
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/80 text-base sm:text-lg max-w-2xl mx-auto font-medium"
-          >
-            Connect, share, and grow with fellow islanders. Stories, groups, events, and more.
-          </motion.p>
+          <BlurText
+            text="Your Island, Your Community"
+            className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 tracking-tighter justify-center"
+            delay={120}
+            direction="top"
+            animateBy="words"
+          />
+          <AnimatedContent distance={20} delay={0.4}>
+            <p className="text-white/80 text-base sm:text-lg max-w-2xl mx-auto font-medium">
+              Connect, share, and grow with fellow islanders. Stories, groups, events, and more.
+            </p>
+          </AnimatedContent>
         </div>
-      </HeroBackground>
+      </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
         {/* Community Cards Grid */}
-        <section>
-          <h2 className="text-xl font-black text-ink-primary mb-4">Explore Community</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-            {COMMUNITY_CARDS.map((card, i) => (
-              <motion.div
-                key={card.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-              >
-                <Link
-                  href={card.href}
-                  className={`block bg-gradient-to-br ${card.color} rounded-2xl p-4 sm:p-5 text-white hover:scale-[1.02] hover:shadow-xl transition-all group`}
+        <AnimatedContent distance={40}>
+          <section>
+            <h2 className="text-xl font-black text-ink-primary mb-4">Explore Community</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+              {COMMUNITY_CARDS.map((card, i) => (
+                <motion.div
+                  key={card.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
                 >
-                  <span className="text-2xl sm:text-3xl block mb-2 group-hover:scale-110 transition-transform">{card.emoji}</span>
-                  <h3 className="text-sm sm:text-base font-black tracking-tight">{card.title}</h3>
-                  <p className="text-[10px] sm:text-xs text-white/70 mt-1 leading-snug">{card.desc}</p>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+                  <Link
+                    href={card.href}
+                    className={`block bg-gradient-to-br ${card.color} rounded-2xl p-4 sm:p-5 text-white hover:scale-[1.02] hover:shadow-xl transition-all group`}
+                  >
+                    <span className="text-2xl sm:text-3xl block mb-2 group-hover:scale-110 transition-transform">{card.emoji}</span>
+                    <h3 className="text-sm sm:text-base font-black tracking-tight">{card.title}</h3>
+                    <p className="text-[10px] sm:text-xs text-white/70 mt-1 leading-snug">{card.desc}</p>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </AnimatedContent>
 
         {/* Latest Stories */}
         <section>

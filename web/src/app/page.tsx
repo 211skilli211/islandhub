@@ -17,6 +17,9 @@ import BrandMarquee from '@/components/BrandMarquee';
 import { ProductCard, CarouselSection } from '@/components/hub/ListingCard';
 import { HeroSlider, DealCard, CategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
 import { CompactCard } from '@/components/hub/CompactCard';
+import Aurora from '@/components/react-bits/backgrounds/Aurora';
+import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
+import BlurText from '@/components/react-bits/text/BlurText';
 
 export default function Home() {
   const { user } = useAuthStore();
@@ -91,30 +94,64 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-surface-primary">
 
-      {/* ═══ HERO SLIDER (Best Buy style) ═══ */}
-      <HeroBackground pageKey="home" align="center">
-        <section className="relative py-8 md:py-16 px-4 overflow-hidden">
-          <div className="max-w-7xl mx-auto relative z-10">
+      {/* ═══ HERO SLIDER with Aurora Background ═══ */}
+      <section className="relative overflow-hidden">
+        {/* Aurora animated background */}
+        <div className="absolute inset-0 z-0">
+          <Aurora
+            colorStops={['#0f766e', '#14b8a6', '#065f46']}
+            amplitude={1.2}
+            blend={0.4}
+            className="w-full h-full"
+          />
+        </div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 z-[1]" />
+
+        <div className="relative z-10 py-12 md:py-20 px-4">
+          <div className="max-w-7xl mx-auto">
+            {/* Animated hero heading */}
+            <div className="text-center mb-8 md:mb-12">
+              <BlurText
+                text="The Caribbean Commerce Hub"
+                className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter justify-center"
+                delay={150}
+                direction="top"
+                animateBy="words"
+              />
+              <AnimatedContent distance={30} delay={0.3}>
+                <p className="text-white/80 text-sm sm:text-lg max-w-2xl mx-auto mt-4 font-medium">
+                  Connected directly to local artisans, restaurants, and community causes. Support the islands with every purchase.
+                </p>
+              </AnimatedContent>
+            </div>
+
             {/* Hero carousel */}
-            <HeroSlider slides={heroSlides} autoPlay autoPlayInterval={6000} className="mb-6 md:mb-8" />
+            <AnimatedContent distance={40} delay={0.5}>
+              <HeroSlider slides={heroSlides} autoPlay autoPlayInterval={6000} className="mb-6 md:mb-8" />
+            </AnimatedContent>
 
             {/* Smart Search */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="max-w-3xl mx-auto relative mb-6">
-              <SmartSearch />
-            </motion.div>
+            <AnimatedContent distance={30} delay={0.6}>
+              <div className="max-w-3xl mx-auto relative mb-6">
+                <SmartSearch />
+              </div>
+            </AnimatedContent>
 
             {/* Quick CTAs */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex flex-wrap justify-center gap-3">
-              <Link href="/hub" className="px-5 py-2.5 bg-white text-teal-900 text-sm font-bold rounded-xl hover:bg-white/90 transition-colors">
-                Browse Marketplace 🛒
-              </Link>
-              <Link href="/hub/community" className="px-5 py-2.5 text-white text-sm font-bold rounded-xl border border-white/20 hover:bg-white/10 transition-colors">
-                Join Community 🏝️
-              </Link>
-            </motion.div>
+            <AnimatedContent distance={20} delay={0.7}>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link href="/hub" className="px-6 py-3 bg-white text-teal-900 text-sm font-bold rounded-xl hover:bg-white/90 transition-colors shadow-lg">
+                  Browse Marketplace 🛒
+                </Link>
+                <Link href="/community" className="px-6 py-3 text-white text-sm font-bold rounded-xl border border-white/30 hover:bg-white/10 transition-colors">
+                  Join Community 🏝️
+                </Link>
+              </div>
+            </AnimatedContent>
           </div>
-        </section>
-      </HeroBackground>
+        </div>
+      </section>
 
       {/* ═══ BRAND MARQUEE ═══ */}
       <BrandMarquee title="Trusted by leading Caribbean brands" speed={30} />
@@ -123,9 +160,11 @@ export default function Home() {
       <RequestServicesSection />
 
       {/* ═══ SHOP BY CATEGORY TILES (3-col mobile) ═══ */}
-      <section className="max-w-7xl mx-auto px-4 py-6">
-        <CategoryTiles title="Shop by Category" tiles={categoryTiles} columns={3} />
-      </section>
+      <AnimatedContent distance={50}>
+        <section className="max-w-7xl mx-auto px-4 py-6">
+          <CategoryTiles title="Shop by Category" tiles={categoryTiles} columns={3} />
+        </section>
+      </AnimatedContent>
 
       {/* ═══ TRENDING / FEATURED SHOPS (horizontal carousel) ═══ */}
       {!shopsLoading && featuredShops.length > 0 && (
