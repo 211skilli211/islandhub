@@ -5,6 +5,7 @@ import api, { getImageUrl } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import ShaderHero from './ShaderHero';
 import ParticleHero from './ParticleHero';
+import AuroraBackground from './AuroraBackground';
 
 interface HeroBackgroundProps {
     pageKey?: string;
@@ -12,7 +13,6 @@ interface HeroBackgroundProps {
     fallbackTitle?: string;
     className?: string;
     align?: 'left' | 'center' | 'right';
-    // Overrides for Store/Vendor pages
     overrideData?: {
         asset_url?: string;
         asset_type?: string;
@@ -33,6 +33,33 @@ interface HeroBackgroundProps {
         branding_color?: string;
     };
     children?: React.ReactNode;
+}
+
+// ── Preset Color Maps ──────────────────────────────────────────────────
+
+const SHADER_COLORS: Record<string, string[]> = {
+    ocean: ['#020617', '#0f172a', '#0e7490', '#fbbf24'],
+    tropical: ['#064e3b', '#0f766e', '#14b8a6', '#fbbf24'],
+    sunset: ['#1e1b4b', '#7c3aed', '#f97316', '#fbbf24'],
+    midnight: ['#020617', '#1e293b', '#334155', '#64748b'],
+    caribbean: ['#0c4a6e', '#0369a1', '#0ea5e9', '#67e8f9'],
+};
+
+const AURORA_COLORS: Record<string, string[]> = {
+    teal: ['#0f766e', '#14b8a6', '#065f46'],
+    purple: ['#5b21b6', '#7c3aed', '#4c1d95'],
+    ocean: ['#0c4a6e', '#0284c7', '#075985'],
+    sunset: ['#9a3412', '#ea580c', '#7c2d12'],
+    emerald: ['#065f46', '#059669', '#047857'],
+    midnight: ['#020617', '#1e1b4b', '#312e81'],
+};
+
+function getShaderColors(preset?: string): string[] {
+    return SHADER_COLORS[preset || 'ocean'] || SHADER_COLORS.ocean;
+}
+
+function getAuroraColors(preset?: string): string[] {
+    return AURORA_COLORS[preset || 'teal'] || AURORA_COLORS.teal;
 }
 
 export default function HeroBackground({
@@ -195,11 +222,11 @@ export default function HeroBackground({
                     left: `${splitDivide}%`
                 } : { width: '100%', left: 0 }}
             >
-                {/* Shader / Particle backgrounds */}
+                {/* Shader / Particle / Aurora backgrounds */}
                 {asset?.asset_type === 'shader' && (
                     <div className="absolute inset-0">
                         <ShaderHero
-                            colors={styleConfig?.shaderColors}
+                            colors={styleConfig?.shaderColors || getShaderColors(styleConfig?.shaderPreset)}
                             speed={styleConfig?.shaderSpeed ?? 1}
                             intensity={styleConfig?.shaderIntensity ?? 1}
                         />
@@ -211,6 +238,15 @@ export default function HeroBackground({
                             theme={styleConfig?.particleTheme || 'tropical'}
                             count={styleConfig?.particleCount ?? 80}
                             speed={styleConfig?.particleSpeed ?? 1}
+                        />
+                    </div>
+                )}
+                {asset?.asset_type === 'aurora' && (
+                    <div className="absolute inset-0">
+                        <AuroraBackground
+                            colors={styleConfig?.auroraColors || getAuroraColors(styleConfig?.auroraPreset)}
+                            amplitude={styleConfig?.auroraAmplitude ?? 1.2}
+                            blend={styleConfig?.auroraBlend ?? 0.35}
                         />
                     </div>
                 )}
