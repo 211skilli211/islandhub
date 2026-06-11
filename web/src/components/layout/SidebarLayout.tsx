@@ -23,13 +23,15 @@ const navItems = [
 
 const adminItems = [
     { id: 'overview', label: 'Overview', icon: '📊', href: '/admin' },
-    { id: 'users', label: 'Users', icon: '👥', href: '/admin?tab=users' },
-    { id: 'listings', label: 'Listings', icon: '📦', href: '/admin?tab=listings' },
-    { id: 'stores', label: 'Stores', icon: '🏪', href: '/admin?tab=stores' },
-    { id: 'orders', label: 'Orders', icon: '🛒', href: '/admin?tab=orders' },
+    { id: 'users', label: 'Users', icon: '👥', href: '/admin/users' },
+    { id: 'listings', label: 'Listings', icon: '📦', href: '/admin/listings' },
+    { id: 'stores', label: 'Stores', icon: '🏪', href: '/admin/stores' },
+    { id: 'orders', label: 'Orders', icon: '🛒', href: '/admin/orders' },
+    { id: 'broadcasts', label: 'Broadcasts', icon: '📢', href: '/admin/broadcasts' },
+    { id: 'brands', label: 'Brands', icon: '🏷️', href: '/admin/brands' },
     { id: 'analytics', label: 'Analytics', icon: '📈', href: '/admin/analytics' },
     { id: 'dispatch', label: 'Dispatch', icon: '🚗', href: '/admin/dispatch' },
-    { id: 'settings', label: 'Settings', icon: '⚙️', href: '/admin?tab=settings' },
+    { id: 'settings', label: 'Settings', icon: '⚙️', href: '/admin/settings' },
 ];
 
 export default function SidebarLayout({ children, title = 'Dashboard' }: SidebarLayoutProps) {
@@ -57,10 +59,9 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
 
     return (
         <div className="min-h-screen bg-surface-secondary flex">
-            {/* Mobile Overlay */}
             <AnimatePresence>
                 {mobileOpen && (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -70,11 +71,9 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                 )}
             </AnimatePresence>
 
-            {/* Sidebar */}
             <aside className={`fixed left-0 top-0 h-screen bg-ink-primary text-white flex flex-col transition-all duration-300 z-50 ${
                 mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-            } ${collapsed ? 'lg:w-20' : 'w-72'}`}>
-                {/* Logo */}
+            } ${collapsed ? 'lg:w-20' : 'w-64'}`}>
                 <div className="p-4 border-b border-border-primary flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <span className="text-2xl">🌴</span>
@@ -85,7 +84,6 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     </button>
                 </div>
 
-                {/* User */}
                 {user && !collapsed && (
                     <div className="p-4 border-b border-border-primary">
                         <div className="flex items-center gap-3">
@@ -100,7 +98,6 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     </div>
                 )}
 
-                {/* Nav */}
                 <nav className="flex-1 overflow-y-auto py-4">
                     <ul className="space-y-1 px-3">
                         {items.map((item) => (
@@ -109,28 +106,26 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                                     href={item.href}
                                     onClick={() => setMobileOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                                        isActive(item.href) 
-                                            ? 'bg-accent-500 text-white shadow-lg' 
+                                        isActive(item.href)
+                                            ? 'bg-accent-500 text-white shadow-lg'
                                             : 'text-ink-tertiary hover:bg-surface-tertiary hover:text-white'
                                     }`}
                                 >
-                                    <span className="text-xl">{item.icon}</span>
-                                    {!collapsed && <span className="font-bold text-sm">{item.label}</span>}
+                                    <span className="text-xl shrink-0">{item.icon}</span>
+                                    {!collapsed && <span className="font-bold text-sm truncate">{item.label}</span>}
                                 </Link>
                             </li>
                         ))}
                     </ul>
                 </nav>
 
-                {/* Collapse Toggle (Desktop) */}
-                <button 
+                <button
                     onClick={() => setCollapsed(!collapsed)}
                     className="hidden lg:flex p-4 border-t border-border-primary items-center justify-center text-ink-tertiary hover:text-white"
                 >
                     {collapsed ? '→' : '←'}
                 </button>
 
-                {/* Logout */}
                 <div className="p-4 border-t border-border-primary">
                     <button
                         onClick={handleLogout}
@@ -142,9 +137,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                 </div>
             </aside>
 
-            {/* Main Content */}
-            <main className={`flex-1 transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-72'}`}>
-                {/* Mobile Header */}
+            <main className={`flex-1 min-w-0 transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
                 <header className="lg:hidden bg-surface-elevated border-b border-border-primary p-4 flex items-center justify-between sticky top-0 z-30">
                     <button onClick={() => setMobileOpen(true)} className="p-2 hover:bg-surface-secondary rounded-lg">
                         ☰
@@ -153,8 +146,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     <div className="w-8" />
                 </header>
 
-                {/* Page Content */}
-                <div className="p-4 lg:p-8">
+                <div className="p-4 lg:p-8 overflow-x-auto">
                     {children}
                 </div>
             </main>

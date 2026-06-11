@@ -184,7 +184,7 @@ export default function OverviewPage() {
           </div>
           <div className="space-y-1.5">
             <QuickAction label="Text Marquee" icon={<Radio size={13} />} color="bg-accent-500/10 text-accent-500" href="/admin/broadcasts" />
-            <QuickAction label="Brand Marquee" icon={<Activity size={13} />} color="bg-amber-500/10 text-amber-500" href="/admin/marquee" />
+            <QuickAction label="Brand Marquee" icon={<Award size={13} />} color="bg-amber-500/10 text-amber-500" href="/admin/brands" />
             <QuickAction label="Push Broadcast" icon={<Megaphone size={13} />} color="bg-emerald-500/10 text-emerald-500" href="/admin/notifications" />
           </div>
         </div>

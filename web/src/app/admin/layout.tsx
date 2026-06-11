@@ -305,9 +305,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         {/* ══════════════════════════════════════════════════════════════════════
             MAIN CONTENT — margin-left ONLY on desktop (>= lg)
             ══════════════════════════════════════════════════════════════════════ */}
-        <main className={`flex-1 min-h-screen transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[260px]'}`}>
+        <main className={`flex-1 min-h-screen min-w-0 transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[260px]'}`}>
           <AdminBreadcrumb />
-          <div className="p-4 md:p-6 lg:p-8">{children}</div>
+          <div className="p-4 md:p-6 lg:p-8 overflow-x-auto">{children}</div>
         </main>
       </div>
     </div>

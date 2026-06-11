@@ -304,8 +304,8 @@ export default function Sidebar({
         {/* ══════════════════════════════════════════════════════════════════════
             MAIN CONTENT — NO margin-left on mobile, only on desktop >= lg
             ══════════════════════════════════════════════════════════════════════ */}
-        <main className={`flex-1 min-h-screen transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[240px]'}`}>
-          <div className="p-4 md:p-6 lg:p-8">{children}</div>
+        <main className={`flex-1 min-h-screen min-w-0 transition-all duration-300 ${isRail ? 'lg:pl-14' : 'lg:pl-[240px]'}`}>
+          <div className="p-4 md:p-6 lg:p-8 overflow-x-auto">{children}</div>
         </main>
       </div>
     </div>
