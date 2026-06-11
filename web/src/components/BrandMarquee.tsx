@@ -21,23 +21,25 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         if (!apiUrl) {
             setLoading(false);
             return;
         }
         fetch(`${apiUrl}/api/brands`)
             .then(res => {
-                if (!res.ok) throw new Error('Not ok');
+                if (!res.ok) return null;
+                const ct = res.headers.get('content-type');
+                if (!ct || !ct.includes('application/json')) return null;
                 return res.json();
             })
             .then(data => {
-                if (Array.isArray(data)) {
+                if (Array.isArray(data) && data.length > 0) {
                     setBrands(data);
                 }
-                setLoading(false);
             })
-            .catch(() => setLoading(false));
+            .catch(() => {})
+            .finally(() => setLoading(false));
     }, []);
 
     if (loading || brands.length === 0) return null;
