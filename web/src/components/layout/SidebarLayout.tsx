@@ -27,8 +27,6 @@ const adminItems = [
     { id: 'listings', label: 'Listings', icon: '📦', href: '/admin/listings' },
     { id: 'stores', label: 'Stores', icon: '🏪', href: '/admin/stores' },
     { id: 'orders', label: 'Orders', icon: '🛒', href: '/admin/orders' },
-    { id: 'broadcasts', label: 'Broadcasts', icon: '📢', href: '/admin/broadcasts' },
-    { id: 'brands', label: 'Brands', icon: '🏷️', href: '/admin/brands' },
     { id: 'analytics', label: 'Analytics', icon: '📈', href: '/admin/analytics' },
     { id: 'dispatch', label: 'Dispatch', icon: '🚗', href: '/admin/dispatch' },
     { id: 'settings', label: 'Settings', icon: '⚙️', href: '/admin/settings' },
