@@ -135,7 +135,6 @@ export default function AgentChat({ hubMode = false, onHubClose }: AgentChatProp
                         className={`mb-4 w-80 sm:w-96 bg-surface-elevated rounded-3xl shadow-2xl border border-border-primary flex flex-col overflow-hidden ${hubMode ? "absolute bottom-0 right-0 z-10002" : ""}`}
                         style={{ height: '500px' }}
                     >
-                        {/* Header */}
                         <div className={`p-4 ${colors.header} text-white flex items-center justify-between`}>
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 bg-surface-elevated/20 rounded-full flex items-center justify-center border-2 border-surface-elevated/30 text-lg">
@@ -158,7 +157,6 @@ export default function AgentChat({ hubMode = false, onHubClose }: AgentChatProp
                             </button>
                         </div>
 
-                        {/* Messages */}
                         <div
                             ref={scrollRef}
                             className="flex-1 overflow-y-auto p-4 space-y-4 bg-surface-secondary/50"
@@ -189,7 +187,6 @@ export default function AgentChat({ hubMode = false, onHubClose }: AgentChatProp
                             )}
                         </div>
 
-                        {/* Input */}
                         <form onSubmit={handleSend} className="p-4 border-t border-border-primary bg-surface-elevated">
                             <div className="relative flex gap-2">
                                 <input

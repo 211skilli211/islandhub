@@ -97,7 +97,6 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
             <AnimatePresence>
                 {isOpen && (
                     <>
-                        {/* Backdrop - hide in hub mode as hub handles it if needed, or keep for focus */}
                         {!hubMode && (
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -108,7 +107,6 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                             />
                         )}
 
-                        {/* Action Items */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -144,7 +142,6 @@ export default function FloatingActionMenu({ hubMode = false, onHubClose }: Floa
                 )}
             </AnimatePresence>
 
-            {/* FAB Toggle - hide if in hubMode */}
             {!hubMode && (
                 <motion.button
                     whileHover={{ scale: 1.05 }}

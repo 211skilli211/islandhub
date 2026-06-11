@@ -106,7 +106,6 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                     className="fixed bottom-4 left-4 right-4 z-50 lg:hidden"
                 >
                     <div className={`bg-gradient-to-r ${colors.gradient} rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-surface-elevated/30 backdrop-blur-2xl overflow-hidden`}>
-                        {/* Close Button */}
 
                         <button
                             onClick={handleDismiss}
@@ -117,7 +116,6 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                         </button>
 
                         <div className={`p-5 flex items-center gap-4 ${alignment === 'center' ? 'flex-col text-center' : alignment === 'right' ? 'flex-row-reverse text-right' : ''}`}>
-                            {/* Icon or Image */}
                             {banner.image_url ? (
                                 <div className={`${alignment === 'center' ? 'w-24 h-24' : 'w-16 h-16'} rounded-2xl overflow-hidden shrink-0 shadow-lg border-2 border-surface-elevated/20`}>
                                     <img
@@ -132,7 +130,6 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                                 </div>
                             )}
 
-                            {/* Content */}
                             <div className="flex-1 min-w-0">
                                 <h4 className={`text-white font-black uppercase tracking-tight leading-tight mb-1 ${alignment === 'center' ? 'text-xl' : 'text-sm'}`}>
                                     {banner.title}
@@ -144,7 +141,6 @@ export default function FloatingBanner({ location }: FloatingBannerProps) {
                                 )}
                             </div>
 
-                            {/* CTA Button */}
                             {banner.target_url && (
                                 <Link
                                     href={banner.target_url}

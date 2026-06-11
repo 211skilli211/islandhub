@@ -90,7 +90,6 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-4 right-4 w-96 h-[500px] bg-surface-elevated rounded-3xl shadow-2xl border border-border-primary flex flex-col overflow-hidden z-50"
         >
-            {/* Header */}
             <div className="bg-gradient-to-r from-ink-900 to-ink-800 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-accent-500/100 rounded-full flex items-center justify-center text-white font-black">
@@ -109,7 +108,6 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
                 </button>
             </div>
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-surface-secondary">
                 {loading ? (
                     <div className="flex items-center justify-center h-full">
@@ -147,7 +145,6 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
             <form onSubmit={handleSend} className="p-4 bg-surface-elevated border-t border-border-primary">
                 <div className="flex gap-2">
                     <input

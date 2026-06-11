@@ -198,7 +198,6 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
         <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-left">
             <h3 className="text-lg font-medium text-ink-900 mb-4 capitalize">New {selectedType === 'transport' ? 'Transport Request' : selectedType + ' Listing'}</h3>
 
-            {/* Common Fields */}
             <div>
                 <label className="block text-sm font-medium text-ink-700">Title</label>
                 <input required name="title" placeholder={selectedType === 'transport' ? 'e.g. Ride to Airport / Package Delivery' : ''} value={formData.title} onChange={handleChange} className="mt-1 block w-full border border-ink-300 rounded-md shadow-sm py-2 px-3 focus:ring-accent-400 focus:border-teal-500 sm:text-sm" />
@@ -256,7 +255,6 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 </div>
             )}
 
-            {/* Service Sub-Type for Tours */}
             {selectedType === 'service' && formData.category === 'Tour' && (
                 <div>
                     <label className="block text-sm font-medium text-ink-700">Tour Theme</label>
@@ -295,7 +293,6 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 <p className="text-[10px] text-ink-400 mt-1 italic">Leave empty to generate automatically from title.</p>
             </div>
 
-            {/* Type Specific - Price/Goal */}
             {(selectedType === 'campaign' || selectedType === 'donation') ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -314,7 +311,6 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 </div>
             )}
 
-            {/* Transport Specific fields */}
             {selectedType === 'transport' && (
                 <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
@@ -361,7 +357,6 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 </div>
             )}
 
-            {/* Metadata Fields */}
             {selectedType === 'product' && (
                 <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -395,7 +390,6 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                 </div>
             )}
 
-            {/* Dynamic Category Specifics */}
             {formData.category && (
                 <DynamicForm
                     category={formData.category}

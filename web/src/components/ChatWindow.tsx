@@ -71,7 +71,6 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
 
     return (
         <div className="flex flex-col h-full bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden shadow-2xl shadow-teal-100/20">
-            {/* Header */}
             <div className="p-6 border-b border-border-primary flex items-center justify-between bg-surface-secondary/50">
                 <div className="flex items-center gap-4">
                     <div className="w-10 h-10 bg-[#14b8a6] rounded-full flex items-center justify-center text-white font-black">
@@ -91,7 +90,6 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                 )}
             </div>
 
-            {/* Messages */}
             <div
                 ref={scrollRef}
                 className="flex-1 overflow-y-auto p-8 space-y-6 bg-surface-secondary/30"
@@ -127,7 +125,6 @@ export default function ChatWindow({ otherUserId, otherUserName, currentUser, or
                 )}
             </div>
 
-            {/* Input */}
             <form onSubmit={handleSend} className="p-6 border-t border-border-primary bg-surface-elevated">
                 <div className="relative flex gap-2">
                     <button
