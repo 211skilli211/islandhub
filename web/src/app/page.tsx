@@ -17,9 +17,8 @@ import BrandMarquee from '@/components/BrandMarquee';
 import { ProductCard, CarouselSection } from '@/components/hub/ListingCard';
 import { HeroSlider, DealCard, CategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
 import { CompactCard } from '@/components/hub/CompactCard';
-import Aurora from '@/components/react-bits/backgrounds/Aurora';
-import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
-import BlurText from '@/components/react-bits/text/BlurText';
+import FacebookGrid from '@/components/marketplace/FacebookGrid';
+import NewArrivals from '@/components/marketplace/NewArrivals';
 
 export default function Home() {
   const { user } = useAuthStore();
@@ -145,6 +144,9 @@ export default function Home() {
         </section>
       )}
 
+      {/* ═══ NEW ARRIVALS ═══ */}
+      <NewArrivals />
+
       {/* ═══ HOT DEALS (2-col DealCard grid) ═══ */}
       <section className="max-w-7xl mx-auto px-4 py-6">
         <ContentSection title="🏷️ Hot Deals" seeMoreHref="/hub/products">
@@ -156,6 +158,9 @@ export default function Home() {
           </div>
         </ContentSection>
       </section>
+
+      {/* ═══ FACEBOOK MARKETPLACE GRID ═══ */}
+      <FacebookGrid title="Browse All Listings" seeMoreHref="/hub/products" />
 
       {/* ═══ BRAND MARQUEE ═══ */}
       <BrandMarquee title="Trusted by leading Caribbean brands" speed={40} />

@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { href: '/hub', label: 'Explore' },
   { href: '/hub/food', label: 'Food', color: 'coral' },
   { href: '/hub/products', label: 'Shop', color: 'accent' },
+  { href: '/deals', label: 'Deals', color: 'rose' },
   { href: '/hub/rentals', label: 'Rentals', color: 'palm' },
   { href: '/hub/tours', label: 'Tours', color: 'sand' },
   { href: '/about', label: 'About', color: 'neutral' },
