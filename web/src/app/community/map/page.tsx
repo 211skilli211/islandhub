@@ -96,8 +96,9 @@ export default function MapPage() {
                     shadowUrl: shadowIcon,
                 });
 
-                const container = L.DomUtil.get('map-container');
-                if (container && (container as Record<string, unknown>)._leaflet_id) {
+                // Reset Leaflet container for Next.js strict mode
+                const container = document.getElementById('map-container');
+                if (container && (container as unknown as Record<string, unknown>)._leaflet_id) {
                     (container as unknown as { _leaflet_id: number })._leaflet_id = 0;
                 }
 
