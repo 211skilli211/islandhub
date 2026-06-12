@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
 import StaysHubPage from '@/components/hub/rentals/StaysHubPage';
 import HubTypePage from '@/components/hub/HubPage';
-import ProductsMarketplacePage from './products/page';
+import ProductsMarketplaceInner from '@/components/marketplace/ProductsMarketplacePage';
 
 /**
  * /hub/[type] — Hub entry point
@@ -18,7 +18,7 @@ export default function HubTypeRouter() {
 
   switch (type) {
     case 'products':
-      return <ProductsMarketplacePage />;
+      return <ProductsMarketplaceInner />;
     case 'rentals':
       return <RentalsGatewayPage />;
     case 'stays':
