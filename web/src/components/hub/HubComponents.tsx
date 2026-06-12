@@ -52,7 +52,7 @@ export interface HubPageConfig {
     heroStats: { label: string; emoji: string };
     categories: HubCategory[];
     theme: HubTheme;
-    storeCardVariant: 'food' | 'product' | 'service' | 'tour' | 'transport' | 'rental' | 'campaign' | 'community';
+    storeCardVariant: 'food' | 'product' | 'service' | 'tour' | 'transport' | 'rental' | 'campaign' | 'community' | 'event';
     ctaTitle: string;
     ctaSubtitle: string;
     ctaEmoji: string;
