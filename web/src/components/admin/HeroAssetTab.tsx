@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
+import MediaUploader from './MediaUploader';
 
 interface HeroAsset {
   id: number;
@@ -76,6 +77,8 @@ const PAGE_KEYS = [
   { value: 'events', label: 'Events Hub' },
   { value: 'campaigns', label: 'Campaigns Hub' },
 ];
+
+import MediaUploader from './MediaUploader';
 
 export default function HeroAssetTab() {
   const [assets, setAssets] = useState<HeroAsset[]>([]);
@@ -362,21 +365,14 @@ export default function HeroAssetTab() {
             </div>
           </div>
 
-          {/* Conditional: Image/Video URL */}
+          {/* Conditional: Image/Video Upload */}
           {(form.asset_type === 'image' || form.asset_type === 'video') && (
-            <div>
-              <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">
-                {form.asset_type === 'video' ? 'Video URL' : 'Image URL'}
-              </label>
-              <input
-                type="text"
-                value={form.asset_url || ''}
-                onChange={e => setForm(prev => ({ ...prev, asset_url: e.target.value }))}
-                placeholder="https://... or /assets/..."
-                className="w-full mt-1 px-3 py-2 bg-surface-secondary rounded-lg text-sm text-ink-primary border border-border-primary"
-              />
-              <p className="text-[9px] text-ink-tertiary mt-1">Upload via Media Library or paste URL</p>
-            </div>
+            <MediaUploader
+              value={form.asset_url || ''}
+              onChange={(url) => setForm(prev => ({ ...prev, asset_url: url }))}
+              accept={form.asset_type === 'video' ? 'video' : 'image'}
+              label={form.asset_type === 'video' ? 'Video' : 'Image'}
+            />
           )}
 
           {/* Conditional: Shader Presets */}
