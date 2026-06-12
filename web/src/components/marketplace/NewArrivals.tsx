@@ -48,10 +48,10 @@ export default function NewArrivals({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fetch = async () => {
+    const loadArrivals = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/listings?limit=${limit}&sort=newest`);
+        const res = await globalThis.fetch(`/api/listings?limit=${limit}&sort=newest`);
         if (res.ok) {
           const data = await res.json();
           setItems(Array.isArray(data) ? data : data.listings || data.data || []);
@@ -62,7 +62,7 @@ export default function NewArrivals({
         setLoading(false);
       }
     };
-    fetch();
+    loadArrivals();
   }, [limit]);
 
   const scroll = (dir: 'left' | 'right') => {
