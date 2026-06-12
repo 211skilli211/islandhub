@@ -78,8 +78,6 @@ const PAGE_KEYS = [
   { value: 'campaigns', label: 'Campaigns Hub' },
 ];
 
-import MediaUploader from './MediaUploader';
-
 export default function HeroAssetTab() {
   const [assets, setAssets] = useState<HeroAsset[]>([]);
   const [loading, setLoading] = useState(true);
