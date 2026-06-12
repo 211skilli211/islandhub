@@ -5,11 +5,13 @@ import RentalsGatewayPage from '@/components/hub/rentals/RentalsGatewayPage';
 import StaysHubPage from '@/components/hub/rentals/StaysHubPage';
 import HubTypePage from '@/components/hub/HubPage';
 import ProductsMarketplaceInner from '@/components/marketplace/ProductsMarketplacePage';
+import EventsHubPage from '@/components/hub/events/EventsHubPage';
 
 /**
  * /hub/[type] — Hub entry point
  * - /hub/rentals → Rental gateway (sub-hub cards)
  * - /hub/products → Product marketplace (listings grid)
+ * - /hub/events → Events & tickets hub
  * - All other types → generic HubPage
  */
 export default function HubTypeRouter() {
@@ -23,6 +25,8 @@ export default function HubTypeRouter() {
       return <RentalsGatewayPage />;
     case 'stays':
       return <StaysHubPage />;
+    case 'events':
+      return <EventsHubPage />;
     default:
       return <HubTypePage />;
   }

@@ -249,6 +249,39 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         ctaEmoji: '🌴',
         searchPlaceholder: '🌴 Search community, events, groups...',
     },
+
+    events: {
+        type: 'events',
+        slug: 'events',
+        pageKey: 'events',
+        fallbackTitle: 'Events & Tickets',
+        heroSubtitle: '🎫 Concerts • 🎪 Festivals • 🎭 Shows • 🏆 Sports',
+        heroEmoji: '🎫🎪🎭',
+        heroStats: { label: 'Events', emoji: '🎉' },
+        categories: [
+            { id: 'all', title: 'All Events', icon: '🎫', desc: '', subtypes: [] },
+            { id: 'concert', title: 'Concerts', icon: '🎵', desc: 'Live music & DJ sets', subtypes: ['concert', 'music', 'dj', 'live_music'] },
+            { id: 'festival', title: 'Festivals', icon: '🎪', desc: 'Multi-day celebrations', subtypes: ['festival', 'carnival', 'fair'] },
+            { id: 'sports', title: 'Sports', icon: '🏆', desc: 'Matches, tournaments & races', subtypes: ['sports', 'match', 'tournament', 'race'] },
+            { id: 'workshop', title: 'Workshops', icon: '🛠️', desc: 'Learn & create', subtypes: ['workshop', 'class', 'training', 'seminar'] },
+            { id: 'community', title: 'Community', icon: '🤝', desc: 'Meetups & social', subtypes: ['meetup', 'gathering', 'social', 'networking'] },
+            { id: 'theater', title: 'Theater & Shows', icon: '🎭', desc: 'Plays, comedy & performances', subtypes: ['theater', 'comedy', 'performance', 'dance'] },
+        ],
+        theme: {
+            primary: 'violet',
+            gradient: 'from-violet-500 to-purple-600',
+            lightBg: 'bg-violet-50 dark:bg-violet-900/20',
+            lightText: 'text-violet-600 dark:text-violet-400',
+            border: 'border-violet-100 dark:border-violet-900/30',
+            ring: 'ring-violet-200 dark:ring-violet-800',
+            accentBg: 'bg-violet-500',
+        },
+        storeCardVariant: 'event',
+        ctaTitle: 'Hosting an Event?',
+        ctaSubtitle: 'List your event on IslandHub and sell tickets with secure QR codes!',
+        ctaEmoji: '🎫',
+        searchPlaceholder: '🎫 Search events, concerts, workshops...',
+    },
 };
 
 export function getHubConfig(type: string): HubPageConfig | undefined {

@@ -156,11 +156,7 @@ export default function HeroAssetTab() {
   const saveAsset = async () => {
     setSaving(true);
     try {
-      if (isCreating) {
-        await api.post('/admin/hero-assets', form);
-      } else if (editing) {
-        await api.patch(`/admin/hero-assets/${editing.id}`, form);
-      }
+      await api.post('/admin/hero-assets', form);
       await fetchAssets();
       cancelEdit();
     } catch (e) {
@@ -169,10 +165,10 @@ export default function HeroAssetTab() {
     setSaving(false);
   };
 
-  const deleteAsset = async (id: number) => {
+  const deleteAsset = async (id: number, pageKey: string) => {
     if (!confirm('Delete this hero asset?')) return;
     try {
-      await api.delete(`/admin/hero-assets/${id}`);
+      await api.delete(`/admin/hero-assets/${pageKey}`);
       await fetchAssets();
     } catch (e) {
       console.error('Failed to delete:', e);
@@ -579,7 +575,7 @@ export default function HeroAssetTab() {
             </button>
             {editing && (
               <button
-                onClick={() => deleteAsset(editing.id)}
+                onClick={() => deleteAsset(editing.id, editing.page_key)}
                 className="px-4 py-2.5 bg-red-50 text-red-600 text-xs font-bold rounded-lg hover:bg-red-100 transition-colors"
               >
                 Delete
