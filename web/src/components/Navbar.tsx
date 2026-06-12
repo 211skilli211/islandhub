@@ -259,23 +259,23 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-white shadow-2xl lg:hidden flex flex-col overflow-y-auto"
+              className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated shadow-2xl lg:hidden flex flex-col overflow-y-auto"
             >
               {/* Mobile header */}
-              <div className="flex items-center justify-between p-5 border-b border-gray-100 shrink-0">
-                <span className="text-headline-md text-gray-900 font-bold">IslandHub</span>
-                <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl hover:bg-gray-100 transition-colors">
-                  <X className="w-5 h-5 text-gray-600" />
+              <div className="flex items-center justify-between p-5 border-b border-white/10 shrink-0">
+                <span className="text-headline-md text-white font-bold">IslandHub</span>
+                <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl hover:bg-white/10 transition-colors">
+                  <X className="w-5 h-5 text-white" />
                 </button>
               </div>
 
               {/* Mobile search */}
-              <div className="p-4 border-b border-gray-100">
+              <div className="p-4 border-b border-white/10">
                 <form onSubmit={(e) => { e.preventDefault(); const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value; if (q.trim()) { router.push(`/search?q=${encodeURIComponent(q)}`); setMobileOpen(false); } }}>
                   <div className="relative">
-                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                     <input name="search" type="search" placeholder="Search the island..."
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-body-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all" />
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-body-sm text-white placeholder:text-white/40 focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all" />
                   </div>
                 </form>
               </div>
@@ -284,48 +284,48 @@ export default function Navbar() {
               <div className="flex-1 p-4 space-y-1">
                 {NAV_LINKS.map((link) => (
                   <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-body-md font-bold text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors">
+                    className="block px-4 py-3 text-body-md font-bold text-white hover:bg-white/10 rounded-xl transition-colors">
                     {link.label}
                   </Link>
                 ))}
 
-                <div className="my-3 border-t border-gray-100" />
-                <div className="px-4 py-2 text-caption-xs text-gray-400 font-semibold uppercase tracking-wider">Marketplace Hubs</div>
+                <div className="my-3 border-t border-white/10" />
+                <div className="px-4 py-2 text-caption-xs text-white/40 font-semibold uppercase tracking-wider">Marketplace Hubs</div>
 
                 {EXPLORE_HUBS.filter(h => h.group === 'Marketplace').map((hub) => (
                   <Link key={hub.href} href={hub.href} onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors">
+                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white rounded-xl transition-colors">
                     <span>{hub.emoji}</span>
                     {hub.label}
                   </Link>
                 ))}
 
-                <div className="my-3 border-t border-gray-100" />
-                <div className="px-4 py-2 text-caption-xs text-gray-400 font-semibold uppercase tracking-wider">Explore</div>
+                <div className="my-3 border-t border-white/10" />
+                <div className="px-4 py-2 text-caption-xs text-white/40 font-semibold uppercase tracking-wider">Explore</div>
 
                 {EXPLORE_HUBS.filter(h => h.group !== 'Marketplace').map((hub) => (
                   <Link key={hub.href} href={hub.href} onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors">
+                    className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white rounded-xl transition-colors">
                     <span>{hub.emoji}</span>
                     {hub.label}
                   </Link>
                 ))}
 
-                <div className="my-3 border-t border-gray-100" />
+                <div className="my-3 border-t border-white/10" />
                 <Link href="/hub/services" onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-body-sm font-bold text-amber-600 hover:bg-amber-50 rounded-xl transition-colors">
+                  className="flex items-center gap-3 px-4 py-3 text-body-sm font-bold text-amber-400 hover:bg-amber-500/10 rounded-xl transition-colors">
                   <span>⚡</span>
                   IBT Solutions
                 </Link>
               </div>
 
               {/* Mobile auth area */}
-              <div className="p-4 border-t border-gray-100 shrink-0 space-y-3">
+              <div className="p-4 border-t border-white/10 shrink-0 space-y-3">
                 {mounted && (
                   isAuthenticated ? (
                     <>
                       <div className="flex items-center gap-3 px-2">
-                        <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 font-bold text-sm overflow-hidden">
+                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-sm overflow-hidden">
                           {user?.avatar_url ? (
                             <img src={getImageUrl(user.avatar_url)} alt="" className="w-full h-full object-cover" />
                           ) : (
@@ -333,33 +333,33 @@ export default function Navbar() {
                           )}
                         </div>
                         <div>
-                          <div className="text-body-sm font-bold text-gray-900">{user?.name}</div>
-                          <div className="text-caption text-gray-500">{user?.email}</div>
+                          <div className="text-body-sm font-bold text-white">{user?.name}</div>
+                          <div className="text-caption text-white/50">{user?.email}</div>
                         </div>
                       </div>
                       <Link href="/profile" onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-gray-600 bg-gray-50 rounded-xl text-center hover:bg-gray-100 transition-colors">
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-white/80 bg-white/5 rounded-xl text-center hover:bg-white/10 transition-colors">
                         Edit Profile
                       </Link>
                       <Link href="/dashboard" onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-gray-600 bg-gray-50 rounded-xl text-center hover:bg-gray-100 transition-colors">
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-white/80 bg-white/5 rounded-xl text-center hover:bg-white/10 transition-colors">
                         Dashboard
                       </Link>
                       {user?.role === 'admin' && (
                         <Link href="/admin" onClick={() => setMobileOpen(false)}
-                          className="block w-full px-4 py-3 text-body-sm font-bold text-teal-600 bg-teal-50 rounded-xl text-center hover:bg-teal-100 transition-colors">
+                          className="block w-full px-4 py-3 text-body-sm font-bold text-teal-300 bg-teal-500/20 rounded-xl text-center hover:bg-teal-500/30 transition-colors">
                           Admin Panel
                         </Link>
                       )}
                       <button onClick={() => { handleLogout(); setMobileOpen(false); }}
-                        className="w-full px-4 py-3 text-body-sm font-semibold text-red-600 bg-red-50 rounded-xl text-center hover:bg-red-100 transition-colors">
+                        className="w-full px-4 py-3 text-body-sm font-semibold text-red-400 bg-red-500/10 rounded-xl text-center hover:bg-red-500/20 transition-colors">
                         Log out
                       </button>
                     </>
                   ) : (
                     <>
                       <Link href="/login" onClick={() => setMobileOpen(false)}
-                        className="block w-full px-4 py-3 text-body-sm font-semibold text-gray-700 border border-gray-200 rounded-xl text-center hover:bg-gray-50 transition-colors">
+                        className="block w-full px-4 py-3 text-body-sm font-semibold text-white border border-white/20 rounded-xl text-center hover:bg-white/10 transition-colors">
                         Log in
                       </Link>
                       <Link href="/register" onClick={() => setMobileOpen(false)}

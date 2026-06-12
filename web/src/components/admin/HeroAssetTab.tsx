@@ -213,6 +213,99 @@ export default function HeroAssetTab() {
             <button onClick={cancelEdit} className="text-xs text-ink-tertiary hover:text-ink-primary">✕ Cancel</button>
           </div>
 
+          {/* Live Preview Panel */}
+          <div className="rounded-xl border border-border-primary overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-2 bg-surface-secondary border-b border-border-primary">
+              <span className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Live Preview — {form.page_key || 'home'}</span>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => updateStyleConfig('previewMode', 'desktop')}
+                  className={`px-2 py-0.5 text-[9px] font-bold rounded ${form.style_config?.previewMode !== 'mobile' ? 'bg-accent-500 text-white' : 'bg-surface-tertiary text-ink-tertiary'}`}
+                >Desktop</button>
+                <button
+                  onClick={() => updateStyleConfig('previewMode', 'mobile')}
+                  className={`px-2 py-0.5 text-[9px] font-bold rounded ${form.style_config?.previewMode === 'mobile' ? 'bg-accent-500 text-white' : 'bg-surface-tertiary text-ink-tertiary'}`}
+                >Mobile</button>
+              </div>
+            </div>
+            <div className={`relative ${form.style_config?.previewMode === 'mobile' ? 'mx-auto max-w-[375px]' : ''}`} style={{ minHeight: '250px' }}>
+              {/* Background layer */}
+              <div className="absolute inset-0 overflow-hidden">
+                {form.asset_type === 'shader' && (
+                  <div className="absolute inset-0" style={{
+                    background: `linear-gradient(135deg, ${(form.style_config?.shaderPreset === 'caribbean' ? ['#0c4a6e', '#0369a1', '#0ea5e9', '#67e8f9'] :
+                      form.style_config?.shaderPreset === 'tropical' ? ['#064e3b', '#0f766e', '#14b8a6', '#fbbf24'] :
+                      form.style_config?.shaderPreset === 'sunset' ? ['#1e1b4b', '#7c3aed', '#f97316', '#fbbf24'] :
+                      form.style_config?.shaderPreset === 'midnight' ? ['#020617', '#1e293b', '#334155', '#64748b'] :
+                      ['#020617', '#0f172a', '#0e7490', '#fbbf24']).join(', ')})`
+                  }} />
+                )}
+                {form.asset_type === 'aurora' && (
+                  <div className="absolute inset-0" style={{
+                    background: `linear-gradient(135deg, ${(form.style_config?.auroraPreset === 'purple' ? ['#5b21b6', '#7c3aed', '#4c1d95'] :
+                      form.style_config?.auroraPreset === 'ocean' ? ['#0c4a6e', '#0284c7', '#075985'] :
+                      form.style_config?.auroraPreset === 'sunset' ? ['#9a3412', '#ea580c', '#7c2d12'] :
+                      form.style_config?.auroraPreset === 'emerald' ? ['#065f46', '#059669', '#047857'] :
+                      form.style_config?.auroraPreset === 'midnight' ? ['#020617', '#1e1b4b', '#312e81'] :
+                      ['#0f766e', '#14b8a6', '#065f46']).join(', ')})`,
+                    opacity: form.style_config?.auroraBlend || 0.8
+                  }} />
+                )}
+                {form.asset_type === 'particle' && (
+                  <div className="absolute inset-0 bg-[#0a0f1a]">
+                    <div className="absolute inset-0 opacity-30" style={{
+                      backgroundImage: 'radial-gradient(circle, rgba(251,191,36,0.6) 1px, transparent 1px)',
+                      backgroundSize: `${20 + (form.style_config?.particleSpeed || 1) * 5}px ${20 + (form.style_config?.particleSpeed || 1) * 5}px`
+                    }} />
+                  </div>
+                )}
+                {form.asset_type === 'color' && (
+                  <div className="absolute inset-0" style={{
+                    background: `linear-gradient(135deg, ${form.style_config?.bgColor || '#0f766e'}, ${form.style_config?.bgColorEnd || '#14b8a6'})`
+                  }} />
+                )}
+                {(form.asset_type === 'image' || form.asset_type === 'video') && form.asset_url && (
+                  <img src={form.asset_url} alt="" className="absolute inset-0 w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                )}
+                {!form.asset_url && form.asset_type === 'image' && (
+                  <div className="absolute inset-0 bg-surface-tertiary flex items-center justify-center text-ink-tertiary text-xs">No image URL</div>
+                )}
+              </div>
+              {/* Overlay */}
+              {form.style_config?.showOverlay !== false && (
+                <div className="absolute inset-0" style={{
+                  backgroundColor: form.overlay_color || '#000000',
+                  opacity: form.overlay_opacity || 0.4
+                }} />
+              )}
+              {/* Content preview */}
+              <div className={`relative z-10 flex items-center justify-center p-6 min-h-[250px] ${
+                form.layout_template === 'split' ? 'items-center' : 'items-center justify-center'
+              }`}>
+                <div className={`${
+                  form.layout_template === 'overlay' ? 'bg-black/20 backdrop-blur-sm rounded-3xl border border-white/10 p-6 max-w-md text-center' :
+                  form.layout_template === 'split' ? 'w-1/2 pr-8 text-left' : 'text-center max-w-2xl'
+                }`}>
+                  {form.title && (
+                    <h2 className="text-lg md:text-2xl font-black text-white drop-shadow-md mb-3">
+                      {form.title}
+                    </h2>
+                  )}
+                  {form.subtitle && (
+                    <p className="text-xs md:text-sm text-white/80 drop-shadow-sm mb-4">
+                      {form.subtitle}
+                    </p>
+                  )}
+                  {form.cta_text && (
+                    <span className="inline-block px-5 py-2 text-white text-[10px] font-bold rounded-xl shadow-lg" style={{ backgroundColor: form.branding_color || '#14b8a6' }}>
+                      {form.cta_text}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Page & Type Row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
