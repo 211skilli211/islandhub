@@ -1,0 +1,165 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import api from '@/lib/api';
+import { useAuthStore } from '@/lib/auth';
+import toast from '@/lib/toast';
+
+export default function UserDetailPage() {
+    const { user, isAuthenticated } = useAuthStore();
+    const router = useRouter();
+    const params = useParams();
+    const id = params?.id as string;
+    const [userData, setUserData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (!isAuthenticated) return;
+        if (user?.role !== 'admin') {
+            router.push('/dashboard');
+            return;
+        }
+
+        const fetchUser = async () => {
+            try {
+                const res = await api.get('/users?limit=1000');
+                const found = res.data.users.find((u: any) => u.id === parseInt(id));
+                setUserData(found);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUser();
+    }, [id, isAuthenticated, user, router]);
+
+    if (loading) return (
+        <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary flex items-center justify-center">
+            <div className="animate-pulse flex flex-col items-center gap-4">
+                <div className="w-16 h-16 bg-surface-tertiary dark:bg-surface-tertiary rounded-full"></div>
+                <div className="h-4 w-32 bg-surface-tertiary dark:bg-surface-tertiary rounded"></div>
+            </div>
+        </div>
+    );
+    if (!userData) return (
+        <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary flex items-center justify-center">
+            <div className="text-center p-8 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg">
+                <div className="text-4xl mb-4">🔍</div>
+                <h2 className="text-xl font-bold text-ink-primary dark:text-white mb-2">User not found</h2>
+                <p className="text-ink-tertiary dark:text-ink-tertiary mb-4">The user ID may be invalid or deleted.</p>
+                <button 
+                    onClick={() => router.push('/admin/users')}
+                    className="px-6 py-2 bg-accent-500 text-white rounded-lg font-bold hover:bg-accent-600"
+                >
+                    Back to Users
+                </button>
+            </div>
+        </div>
+    );
+
+    const handleDelete = async () => {
+        if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
+        try {
+            await api.delete(`/users/${params.id}`);
+            toast.success('User deleted successfully');
+            router.push('/admin/users');
+        } catch (error) {
+            toast.error('Failed to delete user');
+        }
+    };
+
+    const handleToggleStatus = async () => {
+        try {
+            await api.patch(`/users/${params.id}/status`, { is_active: !userData.is_active });
+            setUserData({ ...userData, is_active: !userData.is_active });
+            toast.success(`User ${userData.is_active ? 'suspended' : 'activated'}`);
+        } catch (error) {
+            toast.error('Failed to update status');
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary py-8 px-4">
+            <div className="max-w-3xl mx-auto">
+                {/* Back Button */}
+                <button
+                    onClick={() => router.push('/admin/users')}
+                    className="flex items-center gap-2 text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary font-bold mb-6 transition-colors"
+                >
+                    <span className="text-xl">←</span>
+                    <span>Back to Users</span>
+                </button>
+
+                {/* Main Card */}
+                <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg overflow-hidden">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-ink-900 to-ink-800 dark:from-ink-950 dark:to-ink-900 text-white p-6 flex items-center gap-4">
+                        <div className="h-16 w-16 bg-accent-500/100 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                            {userData.name?.charAt(0)?.toUpperCase() || 'U'}
+                        </div>
+                        <div className="flex-1">
+                            <h1 className="text-2xl font-bold">{userData.name}</h1>
+                            <div className="text-sm text-ink-tertiary">{userData.email}</div>
+                            <a href={`/users/${userData.id}`} className="text-xs text-accent-400 hover:text-accent-300 underline mt-1 block">
+                                View Public Profile →
+                            </a>
+                        </div>
+                        <div className="ml-auto">
+                            <span className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider ${
+                                userData.is_active 
+                                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                                    : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                            }`}>
+                                {userData.is_active ? 'Active' : 'Suspended'}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 space-y-6">
+                        <div className="grid grid-cols-2 gap-6">
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
+                                <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">Role</label>
+                                <div className="text-lg font-bold text-ink-primary dark:text-white uppercase">{userData.role}</div>
+                            </div>
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
+                                <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">Joined</label>
+                                <div className="text-lg font-bold text-ink-primary dark:text-white">
+                                    {userData.created_at ? new Date(userData.created_at).toLocaleDateString() : 'N/A'}
+                                </div>
+                            </div>
+                        </div>
+
+                        {userData.phone && (
+                            <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
+                                <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">Phone</label>
+                                <div className="text-ink-primary dark:text-white">{userData.phone}</div>
+                            </div>
+                        )}
+
+                        <div className="border-t border-border-primary dark:border-border-primary pt-6 flex flex-wrap gap-4 items-center">
+                            <button
+                                onClick={handleToggleStatus}
+                                className={`px-6 py-3 rounded-xl font-bold transition-all ${
+                                    userData.is_active 
+                                        ? 'bg-sand-500/10 dark:bg-sand-800/30 text-sand-500 dark:text-sand-400 hover:bg-sand-500/15 dark:hover:bg-sand-800/50' 
+                                        : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50'
+                                }`}
+                            >
+                                {userData.is_active ? 'Block User' : 'Activate User'}
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-bold hover:bg-red-100 dark:hover:bg-red-900/50 transition-all"
+                            >
+                                Delete User
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
