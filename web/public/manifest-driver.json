@@ -1,0 +1,80 @@
+{
+  "name": "IslandHub Driver",
+  "short_name": "Driver",
+  "description": "IslandHub Driver App - Accept rides, manage trips, track earnings",
+  "start_url": "/driver/app",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0d9488",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["transportation", "business", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Go Online",
+      "short_name": "Online",
+      "description": "Toggle online status",
+      "url": "/driver/app?action=toggle",
+      "icons": [{ "src": "/icons/icon-96x96.png" }]
+    },
+    {
+      "name": "My Trips",
+      "short_name": "Trips",
+      "description": "View trip history",
+      "url": "/driver/app?tab=trips",
+      "icons": [{ "src": "/icons/icon-96x96.png" }]
+    },
+    {
+      "name": "Earnings",
+      "short_name": "Earnings",
+      "description": "View earnings",
+      "url": "/driver/app?tab=earnings",
+      "icons": [{ "src": "/icons/icon-96x96.png" }]
+    }
+  ],
+  "prefer_related_applications": false
+}
