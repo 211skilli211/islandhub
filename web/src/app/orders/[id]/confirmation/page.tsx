@@ -90,7 +90,7 @@ export default function OrderConfirmationPage() {
     return (
         <div className="min-h-screen bg-surface-primary py-12">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Success Header */}
+                
                 <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-8 mb-8 text-center">
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ export default function OrderConfirmationPage() {
                     <p className="text-sm text-ink-tertiary">Order #{order.order_number}</p>
                 </div>
 
-                {/* Order Details */}
+                
                 <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 mb-8">
                     <h2 className="text-2xl font-bold text-ink-primary mb-6">Order Details</h2>
 
@@ -124,7 +124,7 @@ export default function OrderConfirmationPage() {
                         </div>
                     </div>
 
-                    {/* Items */}
+                    
                     <div className="space-y-4">
                         {items.map((item) => (
                             <div key={item.order_item_id} className="flex gap-4 p-4 bg-surface-primary rounded-xl">
@@ -162,7 +162,7 @@ export default function OrderConfirmationPage() {
                     </div>
                 </div>
 
-                {/* Price Summary */}
+                
                 <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 mb-8">
                     <h2 className="text-xl font-bold text-ink-primary mb-4">Payment Summary</h2>
 
@@ -188,7 +188,7 @@ export default function OrderConfirmationPage() {
                     </div>
                 </div>
 
-                {/* Actions */}
+                
                 <div className="flex gap-4">
                     <button
                         onClick={() => router.push('/listings')}

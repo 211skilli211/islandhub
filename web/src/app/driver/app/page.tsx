@@ -186,12 +186,12 @@ export default function DriverApp() {
 
   return (
     <div className="min-h-screen bg-black text-white pb-24">
-      {/* Header */}
+      
       <div className="bg-black/90 backdrop-blur-xl border-b border-white/5 p-4 sticky top-0 z-50">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg font-black text-teal-400">🚕 Driver</h1>
-            <p className="text-xs text-ink-500">{user?.name} {locationSharing && <span className="text-green-400">· GPS Active</span>}</p>
+            <p className="text-xs text-ink-500">{user?.name} {locationSharing && <span className="text-green-400">. GPS Active</span>}</p>
           </div>
           <button onClick={toggleOnline}
             className={`px-5 py-2.5 rounded-xl font-black uppercase text-xs tracking-wider transition-all ${
@@ -206,10 +206,10 @@ export default function DriverApp() {
         </div>
       </div>
 
-      {/* Tab Content */}
+      
       {activeTab === 'home' && (
         <div className="p-4 space-y-4">
-          {/* Active Trip Card */}
+          
           {activeTrip && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               className="bg-gradient-to-r from-teal-600/20 to-teal-700/20 border border-teal-500/20 rounded-2xl p-4">
@@ -230,7 +230,7 @@ export default function DriverApp() {
               {activeTrip.rider_phone && (
                 <a href={`tel:${activeTrip.rider_phone}`} className="block w-full py-2.5 bg-white/5 border border-white/10 rounded-xl font-bold text-sm text-center mb-3">📞 Call Rider</a>
               )}
-              {/* Trip action buttons */}
+              
               <div className="flex gap-2">
                 {activeTrip.status === 'assigned' && (
                   <button onClick={() => updateTripStatus('arrived')} className="flex-1 py-3 bg-teal-500 rounded-xl font-black uppercase text-sm">I Arrived</button>
@@ -248,7 +248,7 @@ export default function DriverApp() {
             </motion.div>
           )}
 
-          {/* Waiting for rides */}
+          
           {!activeTrip && status.is_online && (
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-8 text-center">
               <div className="text-5xl mb-3">🚗</div>
@@ -261,7 +261,7 @@ export default function DriverApp() {
             </div>
           )}
 
-          {/* Offline state */}
+          
           {!status.is_online && (
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-8 text-center">
               <div className="text-5xl mb-3">😴</div>
@@ -270,7 +270,7 @@ export default function DriverApp() {
             </div>
           )}
 
-          {/* Quick stats */}
+          
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-ink-900/60 border border-white/5 rounded-xl p-4 text-center">
               <p className="text-2xl font-black text-teal-400">{status.vehicle_type || '—'}</p>
@@ -284,7 +284,7 @@ export default function DriverApp() {
         </div>
       )}
 
-      {/* Map Tab */}
+      
       {activeTab === 'map' && (
         <div className="h-[calc(100vh-180px)] relative">
           <LiveTrackingMap
@@ -309,12 +309,12 @@ export default function DriverApp() {
         </div>
       )}
 
-      {/* Earnings Tab */}
+      
       {activeTab === 'earnings' && (
         <DriverEarnings />
       )}
 
-      {/* Bottom Navigation */}
+      
       <div className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-xl border-t border-white/5 p-2 flex justify-around z-50">
         {[
           { id: 'home', icon: '🏠', label: 'Home' },
@@ -329,7 +329,7 @@ export default function DriverApp() {
         ))}
       </div>
 
-      {/* Incoming Ride Modal */}
+      
       <IncomingRideModal
         isOpen={!!incomingOffer}
         request={incomingOffer ? {

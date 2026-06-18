@@ -70,7 +70,7 @@ export default function AdminListingsPage() {
 
     return (
         <div className="space-y-6">
-            {/* Modal */}
+            
             {editingListing && (
                 <EditListingModal 
                     listing={editingListing} 
@@ -79,7 +79,7 @@ export default function AdminListingsPage() {
                 />
             )}
 
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary dark:text-white">Global Listings</h2>
@@ -93,7 +93,7 @@ export default function AdminListingsPage() {
                 </button>
             </div>
 
-            {/* Table */}
+            
             <AdminTable<any>
                 key={`listings-${refreshKey}`}
                 endpoint="/listings"

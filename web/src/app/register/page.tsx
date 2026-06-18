@@ -259,7 +259,7 @@ export default function RegisterPage() {
                         </div>
                     )}
 
-                    {/* Navigation Buttons */}
+                    
                     <div className="mt-8 flex gap-4">
                         {step === 2 && (
                             <button

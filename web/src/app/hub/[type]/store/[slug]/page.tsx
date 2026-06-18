@@ -61,7 +61,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Provider Hero */}
+      
       <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         {store.logo_url && (
           <div className="absolute inset-0 opacity-20">
@@ -102,7 +102,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Store banner marquee - shows featured models/items */}
+      
       {listings.length > 0 && (
         <div className="bg-surface-elevated border-b border-border-primary overflow-hidden">
           <div className="flex items-center gap-3 px-4 py-3">
@@ -118,7 +118,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
         </div>
       )}
 
-      {/* Tabs + Content */}
+      
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex gap-1 mb-6 bg-surface-elevated rounded-xl p-1 w-fit">
           {[
@@ -225,7 +225,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
         )}
       </div>
 
-      {/* Booking modal */}
+      
       {bookingProvider && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setBookingProvider(null)}>
           <div className="bg-surface-primary rounded-3xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>

@@ -134,7 +134,7 @@ export default function AdminBrandsPage() {
                 </p>
             </div>
 
-            {/* Upload Zone */}
+            
             <div className="bg-surface-elevated rounded-xl border border-border-primary p-6">
                 <h2 className="text-lg font-semibold mb-4">Upload Brand Logos</h2>
                 <div className="border-2 border-dashed border-border-primary rounded-lg p-8 text-center hover:border-accent-500 transition-colors">
@@ -155,7 +155,7 @@ export default function AdminBrandsPage() {
                 </div>
             </div>
 
-            {/* Add by URL */}
+            
             <div className="bg-surface-elevated rounded-xl border border-border-primary p-6">
                 <h2 className="text-lg font-semibold mb-4">Add by URL</h2>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -189,7 +189,7 @@ export default function AdminBrandsPage() {
                 </div>
             </div>
 
-            {/* Active Brands */}
+            
             <div className="bg-surface-elevated rounded-xl border border-border-primary p-6">
                 <h2 className="text-lg font-semibold mb-4">
                     Active Brands ({brands.length})
@@ -238,7 +238,7 @@ export default function AdminBrandsPage() {
                 )}
             </div>
 
-            {/* Live Preview */}
+            
             <div className="bg-surface-elevated rounded-xl border border-border-primary p-6">
                 <h2 className="text-lg font-semibold mb-4">Live Preview</h2>
                 <div className="bg-white rounded-lg overflow-hidden">

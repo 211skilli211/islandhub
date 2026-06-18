@@ -89,7 +89,7 @@ export default function CoopsPage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Hero */}
+            
             <HeroBackground pageKey="ibt-coops">
                 <div className="relative z-10 max-w-4xl mx-auto text-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -106,11 +106,11 @@ export default function CoopsPage() {
                 </div>
             </HeroBackground>
 
-            {/* Filters */}
+            
             <section className="sticky top-0 z-20 bg-surface-elevated border-b border-border-primary shadow-sm">
                 <div className="max-w-7xl mx-auto px-6 py-4">
                     <div className="flex flex-wrap items-center gap-4">
-                        {/* Sector filter */}
+                        
                         <div className="flex items-center gap-2">
                             <span className="text-xs font-bold text-ink-tertiary uppercase tracking-wider">Sector:</span>
                             <div className="flex gap-1">
@@ -140,7 +140,7 @@ export default function CoopsPage() {
                             </div>
                         </div>
 
-                        {/* Island filter */}
+                        
                         <div className="flex items-center gap-2">
                             <span className="text-xs font-bold text-ink-tertiary uppercase tracking-wider">Island:</span>
                             <div className="flex gap-1">
@@ -160,7 +160,7 @@ export default function CoopsPage() {
                             </div>
                         </div>
 
-                        {/* Count */}
+                        
                         <div className="ml-auto text-xs font-bold text-ink-tertiary">
                             {filteredCoops.length} co-op{filteredCoops.length !== 1 ? 's' : ''}
                         </div>
@@ -168,7 +168,7 @@ export default function CoopsPage() {
                 </div>
             </section>
 
-            {/* Co-ops by Sector */}
+            
             <section className="max-w-7xl mx-auto px-6 py-12">
                 {groupedCoops.length === 0 ? (
                     <div className="text-center py-20">
@@ -241,7 +241,7 @@ export default function CoopsPage() {
                 )}
             </section>
 
-            {/* CTA */}
+            
             <section className="bg-surface-tertiary py-20 px-6">
                 <div className="max-w-3xl mx-auto text-center">
                     <h2 className="text-3xl md:text-4xl font-black text-white mb-4 italic uppercase">

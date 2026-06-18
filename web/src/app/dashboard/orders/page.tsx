@@ -130,7 +130,7 @@ export default function MyOrdersPage() {
           </Link>
         </div>
 
-        {/* Filters */}
+        
         <div className="flex flex-wrap gap-2 mb-6">
           {['all', 'pending', 'paid', 'processing', 'delivered', 'completed', 'cancelled'].map((status) => (
             <button
@@ -173,7 +173,7 @@ export default function MyOrdersPage() {
                 key={order.order_id}
                 className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl shadow-sm border border-border-primary overflow-hidden hover:shadow-md transition-shadow"
               >
-                {/* Order Header */}
+                
                 <div className="p-6 border-b border-border-primary">
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
@@ -206,7 +206,7 @@ export default function MyOrdersPage() {
                   </div>
                 </div>
 
-                {/* Order Items */}
+                
                 <div className="p-6">
                   <div className="space-y-4">
                     {order.items.map((item) => (
@@ -228,7 +228,7 @@ export default function MyOrdersPage() {
                   </div>
                 </div>
 
-                {/* Order Actions */}
+                
                 <div className="px-6 py-4 bg-surface-primary dark:bg-ocean-900 flex items-center justify-between">
                   <div className="text-sm text-ink-secondary">
                     {order.delivery_type === 'delivery' ? '🚚 Delivery' : '🏪 Store Pickup'}

@@ -77,7 +77,7 @@ export default function CoopDetailPage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Hero */}
+            
             <section className="bg-surface-tertiary py-16 px-6">
                 <div className="max-w-4xl mx-auto">
                     <Link href="/store/ibt-solutions/coops" className="inline-flex items-center gap-2 text-accent-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
@@ -105,9 +105,9 @@ export default function CoopDetailPage() {
 
             <div className="max-w-4xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main content */}
+                    
                     <div className="lg:col-span-2 space-y-8">
-                        {/* Services */}
+                        
                         {coop.services && coop.services.length > 0 && (
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                                 <h2 className="text-xl font-black text-ink-primary mb-4 italic uppercase">Services</h2>
@@ -134,9 +134,9 @@ export default function CoopDetailPage() {
                         )}
                     </div>
 
-                    {/* Sidebar */}
+                    
                     <div className="space-y-6">
-                        {/* Contact card */}
+                        
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                             className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                             <h3 className="text-sm font-black text-ink-primary uppercase tracking-wider mb-4">Contact</h3>
@@ -182,7 +182,7 @@ export default function CoopDetailPage() {
                             </div>
                         </motion.div>
 
-                        {/* Stats */}
+                        
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                             className="bg-accent-500/10 rounded-2xl border border-teal-100 p-6">
                             <div className="text-center">
@@ -191,7 +191,7 @@ export default function CoopDetailPage() {
                             </div>
                         </motion.div>
 
-                        {/* Join CTA */}
+                        
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
                             <a
                                 href={`mailto:${coop.contact_email || 'info@ibt-solutions.com'}?subject=Inquiry: Join ${coop.name}`}

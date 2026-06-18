@@ -123,7 +123,7 @@ export default function ListingDetailPage() {
             />
             
             <div className="max-w-4xl mx-auto">
-                {/* Back Button */}
+                
                 <button
                     onClick={() => router.push('/admin')}
                     className="flex items-center gap-2 text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary font-bold mb-6 transition-colors"
@@ -132,9 +132,9 @@ export default function ListingDetailPage() {
                     <span>Back to Admin</span>
                 </button>
 
-                {/* Main Card */}
+                
                 <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg overflow-hidden">
-                    {/* Header */}
+                    
                     <div className="bg-gradient-to-r from-ink-900 to-ink-800 dark:from-ink-950 dark:to-ink-900 text-white p-6">
                         <div className="flex justify-between items-start">
                             <div className="flex-1">
@@ -155,9 +155,9 @@ export default function ListingDetailPage() {
                         </div>
                     </div>
 
-                    {/* Content */}
+                    
                     <div className="p-6 space-y-6">
-                        {/* Price & Category */}
+                        
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                                 <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-1">
@@ -183,13 +183,13 @@ export default function ListingDetailPage() {
                             </div>
                         </div>
 
-                        {/* Description */}
+                        
                         <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">
                             <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-2">Description</label>
                             <p className="text-ink-secondary dark:text-ink-tertiary">{listing.description || 'No description provided.'}</p>
                         </div>
 
-                        {/* Specifications */}
+                        
                         <div>
                             <label className="block text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase tracking-wider mb-4">Listing Specifications</label>
                             {(() => {
@@ -220,7 +220,7 @@ export default function ListingDetailPage() {
                             })()}
                         </div>
 
-                        {/* Actions */}
+                        
                         <div className="border-t border-border-primary dark:border-border-primary pt-6 flex flex-wrap gap-4">
                             <button
                                 onClick={() => setIsEditing(true)}

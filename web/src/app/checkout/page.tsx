@@ -191,9 +191,9 @@ export default function CheckoutPage() {
                 <h1 className="text-4xl font-bold text-ink-primary mb-8">Checkout</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Order Summary */}
+                    
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Order Items */}
+                        
                         <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
                             <h2 className="text-2xl font-bold text-ink-primary mb-6">Order Summary</h2>
 
@@ -242,7 +242,7 @@ export default function CheckoutPage() {
                             </div>
                         </div>
 
-                        {/* Delivery Method */}
+                        
                         <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
                             <h2 className="text-2xl font-bold text-ink-primary mb-6">Delivery Method</h2>
                             <div className="grid grid-cols-2 gap-4">
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
                             )}
                         </div>
 
-                        {/* Contact Information - For Guest Checkout */}
+                        
                         {!user && (
                             <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
                                 <h2 className="text-2xl font-bold text-ink-primary mb-6">Contact Information</h2>
@@ -316,7 +316,7 @@ export default function CheckoutPage() {
                             </div>
                         )}
 
-                        {/* Terms & Conditions */}
+                        
                         <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
                             <label className="flex items-start gap-3 cursor-pointer">
                                 <input
@@ -334,10 +334,10 @@ export default function CheckoutPage() {
                         </div>
                     </div>
 
-                    {/* Price Breakdown Sidebar */}
+                    
                     <div className="lg:col-span-1">
                         <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 sticky top-24">
-                            {/* Urgency Cue */}
+                            
                             {itemCount > 0 && (
                                 <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl">
                                     <p className="text-xs font-bold text-amber-500 flex items-center gap-1.5">
@@ -389,7 +389,7 @@ export default function CheckoutPage() {
                                 )}
                             </button>
 
-                            {/* Trust Badges */}
+                            
                             <div className="mt-4 space-y-2">
                                 <div className="flex items-center justify-center gap-4 text-[10px] text-ink-tertiary font-bold uppercase tracking-wider">
                                     <span className="flex items-center gap-1">🔒 SSL Secure</span>

@@ -127,7 +127,7 @@ export default function ActiveRidePage() {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* ── Live Map ── */}
+      
       <div className="h-[55vh] relative">
         <LiveTrackingMap
           pickup={pickup}
@@ -137,22 +137,22 @@ export default function ActiveRidePage() {
           height="100%"
           zoom={14}
         />
-        {/* ETA badge */}
+        
         {ride.eta_minutes && isActive && (
           <div className="absolute top-4 right-4 z-[1000] bg-teal-500 text-white font-bold px-4 py-2 rounded-xl shadow-lg">
             ETA {ride.eta_minutes} min
           </div>
         )}
-        {/* Back button */}
+        
         <Link href="/transport" className="absolute top-4 left-4 z-[1000] flex items-center gap-2 bg-black/70 backdrop-blur-sm px-3 py-2 rounded-lg text-ink-400 hover:text-white transition-colors">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
         </Link>
       </div>
 
-      {/* ── Ride Status Panel ── */}
+      
       <div className="max-w-2xl mx-auto px-4 -mt-6 relative z-10 pb-8">
         <div className="bg-ink-900/90 backdrop-blur-xl border border-white/5 rounded-2xl p-5 shadow-2xl">
-          {/* Status header */}
+          
           <div className="text-center mb-4">
             <div className="text-3xl mb-1">{statusInfo.icon}</div>
             <h1 className="text-lg font-bold text-white">{statusInfo.title}</h1>
@@ -160,7 +160,7 @@ export default function ActiveRidePage() {
             <p className="text-ink-600 text-xs mt-1">Trip #{ride.trip_id}</p>
           </div>
 
-          {/* Progress */}
+          
           <div className="flex items-center justify-center gap-1 mb-5">
             {STEPS.map((step, i) => (
               <div key={step} className="flex items-center">
@@ -170,7 +170,7 @@ export default function ActiveRidePage() {
             ))}
           </div>
 
-          {/* Driver info */}
+          
           {ride.driver_name && isActive && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-black/40 border border-white/5 rounded-xl p-4 mb-4">
               <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ export default function ActiveRidePage() {
                     <span className="font-bold text-white text-sm">{ride.driver_name}</span>
                     {ride.driver_rating && <span className="text-xs text-yellow-400">★ {ride.driver_rating}</span>}
                   </div>
-                  <div className="text-xs text-ink-400">{ride.driver_vehicle} · {ride.driver_plate}</div>
+                  <div className="text-xs text-ink-400">{ride.driver_vehicle} . {ride.driver_plate}</div>
                 </div>
                 {ride.driver_phone && (
                   <a href={`tel:${ride.driver_phone}`} className="w-10 h-10 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 hover:bg-green-500/20 transition-colors text-lg">📞</a>
@@ -189,7 +189,7 @@ export default function ActiveRidePage() {
             </motion.div>
           )}
 
-          {/* Route */}
+          
           <div className="bg-black/40 border border-white/5 rounded-xl p-4 mb-4">
             <div className="flex items-start gap-3">
               <div className="flex flex-col items-center gap-1 pt-1">
@@ -204,13 +204,13 @@ export default function ActiveRidePage() {
             </div>
           </div>
 
-          {/* Fare */}
+          
           <div className="flex items-center justify-between p-3 bg-teal-500/5 border border-teal-500/10 rounded-xl mb-4">
             <span className="text-sm text-ink-400">Estimated fare</span>
             <span className="text-lg font-bold text-teal-400">${ride.fare_amount.toFixed(2)} XCD</span>
           </div>
 
-          {/* Actions */}
+          
           <div className="flex gap-3">
             {isActive && (
               <button onClick={handleCancel} className="flex-1 py-3 bg-red-500/10 border border-red-500/20 text-red-400 font-medium rounded-xl hover:bg-red-500/20 transition-all text-sm">
@@ -222,7 +222,7 @@ export default function ActiveRidePage() {
             </Link>
           </div>
 
-          <p className="text-xs text-ink-600 text-center mt-3">🔒 Free cancellation up to 5 min after booking · Auto-refreshing</p>
+          <p className="text-xs text-ink-600 text-center mt-3">🔒 Free cancellation up to 5 min after booking . Auto-refreshing</p>
         </div>
       </div>
     </main>

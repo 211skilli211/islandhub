@@ -107,7 +107,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
       mobileOpen={mobileOpen}
       setMobileOpen={setMobileOpen}
     >
-      {/* Role Switcher — only show if user has multiple roles */}
+      
       {availableRoles.length > 1 && (
         <div className="mb-6">
           <div className="relative">

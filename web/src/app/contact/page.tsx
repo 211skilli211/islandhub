@@ -29,7 +29,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-surface-primary">
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-ink-900 py-24 px-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/100/10 rounded-full blur-[100px]" />
         <div className="max-w-3xl mx-auto text-center relative z-10">
@@ -38,10 +38,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Grid */}
+      
       <section className="max-w-6xl mx-auto px-4 py-20 -mt-10 relative z-20">
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Form */}
+          
           <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-xl border border-border-primary">
             <h2 className="text-2xl font-black text-ink-primary mb-8">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -76,7 +76,7 @@ export default function ContactPage() {
             </form>
           </div>
 
-          {/* Contact Info */}
+          
           <div className="space-y-8">
             <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-lg border border-border-primary">
               <h3 className="text-xl font-black text-ink-primary mb-6">Other Ways to Reach Us</h3>

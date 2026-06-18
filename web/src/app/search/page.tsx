@@ -73,7 +73,7 @@ function SearchContent() {
                     </p>
                 </div>
 
-                {/* Tabs */}
+                
                 <div className="flex justify-center gap-4 mb-12">
                     <button
                         onClick={() => setActiveTab('all')}
@@ -136,7 +136,7 @@ function SearchContent() {
                             </div>
                         ))}
                     </div>
-                    {/* Pagination */}
+                    
                     {displayResults.length > perPage && (
                         <div className="flex items-center justify-center gap-2 mt-12">
                             <button

@@ -128,11 +128,11 @@ function StoreCatalogueContent() {
 
     return (
         <div className="min-h-screen bg-surface-primary">
-            {/* Store Header Bar */}
+            
             <div className="bg-surface-elevated border-b border-border-primary sticky top-[var(--navbar-height,72px)] z-30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                        {/* Search */}
+                        
                         <div className="relative flex-1">
                             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                             <input
@@ -149,7 +149,7 @@ function StoreCatalogueContent() {
                             )}
                         </div>
 
-                        {/* Controls */}
+                        
                         <div className="flex items-center gap-2 shrink-0">
                             <button
                                 onClick={() => setShowFilters(!showFilters)}
@@ -193,7 +193,7 @@ function StoreCatalogueContent() {
                         </div>
                     </div>
 
-                    {/* Filter Panel */}
+                    
                     <AnimatePresence>
                         {showFilters && (
                             <motion.div
@@ -204,7 +204,7 @@ function StoreCatalogueContent() {
                             >
                                 <div className="pt-4 pb-2 border-t border-border-primary mt-4">
                                     <div className="flex flex-wrap gap-4">
-                                        {/* Categories */}
+                                        
                                         <div>
                                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Category</label>
                                             <div className="flex flex-wrap gap-1.5">
@@ -224,7 +224,7 @@ function StoreCatalogueContent() {
                                             </div>
                                         </div>
 
-                                        {/* Price Range */}
+                                        
                                         <div>
                                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">
                                                 Price Range: ${priceRange[0]} - ${priceRange[1] === 10000 ? 'Any' : `$${priceRange[1]}`}
@@ -253,7 +253,7 @@ function StoreCatalogueContent() {
                         )}
                     </AnimatePresence>
 
-                    {/* Category Pills (horizontal scroll) */}
+                    
                     <div className="flex gap-2 mt-3 overflow-x-auto pb-1 scrollbar-hide">
                         {categories.map(cat => (
                             <button
@@ -275,12 +275,12 @@ function StoreCatalogueContent() {
                 </div>
             </div>
 
-            {/* Ad Banner */}
+            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
                 <AdSpace spaceName="vendor_store_banner" className="h-16 md:h-24 rounded-xl overflow-hidden shadow-sm" />
             </div>
 
-            {/* Catalogue Grid */}
+            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
                 {filteredListings.length > 0 ? (
                     <div className={viewMode === 'grid'
@@ -316,7 +316,7 @@ function StoreCatalogueContent() {
                     </div>
                 )}
 
-                {/* Store Info Footer */}
+                
                 {filteredListings.length > 0 && (
                     <div className="mt-12 text-center">
                         <p className="text-xs text-ink-tertiary">

@@ -195,7 +195,7 @@ function DashboardPageContent() {
                 storeId={activeStoreId}
             />
 
-            {/* Listing Detail Modal */}
+            
             <AnimatePresence>
                 {isDetailModalOpen && selectedListing && (
                     <div className="fixed inset-0 bg-surface-tertiary/60 backdrop-blur-sm z-100 flex items-center justify-center p-4">
@@ -275,7 +275,7 @@ function DashboardPageContent() {
                 )}
             </AnimatePresence>
 
-            {/* Header */}
+            
             <div className="bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary pt-6 pb-8 sm:pt-12 sm:pb-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
@@ -301,7 +301,7 @@ function DashboardPageContent() {
                                 <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-sm">Welcome back, {user?.name} 👋</p>
                                 {viewMode === 'vendor' && stores.length > 0 && (
                                     <div className="flex flex-col gap-3">
-                                        {/* Store Selector — full width on mobile */}
+                                        
                                         <div className="relative group w-full">
                                             <select
                                                 value={activeStoreId || ''}
@@ -320,7 +320,7 @@ function DashboardPageContent() {
                                             </div>
                                         </div>
 
-                                        {/* Action buttons — wrap on mobile, single row on desktop */}
+                                        
                                         <div className="flex flex-wrap gap-2">
                                             <button
                                                 onClick={() => setActiveTab('settings')}
@@ -350,7 +350,7 @@ function DashboardPageContent() {
                 </div>
             </div>
 
-            {/* Content Container */}
+            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 space-y-8">
                 {viewMode === 'vendor' && (
                     <motion.div
@@ -389,7 +389,7 @@ function DashboardPageContent() {
                     </motion.div>
                 )}
 
-                {/* Tab Switcher */}
+                
                 <div className="flex overflow-x-auto gap-1 p-1 bg-surface-elevated/50 backdrop-blur-md rounded-2xl border border-border-primary/60 sticky top-20 z-10 max-w-full scrollbar-hide">
                     {[
                         ...(viewMode === 'driver' ? [
@@ -449,7 +449,7 @@ function DashboardPageContent() {
                     ))}
                 </div>
 
-                {/* Subscription Management Banner */}
+                
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
                     <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl sm:rounded-4xl border border-[#14b8a6]/20 p-4 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
                         <div className="flex items-center gap-3 sm:gap-6">
@@ -553,7 +553,7 @@ function DashboardPageContent() {
                                     </div>
                                 ) : (
                                     <div className="space-y-8">
-                                        {/* My Logistics Requests Section */}
+                                        
                                         {myRequests.length > 0 && (
                                             <div className="space-y-4">
                                                 <h3 className="text-lg font-black text-ink-secondary uppercase tracking-widest">My Requests</h3>
@@ -589,7 +589,7 @@ function DashboardPageContent() {
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            {/* Chat button for active deliveries */}
+                                                            
                                                             {request.driver_id && ['accepted', 'in_progress'].includes(request.transport_status) && (
                                                                 <button
                                                                     onClick={() => setChatRequest(request)}
@@ -598,7 +598,7 @@ function DashboardPageContent() {
                                                                     💬 Chat with Driver
                                                                 </button>
                                                             )}
-                                                            {/* Rating button for completed deliveries */}
+                                                            
                                                             {request.transport_status === 'completed' && !request.is_rated && (
                                                                 <button
                                                                     onClick={() => setRatingRequest(request)}
@@ -613,11 +613,11 @@ function DashboardPageContent() {
                                             </div>
                                         )}
 
-                                        {/* Donations/Orders Section */}
+                                        
                                         <div className="space-y-4">
                                             <h3 className="text-lg font-black text-ink-secondary uppercase tracking-widest">Orders & Donations</h3>
 
-                                            {/* Orders Display */}
+                                            
                                             {orders.length > 0 && (
                                                 <div className="space-y-3">
                                                     <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Recent Purchases</p>
@@ -641,7 +641,7 @@ function DashboardPageContent() {
                                                                         <div>
                                                                             <div className="font-black text-ink-primary">Order #{order.order_id}</div>
                                                                             <div className="text-xs text-ink-tertiary">
-                                                                                {itemCount} item{itemCount !== 1 ? 's' : ''} • {new Date(order.created_at).toLocaleDateString()}
+                                                                                {itemCount} item{itemCount !== 1 ? 's' : ''} - {new Date(order.created_at).toLocaleDateString()}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -658,7 +658,7 @@ function DashboardPageContent() {
                                                 </div>
                                             )}
 
-                                            {/* Logistics / Bookings Display */}
+                                            
                                             {myRequests.length > 0 && (
                                                 <div className="space-y-3 mt-6">
                                                     <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Active Bookings & Rides</p>
@@ -679,7 +679,7 @@ function DashboardPageContent() {
                                                                     <div className="w-12 h-12 bg-surface-primary rounded-xl flex items-center justify-center text-xl shadow-sm">{serviceIcon}</div>
                                                                     <div>
                                                                         <div className="font-black text-ink-primary dark:text-white capitalize">{request.service_type} Request</div>
-                                                                        <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">#{request.id} • {new Date(request.created_at).toLocaleDateString()}</div>
+                                                                        <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">#{request.id} - {new Date(request.created_at).toLocaleDateString()}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="text-right">
@@ -694,7 +694,7 @@ function DashboardPageContent() {
                                                 </div>
                                             )}
 
-                                            {/* Donations Display */}
+                                            
                                             {donations.length > 0 && (
                                                 <div className="space-y-3 mt-6">
                                                     <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Donations</p>
@@ -713,7 +713,7 @@ function DashboardPageContent() {
                                                 </div>
                                             )}
 
-                                            {/* Empty State */}
+                                            
                                             {orders.length === 0 && donations.length === 0 && myRequests.length === 0 && (
                                                 <div className="py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-border-primary">
                                                     <div className="text-5xl mb-4">🏝️</div>
@@ -755,7 +755,7 @@ function DashboardPageContent() {
                 </div>
             </div>
 
-            {/* Logistics Modals */}
+            
             <AnimatePresence>
                 {chatRequest && (
                     <DeliveryChat

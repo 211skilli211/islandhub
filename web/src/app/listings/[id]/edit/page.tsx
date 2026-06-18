@@ -175,7 +175,7 @@ export default function EditListingPage() {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-10">
-                        {/* Core Details */}
+                        
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="md:col-span-2 space-y-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Title</label>
@@ -233,7 +233,7 @@ export default function EditListingPage() {
                                 />
                             </div>
 
-                            {/* Subtype Selection */}
+                            
                             <div className="md:col-span-2 space-y-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                     Specific Type
@@ -268,7 +268,7 @@ export default function EditListingPage() {
                             </div>
                         </div>
 
-                        {/* Dynamic Fields */}
+                        
                         {formData.subtype_id && (
                             <DynamicProductForm
                                 subtypeId={formData.subtype_id}

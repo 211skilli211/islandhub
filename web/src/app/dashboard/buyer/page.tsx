@@ -76,13 +76,13 @@ export default function BuyerDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Welcome */}
+      
       <div>
         <h1 className="text-display-md text-ink-primary">Welcome back, {user?.name?.split(' ')[0]} 👋</h1>
         <p className="text-body-md text-ink-secondary mt-2">Here's what's happening with your account.</p>
       </div>
 
-      {/* Quick Stats */}
+      
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-surface-elevated rounded-2xl border border-border-primary p-5">
           <div className="flex items-center gap-3 mb-3">
@@ -126,7 +126,7 @@ export default function BuyerDashboard() {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Link href="/create?type=product" className="p-5 bg-surface-elevated rounded-2xl border border-border-primary hover:shadow-lg flex flex-col items-center gap-3 group transition-all">
           <span className="text-3xl p-3 bg-accent-50 rounded-2xl group-hover:scale-110 transition-all">📦</span>
@@ -146,7 +146,7 @@ export default function BuyerDashboard() {
         </Link>
       </div>
 
-      {/* Recent Orders */}
+      
       <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
         <div className="flex items-center justify-between p-6 border-b border-border-primary">
           <h2 className="text-headline-sm text-ink-primary">Recent Orders</h2>
@@ -189,7 +189,7 @@ export default function BuyerDashboard() {
         )}
       </div>
 
-      {/* Browse Section */}
+      
       <div className="bg-gradient-to-r from-brand-600 to-accent-600 rounded-2xl p-8 text-white">
         <h2 className="text-headline-lg font-black mb-2">Explore the Marketplace</h2>
         <p className="text-body-sm opacity-80 mb-6">Discover local products, services, and experiences across the Caribbean.</p>

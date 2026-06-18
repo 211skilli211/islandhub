@@ -155,7 +155,7 @@ export default function OrderDetailPage() {
   return (
     <div className="min-h-screen bg-surface-primary py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Link */}
+        
         <Link
           href="/dashboard/orders"
           className="inline-flex items-center text-ink-secondary hover:text-accent-400 mb-6 transition-colors"
@@ -166,7 +166,7 @@ export default function OrderDetailPage() {
           Back to My Orders
         </Link>
 
-        {/* Order Header */}
+        
         <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 mb-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
@@ -187,12 +187,12 @@ export default function OrderDetailPage() {
           </div>
         </div>
 
-        {/* Order Progress */}
+        
         {order.status !== 'cancelled' && order.status !== 'refunded' && (
           <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 mb-6">
             <h2 className="text-lg font-bold text-ink-primary mb-6">Order Status</h2>
             <div className="relative">
-              {/* Progress Bar */}
+              
               <div className="absolute top-4 left-0 right-0 h-1 bg-surface-tertiary rounded">
                 <div
                   className="h-full bg-accent-500/100 rounded transition-all"
@@ -200,7 +200,7 @@ export default function OrderDetailPage() {
                 />
               </div>
 
-              {/* Steps */}
+              
               <div className="relative flex justify-between">
                 {steps.map((step, index) => (
                   <div
@@ -229,7 +229,7 @@ export default function OrderDetailPage() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Order Items */}
+          
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
               <h2 className="text-xl font-bold text-ink-primary mb-6">Order Items</h2>
@@ -269,7 +269,7 @@ export default function OrderDetailPage() {
               </div>
             </div>
 
-            {/* Delivery Information */}
+            
             <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6">
               <h2 className="text-xl font-bold text-ink-primary mb-4">Delivery Information</h2>
               <div className="space-y-4">
@@ -306,7 +306,7 @@ export default function OrderDetailPage() {
             </div>
           </div>
 
-          {/* Order Summary */}
+          
           <div className="lg:col-span-1">
             <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary p-6 sticky top-24">
               <h2 className="text-xl font-bold text-ink-primary mb-6">Order Summary</h2>
@@ -344,7 +344,7 @@ export default function OrderDetailPage() {
                 </div>
               </div>
 
-              {/* Payment Information */}
+              
               <div className="border-t border-border-primary pt-4 mb-4">
                 <h3 className="font-bold text-ink-primary mb-2">Payment</h3>
                 <p className="text-sm text-ink-secondary">
@@ -362,7 +362,7 @@ export default function OrderDetailPage() {
                 )}
               </div>
 
-              {/* Actions */}
+              
               <div className="space-y-3">
                 {order.status === 'pending' && (
                   <button

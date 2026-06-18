@@ -61,7 +61,7 @@ export default function TourCategoryPage() {
             />
 
             <div className="max-w-7xl mx-auto px-6 py-16">
-                {/* Filter Bar */}
+                
                 <div className="bg-surface-primary border border-border-primary rounded-[2.5rem] p-8 md:p-12 mb-16 flex flex-col lg:flex-row gap-12 items-center">
                     <div className="flex-1 w-full">
                         <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-6">Price Range: Up to ${priceRange}</label>

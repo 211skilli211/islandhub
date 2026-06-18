@@ -140,7 +140,7 @@ export default function RequestRidePage() {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* ── Header ── */}
+      
       <header className="bg-black/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/transport" className="flex items-center gap-2 text-ink-400 hover:text-white transition-colors">
@@ -155,10 +155,10 @@ export default function RequestRidePage() {
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-          {/* ── LEFT PANEL: Booking Form ── */}
+          
           <div className="lg:col-span-5 space-y-4">
 
-            {/* Service Type Selector */}
+            
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
               <label className="text-xs text-ink-500 uppercase tracking-wider mb-2 block">Service Type</label>
               <div className="grid grid-cols-4 gap-2">
@@ -174,11 +174,11 @@ export default function RequestRidePage() {
               </div>
             </div>
 
-            {/* Destination Selector */}
+            
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
               <label className="text-xs text-ink-500 uppercase tracking-wider mb-3 block">Where to?</label>
 
-              {/* Route inputs */}
+              
               <div className="relative flex items-start gap-3 mb-4">
                 <div className="flex flex-col items-center gap-1 pt-3">
                   <div className="w-3 h-3 rounded-full border-2 border-green-400 bg-green-400/20" />
@@ -186,7 +186,7 @@ export default function RequestRidePage() {
                   <div className="w-3 h-3 rounded-full border-2 border-red-400 bg-red-400/20" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  {/* Pickup */}
+                  
                   <div className="relative">
                     <input
                       type="text" value={pickupInput}
@@ -206,7 +206,7 @@ export default function RequestRidePage() {
                       </div>
                     )}
                   </div>
-                  {/* Dropoff */}
+                  
                   <div className="relative">
                     <input
                       type="text" value={dropoffInput}
@@ -229,7 +229,7 @@ export default function RequestRidePage() {
                 </div>
               </div>
 
-              {/* Quick destinations */}
+              
               <div className="flex flex-wrap gap-2">
                 {POPULAR_DESTINATIONS.slice(0, 5).map((d, i) => (
                   <button key={i} onClick={() => handleSelectDestination(d)}
@@ -240,7 +240,7 @@ export default function RequestRidePage() {
               </div>
             </div>
 
-            {/* Ride Type Selector */}
+            
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
               <label className="text-xs text-ink-500 uppercase tracking-wider mb-3 block">Ride Type</label>
               <div className="space-y-2">
@@ -253,9 +253,9 @@ export default function RequestRidePage() {
                     <div className="flex-1 text-left">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-bold text-white">{rt.name}</span>
-                        <span className="text-xs text-ink-500">· {rt.capacity} seats</span>
+                        <span className="text-xs text-ink-500">. {rt.capacity} seats</span>
                       </div>
-                      <div className="text-xs text-ink-400">{rt.desc} · ETA {rt.eta}</div>
+                      <div className="text-xs text-ink-400">{rt.desc} . ETA {rt.eta}</div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm font-bold text-yellow-400">${rt.basePrice}+</div>
@@ -265,11 +265,11 @@ export default function RequestRidePage() {
               </div>
             </div>
 
-            {/* Booking Features */}
+            
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
               <label className="text-xs text-ink-500 uppercase tracking-wider mb-3 block">Booking Options</label>
 
-              {/* Passengers */}
+              
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <span className="text-lg">👥</span>
@@ -282,7 +282,7 @@ export default function RequestRidePage() {
                 </div>
               </div>
 
-              {/* Schedule */}
+              
               <div className="flex items-center gap-2 mb-3">
                 <button onClick={() => setScheduleType('now')} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${scheduleType === 'now' ? 'bg-yellow-400 text-black' : 'bg-white/5 text-ink-400 border border-white/5'}`}>Ride Now</button>
                 <button onClick={() => setScheduleType('later')} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${scheduleType === 'later' ? 'bg-yellow-400 text-black' : 'bg-white/5 text-ink-400 border border-white/5'}`}>Schedule</button>
@@ -297,17 +297,17 @@ export default function RequestRidePage() {
             </div>
           </div>
 
-          {/* ── RIGHT PANEL: Map + Confirm ── */}
+          
           <div className="lg:col-span-7 space-y-4">
 
-            {/* Map */}
+            
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl overflow-hidden" style={{ height: '45vh' }}>
               <div className="h-full relative">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center"><div className="text-6xl mb-2">🗺️</div><p className="text-ink-500 text-sm">Live map</p></div>
                 </div>
-                {/* Route markers */}
+                
                 {pickup && (
                   <div className="absolute top-4 left-4 flex items-center gap-2 bg-green-400/10 border border-green-400/20 rounded-lg px-3 py-1.5">
                     <div className="w-2 h-2 rounded-full bg-green-400" />
@@ -323,13 +323,13 @@ export default function RequestRidePage() {
               </div>
             </div>
 
-            {/* Fare + Confirm */}
+            
             {fareEstimate && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{selectedRideType.icon}</span>
-                    <div><div className="text-sm font-bold text-white">{selectedRideType.name}</div><div className="text-xs text-ink-500">{fareEstimate.distance} km · ~{fareEstimate.duration} min</div></div>
+                    <div><div className="text-sm font-bold text-white">{selectedRideType.name}</div><div className="text-xs text-ink-500">{fareEstimate.distance} km . ~{fareEstimate.duration} min</div></div>
                   </div>
                   <div className="text-xl font-bold text-yellow-400">${fareEstimate.total.toFixed(2)} <span className="text-xs text-ink-500">XCD</span></div>
                 </div>
@@ -341,7 +341,7 @@ export default function RequestRidePage() {
               </motion.div>
             )}
 
-            {/* CTA */}
+            
             <button onClick={handleRequest} disabled={!canProceed || requesting}
               className="w-full py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl transition-all shadow-lg shadow-yellow-400/20 text-lg disabled:opacity-50 disabled:cursor-not-allowed">
               {requesting ? (
@@ -352,7 +352,7 @@ export default function RequestRidePage() {
               ) : !canProceed ? (
                 <span>Select pickup & drop-off</span>
               ) : fareEstimate ? (
-                <span>Book {selectedRideType.name} · ${fareEstimate.total.toFixed(2)} {fareEstimate.currency}</span>
+                <span>Book {selectedRideType.name} . ${fareEstimate.total.toFixed(2)} {fareEstimate.currency}</span>
               ) : null}
             </button>
 

@@ -130,7 +130,7 @@ export default function AdminDispatch() {
 
             {activeTab === 'dispatch' && (
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    {/* Left Feed */}
+                    
                     <div className="lg:col-span-4 space-y-6">
                         <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
@@ -183,7 +183,7 @@ export default function AdminDispatch() {
                         </div>
                     </div>
 
-                    {/* Right Map */}
+                    
                     <div className="lg:col-span-8 space-y-6">
                         <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary shadow-2xl overflow-hidden h-[700px] relative">
                             <DispatchMap
@@ -199,7 +199,7 @@ export default function AdminDispatch() {
                                 }}
                             />
 
-                            {/* Floating Map Legend */}
+                            
                             <div className="absolute bottom-8 left-8 bg-surface-elevated/90 backdrop-blur-md p-4 rounded-2xl border border-border-primary shadow-xl z-[1000] space-y-2">
                                 <div className="flex items-center gap-3">
                                     <div className="w-3 h-3 bg-sand-500/50 rounded-full" />
@@ -215,7 +215,7 @@ export default function AdminDispatch() {
                                 </div>
                             </div>
 
-                            {/* Map Control Bar */}
+                            
                             <div className="absolute top-8 right-8 flex gap-3 z-[1000]">
                                 <button onClick={() => fetchData()} className="p-4 bg-surface-elevated rounded-2xl shadow-xl hover:scale-105 duration-200">🔄</button>
                                 <button onClick={() => setIsMapExpanded(true)} className="p-4 bg-surface-tertiary text-white rounded-2xl shadow-xl hover:scale-105 duration-200 font-black text-[10px] uppercase tracking-widest">Fullscreen ⛶</button>
@@ -272,7 +272,7 @@ export default function AdminDispatch() {
                 </div>
             )}
 
-            {/* TRIPS TRACKER TAB */}
+            
             {activeTab === 'trips' && (
                 <div className="space-y-6">
                     <div className="bg-surface-elevated rounded-[2rem] border border-border-primary shadow-lg overflow-hidden">
@@ -348,10 +348,10 @@ export default function AdminDispatch() {
                 </div>
             )}
 
-            {/* EARNINGS TAB */}
+            
             {activeTab === 'earnings' && (
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    {/* Summary Cards */}
+                    
                     <div className="bg-surface-elevated p-6 rounded-[2rem] border border-border-primary shadow-lg">
                         <p className="text-xs font-black text-ink-tertiary uppercase">Today's Revenue</p>
                         <p className="text-3xl font-black text-ink-primary mt-2">
@@ -376,7 +376,7 @@ export default function AdminDispatch() {
                         </p>
                     </div>
 
-                    {/* Driver Performance */}
+                    
                     <div className="md:col-span-4 bg-surface-elevated rounded-[2rem] border border-border-primary shadow-lg overflow-hidden">
                         <div className="p-6 border-b border-border-primary">
                             <h3 className="text-xl font-black text-ink-primary">Driver Performance</h3>

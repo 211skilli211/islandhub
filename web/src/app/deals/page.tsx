@@ -106,7 +106,7 @@ export default function DealsPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-rose-900 via-red-900 to-amber-900 py-10 md:py-14 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-black text-white mb-2">🔥 Deals & Promotions</h1>
@@ -117,7 +117,7 @@ export default function DealsPage() {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 py-6">
-        {/* Search + Sort */}
+        
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-tertiary" />
@@ -140,7 +140,7 @@ export default function DealsPage() {
           </select>
         </div>
 
-        {/* Filter Pills */}
+        
         <div className="flex flex-wrap gap-2 mb-6">
           {DEAL_FILTERS.map((filter) => {
             const Icon = filter.icon;
@@ -161,7 +161,7 @@ export default function DealsPage() {
           })}
         </div>
 
-        {/* Deals Grid */}
+        
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -198,7 +198,7 @@ export default function DealsPage() {
                   href={href}
                   className="group rounded-2xl border border-border-primary bg-surface-elevated overflow-hidden hover:border-accent-500/20 transition-all"
                 >
-                  {/* Image */}
+                  
                   <div className="relative aspect-[4/3] bg-surface-tertiary">
                     {img ? (
                       <img
@@ -214,14 +214,14 @@ export default function DealsPage() {
                       </div>
                     )}
 
-                    {/* Discount badge */}
+                    
                     {badge && (
                       <span className={`absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-bold text-white ${badge.color}`}>
                         {badge.text}
                       </span>
                     )}
 
-                    {/* Countdown */}
+                    
                     {timeLeft && timeLeft !== 'Expired' && (
                       <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-black/70 backdrop-blur-sm rounded-lg">
                         <Timer className="h-3 w-3 text-white" />
@@ -230,7 +230,7 @@ export default function DealsPage() {
                     )}
                   </div>
 
-                  {/* Info */}
+                  
                   <div className="p-4">
                     <h3 className="text-sm font-semibold text-ink-primary line-clamp-2 group-hover:text-accent-500 transition-colors">
                       {deal.title}
@@ -243,7 +243,7 @@ export default function DealsPage() {
                       </p>
                     )}
 
-                    {/* Pricing */}
+                    
                     <div className="mt-3 flex items-baseline gap-2">
                       {deal.sale_price !== undefined && deal.sale_price > 0 && (
                         <span className="text-lg font-bold text-accent-500">${deal.sale_price}</span>
@@ -258,7 +258,7 @@ export default function DealsPage() {
                       )}
                     </div>
 
-                    {/* CTA */}
+                    
                     <div className="mt-3 flex items-center justify-between">
                       <span className="text-xs font-medium text-accent-500 group-hover:underline">
                         View Deal →

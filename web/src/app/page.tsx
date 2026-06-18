@@ -94,7 +94,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-surface-primary">
 
-      {/* ═══ HERO — Admin-configurable via HeroBackground ═══ */}
+      
       <HeroBackground pageKey="home" align="center">
         <div className="max-w-7xl mx-auto w-full">
           <HeroSlider slides={heroSlides} autoPlay autoPlayInterval={6000} className="mb-6 md:mb-8" />
@@ -113,17 +113,17 @@ export default function Home() {
       </HeroBackground>
       <BrandMarquee title="Trusted by leading Caribbean brands" speed={30} />
 
-      {/* ═══ REQUEST SERVICES ═══ */}
+      
       <RequestServicesSection />
 
-      {/* ═══ SHOP BY CATEGORY TILES (3-col mobile) ═══ */}
+      
       <AnimatedContent distance={50}>
         <section className="max-w-7xl mx-auto px-4 py-6">
           <CategoryTiles title="Shop by Category" tiles={categoryTiles} columns={3} />
         </section>
       </AnimatedContent>
 
-      {/* ═══ TRENDING / FEATURED SHOPS (horizontal carousel) ═══ */}
+      
       {!shopsLoading && featuredShops.length > 0 && (
         <section className="max-w-7xl mx-auto px-4">
           <CarouselSection title="🔥 Featured Shops" seeMoreHref="/hub/products">
@@ -145,7 +145,7 @@ export default function Home() {
         </section>
       )}
 
-      {/* ═══ HOT DEALS (2-col DealCard grid) ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6">
         <ContentSection title="🏷️ Hot Deals" seeMoreHref="/hub/products">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -157,10 +157,10 @@ export default function Home() {
         </ContentSection>
       </section>
 
-      {/* ═══ BRAND MARQUEE ═══ */}
+      
       <BrandMarquee title="Trusted by leading Caribbean brands" speed={40} />
 
-      {/* ═══ FEATURED CAMPAIGNS (2-col mobile) ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6">
         <ContentSection title="❤️ Active Campaigns" seeMoreHref="/hub/campaigns">
           {loading ? (
@@ -188,7 +188,7 @@ export default function Home() {
         </ContentSection>
       </section>
 
-      {/* ═══ SIGNATURE EXPERIENCES / TOURS (2-col mobile) ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6 bg-surface-secondary/50">
         <ContentSection title="🗺️ Signature Experiences" seeMoreHref="/hub/tours">
           {loading ? (
@@ -204,7 +204,7 @@ export default function Home() {
                   imageUrl={tour.image_url || tour.banner_url}
                   emoji="🗺️"
                   title={tour.title || tour.name || tour.business_name}
-                  subtitle={[tour.duration, tour.difficulty].filter(Boolean).join(' · ')}
+                  subtitle={[tour.duration, tour.difficulty].filter(Boolean).join(' . ')}
                   price={tour.price}
                   priceSuffix="/person"
                   rating={tour.rating}
@@ -220,7 +220,7 @@ export default function Home() {
         </ContentSection>
       </section>
 
-      {/* ═══ ISLAND RENTALS (2-col mobile, compact cards) ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6">
         <ContentSection title="🏠 Island Rentals" subtitle="From villas, cars, to boats" seeMoreHref="/hub/rentals">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -253,7 +253,7 @@ export default function Home() {
         </ContentSection>
       </section>
 
-      {/* ═══ IBT SOLUTIONS (compact 2-col cards) ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6">
         <ContentSection title="💼 Business Solutions" subtitle="AI, web, automation & co-ops" seeMoreHref="/hub/services">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -273,22 +273,22 @@ export default function Home() {
         </ContentSection>
       </section>
 
-      {/* ═══ VENDOR SPOTLIGHT ═══ */}
+      
       <section className="py-6 bg-surface-secondary/50">
         <VendorSpotlight />
       </section>
 
-      {/* ═══ RECOMMENDED FOR YOU ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6">
         <RecommendedForYou />
       </section>
 
-      {/* ═══ ISLAND PULSE ═══ */}
+      
       <section className="max-w-7xl mx-auto px-4 py-6">
         <IslandPulse />
       </section>
 
-      {/* ═══ BACK TO TOP ═══ */}
+      
       <div className="max-w-7xl mx-auto px-4 pb-8 text-center">
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-xs text-ink-tertiary hover:text-accent-500 transition-colors">
           ↑ Back to top

@@ -37,7 +37,7 @@ export default function MyTicketsPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
-      {/* Header */}
+      
       <div className="bg-gradient-to-r from-teal-800 to-teal-900 text-white">
         <div className="max-w-4xl mx-auto px-4 py-10">
           <h1 className="text-3xl font-black">My Tickets</h1>
@@ -66,7 +66,7 @@ export default function MyTicketsPage() {
           </div>
         ) : (
           <div className="space-y-8">
-            {/* Active Tickets */}
+            
             {activeTickets.length > 0 && (
               <div>
                 <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Active Tickets ({activeTickets.length})</h2>
@@ -91,10 +91,10 @@ export default function MyTicketsPage() {
                                 <div>
                                   <p className="font-black text-lg text-ink-primary dark:text-sand-50">{event?.title || 'Event'}</p>
                                   <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">
-                                    📅 {event?.start_date ? formatDate(event.start_date) : 'TBD'} · 📍 {event?.venue || 'TBD'}
+                                    📅 {event?.start_date ? formatDate(event.start_date) : 'TBD'} . 📍 {event?.venue || 'TBD'}
                                   </p>
                                   <p className="text-xs text-teal-600 dark:text-teal-400 font-bold mt-2">
-                                    {ticket.tier?.name || 'General'} · Ticket #{ticket.ticket_id}
+                                    {ticket.tier?.name || 'General'} . Ticket #{ticket.ticket_id}
                                   </p>
                                 </div>
                                 <div className="text-right shrink-0 ml-4">
@@ -106,7 +106,7 @@ export default function MyTicketsPage() {
                           </div>
                         </div>
 
-                        {/* QR Code Expanded */}
+                        
                         {isOpen && (
                           <div className="border-t border-border-primary dark:border-ocean-700 p-6 bg-surface-primary dark:bg-ocean-900/50">
                             <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -129,7 +129,7 @@ export default function MyTicketsPage() {
               </div>
             )}
 
-            {/* Past Tickets */}
+            
             {pastTickets.length > 0 && (
               <div>
                 <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-4">Past Tickets ({pastTickets.length})</h2>
@@ -139,7 +139,7 @@ export default function MyTicketsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-bold text-ink-secondary dark:text-ink-tertiary">{ticket.event?.title || 'Event'} — {ticket.tier?.name || 'Ticket'}</p>
-                          <p className="text-xs text-ink-tertiary">#{ticket.ticket_id} · {ticket.status}</p>
+                          <p className="text-xs text-ink-tertiary">#{ticket.ticket_id} . {ticket.status}</p>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                           ticket.status === 'used' ? 'bg-surface-secondary text-ink-secondary dark:bg-ocean-700 dark:text-ink-tertiary' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'

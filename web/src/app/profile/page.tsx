@@ -119,7 +119,7 @@ function ProfilePageContent() {
 
     return (
         <div className="min-h-screen bg-surface-primary">
-            {/* Banner */}
+            
             <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden" style={{ backgroundColor: formData.banner_color }}>
                 {bannerImage && (
                     <img src={getImageUrl(bannerImage)} alt="Banner" className="w-full h-full object-cover" />
@@ -137,7 +137,7 @@ function ProfilePageContent() {
                 </label>
             </div>
 
-            {/* Profile Header */}
+            
             <div className="max-w-3xl mx-auto px-4 sm:px-6 -mt-16 relative z-10">
                 <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 mb-6">
                     <div className="relative group">
@@ -169,7 +169,7 @@ function ProfilePageContent() {
                     </button>
                 </div>
 
-                {/* Section Tabs */}
+                
                 <div className="flex gap-1 p-1 bg-surface-elevated rounded-xl border border-border-primary mb-6 overflow-x-auto">
                     {sections.map((section) => (
                         <button
@@ -187,7 +187,7 @@ function ProfilePageContent() {
                     ))}
                 </div>
 
-                {/* Section Content */}
+                
                 <motion.div
                     key={activeSection}
                     initial={{ opacity: 0, y: 10 }}
@@ -427,7 +427,7 @@ function ProfilePageContent() {
                     )}
                 </motion.div>
 
-                {/* Danger Zone */}
+                
                 <div className="bg-surface-elevated rounded-2xl border border-red-200 p-6 mb-8">
                     <h3 className="text-sm font-black text-red-600 uppercase tracking-widest mb-3">Danger Zone</h3>
                     <p className="text-xs text-ink-tertiary mb-4">Once you deactivate your account, there is no going back.</p>

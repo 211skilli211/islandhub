@@ -109,7 +109,7 @@ function MessageCenterPage() {
             <div className="flex-1 max-w-7xl mx-auto w-full px-4 overflow-hidden py-8">
                 <div className="bg-surface-elevated h-full rounded-[3rem] shadow-2xl shadow-teal-100/20 flex border border-border-primary overflow-hidden">
 
-                    {/* Inbox Sidebar */}
+                    
                     <div className="w-80 border-r border-border-primary flex flex-col bg-surface-elevated">
                         <div className="p-6 border-b border-border-primary">
                             <div className="flex items-center justify-between mb-4">
@@ -121,7 +121,7 @@ function MessageCenterPage() {
                                     +
                                 </button>
                             </div>
-                            {/* Search */}
+                            
                             <div className="relative">
                                 <input
                                     type="text"
@@ -134,7 +134,7 @@ function MessageCenterPage() {
                             </div>
                         </div>
                         
-                        {/* New Chat Modal */}
+                        
                         {showNewChat && (
                             <div className="p-4 border-b border-border-primary bg-accent-500/10">
                                 <p className="text-sm font-bold text-accent-600 mb-3">Start New Conversation</p>
@@ -179,7 +179,7 @@ function MessageCenterPage() {
                                 </div>
                             ) : (
                                 <div className="divide-y divide-slate-50">
-                                    {/* New conversation placeholder if needed */}
+                                    
                                     {initialOtherUserId && !conversations.find(c => c.other_user_id === parseInt(initialOtherUserId)) && (
                                         <button
                                             onClick={() => setSelectedUser({ other_user_id: parseInt(initialOtherUserId), other_user_name: initialOtherUserName })}
@@ -227,7 +227,7 @@ function MessageCenterPage() {
                                                     )}
                                                 </div>
                                             </button>
-                                            {/* Conversation Settings */}
+                                            
                                             <button 
                                                 onClick={(e) => { e.stopPropagation(); /* TODO: show settings menu */ }}
                                                 className="absolute top-2 right-2 p-2 opacity-0 group-hover:opacity-100 text-ink-tertiary hover:text-ink-secondary transition-opacity"
@@ -241,7 +241,7 @@ function MessageCenterPage() {
                         </div>
                     </div>
 
-                    {/* Chat Area */}
+                    
                     <div className="flex-1 bg-surface-primary/20">
                         {selectedUser ? (
                             <ChatWindow

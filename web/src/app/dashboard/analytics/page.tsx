@@ -146,14 +146,14 @@ export default function VendorAnalyticsDashboard() {
     return (
         <div className="min-h-screen bg-surface-primary py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Header */}
+                
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h1 className="text-3xl font-bold text-ink-primary">Analytics Dashboard</h1>
                         <p className="text-ink-secondary mt-1">Track your store performance and insights</p>
                     </div>
 
-                    {/* Time Range Selector */}
+                    
                     <div className="flex gap-2">
                         {[7, 30, 90].map(days => (
                             <button
@@ -170,7 +170,7 @@ export default function VendorAnalyticsDashboard() {
                     </div>
                 </div>
 
-                {/* KPI Cards */}
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <div className="flex items-center justify-between mb-4">
@@ -219,7 +219,7 @@ export default function VendorAnalyticsDashboard() {
                     </div>
                 </div>
 
-                {/* Order Status Overview */}
+                
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-xl">
                         <p className="text-2xl font-bold text-yellow-700">{stats?.pending_orders || 0}</p>
@@ -241,9 +241,9 @@ export default function VendorAnalyticsDashboard() {
                     </div>
                 </div>
 
-                {/* Charts Row */}
+                
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-                    {/* Revenue Chart */}
+                    
                     <div className="lg:col-span-2 bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <h2 className="text-xl font-bold text-ink-primary mb-6">Revenue & Orders Trend</h2>
                         <div className="h-80 w-full">
@@ -251,7 +251,7 @@ export default function VendorAnalyticsDashboard() {
                         </div>
                     </div>
 
-                    {/* Order Status Distribution */}
+                    
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <h2 className="text-xl font-bold text-ink-primary mb-6">Order Status</h2>
                         <div className="h-64 w-full">
@@ -268,7 +268,7 @@ export default function VendorAnalyticsDashboard() {
                     </div>
                 </div>
 
-                {/* Top Products Table */}
+                
                 <div className="bg-surface-elevated rounded-2xl shadow-sm border border-border-primary overflow-hidden mb-8">
                     <div className="p-6 border-b border-border-primary">
                         <h2 className="text-xl font-bold text-ink-primary">Top Performing Products</h2>
@@ -321,7 +321,7 @@ export default function VendorAnalyticsDashboard() {
                     </div>
                 </div>
 
-                {/* Customer Insights */}
+                
                 {customerStats && (
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <h2 className="text-xl font-bold text-ink-primary mb-6">Customer Insights</h2>

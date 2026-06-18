@@ -74,7 +74,7 @@ export default function NewCampaignPage() {
     return (
         <div className="min-h-screen bg-surface-primary py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-                {/* Progress Bar */}
+                
                 <div className="mb-12">
                     <div className="flex items-center justify-between mb-4">
                         {[1, 2, 3].map((s) => (
@@ -101,7 +101,7 @@ export default function NewCampaignPage() {
                 <div className="bg-surface-elevated/70 backdrop-blur-xl border border-white rounded-3xl shadow-2xl overflow-hidden">
                     <form onSubmit={handleSubmit} className="p-8 sm:p-12">
 
-                        {/* Step 1: Basics */}
+                        
                         {step === 1 && (
                             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                 <div>
@@ -188,7 +188,7 @@ export default function NewCampaignPage() {
                             </div>
                         )}
 
-                        {/* Step 2: Story */}
+                        
                         {step === 2 && (
                             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                                 <div>
@@ -246,7 +246,7 @@ export default function NewCampaignPage() {
                             </div>
                         )}
 
-                        {/* Step 3: Visuals & Launch */}
+                        
                         {step === 3 && (
                             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                                 <div>

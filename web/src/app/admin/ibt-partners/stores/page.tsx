@@ -108,7 +108,7 @@ export default function AdminIBTPartnerStoresPage() {
                 </a>
             </div>
 
-            {/* Partner Store Cards */}
+            
             {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[1, 2, 3].map(i => (
@@ -140,7 +140,7 @@ export default function AdminIBTPartnerStoresPage() {
                                 </span>
                             </div>
                             <div className="text-xs text-ink-tertiary mb-4">
-                                {store.category} • Created {new Date(store.created_at).toLocaleDateString()}
+                                {store.category} - Created {new Date(store.created_at).toLocaleDateString()}
                             </div>
                             <div className="flex items-center gap-2">
                                 <a

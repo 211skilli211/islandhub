@@ -155,7 +155,7 @@ export default function AdminAnalyticsDashboard() {
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 dark:bg-ocean-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-ink-primary">Platform Analytics</h1>
@@ -179,7 +179,7 @@ export default function AdminAnalyticsDashboard() {
           </div>
         </div>
 
-        {/* Platform KPI Cards */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
@@ -236,7 +236,7 @@ export default function AdminAnalyticsDashboard() {
           </div>
         </div>
 
-        {/* User Statistics */}
+        
         {userStats && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-gradient-to-br from-teal-500 to-teal-600 p-6 rounded-2xl text-white">
@@ -260,9 +260,9 @@ export default function AdminAnalyticsDashboard() {
           </div>
         )}
 
-        {/* Charts Row */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Revenue & Commission Chart */}
+          
           <div className="lg:col-span-2 bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <h2 className="text-xl font-bold text-ink-primary mb-6">Revenue & Commission Trends</h2>
             <div className="h-80">
@@ -297,7 +297,7 @@ export default function AdminAnalyticsDashboard() {
             </div>
           </div>
 
-          {/* Platform Distribution */}
+          
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <h2 className="text-xl font-bold text-ink-primary mb-6">Platform Activity</h2>
             <div className="h-64">
@@ -317,7 +317,7 @@ export default function AdminAnalyticsDashboard() {
           </div>
         </div>
 
-        {/* Top Stores Table */}
+        
         <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl shadow-sm border border-border-primary overflow-hidden">
           <div className="p-6 border-b border-border-primary">
             <h2 className="text-xl font-bold text-ink-primary">Top Performing Stores</h2>

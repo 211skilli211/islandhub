@@ -82,7 +82,7 @@ export default function AdminStoresPage() {
 
     return (
         <div className="space-y-6">
-            {/* Modals */}
+            
             {editingStore && (
                 <EditStoreModal 
                     store={editingStore} 
@@ -128,7 +128,7 @@ export default function AdminStoresPage() {
                 </div>
             )}
 
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary dark:text-white">Vendor Stores</h2>
@@ -142,7 +142,7 @@ export default function AdminStoresPage() {
                 </button>
             </div>
 
-            {/* Table */}
+            
             <AdminTable<any>
                 key={`stores-${refreshKey}`}
                 endpoint="/admin/stores"

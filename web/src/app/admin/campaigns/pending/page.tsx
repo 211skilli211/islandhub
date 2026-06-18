@@ -132,7 +132,7 @@ export default function PendingCampaignsPage() {
     return (
         <div className="min-h-screen bg-surface-primary py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-                {/* Header */}
+                
                 <div className="mb-8 flex items-center justify-between">
                     <div>
                         <button
@@ -150,7 +150,7 @@ export default function PendingCampaignsPage() {
                     </div>
                 </div>
 
-                {/* Content */}
+                
                 {loading ? (
                     <div className="text-center py-20">
                         <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-border-primary border-t-teal-600"></div>
@@ -172,7 +172,7 @@ export default function PendingCampaignsPage() {
                         {campaigns.map(campaign => (
                             <div key={campaign.id} className="bg-surface-elevated p-8 rounded-2xl border border-border-primary shadow-sm hover:shadow-md transition-all">
                                 <div className="flex flex-col lg:flex-row gap-6">
-                                    {/* Campaign Image */}
+                                    
                                     <div className="w-full lg:w-64 h-48 flex-shrink-0 bg-surface-secondary rounded-xl overflow-hidden">
                                         {campaign.image_url ? (
                                             <img src={campaign.image_url} alt={campaign.title} className="w-full h-full object-cover" />
@@ -183,7 +183,7 @@ export default function PendingCampaignsPage() {
                                         )}
                                     </div>
 
-                                    {/* Campaign Details */}
+                                    
                                     <div className="flex-1">
                                         <div className="flex items-start justify-between mb-4">
                                             <div>
@@ -208,7 +208,7 @@ export default function PendingCampaignsPage() {
 
                                         <p className="text-ink-secondary mb-4 leading-relaxed">{campaign.description}</p>
 
-                                        {/* Campaign Stats */}
+                                        
                                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-surface-primary rounded-xl">
                                             <div>
                                                 <div className="text-xs text-ink-tertiary font-bold uppercase mb-1">Goal Amount</div>
@@ -228,7 +228,7 @@ export default function PendingCampaignsPage() {
                                             </div>
                                         </div>
 
-                                        {/* Metadata */}
+                                        
                                         {campaign.metadata && Object.keys(campaign.metadata).length > 0 && (
                                             <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
                                                 <h3 className="text-xs font-black uppercase text-blue-600 mb-2">Additional Details</h3>
@@ -243,7 +243,7 @@ export default function PendingCampaignsPage() {
                                             </div>
                                         )}
 
-                                        {/* Action Buttons */}
+                                        
                                         <div className="flex gap-4">
                                             <button
                                                 onClick={() => handleApprove(campaign.id)}
@@ -277,7 +277,7 @@ export default function PendingCampaignsPage() {
                     </div>
                 )}
 
-                {/* Request Changes Modal */}
+                
                 <RequestChangesModal
                     isOpen={modalOpen}
                     onClose={() => setModalOpen(false)}

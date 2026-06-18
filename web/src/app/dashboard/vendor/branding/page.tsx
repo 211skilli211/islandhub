@@ -402,7 +402,7 @@ export default function VendorBrandingPage() {
     return (
         <main className="min-h-screen bg-surface-primary dark:bg-ocean-900 py-20">
             <div className="max-w-6xl mx-auto px-4">
-                {/* Header */}
+                
                 <div className="mb-12">
                     <div className="flex items-center justify-between mb-4">
                         <div>
@@ -412,10 +412,10 @@ export default function VendorBrandingPage() {
                         {getStatusBadge()}
                     </div>
 
-                    {/* Store Info with Editable Logo */}
+                    
                     <div className="bg-surface-elevated/80 dark:bg-ocean-800/80 backdrop-blur-sm p-6 rounded-2xl border border-border-primary/50">
                         <div className="flex items-center gap-6">
-                            {/* Logo Upload */}
+                            
                             <div className="relative group">
                                 <input
                                     type="file"
@@ -441,7 +441,7 @@ export default function VendorBrandingPage() {
                                             <span className="text-3xl">🏪</span>
                                         </div>
                                     )}
-                                    {/* Upload overlay */}
+                                    
                                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                         {uploading === 'logo' ? (
                                             <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -464,7 +464,7 @@ export default function VendorBrandingPage() {
                                 </div>
                             </div>
 
-                            {/* Banner Preview with Upload */}
+                            
                             <div className="relative">
                                 <input
                                     type="file"
@@ -504,7 +504,7 @@ export default function VendorBrandingPage() {
                 </div>
 
                 <form onSubmit={handleSave} className="space-y-8">
-                    {/* Layout Selection with Visual Previews */}
+                    
                     <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-xl shadow-black/10/50 border border-border-primary">
                         <h2 className="text-xl font-black text-ink-primary mb-2 flex items-center gap-3">
                             <span className="w-8 h-8 bg-teal-50 text-teal-500 rounded-lg flex items-center justify-center text-sm">🎨</span>
@@ -523,14 +523,14 @@ export default function VendorBrandingPage() {
                                         : 'border-border-primary hover:border-border-primary hover:bg-surface-primary dark:bg-ocean-900'
                                         }`}
                                 >
-                                    {/* Template Preview Image */}
+                                    
                                     <div className="aspect-video bg-surface-secondary rounded-xl mb-4 overflow-hidden relative">
                                         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-sand-50 to-sand-100">
                                             <span className="text-4xl">{template.icon}</span>
                                         </div>
-                                        {/* Simulated layout preview overlay */}
+                                        
                                         <div className="absolute inset-0 bg-gradient-to-brom-transparent to-black/30"></div>
-                                        {/* Layout mock elements */}
+                                        
                                         <div className="absolute top-2 left-2 right-2 h-3 bg-surface-elevated/70 rounded-sm"></div>
                                         <div className="absolute bottom-2 left-2 right-10 h-2 bg-surface-elevated/50 rounded-sm"></div>
                                         <div className="absolute bottom-2 right-2 w-6 h-6 bg-surface-elevated/70 rounded-full"></div>
@@ -546,7 +546,7 @@ export default function VendorBrandingPage() {
                                         )}
                                     </div>
 
-                                    {/* Feature tags */}
+                                    
                                     <div className="flex flex-wrap gap-1 mt-3">
                                         {template.features?.slice(0, 3).map((feature: string, idx: number) => (
                                             <span key={idx} className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary rounded text-[10px] font-medium">
@@ -559,7 +559,7 @@ export default function VendorBrandingPage() {
                         </div>
                     </div>
 
-                    {/* Store Assets Upload Section */}
+                    
                     <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-xl shadow-black/10/50 border border-border-primary">
                         <h2 className="text-xl font-black text-ink-primary mb-2 flex items-center gap-3">
                             <span className="w-8 h-8 bg-rose-50 text-rose-500 rounded-lg flex items-center justify-center text-sm">🖼️</span>
@@ -568,7 +568,7 @@ export default function VendorBrandingPage() {
                         <p className="text-ink-tertiary font-medium mb-8">Upload your store logo and hero banner</p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {/* Logo Upload */}
+                            
                             <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center hover:border-teal-400 transition-colors">
                                 <input
                                     type="file"
@@ -610,7 +610,7 @@ export default function VendorBrandingPage() {
                                 </button>
                             </div>
 
-                            {/* Banner Upload */}
+                            
                             <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center hover:border-teal-400 transition-colors">
                                 <input
                                     type="file"
@@ -656,7 +656,7 @@ export default function VendorBrandingPage() {
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
+                    
                     <div className="flex justify-end gap-4">
                         <Link href={`/dashboard`} className="px-8 py-5 bg-surface-elevated text-ink-secondary rounded-2xl font-black uppercase tracking-widest text-xs border border-border-primary hover:bg-surface-primary dark:bg-ocean-900 transition-all">
                             Back to Dashboard

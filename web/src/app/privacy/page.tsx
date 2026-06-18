@@ -66,7 +66,7 @@ export default function PrivacyPage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Hero */}
+            
             <section className="bg-accent-800 py-24 px-4">
                 <div className="max-w-3xl mx-auto text-center">
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Privacy Policy</h1>
@@ -74,10 +74,10 @@ export default function PrivacyPage() {
                 </div>
             </section>
 
-            {/* Content */}
+            
             <section className="max-w-6xl mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-4 gap-12">
-                    {/* Sidebar */}
+                    
                     <div className="md:col-span-1">
                         <div className="bg-surface-elevated rounded-[3rem] p-6 shadow-lg border border-border-primary sticky top-8">
                             <h3 className="font-black text-ink-primary mb-6 uppercase text-xs tracking-widest">Contents</h3>
@@ -99,7 +99,7 @@ export default function PrivacyPage() {
                         </div>
                     </div>
 
-                    {/* Main Content */}
+                    
                     <div className="md:col-span-3">
                         <div className="bg-surface-elevated rounded-[3rem] p-10 shadow-lg border border-border-primary">
                             {sections.filter(s => s.id === activeSection).map(s => (

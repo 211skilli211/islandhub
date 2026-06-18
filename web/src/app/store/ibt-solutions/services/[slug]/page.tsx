@@ -89,7 +89,7 @@ export default function IBTServiceDetailPage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Hero */}
+            
             <section className="bg-surface-tertiary py-16 px-6">
                 <div className="max-w-4xl mx-auto">
                     <Link href="/store/ibt-solutions" className="inline-flex items-center gap-2 text-accent-400 text-sm font-bold mb-6 hover:gap-3 transition-all">
@@ -112,9 +112,9 @@ export default function IBTServiceDetailPage() {
 
             <div className="max-w-4xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main content */}
+                    
                     <div className="lg:col-span-2 space-y-8">
-                        {/* Features */}
+                        
                         {service.metadata?.features && (
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                                 className="bg-surface-elevated rounded-2xl border border-border-primary p-8">
@@ -130,7 +130,7 @@ export default function IBTServiceDetailPage() {
                             </motion.div>
                         )}
 
-                        {/* Full description */}
+                        
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                             className="bg-surface-elevated rounded-2xl border border-border-primary p-8">
                             <h2 className="text-xl font-black text-ink-primary mb-4 italic uppercase">About This Service</h2>
@@ -138,7 +138,7 @@ export default function IBTServiceDetailPage() {
                         </motion.div>
                     </div>
 
-                    {/* Sidebar - Inquiry form */}
+                    
                     <div>
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                             className="bg-surface-elevated rounded-2xl border border-border-primary p-6 sticky top-6">

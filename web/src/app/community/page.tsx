@@ -87,7 +87,7 @@ export default function CommunityFeedPage() {
 
   return (
     <main className="min-h-screen bg-surface-primary">
-      {/* Hero with Aurora */}
+      
       <section className="relative overflow-hidden py-16 sm:py-24">
         <div className="absolute inset-0 z-0">
           <Aurora
@@ -124,7 +124,7 @@ export default function CommunityFeedPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
-        {/* Community Cards Grid */}
+        
         <AnimatedContent distance={40}>
           <section>
             <h2 className="text-xl font-black text-ink-primary mb-4">Explore Community</h2>
@@ -150,7 +150,7 @@ export default function CommunityFeedPage() {
           </section>
         </AnimatedContent>
 
-        {/* Latest Stories */}
+        
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-black text-ink-primary">Latest Stories</h2>
@@ -192,7 +192,7 @@ export default function CommunityFeedPage() {
           )}
         </section>
 
-        {/* Active Groups */}
+        
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-black text-ink-primary">Active Groups</h2>
@@ -218,7 +218,7 @@ export default function CommunityFeedPage() {
           </div>
         </section>
 
-        {/* Upcoming Events */}
+        
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-black text-ink-primary">Upcoming Events</h2>
@@ -251,7 +251,7 @@ export default function CommunityFeedPage() {
           </div>
         </section>
 
-        {/* Cooperatives CTA */}
+        
         <section>
           <div className="bg-gradient-to-r from-teal-600 to-emerald-600 rounded-2xl p-6 sm:p-8 text-white">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

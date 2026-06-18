@@ -264,9 +264,9 @@ export default function MessagesPage() {
             <section className="max-w-7xl mx-auto px-4 py-8">
                 <div className="bg-surface-elevated rounded-[3rem] overflow-hidden border border-border-primary shadow-xl">
                     <div className="flex h-[70vh]">
-                        {/* Conversations List */}
+                        
                         <div className={`w-full md:w-96 border-r border-border-primary flex flex-col ${selectedConversation ? 'hidden md:flex' : ''}`}>
-                            {/* Header */}
+                            
                             <div className="p-6 border-b border-border-primary">
                                 <div className="flex items-center justify-between mb-4">
                                     <h2 className="text-xl font-black text-ink-primary">Messages</h2>
@@ -284,7 +284,7 @@ export default function MessagesPage() {
                                 />
                             </div>
 
-                            {/* List */}
+                            
                             <div className="flex-1 overflow-y-auto">
                                 {isLoading ? (
                                     <div className="p-4 space-y-4">
@@ -339,11 +339,11 @@ export default function MessagesPage() {
                             </div>
                         </div>
 
-                        {/* Chat Area */}
+                        
                         <div className={`flex-1 flex flex-col ${!selectedConversation ? 'hidden md:flex' : ''}`}>
                             {selectedConversation ? (
                                 <>
-                                    {/* Chat Header */}
+                                    
                                     <div className="p-6 border-b border-border-primary flex items-center gap-4">
                                         <button
                                             onClick={() => setSelectedConversation(null)}
@@ -375,7 +375,7 @@ export default function MessagesPage() {
                                         </div>
                                     </div>
 
-                                    {/* Messages */}
+                                    
                                     <div className="flex-1 overflow-y-auto p-6 space-y-4">
                                         {messages.map(message => (
                                             <div
@@ -400,7 +400,7 @@ export default function MessagesPage() {
                                         <div ref={messagesEndRef} />
                                     </div>
 
-                                    {/* Input */}
+                                    
                                     <div className="p-6 border-t border-border-primary">
                                         <div className="flex items-center gap-4">
                                             <button className="w-10 h-10 bg-surface-secondary rounded-full flex items-center justify-center text-ink-tertiary hover:bg-surface-tertiary transition-colors">
@@ -446,7 +446,7 @@ export default function MessagesPage() {
                 </div>
             </section>
 
-            {/* New Chat Modal */}
+            
             <AnimatePresence>
                 {showNewChat && (
                     <motion.div

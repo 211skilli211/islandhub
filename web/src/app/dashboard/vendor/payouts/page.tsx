@@ -162,7 +162,7 @@ export default function VendorPayoutsPage() {
 
     return (
         <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
-            {/* Header */}
+            
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-black text-ink-primary">Payouts & Wallet</h1>
@@ -179,7 +179,7 @@ export default function VendorPayoutsPage() {
                 </div>
             )}
 
-            {/* Wallet Card */}
+            
             {wallet ? (
                 <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl p-6 text-white shadow-xl shadow-accent-500/15">
                     <div className="flex items-center justify-between mb-6">
@@ -227,7 +227,7 @@ export default function VendorPayoutsPage() {
                 </div>
             )}
 
-            {/* Payout Requests */}
+            
             <div className="bg-surface-elevated rounded-3xl border border-border-primary shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-border-primary flex items-center justify-between">
                     <h2 className="font-black text-ink-primary">Payout Requests</h2>
@@ -250,7 +250,7 @@ export default function VendorPayoutsPage() {
                                         </span>
                                     </div>
                                     <p className="text-xs text-ink-tertiary mt-0.5">
-                                        via <span className="font-bold">{req.payout_method.replace('_', ' ')}</span> · {timeAgo(req.created_at)}
+                                        via <span className="font-bold">{req.payout_method.replace('_', ' ')}</span> . {timeAgo(req.created_at)}
                                     </p>
                                     {req.rejection_reason && (
                                         <p className="text-xs text-[#e11d48] mt-0.5">Reason: {req.rejection_reason}</p>
@@ -267,7 +267,7 @@ export default function VendorPayoutsPage() {
                 )}
             </div>
 
-            {/* Transaction History */}
+            
             <div className="bg-surface-elevated rounded-3xl border border-border-primary shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-border-primary flex items-center justify-between">
                     <h2 className="font-black text-ink-primary">Transaction History</h2>
@@ -301,7 +301,7 @@ export default function VendorPayoutsPage() {
                 )}
             </div>
 
-            {/* Request Payout Modal */}
+            
             {showPayoutModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div

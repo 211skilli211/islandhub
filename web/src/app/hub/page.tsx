@@ -17,7 +17,7 @@ const hubCategories = Object.values(HUB_CONFIGS).map((cfg) => ({
 export default function HubRootPage() {
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Compact hero */}
+      
       <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-10 md:py-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-5xl font-black text-white mb-2">
@@ -29,7 +29,7 @@ export default function HubRootPage() {
         </div>
       </section>
 
-      {/* Category Grid — 2-col mobile, 4-col desktop */}
+      
       <section className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {hubCategories.map((cat, i) => (

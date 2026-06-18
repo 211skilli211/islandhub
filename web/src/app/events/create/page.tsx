@@ -180,7 +180,7 @@ export default function CreateEventPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
-      {/* Header */}
+      
       <div className="bg-gradient-to-r from-teal-800 to-teal-900 text-white">
         <div className="max-w-3xl mx-auto px-4 py-10">
           <button onClick={() => router.back()} className="text-teal-200 hover:text-white text-sm mb-4 flex items-center gap-1">
@@ -192,7 +192,7 @@ export default function CreateEventPage() {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-8">
-        {/* Step indicator */}
+        
         <div className="flex items-center gap-3 mb-8">
           {[1, 2, 3].map(s => (
             <button
@@ -214,7 +214,7 @@ export default function CreateEventPage() {
           ))}
         </div>
 
-        {/* Step 1: Event Details */}
+        
         {step === 1 && (
           <div className="space-y-6">
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 border border-border-primary dark:border-ocean-700 space-y-5">
@@ -289,11 +289,11 @@ export default function CreateEventPage() {
                 </div>
               </div>
 
-              {/* Image Uploads */}
+              
               <div className="border-t border-border-primary dark:border-ocean-700 pt-5">
                 <h3 className="text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-3">Event Images</h3>
 
-                {/* Cover Image */}
+                
                 <div className="mb-4">
                   <label className="block text-xs font-bold text-ink-tertiary mb-1">Cover Image</label>
                   <input ref={coverInputRef} type="file" accept="image/*" onChange={handleCoverSelect} className="hidden" />
@@ -313,7 +313,7 @@ export default function CreateEventPage() {
                   )}
                 </div>
 
-                {/* Banner Image */}
+                
                 <div>
                   <label className="block text-xs font-bold text-ink-tertiary mb-1">Banner Image</label>
                   <input ref={bannerInputRef} type="file" accept="image/*" onChange={handleBannerSelect} className="hidden" />
@@ -342,7 +342,7 @@ export default function CreateEventPage() {
           </div>
         )}
 
-        {/* Step 2: Ticket Tiers */}
+        
         {step === 2 && (
           <div className="space-y-6">
             <div className="space-y-4">
@@ -417,13 +417,13 @@ export default function CreateEventPage() {
           </div>
         )}
 
-        {/* Step 3: Review & Publish */}
+        
         {step === 3 && (
           <div className="space-y-6">
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 border border-border-primary dark:border-ocean-700 space-y-5">
               <h2 className="text-lg font-black text-ink-primary dark:text-sand-50">Review & Publish</h2>
 
-              {/* Image previews */}
+              
               {(coverImagePreview || bannerImagePreview) && (
                 <div className="space-y-2">
                   {coverImagePreview && (

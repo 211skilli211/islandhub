@@ -117,7 +117,7 @@ export default function OverviewPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-ink-primary">Dashboard Overview</h1>
@@ -140,7 +140,7 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* KPI Cards — 4 cols on desktop, 2 on mobile */}
+      
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Total Revenue" value="$18,420" change="+12.5% vs last" trend="up" color="bg-accent-500/10 text-accent-500" icon={<DollarSign size={16} />} href="/admin/revenue" />
         <StatCard label="Total Orders" value="1,284" change="+8.2% vs last" trend="up" color="bg-sky-500/10 text-sky-500" icon={<ShoppingCart size={16} />} href="/admin/orders" />
@@ -148,9 +148,9 @@ export default function OverviewPage() {
         <StatCard label="Active Users" value="892" change="+3.1% vs last" trend="up" color="bg-emerald-500/10 text-emerald-500" icon={<Users size={16} />} href="/admin/users" />
       </div>
 
-      {/* Main Grid: Charts + Quick Actions */}
+      
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Revenue Chart */}
+        
         <div className="lg:col-span-2 bg-surface-elevated rounded-xl border border-border-primary p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xs font-semibold text-ink-primary">Revenue Overview</h2>
@@ -162,7 +162,7 @@ export default function OverviewPage() {
           <RevenueChart period={chartPeriod} />
         </div>
 
-        {/* Category Breakdown */}
+        
         <div className="bg-surface-elevated rounded-xl border border-border-primary p-4">
           <h2 className="text-xs font-semibold text-ink-primary mb-3">Stores by Category</h2>
           <DonutChart segments={[
@@ -174,9 +174,9 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* Quick Actions Row */}
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Broadcast */}
+        
         <div className="bg-surface-elevated rounded-xl border border-border-primary p-4">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-7 h-7 rounded-lg bg-accent-500/10 text-accent-500 flex items-center justify-center"><Radio size={14} /></div>
@@ -189,7 +189,7 @@ export default function OverviewPage() {
           </div>
         </div>
 
-        {/* Ads */}
+        
         <div className="bg-surface-elevated rounded-xl border border-border-primary p-4">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center"><Megaphone size={14} /></div>
@@ -202,7 +202,7 @@ export default function OverviewPage() {
           </div>
         </div>
 
-        {/* System Health */}
+        
         <div className="bg-surface-elevated rounded-xl border border-border-primary p-4">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center"><Activity size={14} /></div>
@@ -233,9 +233,9 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* Bottom Grid: Top Stores + Recent Activity */}
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Top Stores */}
+        
         <div className="bg-surface-elevated rounded-xl border border-border-primary">
           <div className="flex items-center justify-between p-4 pb-2">
             <h2 className="text-xs font-semibold text-ink-primary">Top Performing Stores</h2>
@@ -279,7 +279,7 @@ export default function OverviewPage() {
           </div>
         </div>
 
-        {/* Recent Activity */}
+        
         <div className="bg-surface-elevated rounded-xl border border-border-primary">
           <div className="flex items-center justify-between p-4 pb-2">
             <h2 className="text-xs font-semibold text-ink-primary">Recent Activity</h2>

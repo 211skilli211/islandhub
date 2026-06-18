@@ -292,7 +292,7 @@ function SettingsContent() {
                     <AnimatePresence mode="wait">
                         <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
                                 
-                                {/* ACCOUNT */}
+                                
                                 {activeTab === 'account' && (
                                     <div className="space-y-6 max-w-2xl">
                                         <div>
@@ -341,7 +341,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* NOTIFICATIONS */}
+                                
                                 {activeTab === 'notifications' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
@@ -413,7 +413,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* PRIVACY */}
+                                
                                 {activeTab === 'privacy' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
@@ -444,7 +444,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* SECURITY */}
+                                
                                 {activeTab === 'security' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
@@ -578,7 +578,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* CONNECTED */}
+                                
                                 {activeTab === 'connected' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
@@ -617,7 +617,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* APPEARANCE */}
+                                
                                 {activeTab === 'appearance' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
@@ -649,7 +649,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* LANGUAGE */}
+                                
                                 {activeTab === 'language' && (
                                     <div className="space-y-8 max-w-2xl">
                                         <div>
@@ -686,7 +686,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* VENDOR */}
+                                
                                 {activeTab === 'vendor' && user?.role !== 'user' && (
                                     <div className="space-y-8">
                                         <div>
@@ -724,7 +724,7 @@ function SettingsContent() {
                                     </div>
                                 )}
 
-                                {/* MEDIA LIBRARY */}
+                                
                                 {activeTab === 'media-library' && (
                                     <div className="space-y-8">
                                         <div>

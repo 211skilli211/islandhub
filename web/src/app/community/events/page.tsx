@@ -231,7 +231,7 @@ export default function EventsPage() {
             </HeroBackground>
 
             <section className="max-w-7xl mx-auto px-4 py-12">
-                {/* Search and Create */}
+                
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                     <div className="relative flex-1 max-w-md">
                         <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-tertiary" />
@@ -251,7 +251,7 @@ export default function EventsPage() {
                     </button>
                 </div>
 
-                {/* Filter Tabs */}
+                
                 <div className="flex gap-2 overflow-x-auto pb-2 mb-8 scrollbar-hide">
                     {(['upcoming', 'ongoing', 'past', 'all'] as FilterType[]).map(f => (
                         <button
@@ -267,7 +267,7 @@ export default function EventsPage() {
                     ))}
                 </div>
 
-                {/* Events List */}
+                
                 {isLoading ? (
                     <div className="space-y-6">
                         {[1, 2, 3].map(i => (
@@ -291,7 +291,7 @@ export default function EventsPage() {
                                 transition={{ delay: index * 0.05 }}
                                 className="bg-surface-elevated rounded-[3rem] overflow-hidden border border-border-primary hover:shadow-2xl hover:shadow-teal-500/10 transition-all flex flex-col md:flex-row"
                             >
-                                {/* Date Box */}
+                                
                                 <div className="md:w-48 bg-gradient-to-br from-teal-400 to-teal-600 p-6 flex flex-col items-center justify-center text-white">
                                     <span className="text-4xl mb-2">{getCategoryIcon(event.category)}</span>
                                     <span className="font-black text-lg uppercase tracking-wider">
@@ -302,7 +302,7 @@ export default function EventsPage() {
                                     </span>
                                 </div>
 
-                                {/* Content */}
+                                
                                 <div className="flex-1 p-8">
                                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                                         <div className="flex-1">
@@ -335,7 +335,7 @@ export default function EventsPage() {
                                             </div>
                                         </div>
 
-                                        {/* Actions */}
+                                        
                                         <div className="flex flex-col gap-3">
                                             {event.user_rsvp ? (
                                                 <div className="text-center">

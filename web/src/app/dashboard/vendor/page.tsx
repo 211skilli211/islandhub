@@ -100,7 +100,7 @@ export default function VendorDashboard() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Recent Orders */}
+            
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700">
               <div className="flex items-center justify-between p-4 border-b border-border-primary dark:border-ocean-700">
                 <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50">Recent Orders</h2>
@@ -113,7 +113,7 @@ export default function VendorDashboard() {
                   <div key={o.id} className="flex items-center justify-between px-4 py-3">
                     <div>
                       <p className="text-sm font-medium text-ink-primary dark:text-sand-50">{o.id}</p>
-                      <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{o.customer} · {o.items} item{o.items > 1 ? 's' : ''}</p>
+                      <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{o.customer} . {o.items} item{o.items > 1 ? 's' : ''}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium text-ink-primary dark:text-sand-50">${o.total.toFixed(2)}</p>
@@ -124,7 +124,7 @@ export default function VendorDashboard() {
               </div>
             </div>
 
-            {/* Top Products */}
+            
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary dark:border-ocean-700">
               <div className="flex items-center justify-between p-4 border-b border-border-primary dark:border-ocean-700">
                 <h2 className="text-sm font-semibold text-ink-primary dark:text-sand-50">Top Products</h2>
@@ -137,7 +137,7 @@ export default function VendorDashboard() {
                   <div key={p.id} className="flex items-center justify-between px-4 py-3">
                     <div className="min-w-0 mr-3">
                       <p className="text-sm font-medium text-ink-primary dark:text-sand-50 truncate">{p.name}</p>
-                      <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{p.sku} · Stock: {p.stock}</p>
+                      <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{p.sku} . Stock: {p.stock}</p>
                     </div>
                     <span className="text-sm font-semibold text-ink-primary dark:text-sand-50 flex-shrink-0">${p.price.toFixed(2)}</span>
                   </div>
@@ -153,7 +153,7 @@ export default function VendorDashboard() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
               <h1 className="text-xl font-bold text-ink-primary dark:text-sand-50">Products</h1>
-              <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">{products.length} products · {products.filter(p => p.status === 'active').length} active</p>
+              <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mt-1">{products.length} products . {products.filter(p => p.status === 'active').length} active</p>
             </div>
             <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-ocean-500 hover:bg-ocean-400 text-white text-sm font-semibold rounded-xl transition-colors self-start">
               <Plus size={16} /> Add Product
@@ -353,7 +353,7 @@ export default function VendorDashboard() {
                 <div key={i} className="flex items-center justify-between px-5 py-3">
                   <div>
                     <p className="text-sm font-medium text-ink-primary dark:text-sand-50">${p.amount.toFixed(2)}</p>
-                    <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{p.date} · Bank Transfer</p>
+                    <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{p.date} . Bank Transfer</p>
                   </div>
                   <StatusBadge status={p.status} />
                 </div>

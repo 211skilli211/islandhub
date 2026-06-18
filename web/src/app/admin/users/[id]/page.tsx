@@ -83,7 +83,7 @@ export default function UserDetailPage() {
     return (
         <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary py-8 px-4">
             <div className="max-w-3xl mx-auto">
-                {/* Back Button */}
+                
                 <button
                     onClick={() => router.push('/admin/users')}
                     className="flex items-center gap-2 text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary font-bold mb-6 transition-colors"
@@ -92,9 +92,9 @@ export default function UserDetailPage() {
                     <span>Back to Users</span>
                 </button>
 
-                {/* Main Card */}
+                
                 <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg overflow-hidden">
-                    {/* Header */}
+                    
                     <div className="bg-gradient-to-r from-ink-900 to-ink-800 dark:from-ink-950 dark:to-ink-900 text-white p-6 flex items-center gap-4">
                         <div className="h-16 w-16 bg-accent-500/100 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
                             {userData.name?.charAt(0)?.toUpperCase() || 'U'}
@@ -117,7 +117,7 @@ export default function UserDetailPage() {
                         </div>
                     </div>
 
-                    {/* Content */}
+                    
                     <div className="p-6 space-y-6">
                         <div className="grid grid-cols-2 gap-6">
                             <div className="p-4 bg-surface-primary dark:bg-surface-tertiary/50 rounded-xl border border-border-primary dark:border-border-primary">

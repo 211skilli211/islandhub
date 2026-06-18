@@ -96,7 +96,7 @@ export default function GroupsPage() {
             </HeroBackground>
 
             <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-                {/* Toolbar */}
+                
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div className="flex gap-2 overflow-x-auto pb-2 w-full sm:w-auto scrollbar-hide">
                         {categories.map(cat => (
@@ -112,7 +112,7 @@ export default function GroupsPage() {
                     </button>
                 </div>
 
-                {/* Groups Grid */}
+                
                 {isLoading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {[1,2,3,4,5,6].map(i => <div key={i} className="h-64 bg-surface-secondary animate-pulse rounded-2xl" />)}
@@ -122,7 +122,7 @@ export default function GroupsPage() {
                         {filteredGroups.map((group, idx) => (
                             <motion.div key={group.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}>
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all group h-full flex flex-col">
-                                    {/* Cover */}
+                                    
                                     <div className="h-32 bg-gradient-to-br from-teal-400 via-cyan-400 to-teal-500 relative overflow-hidden">
                                         {group.cover_image_url ? (
                                             <img src={group.cover_image_url} alt="" className="w-full h-full object-cover" />
@@ -141,7 +141,7 @@ export default function GroupsPage() {
                                         </div>
                                     </div>
 
-                                    {/* Content */}
+                                    
                                     <div className="p-5 flex-1 flex flex-col">
                                         <h3 className="text-base font-black text-ink-primary mb-1.5 group-hover:text-accent-400 transition-colors">{group.name}</h3>
                                         <p className="text-xs text-ink-tertiary line-clamp-2 mb-4 flex-1">{group.description}</p>

@@ -340,7 +340,7 @@ export default function CreatePage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Step 1: Product Type Selection (for type=product) */}
+            
             {step === 'productType' && (
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <div className="text-center mb-16">
@@ -367,7 +367,7 @@ export default function CreatePage() {
                             </button>
                         ))}
 
-                        {/* Custom Type Option */}
+                        
                         <button
                             onClick={() => handleProductTypeSelect(PRODUCT_TYPES.find(t => t.type_key === 'custom')!)}
                             className="group relative bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2.5rem] shadow-xl shadow-amber-200/50 hover:shadow-2xl hover:shadow-amber-100/50 transition-all hover:-translate-y-2 border-2 border-sand-500/20 hover:border-amber-300 text-left"
@@ -385,7 +385,7 @@ export default function CreatePage() {
                 </div>
             )}
 
-            {/* Step 2: Custom Type Form */}
+            
             {step === 'custom' && productType?.type_key === 'custom' && (
                 <div className="max-w-2xl mx-auto px-4 py-20 animate-in fade-in slide-in-from-bottom-8 duration-500">
                     <button
@@ -466,7 +466,7 @@ export default function CreatePage() {
                 </div>
             )}
 
-            {/* Step 1: Generic Category Selection (when not product type flow) */}
+            
             {step === 'category' && creationType !== 'product' && (
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <div className="text-center mb-16">
@@ -497,7 +497,7 @@ export default function CreatePage() {
                 </div>
             )}
 
-            {/* Step 3: Category Selection (after product type) */}
+            
             {step === 'form' && productType && !selectedCategory && (
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <button
@@ -511,7 +511,7 @@ export default function CreatePage() {
                         <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
                             <span className="text-2xl">🏪</span>
                             <span className="font-bold text-accent-500">Adding to: {storeName}</span>
-                            <span className="text-accent-400">•</span>
+                            <span className="text-accent-400">-</span>
                             <span className="text-lg">{productType.icon}</span>
                             <span className="font-bold text-accent-500">{productType.display_name}</span>
                         </div>
@@ -538,7 +538,7 @@ export default function CreatePage() {
                 </div>
             )}
 
-            {/* Step 4: Details Form */}
+            
             {step === 'form' && selectedCategory && (
                 <div className="max-w-4xl mx-auto px-4 py-20 animate-in fade-in slide-in-from-bottom-8 duration-500">
                     <button
@@ -559,12 +559,12 @@ export default function CreatePage() {
                                         Category: {selectedCategory.display_name}
                                         {productType && (
                                             <span className="ml-2">
-                                                • {productType.icon} {productType.display_name}
+                                                - {productType.icon} {productType.display_name}
                                             </span>
                                         )}
                                         {formData.metadata?.custom_type_status === 'pending_verification' && (
                                             <span className="ml-2 text-sand-500">
-                                                • ⏳ Custom Type Pending
+                                                - ⏳ Custom Type Pending
                                             </span>
                                         )}
                                     </p>
@@ -575,7 +575,7 @@ export default function CreatePage() {
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-10">
-                                {/* Base Details */}
+                                
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="md:col-span-2 space-y-2">
                                         <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">Listing Title</label>
@@ -603,7 +603,7 @@ export default function CreatePage() {
                                         />
                                     </div>
 
-                                    {/* Store Selection (Only if multiple stores exist) */}
+                                    
                                     {stores.length > 1 && (
                                         <div className="md:col-span-2 space-y-2">
                                             <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
@@ -629,7 +629,7 @@ export default function CreatePage() {
                                         </div>
                                     )}
 
-                                    {/* Subtype Selection */}
+                                    
                                     <div className="space-y-2">
                                         <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
                                             Specific Type
@@ -656,7 +656,7 @@ export default function CreatePage() {
                                         )}
                                     </div>
 
-                                    {/* Service Type Multi-Select */}
+                                    
                                     {selectedCategory?.layout_type === 'service' && !selectedCategory?.category_key?.includes('food') ? (
                                         <div className="md:col-span-2 space-y-2">
                                             <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
@@ -717,11 +717,9 @@ export default function CreatePage() {
                                     </div>
                                 </div>
 
-                                {/* ============================================
-                                    TYPE-SPECIFIC FIELDS
-                                    ============================================ */}
+                                
 
-                                {/* PROFESSIONAL SERVICES FIELDS */}
+                                
                                 {selectedCategory?.layout_type === 'service' && !selectedCategory?.category_key?.includes('food') && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
@@ -818,7 +816,7 @@ export default function CreatePage() {
                                                     <option value="custom">Custom Quote</option>
                                                 </select>
                                             </div>
-                                            {/* Show provider name field only for individual providers */}
+                                            
                                             {metadata.provider_type === 'individual' && (
                                                 <div className="space-y-2">
                                                     <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
@@ -837,7 +835,7 @@ export default function CreatePage() {
                                     </div>
                                 )}
 
-                                {/* FOOD SERVICE FIELDS */}
+                                
                                 {selectedCategory?.layout_type === 'service' && selectedCategory?.category_key?.includes('food') && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
@@ -969,7 +967,7 @@ export default function CreatePage() {
                                     </div>
                                 )}
 
-                                {/* RENTAL FIELDS (rentals have layout_type=service but rental category_key) */}
+                                
                                 {(selectedCategory?.layout_type === 'service' && selectedCategory?.category_key?.includes('rental')) && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
@@ -977,7 +975,7 @@ export default function CreatePage() {
                                             <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Rental Details</h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            {/* Vehicle-specific for vehicle rentals */}
+                                            
                                             {selectedCategory?.category_key?.includes('vehicle') && (
                                                 <div className="space-y-2">
                                                     <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
@@ -1001,7 +999,7 @@ export default function CreatePage() {
                                                     </select>
                                                 </div>
                                             )}
-                                            {/* Property-specific for property rentals */}
+                                            
                                             {selectedCategory?.category_key?.includes('property') && (
                                                 <>
                                                     <div className="space-y-2">
@@ -1073,7 +1071,7 @@ export default function CreatePage() {
                                                     </div>
                                                 </>
                                             )}
-                                            {/* Equipment-specific for equipment rentals */}
+                                            
                                             {selectedCategory?.category_key?.includes('equipment') && (
                                                 <div className="space-y-2">
                                                     <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
@@ -1096,7 +1094,7 @@ export default function CreatePage() {
                                                     </select>
                                                 </div>
                                             )}
-                                            {/* Boat-specific for boat rentals */}
+                                            
                                             {selectedCategory?.category_key?.includes('boat') && (
                                                 <div className="space-y-2">
                                                     <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary ml-4">
@@ -1194,7 +1192,7 @@ export default function CreatePage() {
                                     </div>
                                 )}
 
-                                {/* TOUR FIELDS (tours have layout_type=service but tour category_key) */}
+                                
                                 {(selectedCategory?.layout_type === 'service' && selectedCategory?.category_key?.includes('tour')) && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
@@ -1347,7 +1345,7 @@ export default function CreatePage() {
                                     </div>
                                 )}
 
-                                {/* DIGITAL PRODUCT FIELDS */}
+                                
                                 {selectedCategory?.layout_type === 'digital' && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
@@ -1419,7 +1417,7 @@ export default function CreatePage() {
                                     </div>
                                 )}
 
-                                {/* PHYSICAL PRODUCT FIELDS */}
+                                
                                 {selectedCategory?.layout_type === 'product' && (
                                     <div className="md:col-span-2">
                                         <div className="flex items-center gap-4 mb-6">
@@ -1529,7 +1527,7 @@ export default function CreatePage() {
                                     />
                                 )}
 
-                                {/* Media Section */}
+                                
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-4 mb-2">
                                         <div className="w-2 h-8 bg-blue-500 rounded-full" />

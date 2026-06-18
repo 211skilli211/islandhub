@@ -39,7 +39,7 @@ export default function VendorProfilePage() {
 
     return (
         <div className="min-h-screen bg-surface-primary">
-            {/* Store Banner */}
+            
             <div
                 className="h-64 bg-surface-tertiary relative overflow-hidden bg-cover bg-center"
                 style={vendor.banner_url ? { backgroundImage: `url(${getImageUrl(vendor.banner_url)})` } : {}}
@@ -82,7 +82,7 @@ export default function VendorProfilePage() {
                     </div>
                 </div>
 
-                {/* Store Content */}
+                
                 <div className="py-12">
                     <h2 className="text-2xl font-black text-ink-primary mb-8 flex items-center gap-3">
                         Listing Showcase

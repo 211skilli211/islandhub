@@ -59,7 +59,7 @@ export default function AdminCampaignsPage() {
 
     return (
         <div className="space-y-6">
-            {/* Modal */}
+            
             {showCreateCampaign && (
                 <CreateCampaignModal 
                     onClose={() => setShowCreateCampaign(false)} 
@@ -67,7 +67,7 @@ export default function AdminCampaignsPage() {
                 />
             )}
 
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary dark:text-white">Campaigns</h2>
@@ -81,7 +81,7 @@ export default function AdminCampaignsPage() {
                 </button>
             </div>
 
-            {/* Table */}
+            
             <AdminTable<any>
                 key={`campaigns-${refreshKey}`}
                 endpoint="/admin/campaigns"

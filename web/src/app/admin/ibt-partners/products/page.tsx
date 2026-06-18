@@ -177,7 +177,7 @@ function ProductsContent() {
                 </button>
             </div>
 
-            {/* Store Filter */}
+            
             <div className="flex items-center gap-2 overflow-x-auto pb-1">
                 <button
                     onClick={() => setSelectedStore('all')}
@@ -203,7 +203,7 @@ function ProductsContent() {
                 })}
             </div>
 
-            {/* Product Form Modal */}
+            
             {showForm && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
                     <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
@@ -299,7 +299,7 @@ function ProductsContent() {
                 </div>
             )}
 
-            {/* Products Grid */}
+            
             {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[1, 2, 3, 4, 5, 6].map(i => (
@@ -337,7 +337,7 @@ function ProductsContent() {
                                     <h3 className="font-bold text-ink-primary dark:text-white text-sm line-clamp-1">{product.title}</h3>
                                     <span className="text-sm font-black text-accent-400">${Number(product.price).toFixed(2)}</span>
                                 </div>
-                                <p className="text-[10px] text-ink-tertiary mb-3">{getStoreName(product.store_id)} • {product.category}</p>
+                                <p className="text-[10px] text-ink-tertiary mb-3">{getStoreName(product.store_id)} - {product.category}</p>
                                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary line-clamp-2 mb-3 min-h-[2rem]">{product.description}</p>
                                 <div className="flex items-center gap-2">
                                     <a

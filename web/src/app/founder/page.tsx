@@ -12,25 +12,25 @@ const experience = [
   {
     title: 'Creative Designer',
     period: '13 Years',
-    org: 'Freelance · Carib Craft and Graphics',
+    org: 'Freelance . Carib Craft and Graphics',
     desc: 'Professional graphic design, branding, and visual identity for clients across the Caribbean and internationally.',
   },
   {
     title: 'App Developer',
     period: '5+ Years',
-    org: 'Flutter · Dart · Java',
+    org: 'Flutter . Dart . Java',
     desc: 'Cross-platform mobile applications from concept to deployment — UX-focused, performant, scalable.',
   },
   {
     title: '3D Designer & Architect',
     period: 'Ongoing',
-    org: '3D Modeling · Rendering · Spatial Design',
+    org: '3D Modeling . Rendering . Spatial Design',
     desc: '3D visualizations, architectural renderings, and spatial designs for residential and commercial projects.',
   },
   {
     title: 'Technical Builder',
     period: '10 Years',
-    org: 'Dominica · Painting & Construction',
+    org: 'Dominica . Painting & Construction',
     desc: 'Hands-on project management, materials, and structural design across residential and commercial builds.',
   },
 ];
@@ -60,7 +60,7 @@ export default function FounderPage() {
           <div className="text-center md:text-left">
             <h1 className="text-3xl font-bold md:text-4xl">N. J. Robin</h1>
             <p className="mt-2 text-lg text-accent-500">Founder & Creative Technologist</p>
-            <p className="mt-1 text-ink-tertiary">Graphic Designer · App Developer · 3D Designer</p>
+            <p className="mt-1 text-ink-tertiary">Graphic Designer . App Developer . 3D Designer</p>
 
             <div className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
               <a href="tel:+18697639919" className="rounded-lg border border-border-primary bg-surface-elevated px-3 py-1.5 text-sm text-ink-secondary transition-colors hover:border-accent-500/30 hover:text-ink-primary">

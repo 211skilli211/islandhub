@@ -110,7 +110,7 @@ export default function TrackRidePage() {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* Live Map */}
+      
       <div className="h-[50vh] relative">
         <LiveTrackingMap
           pickup={pickup}
@@ -120,23 +120,23 @@ export default function TrackRidePage() {
           height="100%"
           zoom={14}
         />
-        {/* Status badge */}
+        
         {isActive && (
           <div className="absolute top-4 right-4 z-[1000] bg-teal-500 text-white font-bold px-4 py-2 rounded-xl shadow-lg text-sm">
             {STATUS_STEPS[stepIndex]?.icon} {STATUS_STEPS[stepIndex]?.label}
           </div>
         )}
-        {/* Home button */}
+        
         <Link href="/" className="absolute top-4 left-4 z-[1000] flex items-center gap-2 bg-black/70 backdrop-blur-sm px-3 py-2 rounded-lg text-ink-400 hover:text-white transition-colors text-sm">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" /></svg>
           Home
         </Link>
       </div>
 
-      {/* Trip Details */}
+      
       <div className="max-w-2xl mx-auto px-4 -mt-6 relative z-10 pb-8">
         <div className="bg-ink-900/90 backdrop-blur-xl border border-white/5 rounded-2xl p-5 shadow-2xl">
-          {/* Progress */}
+          
           <div className="flex items-center justify-center gap-1 mb-5">
             {STATUS_STEPS.map((step, idx) => (
               <div key={step.key} className="flex items-center">
@@ -146,7 +146,7 @@ export default function TrackRidePage() {
             ))}
           </div>
 
-          {/* Driver info */}
+          
           {trip.driver_name && isActive && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               className="bg-black/40 border border-white/5 rounded-xl p-4 mb-4">
@@ -166,7 +166,7 @@ export default function TrackRidePage() {
             </motion.div>
           )}
 
-          {/* Route */}
+          
           <div className="bg-black/40 border border-white/5 rounded-xl p-4 mb-4">
             <div className="flex items-start gap-3">
               <div className="flex flex-col items-center gap-1 pt-1">
@@ -181,7 +181,7 @@ export default function TrackRidePage() {
             </div>
           </div>
 
-          {/* Fare */}
+          
           {trip.fare_amount != null && (
             <div className="flex items-center justify-between p-3 bg-teal-500/5 border border-teal-500/10 rounded-xl mb-4">
               <span className="text-sm text-ink-400">Estimated fare</span>
@@ -189,7 +189,7 @@ export default function TrackRidePage() {
             </div>
           )}
 
-          {/* Completed state */}
+          
           {trip.status === 'completed' && (
             <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-5 text-center">
               <div className="text-3xl mb-2">🎉</div>
@@ -201,7 +201,7 @@ export default function TrackRidePage() {
             </div>
           )}
 
-          <p className="text-[10px] text-ink-600 text-center mt-3">Auto-refreshing every 8 seconds · Share this link to let others track this ride</p>
+          <p className="text-[10px] text-ink-600 text-center mt-3">Auto-refreshing every 8 seconds . Share this link to let others track this ride</p>
         </div>
       </div>
     </main>

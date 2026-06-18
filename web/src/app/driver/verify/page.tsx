@@ -204,13 +204,13 @@ export default function DriverVerificationPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary pt-4 pb-20">
-      {/* Header */}
+      
       <div className="bg-surface-elevated border-b border-border-primary">
         <div className="max-w-2xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-black text-ink-primary mb-1">Driver Verification</h1>
           <p className="text-sm text-ink-tertiary">Upload the required documents to start accepting trips</p>
 
-          {/* Progress bar */}
+          
           <div className="mt-4">
             <div className="flex justify-between text-xs text-ink-tertiary mb-1">
               <span>{uploadedCount} of {totalRequired} uploaded</span>
@@ -226,7 +226,7 @@ export default function DriverVerificationPage() {
         </div>
       </div>
 
-      {/* Document Upload Steps */}
+      
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
         {VERIFICATION_STEPS.map((step, idx) => {
           const isUploaded = !!files[step.key];
@@ -287,7 +287,7 @@ export default function DriverVerificationPage() {
           );
         })}
 
-        {/* Submit Button */}
+        
         <div className="pt-4">
           <button
             onClick={submitKYC}

@@ -35,19 +35,19 @@ export default function SafetyPage() {
               <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                 <h3 className="text-headline-sm text-ink-primary mb-3">For Buyers</h3>
                 <ul className="space-y-2 text-body-sm text-ink-secondary">
-                  <li>• All vendors are verified before listing</li>
-                  <li>• Secure payment processing</li>
-                  <li>• Dispute resolution support</li>
-                  <li>• Review system for transparency</li>
+                  <li>- All vendors are verified before listing</li>
+                  <li>- Secure payment processing</li>
+                  <li>- Dispute resolution support</li>
+                  <li>- Review system for transparency</li>
                 </ul>
               </div>
               <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                 <h3 className="text-headline-sm text-ink-primary mb-3">For Vendors</h3>
                 <ul className="space-y-2 text-body-sm text-ink-secondary">
-                  <li>• Secure payout system</li>
-                  <li>• Fraud protection</li>
-                  <li>• Verified customer transactions</li>
-                  <li>• 24/7 support access</li>
+                  <li>- Secure payout system</li>
+                  <li>- Fraud protection</li>
+                  <li>- Verified customer transactions</li>
+                  <li>- 24/7 support access</li>
                 </ul>
               </div>
             </div>

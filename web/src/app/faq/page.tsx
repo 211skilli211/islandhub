@@ -133,7 +133,7 @@ export default function FAQPage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Hero */}
+            
             <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-ink-900 py-24 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-500/100/10 rounded-full blur-[100px]" />
                 <div className="max-w-3xl mx-auto text-center relative z-10">
@@ -145,7 +145,7 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            {/* Search */}
+            
             <section className="max-w-2xl mx-auto px-4 -mt-8 relative z-20">
                 <div className="bg-surface-elevated p-2 rounded-[2rem] shadow-2xl flex items-center gap-4">
                     <span className="pl-6 text-2xl">🔍</span>
@@ -157,10 +157,10 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            {/* FAQ Content */}
+            
             <section className="max-w-6xl mx-auto px-4 py-20">
                 <div className="grid md:grid-cols-4 gap-8">
-                    {/* Sidebar */}
+                    
                     <div className="md:col-span-1">
                         <div className="bg-surface-elevated rounded-[3rem] p-6 shadow-lg border border-border-primary sticky top-8">
                             <h3 className="font-black text-ink-primary mb-6 uppercase text-xs tracking-widest">Categories</h3>
@@ -182,7 +182,7 @@ export default function FAQPage() {
                         </div>
                     </div>
 
-                    {/* Questions */}
+                    
                     <div className="md:col-span-3">
                         <div className="bg-surface-elevated rounded-[3rem] p-10 shadow-lg border border-border-primary">
                             <h2 className="text-2xl font-black text-ink-primary mb-8 flex items-center gap-3">
@@ -213,7 +213,7 @@ export default function FAQPage() {
                             </div>
                         </div>
 
-                        {/* Still Need Help */}
+                        
                         <div className="mt-10 bg-accent-800 rounded-[3rem] p-10 text-center text-white">
                             <h3 className="text-2xl font-black mb-4">Still have questions?</h3>
                             <p className="text-accent-100 mb-8 max-w-lg mx-auto">Our team is here to help you succeed. Reach out and we'll get back to you within 24 hours.</p>

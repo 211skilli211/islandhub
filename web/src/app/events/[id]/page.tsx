@@ -69,7 +69,7 @@ export default function EventDetailPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary dark:bg-ocean-900">
-      {/* Banner */}
+      
       <div className="relative h-64 sm:h-96 overflow-hidden">
         {(event.banner_url || event.image_url) ? (
           <Image
@@ -92,9 +92,9 @@ export default function EventDetailPage() {
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
+          
           <div className="lg:col-span-2 space-y-6">
-            {/* Info Cards */}
+            
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
                 <p className="text-2xl mb-1">📅</p>
@@ -113,20 +113,20 @@ export default function EventDetailPage() {
               </div>
             </div>
 
-            {/* Description */}
+            
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 border border-border-primary dark:border-ocean-700">
               <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-3">About This Event</h2>
               <p className="text-ink-secondary dark:text-ink-tertiary leading-relaxed whitespace-pre-wrap">{event.description}</p>
             </div>
 
-            {/* Organizer */}
+            
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 border border-border-primary dark:border-ocean-700">
               <h2 className="text-xl font-black text-ink-primary dark:text-sand-50 mb-3">Organizer</h2>
               <p className="text-ink-secondary dark:text-ink-tertiary">{event.organizer_name}</p>
             </div>
           </div>
 
-          {/* Ticket Sidebar */}
+          
           <div className="lg:col-span-1">
             <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 border border-border-primary dark:border-ocean-700 sticky top-24">
               <h3 className="text-lg font-black text-ink-primary dark:text-sand-50 mb-4">Select Tickets</h3>
@@ -185,7 +185,7 @@ export default function EventDetailPage() {
                     </button>
                   )}
 
-                  {/* Capacity bar */}
+                  
                   <div className="pt-4 border-t border-border-primary dark:border-ocean-700">
                     <div className="flex justify-between text-xs text-ink-tertiary mb-1">
                       <span>{event.tickets_sold} sold</span>
@@ -207,7 +207,7 @@ export default function EventDetailPage() {
         </div>
       </div>
 
-      {/* Purchase Confirmation Modal */}
+      
       {showConfirm && tier && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl p-6 max-w-md w-full border border-border-primary dark:border-ocean-700">

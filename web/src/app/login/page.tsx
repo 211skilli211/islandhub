@@ -134,8 +134,8 @@ export default function LoginPage() {
                                     {loading ? 'Signing in...' : 'Sign in'}
                                 </button>
 
-                                {/* Google Auth temporarily disabled */}
-                                {/* Will be re-enabled once OAuth credentials are configured */}
+                                
+                                
                             </div>
                         </form>
                     </div>

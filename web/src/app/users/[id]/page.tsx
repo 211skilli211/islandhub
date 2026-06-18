@@ -89,7 +89,7 @@ function PublicProfileContent() {
 
     return (
         <div className="min-h-screen bg-surface-primary">
-            {/* Banner */}
+            
             <div
                 className="relative h-48 sm:h-56 md:h-72 overflow-hidden"
                 style={{ backgroundColor: profile.banner_color || '#0d9488' }}
@@ -100,10 +100,10 @@ function PublicProfileContent() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
             </div>
 
-            {/* Profile Header */}
+            
             <div className="max-w-4xl mx-auto px-4 sm:px-6 -mt-16 relative z-10">
                 <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 mb-6">
-                    {/* Avatar */}
+                    
                     <div className="relative">
                         <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-4 border-white shadow-xl overflow-hidden bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
                             {(profile.profile_photo_url || profile.avatar_url) ? (
@@ -121,7 +121,7 @@ function PublicProfileContent() {
                         )}
                     </div>
 
-                    {/* Name & Meta */}
+                    
                     <div className="flex-1 text-center sm:text-left min-w-0">
                         <h1 className="text-2xl sm:text-3xl font-black text-ink-primary truncate">{displayName}</h1>
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-1">
@@ -143,7 +143,7 @@ function PublicProfileContent() {
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
+                    
                     <div className="flex gap-2 shrink-0">
                         <button className="px-5 py-2.5 bg-surface-tertiary text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-surface-tertiary transition-colors flex items-center gap-2">
                             <Mail size={14} />
@@ -155,7 +155,7 @@ function PublicProfileContent() {
                     </div>
                 </div>
 
-                {/* Tabs */}
+                
                 <div className="flex gap-1 p-1 bg-surface-elevated rounded-xl border border-border-primary mb-6">
                     <button
                         onClick={() => setActiveTab('listings')}
@@ -181,7 +181,7 @@ function PublicProfileContent() {
                     </button>
                 </div>
 
-                {/* Content */}
+                
                 <motion.div
                     key={activeTab}
                     initial={{ opacity: 0, y: 10 }}
@@ -209,7 +209,7 @@ function PublicProfileContent() {
                     {activeTab === 'about' && (
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             <div className="lg:col-span-2 space-y-6">
-                                {/* Bio */}
+                                
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                                     <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-4">About</h3>
                                     {profile.bio ? (
@@ -219,7 +219,7 @@ function PublicProfileContent() {
                                     )}
                                 </div>
 
-                                {/* Contact Info */}
+                                
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                                     <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-4">Contact Info</h3>
                                     <div className="space-y-3">
@@ -250,9 +250,9 @@ function PublicProfileContent() {
                                 </div>
                             </div>
 
-                            {/* Sidebar */}
+                            
                             <div className="space-y-6">
-                                {/* Stats */}
+                                
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                                     <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-4">Stats</h3>
                                     <div className="grid grid-cols-2 gap-4">
@@ -277,7 +277,7 @@ function PublicProfileContent() {
                                     </div>
                                 </div>
 
-                                {/* Member Since */}
+                                
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                                     <h3 className="text-sm font-black text-ink-primary uppercase tracking-widest mb-3">Member Since</h3>
                                     <p className="text-sm text-ink-secondary">{memberSince}</p>

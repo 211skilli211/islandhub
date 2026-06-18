@@ -51,10 +51,10 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Fixed top bar */}
+      
       <CommunityTopBar onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-      {/* Sidebar overlay for mobile */}
+      
       {sidebarOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="absolute inset-0 bg-surface-overlay" onClick={() => setSidebarOpen(false)} />
@@ -64,17 +64,17 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
         </div>
       )}
 
-        {/* Spacer for fixed navbar + community top bar */}
+        
         <div className="h-36" />
         
-        {/* Main layout: sidebar + content */}
+        
         <div className="flex">
-        {/* Desktop sidebar — always visible, part of page flow */}
+        
         <aside className="hidden lg:block w-[260px] shrink-0 bg-surface-elevated border-r border-border-primary sticky top-14 h-[calc(100vh-56px)] overflow-y-auto">
           <SidebarContent pathname={pathname} user={user} onLogout={handleLogout} />
         </aside>
 
-        {/* Main content area */}
+        
         <div className="flex-1 min-w-0">
           {children}
         </div>
@@ -91,7 +91,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
 }) {
   return (
     <div className="p-3 space-y-4">
-      {/* User profile */}
+      
       <Link href="/profile" onClick={onClose}
         className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-secondary transition-colors">
         <div className="w-9 h-9 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 overflow-hidden">
@@ -107,7 +107,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
         </div>
       </Link>
 
-      {/* Nav sections */}
+      
       {SIDEBAR_SECTIONS.map((section, sIdx) => (
         <div key={sIdx} className="space-y-0.5">
           {section.items.map(item => {
@@ -126,7 +126,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
         </div>
       ))}
 
-      {/* Shortcuts */}
+      
       <div className="pt-2 border-t border-border-primary">
         <div className="px-3 mb-2 text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Your shortcuts</div>
         <div className="space-y-0.5">
@@ -142,20 +142,20 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
         </div>
       </div>
 
-      {/* Footer links */}
+      
       <div className="pt-2 border-t border-border-primary">
         <div className="flex flex-wrap gap-x-2 gap-y-1 px-3 text-[10px] text-ink-tertiary">
           <Link href="/about" onClick={onClose} className="hover:underline">About</Link>
-          <span>·</span>
+          <span>.</span>
           <Link href="/privacy" onClick={onClose} className="hover:underline">Privacy</Link>
-          <span>·</span>
+          <span>.</span>
           <Link href="/terms" onClick={onClose} className="hover:underline">Terms</Link>
-          <span>·</span>
+          <span>.</span>
           <Link href="/help" onClick={onClose} className="hover:underline">Help</Link>
         </div>
       </div>
 
-      {/* Logout */}
+      
       <button onClick={onLogout}
         className="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-tertiary hover:bg-surface-secondary hover:text-ink-secondary transition-colors w-full">
         <LogOut size={16} className="shrink-0" />

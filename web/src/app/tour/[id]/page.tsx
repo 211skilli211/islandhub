@@ -71,7 +71,7 @@ export default function TourDetailPage() {
 
     return (
         <main className="min-h-screen bg-surface-elevated">
-            {/* Immersive Header */}
+            
             <section className="relative h-[60vh] flex items-end overflow-hidden bg-surface-tertiary px-6">
                 <HeroBackground
                     pageKey={`tour-detail-${tourId}`}
@@ -99,9 +99,9 @@ export default function TourDetailPage() {
             </section>
 
             <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-3 gap-16">
-                {/* Content Column */}
+                
                 <div className="lg:col-span-2 space-y-12">
-                    {/* About Section */}
+                    
                     <section>
                         <h2 className="text-2xl font-black text-ink-primary uppercase tracking-tight italic mb-6">About the Experience</h2>
                         <div className={`prose prose-slate max-w-none text-ink-tertiary font-medium leading-relaxed italic ${!expandDescription ? 'line-clamp-4' : ''}`}>
@@ -115,9 +115,9 @@ export default function TourDetailPage() {
                         </button>
                     </section>
 
-                    {/* Expandable Meta Sections */}
+                    
                     <div className="space-y-4">
-                        {/* What's Included */}
+                        
                         <div className="border border-border-primary rounded-3xl overflow-hidden bg-surface-primary/50">
                             <button
                                 onClick={() => toggleSection('included')}
@@ -153,7 +153,7 @@ export default function TourDetailPage() {
                             </AnimatePresence>
                         </div>
 
-                        {/* Trip Requirements & Details */}
+                        
                         <div className="border border-border-primary rounded-3xl overflow-hidden bg-surface-primary/50">
                             <button
                                 onClick={() => toggleSection('details')}
@@ -195,7 +195,7 @@ export default function TourDetailPage() {
                         </div>
                     </div>
 
-                    {/* Guide Profile */}
+                    
                     <section className="bg-surface-primary rounded-3xl border border-border-primary overflow-hidden">
                         <div className="p-8">
                             <h2 className="text-lg font-black text-ink-primary uppercase tracking-tight italic mb-6">Your Guide</h2>
@@ -237,7 +237,7 @@ export default function TourDetailPage() {
                         </div>
                     </section>
 
-                    {/* Media Gallery (Compact for now) */}
+                    
                     <section>
                         <h2 className="text-2xl font-black text-ink-primary uppercase tracking-tight italic mb-6">Experience Gallery</h2>
                         <div className="grid grid-cols-2 gap-4">
@@ -250,7 +250,7 @@ export default function TourDetailPage() {
                     </section>
                 </div>
 
-                {/* Booking Sidebar */}
+                
                 <div className="lg:col-span-1">
                     <div className="sticky top-24 bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-2xl shadow-black/10/60">
                         <div className="mb-8">
@@ -286,7 +286,7 @@ export default function TourDetailPage() {
                         >
                             Book Experience ➔
                         </button>
-                        <p className="text-center text-[10px] text-ink-tertiary font-medium italic">Instant confirmation • Mobile tickets accepted</p>
+                        <p className="text-center text-[10px] text-ink-tertiary font-medium italic">Instant confirmation - Mobile tickets accepted</p>
                     </div>
                 </div>
             </div>

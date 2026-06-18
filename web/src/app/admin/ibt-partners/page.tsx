@@ -68,7 +68,7 @@ export default function AdminIBTPartnersPage() {
                 })}
             </div>
 
-            {/* Quick Stats */}
+            
             <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary p-6">
                 <h3 className="text-lg font-bold text-ink-primary dark:text-white mb-4">Partner Stores</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -91,7 +91,7 @@ export default function AdminIBTPartnersPage() {
                 </div>
             </div>
 
-            {/* Recent Activity */}
+            
             <div className="bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary p-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-bold text-ink-primary dark:text-white">Quick Actions</h3>

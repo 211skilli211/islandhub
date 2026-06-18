@@ -9,12 +9,12 @@ function FounderModal({ open, onClose }: { open: boolean; onClose: () => void })
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Overlay */}
+      
       <div className="absolute inset-0 bg-ink-primary/60 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Modal */}
+      
       <div className="relative bg-surface-elevated  rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Close button */}
+        
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-surface-secondary hover:bg-surface-tertiary flex items-center justify-center text-ink-tertiary hover:text-ink-secondary transition-colors"
@@ -22,12 +22,12 @@ function FounderModal({ open, onClose }: { open: boolean; onClose: () => void })
           ✕
         </button>
 
-        {/* Photo header */}
+        
         <div className="aspect-[16/9] rounded-t-3xl overflow-hidden">
           <FounderPhoto className="w-full h-full" />
         </div>
 
-        {/* Content */}
+        
         <div className="p-8">
           <h3 className="text-2xl font-black text-ink-primary mb-1">N. J. Robin</h3>
           <p className="text-lg font-semibold text-accent-400 mb-4">Founder & Creative Technologist</p>
@@ -77,7 +77,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen bg-surface-primary ">
-      {/* Hero Section */}
+      
       <section className="bg-gradient-to-br from-accent-800 via-accent-700 to-surface-tertiary py-32 px-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/100/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-500/10 rounded-full blur-[100px]" />
@@ -95,7 +95,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founder Section — Clickable card that opens modal */}
+      
       <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -105,20 +105,20 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-black text-ink-primary">Meet N. J. Robin</h2>
           </div>
 
-          {/* Clickable founder card */}
+          
           <div
             onClick={() => setFounderModalOpen(true)}
             className="group cursor-pointer bg-surface-elevated rounded-3xl border border-border-primary shadow-lg hover:shadow-2xl hover:border-accent-300 transition-all duration-300 overflow-hidden"
           >
             <div className="grid md:grid-cols-5 gap-6 p-6 md:p-8 items-center">
-              {/* Photo */}
+              
               <div className="md:col-span-2">
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden">
                   <FounderPhoto className="w-full h-full group-hover:scale-105 transition-transform duration-500" />
                 </div>
               </div>
 
-              {/* Info */}
+              
               <div className="md:col-span-3 text-center md:text-left">
                 <h3 className="text-2xl font-black text-ink-primary mb-1 group-hover:text-accent-400 transition-colors">N. J. Robin</h3>
                 <p className="text-lg font-semibold text-accent-400 mb-3">Founder & Creative Technologist</p>
@@ -145,10 +145,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founder Modal */}
+      
       <FounderModal open={founderModalOpen} onClose={() => setFounderModalOpen(false)} />
 
-      {/* Mission Section */}
+      
       <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -191,7 +191,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      
       <section className="py-24 px-4 bg-surface-elevated">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black text-ink-primary mb-16 text-center">Our Values</h2>
@@ -211,7 +211,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What We Offer */}
+      
       <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black text-ink-primary mb-16 text-center">What We Offer</h2>
@@ -236,7 +236,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      
       <section className="bg-accent-500 py-24 px-4 text-center text-white">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black mb-6">Ready to Join the Island Economy?</h2>

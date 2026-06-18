@@ -35,7 +35,7 @@ export default function RentalDetailPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Breadcrumb */}
+      
       <div className="max-w-7xl mx-auto px-4 py-3">
         <nav className="text-xs text-ink-tertiary">
           <Link href="/hub" className="hover:text-ink-primary">Hub</Link>
@@ -48,14 +48,14 @@ export default function RentalDetailPage() {
         </nav>
       </div>
 
-      {/* Image Gallery placeholder */}
+      
       <div className="max-w-7xl mx-auto px-4">
         <div className="aspect-[16/9] bg-gradient-to-br from-teal-800 to-cyan-900 rounded-2xl flex items-center justify-center">
           <span className="text-6xl opacity-50">{category === 'cars' ? '🚗' : category === 'sea' ? '🚤' : category === 'equipment' || category === 'tools' ? '🔧' : '🏠'}</span>
         </div>
       </div>
 
-      {/* Content + Booking */}
+      
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
@@ -83,7 +83,7 @@ export default function RentalDetailPage() {
                 reviewCount={24}
                 urgency={{ type: 'scarcity', value: 'High demand this week' }}
                 cancellationText={`Free cancellation up to 48 hours before${category === 'longterm' ? ' move-in' : ''}`}
-                ctaLabel={`Book ${category === 'longterm' ? 'Viewing' : 'Now'} • From ${config.price}${config.unit}`}
+                ctaLabel={`Book ${category === 'longterm' ? 'Viewing' : 'Now'} - From ${config.price}${config.unit}`}
               />
             </div>
           </div>

@@ -63,7 +63,7 @@ export default function HowItWorksPage() {
 
     return (
         <main className="min-h-screen bg-surface-primary">
-            {/* Hero */}
+            
             <section className="bg-gradient-to-br from-teal-900 via-teal-800 to-ink-900 py-32 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-500/100/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-500/50/10 rounded-full blur-[100px]" />
@@ -81,7 +81,7 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
-            {/* Steps */}
+            
             <section className="max-w-7xl mx-auto px-4 py-24">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {steps.map((step, idx) => (
@@ -112,12 +112,12 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
-            {/* Role-based Flow */}
+            
             <section className="py-24 px-4 bg-surface-elevated">
                 <div className="max-w-5xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-black text-ink-primary mb-12 text-center">Choose Your Journey</h2>
                     
-                    {/* Role Switcher */}
+                    
                     <div className="flex justify-center gap-4 mb-16">
                         {roles.map(role => (
                             <button
@@ -135,7 +135,7 @@ export default function HowItWorksPage() {
                         ))}
                     </div>
 
-                    {/* Flow */}
+                    
                     <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
                         {roleFlows[activeRole as keyof typeof roleFlows].map((item, idx) => (
                             <div key={idx} className="flex-1 flex md:flex-col items-center gap-4 md:gap-0">
@@ -155,7 +155,7 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
-            {/* Trust Signals */}
+            
             <section className="bg-surface-primary py-24">
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <h2 className="text-2xl font-black text-ink-primary mb-12">Trusted by Thousands</h2>
@@ -176,7 +176,7 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
-            {/* CTA */}
+            
             <section className="bg-gradient-to-r from-teal-600 to-emerald-600 py-24 text-center text-white">
                 <div className="max-w-3xl mx-auto px-4">
                     <h2 className="text-3xl md:text-4xl font-black mb-6">Ready to get started?</h2>

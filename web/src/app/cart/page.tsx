@@ -50,7 +50,7 @@ export default function CartPage() {
                     </Link>
                 </div>
 
-                {/* Urgency Banner */}
+                
                 <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl flex items-center gap-3">
                     <span className="text-xl">⚡</span>
                     <p className="text-sm font-bold text-amber-800 dark:text-amber-300">
@@ -59,11 +59,11 @@ export default function CartPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    {/* Items List */}
+                    
                     <div className="lg:col-span-2 space-y-4">
                         {items.map((item) => (
                             <div key={item.item_id} className="bg-surface-elevated p-6 rounded-[2rem] shadow-sm border border-border-primary flex gap-6 items-center">
-                                {/* Thumbnail */}
+                                
                                 <div className="w-24 h-24 rounded-2xl bg-surface-secondary overflow-hidden flex-shrink-0 border border-ink-50 dark:border-ink-800">
                                     {item.image_url ? (
                                         <img
@@ -76,7 +76,7 @@ export default function CartPage() {
                                     )}
                                 </div>
 
-                                {/* Info */}
+                                
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-start mb-2">
                                         <div>
@@ -100,7 +100,7 @@ export default function CartPage() {
                                             {item.type === 'rental' && <span className="text-xs text-ink-tertiary font-normal ml-1">/ day</span>}
                                         </div>
 
-                                        {/* Quantity Controls */}
+                                        
                                         <div className="flex items-center gap-3 bg-surface-primary p-1.5 rounded-xl border border-border-primary">
                                             <button
                                                 onClick={() => updateQuantity(item.item_id, item.quantity - 1)}
@@ -122,7 +122,7 @@ export default function CartPage() {
                         ))}
                     </div>
 
-                    {/* Order Summary */}
+                    
                     <div className="lg:col-span-1">
                         <div className="bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-white sticky top-24">
                             <h2 className="text-2xl font-black text-ink-primary mb-8">Order Summary</h2>

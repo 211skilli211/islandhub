@@ -93,7 +93,7 @@ export default function AdminUsersPage() {
 
     return (
         <div className="space-y-6">
-            {/* Modals */}
+            
             {roleChangeUser && (
                 <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm">
                     <div className="bg-surface-elevated dark:bg-surface-tertiary p-8 rounded-3xl shadow-2xl w-full max-w-md border border-border-primary dark:border-border-primary">
@@ -150,7 +150,7 @@ export default function AdminUsersPage() {
                 />
             )}
 
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary dark:text-white">User Accounts</h2>
@@ -164,7 +164,7 @@ export default function AdminUsersPage() {
                 </button>
             </div>
 
-            {/* Table */}
+            
             <AdminTable<any>
                 key={`users-${refreshKey}`}
                 endpoint="/admin/users"

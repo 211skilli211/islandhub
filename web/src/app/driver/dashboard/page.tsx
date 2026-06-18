@@ -121,7 +121,7 @@ export default function DriverDashboard() {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-sand-50 to-white pb-20">
-            {/* Header */}
+            
             <div className="bg-gradient-to-br from-ink-900 via-ink-800 to-ink-900 text-white p-6 pt-24 pb-8 rounded-b-[3rem] shadow-2xl">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex justify-between items-start mb-6">
@@ -138,7 +138,7 @@ export default function DriverDashboard() {
                         </div>
                     </div>
 
-                    {/* Quick Stats */}
+                    
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
                             <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">Today</p>
@@ -158,7 +158,7 @@ export default function DriverDashboard() {
                         </div>
                     </div>
 
-                    {/* Tab Navigation */}
+                    
                     <div className="mt-6 flex gap-2 p-1 bg-surface-tertiary/50 backdrop-blur-md rounded-2xl border border-white/10">
                         {[
                             { id: 'available', label: 'Available', count: jobs.length, icon: '🎯' },
@@ -185,7 +185,7 @@ export default function DriverDashboard() {
             </div>
 
             <div className="max-w-6xl mx-auto px-4 mt-6 space-y-4">
-                {/* Available Jobs Tab */}
+                
                 {activeTab === 'available' && (
                     <div className="space-y-4">
                         {jobs.length === 0 ? (
@@ -242,7 +242,7 @@ export default function DriverDashboard() {
                     </div>
                 )}
 
-                {/* Active Jobs Tab */}
+                
                 {activeTab === 'active' && (
                     <div className="space-y-4">
                         {activeJobs.length === 0 ? (
@@ -298,7 +298,7 @@ export default function DriverDashboard() {
                     </div>
                 )}
 
-                {/* Earnings Tab */}
+                
                 {activeTab === 'earnings' && (
                     <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -336,14 +336,14 @@ export default function DriverDashboard() {
                     </div>
                 )}
 
-                {/* Vehicles Tab */}
+                
                 {activeTab === 'vehicles' && (
                     <div className="space-y-6">
                         <div className="bg-surface-elevated p-8 rounded-3xl border border-border-primary shadow-xl">
                             <h3 className="text-2xl font-black text-ink-primary mb-6">Manage My Fleet & Services</h3>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {/* Vehicle Selection */}
+                                
                                 <div className="space-y-4">
                                     <h4 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Active Vehicle</h4>
                                     <div className="grid grid-cols-2 gap-3">
@@ -375,7 +375,7 @@ export default function DriverDashboard() {
                                     </div>
                                 </div>
 
-                                {/* Services Offered */}
+                                
                                 <div className="space-y-4">
                                     <h4 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Services Offered</h4>
                                     <div className="space-y-3">
@@ -403,7 +403,7 @@ export default function DriverDashboard() {
                             </div>
                         </div>
 
-                        {/* Vehicle Stats Card */}
+                        
                         <div className="bg-gradient-to-br from-teal-700 to-teal-900 p-8 rounded-3xl text-white shadow-2xl overflow-hidden relative">
                             <div className="relative z-10">
                                 <h3 className="text-2xl font-black mb-2">Fleet Performance</h3>
@@ -432,7 +432,7 @@ export default function DriverDashboard() {
                     </div>
                 )}
 
-                {/* Profile Tab */}
+                
                 {activeTab === 'profile' && (
                     <div className="space-y-6">
                         <div className="bg-surface-elevated p-8 rounded-3xl border border-border-primary shadow-xl">

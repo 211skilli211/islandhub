@@ -62,7 +62,7 @@ export default function AdminKYCPage() {
 
     return (
         <div className="space-y-6">
-            {/* Modal */}
+            
             {selectedKYC && (
                 <KYCReviewModal 
                     submission={selectedKYC} 

@@ -120,7 +120,7 @@ export default function PricingPage() {
     return (
         <main className="min-h-screen bg-surface-primary">
 
-            {/* Hero Section */}
+            
             <section className="bg-teal-950 py-24 px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/100/10 rounded-full blur-[100px]" />
                 <div className="max-w-7xl mx-auto text-center relative z-10">
@@ -137,7 +137,7 @@ export default function PricingPage() {
                 </div>
             </section>
 
-            {/* Role Switcher */}
+            
             <section className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
                 <div className="bg-surface-elevated p-2 rounded-[2rem] shadow-2xl shadow-teal-900/10 flex flex-col md:flex-row gap-2">
                     {[
@@ -157,7 +157,7 @@ export default function PricingPage() {
                 </div>
             </section>
 
-            {/* Pricing Grid */}
+            
             <section className="max-w-7xl mx-auto px-4 py-24">
                 <motion.div
                     key={activeRole}
@@ -232,7 +232,7 @@ export default function PricingPage() {
                 </motion.div>
             </section>
 
-            {/* Comparison Table Section */}
+            
             <section className="max-w-5xl mx-auto px-4 py-24 border-t border-border-primary">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-black text-ink-primary mb-4 tracking-tight italic">Compare All Features</h2>
@@ -270,7 +270,7 @@ export default function PricingPage() {
                 </div>
             </section>
 
-            {/* FAQ Teaser */}
+            
             <section className="bg-accent-500 py-24 text-center text-white px-4">
                 <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">Have more questions?</h2>
                 <p className="text-accent-50 text-xl font-medium mb-12 max-w-2xl mx-auto opacity-90">

@@ -148,7 +148,7 @@ export default function KYBVerificationPage() {
                     {vendors.map((vendor) => (
                         <div key={vendor.id} className="bg-surface-elevated dark:bg-ocean-800 rounded-xl shadow-sm border border-ink-100 dark:border-ocean-700 overflow-hidden">
                             <div className="flex">
-                                {/* Store Logo */}
+                                
                                 <div className="w-48 h-48 shrink-0 bg-ink-100 relative">
                                     {vendor.store_logo ? (
                                         <Image
@@ -164,7 +164,7 @@ export default function KYBVerificationPage() {
                                     )}
                                 </div>
 
-                                {/* Vendor Details */}
+                                
                                 <div className="flex-1 p-6">
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
@@ -242,7 +242,7 @@ export default function KYBVerificationPage() {
                 </div>
             )}
 
-            {/* Pagination */}
+            
             {pagination.totalPages > 1 && (
                 <div className="flex justify-center gap-2 mt-6">
                     <button
@@ -265,7 +265,7 @@ export default function KYBVerificationPage() {
                 </div>
             )}
 
-            {/* Reject Modal */}
+            
             {showRejectModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-6 w-full max-w-md">
@@ -302,7 +302,7 @@ export default function KYBVerificationPage() {
                 </div>
             )}
 
-            {/* Vendor Detail Modal */}
+            
             {selectedVendor && !showRejectModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
