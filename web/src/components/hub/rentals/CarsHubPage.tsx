@@ -68,7 +68,7 @@ export default function CarsHubPage() {
           imageUrl={car.image_url}
           emoji="🚗"
           title={car.name}
-          subtitle={`${car.year} · ${car.transmission} · ${car.seats} seats`}
+          subtitle={`${car.year} . ${car.transmission} . ${car.seats} seats`}
           price={car.price_per_day}
           priceSuffix="/day"
           rating={car.rating}

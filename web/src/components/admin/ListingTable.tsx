@@ -46,11 +46,11 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                         style={{ boxShadow: 'var(--shadow)' }}
                     >
                         <div className="h-48 bg-surface-secondary relative">
-                            {/* Placeholder or Image if available */}
+                            
                             <div className="absolute inset-0 flex items-center justify-center text-4xl text-ink-tertiary">
                                 {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '📅'}
                             </div>
-                            {/* Badge */}
+                            
                             <div className="absolute top-4 left-4">
                                 <span className={`px-2 py-1 text-xs font-bold rounded-lg uppercase shadow-sm ${listing.type === 'campaign' ? 'bg-surface-elevated/90 text-pink-700' :
                                     listing.type === 'product' ? 'bg-surface-elevated/90 text-blue-700' :
@@ -104,7 +104,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
 
     return (
         <div className="overflow-hidden bg-surface-elevated shadow-sm sm:rounded-lg border border-border-primary">
-            {/* Desktop Table (List View) */}
+            
             <table className="min-w-full divide-y divide-slate-200 hidden md:table">
                 <thead className="bg-surface-secondary">
                     <tr>
@@ -178,9 +178,9 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                 </tbody>
             </table>
 
-            {/* Mobile Cards (Default fallback for small screens regardless of viewMode, or could respect viewMode if desired) */}
+            
             <div className="md:hidden space-y-4 p-4">
-                {/* Reusing Grid-like structure for Mobile since table is hidden */}
+                
                 {listings.map((listing) => (
                     <div key={listing.id} className="bg-surface-elevated p-4 rounded-xl border border-border-primary shadow-sm flex flex-col gap-3">
                         <div className="flex justify-between items-start">

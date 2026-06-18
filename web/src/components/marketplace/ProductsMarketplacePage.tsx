@@ -14,7 +14,7 @@ const QUICK_LINKS = [
 export default function ProductsMarketplacePage() {
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-teal-800 via-cyan-900 to-teal-900 py-10 md:py-14 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-black text-white mb-2">Marketplace</h1>
@@ -24,7 +24,7 @@ export default function ProductsMarketplacePage() {
         </div>
       </section>
 
-      {/* Quick Links */}
+      
       <section className="max-w-6xl mx-auto px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {QUICK_LINKS.map((link) => (
@@ -41,17 +41,17 @@ export default function ProductsMarketplacePage() {
         </div>
       </section>
 
-      {/* New Arrivals */}
+      
       <div id="new-arrivals">
         <NewArrivals title="✨ Just Landed" seeMoreHref="/hub/products?sort=newest" limit={10} />
       </div>
 
-      {/* Browse All Listings — Facebook Marketplace Grid */}
+      
       <div id="browse" className="border-t border-border-primary pt-6">
         <FacebookGrid title="Browse All Products" seeMoreHref="/hub/products/all" initialCategory="product" limit={24} />
       </div>
 
-      {/* Bottom CTA */}
+      
       <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="rounded-2xl bg-gradient-to-r from-teal-600/20 to-cyan-600/20 border border-accent-500/20 p-8 text-center">
           <h2 className="text-xl font-semibold text-ink-primary">Own a Shop?</h2>

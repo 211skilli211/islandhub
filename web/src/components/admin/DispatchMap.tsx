@@ -89,7 +89,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {/* Render Drivers */}
+            
             {drivers.map(driver => (
                 <Marker
                     key={`driver-${driver.user_id}`}
@@ -109,7 +109,7 @@ export default function DispatchMap({ jobs, drivers = [], onAssignJob }: Dispatc
                 </Marker>
             ))}
 
-            {/* Render Jobs */}
+            
             {jobs.map(job => {
                 const pickup = parseLoc(job.pickup_location);
                 const dropoff = parseLoc(job.dropoff_location);

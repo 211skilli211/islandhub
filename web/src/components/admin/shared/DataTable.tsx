@@ -72,7 +72,7 @@ export function DataTable<T>({
 
   return (
     <div className={`bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden ${className}`}>
-      {/* Toolbar */}
+      
       <div className="flex items-center justify-between p-4 border-b border-border-primary gap-4 flex-wrap">
         {searchable && (
           <div className="relative flex-1 min-w-[200px] max-w-sm">
@@ -92,7 +92,7 @@ export function DataTable<T>({
         </div>
       </div>
 
-      {/* Table */}
+      
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
@@ -143,7 +143,7 @@ export function DataTable<T>({
         </table>
       </div>
 
-      {/* Pagination */}
+      
       {totalPages > 1 && (
         <div className="flex items-center justify-between p-4 border-t border-border-primary">
           <p className="text-xs text-ink-tertiary">

@@ -106,7 +106,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
 
     return (
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
-            {/* Results Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg font-black text-ink-primary">
@@ -123,7 +123,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                 </div>
 
                 <div className="flex items-center gap-3">
-                    {/* Sort Dropdown */}
+                    
                     <div className="relative">
                         <select
                             value={currentSort}
@@ -141,7 +141,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         </div>
                     </div>
 
-                    {/* View Mode Toggle */}
+                    
                     <div className="hidden md:flex items-center bg-surface-secondary rounded-xl p-1">
                         <button
                             onClick={() => handleViewModeChange('grid')}
@@ -168,7 +168,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         </button>
                     </div>
 
-                    {/* Mobile Filter Toggle */}
+                    
                     <button
                         onClick={() => setShowFilters(!showFilters)}
                         className="md:hidden flex items-center gap-2 px-4 py-2 bg-surface-elevated border border-border-primary rounded-xl text-sm font-bold text-ink-secondary"
@@ -186,7 +186,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                 </div>
             </div>
 
-            {/* Active Filter Chips */}
+            
             {activeFilterCount > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4">
                     {Object.entries(currentFilters).map(([key, value]) => {
@@ -223,7 +223,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                {/* Filters Sidebar (Desktop) */}
+                
                 <div className={`lg:col-span-1 ${showFilters ? 'block' : 'hidden lg:block'}`}>
                     <div className="sticky top-24">
                         <ListingFilters
@@ -235,7 +235,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                     </div>
                 </div>
 
-                {/* Listings Grid */}
+                
                 <div className="lg:col-span-3">
                     {loading ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

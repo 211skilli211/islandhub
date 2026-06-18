@@ -104,7 +104,7 @@ export default function FacebookGrid({
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-6">
-      {/* Header */}
+      
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-ink-primary">{title}</h2>
         {seeMoreHref && (
@@ -114,7 +114,7 @@ export default function FacebookGrid({
         )}
       </div>
 
-      {/* Search + Filter Toggle */}
+      
       <div className="flex gap-2 mb-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-tertiary" />
@@ -140,7 +140,7 @@ export default function FacebookGrid({
         </button>
       </div>
 
-      {/* Category Pills */}
+      
       {showFilters && (
         <div className="flex flex-wrap gap-2 mb-4 pb-4 border-b border-border-primary">
           {CATEGORIES.map((cat) => (
@@ -159,7 +159,7 @@ export default function FacebookGrid({
         </div>
       )}
 
-      {/* Grid — Facebook Marketplace style */}
+      
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -189,7 +189,7 @@ export default function FacebookGrid({
                 href={href}
                 className="group rounded-xl border border-border-primary bg-surface-elevated overflow-hidden hover:border-accent-500/20 transition-all"
               >
-                {/* Image */}
+                
                 <div className="relative aspect-square bg-surface-tertiary">
                   {img ? (
                     <img
@@ -204,7 +204,7 @@ export default function FacebookGrid({
                       📦
                     </div>
                   )}
-                  {/* Price badge */}
+                  
                   {item.price !== undefined && item.price > 0 && (
                     <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded-md">
                       <span className="text-xs font-bold text-ink-primary">${item.price}</span>
@@ -212,7 +212,7 @@ export default function FacebookGrid({
                   )}
                 </div>
 
-                {/* Info */}
+                
                 <div className="p-2.5">
                   <h3 className="text-xs font-medium text-ink-primary line-clamp-2 leading-snug group-hover:text-accent-500 transition-colors">
                     {item.title}

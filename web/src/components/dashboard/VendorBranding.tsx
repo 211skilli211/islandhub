@@ -257,7 +257,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
             <form onSubmit={handleSubmit} className="space-y-12">
                 <h4 className="text-sm font-black text-ink-secondary uppercase tracking-widest border-b border-border-primary pb-2">Storefront Imagery</h4>
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Logo Upload */}
+                    
                     <div className="space-y-4">
                         <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Store Logo / Avatar</label>
                         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 bg-surface-secondary rounded-4xlrder-2 border-border-primary text-center sm:text-left">
@@ -289,7 +289,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                         </div>
                     </div>
 
-                    {/* Banner Upload */}
+                    
                     <div className="space-y-4">
                         <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Hero Banner Image</label>
                         <div className="p-6 bg-surface-secondary rounded-4xl border-2 border-border-primary space-y-4">
@@ -381,7 +381,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                         </div>
                     </div>
 
-                    {/* Refined Icon / Graphic Picker */}
+                    
                     <div className="bg-surface-secondary p-8 rounded-[2.5rem] border-2 border-border-primary space-y-6">
                         <div className="flex justify-between items-center">
                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Graphic Overlay / Floating Icon</label>
@@ -427,7 +427,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                     <h4 className="text-sm font-black text-ink-secondary uppercase tracking-widest border-b border-border-primary pb-4">Aesthetic & Typography</h4>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Heading Styles */}
+                        
                         <div className="bg-surface-secondary p-8 rounded-[2.5rem] border-2 border-border-primary space-y-6">
                             <div className="flex justify-between items-center">
                                 <h5 className="text-[10px] font-black text-ink-primary uppercase tracking-widest">Title Styling</h5>
@@ -481,7 +481,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                             </label>
                         </div>
 
-                        {/* Subtitle Styles */}
+                        
                         <div className="bg-surface-secondary p-8 rounded-[2.5rem] border-2 border-border-primary space-y-6">
                             <div className="flex justify-between items-center">
                                 <h5 className="text-[10px] font-black text-ink-primary uppercase tracking-widest">Subtitle Styling</h5>

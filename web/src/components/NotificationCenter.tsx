@@ -124,7 +124,7 @@ export default function NotificationCenter() {
 
     return (
         <>
-            {/* Toast */}
+            
             {toast && (
                 <div className="fixed bottom-6 right-4 z-9999 animate-in fade-in slide-in-from-bottom-4 duration-300 max-w-[calc(100vw-32px)]">
                     <div className="flex items-start gap-3 bg-surface-elevated border border-border-primary rounded-2xl shadow-2xl px-4 py-3 min-w-[260px] max-w-[340px]">
@@ -147,7 +147,7 @@ export default function NotificationCenter() {
                 </div>
             )}
 
-            {/* Bell + Panel wrapper */}
+            
             <div className="relative" ref={panelRef}>
                 <button
                     id="notification-bell"
@@ -165,19 +165,10 @@ export default function NotificationCenter() {
                     )}
                 </button>
 
-                {/*
-                  Dropdown panel.
-                  Strategy: always use `fixed` so the panel is positioned relative
-                  to the *viewport*, not the parent container. This prevents left-overflow
-                  on mobile regardless of where in the navbar the bell sits.
-                  - right-2: 8px from the viewport's right edge
-                  - w-[calc(100vw-16px)]: fills viewport width minus 8px gutters on each side
-                  - max-w-sm (384px): caps it on wide screens so it doesn't get silly wide
-                  - top-[68px]: just below the navbar (adjust if navbar height changes)
-                */}
+                
                 {isOpen && (
                     <div className="fixed left-1/2 -translate-x-1/2 top-[68px] w-[calc(100vw-32px)] max-w-sm sm:absolute sm:left-auto sm:translate-x-0 sm:right-0 sm:top-[52px] sm:w-80 sm:transform-none bg-surface-elevated rounded-2xl shadow-2xl ring-1 ring-black/5 z-1100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                        {/* Header */}
+                        
                         <div className="px-4 py-3 border-b border-border-primary flex items-center justify-between">
                             <h3 className="font-black text-ink-primary text-sm">Notifications</h3>
                             <div className="flex items-center gap-3">
@@ -198,7 +189,7 @@ export default function NotificationCenter() {
                             </div>
                         </div>
 
-                        {/* List */}
+                        
                         <div className="max-h-[360px] overflow-y-auto divide-y divide-slate-50">
                             {loading ? (
                                 <div className="flex items-center justify-center py-10">
@@ -236,7 +227,7 @@ export default function NotificationCenter() {
                             )}
                         </div>
 
-                        {/* Footer */}
+                        
                         {notifications.length > 0 && (
                             <div className="p-3 border-t border-border-primary">
                                 <a

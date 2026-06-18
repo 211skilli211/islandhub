@@ -73,7 +73,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
         <AnimatePresence>
             {isOpen && (
                 <>
-                    {/* Backdrop for mobile */}
+                    
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -82,7 +82,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                         className="fixed inset-0 bg-ink-primary/40 backdrop-blur-sm z-100 lg:hidden"
                     />
 
-                    {/* Sidebar Content */}
+                    
                     <motion.div
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
@@ -90,7 +90,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                         className="fixed right-0 top-0 h-full w-[350px] bg-surface-elevated shadow-2xl z-101 flex flex-col border-l border-border-primary"
                     >
-                        {/* Header */}
+                        
                         <div className="p-8 border-b border-border-primary flex justify-between items-center">
                             <div>
                                 <h3 className="font-black text-xl text-ink-primary leading-none">Kitchen Hub</h3>
@@ -106,7 +106,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                             </button>
                         </div>
 
-                        {/* Navigation Tabs */}
+                        
                         <div className="grid grid-cols-4 border-b border-border-primary">
                             {[
                                 { id: 'menu', icon: '🍴', label: 'Menu' },
@@ -127,7 +127,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                             ))}
                         </div>
 
-                        {/* Tab Content */}
+                        
                         <div className="flex-1 overflow-y-auto p-8">
                             <AnimatePresence mode="wait">
                                 {activeTab === 'prefs' && (
@@ -258,7 +258,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                                                         {order.items?.map((i: any) => i.title).join(', ') || 'N/A'}
                                                     </p>
                                                     <p className="text-[10px] font-bold text-ink-tertiary mt-1">
-                                                        {new Date(order.created_at).toLocaleDateString()} • ${parseFloat(order.total_amount).toFixed(2)}
+                                                        {new Date(order.created_at).toLocaleDateString()} - ${parseFloat(order.total_amount).toFixed(2)}
                                                     </p>
                                                 </div>
                                             ))
@@ -270,7 +270,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                             </AnimatePresence>
                         </div>
 
-                        {/* Footer CTA */}
+                        
                         <div className="p-8 border-t border-border-primary">
                             <button className="w-full py-5 bg-[#e11d48]/50 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-xl shadow-rose-100 hover:bg-[#e11d48] hover:-translate-y-1 transition-all active:scale-95">
                                 Place Order — {cartItems.reduce((s: number, i: any) => s + (i.price || 0) * (i.qty || 1), 0).toFixed(2)} XCD

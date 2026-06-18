@@ -105,7 +105,7 @@ export default function CrossVendorCart() {
 
     return (
         <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
-            {/* Cart Items */}
+            
             <div className="flex-1">
                 <h1 className="text-3xl font-black text-ink-primary mb-8">Shopping Cart</h1>
 
@@ -118,7 +118,7 @@ export default function CrossVendorCart() {
                             exit={{ opacity: 0, y: -20 }}
                             className="bg-surface-elevated rounded-4xl shadow-sm border border-border-primary p-6 md:p-8 mb-6"
                         >
-                            {/* Vendor Header */}
+                            
                             <div className="flex items-center justify-between pb-6 border-b border-border-primary mb-6">
                                 <div className="flex items-center gap-4">
                                     <span className="text-3xl bg-surface-secondary w-12 h-12 flex items-center justify-center rounded-xl">🏪</span>
@@ -134,7 +134,7 @@ export default function CrossVendorCart() {
                                 </button>
                             </div>
 
-                            {/* Vendor Items */}
+                            
                             <div className="space-y-6">
                                 {group.items.map((item: any) => (
                                     <div key={item.item_id || item.id} className="flex gap-6">
@@ -185,7 +185,7 @@ export default function CrossVendorCart() {
                                 ))}
                             </div>
 
-                            {/* Vendor Shipping */}
+                            
                             <div className="mt-8 pt-6 border-t border-border-primary bg-surface-secondary/50 -mx-8 -mb-8 p-8 rounded-b-4xl">
                                 <p className="text-xs font-black text-ink-tertiary uppercase tracking-widest mb-4">Shipping Method ({group.vendorName})</p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -221,7 +221,7 @@ export default function CrossVendorCart() {
                 </AnimatePresence>
             </div>
 
-            {/* Order Summary */}
+            
             <div className="lg:w-96">
                 <div className="bg-surface-elevated rounded-[2.5rem] shadow-xl shadow-black/10 border border-border-primary p-8 sticky top-24">
                     <h2 className="text-2xl font-black text-ink-primary mb-8">Order Summary</h2>
@@ -250,7 +250,7 @@ export default function CrossVendorCart() {
                         🔒 Secure checkout powered by Stripe
                     </p>
 
-                    {/* Vendor Count Badge */}
+                    
                     <div className="mt-8 pt-6 border-t border-border-primary text-center">
                         <p className="text-sm text-ink-tertiary font-medium">
                             Ordering from <span className="font-black text-ink-primary">{vendorGroups.length}</span> vendor{vendorGroups.length !== 1 ? 's' : ''}

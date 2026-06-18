@@ -164,12 +164,12 @@ export default function BookingWidget({
   // CTA label
   const defaultCtaLabel = useMemo(() => {
     switch (type) {
-      case 'date-range': return `Reserve • $${grandTotal.toFixed(0)} total`;
-      case 'date-time': return `Book Now • $${grandTotal.toFixed(0)} total`;
-      case 'ticket': return `Get Tickets • $${grandTotal.toFixed(0)} total`;
+      case 'date-range': return `Reserve - $${grandTotal.toFixed(0)} total`;
+      case 'date-time': return `Book Now - $${grandTotal.toFixed(0)} total`;
+      case 'ticket': return `Get Tickets - $${grandTotal.toFixed(0)} total`;
       case 'donation': return `Contribute $${grandTotal.toFixed(0)}`;
-      case 'cart': return `Add to Cart • $${grandTotal.toFixed(0)}`;
-      case 'calendar': return `Book Appointment • $${grandTotal.toFixed(0)}`;
+      case 'cart': return `Add to Cart - $${grandTotal.toFixed(0)}`;
+      case 'calendar': return `Book Appointment - $${grandTotal.toFixed(0)}`;
       case 'quote': return 'Request Quote';
       default: return 'Continue';
     }
@@ -177,16 +177,16 @@ export default function BookingWidget({
 
   return (
     <div className={`bg-surface-elevated rounded-xl border border-border-primary p-3 space-y-4 ${className}`}>
-      {/* Price + Rating */}
+      
       <div className="flex items-end justify-between">
         <PriceTag price={pricePerUnit} suffix={unitLabel} size="lg" />
         {rating ? <RatingBadge rating={rating} reviewCount={reviewCount} /> : null}
       </div>
 
-      {/* Urgency */}
+      
       {urgency && <UrgencyCue type={urgency.type} value={urgency.value} />}
 
-      {/* ─── Date Range (rentals) ─── */}
+      
       {type === 'date-range' && (
         <div className="space-y-2">
           <div className="grid grid-cols-2 gap-2">
@@ -202,7 +202,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Date + Time (tours, charters) ─── */}
+      
       {type === 'date-time' && (
         <div className="space-y-2">
           <SimpleDateInput label="Date" value={checkIn} onChange={setCheckIn} />
@@ -230,7 +230,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Calendar (services) ─── */}
+      
       {type === 'calendar' && services && services.length > 0 && (
         <div className="space-y-2">
           <label className="block text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Service</label>
@@ -246,7 +246,7 @@ export default function BookingWidget({
                 }`}
               >
                 <span className="font-medium">{svc.name}</span>
-                <span className="text-xs">${svc.price} · {svc.duration}</span>
+                <span className="text-xs">${svc.price} . {svc.duration}</span>
               </button>
             ))}
           </div>
@@ -271,7 +271,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Ticket (events) ─── */}
+      
       {type === 'ticket' && ticketTypes && ticketTypes.length > 0 && (
         <div className="space-y-2">
           {ticketTypes.map((ticket, i) => (
@@ -295,7 +295,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Donation (campaigns) ─── */}
+      
       {type === 'donation' && (
         <div className="space-y-2">
           <label className="block text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Amount (XCD)</label>
@@ -324,7 +324,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Cart (food, products) ─── */}
+      
       {type === 'cart' && (
         <div className="space-y-3">
           {itemImage && (
@@ -340,7 +340,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Quote (services, moving, long-term) ─── */}
+      
       {type === 'quote' && (
         <div className="space-y-2">
           <p className="text-xs text-ink-secondary">
@@ -354,7 +354,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── Price Breakdown ─── */}
+      
       {type !== 'quote' && total > 0 && (
         <div className="space-y-1.5 pt-2 border-t border-border-primary">
           <div className="flex justify-between text-xs text-ink-secondary">
@@ -372,7 +372,7 @@ export default function BookingWidget({
         </div>
       )}
 
-      {/* ─── CTA ─── */}
+      
       <button
         onClick={onCtaClick}
         disabled={ctaDisabled}
@@ -381,16 +381,16 @@ export default function BookingWidget({
         {ctaLabel || defaultCtaLabel}
       </button>
 
-      {/* ─── Trust + Cancellation ─── */}
+      
       <div className="space-y-1.5">
         {cancellationText && (
           <p className="text-[10px] text-ink-tertiary text-center">{cancellationText}</p>
         )}
         <div className="flex items-center justify-center gap-3 text-[10px] text-ink-tertiary font-medium">
           <span className="flex items-center gap-1">🔒 Secure</span>
-          <span>·</span>
+          <span>.</span>
           <span className="flex items-center gap-1">✓ Verified</span>
-          <span>·</span>
+          <span>.</span>
           <span className="flex items-center gap-1">💳 Encrypted</span>
         </div>
       </div>

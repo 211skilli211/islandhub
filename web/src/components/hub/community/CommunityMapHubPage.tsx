@@ -37,7 +37,7 @@ export default function CommunityMapHubPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Map placeholder with CTA */}
+        
         <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden mb-6">
           <div className="bg-gradient-to-br from-blue-900/50 to-indigo-900/50 p-8 md:p-16 flex flex-col items-center justify-center min-h-[200px] md:min-h-[300px]">
             <MapPin className="w-12 h-12 text-accent-400 mb-4" />
@@ -56,7 +56,7 @@ export default function CommunityMapHubPage() {
           </div>
         </div>
 
-        {/* Search & Filters */}
+        
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
@@ -75,7 +75,7 @@ export default function CommunityMapHubPage() {
           </div>
         </div>
 
-        {/* Featured Locations Grid */}
+        
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {filtered.map(loc => (
             <Link key={loc.id} href="/community/map"

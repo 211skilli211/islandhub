@@ -42,7 +42,7 @@ export default function BecomeDriver() {
                 </div>
             </div>
 
-            {/* Hero Banner */}
+            
             <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-8 text-white">
                 <div className="max-w-2xl">
                     <h3 className="text-3xl font-bold mb-4">Start Earning Today!</h3>
@@ -66,7 +66,7 @@ export default function BecomeDriver() {
                 </div>
             </div>
 
-            {/* Benefits Grid */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {benefits.map((benefit, index) => (
                     <motion.div
@@ -83,13 +83,13 @@ export default function BecomeDriver() {
                 ))}
             </div>
 
-            {/* Application Form */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-ink-200">
                     <h3 className="font-semibold text-ink-900">Driver Application</h3>
                 </div>
 
-                {/* Progress Steps */}
+                
                 <div className="px-6 py-4 bg-ink-50 border-b border-ink-200">
                     <div className="flex items-center justify-between max-w-md mx-auto">
                         {[1, 2, 3].map((step) => (
@@ -295,7 +295,7 @@ export default function BecomeDriver() {
                 </div>
             </div>
 
-            {/* Requirements */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 p-6">
                 <h3 className="font-semibold text-ink-900 mb-4">Driver Requirements</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

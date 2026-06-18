@@ -173,7 +173,7 @@ export default function MemoryDashboard() {
 
     return (
         <div className="p-1 space-y-8 animate-in fade-in duration-700">
-            {/* Tab Navigation for Memory Types */}
+            
             <div className="flex p-1 bg-surface-elevated dark:bg-ink-primary rounded-2xl border border-border-primary dark:border-border-primary">
                 {[
                     { id: 'files', label: 'Neural Files', icon: '📁' },
@@ -191,7 +191,7 @@ export default function MemoryDashboard() {
                 ))}
             </div>
 
-            {/* Tab Content */}
+            
             {activeTab === 'vector' && (
                 <div className="bg-surface-elevated dark:bg-ink-primary rounded-3xl p-6 border border-border-primary dark:border-border-primary">
                     <div className="flex gap-4 mb-6">
@@ -260,9 +260,9 @@ export default function MemoryDashboard() {
             {activeTab === 'files' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                {/* Metrics Panel */}
+                
                 <div className="lg:col-span-3 space-y-4">
-                    {/* Primary Metric: Context */}
+                    
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -291,7 +291,7 @@ export default function MemoryDashboard() {
                         </div>
                     </motion.div>
 
-                    {/* File Explorer Sidebar */}
+                    
                     <div className="bg-surface-elevated dark:bg-ink-primary rounded-3xl p-6 border border-border-primary dark:border-border-primary shadow-sm flex flex-col h-[600px] overflow-hidden">
                         <div className="flex items-center justify-between mb-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary font-mono">Memory Map</h4>
@@ -301,7 +301,7 @@ export default function MemoryDashboard() {
                             </div>
                         </div>
                         <div className="space-y-6 overflow-y-auto grow custom-scrollbar pr-2">
-                            {/* Grouping logic: Three Tiers */}
+                            
                             {[
                                 { id: 'projects', label: 'Long-Term Storage', icon: '🏛️', desc: 'Neural Core & Project Context' },
                                 { id: 'scripts', label: 'Medium-Term Memory', icon: '🧠', desc: 'Active Automation & Scripts' },
@@ -339,7 +339,7 @@ export default function MemoryDashboard() {
                                 );
                             })}
 
-                            {/* Ungrouped files */}
+                            
                             {files.filter(f => !f.includes('/')).length > 0 && (
                                 <div className="space-y-2">
                                     <h5 className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary px-3">Root Files</h5>
@@ -359,10 +359,10 @@ export default function MemoryDashboard() {
                     </div>
                 </div>
 
-                {/* Right Panel: Integrated IDE */}
+                
                 <div className="lg:col-span-9 flex flex-col gap-6 h-[750px]">
                     <div className="bg-ink-primary rounded-[2.5rem] border border-border-primary shadow-2xl flex flex-col h-full overflow-hidden">
-                        {/* IDE Header */}
+                        
                         <div className="px-8 py-5 flex items-center justify-between border-b border-white/5 bg-ink-primary/50 backdrop-blur-md shrink-0">
                             <div className="flex items-center gap-4">
                                 <div className="flex gap-2 mr-4">
@@ -386,9 +386,9 @@ export default function MemoryDashboard() {
                             </div>
                         </div>
 
-                        {/* Split Editor / Logs */}
+                        
                         <div className="grow flex flex-col">
-                            {/* Main Editor */}
+                            
                             <div className="grow p-8 bg-ink-950/30">
                                 <textarea
                                     value={fileContent}
@@ -399,7 +399,7 @@ export default function MemoryDashboard() {
                                 />
                             </div>
 
-                            {/* Procedure Console */}
+                            
                             <div className="h-64 border-t border-white/5 bg-ink-950 flex flex-col">
                                 <div className="px-8 py-3 flex items-center justify-between bg-ink-primary/40">
                                     <div className="flex items-center gap-3">

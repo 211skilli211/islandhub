@@ -20,7 +20,7 @@ export default function MarketplaceTopBar({ onMenuToggle, searchQuery, onSearchC
         <div className="sticky top-18 z-30 bg-surface-elevated border-b border-border-primary shadow-sm">
             <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
-                    {/* Left: Menu toggle (mobile) */}
+                    
                     <div className="flex items-center gap-2">
                         <button onClick={onMenuToggle}
                             className="p-2 rounded-lg hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors lg:hidden"
@@ -29,7 +29,7 @@ export default function MarketplaceTopBar({ onMenuToggle, searchQuery, onSearchC
                         </button>
                     </div>
 
-                    {/* Center: Search */}
+                    
                     <form onSubmit={onSearchSubmit} className="flex-1 max-w-xl mx-4">
                         <div className="relative">
                             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
@@ -43,7 +43,7 @@ export default function MarketplaceTopBar({ onMenuToggle, searchQuery, onSearchC
                         </div>
                     </form>
 
-                    {/* Right: Actions */}
+                    
                     <div className="flex items-center gap-2">
                         <Link href="/listings/create"
                             className="hidden sm:flex items-center gap-1.5 px-3 py-2 bg-accent-500 text-white rounded-lg text-xs font-bold hover:bg-accent-600 transition-colors">

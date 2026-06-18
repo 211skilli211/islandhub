@@ -153,7 +153,7 @@ export default function CreateStoreModal({ isOpen, onClose, onSuccess }: CreateS
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6 overflow-y-auto">
-                    {/* Vendor Selection */}
+                    
                     <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest px-1 text-accent-400">Step 1: Assign to Vendor</label>
                         <select

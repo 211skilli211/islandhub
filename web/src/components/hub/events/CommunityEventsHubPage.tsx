@@ -34,7 +34,7 @@ function EventCard({ event }: { event: EventItem }) {
           <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
           <div className="flex items-center gap-2 text-xs text-ink-tertiary">
             {event.date_display && <span>📅 {event.date_display}</span>}
-            {event.venue && <span>· 📍 {event.venue}</span>}
+            {event.venue && <span>. 📍 {event.venue}</span>}
           </div>
           <div className="flex items-center justify-between pt-1 border-t border-border-primary">
             {event.is_free ? (

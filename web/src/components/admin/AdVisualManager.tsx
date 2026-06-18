@@ -241,7 +241,7 @@ export default function AdVisualManager() {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Sidebar Controls */}
+            
             <div className="lg:col-span-4 space-y-6">
                 <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden shadow-xl shadow-slate-100/50">
                     <div className="flex p-1 bg-surface-secondary border-b border-border-primary">
@@ -326,7 +326,7 @@ export default function AdVisualManager() {
                     </div>
                 </div>
 
-                {/* Editor Panel */}
+                
                 {(selectedSpace || selectedSection) && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -348,7 +348,7 @@ export default function AdVisualManager() {
 
                         {selectedSpace && (
                             <div className="space-y-8">
-                                {/* Banner Template Presets */}
+                                
                                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                                     {BANNER_PRESETS.map((p) => (
                                         <button
@@ -586,7 +586,7 @@ export default function AdVisualManager() {
                 )}
             </div>
 
-            {/* Preview Area */}
+            
             <div className="lg:col-span-8 flex flex-col gap-6">
                 <div className="flex items-center justify-between px-6 bg-surface-elevated p-4 rounded-4xl border border-border-primary">
                     <div className="flex gap-2 p-1 bg-surface-secondary rounded-xl">
@@ -628,7 +628,7 @@ export default function AdVisualManager() {
                                                 backgroundColor: '#ffffff'
                                             }}
                                         >
-                                            {/* Background Layer */}
+                                            
                                             <div
                                                 className="absolute inset-0 z-0"
                                                 style={{
@@ -638,7 +638,7 @@ export default function AdVisualManager() {
                                                     opacity: selectedSpace.style_config?.bgOpacity ?? 1
                                                 }}
                                             />
-                                            {/* Texture Overlay */}
+                                            
                                             <div
                                                 className="absolute inset-0 z-10"
                                                 style={getTextureStyle(

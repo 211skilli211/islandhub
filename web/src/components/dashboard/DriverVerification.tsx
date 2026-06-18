@@ -85,7 +85,7 @@ export default function DriverVerification() {
                 </div>
             </div>
 
-            {/* Overall Status Card */}
+            
             <div className="bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl p-6 text-white">
                 <div className="flex items-center justify-between">
                     <div>
@@ -116,7 +116,7 @@ export default function DriverVerification() {
                 </div>
             </div>
 
-            {/* Verification Items */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-ink-200">
                     <h3 className="font-semibold text-ink-900">Verification Documents</h3>
@@ -181,7 +181,7 @@ export default function DriverVerification() {
                 </div>
             </div>
 
-            {/* Progress Timeline */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 p-6">
                 <h3 className="font-semibold text-ink-900 mb-4">Verification Timeline</h3>
                 <div className="relative">
@@ -215,7 +215,7 @@ export default function DriverVerification() {
                 </div>
             </div>
 
-            {/* FAQ Section */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 p-6">
                 <h3 className="font-semibold text-ink-900 mb-4">Common Questions</h3>
                 <div className="space-y-4">
@@ -249,7 +249,7 @@ export default function DriverVerification() {
                 </div>
             </div>
 
-            {/* Upload Modal */}
+            
             {showUploadModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <motion.div

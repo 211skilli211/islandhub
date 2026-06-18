@@ -58,7 +58,7 @@ export default function Modal({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -68,7 +68,7 @@ export default function Modal({
             onClick={onClose}
           />
 
-          {/* Modal */}
+          
           <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -84,7 +84,7 @@ export default function Modal({
               `}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header */}
+              
               {(title || showClose) && (
                 <div className="flex items-start justify-between px-6 pt-6 pb-2 shrink-0">
                   <div>
@@ -108,7 +108,7 @@ export default function Modal({
                 </div>
               )}
 
-              {/* Content */}
+              
               <div className="px-6 pb-6 pt-4 overflow-y-auto flex-1">
                 {children}
               </div>

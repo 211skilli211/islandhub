@@ -161,7 +161,7 @@ export default function CommunityPosts() {
                 ) : posts.length > 0 ? (
                     posts.map((post) => (
                         <div key={post.post_id} className="bg-surface-elevated border border-border-primary rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/10/50 group transition-all">
-                            {/* Instagram Header */}
+                            
                             <div className="p-6 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <div className="w-12 h-12 rounded-full ring-2 ring-teal-100 p-0.5 overflow-hidden">
@@ -179,7 +179,7 @@ export default function CommunityPosts() {
                                             <span className="text-accent-500 text-[10px] font-black uppercase tracking-widest bg-accent-500/10 px-2 py-0.5 rounded-md">Verified</span>
                                         </div>
                                         <p className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest mt-1">
-                                            {post.category} • {new Date(post.created_at).toLocaleDateString()}
+                                            {post.category} - {new Date(post.created_at).toLocaleDateString()}
                                         </p>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@ export default function CommunityPosts() {
                                 </button>
                             </div>
 
-                            {/* Square Media Post */}
+                            
                             {post.media_url ? (
                                 <div className="aspect-square bg-surface-secondary relative overflow-hidden group/media">
                                     {post.media_type === 'video' ? (
@@ -206,7 +206,7 @@ export default function CommunityPosts() {
                                 </div>
                             )}
 
-                            {/* Instagram-style Interaction Bar */}
+                            
                             <div className="p-6">
                                 <div className="flex items-center gap-6 mb-6">
                                     <button className="flex items-center gap-2 group/btn">
@@ -230,7 +230,7 @@ export default function CommunityPosts() {
                                     </p>
                                 </div>
 
-                                {/* Comments Preview */}
+                                
                                 <div className="mt-4 pt-4 border-t border-border-primary">
                                     <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest mb-3">Community Comments</p>
                                     <div className="flex items-center gap-3">

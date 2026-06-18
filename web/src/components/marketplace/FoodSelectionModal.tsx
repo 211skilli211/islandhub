@@ -116,7 +116,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                     <p className="text-ink-tertiary font-medium mt-2 leading-relaxed">{item.description}</p>
                                 </div>
 
-                                {/* Variants */}
+                                
                                 {item.variants && Object.entries(item.variants).map(([category, options]: [string, any]) => (
                                     <div key={category} className="space-y-4">
                                         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary">{category}</h3>
@@ -137,7 +137,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                     </div>
                                 ))}
 
-                                {/* Addons */}
+                                
                                 {item.addons && item.addons.length > 0 && (
                                     <div className="space-y-4">
                                         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary">Addons & Extras</h3>
@@ -159,7 +159,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                     </div>
                                 )}
 
-                                {/* Quantity */}
+                                
                                 <div className="pt-4 flex items-center justify-between">
                                     <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary">How many?</h3>
                                     <div className="flex items-center gap-6 bg-surface-secondary p-2 rounded-2xl">
@@ -177,7 +177,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                             </div>
                         </div>
 
-                        {/* Order Sticky Footer */}
+                        
                         <div className="p-8 bg-ink-primary text-white flex items-center gap-6">
                             <div className="flex-1">
                                 <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50 mb-1">Total Amount</p>

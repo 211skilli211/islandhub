@@ -96,7 +96,7 @@ export function NaturalLanguageSearch() {
 
     return (
         <div className="w-full max-w-4xl mx-auto">
-            {/* Search Input */}
+            
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <Search className="h-5 w-5 text-ink-400" />
@@ -127,7 +127,7 @@ export function NaturalLanguageSearch() {
                 </div>
             </div>
 
-            {/* Quick Searches */}
+            
             <div className="mt-4 flex flex-wrap gap-2">
                 {quickSearches.map((item) => (
                     <button
@@ -144,7 +144,7 @@ export function NaturalLanguageSearch() {
                 ))}
             </div>
 
-            {/* Parsed Query Display */}
+            
             {parsed && (
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                     <p className="text-sm text-blue-800">
@@ -157,14 +157,14 @@ export function NaturalLanguageSearch() {
                 </div>
             )}
 
-            {/* Error Display */}
+            
             {error && (
                 <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-800">{error}</p>
                 </div>
             )}
 
-            {/* Results */}
+            
             {results.length > 0 && (
                 <div className="mt-6">
                     <h3 className="text-lg font-semibold text-ink-900 mb-4">
@@ -206,7 +206,7 @@ export function NaturalLanguageSearch() {
                 </div>
             )}
 
-            {/* No Results */}
+            
             {!loading && results.length === 0 && query && !error && (
                 <div className="mt-8 text-center">
                     <p className="text-ink-500">No results found. Try a different search.</p>

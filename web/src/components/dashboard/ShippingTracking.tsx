@@ -81,7 +81,7 @@ export default function ShippingTracking() {
                 </button>
             </div>
 
-            {/* Tracking Search */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 p-6">
                 <h3 className="font-semibold text-ink-900 mb-4">Track Your Package</h3>
                 <div className="flex gap-4">
@@ -137,7 +137,7 @@ export default function ShippingTracking() {
                 )}
             </div>
 
-            {/* Shipments Stats */}
+            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -182,7 +182,7 @@ export default function ShippingTracking() {
                 </motion.div>
             </div>
 
-            {/* Shipments List */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-ink-200">
                     <h3 className="font-semibold text-ink-900">All Shipments</h3>
@@ -223,7 +223,7 @@ export default function ShippingTracking() {
                 </div>
             </div>
 
-            {/* Quick Actions */}
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-teal-300 hover:bg-[#14b8a6]/10 transition-all text-left">
                     <div className="font-medium text-ink-900">Schedule Pickup</div>

@@ -145,12 +145,12 @@ export default function VendorOnboarding() {
 
     return (
         <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
-            {/* Header */}
+            
             <div className="bg-gradient-to-r from-teal-600 to-teal-700 p-6 text-white">
                 <h2 className="text-xl font-black mb-2">Welcome to IslandHub! 🌴</h2>
                 <p className="text-accent-100 text-sm mb-4">Let's get your vendor profile set up</p>
                 
-                {/* Progress Bar */}
+                
                 <div className="h-2 bg-surface-elevated/20 rounded-full overflow-hidden">
                     <motion.div 
                         className="h-full bg-surface-elevated rounded-full"
@@ -161,7 +161,7 @@ export default function VendorOnboarding() {
                 <p className="text-xs text-accent-100 mt-2">{completedSteps} of {steps.length} steps completed</p>
             </div>
 
-            {/* Steps Navigation */}
+            
             <div className="border-b border-border-primary">
                 <div className="flex overflow-x-auto">
                     {steps.map((step, index) => (
@@ -193,7 +193,7 @@ export default function VendorOnboarding() {
                 </div>
             </div>
 
-            {/* Step Content */}
+            
             <div className="p-6">
                 <AnimatePresence mode="wait">
                     <motion.div

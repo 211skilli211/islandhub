@@ -84,7 +84,7 @@ export default function MarketplaceHero({ onSearch }: MarketplaceHeroProps) {
                     {banner?.description || 'The curated hub for authentic island commerce. Shop products, book services, and support local entrepreneurs.'}
                 </motion.p>
 
-                {/* Search Bar - Epic Version */}
+                
                 <motion.form
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

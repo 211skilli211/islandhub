@@ -137,7 +137,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
 
     return (
         <div className="bg-surface-elevated rounded-[3rem] border border-border-primary overflow-hidden">
-            {/* Header */}
+            
             <div className="p-8 border-b border-border-primary">
                 <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-bold">
@@ -148,7 +148,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                         <p className="text-xs text-ink-tertiary font-medium">Share your island story</p>
                     </div>
 
-                    {/* Visibility Toggle */}
+                    
                     <div className="flex bg-surface-secondary rounded-xl p-1">
                         {(['public', 'followers', 'private'] as const).map((v) => (
                             <button
@@ -168,7 +168,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                 </div>
             </div>
 
-            {/* Content Area */}
+            
             <div className="p-8">
                 <textarea
                     ref={textareaRef}
@@ -179,7 +179,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                     className="w-full text-lg font-medium text-ink-secondary placeholder:text-ink-tertiary outline-none resize-none transition-all"
                 />
 
-                {/* Media Preview */}
+                
                 <AnimatePresence>
                     {media.length > 0 && (
                         <motion.div
@@ -210,7 +210,7 @@ export default function PostComposer({ onPostCreated, placeholder = "What's on y
                 </AnimatePresence>
             </div>
 
-            {/* Actions Footer */}
+            
             <div className="px-8 pb-8">
                 <div className="flex items-center justify-between">
                     <div className="flex gap-2">

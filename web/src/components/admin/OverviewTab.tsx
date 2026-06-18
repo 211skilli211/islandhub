@@ -219,7 +219,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Quick Access - Dispatch Button */}
+            
             <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-6 rounded-3xl shadow-2xl text-white">
                 <div className="flex items-center justify-between">
                     <div>
@@ -235,7 +235,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
             </div>
 
-            {/* Creation Hub */}
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-teal-500 transition-all">
                     <div className="flex items-center gap-4">
@@ -269,7 +269,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
             </div>
 
-            {/* Quick System Controls & Insights */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-1">
                 <div className="bg-ink-primary rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-10">
@@ -328,9 +328,9 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
             </div>
 
-            {/* Stat Cards (Reduced size row) */}
+            
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Users Card */}
+                
                 <button
                     onClick={() => onNavigate('users')}
                     className="bg-surface-elevated p-4 rounded-2xl shadow-lg shadow-black/10/50 border border-border-primary group hover:border-teal-500 hover:-translate-y-1 transition-all text-left w-full"
@@ -356,7 +356,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                 </button>
 
-                {/* Stores Card (Vendors) */}
+                
                 <button
                     onClick={() => onNavigate('stores')}
                     className="bg-surface-elevated p-4 rounded-2xl shadow-lg shadow-black/10/50 border border-border-primary group hover:border-teal-500 hover:-translate-y-1 transition-all text-left w-full"
@@ -382,7 +382,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                 </button>
 
-                {/* Campaigns Card */}
+                
                 <button
                     onClick={() => onNavigate('campaigns')}
                     className="bg-surface-elevated p-4 rounded-2xl shadow-lg shadow-black/10/50 border border-border-primary group hover:border-teal-500 hover:-translate-y-1 transition-all text-left w-full"
@@ -410,7 +410,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                 </button>
 
-                {/* Revenue Card */}
+                
                 <button
                     onClick={() => onNavigate('revenue')}
                     className="bg-surface-elevated p-4 rounded-2xl shadow-lg shadow-black/10/50 border border-border-primary group hover:border-teal-500 hover:-translate-y-1 transition-all text-left w-full"
@@ -436,9 +436,9 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </button>
             </div>
 
-            {/* Charts Row */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Transaction Chart */}
+                
                 <div className="bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-border-primary">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-lg font-black text-ink-primary uppercase tracking-widest">Transaction Velocity</h3>
@@ -470,7 +470,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     </div>
                 </div>
 
-                {/* Listings Breakdown */}
+                
                 <div className="bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-border-primary">
                     <h3 className="text-lg font-black text-ink-primary uppercase tracking-widest mb-6 text-center">Marketplace Inventory</h3>
                     <div className="h-72 flex flex-col items-center justify-center">
@@ -502,7 +502,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
             </div>
 
-            {/* Recent Activity Section (Mission Control Integration) */}
+            
             <div className="bg-surface-elevated p-8 rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-border-primary mt-8">
                 <div className="flex justify-between items-center mb-6">
                     <div>
@@ -527,7 +527,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                 <p className="text-sm font-bold text-ink-primary group-hover:text-accent-400 transition-colors uppercase tracking-tight">
                                     {act.action.replace(/_/g, ' ')}
                                 </p>
-                                <p className="text-[10px] text-ink-tertiary font-medium">By {act.admin_name} • Ref #{act.record_id}</p>
+                                <p className="text-[10px] text-ink-tertiary font-medium">By {act.admin_name} - Ref #{act.record_id}</p>
                             </div>
                             <div className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest bg-surface-elevated px-2 py-1 rounded-lg border border-border-primary shadow-sm">
                                 {new Date(act.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -542,7 +542,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
             </div>
 
-            {/* Broadcast & Asset Command Center (New Section below activity) */}
+            
             <div className="mt-12 space-y-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-6">
@@ -597,7 +597,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             </div>
                         </div>
 
-                        {/* Promotional Assets Strip */}
+                        
                         <div className="bg-surface-elevated p-8 rounded-[3rem] border border-border-primary shadow-xl shadow-black/10/50">
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-lg font-black text-ink-primary uppercase tracking-widest">Marketplace Banners</h3>
@@ -657,7 +657,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                             </div>
                                         </div>
 
-                                        {/* Action Buttons */}
+                                        
                                         <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button
                                                 onClick={(e) => {
@@ -686,7 +686,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                         </div>
                     </div>
 
-                    {/* Mission Templates / Control Panel */}
+                    
                     <div className="bg-ink-primary p-8 rounded-[3.5rem] text-white shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-sand-400/10 blur-3xl rounded-full"></div>
                         <h3 className="text-lg font-black uppercase tracking-widest mb-8 border-b border-white/10 pb-4">Saved Missions</h3>
@@ -728,7 +728,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
             </div >
 
-            {/* Banner Modal */}
+            
             <BannerModal
                 isOpen={isBannerModalOpen}
                 onClose={() => {

@@ -60,7 +60,7 @@ export default function LongTermHubPage() {
           imageUrl={item.image_url}
           emoji="🏢"
           title={item.name}
-          subtitle={`${item.bedrooms} bed · ${item.bathrooms} bath · ${item.sqft} sqft`}
+          subtitle={`${item.bedrooms} bed . ${item.bathrooms} bath . ${item.sqft} sqft`}
           price={item.price_per_month}
           priceSuffix="/month"
           rating={item.rating}

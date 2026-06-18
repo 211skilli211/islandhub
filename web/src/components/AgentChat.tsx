@@ -143,7 +143,7 @@ export default function AgentChat({ hubMode = false, onHubClose }: AgentChatProp
                                 <div>
                                     <h3 className="font-black text-sm uppercase tracking-wider">{profile.displayName}</h3>
                                     <p className="text-[10px] opacity-80 font-bold">
-                                        {user ? `${user.role} mode` : 'Guest mode'} • Always here to help
+                                        {user ? `${user.role} mode` : 'Guest mode'} - Always here to help
                                     </p>
                                 </div>
                             </div>

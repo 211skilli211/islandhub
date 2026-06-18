@@ -72,12 +72,12 @@ export default function VendorOverview({ subscription, stores, activeStore, list
 
     return (
         <div className="space-y-8">
-            {/* Compliance Status */}
+            
             {vendorId && (
                 <VendorComplianceStatus vendorId={vendorId} compact />
             )}
 
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-black text-ink-primary tracking-tight">Dashboard Overview</h2>
@@ -93,7 +93,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                 )}
             </div>
 
-            {/* Quick Stats Grid */}
+            
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                 {quickStats.map((stat, idx) => (
                     <motion.div
@@ -117,9 +117,9 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                 ))}
             </div>
 
-            {/* Main Content Grid */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Store Info Card */}
+                
                 <div className="lg:col-span-2">
                     <div className="bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm p-4 sm:p-8">
                         <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
@@ -153,7 +153,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                             </div>
                         </div>
 
-                        {/* Multiple Stores Info */}
+                        
                         <div className="mt-4 sm:mt-8 pt-4 sm:pt-8 border-t border-border-primary">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                                 <div>
@@ -181,7 +181,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                     </div>
                 </div>
 
-                {/* Quick Actions */}
+                
                 <div className="lg:col-span-1">
                     <div className="bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm p-4 sm:p-8">
                         <h3 className="text-xs sm:text-sm font-black text-ink-secondary uppercase tracking-widest mb-4 sm:mb-6">Quick Actions</h3>
@@ -203,7 +203,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                 </div>
             </div>
 
-            {/* Recent Activity */}
+            
             <div className="bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm p-4 sm:p-8">
                 <h3 className="text-xs sm:text-sm font-black text-ink-secondary uppercase tracking-widest mb-4 sm:mb-6">Recent Activity</h3>
                 <div className="space-y-3 sm:space-y-4">
@@ -227,7 +227,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                 </Link>
             </div>
 
-            {/* Community Hub */}
+            
             <div className="bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm p-4 sm:p-8">
                 <h3 className="text-xs sm:text-sm font-black text-ink-secondary uppercase tracking-widest mb-4 sm:mb-6">Community Hub</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
@@ -251,7 +251,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                 </div>
             </div>
 
-            {/* Subscription Upgrade CTA */}
+            
             {!canHaveMultipleStores && storeCount >= 1 && (
                 <div className="bg-gradient-to-r from-teal-600 to-teal-500 rounded-2xl sm:rounded-4xl p-4 sm:p-8 text-white">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">

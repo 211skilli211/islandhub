@@ -55,7 +55,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
 
     return (
         <div className="bg-surface-elevated min-h-screen">
-            {/* Hero Section */}
+            
             <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-ink-primary">
                 <HeroBackground pageKey="ibt-solutions">
                     <motion.div
@@ -98,7 +98,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                 </HeroBackground>
             </section>
 
-            {/* Services Section */}
+            
             <section id="services" className="py-24 px-6 bg-surface-secondary">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
@@ -149,7 +149,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                 </div>
             </section>
 
-            {/* Co-ops Section */}
+            
             <section id="coops" className="py-24 px-6 bg-surface-elevated">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
@@ -200,7 +200,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                 </div>
             </section>
 
-            {/* Listings Section (if any exist in DB) */}
+            
             {listings && listings.length > 0 && (
                 <section className="py-24 px-6 bg-surface-secondary">
                     <div className="max-w-7xl mx-auto">
@@ -216,7 +216,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                 </section>
             )}
 
-            {/* CTA Section */}
+            
             <section className="py-24 px-6">
                 <div className="max-w-5xl mx-auto bg-ink-primary rounded-3xl p-12 md:p-20 relative overflow-hidden text-center">
                     <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
@@ -241,7 +241,7 @@ export const IBTSolutionsLayout = ({ store, listings }: IBTStoreProps) => {
                 </div>
             </section>
 
-            {/* Reviews */}
+            
             <section className="py-16 px-6 bg-surface-secondary">
                 <div className="max-w-4xl mx-auto">
                     <ReviewSection vendorId={String(store?.id || store?.user_id)} />

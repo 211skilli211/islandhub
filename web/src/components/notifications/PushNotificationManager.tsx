@@ -108,7 +108,7 @@ export default function PushNotificationManager() {
 
             {settings.enabled && (
                 <>
-                    {/* Device Token */}
+                    
                     <div className="space-y-3">
                         <label className="text-xs font-black uppercase tracking-widest text-ink-tertiary">Device Token</label>
                         <div className="flex gap-3">
@@ -136,7 +136,7 @@ export default function PushNotificationManager() {
                         </div>
                     </div>
 
-                    {/* Notification Types */}
+                    
                     <div className="space-y-4">
                         <p className="text-xs font-black uppercase tracking-widest text-ink-tertiary">Notification Types</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

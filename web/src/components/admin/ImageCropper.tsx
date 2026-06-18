@@ -181,7 +181,7 @@ export default function ImageCropper({ src, onComplete, onCancel, aspectRatio }:
   return (
     <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
       <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden max-w-2xl w-full">
-        {/* Header */}
+        
         <div className="flex items-center justify-between px-4 py-3 border-b border-border-primary">
           <h3 className="text-sm font-bold text-ink-primary">Crop Image</h3>
           <button onClick={onCancel} className="p-1 text-ink-tertiary hover:text-ink-primary">
@@ -189,7 +189,7 @@ export default function ImageCropper({ src, onComplete, onCancel, aspectRatio }:
           </button>
         </div>
 
-        {/* Canvas */}
+        
         <div className="relative bg-[#0a0f1a]">
           <canvas
             ref={canvasRef}
@@ -206,9 +206,9 @@ export default function ImageCropper({ src, onComplete, onCancel, aspectRatio }:
           />
         </div>
 
-        {/* Controls */}
+        
         <div className="px-4 py-3 border-t border-border-primary space-y-3">
-          {/* Zoom */}
+          
           <div className="flex items-center gap-3">
             <ZoomOut className="h-4 w-4 text-ink-tertiary" />
             <input
@@ -224,7 +224,7 @@ export default function ImageCropper({ src, onComplete, onCancel, aspectRatio }:
             <span className="text-[10px] text-ink-tertiary w-10 text-right">{Math.round(zoom * 100)}%</span>
           </div>
 
-          {/* Actions */}
+          
           <div className="flex items-center justify-between">
             <button
               onClick={handleReset}

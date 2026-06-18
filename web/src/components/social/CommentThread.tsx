@@ -99,7 +99,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
             className={`${isReply ? 'ml-12 mt-4' : ''}`}
         >
             <div className="flex gap-3">
-                {/* Avatar */}
+                
                 <Link href={`/community/profile/${comment.user_id}`} className="shrink-0">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">
                         {comment.user_photo ? (
@@ -110,7 +110,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                     </div>
                 </Link>
 
-                {/* Content */}
+                
                 <div className="flex-1 min-w-0">
                     <div className="bg-surface-secondary rounded-2xl px-4 py-3">
                         <Link href={`/community/profile/${comment.user_id}`} className="font-bold text-ink-primary hover:text-accent-400">
@@ -122,7 +122,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                         )}
                     </div>
 
-                    {/* Actions */}
+                    
                     <div className="flex items-center gap-4 mt-2 ml-2">
                         <LikeButton
                             postId={comment.comment_id}
@@ -144,7 +144,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                         <span className="text-xs text-ink-tertiary">{formatDate(comment.created_at)}</span>
                     </div>
 
-                    {/* Reply Input */}
+                    
                     <AnimatePresence>
                         {replyingTo === comment.comment_id && (
                             <motion.div
@@ -174,7 +174,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                         )}
                     </AnimatePresence>
 
-                    {/* Nested Replies */}
+                    
                     {comment.replies?.map((reply) => renderComment(reply, true))}
                 </div>
             </div>
@@ -183,7 +183,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
 
     return (
         <div className="space-y-6">
-            {/* Main Comment Form */}
+            
             <form onSubmit={handleSubmit} className="flex gap-3">
                 <input
                     type="text"
@@ -201,7 +201,7 @@ export default function CommentThread({ postId, comments, onCommentAdded }: Comm
                 </button>
             </form>
 
-            {/* Comments List */}
+            
             <div className="space-y-6">
                 {comments.map((comment) => renderComment(comment))}
             </div>

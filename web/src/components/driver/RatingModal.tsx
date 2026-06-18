@@ -96,7 +96,7 @@ export default function RatingModal({
               </div>
             ) : (
               <>
-                {/* Header */}
+                
                 <div className="p-6 pb-4 text-center border-b border-border-primary">
                   <div className="w-16 h-16 bg-accent-500/10 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">
                     ⭐
@@ -108,7 +108,7 @@ export default function RatingModal({
                   </p>
                 </div>
 
-                {/* Stars */}
+                
                 <div className="p-6">
                   <div className="flex justify-center gap-2 mb-3">
                     {[1, 2, 3, 4, 5].map(star => (
@@ -138,7 +138,7 @@ export default function RatingModal({
                     </motion.p>
                   )}
 
-                  {/* Comment */}
+                  
                   {rating >= 4 && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
@@ -175,7 +175,7 @@ export default function RatingModal({
                   )}
                 </div>
 
-                {/* Actions */}
+                
                 <div className="p-6 pt-0 flex gap-3">
                   <button
                     onClick={handleSkip}

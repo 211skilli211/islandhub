@@ -65,7 +65,7 @@ export default function RevenueTab() {
 
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
-            {/* Financial Overview Cards */}
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-gradient-to-br from-ink-900 to-ink-800 p-8 rounded-[2.5rem] text-white shadow-2xl">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-2">Total Managed Volume</p>
@@ -91,7 +91,7 @@ export default function RevenueTab() {
                 </div>
             </div>
 
-            {/* Orders Table */}
+            
             <div className="space-y-4">
                 <div className="flex justify-between items-end">
                     <div>

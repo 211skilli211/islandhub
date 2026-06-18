@@ -399,7 +399,7 @@ export default function AgentCommandCenter() {
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
-            {/* High-Tech Header */}
+            
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 bg-ink-primary rounded-[2.5rem] shadow-2xl border border-border-primary relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-accent-500/100/5 blur-[100px] rounded-full -mr-20 -mt-20 group-hover:bg-accent-500/100/10 transition-colors" />
 
@@ -443,7 +443,7 @@ export default function AgentCommandCenter() {
                 </div>
             </div>
 
-            {/* Premium Navigation */}
+            
             <div className="flex p-2 bg-surface-elevated dark:bg-ink-primary rounded-3xl border border-border-primary dark:border-border-primary shadow-xl overflow-x-auto custom-scrollbar no-scrollbar">
                 {sections.map(s => (
                     <button
@@ -460,7 +460,7 @@ export default function AgentCommandCenter() {
                 ))}
             </div>
 
-            {/* Section Content with Animation */}
+            
             <div className="min-h-[600px]">
                 <AnimatePresence mode="wait">
                     <motion.div
@@ -470,7 +470,7 @@ export default function AgentCommandCenter() {
                         exit={{ opacity: 0, scale: 0.98, y: -10 }}
                         transition={{ duration: 0.2 }}
                     >
-                        {/* ─── STATUS ───────────────────────────────────── */}
+                        
                         {activeSection === 'status' && (
                             <div className="space-y-8">
                                 {!providerReady && (
@@ -537,10 +537,10 @@ export default function AgentCommandCenter() {
                             </div>
                         )}
 
-                        {/* ─── CHAT ─────────────────────────────────────── */}
+                        
                         {activeSection === 'chat' && (
                             <div className="bg-surface-elevated dark:bg-ink-primary rounded-[3rem] border border-border-primary dark:border-border-primary overflow-hidden shadow-2xl flex flex-col md:flex-row h-[700px]">
-                                {/* Sidebar for Agents */}
+                                
                                 <div className="w-full md:w-64 bg-surface-secondary/50 dark:bg-surface-tertiary/30 border-r border-border-primary dark:border-border-primary p-6 space-y-4">
                                     <h4 className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-6 px-2">Active Channels</h4>
                                     <div className="space-y-1">
@@ -557,9 +557,9 @@ export default function AgentCommandCenter() {
                                     </div>
                                 </div>
 
-                                {/* Main Conversation */}
+                                
                                 <div className="flex-1 flex flex-col bg-surface-secondary dark:bg-ink-950/20">
-                                    {/* Sub-header */}
+                                    
                                     <div className="px-8 py-5 border-b border-border-primary dark:border-border-primary bg-surface-elevated/50 dark:bg-ink-primary/50 backdrop-blur-md flex items-center justify-between">
                                         <div className="flex items-center gap-3">
                                             <div className="w-2 h-2 rounded-full bg-accent-500/100 animate-pulse shadow-lg shadow-teal-500/50" />
@@ -617,7 +617,7 @@ export default function AgentCommandCenter() {
                             </div>
                         )}
 
-                        {/* ─── AGENTS & PROMPTS ─────────────────────────── */}
+                        
                         {activeSection === 'agents' && (
                             <div className="space-y-8">
                                 <div className="flex justify-between items-center bg-ink-primary rounded-3xl p-6 border border-border-primary shadow-xl">
@@ -682,12 +682,12 @@ export default function AgentCommandCenter() {
                             </div>
                         )}
 
-                        {/* ─── MEMORY DASHBOARD ─────────────────────────── */}
+                        
                         {activeSection === 'memory' && (
                             <MemoryDashboard />
                         )}
 
-                        {/* ─── AUDIT & OTHER SECTIONS (Retained legacy or upgraded) ─── */}
+                        
                         {['audit', 'settings', 'providers', 'teams'].includes(activeSection) && (
                             <div className="bg-surface-elevated dark:bg-ink-primary rounded-[3rem] border border-border-primary dark:border-border-primary p-10 shadow-xl">
                                 {activeSection === 'audit' && (
@@ -838,7 +838,7 @@ export default function AgentCommandCenter() {
                                     </div>
                                 )}
 
-                                {/* ─── SWARMS (WORKFLOWS) ────────────────────────── */}
+                                
                                 {activeSection === 'teams' && (
                                     <div className="space-y-8">
                                         <div className="flex justify-between items-center bg-ink-primary rounded-3xl p-8 border border-border-primary shadow-xl">
@@ -884,7 +884,7 @@ export default function AgentCommandCenter() {
                 </AnimatePresence>
             </div>
 
-            {/* Editing Agent Modal (Persistent across tabs if needed, but usually tied to Agents tab) */}
+            
             {editingAgent && activeSection === 'agents' && (
                 <div className="fixed inset-0 bg-ink-950/80 backdrop-blur-xl z-100 flex items-center justify-center p-8 overflow-y-auto" onClick={() => { setEditingAgent(null); setShowNewAgent(false); }}>
                     <motion.div
@@ -893,7 +893,7 @@ export default function AgentCommandCenter() {
                         className="bg-surface-elevated dark:bg-ink-primary rounded-[3rem] max-w-5xl w-full p-10 shadow-2xl relative border border-border-primary dark:border-white/5"
                         onClick={e => e.stopPropagation()}
                     >
-                        {/* Modal content ... (Similar to before but with improved inputs) */}
+                        
                         <div className="flex justify-between items-start mb-10">
                             <div>
                                 <h3 className="text-3xl font-black text-ink-primary dark:text-white mb-1">
@@ -905,7 +905,7 @@ export default function AgentCommandCenter() {
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                            {/* Left: Metadata */}
+                            
                             <div className="space-y-8">
                                 <div className="p-6 bg-surface-secondary dark:bg-surface-elevated/5 rounded-3xl space-y-6">
                                     <div>
@@ -931,7 +931,7 @@ export default function AgentCommandCenter() {
                                 </div>
                             </div>
 
-                            {/* Center/Right: Prompts & Skills */}
+                            
                             <div className="lg:col-span-2 space-y-8">
                                 <div className="space-y-3">
                                     <div className="flex justify-between items-center px-2">

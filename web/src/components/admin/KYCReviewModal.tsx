@@ -67,7 +67,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
             <div className="bg-surface-elevated rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-                {/* Header */}
+                
                 <div className="p-6 border-b border-border-primary flex justify-between items-start">
                     <div>
                         <h3 className="text-xl font-black text-ink-primary">KYC Review</h3>
@@ -77,9 +77,9 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                     <button onClick={onClose} className="p-2 hover:bg-surface-secondary rounded-lg">✕</button>
                 </div>
 
-                {/* Content */}
+                
                 <div className="p-6 overflow-auto max-h-[50vh]">
-                    {/* Submitted Info */}
+                    
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         <div className="p-4 bg-surface-secondary rounded-xl">
                             <p className="text-xs text-ink-tertiary uppercase tracking-widest mb-1">Submitted</p>
@@ -91,7 +91,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                         </div>
                     </div>
 
-                    {/* Documents */}
+                    
                     <div className="mb-4">
                         <h4 className="font-black text-ink-secondary mb-3 uppercase text-xs tracking-widest">Submitted Documents</h4>
                         {documentEntries.length === 0 ? (
@@ -125,7 +125,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                         )}
                     </div>
 
-                    {/* Rejection Reason Input */}
+                    
                     {showRejectForm && (
                         <div className="mt-6 p-4 bg-red-50 rounded-xl border border-red-100">
                             <label className="block text-xs font-black text-red-600 uppercase tracking-widest mb-2">
@@ -145,7 +145,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                     )}
                 </div>
 
-                {/* Footer */}
+                
                 <div className="p-6 border-t border-border-primary flex justify-between gap-3">
                     <button 
                         onClick={onClose}

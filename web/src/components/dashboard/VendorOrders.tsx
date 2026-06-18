@@ -119,7 +119,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[600px]">
-                {/* Column 1 */}
+                
                 <div className="bg-surface-secondary rounded-4xl p-6 flex flex-col border border-border-primary">
                     <h3 className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-6 px-2 flex justify-between items-center">
                         <span>{left.label}</span>
@@ -138,7 +138,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
                     </div>
                 </div>
 
-                {/* Column 2 */}
+                
                 {!isCampaign && (
                     <div className="bg-[#e11d48]/5/50 rounded-4xl p-6 flex flex-col border border-[#e11d48]/20/50">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-[#e11d48] mb-6 px-2 flex justify-between items-center">
@@ -158,7 +158,7 @@ export default function VendorOrders({ storeId, category }: VendorOrdersProps) {
                     </div>
                 )}
 
-                {/* Column 3 */}
+                
                 {!isCampaign && (
                     <div className="bg-emerald-500/10/50 rounded-4xl p-6 flex flex-col border border-emerald-500/20/50">
                         <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-6 px-2 flex justify-between items-center">

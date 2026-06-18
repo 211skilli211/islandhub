@@ -70,7 +70,7 @@ export default function PromotionBanner({ storeId, className = '' }: PromotionBa
                     }}
                 >
                     <div className="flex flex-col md:flex-row gap-6 p-6">
-                        {/* Media if exists */}
+                        
                         {promo.media_url && (
                             <div className="w-full md:w-1/3 aspect-video md:aspect-square relative overflow-hidden rounded-xl">
                                 <img
@@ -81,7 +81,7 @@ export default function PromotionBanner({ storeId, className = '' }: PromotionBa
                             </div>
                         )}
 
-                        {/* Content */}
+                        
                         <div className="flex-1 flex flex-col justify-center">
                             <div className="flex items-center gap-2 mb-2">
                                 <div className="bg-primary/10 text-primary p-1.5 rounded-lg">
@@ -123,7 +123,7 @@ export default function PromotionBanner({ storeId, className = '' }: PromotionBa
                             </div>
                         </div>
 
-                        {/* Ribbon decoration */}
+                        
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />
                     </div>
                 </motion.div>

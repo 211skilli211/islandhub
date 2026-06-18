@@ -182,7 +182,7 @@ export default function VendorPromotions({ storeId }: VendorPromotionsProps) {
                 </div>
             )}
 
-            {/* Create Modal */}
+            
             <AnimatePresence>
                 {isCreateModalOpen && (
                     <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-ink-primary/60 backdrop-blur-sm">

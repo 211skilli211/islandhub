@@ -214,7 +214,7 @@ export default function HeroBackground({
                 .text-shadow-outline { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
             `}</style>
 
-            {/* Background Layer */}
+            
             <div
                 className="absolute inset-0 z-0 transition-all duration-700"
                 style={layoutTemplate === 'split' ? {
@@ -222,7 +222,7 @@ export default function HeroBackground({
                     left: `${splitDivide}%`
                 } : { width: '100%', left: 0 }}
             >
-                {/* Shader / Particle / Aurora backgrounds */}
+                
                 {asset?.asset_type === 'shader' && (
                     <div className="absolute inset-0">
                         <ShaderHero
@@ -272,7 +272,7 @@ export default function HeroBackground({
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Always show overlay effects on the media layer if enabled */}
+                
                 {showOverlay && (
                     <>
                         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: overlayColor, opacity: overlayOpacity }} />
@@ -282,7 +282,7 @@ export default function HeroBackground({
                 )}
             </div>
 
-            {/* Content Layer */}
+            
             {!loading && (title || subtitle || iconUrl || ctaText || children) && (
                 <div className={`relative z-10 flex w-full min-h-[600px] md:min-h-[85vh] ${layoutTemplate === 'split' ? 'items-center' : 'items-center justify-center'
                     }`}>
@@ -303,10 +303,10 @@ export default function HeroBackground({
                                 textAlign: overlayAlign as any
                             } : {}}
                         >
-                            {/* IF children are provided, we skip the automatic title/subtitle/ctas to avoid duplication */}
+                            
                             {!children ? (
                                 <>
-                                    {/* Icon / Graphic */}
+                                    
                                     {iconUrl && iconUrl.trim() !== '' && (
                                         <motion.div
                                             initial={{ scale: 0.8, opacity: 0 }}
@@ -332,7 +332,7 @@ export default function HeroBackground({
                                         </motion.div>
                                     )}
 
-                                    {/* Title */}
+                                    
                                     {title && (
                                         <h1
                                             className={`text-3xl md:text-7xl lg:text-8xl font-black leading-[1.1] md:leading-[1.05] mb-6 md:mb-8 drop-shadow-md ${getEffectClass(titleStyle.effect)}`}
@@ -349,7 +349,7 @@ export default function HeroBackground({
                                         </h1>
                                     )}
 
-                                    {/* Subtitle */}
+                                    
                                     {subtitle && (
                                         <p
                                             className={`text-base md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl drop-shadow-md ${getEffectClass(subtitleStyle.effect)}`}
@@ -364,7 +364,7 @@ export default function HeroBackground({
                                         </p>
                                     )}
 
-                                    {/* CTAs */}
+                                    
                                     <div className={`flex flex-wrap gap-4 md:gap-6 mb-12 ${((layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'center') ? 'justify-center' :
                                         (layoutTemplate === 'overlay' ? overlayAlign : effectiveAlign) === 'right' ? 'justify-end' : 'justify-start'
                                         }`}>

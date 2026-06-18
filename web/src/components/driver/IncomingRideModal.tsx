@@ -93,10 +93,10 @@ export default function IncomingRideModal({
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center"
         >
-          {/* Backdrop */}
+          
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={handleDecline} />
 
-          {/* Modal */}
+          
           <motion.div
             initial={{ y: 100, opacity: 0, scale: 0.95 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -104,7 +104,7 @@ export default function IncomingRideModal({
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="relative w-full max-w-md mx-4 mb-4 sm:mb-0 bg-surface-elevated rounded-3xl border border-border-primary shadow-2xl overflow-hidden"
           >
-            {/* Countdown bar */}
+            
             <div className="h-1.5 bg-surface-secondary">
               <motion.div
                 className={`h-full ${isUrgent ? 'bg-red-500' : 'bg-accent-500'}`}
@@ -113,7 +113,7 @@ export default function IncomingRideModal({
               />
             </div>
 
-            {/* Header */}
+            
             <div className="p-6 pb-4">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -130,7 +130,7 @@ export default function IncomingRideModal({
                 </div>
               </div>
 
-              {/* Price highlight */}
+              
               <div className="bg-accent-500/10 rounded-2xl p-4 mb-4 text-center">
                 <p className="text-[10px] text-accent-400 font-black uppercase tracking-widest mb-1">Estimated Fare</p>
                 <p className="text-4xl font-black text-accent-400">${request.price}</p>
@@ -139,7 +139,7 @@ export default function IncomingRideModal({
                 )}
               </div>
 
-              {/* Route */}
+              
               <div className="space-y-3 mb-4">
                 <div className="flex items-start gap-3">
                   <div className="w-3 h-3 bg-emerald-500 rounded-full mt-1 flex-shrink-0" />
@@ -158,7 +158,7 @@ export default function IncomingRideModal({
                 </div>
               </div>
 
-              {/* Extras */}
+              
               {(request.passenger_count || request.notes) && (
                 <div className="flex gap-2 flex-wrap">
                   {request.passenger_count && (
@@ -175,7 +175,7 @@ export default function IncomingRideModal({
               )}
             </div>
 
-            {/* Actions */}
+            
             <div className="p-6 pt-0 flex gap-3">
               <button
                 onClick={handleDecline}

@@ -101,7 +101,7 @@ export default function VendorSpotlight() {
                                 href={`/stores/${vendor.slug || vendor.id}`}
                                 className="block h-full group bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-[2.5rem] overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2"
                             >
-                                {/* Professional Banner Background */}
+                                
                                 <div className="h-24 w-full relative overflow-hidden bg-surface-secondary dark:bg-ink-primary">
                                     {vendor.banner_url ? (
                                         <img
@@ -116,7 +116,7 @@ export default function VendorSpotlight() {
                                 </div>
 
                                 <div className="px-8 pb-10 relative z-10 -mt-8">
-                                    {/* Professional Logo in Tile */}
+                                    
                                     <div className="w-16 h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-border-primary shadow-xl mb-6 group-hover:scale-105 transition-transform bg-surface-elevated">
                                         {vendor.logo_url ? (
                                             <img src={getImageUrl(vendor.logo_url)} className="w-full h-full object-cover" alt={vendor.business_name} />

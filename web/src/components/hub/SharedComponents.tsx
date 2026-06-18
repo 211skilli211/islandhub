@@ -240,7 +240,7 @@ export function ImageGallery({
 
   return (
     <div className={`relative ${aspectClasses[aspectRatio]} rounded-2xl overflow-hidden bg-surface-secondary ${className}`}>
-      {/* Slides */}
+      
       {images.map((src, i) => (
         <div
           key={i}
@@ -264,10 +264,10 @@ export function ImageGallery({
         </div>
       ))}
 
-      {/* Navigation dots */}
+      
       {images.length > 1 && (
         <>
-          {/* Prev/Next arrows */}
+          
           <button
             onClick={() => setCurrent(p => (p - 1 + images.length) % images.length)}
             className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-colors"
@@ -281,7 +281,7 @@ export function ImageGallery({
             →
           </button>
 
-          {/* Dot indicators */}
+          
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
             {images.map((_, i) => (
               <button
@@ -296,7 +296,7 @@ export function ImageGallery({
         </>
       )}
 
-      {/* Image counter */}
+      
       {images.length > 1 && (
         <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/40 text-white text-[10px] font-medium">
           {current + 1}/{images.length}

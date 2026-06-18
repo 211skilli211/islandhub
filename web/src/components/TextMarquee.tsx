@@ -159,7 +159,7 @@ export default function TextMarquee() {
                 ))}
             </div>
 
-            {/* Premium Edge Fades */}
+            
             <div className={`absolute inset-y-0 left-0 w-32 bg-gradient-to-r ${style.fadeFrom} to-transparent z-10`} />
             <div className={`absolute inset-y-0 right-0 w-32 bg-gradient-to-l ${style.fadeFrom} to-transparent z-10`} />
 

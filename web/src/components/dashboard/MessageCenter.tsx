@@ -62,7 +62,7 @@ export default function MessageCenter() {
 
     return (
         <div className="bg-surface-elevated h-[600px] rounded-[3rem] flex border border-border-primary overflow-hidden">
-            {/* Inbox Sidebar */}
+            
             <div className="w-80 border-r border-border-primary flex flex-col bg-surface-elevated">
                 <div className="p-8 border-b border-border-primary flex items-center justify-between">
                     <h2 className="text-xl font-black text-ink-primary tracking-tight">Inbox</h2>
@@ -122,7 +122,7 @@ export default function MessageCenter() {
                 </div>
             </div>
 
-            {/* Chat Area */}
+            
             <div className="flex-1 bg-surface-secondary/20">
                 {selectedUser ? (
                     <ChatWindow

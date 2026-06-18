@@ -373,7 +373,7 @@ export default function AdSpace({
             default:
                 return (
                     <>
-                        {/* Background media (from ad or space config) */}
+                        
                         {mediaType === 'video' && mediaUrl ? (
                             <video
                                 src={mediaUrl}
@@ -400,7 +400,7 @@ export default function AdSpace({
                             />
                         ) : null}
 
-                        {/* Overlay with title/description */}
+                        
                         {(title || body) && (
                             <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6 ${displayConfig?.textAlign === 'center' ? 'text-center' : ''}`}>
                                 {title && (
@@ -427,7 +427,7 @@ export default function AdSpace({
                             </div>
                         )}
 
-                        {/* Optional CTA Link overlay for default banner */}
+                        
                         {!currentAd && displayConfig?.targetLink && !displayConfig?.show_button && (
                             <a href={displayConfig.targetLink} className="absolute inset-0 z-20" />
                         )}
@@ -446,27 +446,27 @@ export default function AdSpace({
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className={`relative group overflow-hidden ${displayConfig.radius || 'rounded-2xl'} ${className}`}
             >
-                {/* Background Layer */}
+                
                 <div style={bgLayerStyle} />
 
-                {/* Texture Overlay */}
+                
                 <div style={textureStyle} />
 
-                {/* Ad Content */}
+                
                 <div
                     onClick={(e) => currentAd && handleAdClick(currentAd, e)}
                     className={`relative h-full w-full ${currentAd ? 'cursor-pointer' : ''}`}
                 >
                     {renderAdContent()}
 
-                    {/* Sponsored/Default label */}
+                    
                     <div className="absolute top-4 left-4 bg-surface-elevated/10 backdrop-blur-md border border-surface-elevated/20 px-3 py-1 rounded-md z-30 opacity-0 group-hover:opacity-100 transition-opacity">
                         <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white">
                             {currentAd ? 'Partner Spotlight' : 'Island Hub'}
                         </span>
                     </div>
 
-                    {/* Dismiss button for mobile footer */}
+                    
                     {isMobileFooter && (
                         <button
                             onClick={(e) => {
@@ -480,7 +480,7 @@ export default function AdSpace({
                     )}
                 </div>
 
-                {/* Rotation indicators */}
+                
                 {ads.length > 1 && (
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
                         {ads.map((_, index) => (

@@ -58,7 +58,7 @@ export default function SeaHubPage() {
           imageUrl={item.image_url}
           emoji="🚤"
           title={item.name}
-          subtitle={`${item.boat_type} · ${item.capacity} guests`}
+          subtitle={`${item.boat_type} . ${item.capacity} guests`}
           price={item.price_half_day}
           priceSuffix="/half day"
           rating={item.rating}

@@ -97,7 +97,7 @@ export default function ProfileSettings() {
                 <h3 className="text-xl font-black text-ink-primary mb-6">Profile Appearance</h3>
 
                 <div className="space-y-8">
-                    {/* Banner Section */}
+                    
                     <div
                         className="relative h-48 rounded-[2rem] overflow-hidden border border-border-primary bg-surface-secondary flex items-center justify-center group"
                         style={{ backgroundColor: formData.banner_color }}
@@ -114,7 +114,7 @@ export default function ProfileSettings() {
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                        {/* Profile Photo */}
+                        
                         <div className="relative group">
                             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-surface-secondary flex items-center justify-center">
                                 {profilePhoto ? (
@@ -129,7 +129,7 @@ export default function ProfileSettings() {
                             </label>
                         </div>
 
-                        {/* Name & Color */}
+                        
                         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                             <div className="space-y-1.5">
                                 <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1">Display Name</label>

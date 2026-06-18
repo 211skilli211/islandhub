@@ -60,7 +60,7 @@ export default function DriverEarnings() {
 
   return (
     <div className="p-4 space-y-4">
-      {/* Period selector */}
+      
       <div className="flex gap-2">
         {(['day', 'week', 'month'] as const).map(p => (
           <button key={p} onClick={() => setPeriod(p)}
@@ -72,7 +72,7 @@ export default function DriverEarnings() {
         ))}
       </div>
 
-      {/* Main earnings card */}
+      
       <div className="bg-gradient-to-br from-teal-600/20 to-teal-700/20 border border-teal-500/20 rounded-2xl p-5">
         <p className="text-xs text-teal-400 uppercase tracking-wider font-bold mb-1">Net Earnings</p>
         <p className="text-4xl font-black text-white">${netEarnings.toFixed(2)} <span className="text-lg text-ink-400">XCD</span></p>
@@ -92,7 +92,7 @@ export default function DriverEarnings() {
         </div>
       </div>
 
-      {/* Breakdown */}
+      
       <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
         <h3 className="text-xs text-ink-500 uppercase tracking-wider font-bold mb-3">Breakdown</h3>
         <div className="space-y-2">
@@ -112,7 +112,7 @@ export default function DriverEarnings() {
         </div>
       </div>
 
-      {/* Recent trips */}
+      
       <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-4">
         <h3 className="text-xs text-ink-500 uppercase tracking-wider font-bold mb-3">Recent Trips</h3>
         {trips.length === 0 ? (
@@ -145,7 +145,7 @@ export default function DriverEarnings() {
         )}
       </div>
 
-      {/* Refresh */}
+      
       <button onClick={loadEarnings}
         className="w-full py-3 bg-ink-900/60 border border-white/5 rounded-xl text-sm text-ink-400 hover:text-white transition-colors">
         ↻ Refresh

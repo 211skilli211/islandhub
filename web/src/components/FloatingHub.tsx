@@ -79,7 +79,7 @@ export default function FloatingHub() {
                 )}
             </AnimatePresence>
 
-            {/* Active Component Overlays */}
+            
             <div className="relative">
                 {activeTab === 'chat' && (
                     <div className="absolute bottom-0 right-0">
@@ -99,7 +99,7 @@ export default function FloatingHub() {
                 )}
             </div>
 
-            {/* Main Hub Toggle */}
+            
             {activeTab === 'none' && (
                 <motion.button
                     whileHover={{ scale: 1.05 }}

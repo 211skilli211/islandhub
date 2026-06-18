@@ -604,7 +604,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
             <div className="bg-surface-elevated rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden flex flex-col">
-                {/* Header */}
+                
                 <div className="sticky top-0 bg-surface-elevated border-b border-border-primary p-6 flex justify-between items-center shrink-0 z-10">
                     <div>
                         <h2 className="text-2xl font-black text-ink-primary">
@@ -623,9 +623,9 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                 </div>
 
                 <div className="flex flex-1 overflow-hidden">
-                    {/* Left Panel - Form */}
+                    
                     <form onSubmit={handleSubmit} className="flex-1 p-6 space-y-6 overflow-y-auto">
-                        {/* Title */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Banner Title *
@@ -640,7 +640,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             />
                         </div>
 
-                        {/* Subtitle */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Subtitle
@@ -654,7 +654,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             />
                         </div>
 
-                        {/* Target URL */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Target URL
@@ -668,7 +668,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             />
                         </div>
 
-                        {/* Image Upload */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Banner Image (Optional)
@@ -727,7 +727,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
                         </div>
 
-                        {/* Layout Presets */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Layout Style *
@@ -751,7 +751,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
                         </div>
 
-                        {/* Location */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Location *
@@ -768,7 +768,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </select>
                         </div>
 
-                        {/* Page Targets */}
+                        
                         <div className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-4 border border-teal-200">
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 📍 Show Banner On These Pages
@@ -820,7 +820,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             )}
                         </div>
 
-                        {/* Mobile Display Mode */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Mobile Display Mode
@@ -858,7 +858,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </p>
                         </div>
 
-                        {/* Template Type */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Template Style
@@ -887,7 +887,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Alignment */}
+                            
                             <div>
                                 <label className="block text-sm font-bold text-ink-secondary mb-2">Content Alignment</label>
                                 <div className="flex bg-surface-secondary p-1 rounded-xl">
@@ -904,7 +904,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 </div>
                             </div>
 
-                            {/* Icon Picker */}
+                            
                             <div>
                                 <label className="block text-sm font-bold text-ink-secondary mb-2">Icon Overlay</label>
                                 <div className="space-y-3">
@@ -933,7 +933,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
                         </div>
 
-                        {/* Color Theme */}
+                        
                         <div>
                             <label className="block text-sm font-bold text-ink-secondary mb-3">
                                 Color Palette
@@ -956,7 +956,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
                         </div>
 
-                        {/* Enhanced Controls: Texture, Opacity, & Custom Colors */}
+                        
                         <div className="bg-gradient-to-br from-sand-50 to-sand-100 rounded-2xl p-6 border border-border-primary">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="text-xl">🎨</span>
@@ -966,7 +966,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
 
                             <div className="space-y-6">
-                                {/* Texture Pattern */}
+                                
                                 <div>
                                     <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                         Background Texture
@@ -989,7 +989,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </div>
                                 </div>
 
-                                {/* Texture Opacity */}
+                                
                                 <div>
                                     <div className="flex justify-between mb-2">
                                         <label className="block text-xs font-bold text-ink-tertiary uppercase tracking-wider">
@@ -1007,7 +1007,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     />
                                 </div>
 
-                                {/* Background Opacity */}
+                                
                                 <div>
                                     <div className="flex justify-between mb-2">
                                         <label className="block text-xs font-bold text-ink-tertiary uppercase tracking-wider">
@@ -1025,7 +1025,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     />
                                 </div>
 
-                                {/* Hero Image Overlay Section - Prominent */}
+                                
                                 <div className="mt-6 p-4 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-ink-800 dark:to-ink-700 rounded-2xl border-2 border-teal-200 dark:border-teal-700">
                                     <div className="flex items-center gap-2 mb-4">
                                         <div className="w-8 h-8 bg-accent-500 rounded-lg flex items-center justify-center">
@@ -1077,7 +1077,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 </div>
                                 </div>
 
-                                {/* Button Toggle & Text */}
+                                
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
@@ -1109,7 +1109,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </div>
                                 </div>
 
-                                {/* Button Style */}
+                                
                                 <div>
                                     <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
                                         Button Style
@@ -1132,7 +1132,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </div>
                                 </div>
 
-                                {/* Custom Button Colors */}
+                                
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold text-ink-tertiary mb-2 uppercase tracking-wider">
@@ -1181,7 +1181,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             </div>
                         </div>
 
-                        {/* Actions */}
+                        
                         <div className="flex gap-3 pt-4 border-t border-border-primary sticky bottom-0 bg-surface-elevated pb-2">
                             <button
                                 type="button"
@@ -1200,7 +1200,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
                     </form>
 
-                    {/* Right Panel - Live Preview */}
+                    
                     <div className="w-[400px] bg-surface-secondary border-l border-border-primary flex flex-col overflow-hidden">
                         <div className="p-6 border-b border-border-primary bg-surface-elevated">
                             <div className="flex items-center justify-between mb-4">
@@ -1230,7 +1230,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         </div>
 
                         <div className="flex-1 overflow-y-auto p-6">
-                            {/* Context Labels */}
+                            
                             <div className="mb-4 space-y-2">
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs font-bold text-ink-tertiary uppercase">Layout:</span>
@@ -1252,12 +1252,12 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 </div>
                             </div>
 
-                            {/* Actual Preview */}
+                            
                             <div className="space-y-6">
                                 {renderPreview()}
                             </div>
 
-                            {/* Info Cards */}
+                            
                             <div className="mt-6 space-y-3">
                                 <div className="bg-surface-elevated rounded-xl p-4 border border-border-primary">
                                     <h4 className="text-xs font-black text-ink-primary uppercase mb-2 flex items-center gap-2">
@@ -1265,10 +1265,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         Layout Features
                                     </h4>
                                     <ul className="text-[11px] text-ink-secondary space-y-1">
-                                        <li>• {selectedLayout.description}</li>
-                                        <li>• Responsive {previewMode} view</li>
-                                        {formData.image_url && <li>• Custom image support</li>}
-                                        {formData.icon && <li>• Icon overlay: {formData.icon}</li>}
+                                        <li>- {selectedLayout.description}</li>
+                                        <li>- Responsive {previewMode} view</li>
+                                        {formData.image_url && <li>- Custom image support</li>}
+                                        {formData.icon && <li>- Icon overlay: {formData.icon}</li>}
                                     </ul>
                                 </div>
 

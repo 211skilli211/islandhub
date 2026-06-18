@@ -94,14 +94,14 @@ export default function AssetLibrary() {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                 <div>
                     <h2 className="text-xl font-black text-ink-primary">Media Library</h2>
                     <p className="text-sm text-ink-tertiary">{filteredAssets.length} assets</p>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                    {/* Search */}
+                    
                     <div className="relative">
                         <input
                             type="text"
@@ -113,7 +113,7 @@ export default function AssetLibrary() {
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary">🔍</span>
                     </div>
 
-                    {/* View Toggle */}
+                    
                     <div className="flex bg-surface-secondary p-1 rounded-lg border border-border-primary">
                         <button
                             onClick={() => setViewMode('grid')}
@@ -131,7 +131,7 @@ export default function AssetLibrary() {
                 </div>
             </div>
 
-            {/* Filters */}
+            
             <div className="flex flex-wrap gap-4">
                 <div className="flex gap-2 overflow-x-auto pb-2">
                     {(['all', 'today', 'week', 'month'] as DateFilter[]).map(date => (
@@ -150,7 +150,7 @@ export default function AssetLibrary() {
                 </div>
             </div>
 
-            {/* Asset Display */}
+            
             {loading ? (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {[...Array(12)].map((_, i) => (
@@ -189,7 +189,7 @@ export default function AssetLibrary() {
                                 <p className="text-xs font-bold text-ink-secondary truncate">{asset.filename}</p>
                                 <p className="text-[10px] text-ink-tertiary">{formatFileSize(asset.file_size)}</p>
                             </div>
-                            {/* Hover Actions */}
+                            
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                                 <button 
                                     onClick={(e) => { e.stopPropagation(); openPreview(asset); }}
@@ -248,7 +248,7 @@ export default function AssetLibrary() {
                 </div>
             )}
 
-            {/* Preview Modal */}
+            
             {isPreviewOpen && selectedAsset && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
                     <div className="bg-surface-elevated rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden">

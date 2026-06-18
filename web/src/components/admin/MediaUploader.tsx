@@ -142,7 +142,7 @@ export default function MediaUploader({
         <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">{label}</label>
       )}
 
-      {/* Current value preview */}
+      
       {value && (
         <div className="relative rounded-xl overflow-hidden border border-border-primary bg-surface-secondary">
           {isImage ? (
@@ -174,7 +174,7 @@ export default function MediaUploader({
         </div>
       )}
 
-      {/* Upload area */}
+      
       {!value && (
         <div
           onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
@@ -215,7 +215,7 @@ export default function MediaUploader({
                 Drop file here or <span className="text-accent-500">browse</span>
               </p>
               <p className="text-[10px] text-ink-tertiary mt-1">
-                Images & Videos • Max 100MB
+                Images & Videos - Max 100MB
               </p>
               {error && <p className="text-[10px] text-red-500 mt-1">{error}</p>}
             </>
@@ -223,7 +223,7 @@ export default function MediaUploader({
         </div>
       )}
 
-      {/* Action buttons */}
+      
       {!value && status !== 'uploading' && (
         <div className="flex gap-2">
           <button
@@ -245,7 +245,7 @@ export default function MediaUploader({
         </div>
       )}
 
-      {/* Cropper Modal */}
+      
       {showCropper && cropImageSrc && (
         <ImageCropper
           src={cropImageSrc}
@@ -254,7 +254,7 @@ export default function MediaUploader({
         />
       )}
 
-      {/* Media Library Modal */}
+      
       {showLibrary && (
         <MediaLibrary
           onSelect={handleLibrarySelect}

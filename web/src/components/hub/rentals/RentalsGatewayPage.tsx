@@ -26,7 +26,7 @@ export default function RentalsGatewayPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-6 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <motion.h1
@@ -42,7 +42,7 @@ export default function RentalsGatewayPage() {
         </div>
       </section>
 
-      {/* Sub-hub Cards */}
+      
       <section className="max-w-6xl mx-auto px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {subHubs.map((sub, i) => (

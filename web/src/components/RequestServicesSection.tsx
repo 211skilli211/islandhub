@@ -39,7 +39,7 @@ export default function RequestServicesSection() {
     return (
         <section className="py-12 md:py-20 px-4 bg-gradient-to-b from-sand-50 to-white dark:from-ink-800 dark:to-ink-900">
             <div className="max-w-7xl mx-auto">
-                {/* Section Header */}
+                
                 <div className="text-center mb-8 md:mb-12">
                     <div className="inline-block px-4 py-1.5 bg-accent-500/15 dark:bg-accent-800/30 rounded-full text-accent-500 dark:text-accent-300 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
                         On-Demand Services
@@ -52,7 +52,7 @@ export default function RequestServicesSection() {
                     </p>
                 </div>
 
-                {/* Service Cards - Mobile Optimized Grid */}
+                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                     {services.map((service) => (
                         <Link
@@ -60,7 +60,7 @@ export default function RequestServicesSection() {
                             href={service.link}
                             className="group relative overflow-hidden rounded-3xl md:rounded-4xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 active:scale-95"
                         >
-                            {/* Background Image & Overlay */}
+                            
                             <div className="absolute inset-0">
                                 <img
                                     src={service.image}
@@ -70,12 +70,12 @@ export default function RequestServicesSection() {
                                 <div className={`absolute inset-0 bg-gradient-to-t ${service.gradient} transition-all duration-300`} />
                             </div>
 
-                            {/* Content */}
+                            
                             <div className="relative z-10 p-6 md:p-8 flex flex-col h-full min-h-[220px] md:min-h-[280px]">
-                                {/* Icon Replacement/Badge */}
+                                
 
 
-                                {/* Text */}
+                                
                                 <div className="flex-1">
                                     <p className="text-white/80 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">
                                         {service.subtitle}
@@ -88,7 +88,7 @@ export default function RequestServicesSection() {
                                     </p>
                                 </div>
 
-                                {/* CTA Arrow */}
+                                
                                 <div className="mt-4 flex items-center text-white font-bold text-sm group-hover:translate-x-2 transition-transform">
                                     Get Started
                                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,7 +100,7 @@ export default function RequestServicesSection() {
                     ))}
                 </div>
 
-                {/* Quick Stats - Mobile Optimized */}
+                
                 <div className="mt-8 md:mt-12 grid grid-cols-3 gap-3 md:gap-6 max-w-3xl mx-auto">
                     <div className="text-center p-4 md:p-6 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-sm">
                         <div className="text-2xl md:text-3xl font-black text-accent-400 dark:text-accent-400 mb-1">24/7</div>

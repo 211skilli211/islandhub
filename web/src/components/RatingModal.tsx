@@ -55,7 +55,7 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
                     <p className="text-ink-tertiary font-medium mb-8">How was your experience with <span className="text-ink-primary font-bold">{driverName}</span>?</p>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
-                        {/* Star Rating */}
+                        
                         <div className="flex justify-center gap-3">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <button
@@ -73,7 +73,7 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
                             ))}
                         </div>
 
-                        {/* Review Text */}
+                        
                         <div className="text-left">
                             <label className="block text-xs font-black text-ink-tertiary uppercase tracking-widest mb-3 ml-2">
                                 Write a Review (Optional)
@@ -86,7 +86,7 @@ export default function RatingModal({ deliveryId, driverName, onClose, onSuccess
                             />
                         </div>
 
-                        {/* Buttons */}
+                        
                         <div className="flex gap-4">
                             <button
                                 type="button"

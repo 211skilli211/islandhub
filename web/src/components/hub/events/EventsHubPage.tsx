@@ -59,7 +59,7 @@ function EventCard({ event }: { event: EventItem }) {
             {eventDate && (
               <span>📅 {eventDate.toLocaleDateString('en', { month: 'short', day: 'numeric' })}</span>
             )}
-            {event.venue && <span>· 📍 {event.venue}</span>}
+            {event.venue && <span>. 📍 {event.venue}</span>}
           </div>
           <div className="flex items-center justify-between pt-1 border-t border-border-primary">
             {event.is_free ? (
@@ -128,7 +128,7 @@ export default function EventsHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900 py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-black text-white mb-2">{emoji} {title}</h1>
@@ -151,7 +151,7 @@ export default function EventsHubPage() {
         </div>
       </section>
 
-      {/* Filters */}
+      
       <div className="max-w-7xl mx-auto px-4 py-4">
         <FilterBar
           filters={['All', 'This Week', 'This Month', 'Free', 'Paid']}
@@ -163,7 +163,7 @@ export default function EventsHubPage() {
         />
       </div>
 
-      {/* Events Grid */}
+      
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -187,7 +187,7 @@ export default function EventsHubPage() {
         )}
       </div>
 
-      {/* CTA */}
+      
       <section className="max-w-7xl mx-auto px-4 pb-12">
         <div className="bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-500/20 rounded-2xl p-8 text-center">
           <h2 className="text-xl font-semibold text-ink-primary">Hosting an Event?</h2>

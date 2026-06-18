@@ -187,10 +187,10 @@ export default function HeroAssetTab() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      
       <div className="flex items-center justify-between">
         <div className="text-sm text-ink-tertiary">
-          {activeAssets.length} active · {inactiveAssets.length} inactive
+          {activeAssets.length} active . {inactiveAssets.length} inactive
         </div>
         <button
           onClick={startCreate}
@@ -200,7 +200,7 @@ export default function HeroAssetTab() {
         </button>
       </div>
 
-      {/* Create/Edit Form */}
+      
       {(isCreating || editing) && (
         <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6 space-y-5">
           <div className="flex items-center justify-between">
@@ -210,7 +210,7 @@ export default function HeroAssetTab() {
             <button onClick={cancelEdit} className="text-xs text-ink-tertiary hover:text-ink-primary">✕ Cancel</button>
           </div>
 
-          {/* Live Preview Panel */}
+          
           <div className="rounded-xl border border-border-primary overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2 bg-surface-secondary border-b border-border-primary">
               <span className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Live Preview — {form.page_key || 'home'}</span>
@@ -226,7 +226,7 @@ export default function HeroAssetTab() {
               </div>
             </div>
             <div className={`relative ${form.style_config?.previewMode === 'mobile' ? 'mx-auto max-w-[375px]' : ''}`} style={{ minHeight: '250px' }}>
-              {/* Background layer */}
+              
               <div className="absolute inset-0 overflow-hidden">
                 {form.asset_type === 'shader' && (
                   <div className="absolute inset-0" style={{
@@ -268,14 +268,14 @@ export default function HeroAssetTab() {
                   <div className="absolute inset-0 bg-surface-tertiary flex items-center justify-center text-ink-tertiary text-xs">No image URL</div>
                 )}
               </div>
-              {/* Overlay */}
+              
               {form.style_config?.showOverlay !== false && (
                 <div className="absolute inset-0" style={{
                   backgroundColor: form.overlay_color || '#000000',
                   opacity: form.overlay_opacity || 0.4
                 }} />
               )}
-              {/* Content preview */}
+              
               <div className={`relative z-10 flex items-center justify-center p-6 min-h-[250px] ${
                 form.layout_template === 'split' ? 'items-center' : 'items-center justify-center'
               }`}>
@@ -303,7 +303,7 @@ export default function HeroAssetTab() {
             </div>
           </div>
 
-          {/* Page & Type Row */}
+          
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Page</label>
@@ -339,7 +339,7 @@ export default function HeroAssetTab() {
             </div>
           </div>
 
-          {/* Asset Type Selection */}
+          
           <div>
             <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Background Type</label>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-2">
@@ -359,7 +359,7 @@ export default function HeroAssetTab() {
             </div>
           </div>
 
-          {/* Conditional: Image/Video Upload */}
+          
           {(form.asset_type === 'image' || form.asset_type === 'video') && (
             <MediaUploader
               value={form.asset_url || ''}
@@ -369,7 +369,7 @@ export default function HeroAssetTab() {
             />
           )}
 
-          {/* Conditional: Shader Presets */}
+          
           {form.asset_type === 'shader' && (
             <div>
               <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Shader Preset</label>
@@ -409,7 +409,7 @@ export default function HeroAssetTab() {
             </div>
           )}
 
-          {/* Conditional: Aurora Presets */}
+          
           {form.asset_type === 'aurora' && (
             <div>
               <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Aurora Preset (ReactBits)</label>
@@ -449,7 +449,7 @@ export default function HeroAssetTab() {
             </div>
           )}
 
-          {/* Conditional: Particle Presets */}
+          
           {form.asset_type === 'particle' && (
             <div>
               <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Particle Theme</label>
@@ -485,7 +485,7 @@ export default function HeroAssetTab() {
             </div>
           )}
 
-          {/* Conditional: Color/Gradient */}
+          
           {form.asset_type === 'color' && (
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -503,7 +503,7 @@ export default function HeroAssetTab() {
             </div>
           )}
 
-          {/* Overlay Controls */}
+          
           <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Overlay Color</label>
@@ -527,7 +527,7 @@ export default function HeroAssetTab() {
             </div>
           </div>
 
-          {/* Content Fields */}
+          
           <div className="border-t border-border-primary pt-4">
             <h4 className="text-xs font-bold text-ink-secondary uppercase tracking-wider mb-3">Content</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -562,7 +562,7 @@ export default function HeroAssetTab() {
             </div>
           </div>
 
-          {/* Save / Delete */}
+          
           <div className="flex items-center gap-3 pt-2">
             <button
               onClick={saveAsset}
@@ -586,7 +586,7 @@ export default function HeroAssetTab() {
         </div>
       )}
 
-      {/* Active Assets */}
+      
       {activeAssets.length > 0 && (
         <div>
           <h3 className="text-sm font-bold text-ink-secondary uppercase tracking-wider mb-3">Active ({activeAssets.length})</h3>
@@ -608,10 +608,10 @@ export default function HeroAssetTab() {
                     <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">ACTIVE</span>
                   </div>
                   <p className="text-xs text-ink-tertiary truncate">
-                    {ASSET_TYPES.find(t => t.value === asset.asset_type)?.label} · {asset.title || 'Untitled'}
-                    {asset.style_config?.shaderPreset ? ` · ${asset.style_config.shaderPreset}` : ''}
-                    {asset.style_config?.auroraPreset ? ` · ${asset.style_config.auroraPreset}` : ''}
-                    {asset.style_config?.particleTheme ? ` · ${asset.style_config.particleTheme}` : ''}
+                    {ASSET_TYPES.find(t => t.value === asset.asset_type)?.label} . {asset.title || 'Untitled'}
+                    {asset.style_config?.shaderPreset ? ` . ${asset.style_config.shaderPreset}` : ''}
+                    {asset.style_config?.auroraPreset ? ` . ${asset.style_config.auroraPreset}` : ''}
+                    {asset.style_config?.particleTheme ? ` . ${asset.style_config.particleTheme}` : ''}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -635,7 +635,7 @@ export default function HeroAssetTab() {
         </div>
       )}
 
-      {/* Inactive Assets */}
+      
       {inactiveAssets.length > 0 && (
         <div>
           <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider mb-3">Inactive ({inactiveAssets.length})</h3>
@@ -644,7 +644,7 @@ export default function HeroAssetTab() {
               <div key={asset.id} className="flex items-center gap-4 p-3 bg-surface-secondary/50 rounded-xl border border-border-primary/50 opacity-70">
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-ink-secondary text-xs">{asset.page_key}</p>
-                  <p className="text-[10px] text-ink-tertiary">{asset.asset_type} · {asset.title || 'Untitled'}</p>
+                  <p className="text-[10px] text-ink-tertiary">{asset.asset_type} . {asset.title || 'Untitled'}</p>
                 </div>
                 <button onClick={() => startEdit(asset)}
                   className="px-3 py-1 text-[10px] font-bold text-ink-secondary bg-surface-secondary rounded-lg hover:bg-surface-tertiary">
@@ -656,7 +656,7 @@ export default function HeroAssetTab() {
         </div>
       )}
 
-      {/* Empty State */}
+      
       {assets.length === 0 && (
         <div className="text-center py-12 bg-surface-secondary/50 rounded-2xl border-2 border-dashed border-border-primary">
           <p className="text-3xl mb-3">🎨</p>

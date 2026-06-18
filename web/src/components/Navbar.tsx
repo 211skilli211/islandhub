@@ -81,16 +81,16 @@ export default function Navbar() {
         <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full">
 
-            {/* ═══ LEFT: Logo + Nav Links ═══ */}
+            
             <div className="flex items-center gap-8">
-              {/* Logo */}
+              
               <Link href="/" className="shrink-0 group">
                 <span className="text-display-md text-gradient-brand tracking-tight">
                   IslandHub
                 </span>
               </Link>
 
-              {/* Desktop Nav Links */}
+              
               <div className="hidden lg:flex items-center gap-1">
                 {NAV_LINKS.map((link) => (
                   <Link
@@ -102,7 +102,7 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                {/* Explore Dropdown */}
+                
                 <div
                   className="relative"
                   onMouseEnter={() => setExploreOpen(true)}
@@ -149,7 +149,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* ═══ CENTER: Search (desktop) ═══ */}
+            
             <div className="hidden md:flex flex-1 max-w-md mx-8">
               <form
                 onSubmit={(e) => {
@@ -171,9 +171,9 @@ export default function Navbar() {
               </form>
             </div>
 
-            {/* ═══ RIGHT: Actions ═══ */}
+            
             <div className="flex items-center gap-2">
-              {/* Theme Toggle */}
+              
               {mounted && (
                 <button
                   onClick={toggleTheme}
@@ -184,7 +184,7 @@ export default function Navbar() {
                 </button>
               )}
 
-              {/* Cart */}
+              
               <button
                 onClick={() => setCartOpen(true)}
                 className="relative p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
@@ -198,14 +198,14 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* Notifications (authenticated) */}
+              
               {mounted && isAuthenticated && (
                 <div className="hidden sm:block">
                   <NotificationCenter />
                 </div>
               )}
 
-              {/* Auth buttons / Profile (desktop) */}
+              
               <div className="hidden lg:flex items-center gap-2 ml-2">
                 {mounted && (
                   isAuthenticated ? (
@@ -229,7 +229,7 @@ export default function Navbar() {
                 )}
               </div>
 
-              {/* Mobile menu button */}
+              
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="lg:hidden p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
@@ -242,7 +242,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ═══ MOBILE DRAWER ═══ */}
+      
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -261,7 +261,7 @@ export default function Navbar() {
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated shadow-2xl lg:hidden flex flex-col overflow-y-auto"
             >
-              {/* Mobile header */}
+              
               <div className="flex items-center justify-between p-5 border-b border-white/10 shrink-0">
                 <span className="text-headline-md text-white font-bold">IslandHub</span>
                 <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl hover:bg-white/10 transition-colors">
@@ -269,7 +269,7 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* Mobile search */}
+              
               <div className="p-4 border-b border-white/10">
                 <form onSubmit={(e) => { e.preventDefault(); const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value; if (q.trim()) { router.push(`/search?q=${encodeURIComponent(q)}`); setMobileOpen(false); } }}>
                   <div className="relative">
@@ -280,7 +280,7 @@ export default function Navbar() {
                 </form>
               </div>
 
-              {/* Mobile nav links */}
+              
               <div className="flex-1 p-4 space-y-1">
                 {NAV_LINKS.map((link) => (
                   <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
@@ -319,7 +319,7 @@ export default function Navbar() {
                 </Link>
               </div>
 
-              {/* Mobile auth area */}
+              
               <div className="p-4 border-t border-white/10 shrink-0 space-y-3">
                 {mounted && (
                   isAuthenticated ? (
@@ -375,7 +375,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Cart Drawer */}
+      
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );

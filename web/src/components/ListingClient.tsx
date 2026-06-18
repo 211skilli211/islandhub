@@ -215,7 +215,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
     return (
         <div className="min-h-screen bg-surface-secondary">
-            {/* Navigation Bar */}
+            
             <nav className="bg-surface-elevated border-b border-border-primary sticky top-0 z-30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
@@ -267,9 +267,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
 
             <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
-                    {/* Main Content */}
+                    
                     <div className="lg:col-span-7 space-y-8">
-                        {/* Image Gallery */}
+                        
                         <div className="relative aspect-[16/10] bg-surface-tertiary rounded-2xl overflow-hidden shadow-sm">
                             <AnimatePresence mode="wait">
                                 <motion.img
@@ -290,7 +290,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 />
                             </AnimatePresence>
 
-                            {/* Category Badge */}
+                            
                             <div className="absolute top-4 left-4">
                                 <span
                                     className="px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-sm"
@@ -300,7 +300,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 </span>
                             </div>
 
-                            {/* Image Counter */}
+                            
                             {displayImages.length > 1 && (
                                 <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-ink-primary/60 backdrop-blur-sm rounded-full text-xs font-medium text-white">
                                     {activeImage + 1} / {displayImages.length}
@@ -308,7 +308,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             )}
                         </div>
 
-                        {/* Thumbnails */}
+                        
                         {displayImages.length > 1 && (
                             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                                 {displayImages.map((img, idx) => (
@@ -324,7 +324,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         )}
 
-                        {/* Description */}
+                        
                         <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                             <h2 className="text-lg font-semibold text-ink-primary mb-4">Description</h2>
                             <p className="text-ink-secondary leading-relaxed">
@@ -332,7 +332,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </p>
                         </div>
 
-                        {/* Inclusions / Exclusions */}
+                        
                         {((listing.metadata as any)?.inclusions?.length > 0 || (listing.metadata as any)?.exclusions?.length > 0) && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {(listing.metadata as any).inclusions?.length > 0 && (
@@ -374,7 +374,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         )}
 
-                        {/* Restaurant Menu */}
+                        
                         {(listing.metadata as any)?.menu_sections && (
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Restaurant Menu</h2>
@@ -432,7 +432,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         )}
 
-                        {/* Boutique Catalogue */}
+                        
                         {(listing.metadata as any)?.catalogue_sections && (
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Boutique Catalogue</h2>
@@ -473,7 +473,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         )}
 
-                        {/* Rental/Service CTA */}
+                        
                         {(listing.type === 'rental' || listing.type === 'service') && (
                             <div className="bg-ink-primary rounded-2xl p-8 text-white">
                                 <div className="flex flex-col md:flex-row items-center gap-6">
@@ -495,7 +495,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         )}
 
-                        {/* Specifications */}
+                        
                         {listing.metadata && Object.keys(listing.metadata).length > 2 && (
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Specifications</h2>
@@ -534,7 +534,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         )}
 
-                        {/* Vendor Section */}
+                        
                         <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                             <div className="flex flex-col md:flex-row items-center gap-6">
                                 <div className="relative">
@@ -575,7 +575,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         </div>
 
-                        {/* Reviews Section */}
+                        
                         {listing.vendor_id && (
                             <div className="pt-8">
                                 <ReviewSection vendorId={String(listing.vendor_id)} listingId={String(listing.id)} />
@@ -583,7 +583,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         )}
                     </div>
 
-                    {/* Sidebar */}
+                    
                     <div className="lg:col-span-5 mt-8 lg:mt-0 lg:sticky lg:top-24 lg:self-start">
                         <div className="bg-surface-elevated rounded-2xl border border-border-primary shadow-sm">
                             <div className="p-6 border-b border-border-primary">
@@ -591,7 +591,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     {listing.title}
                                 </h1>
 
-                                {/* Price Section */}
+                                
                                 {listing.type === 'campaign' ? (
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-end">
@@ -628,7 +628,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
 
                             <div className="p-6 space-y-6">
-                                {/* Variants Selection */}
+                                
                                 {listing.metadata?.variants && typeof listing.metadata.variants === 'object' && !Array.isArray(listing.metadata.variants) && (
                                     <div className="space-y-4">
                                         {Object.entries(listing.metadata.variants).map(([groupName, options], idx) => (
@@ -656,7 +656,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Legacy Variants */}
+                                
                                 {listing.metadata?.variants && Array.isArray(listing.metadata.variants) && (
                                     <div className="space-y-4">
                                         {listing.metadata.variants.map((variant: any, idx: number) => (
@@ -686,7 +686,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Addons Selection */}
+                                
                                 {listing.metadata?.addons && Array.isArray(listing.metadata.addons) && listing.metadata.addons.length > 0 && (
                                     <div className="space-y-3">
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Enhance your order</p>
@@ -722,7 +722,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Service Schedule */}
+                                
                                 {listing.metadata?.appointment_config && (
                                     <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-3">Typical Schedule</p>
@@ -744,7 +744,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Pickup Schedules */}
+                                
                                 {listing.metadata?.pickup_schedules && Array.isArray(listing.metadata.pickup_schedules) && listing.metadata.pickup_schedules.length > 0 && (
                                     <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-3">Pickup Schedule</p>
@@ -759,7 +759,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Rental Inclusions */}
+                                
                                 {listing.metadata?.inclusions && (
                                     <div>
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-2">Included</p>
@@ -773,7 +773,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Trust Badges */}
+                                
                                 <div className="grid grid-cols-2 gap-3">
                                     <div className="p-3 bg-surface-secondary rounded-xl border border-border-primary text-center">
                                         <p className="text-xs text-ink-tertiary mb-1">Experience</p>
@@ -788,7 +788,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 </div>
 
-                                {/* Quantity Selector */}
+                                
                                 {listing.type !== 'service' && listing.type !== 'campaign' && (
                                     <div className="flex items-center justify-between pt-4 border-t border-border-primary">
                                         <span className="text-sm font-medium text-ink-secondary">Quantity</span>
@@ -800,7 +800,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </div>
                                 )}
 
-                                {/* Service Date Picker */}
+                                
                                 {listing.type === 'service' && (
                                     <button
                                         onClick={() => setIsBookingModalOpen(true)}
@@ -825,7 +825,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     </button>
                                 )}
 
-                                {/* Total & CTA */}
+                                
                                 <div className="pt-4 border-t border-border-primary">
                                     <div className="flex justify-between items-center mb-4">
                                         <span className="text-sm text-ink-secondary">Total</span>
@@ -846,7 +846,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             </div>
                         </div>
 
-                        {/* Service Specialties */}
+                        
                         {listing.type === 'service' && listing.metadata?.specialties && (
                             <div className="mt-6 bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h3 className="text-lg font-semibold text-ink-primary mb-4">Our Specialties</h3>
@@ -864,7 +864,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                 </div>
             </main>
 
-            {/* Mobile Sticky Bar */}
+            
             <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-surface-elevated/95 backdrop-blur-xl border-t border-border-primary p-3 shadow-2xl">
                 <div className="flex items-center justify-between gap-3 max-w-7xl mx-auto">
                     <div className="min-w-0">
@@ -882,7 +882,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                 </div>
             </div>
 
-            {/* Booking Modal */}
+            
             <AnimatePresence>
                 {isBookingModalOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -899,7 +899,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             exit={{ scale: 0.95, opacity: 0 }}
                             className="relative w-full max-w-3xl bg-surface-elevated rounded-2xl overflow-hidden shadow-xl flex flex-col md:flex-row max-h-[90vh]"
                         >
-                            {/* Left Panel */}
+                            
                             <div className="md:w-2/5 bg-ink-primary p-6 text-white">
                                 <button
                                     onClick={() => setIsBookingModalOpen(false)}
@@ -925,7 +925,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 </div>
                             </div>
 
-                            {/* Right Panel */}
+                            
                             <div className="flex-1 p-6 overflow-y-auto">
                                 <div className="mb-6">
                                     <h4 className="text-sm font-medium text-ink-primary mb-4">1. Select Date</h4>
@@ -972,7 +972,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                 )}
             </AnimatePresence>
 
-            {/* Item Addons Modal */}
+            
             <AnimatePresence>
                 {selectedItemForAddons && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

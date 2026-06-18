@@ -117,7 +117,7 @@ export function CommunityDirectoryHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 py-6 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight">🌴 Island Community</h1>
@@ -127,9 +127,9 @@ export function CommunityDirectoryHubPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-6 space-y-8">
 
-        {/* ─── EVENTS SECTION ─── */}
+        
         <ContentSection title="Upcoming Events" subtitle="Local gatherings, festivals, and meetups" seeMoreHref="/community/events" seeMoreLabel="All Events">
-          {/* Category pills */}
+          
           <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
             {EVENT_CATEGORIES.map(cat => (
               <button key={cat.id} onClick={() => setActiveFilter(cat.id)}
@@ -176,7 +176,7 @@ export function CommunityDirectoryHubPage() {
           )}
         </ContentSection>
 
-        {/* ─── GROUPS SECTION ─── */}
+        
         <ContentSection title="Community Groups" subtitle="Find your people and join the conversation" seeMoreHref="/community/groups" seeMoreLabel="All Groups">
           {loading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -209,7 +209,7 @@ export function CommunityDirectoryHubPage() {
           )}
         </ContentSection>
 
-        {/* ─── STORIES SECTION ─── */}
+        
         <ContentSection title="Community Stories" subtitle="Real stories from island residents" seeMoreHref="/community/stories" seeMoreLabel="All Stories">
           {loading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -242,7 +242,7 @@ export function CommunityDirectoryHubPage() {
           )}
         </ContentSection>
 
-        {/* ─── AUCTIONS SECTION ─── */}
+        
         <ContentSection title="Live Auctions" subtitle="Bid on unique island items in real-time" seeMoreHref="/community/auctions" seeMoreLabel="All Auctions">
           {loading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -275,7 +275,7 @@ export function CommunityDirectoryHubPage() {
           )}
         </ContentSection>
 
-        {/* ─── CTA ─── */}
+        
         <section className="text-center py-8 border-t border-border-primary">
           <h3 className="text-lg font-bold text-ink-primary mb-2">Join the Community</h3>
           <p className="text-sm text-ink-tertiary mb-4 max-w-md mx-auto">Connect with locals, share stories, and be part of island life!</p>

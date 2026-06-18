@@ -77,7 +77,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
 
     return (
         <>
-            {/* Toggle button - only show if NOT in hubMode */}
+            
             {!hubMode && (
                 <motion.button
                     whileHover={{ scale: 1.02 }}
@@ -94,7 +94,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                 </motion.button>
             )}
 
-            {/* Panel */}
+            
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -104,7 +104,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                         className={`fixed top-0 right-0 bottom-0 w-96 bg-surface-elevated dark:bg-ink-primary border-l border-border-primary dark:border-border-primary shadow-2xl flex flex-col ${hubMode ? 'z-10002' : 'z-40'}`}
                     >
-                        {/* Header */}
+                        
                         <div className="p-5 bg-[#14b8a6] text-white">
                             <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-3">
@@ -126,7 +126,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                                 </button>
                             </div>
 
-                            {/* Quick Actions */}
+                            
                             <div className="flex flex-wrap gap-1.5">
                                 {QUICK_ACTIONS.map(qa => (
                                     <button
@@ -140,7 +140,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                             </div>
                         </div>
 
-                        {/* Messages */}
+                        
                         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-surface-secondary dark:bg-surface-tertiary/50">
                             {messages.map((m, i) => (
                                 <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -163,7 +163,7 @@ export default function VendorAssistant({ hubMode = false, onHubClose }: VendorA
                             )}
                         </div>
 
-                        {/* Input */}
+                        
                         <form onSubmit={handleSend} className="p-4 border-t border-border-primary dark:border-border-primary bg-surface-elevated dark:bg-ink-primary">
                             <div className="flex gap-2">
                                 <input

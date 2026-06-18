@@ -144,7 +144,7 @@ export default function LikeButton({
                 )}
             </button>
 
-            {/* Reaction Picker */}
+            
             <AnimatePresence>
                 {showPicker && (
                     <motion.div

@@ -97,7 +97,7 @@ function SortableColumnHeader<T>({
                 <span className="truncate">{col.header}</span>
                 {isDragging && <span className="text-[10px]">✋</span>}
             </div>
-            {/* Resizer Handle */}
+            
             <div
                 className="absolute right-0 top-0 bottom-0 w-4 cursor-col-resize hover:bg-accent-500/100/10 group-hover:bg-surface-tertiary/20 transition-colors z-10 flex flex-col justify-center items-center gap-0.5"
                 onMouseDown={(e) => startResize(idx, e)}
@@ -300,10 +300,10 @@ export function AdminTable<T extends Record<string, any>>({
 
     return (
         <div className="space-y-3">
-            {/* Toolbar — compact on desktop, stacked on mobile */}
+            
             <div className="flex flex-col md:flex-row gap-3 justify-between items-start md:items-center bg-surface-elevated p-3 rounded-xl border border-border-primary">
                 <div className="flex flex-wrap gap-2 items-center w-full md:w-auto">
-                    {/* Search */}
+                    
                     {searchable && (
                         <div className="relative flex-1 md:flex-none md:w-56">
                             <input
@@ -321,7 +321,7 @@ export function AdminTable<T extends Record<string, any>>({
                         </div>
                     )}
 
-                    {/* Sort */}
+                    
                     <SortControls
                         sort={sort}
                         onSortChange={setSort}
@@ -330,7 +330,7 @@ export function AdminTable<T extends Record<string, any>>({
                             .map(c => ({ label: c.header, value: (c.sortKey || c.accessor) as string }))}
                     />
 
-                    {/* Filters */}
+                    
                     {filtersConfig && (
                         <FilterControls
                             filters={filters}
@@ -341,7 +341,7 @@ export function AdminTable<T extends Record<string, any>>({
                 </div>
 
                 <div className="flex flex-wrap gap-2 items-center w-full md:w-auto justify-end">
-                    {/* View Toggle: Table / Card */}
+                    
                     <div className="flex bg-surface-secondary p-0.5 rounded-lg border border-border-primary">
                         <button
                             onClick={() => setViewType('table')}
@@ -359,7 +359,7 @@ export function AdminTable<T extends Record<string, any>>({
                         </button>
                     </div>
 
-                    {/* Compact toggle */}
+                    
                     <button
                         onClick={() => setIsCompact(!isCompact)}
                         className={`px-2 py-1 border rounded-lg text-[10px] font-bold transition-all ${isCompact ? 'bg-accent-500/10 border-accent-300 text-accent-500' : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'}`}
@@ -368,7 +368,7 @@ export function AdminTable<T extends Record<string, any>>({
                         {isCompact ? 'Expand' : 'Compact'}
                     </button>
 
-                    {/* Column Settings */}
+                    
                     <div className="relative">
                         <button
                             onClick={() => setShowColumnSettings(!showColumnSettings)}
@@ -415,7 +415,7 @@ export function AdminTable<T extends Record<string, any>>({
                         )}
                     </div>
 
-                    {/* Export */}
+                    
                     <button
                         onClick={() => {
                             const params = new URLSearchParams();
@@ -435,7 +435,7 @@ export function AdminTable<T extends Record<string, any>>({
                         {selectedRows.length > 0 ? `Export (${selectedRows.length})` : 'CSV'}
                     </button>
 
-                    {/* Bulk Actions */}
+                    
                     {bulkActions && selectedRows.length > 0 && (
                         <div className="flex gap-1.5">
                             {Object.keys(bulkActions).map(action => (
@@ -450,7 +450,7 @@ export function AdminTable<T extends Record<string, any>>({
             </div>
 
             <div className="bg-surface-elevated rounded-xl border border-border-primary shadow-sm overflow-hidden min-h-[400px]">
-                {/* Desktop Table View */}
+                
                 {viewType === 'table' && (
                     <div className="hidden md:block overflow-x-auto">
                         <DndContext 
@@ -629,7 +629,7 @@ export function AdminTable<T extends Record<string, any>>({
                     </div>
                 )}
 
-                {/* Grid View (Desktop & Tablet) */}
+                
                 {viewType === 'card' && !loading && items.length > 0 && (
                     <div className="p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                         {items.map((item) => {
@@ -647,7 +647,7 @@ export function AdminTable<T extends Record<string, any>>({
                                     onClick={() => getRowLink && router.push(getRowLink(item))}
                                     className={`group relative rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col ${selectedRows.includes(item[idKey] as any) ? 'border-teal-500 bg-accent-500/10/10' : 'border-border-primary bg-surface-elevated hover:border-teal-200 hover:shadow-xl hover:-translate-y-1'} ${getRowLink ? 'cursor-pointer' : ''}`}
                                 >
-                                    {/* Action Header */}
+                                    
                                     <div className="absolute top-3 right-3 z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                         {rowActions?.map(action => (
                                             (!action.condition || action.condition(item)) && (
@@ -657,14 +657,14 @@ export function AdminTable<T extends Record<string, any>>({
                                                     className="p-1.5 rounded-full bg-surface-elevated/90 backdrop-blur text-ink-tertiary hover:text-accent-400 shadow-sm border border-border-primary"
                                                     title={action.label}
                                                 >
-                                                    {/* Use icon if available, else simple fallback */}
+                                                    
                                                     {action.icon ? action.icon : (action.action.includes('delete') ? '🗑️' : action.action.includes('edit') ? '✏️' : '⚡')}
                                                 </button>
                                             )
                                         ))}
                                     </div>
 
-                                    {/* Card Header (Image + Title) */}
+                                    
                                     <div className="p-5 flex flex-col items-center text-center border-b border-border-primary relative overflow-hidden bg-surface-secondary/30">
                                         {bulkActions && (
                                             <div className="absolute top-3 left-3 z-10" onClick={e => e.stopPropagation()}>
@@ -700,7 +700,7 @@ export function AdminTable<T extends Record<string, any>>({
                                         )}
                                     </div>
 
-                                    {/* Card Details Grid */}
+                                    
                                     <div className="p-4 grid grid-cols-2 gap-y-3 gap-x-2 bg-surface-elevated flex-1 content-start">
                                         {detailColumns.slice(0, 6).map((col, idx) => (
                                             <div key={`card-det-${item.id}-${idx}`} className="flex flex-col">
@@ -712,7 +712,7 @@ export function AdminTable<T extends Record<string, any>>({
                                         ))}
                                     </div>
 
-                                    {/* Footer ID */}
+                                    
                                     <div className="px-4 py-2 bg-surface-secondary/50 text-[9px] font-mono text-ink-tertiary text-right uppercase tracking-widest">
                                         ID: {item[idKey] as any}
                                     </div>
@@ -722,7 +722,7 @@ export function AdminTable<T extends Record<string, any>>({
                     </div>
                 )}
 
-                {/* Mobile View (Card List - Only if viewType is table) */}
+                
                 {viewType === 'table' && (
                     <div className="md:hidden divide-y divide-slate-100">
                         {loading ? (

@@ -52,7 +52,7 @@ function RentalCard({ property: p, index }: { property: RentalProperty; index: n
     >
       <Link href={`/hub/rentals/stays/${p.slug}`} className="block group">
         <div className="space-y-1.5">
-          {/* Image — square on mobile, video on desktop */}
+          
           <div className="relative">
             <ImageGallery
               images={images}
@@ -61,14 +61,14 @@ function RentalCard({ property: p, index }: { property: RentalProperty; index: n
               carousel={false}
               className="rounded-xl"
             />
-            {/* Wishlist heart */}
+            
             <button
               className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-ink-secondary hover:text-red-500 transition-colors"
               onClick={(e) => { e.preventDefault(); }}
             >
               ♡
             </button>
-            {/* Trending badge */}
+            
             {p.is_trending && (
               <div className="absolute top-2 left-2 px-1.5 py-0.5 rounded-md bg-amber-500 text-white text-[9px] font-bold">
                 🔥 Trending
@@ -76,7 +76,7 @@ function RentalCard({ property: p, index }: { property: RentalProperty; index: n
             )}
           </div>
 
-          {/* Info — compact */}
+          
           <div className="space-y-0.5">
             <div className="flex items-start justify-between gap-1">
               <h3 className="text-xs font-semibold text-ink-primary group-hover:text-accent-500 transition-colors line-clamp-2 leading-tight">
@@ -88,8 +88,8 @@ function RentalCard({ property: p, index }: { property: RentalProperty; index: n
             </div>
             <p className="text-[10px] text-ink-tertiary">
               {p.bedrooms ? `${p.bedrooms} bed` : 'Property'}
-              {p.bathrooms ? ` · ${p.bathrooms} bath` : ''}
-              {p.max_guests ? ` · ${p.max_guests} guests` : ''}
+              {p.bathrooms ? ` . ${p.bathrooms} bath` : ''}
+              {p.max_guests ? ` . ${p.max_guests} guests` : ''}
             </p>
             <PriceTag price={price} suffix="/night" size="sm" />
           </div>
@@ -108,35 +108,35 @@ function RentalDetail({ property: p }: { property: RentalProperty }) {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Image Gallery */}
+      
       <div className="max-w-7xl mx-auto px-4 pt-6">
         <ImageGallery images={images} alt={name} aspectRatio="wide" carousel className="rounded-2xl" />
       </div>
 
-      {/* Content */}
+      
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left: Details */}
+          
           <div className="lg:col-span-2 space-y-6">
-            {/* Title + Stats */}
+            
             <div>
               <h1 className="text-2xl font-bold text-ink-primary mb-1">{name}</h1>
               <div className="flex items-center gap-3 text-sm text-ink-secondary">
                 {p.rating && <RatingBadge rating={p.rating} reviewCount={12} />}
                 {p.bedrooms && <span>{p.bedrooms} bedrooms</span>}
-                {p.bathrooms && <span>· {p.bathrooms} bathrooms</span>}
-                {p.max_guests && <span>· Up to {p.max_guests} guests</span>}
+                {p.bathrooms && <span>. {p.bathrooms} bathrooms</span>}
+                {p.max_guests && <span>. Up to {p.max_guests} guests</span>}
               </div>
             </div>
 
-            {/* Description */}
+            
             {p.description && (
               <div className="prose prose-sm max-w-none text-ink-secondary">
                 <p>{p.description}</p>
               </div>
             )}
 
-            {/* Amenities */}
+            
             {p.amenities && p.amenities.length > 0 && (
               <div>
                 <h2 className="text-lg font-bold text-ink-primary mb-3">What this place offers</h2>
@@ -151,7 +151,7 @@ function RentalDetail({ property: p }: { property: RentalProperty }) {
               </div>
             )}
 
-            {/* Reviews placeholder */}
+            
             <div>
               <h2 className="text-lg font-bold text-ink-primary mb-3">Reviews</h2>
               <div className="bg-surface-secondary rounded-xl p-6 text-center">
@@ -160,7 +160,7 @@ function RentalDetail({ property: p }: { property: RentalProperty }) {
             </div>
           </div>
 
-          {/* Right: Booking Widget */}
+          
           <div className="lg:col-span-1">
             <div className="sticky top-24">
               <BookingWidget
@@ -171,7 +171,7 @@ function RentalDetail({ property: p }: { property: RentalProperty }) {
                 reviewCount={12}
                 urgency={{ type: 'scarcity', value: 'Booked 3 times this week' }}
                 cancellationText="Free cancellation up to 48 hours before check-in"
-                ctaLabel={`Reserve • From $${price}/night`}
+                ctaLabel={`Reserve - From $${price}/night`}
               />
             </div>
           </div>
@@ -250,9 +250,9 @@ export default function StaysHubPage() {
 
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Featured providers marquee */}
+      
       <FeaturedMarquee providers={featuredProviders} hubType="rentals" />
-      {/* Hero */}
+      
       <section className="bg-gradient-to-br from-teal-900 via-cyan-900 to-teal-800 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.h1
@@ -266,7 +266,7 @@ export default function StaysHubPage() {
             Find the perfect place to stay in St. Kitts & Nevis
           </p>
 
-          {/* Sub-hub navigation */}
+          
           <div className="flex gap-2 overflow-x-auto pb-2">
             {subHubs.map((sub) => (
               <Link
@@ -285,7 +285,7 @@ export default function StaysHubPage() {
         </div>
       </section>
 
-      {/* Filters */}
+      
       <div className="max-w-7xl mx-auto px-4 py-4">
         <FilterBar
           filters={filters}
@@ -297,7 +297,7 @@ export default function StaysHubPage() {
         />
       </div>
 
-      {/* Property Grid — 2-col mobile, 3-4 col desktop */}
+      
       <div className="max-w-7xl mx-auto px-4 pb-12">
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">

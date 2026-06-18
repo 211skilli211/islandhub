@@ -58,7 +58,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
 
     return (
         <div className="bg-surface-elevated dark:bg-ink-primary dark:bg-surface-tertiary min-h-screen font-sans">
-            {/* Premium Lifestyle Hero */}
+            
             <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-ink-950">
                 <HeroBackground
                     overrideData={{
@@ -103,7 +103,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                 </HeroBackground>
             </section>
 
-            {/* Featured Categories (Catalogue) */}
+            
             <div id="catalogue" className="max-w-7xl mx-auto px-4 md:px-6 pt-8">
                 <PromotionBanner storeId={store.store_id || store.id} />
                 <AdSpace spaceName="marketplace_banner" className="h-20 md:h-28 my-6 rounded-xl overflow-hidden shadow-sm" />
@@ -196,7 +196,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
 
                 <div className="lg:col-span-4 space-y-6">
                     <div className="sticky top-24 space-y-6">
-                        {/* Dynamic Exclusive Promotion Card */}
+                        
                         {siteSections.find(s => s.name === 'exclusive_promotion') && (() => {
                             const section = siteSections.find(s => s.name === 'exclusive_promotion');
                             return (
@@ -218,7 +218,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                             );
                         })()}
 
-                        {/* Dynamic Connect Card */}
+                        
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
@@ -245,7 +245,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                 </div>
             </div>
 
-            {/* Newsletter & Loyalty */}
+            
             <section className="bg-surface-secondary dark:bg-surface-tertiary py-16 md:py-20 border-t border-border-primary dark:border-border-primary">
                 <div className="max-w-2xl mx-auto px-4 md:px-6 text-center">
                     <span className="text-3xl mb-4 block">📩</span>
@@ -268,7 +268,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                 </div>
             </section>
 
-            {/* Clean Footer */}
+            
             <footer className="py-12 md:py-16 border-t border-border-primary dark:border-border-primary">
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">

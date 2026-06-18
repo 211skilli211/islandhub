@@ -38,7 +38,7 @@ export function CompactCard({
   return (
     <Link href={href} className={`block group ${className}`}>
       <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-md transition-all">
-        {/* Image — always square */}
+        
         <div className="relative aspect-square bg-surface-secondary">
           {img ? (
             <img src={img} alt={title} className="w-full h-full object-cover" loading="lazy" />
@@ -47,7 +47,7 @@ export function CompactCard({
               {emoji}
             </div>
           )}
-          {/* Badge */}
+          
           {badge && (
             <span className={`absolute top-2 left-2 px-1.5 py-0.5 rounded text-[9px] font-bold text-white ${badgeColor}`}>
               {badge}
@@ -55,19 +55,19 @@ export function CompactCard({
           )}
         </div>
 
-        {/* Info — compact */}
+        
         <div className="p-2.5 space-y-1">
-          {/* Title — 2 lines */}
+          
           <h3 className="text-xs font-bold text-ink-primary group-hover:text-accent-500 line-clamp-2 leading-tight">
             {title}
           </h3>
 
-          {/* Subtitle */}
+          
           {subtitle && (
             <p className="text-[10px] text-ink-tertiary truncate">{subtitle}</p>
           )}
 
-          {/* Meta items */}
+          
           {meta && meta.length > 0 && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {meta.map((m, i) => (
@@ -76,12 +76,12 @@ export function CompactCard({
             </div>
           )}
 
-          {/* Rating */}
+          
           {rating && rating > 0 && (
             <RatingBadge rating={rating} reviewCount={reviewCount} size="sm" />
           )}
 
-          {/* Price */}
+          
           {price !== undefined && (
             <div className="flex items-baseline gap-1">
               <span className="text-sm font-bold text-ink-primary">${price.toFixed(0)}</span>
@@ -92,7 +92,7 @@ export function CompactCard({
             </div>
           )}
 
-          {/* CTA */}
+          
           {ctaLabel && (
             <span className="inline-block text-[10px] font-semibold text-accent-500 group-hover:text-accent-400">
               {ctaLabel} →
@@ -139,7 +139,7 @@ export function CompactHubPage({
 }: CompactHubPageProps) {
   return (
     <div className="min-h-screen bg-surface-primary">
-      {/* Hero — compact */}
+      
       <section className={`bg-gradient-to-br ${gradient} py-6 px-4`}>
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight">{emoji} {title}</h1>
@@ -147,7 +147,7 @@ export function CompactHubPage({
         </div>
       </section>
 
-      {/* Filters */}
+      
       {filters && activeFilter && onFilterChange && (
         <div className="sticky top-[72px] z-30 bg-surface-primary/95 backdrop-blur-sm border-b border-border-primary">
           <div className="max-w-7xl mx-auto px-4 py-2">
@@ -179,7 +179,7 @@ export function CompactHubPage({
         </div>
       )}
 
-      {/* Items Grid — always 2-col mobile */}
+      
       <div className="max-w-7xl mx-auto px-4 py-4 pb-12">
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -206,7 +206,7 @@ export function CompactHubPage({
         )}
       </div>
 
-      {/* CTA Section */}
+      
       {ctaSection}
     </div>
   );

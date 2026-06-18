@@ -97,7 +97,7 @@ export default function VendorReviews({ storeId }: VendorReviewsProps) {
                                         </div>
                                         <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest flex items-center gap-2">
                                             <Calendar size={12} /> {new Date(review.created_at).toLocaleDateString()}
-                                            {review.product_name && <span>• For: {review.product_name}</span>}
+                                            {review.product_name && <span>- For: {review.product_name}</span>}
                                         </p>
                                     </div>
                                 </div>

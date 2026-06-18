@@ -153,7 +153,7 @@ export default function ImageUpload({
             )}
 
             <p className="text-[10px] text-ink-tertiary text-center font-bold tracking-tighter">
-                {presetConfig ? `${presetConfig.label} • ` : ''}Optimized Upload • Max {effectiveMaxSize}MB
+                {presetConfig ? `${presetConfig.label} - ` : ''}Optimized Upload - Max {effectiveMaxSize}MB
             </p>
         </div>
     );

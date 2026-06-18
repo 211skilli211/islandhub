@@ -50,7 +50,7 @@ export default function ImageCropper({
             <div className="mb-4 text-center">
                 <h3 className="text-white font-bold text-lg">{presetConfig.label}</h3>
                 <p className="text-ink-tertiary text-sm">
-                    {presetConfig.width} x {presetConfig.height}px • Max {presetConfig.maxSizeMB}MB
+                    {presetConfig.width} x {presetConfig.height}px - Max {presetConfig.maxSizeMB}MB
                 </p>
             </div>
             <div className="relative w-full max-w-2xl h-[400px] bg-ink-primary rounded-2xl overflow-hidden mb-6">

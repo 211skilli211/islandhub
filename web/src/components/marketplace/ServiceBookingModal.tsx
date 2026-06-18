@@ -127,7 +127,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                                        {/* Left Column: Date & Time + FAQs */}
+                                        
                                         <div className="space-y-12">
                                             <div className="space-y-8">
                                                 <div>
@@ -164,7 +164,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                                 </div>
                                             </div>
 
-                                            {/* Service FAQs */}
+                                            
                                             {service.faqs && service.faqs.length > 0 && (
                                                 <div className="space-y-6 pt-6 border-t border-border-primary">
                                                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-4 ml-1 block">
@@ -184,7 +184,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                             )}
                                         </div>
 
-                                        {/* Right Column: Addons Selection */}
+                                        
                                         <div className="bg-surface-secondary rounded-[2rem] p-8 border border-border-primary h-fit">
                                             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ink-tertiary mb-6 block">
                                                 Recommended Addons

@@ -71,9 +71,9 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                 )}
             </AnimatePresence>
 
-            {/* Sidebar — WHITE background */}
+            
             <aside className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-200 flex flex-col transition-all duration-300 z-50 ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${collapsed ? 'lg:w-20' : 'w-64'}`}>
-                {/* Logo */}
+                
                 <div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
                     <Link href="/" className="flex items-center gap-3">
                         <span className="text-2xl">🌴</span>
@@ -84,7 +84,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     </button>
                 </div>
 
-                {/* User Card */}
+                
                 {user && !collapsed && (
                     <div className="p-4 border-b border-gray-100">
                         <div className="flex items-center gap-3">
@@ -99,7 +99,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     </div>
                 )}
 
-                {/* Nav Items */}
+                
                 <nav className="flex-1 overflow-y-auto py-4">
                     <ul className="space-y-1 px-3">
                         {items.map((item) => (
@@ -115,7 +115,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                         ))}
                     </ul>
 
-                    {/* Community Section */}
+                    
                     {!collapsed && (
                         <div className="mt-4 pt-4 border-t border-gray-100">
                             <p className="px-4 mb-2 text-[10px] font-black uppercase tracking-widest text-gray-400">Community</p>
@@ -153,7 +153,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     )}
                 </nav>
 
-                {/* Collapse Toggle + Logout */}
+                
                 <div className="border-t border-gray-100 p-3 space-y-1 shrink-0">
                     <button onClick={() => setCollapsed(!collapsed)}
                         className="hidden lg:flex w-full p-3 items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-xl transition-colors">
@@ -167,7 +167,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                 </div>
             </aside>
 
-            {/* Main Content */}
+            
             <main className={`flex-1 min-w-0 transition-all duration-300 ${collapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
                 <header className="lg:hidden bg-white border-b border-gray-200 p-4 flex items-center justify-between sticky top-0 z-30">
                     <button onClick={() => setMobileOpen(true)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-600">

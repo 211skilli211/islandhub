@@ -69,7 +69,7 @@ export default function ComplianceAnalytics() {
 
     return (
         <div className="space-y-6">
-            {/* Header */}
+            
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-xl font-black text-ink-primary">Compliance Analytics</h2>
@@ -92,7 +92,7 @@ export default function ComplianceAnalytics() {
                 </div>
             </div>
 
-            {/* Key Metrics */}
+            
             <div className="grid grid-cols-4 gap-4">
                 <motion.div 
                     className="bg-surface-elevated rounded-2xl border border-border-primary p-5"
@@ -149,9 +149,9 @@ export default function ComplianceAnalytics() {
                 </motion.div>
             </div>
 
-            {/* Charts Row */}
+            
             <div className="grid grid-cols-2 gap-6">
-                {/* Compliance by Category */}
+                
                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                     <h3 className="font-black text-ink-secondary mb-4">Compliance by Category</h3>
                     <div className="space-y-4">
@@ -174,7 +174,7 @@ export default function ComplianceAnalytics() {
                     </div>
                 </div>
 
-                {/* Recent Activity */}
+                
                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                     <h3 className="font-black text-ink-secondary mb-4">Recent Activity</h3>
                     <div className="space-y-3">

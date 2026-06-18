@@ -128,14 +128,14 @@ export default function SmartSearch() {
                         exit={{ opacity: 0, y: -10 }}
                         className="absolute top-full left-0 right-0 mt-2 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
                     >
-                        {/* Quick Actions */}
+                        
                         <div className="px-4 py-2 bg-surface-secondary border-b border-border-primary">
                             <span className="text-xs font-bold text-ink-tertiary uppercase tracking-wider">
                                 Suggestions
                             </span>
                         </div>
 
-                        {/* Type Suggestions */}
+                        
                         {Object.entries(groupedSuggestions).map(([type, items]) => (
                             <div key={type} className="border-b border-border-primary last:border-0">
                                 <div className="px-4 py-2 bg-surface-secondary/50">
@@ -187,7 +187,7 @@ export default function SmartSearch() {
                             </div>
                         ))}
 
-                        {/* Search All Results */}
+                        
                         <button
                             onClick={() => handleSearch()}
                             className="w-full p-4 bg-surface-secondary text-accent-500 font-bold text-center hover:bg-surface-secondary transition-colors flex items-center justify-center gap-2 border-t border-border-primary"

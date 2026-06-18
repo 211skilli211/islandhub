@@ -117,7 +117,7 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
 
     return (
         <div className="space-y-6">
-            {/* Summary Card */}
+            
             <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6">
                 <div className="flex items-center justify-between mb-4">
                     <div>
@@ -132,7 +132,7 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
                     </div>
                 </div>
 
-                {/* Progress Bar */}
+                
                 <div className="h-3 bg-surface-secondary rounded-full overflow-hidden mb-4">
                     <div 
                         className={`h-full rounded-full transition-all ${
@@ -142,7 +142,7 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
                     />
                 </div>
 
-                {/* Stats */}
+                
                 <div className="grid grid-cols-4 gap-4 text-center">
                     <div className="p-3 bg-surface-secondary rounded-xl">
                         <p className="text-lg font-black text-green-600">{summary.approved}</p>
@@ -163,7 +163,7 @@ export default function VendorComplianceStatus({ vendorId, compact = false }: Ve
                 </div>
             </div>
 
-            {/* Requirements List */}
+            
             <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
                 <div className="p-4 bg-surface-secondary border-b border-border-primary">
                     <h3 className="font-black text-ink-secondary">Requirements</h3>

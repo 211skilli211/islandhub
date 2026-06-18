@@ -108,7 +108,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                 </button>
             </div>
 
-            {/* Stats Grid */}
+            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="bg-surface-elevated p-8 rounded-4xl border border-border-primary shadow-sm">
                     <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Total Balance</p>
@@ -129,7 +129,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Transaction History */}
+                
                 <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary shadow-sm overflow-hidden">
                     <div className="p-8 border-b border-border-primary flex justify-between items-center">
                         <h3 className="text-lg font-black text-ink-primary flex items-center gap-2"><History size={20} /> Revenue Ledger</h3>
@@ -164,7 +164,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                     </div>
                 </div>
 
-                {/* Payout History */}
+                
                 <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary shadow-sm overflow-hidden">
                     <div className="p-8 border-b border-border-primary">
                         <h3 className="text-lg font-black text-ink-primary flex items-center gap-2"><CreditCard size={20} /> Withdrawal Requests</h3>
@@ -182,7 +182,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                                             </div>
                                             <div>
                                                 <p className="font-bold text-ink-primary">${parseFloat(pr.amount).toFixed(2)}</p>
-                                                <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">{new Date(pr.created_at).toLocaleDateString()} • {pr.payout_method.replace('_', ' ')}</p>
+                                                <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">{new Date(pr.created_at).toLocaleDateString()} - {pr.payout_method.replace('_', ' ')}</p>
                                             </div>
                                         </div>
                                         <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1 ${pr.status === 'completed' ? 'bg-emerald-500/15 text-emerald-400' :
@@ -201,7 +201,7 @@ export default function WalletTab({ storeId }: WalletTabProps) {
                 </div>
             </div>
 
-            {/* Withdraw Modal */}
+            
             <AnimatePresence>
                 {isWithdrawModalOpen && (
                     <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-ink-primary/60 backdrop-blur-sm">

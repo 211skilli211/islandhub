@@ -74,7 +74,7 @@ export default function OrdersTab() {
                 <div className="flex gap-2">
                     {o.status === 'ready' && o.order_type === 'delivery' && (
                         <button
-                            onClick={() => {/* TODO: Open Dispatch Modal */ }}
+                            onClick={() => {}} // TODO: Open Dispatch Modal
                             className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
                             title="Dispatch Driver"
                         >

@@ -57,7 +57,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                             >
                                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                                     <div className="flex h-full flex-col bg-surface-elevated shadow-2xl">
-                                        {/* Header */}
+                                        
                                         <div className="flex items-center justify-between border-b border-border-primary px-6 py-4">
                                             <Dialog.Title className="text-xl font-bold text-ink-primary flex items-center gap-2">
                                                 <ShoppingCartIcon className="w-6 h-6 text-accent-400" />
@@ -72,7 +72,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                             </button>
                                         </div>
 
-                                        {/* Cart Items */}
+                                        
                                         <div className="flex-1 overflow-y-auto px-6 py-4">
                                             {loading && !cart ? (
                                                 <div className="flex items-center justify-center h-full">
@@ -83,7 +83,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                     {cart.items.map((item) => (
                                                         <div key={item.item_id}>
                                                             <div className="flex gap-4 p-4 bg-surface-secondary rounded-xl border border-border-primary">
-                                                                {/* Image */}
+                                                                
                                                                 <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-surface-elevated">
                                                                     <Image
                                                                         src={getImageUrl(item.image_url)}
@@ -98,7 +98,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     )}
                                                                 </div>
 
-                                                                {/* Details */}
+                                                                
                                                                 <div className="flex-1 min-w-0">
                                                                     <div className="flex items-center gap-2">
                                                                         <h3 className={`font-black uppercase tracking-tight truncate ${item.donation_suggested ? 'text-sand-500' : 'text-ink-primary'}`}>{item.title}</h3>
@@ -106,7 +106,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     </div>
                                                                     <p className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest truncate">{item.store_name}</p>
 
-                                                                    {/* Restaurant Selections */}
+                                                                    
                                                                     {item.selected_variant && typeof item.selected_variant === 'object' && (
                                                                         <div className="mt-2 flex flex-wrap gap-1">
                                                                             {Object.entries(item.selected_variant).map(([key, val]) => (
@@ -135,7 +135,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                         </div>
                                                                     )}
 
-                                                                    {/* Category-specific info */}
+                                                                    
                                                                     {item.rental_start_date && (
                                                                         <p className="text-xs text-accent-400 mt-1">
                                                                             {new Date(item.rental_start_date).toLocaleDateString()} - {new Date(item.rental_end_date!).toLocaleDateString()}
@@ -151,7 +151,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     )}
 
                                                                     <div className="flex items-center justify-between mt-2">
-                                                                        {/* Quantity Controls */}
+                                                                        
                                                                         <div className="flex items-center gap-2">
                                                                             <button
                                                                                 onClick={() => updateQuantity(item.item_id, Math.max(1, item.quantity - 1))}
@@ -170,14 +170,14 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                             </button>
                                                                         </div>
 
-                                                                        {/* Price */}
+                                                                        
                                                                         <span className="font-bold text-ink-primary">
                                                                             ${(item.price_snapshot * item.quantity).toFixed(2)}
                                                                         </span>
                                                                     </div>
                                                                 </div>
 
-                                                                {/* Remove Button */}
+                                                                
                                                                 <button
                                                                     onClick={() => removeItem(item.item_id)}
                                                                     className="text-red-500 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition-colors"
@@ -187,7 +187,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                 </button>
                                                             </div>
 
-                                                            {/* Side Suggestions */}
+                                                            
                                                             {item.side_ids && item.side_ids.length > 0 && (!item.selected_sides || item.selected_sides.length === 0) && (
                                                                 <div className="mt-3 p-3 bg-[#14b8a6]/10/50 rounded-xl border border-[#14b8a6]/20/50">
                                                                     <div className="flex items-center justify-between">
@@ -214,16 +214,16 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                             )}
                                         </div>
 
-                                        {/* Footer */}
+                                        
                                         {cart && cart.items.length > 0 && (
                                             <div className="border-t border-border-primary px-6 py-4 space-y-4">
-                                                {/* Total */}
+                                                
                                                 <div className="flex items-center justify-between text-lg font-bold">
                                                     <span className="text-ink-secondary">Total</span>
                                                     <span className="text-ink-primary">${totalAmount.toFixed(2)} XCD</span>
                                                 </div>
 
-                                                {/* Checkout Button */}
+                                                
                                                 <button
                                                     onClick={handleCheckout}
                                                     className="w-full py-4 bg-gradient-to-r from-teal-600 to-accent-400 text-white font-bold rounded-xl hover:from-teal-700 hover:to-cyan-700 transition-all shadow-lg hover:shadow-xl"

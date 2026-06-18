@@ -193,7 +193,7 @@ export default function AdManagementTab() {
 
             {subTab === 'site_ads' ? (
                 <div className="space-y-8">
-                    {/* Activity Overview */}
+                    
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="p-8 bg-surface-elevated border border-border-primary rounded-[2.5rem] shadow-sm">
                             <div className="flex items-center gap-4 mb-4">
@@ -224,7 +224,7 @@ export default function AdManagementTab() {
                         </div>
                     </div>
 
-                    {/* Spaces Breakdown */}
+                    
                     <div className="bg-surface-elevated rounded-[3rem] border border-border-primary overflow-hidden">
                         <div className="p-8 bg-surface-secondary border-b border-border-primary flex items-center justify-between">
                             <h3 className="text-xl font-black text-ink-primary italic uppercase">Site Ads Management</h3>
@@ -251,7 +251,7 @@ export default function AdManagementTab() {
                 </div>
             ) : subTab === 'promotions' ? (
                 <div className="space-y-8">
-                    {/* Pending Promotions interface */}
+                    
                     <div className="bg-surface-elevated rounded-[3rem] border border-border-primary overflow-hidden">
                         <div className="p-10 bg-[#e11d48]/5 border-b border-[#e11d48]/20 flex items-center justify-between">
                             <div>
@@ -279,7 +279,7 @@ export default function AdManagementTab() {
                 <AdVisualManager />
             )}
 
-            {/* Campaign Launch Modal */}
+            
             <AnimatePresence>
                 {isAdModalOpen && (
                     <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-ink-primary/60 backdrop-blur-sm">

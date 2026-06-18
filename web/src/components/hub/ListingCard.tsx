@@ -79,7 +79,7 @@ export function ProductCard({
   return (
     <Link href={href} className="block group">
       <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-md transition-all">
-        {/* Image — 1:1 square, compact */}
+        
         <div className="relative aspect-square bg-surface-secondary">
           {img ? (
             <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" />
@@ -88,9 +88,9 @@ export function ProductCard({
               {emoji}
             </div>
           )}
-          {/* Discount badge */}
+          
           {discount && <DiscountBadge value={discount} />}
-          {/* Verified badge (stores/vendors) */}
+          
           {isVerified && (
             <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-emerald-500/90 text-white text-[9px] font-bold">
               ✓
@@ -98,26 +98,26 @@ export function ProductCard({
           )}
         </div>
 
-        {/* Info — compact, Amazon-style */}
+        
         <div className="p-2.5 space-y-1">
-          {/* Title — 2 lines max */}
+          
           <h3 className="text-xs font-medium text-ink-primary group-hover:text-accent-500 line-clamp-2 leading-tight">
             {name}
           </h3>
 
-          {/* Provider name (services/stores) */}
+          
           {providerName && (
             <p className="text-[10px] text-ink-tertiary truncate">{providerName}</p>
           )}
 
-          {/* Rating + review count */}
+          
           {rating && rating > 0 && (
             <div className="flex items-center gap-1">
               <RatingBadge rating={rating} reviewCount={reviewCount} size="sm" />
             </div>
           )}
 
-          {/* Price block */}
+          
           {price !== undefined && (
             <div className="flex items-baseline gap-1.5">
               <span className="text-sm font-bold text-ink-primary">${price.toFixed(0)}</span>
@@ -128,22 +128,22 @@ export function ProductCard({
             </div>
           )}
 
-          {/* Urgency */}
+          
           {urgency && (
             <UrgencyBadge value={urgency} variant={urgencyVariant || 'limited'} />
           )}
 
-          {/* Availability (services) */}
+          
           {availability && (
             <p className="text-[10px] text-emerald-500 font-medium">{availability}</p>
           )}
 
-          {/* Product count (stores) */}
+          
           {productCount !== undefined && (
             <p className="text-[10px] text-ink-tertiary">{productCount} products</p>
           )}
 
-          {/* Custom badges */}
+          
           {badges && badges.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {badges.map((b, i) => (

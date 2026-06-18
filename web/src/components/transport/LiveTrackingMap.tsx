@@ -186,7 +186,7 @@ export default function LiveTrackingMap({
   return (
     <div className="relative w-full" style={{ height }}>
       <div ref={containerRef} className="w-full h-full rounded-2xl overflow-hidden" />
-      {/* Legend overlay */}
+      
       {(pickup || dropoff || driver) && (
         <div className="absolute bottom-4 left-4 z-[1000] bg-black/80 backdrop-blur-md rounded-xl px-3 py-2.5 border border-white/10 space-y-1.5">
           {pickup && <div className="flex items-center gap-2 text-[10px] font-bold text-green-400"><span className="w-2.5 h-2.5 rounded-full bg-green-400" /> Pickup</div>}

@@ -146,13 +146,13 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
     return (
         <div className="bg-surface-primary min-h-screen font-sans transition-colors duration-300">
 
-            {/* ═══ Floating Action Bar (replaces Kitchen Hub button) ═══ */}
+            
             <div className="fixed right-4 bottom-24 z-50 flex flex-col items-end gap-3">
-                {/* Secondary FAB actions */}
+                
                 <AnimatePresence>
                     {fabOpen && (
                         <>
-                            {/* Cart */}
+                            
                             <motion.button
                                 initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -166,7 +166,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 <span className="text-xs font-semibold hidden group-hover:inline">Cart</span>
                             </motion.button>
 
-                            {/* Share */}
+                            
                             <motion.button
                                 initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -180,7 +180,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 <span className="text-xs font-semibold hidden group-hover:inline">Share</span>
                             </motion.button>
 
-                            {/* Directions */}
+                            
                             <motion.button
                                 initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -194,7 +194,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 <span className="text-xs font-semibold hidden group-hover:inline">Directions</span>
                             </motion.button>
 
-                            {/* Call */}
+                            
                             <motion.button
                                 initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -211,7 +211,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     )}
                 </AnimatePresence>
 
-                {/* Main FAB toggle */}
+                
                 <button
                     onClick={() => setFabOpen(!fabOpen)}
                     className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center text-white text-xl border-2 border-white dark:border-[var(--surface-primary)]"
@@ -235,7 +235,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 storeId={store.store_id || store.id}
             />
 
-            {/* Elegant Restaurant Hero — UNCHANGED */}
+            
             <div className="relative h-[60vh] w-full overflow-hidden">
                 <HeroBackground
                     overrideData={{
@@ -251,7 +251,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                     }}
                 >
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 bg-black/30 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-white/10 mt-6 md:mt-8 w-full md:w-fit pointer-events-auto">
-                        {/* Logo and BadgeList */}
+                        
                         <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 border-surface-elevated/20 shadow-lg bg-surface-elevated p-1 overflow-hidden shrink-0">
                             <img
                                 src={store.logo_url ? getImageUrl(store.logo_url) : getImageUrl(PLACEHOLDER_LOGO)}
@@ -262,7 +262,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         <div className="text-center md:text-left">
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 text-white/90 text-sm">
                                 <span>📍 {store.location || 'St. Kitts'}</span>
-                                <span className="hidden md:inline text-white/50">•</span>
+                                <span className="hidden md:inline text-white/50">-</span>
                                 <span className="text-sand-400">Authentic Food Hub</span>
                             </div>
                             <div className="mt-2 flex justify-center md:justify-start">
@@ -273,7 +273,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 </HeroBackground>
             </div>
 
-            {/* ═══ Collapsible About Section ═══ */}
+            
             <div className="max-w-7xl mx-auto px-4 md:px-6">
                 <button
                     onClick={() => setAboutOpen(!aboutOpen)}
@@ -304,7 +304,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                             className="overflow-hidden"
                         >
                             <div className="pb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Description */}
+                                
                                 {(store.description || store.bio) && (
                                     <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
                                         <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary mb-2">About Us</h4>
@@ -314,7 +314,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                     </div>
                                 )}
 
-                                {/* Location & Hours */}
+                                
                                 <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary space-y-3">
                                     <div className="flex items-start gap-2">
                                         <span className="text-base">📍</span>
@@ -347,7 +347,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                     )}
                                 </div>
 
-                                {/* Dietary Options */}
+                                
                                 {store.dietary_options && store.dietary_options.length > 0 && (
                                     <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary md:col-span-2">
                                         <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary mb-2">Dietary Options</h4>
@@ -370,7 +370,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                     </div>
                                 )}
 
-                                {/* Store Badges */}
+                                
                                 {store.badges && store.badges.length > 0 && (
                                     <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary md:col-span-2">
                                         <h4 className="text-xs font-semibold uppercase tracking-wide text-ink-tertiary mb-2">Highlights</h4>
@@ -384,10 +384,10 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 <div className="border-b border-border-primary" />
             </div>
 
-            {/* ═══ Menu Filters — Enhanced Mobile UX ═══ */}
+            
             <div id="menu" className="sticky top-0 bg-surface-primary/90 backdrop-blur-md z-40 border-b border-border-primary">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
-                    {/* Left fade edge */}
+                    
                     <AnimatePresence>
                         {showLeftFade && (
                             <motion.div
@@ -399,7 +399,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         )}
                     </AnimatePresence>
 
-                    {/* Right fade edge */}
+                    
                     <AnimatePresence>
                         {showRightFade && (
                             <motion.div
@@ -434,14 +434,14 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 </div>
             </div>
 
-            {/* Content Container */}
+            
             <div className="max-w-7xl mx-auto px-4 md:px-6 py-6">
                 <PromotionBanner storeId={store.store_id || store.id} />
                 <AdSpace spaceName="food_hub_banner" className="h-20 md:h-28 my-6 rounded-xl overflow-hidden shadow-sm" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
-                {/* Menu Section */}
+                
                 <div className="lg:col-span-8 space-y-10 md:space-y-16">
                     {filteredSections.length > 0 ? filteredSections.map((section: any) => (
                         <section key={section.id} id={`section-${section.id}`}>
@@ -507,7 +507,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                     </div>
                                                     <p className="text-ink-tertiary text-xs leading-relaxed mb-2 line-clamp-2">{item.description}</p>
 
-                                                    {/* Dietary badges */}
+                                                    
                                                     {itemDietary.length > 0 && (
                                                         <div className="flex flex-wrap gap-1 mb-2">
                                                             {itemDietary.map((tag: string) => {
@@ -527,7 +527,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                             {item.donation_suggested ? 'Donate & Order →' : '+ Add to Selection'}
                                                         </div>
 
-                                                        {/* Quick add button — visible on hover */}
+                                                        
                                                         <motion.button
                                                             initial={{ opacity: 0, scale: 0.8 }}
                                                             whileHover={{ scale: 1.1 }}
@@ -547,7 +547,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                 </div>
                                             </motion.div>
 
-                                            {/* Hover Preview Card */}
+                                            
                                             <AnimatePresence>
                                                 {hoveredItem?.id === item.id && (
                                                     <motion.div
@@ -638,7 +638,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         </div>
                     ) : null}
 
-                    {/* Dynamic Kitchen Story Section */}
+                    
                     {siteSections.find(s => s.name === 'kitchen_story') ? (() => {
                         const section = siteSections.find(s => s.name === 'kitchen_story');
                         return (
@@ -702,7 +702,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         );
                     })() : null}
 
-                    {/* Professional Business Profile: Aims & Objectives */}
+                    
                     {(store.aims || store.objectives) && (
                         <section className="pt-12 border-t border-border-primary">
                             <div className="flex flex-col md:flex-row gap-6 md:gap-8">
@@ -728,16 +728,16 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                         </section>
                     )}
 
-                    {/* Integrated Reviews */}
+                    
                     <section className="pt-12 border-t border-border-primary">
                         <ReviewSection vendorId={String(store.id || store.user_id)} />
                     </section>
                 </div>
 
-                {/* Info Sidebar */}
+                
                 <div className="lg:col-span-4 space-y-6">
                     <div className="sticky top-24 space-y-6">
-                        {/* Dynamic Exclusive Promotion Card */}
+                        
                         {siteSections.find(s => s.name === 'exclusive_promotion') ? (() => {
                             const section = siteSections.find(s => s.name === 'exclusive_promotion');
                             return (
@@ -783,7 +783,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                             </motion.div>
                         )}
 
-                        {/* Dynamic Connect Card */}
+                        
                         {siteSections.find(s => s.name === 'connect_with_us') ? (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (
@@ -862,7 +862,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 storeId={store.store_id || store.id}
             />
 
-            {/* Clean Footer */}
+            
             <footer className="bg-surface-secondary py-12 border-t border-border-primary">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
                     <div className="md:col-span-2">
@@ -890,7 +890,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                 </div>
                 <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 mt-8 border-t border-border-primary text-center">
                     <p className="text-xs text-ink-tertiary">
-                        © 2026 {store.business_name} • Secure Island Commerce Protocol
+                        © 2026 {store.business_name} - Secure Island Commerce Protocol
                     </p>
                 </div>
             </footer>

@@ -44,7 +44,7 @@ export default function SubscriptionsTab() {
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Role Switcher */}
+            
             <div className="flex gap-4 p-1 bg-surface-secondary rounded-2xl w-fit">
                 {[
                     { id: 'vendor', label: 'Vendors', icon: '🛍️' },
@@ -62,7 +62,7 @@ export default function SubscriptionsTab() {
                 ))}
             </div>
 
-            {/* Table */}
+            
             <div className="bg-surface-elevated rounded-[2.5rem] shadow-xl shadow-black/10/50 border border-border-primary overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
@@ -110,7 +110,7 @@ export default function SubscriptionsTab() {
                                             {activeTab === 'customer' && (
                                                 <>
                                                     <option value="vip">VIP</option>
-                                                    {/* In theory they might have others but we have VIP */}
+                                                    
                                                 </>
                                             )}
                                             {activeTab === 'creator' && (

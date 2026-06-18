@@ -28,9 +28,9 @@ export default function FeaturedMarquee({ providers, hubType }: FeaturedMarqueeP
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-surface-elevated via-surface-primary to-surface-elevated border-y border-border-primary">
-      {/* Left fade */}
+      
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-surface-primary to-transparent z-10 pointer-events-none" />
-      {/* Right fade */}
+      
       <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-surface-primary to-transparent z-10 pointer-events-none" />
 
       <div className="py-4">
@@ -52,7 +52,7 @@ export default function FeaturedMarquee({ providers, hubType }: FeaturedMarqueeP
                 className="shrink-0 group"
               >
                 <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-surface-elevated border border-border-primary hover:border-accent-500/30 hover:shadow-lg transition-all">
-                  {/* Logo */}
+                  
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500/20 to-accent-600/20 flex items-center justify-center overflow-hidden shrink-0">
                     {provider.logo_url ? (
                       <img src={provider.logo_url} alt={provider.name} className="w-full h-full object-cover" />
@@ -62,7 +62,7 @@ export default function FeaturedMarquee({ providers, hubType }: FeaturedMarqueeP
                       </span>
                     )}
                   </div>
-                  {/* Info */}
+                  
                   <div className="min-w-0">
                     <h4 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate max-w-[160px]">
                       {provider.name || provider.business_name}

@@ -72,7 +72,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
 
     return (
         <div className="bg-surface-elevated min-h-screen">
-            {/* Fleet Hero - Pro Rental Look */}
+            
             <div className="relative min-h-[60vh] w-full overflow-hidden flex items-center">
                 <HeroBackground
                     overrideData={{
@@ -105,7 +105,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                                     </div>
                                 </div>
                                 <div className="hidden md:block mt-2 text-white/60 text-xs">
-                                    📍 {store.location || 'St. Kitts'} • Registered Rental Operator
+                                    📍 {store.location || 'St. Kitts'} - Registered Rental Operator
                                 </div>
                             </div>
                         </div>
@@ -254,7 +254,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
 
                 <div className="lg:col-span-4 space-y-6">
                     <div className="sticky top-24 space-y-6">
-                        {/* Dynamic Exclusive Promotion Card */}
+                        
                         {siteSections.find(s => s.name === 'exclusive_promotion') && (() => {
                             const section = siteSections.find(s => s.name === 'exclusive_promotion');
                             return (
@@ -276,7 +276,7 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
                             );
                         })()}
 
-                        {/* Dynamic Connect Card */}
+                        
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (

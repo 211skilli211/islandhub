@@ -50,7 +50,7 @@ export default function UserProfileDropdown() {
 
     return (
         <div className="relative" ref={dropdownRef}>
-            {/* Avatar-only trigger button */}
+            
             <button
                 id="profile-avatar-btn"
                 onClick={() => setIsOpen(!isOpen)}
@@ -69,14 +69,14 @@ export default function UserProfileDropdown() {
                         initials
                     )}
                 </div>
-                {/* Online dot */}
+                
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-white rounded-full" />
             </button>
 
-            {/* Dropdown panel — right-0 ensures it never clips off-screen right */}
+            
             {isOpen && (
                 <div className="absolute right-0 top-[calc(100%+10px)] w-60 bg-surface-elevated rounded-2xl shadow-2xl ring-1 ring-black/5 z-1100 animate-in fade-in slide-in-from-top-2 duration-150 overflow-hidden">
-                    {/* User header */}
+                    
                     <div className="px-4 py-3.5 border-b border-border-primary flex items-center gap-3">
                         <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm text-white bg-gradient-to-br ${gradient} shadow-sm overflow-hidden shrink-0`}>
                             {user.avatar_url ? (
@@ -96,7 +96,7 @@ export default function UserProfileDropdown() {
                         </div>
                     </div>
 
-                    {/* Menu items */}
+                    
                     <div className="py-1.5">
                         <Link
                             href={`/users/${user.id}`}
@@ -170,7 +170,7 @@ export default function UserProfileDropdown() {
                         )}
                     </div>
 
-                    {/* Theme toggle */}
+                    
                     <div className="border-t border-border-primary">
                         <button
                             onClick={() => { toggleTheme(); setIsOpen(false); }}
@@ -190,7 +190,7 @@ export default function UserProfileDropdown() {
                         </button>
                     </div>
 
-                    {/* Logout */}
+                    
                     <div className="border-t border-border-primary">
                         <button
                             onClick={() => { logout(); setIsOpen(false); }}

@@ -72,7 +72,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
 
     return (
         <div className="bg-surface-elevated dark:bg-ink-primary min-h-screen">
-            {/* Service Hero */}
+            
             <div className="relative pt-20 pb-16 overflow-hidden bg-surface-secondary min-h-[400px] flex items-center">
                 <HeroBackground
                     overrideData={{
@@ -134,7 +134,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                 </HeroBackground>
             </div>
 
-            {/* Service Catalogue */}
+            
             <div id="catalog" className="max-w-7xl mx-auto px-4 md:px-6 pt-8">
                 <PromotionBanner storeId={store.store_id || store.id} />
                 <AdSpace spaceName="vendor_store_banner" className="h-20 md:h-28 my-6 rounded-xl overflow-hidden shadow-sm" />
@@ -215,7 +215,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
 
                 <div className="lg:col-span-4 space-y-6">
                     <div className="sticky top-24 space-y-6">
-                        {/* Dynamic Exclusive Promotion Card */}
+                        
                         {siteSections.find(s => s.name === 'exclusive_promotion') && (() => {
                             const section = siteSections.find(s => s.name === 'exclusive_promotion');
                             return (
@@ -237,7 +237,7 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                             );
                         })()}
 
-                        {/* Dynamic Connect Card */}
+                        
                         {siteSections.find(s => s.name === 'connect_with_us') && (() => {
                             const section = siteSections.find(s => s.name === 'connect_with_us');
                             return (

@@ -129,7 +129,7 @@ export default function LogisticsRatesTab() {
                 </div>
             )}
 
-            {/* Editing Modal */}
+            
             <AnimatePresence>
                 {editingRule && (
                     <div className="fixed inset-0 bg-ink-primary/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">

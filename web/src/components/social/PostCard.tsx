@@ -93,7 +93,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
             animate={{ opacity: 1, y: 0 }}
             className="bg-surface-elevated rounded-[3rem] shadow-sm border border-border-primary overflow-hidden"
         >
-            {/* Header */}
+            
             <div className="p-8 pb-0">
                 <div className="flex items-center justify-between">
                     <Link href={`/community/profile/${post.user_id}`} className="flex items-center gap-4">
@@ -118,7 +118,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
                 </div>
             </div>
 
-            {/* Content */}
+            
             <div className="p-8">
                 {post.title && (
                     <h2 className="text-2xl font-black text-ink-primary mb-4">{post.title}</h2>
@@ -128,7 +128,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
                     {post.content}
                 </p>
 
-                {/* Media */}
+                
                 {post.media_url && (
                     <div className="mt-6 rounded-2xl overflow-hidden">
                         {post.media_type === 'video' ? (
@@ -148,7 +148,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
                 )}
             </div>
 
-            {/* Actions */}
+            
             <div className="px-8 pb-6 border-t border-border-primary pt-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -183,7 +183,7 @@ export default function PostCard({ post, showFullContent = false }: PostCardProp
                 </div>
             </div>
 
-            {/* Comments Section */}
+            
             {showComments && (
                 <div className="px-8 pb-8 border-t border-border-primary pt-8">
                     <CommentThread

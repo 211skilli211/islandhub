@@ -38,11 +38,11 @@ const SOCIAL_LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-surface-tertiary border-t border-border-primary">
-      {/* Main Footer */}
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
 
-          {/* Brand Column */}
+          
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <div className="flex items-center gap-2">
@@ -53,7 +53,7 @@ export default function Footer() {
             <p className="text-sm text-ink-tertiary leading-relaxed mb-6 max-w-xs">
               The Caribbean's commerce hub. Connecting local artisans, restaurants, and services to the community.
             </p>
-            {/* Social Links */}
+            
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map(social => (
                 <a
@@ -70,7 +70,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Marketplace Links */}
+          
           <div>
             <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-4">Marketplace</h3>
             <ul className="space-y-2.5">
@@ -84,7 +84,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
+          
           <div>
             <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-4">Company</h3>
             <ul className="space-y-2.5">
@@ -98,7 +98,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Links */}
+          
           <div>
             <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-4">Support</h3>
             <ul className="space-y-2.5">
@@ -113,7 +113,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Newsletter */}
+        
         <div className="mt-12 pt-8 border-t border-border-primary">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -137,7 +137,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      
       <div className="border-t border-border-primary bg-surface-elevated/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -146,9 +146,9 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4 text-xs text-ink-tertiary">
               <Link href="/terms" className="hover:text-ink-secondary transition-colors">Terms</Link>
-              <span>·</span>
+              <span>.</span>
               <Link href="/privacy" className="hover:text-ink-secondary transition-colors">Privacy</Link>
-              <span>·</span>
+              <span>.</span>
               <Link href="/cookies" className="hover:text-ink-secondary transition-colors">Cookies</Link>
             </div>
           </div>

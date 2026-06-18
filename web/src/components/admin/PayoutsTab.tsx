@@ -92,7 +92,7 @@ export default function PayoutsTab() {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xs font-bold uppercase">{row.payout_method.replace('_', ' ')}</span>
-                        {/* Basic details preview */}
+                        
                         <span className="text-[9px] text-ink-tertiary max-w-[150px] truncate">
                             {JSON.stringify(row.payout_details)}
                         </span>
@@ -136,12 +136,12 @@ export default function PayoutsTab() {
                     <p className="text-ink-tertiary font-medium">Manage withdrawal requests from vendors and drivers</p>
                 </div>
 
-                {/* Summary Cards could go here */}
+                
                 <div className="flex gap-4">
                     <div className="px-4 py-2 bg-surface-elevated rounded-xl border border-border-primary shadow-sm">
                         <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary block mb-1">Pending</span>
                         <span className="text-xl font-bold text-sand-500">
-                            {/* We would calculate this from stats API if we had one for this, strictly UI for now */}
+                            
                             --
                         </span>
                     </div>

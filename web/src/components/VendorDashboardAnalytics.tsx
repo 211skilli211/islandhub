@@ -30,7 +30,7 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
 
     return (
         <div className="space-y-10">
-            {/* Quick Stats */}
+            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {[
                     { label: 'Total Revenue', value: `$${Number(stats.total_revenue || 0).toLocaleString()}`, icon: '💰', color: 'teal' },
@@ -47,7 +47,7 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Revenue Trend */}
+                
                 <div className="lg:col-span-2 bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-xl shadow-slate-100/50">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Revenue Trend</h3>
@@ -85,7 +85,7 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                     </div>
                 </div>
 
-                {/* Category Split */}
+                
                 <div className="bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-xl shadow-slate-100/50">
                     <h3 className="text-2xl font-black text-ink-primary tracking-tight italic mb-8">Category Split</h3>
                     <div className="h-[300px] w-full">
@@ -121,7 +121,7 @@ export default function VendorDashboardAnalytics({ data }: AnalyticsProps) {
                 </div>
             </div>
 
-            {/* Listing Performance */}
+            
             <div className="bg-surface-elevated p-10 rounded-[3rem] border border-border-primary shadow-xl shadow-slate-100/50">
                 <div className="flex items-center justify-between mb-8">
                     <h3 className="text-2xl font-black text-ink-primary tracking-tight italic">Top Listings Performance</h3>

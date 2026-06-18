@@ -214,7 +214,7 @@ export default function DriverPortal() {
 
     return (
         <div className="space-y-8">
-            {/* Online Toggle & Quick Stats */}
+            
             <div className="flex flex-col md:flex-row justify-between items-center bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-sm gap-6">
                 <div className="flex items-center gap-6">
                     <button
@@ -449,7 +449,7 @@ export default function DriverPortal() {
                                             <div className="w-14 h-14 bg-surface-secondary rounded-2xl flex items-center justify-center text-2xl group-hover:bg-[#14b8a6]/10 transition-colors">📦</div>
                                             <div>
                                                 <p className="font-black text-ink-primary">{service.title}</p>
-                                                <p className="text-[9px] text-ink-tertiary font-black uppercase tracking-[0.2em] mt-1">{service.category} • {service.status}</p>
+                                                <p className="text-[9px] text-ink-tertiary font-black uppercase tracking-[0.2em] mt-1">{service.category} - {service.status}</p>
                                             </div>
                                         </div>
                                         <Link href={`/listings/${service.id}/edit`}>
@@ -465,7 +465,7 @@ export default function DriverPortal() {
                 </motion.div>
             </AnimatePresence>
 
-            {/* Chat Modal */}
+            
             <AnimatePresence>
                 {chatJob && (
                     <DeliveryChat

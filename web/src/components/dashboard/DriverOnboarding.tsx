@@ -110,7 +110,7 @@ export default function DriverOnboarding() {
                             : status.rejection_reason || "Authentication failed. Please re-submit your documents."}
                 </p>
                 <div className="p-4 bg-surface-secondary rounded-2xl text-[10px] font-black uppercase tracking-widest text-ink-tertiary">
-                    Application ID: #{status.id} • Last Updated: {new Date(status.updated_at).toLocaleDateString()}
+                    Application ID: #{status.id} - Last Updated: {new Date(status.updated_at).toLocaleDateString()}
                 </div>
                 {status.verification_status === 'rejected' && (
                     <button onClick={() => setStatus(null)} className="mt-8 px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase text-xs tracking-widest">

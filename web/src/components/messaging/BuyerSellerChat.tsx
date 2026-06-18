@@ -138,7 +138,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
 
     return (
         <div className="bg-surface-elevated dark:bg-ink-primary rounded-3xl border border-border-primary dark:border-border-primary shadow-2xl overflow-hidden flex flex-col h-[600px]">
-            {/* Header */}
+            
             <div className="p-6 border-b border-border-primary dark:border-border-primary flex items-center justify-between bg-surface-secondary dark:bg-surface-tertiary/50">
                 <h3 className="text-lg font-black text-ink-primary dark:text-white">Messages</h3>
                 {onClose && (
@@ -149,7 +149,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
             </div>
 
             <div className="flex flex-1 overflow-hidden">
-                {/* Conversation List */}
+                
                 <div className="w-1/3 border-r border-border-primary dark:border-border-primary overflow-y-auto">
                     {listingId && sellerId && (
                         <button
@@ -195,7 +195,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                     )}
                 </div>
 
-                {/* Message Thread */}
+                
                 <div className="flex-1 flex flex-col">
                     {activeConversation ? (
                         <>
@@ -219,7 +219,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                                 <div ref={messagesEndRef} />
                             </div>
 
-                            {/* Input */}
+                            
                             <form onSubmit={sendMessage} className="p-4 border-t border-border-primary dark:border-border-primary bg-surface-secondary dark:bg-surface-tertiary/50">
                                 <div className="flex gap-3">
                                     <input

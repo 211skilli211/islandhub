@@ -128,7 +128,7 @@ export default function BroadcastTab() {
 
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
-            {/* Global Controls */}
+            
             <div className="bg-ink-primary text-white p-6 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-[#14b8a6]/100/20 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl">🎛️</div>
@@ -171,7 +171,7 @@ export default function BroadcastTab() {
                 </div>
             </div>
 
-            {/* Current Status Banner */}
+            
             {currentMarquee && (
                 <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
                     <div className="flex items-center gap-4">
@@ -195,7 +195,7 @@ export default function BroadcastTab() {
                 </div>
             )}
 
-            {/* Quick Broadcast Section */}
+            
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-xl shadow-black/10/50">
                     <div className="flex items-center gap-4 mb-6">
@@ -228,9 +228,9 @@ export default function BroadcastTab() {
                                 <span className="font-black text-[#14b8a6] text-sm w-4 text-center">{priority}</span>
                             </div>
 
-                            {/* Color and Emoji Picker */}
+                            
                             <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
-                                {/* Emoji Picker */}
+                                
                                 <div className="flex items-center gap-1 bg-surface-secondary px-3 py-2 rounded-xl border border-border-primary">
                                     <span className="text-xs font-black text-ink-tertiary uppercase tracking-widest mr-2">Icon</span>
                                     <button
@@ -270,7 +270,7 @@ export default function BroadcastTab() {
                                     </button>
                                 </div>
 
-                                {/* Color Picker */}
+                                
                                 <div className="flex flex-wrap items-center gap-2 bg-surface-secondary px-3 py-2 rounded-xl border border-border-primary max-w-full">
                                     <span className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest mr-1">Text Color</span>
                                     <button
@@ -372,7 +372,7 @@ export default function BroadcastTab() {
                     </div>
                 </div>
 
-                {/* Templates Sidebar - 3rd column */}
+                
                 <div className="bg-ink-primary p-8 rounded-[2.5rem] text-white shadow-2xl overflow-y-auto max-h-[500px]">
                     <h3 className="text-lg font-black uppercase tracking-widest mb-6 flex items-center gap-2">
                         <span className="text-sand-400">✨</span> Templates
@@ -422,7 +422,7 @@ export default function BroadcastTab() {
                 </div>
             </div>
 
-            {/* Marquee History */}
+            
             <div className="space-y-4">
                 <div className="flex justify-between items-end">
                     <div>

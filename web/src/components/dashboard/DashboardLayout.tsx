@@ -102,7 +102,7 @@ export default function DashboardLayout({
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] bg-surface-secondary dark:bg-ink-primary">
-      {/* Mobile header */}
+      
       <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary">
         <div>
           <p className="text-sm font-semibold text-ink-primary dark:text-white">{title}</p>
@@ -122,7 +122,7 @@ export default function DashboardLayout({
         </button>
       </div>
 
-      {/* Sidebar */}
+      
       <aside className={`w-full lg:w-60 bg-surface-elevated dark:bg-surface-tertiary border-b lg:border-b-0 lg:border-r border-border-primary dark:border-border-primary flex-shrink-0 ${
         mobileMenuOpen ? 'block' : 'hidden lg:block'
       }`}>
@@ -144,7 +144,7 @@ export default function DashboardLayout({
         )}
       </aside>
 
-      {/* Main Content */}
+      
       <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
         {headerActions && (
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

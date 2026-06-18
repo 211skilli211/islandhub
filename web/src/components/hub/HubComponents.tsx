@@ -132,7 +132,7 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                 href={`/hub/${hubType || store.category || 'food'}/${store.slug}`}
                 className="group block bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-md transition-all"
             >
-                {/* Image — square, compact */}
+                
                 <div className="relative aspect-square overflow-hidden">
                     {store.banner_url ? (
                         <img
@@ -145,7 +145,7 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                             <span className="text-4xl">{emojiMap[variant] || '🏪'}</span>
                         </div>
                     )}
-                    {/* Subtype badge */}
+                    
                     {subtypeLabel && (
                         <div className="absolute top-2 left-2">
                             <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-white/90 text-ink-primary shadow-sm`}>
@@ -153,7 +153,7 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                             </span>
                         </div>
                     )}
-                    {/* Trending */}
+                    
                     {store.is_trending && (
                         <div className="absolute top-2 right-2">
                             <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500 text-white shadow-sm">
@@ -161,7 +161,7 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                             </span>
                         </div>
                     )}
-                    {/* Logo thumbnail */}
+                    
                     <div className="absolute bottom-2 left-2 w-8 h-8 rounded-lg overflow-hidden border-2 border-white dark:border-ocean-700 shadow-md bg-surface-elevated dark:bg-ocean-800 z-10">
                         {store.logo_url ? (
                             <img src={getImageUrl(store.logo_url)} alt="" className="w-full h-full object-cover" />
@@ -173,21 +173,21 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                     </div>
                 </div>
 
-                {/* Info — compact */}
+                
                 <div className="p-2.5">
-                    {/* Rating */}
+                    
                     <div className="flex items-center gap-1 mb-0.5">
                         <StarIcon className="w-3 h-3 text-amber-400" />
                         <span className="text-[10px] font-bold text-ink-primary">{rating}</span>
                         <span className="text-[9px] text-ink-tertiary">({Math.floor(Math.random() * 200) + 50})</span>
                     </div>
 
-                    {/* Name — 2 lines max */}
+                    
                     <h3 className="text-xs font-bold text-ink-primary dark:text-sand-50 group-hover:text-accent-500 transition-colors line-clamp-2 leading-tight mb-1">
                         {storeName}
                     </h3>
 
-                    {/* CTA button — compact */}
+                    
                     <div className="flex items-center gap-1.5">
                         <span className={`inline-flex items-center justify-center px-2.5 py-1.5 bg-gradient-to-r ${btnGradients[variant] || btnGradients.product} text-white text-[10px] font-bold rounded-lg shadow-sm`}>
                             {labels[variant] || 'View'}

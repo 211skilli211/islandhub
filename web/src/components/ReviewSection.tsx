@@ -60,7 +60,7 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                 </div>
             </div>
 
-            {/* Submission Form */}
+            
             <form onSubmit={handleSubmit} className="bg-surface-secondary p-8 rounded-[2.5rem] border border-border-primary">
                 <h4 className="text-sm font-black uppercase tracking-widest text-ink-primary mb-6">Leave a Review</h4>
                 <div className="flex gap-2 mb-6">
@@ -91,7 +91,7 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                 </button>
             </form>
 
-            {/* Reviews List */}
+            
             <div className="space-y-6">
                 {loading ? (
                     <div className="animate-pulse space-y-4">

@@ -200,7 +200,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                     key={item.id}
                                     className="bg-surface-elevated p-5 rounded-[2rem] border border-border-primary shadow-sm flex flex-col gap-4 hover:shadow-lg transition-all"
                                 >
-                                    {/* Top: Image + Info */}
+                                    
                                     <div className="flex gap-4">
                                         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-surface-secondary rounded-2xl overflow-hidden flex-shrink-0 border border-border-primary">
                                             {item.image_url ? (
@@ -223,7 +223,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                         </div>
                                     </div>
 
-                                    {/* Bottom: Price + Actions */}
+                                    
                                     <div className="flex items-center justify-between pt-2 border-t border-border-primary">
                                         <span className="font-black text-accent-400 px-3 py-1 bg-accent-500/10 rounded-xl text-sm">${item.price}</span>
                                         <div className="flex gap-2">
@@ -259,7 +259,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                 )}
             </div>
 
-            {/* Item Modal */}
+            
             <AnimatePresence>
                 {isItemModalOpen && editingItem && (
                     <div className="fixed inset-0 bg-ink-primary/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
@@ -278,7 +278,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
 
                             <div className="p-8 space-y-6 overflow-y-auto">
                                 <div className="space-y-4">
-                                    {/* Link to Existing Listing */}
+                                    
                                     <div className="p-4 bg-[#14b8a6]/10 rounded-xl border border-[#14b8a6]/20 mb-6">
                                         <label className="text-[9px] font-black uppercase tracking-widest text-teal-800 mb-2 block">Link to Existing Listing (Auto-fill)</label>
                                         <select
@@ -370,7 +370,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             </div>
                                         </div>
 
-                                        {/* Site IDs */}
+                                        
                                         <div className="p-5 bg-surface-secondary rounded-2xl border border-border-primary space-y-2">
                                             <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary block">Site IDs (e.g. For Specific Locations)</label>
                                             <input
@@ -385,7 +385,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             />
                                         </div>
 
-                                        {/* Inclusions Builder */}
+                                        
                                         <div className="p-5 bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl border border-blue-100 space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-blue-600">Inclusions (What's Included)</label>
@@ -431,7 +431,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
 
-                                        {/* Exclusions Builder */}
+                                        
                                         <div className="p-5 bg-gradient-to-br from-rose-50 to-orange-50 rounded-2xl border border-[#e11d48]/20 space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-[#e11d48]">Exclusions (Not Included)</label>
@@ -477,7 +477,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
 
-                                        {/* Variants Builder */}
+                                        
                                         <div className="p-5 bg-gradient-to-br from-teal-50 to-teal-50 rounded-2xl border border-[#14b8a6]/20 space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-[#14b8a6]">Variants (e.g. Size, Spice Level)</label>
@@ -538,7 +538,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
 
-                                        {/* Addons Builder */}
+                                        
                                         <div className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-500/20 space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-emerald-400">Addons & Extras</label>
@@ -598,7 +598,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
 
-                                        {/* Gallery Image Upload */}
+                                        
                                         <div className="p-5 bg-surface-secondary rounded-2xl border border-border-primary space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">Image Gallery (Professional Look)</label>
@@ -646,7 +646,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
 
-                                        {/* FAQ Builder */}
+                                        
                                         <div className="p-6 bg-surface-secondary rounded-2xl border border-border-primary space-y-4">
                                             <div className="flex justify-between items-center">
                                                 <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">Frequently Asked Questions</label>
@@ -702,7 +702,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             )}
                                         </div>
 
-                                        {/* Sides Config */}
+                                        
                                         <div className="p-6 bg-surface-secondary rounded-2xl border border-border-primary space-y-4">
                                             <label className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary block">Side IDs (Comma Separated)</label>
                                             <input

@@ -54,7 +54,7 @@ export default function ShareButtonsClient({ listing }: ShareButtonsProps) {
                     Share this {listing.type === 'product' ? 'product' : listing.type === 'service' ? 'service' : listing.type === 'rental' ? 'rental' : 'listing'}
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                    {/* Facebook Share */}
+                    
                     <a
                         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`}
                         target="_blank"
@@ -67,7 +67,7 @@ export default function ShareButtonsClient({ listing }: ShareButtonsProps) {
                         Facebook
                     </a>
 
-                    {/* WhatsApp Share */}
+                    
                     <a
                         href={`https://wa.me/?text=${encodedTitle}%20${encodedPrice ? encodedPrice + '%0A' : ''}${encodedUrl}`}
                         target="_blank"
@@ -80,7 +80,7 @@ export default function ShareButtonsClient({ listing }: ShareButtonsProps) {
                         WhatsApp
                     </a>
 
-                    {/* Telegram Share */}
+                    
                     <a
                         href={`https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}${encodedPrice ? '%20' + encodedPrice : ''}`}
                         target="_blank"
@@ -93,7 +93,7 @@ export default function ShareButtonsClient({ listing }: ShareButtonsProps) {
                         Telegram
                     </a>
 
-                    {/* Copy Link */}
+                    
                     <button
                         onClick={handleCopyLink}
                         className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${

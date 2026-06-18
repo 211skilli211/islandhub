@@ -73,7 +73,7 @@ export default function AdminSettingsTab({
 
     return (
         <div className="bg-surface-elevated dark:bg-ink-primary rounded-4xl border border-border-primary dark:border-border-primary overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[600px]">
-            {/* Sidebar Navigation */}
+            
             <div className="w-full md:w-64 bg-surface-secondary/50 dark:bg-surface-tertiary/30 border-r border-border-primary dark:border-border-primary p-6 space-y-2">
                 <div className="mb-8 px-2">
                     <h3 className="text-lg font-black text-ink-primary dark:text-white flex items-center gap-2">
@@ -96,7 +96,7 @@ export default function AdminSettingsTab({
                 ))}
             </div>
 
-            {/* Content Area */}
+            
             <div className="flex-1 p-8 md:p-12 overflow-y-auto max-h-[800px]">
                 <div className="max-w-3xl">
                     <div className="mb-10">

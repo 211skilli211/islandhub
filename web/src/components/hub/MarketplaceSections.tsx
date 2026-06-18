@@ -76,7 +76,7 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
           transition={{ duration: 0.35, ease: 'easeInOut' }}
           className={`relative bg-gradient-to-br ${slide.gradient} min-h-[220px] sm:min-h-[280px] flex flex-col justify-end p-5 sm:p-8`}
         >
-          {/* Background image */}
+          
           {slide.imageUrl && (
             <img
               src={slide.imageUrl}
@@ -85,7 +85,7 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
             />
           )}
 
-          {/* Content */}
+          
           <div className="relative z-10 text-white max-w-lg">
             {slide.sponsoredBy && (
               <p className="text-[10px] uppercase tracking-wider text-white/70 mb-1">{slide.sponsoredBy}</p>
@@ -114,7 +114,7 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
         </motion.div>
       </AnimatePresence>
 
-      {/* Pagination dots */}
+      
       {slides.length > 1 && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
           {slides.map((_, i) => (
@@ -130,7 +130,7 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
         </div>
       )}
 
-      {/* Arrow navigation (desktop) */}
+      
       {slides.length > 1 && (
         <>
           <button

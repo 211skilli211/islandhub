@@ -86,7 +86,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                 <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mb-6">Control the default theme for the entire platform</p>
             </div>
 
-            {/* Theme Selection */}
+            
             <div className="grid grid-cols-3 gap-4">
                 {(['light', 'dark', 'system'] as const).map((t) => (
                     <button
@@ -106,7 +106,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                 ))}
             </div>
 
-            {/* Primary Color */}
+            
             <div>
                 <h4 className="text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-3">Primary Color</h4>
                 <div className="flex flex-wrap gap-3">
@@ -126,7 +126,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                 </div>
             </div>
 
-            {/* Toast Style */}
+            
             <div className="border-t border-border-primary dark:border-border-primary pt-6">
                 <h4 className="text-sm font-bold text-ink-secondary dark:text-ink-tertiary mb-3">Toast Notifications</h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -148,7 +148,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                 </div>
             </div>
 
-            {/* Preview */}
+            
             <div className="p-6 bg-surface-secondary dark:bg-surface-tertiary rounded-2xl">
                 <h4 className="text-xs font-bold text-ink-tertiary dark:text-ink-tertiary uppercase mb-3">Preview</h4>
                 <div className="flex gap-3">
@@ -164,7 +164,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                 </div>
             </div>
 
-            {/* Save Button */}
+            
             <button
                 onClick={handleSaveTheme}
                 disabled={saving}

@@ -143,7 +143,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     }, [type, listing.metadata, duration, capacity]);
 
     const renderAction = useCallback(() => {
-        const priceStr = price ? ` • $${price.toFixed(2)}` : '';
+        const priceStr = price ? ` - $${price.toFixed(2)}` : '';
         switch (type) {
             case 'product': return `Add to Cart${priceStr}`;
             case 'campaign': return 'Donate Now';
@@ -279,7 +279,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                     className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ${showZoom ? 'scale-150' : ''}`}
                     alt={listing.title}
                 />
-                {/* Wishlist Heart */}
+                
                 <button
                     onClick={(e) => { e.stopPropagation(); setIsWishlisted(!isWishlisted); }}
                     className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/60 transition-colors group/heart"
@@ -325,7 +325,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                 </div>
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
 
-                {/* Floating Action Hint */}
+                
                 <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-surface-elevated/90 backdrop-blur-md rounded-full text-[10px] sm:text-sm font-black uppercase tracking-widest text-ink-primary shadow-xl border border-white/10 whitespace-nowrap">
                         {renderAction()} →

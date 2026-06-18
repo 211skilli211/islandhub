@@ -148,7 +148,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                 </button>
             </div>
 
-            {/* Stats */}
+            
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -196,7 +196,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                 </motion.div>
             </div>
 
-            {/* Status Filter */}
+            
             <div className="flex gap-2 flex-wrap">
                 {['all', 'pending', 'assigned', 'picked_up', 'delivered'].map((status) => (
                     <button
@@ -212,14 +212,14 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                 ))}
             </div>
 
-            {/* Error Message */}
+            
             {error && (
                 <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                     <p className="text-red-600">{error}</p>
                 </div>
             )}
 
-            {/* Delivery List */}
+            
             <div className="bg-surface-elevated rounded-xl border border-ink-200 overflow-hidden">
                 <div className="px-6 py-4 border-b border-ink-200 flex items-center justify-between">
                     <h3 className="font-semibold text-ink-900">Active Deliveries</h3>
@@ -279,7 +279,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                 )}
             </div>
 
-            {/* Quick Actions */}
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button className="p-4 bg-surface-elevated rounded-xl border border-ink-200 hover:border-emerald-300 hover:bg-emerald-500/10 transition-all text-left">
                     <div className="font-medium text-ink-900">Assign Driver</div>

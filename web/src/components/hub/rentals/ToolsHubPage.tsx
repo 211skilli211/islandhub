@@ -58,7 +58,7 @@ export default function ToolsHubPage() {
           imageUrl={item.image_url}
           emoji="🔧"
           title={item.name}
-          subtitle={`${item.brand} · ${item.condition}`}
+          subtitle={`${item.brand} . ${item.condition}`}
           price={item.price_per_day}
           priceSuffix="/day"
           rating={item.rating}
