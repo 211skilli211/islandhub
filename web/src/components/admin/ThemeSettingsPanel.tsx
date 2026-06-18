@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import type { ToastStyle } from '@/lib/toast';
+import VisualEffectsPanel from './VisualEffectsPanel';
 
 interface ThemeSettingsPanelProps {
     onThemeChange?: (theme: string) => void;
@@ -172,6 +173,11 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
             >
                 {saving ? 'Saving...' : 'Save Theme Settings'}
             </button>
+
+            {/* Visual Effects Panel */}
+            <div className="pt-8 border-t border-border-primary">
+                <VisualEffectsPanel />
+            </div>
         </div>
     );
 }
