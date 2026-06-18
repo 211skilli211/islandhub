@@ -6,7 +6,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'food',
         pageKey: 'food-stores',
         fallbackTitle: 'Island Flavors',
-        heroSubtitle: '🍳 Fresh kitchens • 🍽️ Top restaurants • ☕ Cozy cafés',
+        heroSubtitle: '🍳 Fresh kitchens - 🍽️ Top restaurants - ☕ Cozy cafés',
         heroEmoji: '🍽️🍜☕',
         heroStats: { label: 'Places', emoji: '🌴' },
         categories: [
@@ -37,7 +37,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'products',
         pageKey: 'product-stores',
         fallbackTitle: 'Island Marketplace',
-        heroSubtitle: '🛍️ Local crafts • 🎨 Artisan goods • 🌿 Natural products',
+        heroSubtitle: '🛍️ Local crafts - 🎨 Artisan goods - 🌿 Natural products',
         heroEmoji: '🛍️🎨🌿',
         heroStats: { label: 'Shops', emoji: '🌴' },
         categories: [
@@ -68,7 +68,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'services',
         pageKey: 'service-stores',
         fallbackTitle: 'Island Services',
-        heroSubtitle: '🛠️ Professional • 🚗 Automotive • 💆 Health & Beauty',
+        heroSubtitle: '🛠️ Professional - 🚗 Automotive - 💆 Health & Beauty',
         heroEmoji: '🛠️💼🚗',
         heroStats: { label: 'Providers', emoji: '🌴' },
         categories: [
@@ -100,7 +100,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'tours',
         pageKey: 'tour-hub',
         fallbackTitle: 'Island Adventures',
-        heroSubtitle: '🥾 Land tours • 🌊 Sea adventures • 🧗 Extreme fun',
+        heroSubtitle: '🥾 Land tours - 🌊 Sea adventures - 🧗 Extreme fun',
         heroEmoji: '🗺️🥾🌊',
         heroStats: { label: 'Tours', emoji: '🌴' },
         categories: [
@@ -131,7 +131,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'transport',
         pageKey: 'taxi-hub',
         fallbackTitle: 'Island Transport',
-        heroSubtitle: '🚕 Ride hailing • 📦 Delivery • 🚤 Boat charters',
+        heroSubtitle: '🚕 Ride hailing - 📦 Delivery - 🚤 Boat charters',
         heroEmoji: '🚕📦🚤',
         heroStats: { label: 'Drivers', emoji: '🌴' },
         categories: [
@@ -162,7 +162,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'rentals',
         pageKey: 'rental-hub',
         fallbackTitle: 'Island Stays',
-        heroSubtitle: '🏠 Vacation homes • 🏖️ Beach villas • 🏢 Long-term rentals',
+        heroSubtitle: '🏠 Vacation homes - 🏖️ Beach villas - 🏢 Long-term rentals',
         heroEmoji: '🏠🏖️🏢',
         heroStats: { label: 'Properties', emoji: '🌴' },
         categories: [
@@ -194,7 +194,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'campaigns',
         pageKey: 'campaigns',
         fallbackTitle: 'Island Causes',
-        heroSubtitle: '❤️ Community fundraisers • 🌱 Environmental • 📚 Education',
+        heroSubtitle: '❤️ Community fundraisers - 🌱 Environmental - 📚 Education',
         heroEmoji: '❤️🌱📚',
         heroStats: { label: 'Campaigns', emoji: '🌴' },
         categories: [
@@ -225,7 +225,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'community',
         pageKey: 'community',
         fallbackTitle: 'Island Community',
-        heroSubtitle: '🌴 Events • 📸 Stories • 🤝 Connect with locals',
+        heroSubtitle: '🌴 Events - 📸 Stories - 🤝 Connect with locals',
         heroEmoji: '🌴📸🤝',
         heroStats: { label: 'Members', emoji: '🌴' },
         categories: [
@@ -255,7 +255,7 @@ export const HUB_CONFIGS: Record<string, HubPageConfig> = {
         slug: 'events',
         pageKey: 'events',
         fallbackTitle: 'Events & Tickets',
-        heroSubtitle: '🎫 Concerts • 🎪 Festivals • 🎭 Shows • 🏆 Sports',
+        heroSubtitle: '🎫 Concerts - 🎪 Festivals - 🎭 Shows - 🏆 Sports',
         heroEmoji: '🎫🎪🎭',
         heroStats: { label: 'Events', emoji: '🎉' },
         categories: [
