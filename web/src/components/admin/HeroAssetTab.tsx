@@ -41,6 +41,10 @@ const SHADER_PRESETS = [
   { value: 'sunset', label: 'Sunset', colors: ['#1e1b4b', '#7c3aed', '#f97316', '#fbbf24'] },
   { value: 'midnight', label: 'Midnight', colors: ['#020617', '#1e293b', '#334155', '#64748b'] },
   { value: 'caribbean', label: 'Caribbean', colors: ['#0c4a6e', '#0369a1', '#0ea5e9', '#67e8f9'] },
+  { value: 'volcano', label: 'Volcano', colors: ['#1c1917', '#7f1d1d', '#dc2626', '#fbbf24'] },
+  { value: 'coral', label: 'Coral Reef', colors: ['#0c4a6e', '#0891b2', '#f472b6', '#fbbf24'] },
+  { value: 'lagoon', label: 'Lagoon', colors: ['#064e3b', '#059669', '#34d399', '#a7f3d0'] },
+  { value: 'savanna', label: 'Savanna', colors: ['#78350f', '#d97706', '#fbbf24', '#fef3c7'] },
 ];
 
 const AURORA_PRESETS = [
@@ -50,6 +54,8 @@ const AURORA_PRESETS = [
   { value: 'sunset', label: 'Sunset', colors: ['#9a3412', '#ea580c', '#7c2d12'] },
   { value: 'emerald', label: 'Emerald', colors: ['#065f46', '#059669', '#047857'] },
   { value: 'midnight', label: 'Midnight', colors: ['#020617', '#1e1b4b', '#312e81'] },
+  { value: 'borealis', label: 'Borealis', colors: ['#064e3b', '#14b8a6', '#a855f7'] },
+  { value: 'rose', label: 'Rose', colors: ['#881337', '#e11d48', '#f472b6'] },
 ];
 
 const PARTICLE_PRESETS = [
@@ -57,6 +63,10 @@ const PARTICLE_PRESETS = [
   { value: 'ocean', label: 'Ocean', desc: 'Teal bubbles' },
   { value: 'aurora', label: 'Aurora', desc: 'Multi-color drift' },
   { value: 'fireflies', label: 'Fireflies', desc: 'Warm glowing dots' },
+  { value: 'snow', label: 'Snow', desc: 'Gentle snowfall' },
+  { value: 'confetti', label: 'Confetti', desc: 'Celebration particles' },
+  { value: 'embers', label: 'Embers', desc: 'Rising fire sparks' },
+  { value: 'stars', label: 'Stars', desc: 'Twinkling star dust' },
 ];
 
 const LAYOUT_TEMPLATES = [

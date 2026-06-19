@@ -16,6 +16,7 @@ interface VisualEffectsConfig {
     particleIntensity: number; // 0-10
     animationsEnabled: boolean;
     animationSpeed: 'slow' | 'normal' | 'fast';
+    animationStyle: 'fade' | 'slide' | 'bounce' | 'scale' | 'flip' | 'blur';
     kenBurnsEnabled: boolean;
     parallaxEnabled: boolean;
     glowEffectsEnabled: boolean;
@@ -29,6 +30,7 @@ const DEFAULT_CONFIG: VisualEffectsConfig = {
     particleIntensity: 4,
     animationsEnabled: true,
     animationSpeed: 'normal',
+    animationStyle: 'fade',
     kenBurnsEnabled: true,
     parallaxEnabled: false,
     glowEffectsEnabled: true,
@@ -324,21 +326,50 @@ export default function VisualEffectsPanel() {
                                 />
 
                                 {config.animationsEnabled && (
-                                    <div className="pl-4 border-l-2 border-teal-200">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Animation Speed</label>
-                                        <div className="flex gap-2">
-                                            {(['slow', 'normal', 'fast'] as const).map(speed => (
-                                                <button
-                                                    key={speed}
-                                                    onClick={() => updateConfig({ animationSpeed: speed })}
-                                                    className={`flex-1 py-2 rounded-xl border-2 text-[10px] font-black uppercase tracking-wider transition-all ${config.animationSpeed === speed
-                                                        ? 'border-teal-500 bg-teal-500 text-white'
-                                                        : 'border-border-primary text-ink-tertiary hover:border-teal-300'
-                                                        }`}
-                                                >
-                                                    {speed}
-                                                </button>
-                                            ))}
+                                    <div className="pl-4 border-l-2 border-teal-200 space-y-4">
+                                        <div>
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Animation Speed</label>
+                                            <div className="flex gap-2">
+                                                {(['slow', 'normal', 'fast'] as const).map(speed => (
+                                                    <button
+                                                        key={speed}
+                                                        onClick={() => updateConfig({ animationSpeed: speed })}
+                                                        className={`flex-1 py-2 rounded-xl border-2 text-[10px] font-black uppercase tracking-wider transition-all ${config.animationSpeed === speed
+                                                            ? 'border-teal-500 bg-teal-500 text-white'
+                                                            : 'border-border-primary text-ink-tertiary hover:border-teal-300'
+                                                            }`}
+                                                    >
+                                                        {speed}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2 block">Animation Style</label>
+                                            <div className="grid grid-cols-3 gap-2">
+                                                {([
+                                                    { id: 'fade', label: 'Fade', icon: '🌫️', desc: 'Opacity transition' },
+                                                    { id: 'slide', label: 'Slide', icon: '➡️', desc: 'Directional slide' },
+                                                    { id: 'bounce', label: 'Bounce', icon: '🏀', desc: 'Elastic bounce' },
+                                                    { id: 'scale', label: 'Scale', icon: '🔍', desc: 'Zoom in/out' },
+                                                    { id: 'flip', label: 'Flip', icon: '🔄', desc: '3D rotation' },
+                                                    { id: 'blur', label: 'Blur', icon: '💨', desc: 'Blur transition' },
+                                                ] as const).map(style => (
+                                                    <button
+                                                        key={style.id}
+                                                        onClick={() => updateConfig({ animationStyle: style.id })}
+                                                        className={`p-2.5 rounded-xl border-2 text-center transition-all ${config.animationStyle === style.id
+                                                            ? 'border-teal-500 bg-teal-50'
+                                                            : 'border-border-primary hover:border-teal-300'
+                                                            }`}
+                                                    >
+                                                        <div className="text-base mb-0.5">{style.icon}</div>
+                                                        <div className="text-[9px] font-black uppercase tracking-wider">{style.label}</div>
+                                                        <div className="text-[7px] text-ink-tertiary">{style.desc}</div>
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 )}
@@ -370,7 +401,7 @@ export default function VisualEffectsPanel() {
                                     <div className="text-[10px] text-ink-tertiary space-y-1">
                                         <p>• Hero: <span className="font-bold text-ink-primary">{config.heroType}</span> ({config.heroPreset})</p>
                                         <p>• Particles: <span className="font-bold text-ink-primary">{config.particlesEnabled ? `On (intensity ${config.particleIntensity})` : 'Off'}</span></p>
-                                        <p>• Animations: <span className="font-bold text-ink-primary">{config.animationsEnabled ? config.animationSpeed : 'Off'}</span></p>
+                                        <p>• Animations: <span className="font-bold text-ink-primary">{config.animationsEnabled ? `${config.animationSpeed} / ${config.animationStyle}` : 'Off'}</span></p>
                                         <p>• Ken Burns: <span className="font-bold text-ink-primary">{config.kenBurnsEnabled ? 'On' : 'Off'}</span></p>
                                         <p>• Parallax: <span className="font-bold text-ink-primary">{config.parallaxEnabled ? 'On' : 'Off'}</span></p>
                                         <p>• Glow: <span className="font-bold text-ink-primary">{config.glowEffectsEnabled ? 'On' : 'Off'}</span></p>

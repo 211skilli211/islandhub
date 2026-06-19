@@ -5,8 +5,9 @@ import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import { AdminTable, Column } from './shared/AdminTable';
-import { ChevronRight, Plus } from 'lucide-react';
+import { ChevronRight, Plus, Type, AlignLeft } from 'lucide-react';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
+import TypeWriter from '@/components/ui/TypeWriter';
 
 interface Marquee {
     marquee_id: number;
@@ -45,7 +46,11 @@ export default function BroadcastTab() {
         isPlaying: true,
         direction: 'normal',
         speed: 1, // 1 = normal, 2 = fast, 0.5 = slow
-        preset: 'white_black' // Default to white_black instead of island_orange
+        preset: 'white_black', // Default to white_black instead of island_orange
+        displayMode: 'scroll' as 'scroll' | 'typewriter',
+        typewriterPreset: 'smooth' as 'terminal' | 'smooth' | 'fast' | 'dramatic',
+        typewriterSpeed: 80, // ms per character
+        typewriterLoop: true,
     });
 
     const updateControls = async (updates: any) => {
@@ -169,6 +174,14 @@ export default function BroadcastTab() {
                     >
                         {controls.isPlaying ? '⏸ Pause' : '▶ Play'}
                     </button>
+                    <div className="w-px bg-surface-tertiary h-6 mx-1" />
+                    <button
+                        onClick={() => updateControls({ displayMode: controls.displayMode === 'scroll' ? 'typewriter' : 'scroll' })}
+                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-1.5 ${controls.displayMode === 'typewriter' ? 'bg-purple-500 text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
+                    >
+                        {controls.displayMode === 'typewriter' ? <Type size={12} /> : <AlignLeft size={12} />}
+                        {controls.displayMode === 'typewriter' ? 'Typewriter' : 'Scroll'}
+                    </button>
                 </div>
             </div>
 
@@ -196,7 +209,83 @@ export default function BroadcastTab() {
                 </div>
             )}
 
-            
+            {/* Typewriter Settings */}
+            {controls.displayMode === 'typewriter' && (
+                <div className="bg-gradient-to-r from-purple-500/5 to-indigo-500/5 border border-purple-200 p-6 rounded-[2.5rem] space-y-4">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-8 h-8 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                            <Type size={16} className="text-purple-600" />
+                        </div>
+                        <div>
+                            <h4 className="text-sm font-black uppercase tracking-widest text-purple-700">Typewriter Effect</h4>
+                            <p className="text-[10px] text-ink-tertiary">Character-by-character reveal animation</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        {(['terminal', 'smooth', 'fast', 'dramatic'] as const).map(p => (
+                            <button
+                                key={p}
+                                onClick={() => updateControls({ typewriterPreset: p })}
+                                className={`px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border-2 ${controls.typewriterPreset === p
+                                    ? 'border-purple-500 bg-purple-500 text-white shadow-lg shadow-purple-500/20'
+                                    : 'border-border-primary text-ink-tertiary hover:border-purple-300'
+                                    }`}
+                            >
+                                {p === 'terminal' && '⌨️ '}
+                                {p === 'smooth' && '✨ '}
+                                {p === 'fast' && '⚡ '}
+                                {p === 'dramatic' && '🎬 '}
+                                {p}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center gap-4 bg-surface-elevated/50 px-4 py-3 rounded-2xl border border-border-primary">
+                        <span className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest whitespace-nowrap">Speed</span>
+                        <input
+                            type="range"
+                            min={20}
+                            max={200}
+                            step={10}
+                            value={controls.typewriterSpeed}
+                            onChange={(e) => updateControls({ typewriterSpeed: parseInt(e.target.value) })}
+                            className="flex-1 accent-purple-600"
+                        />
+                        <span className="font-black text-purple-600 text-xs w-16 text-right">{controls.typewriterSpeed}ms</span>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => updateControls({ typewriterLoop: !controls.typewriterLoop })}
+                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-2 ${controls.typewriterLoop
+                                ? 'border-purple-500 bg-purple-50 text-purple-700'
+                                : 'border-border-primary text-ink-tertiary'
+                                }`}
+                        >
+                            {controls.typewriterLoop ? '🔁 Loop On' : '➡️ Loop Off'}
+                        </button>
+                    </div>
+
+                    {/* Live Typewriter Preview */}
+                    {currentMarquee && (
+                        <div className="bg-ink-primary rounded-2xl p-4 mt-2">
+                            <p className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Live Preview</p>
+                            <div className="text-white font-bold text-sm min-h-[24px]">
+                                <TypeWriter
+                                    text={currentMarquee.message}
+                                    preset={controls.typewriterPreset}
+                                    speed={controls.typewriterSpeed}
+                                    loop={controls.typewriterLoop}
+                                    cursor
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
+
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-xl shadow-black/10/50">
                     <div className="flex items-center gap-4 mb-6">

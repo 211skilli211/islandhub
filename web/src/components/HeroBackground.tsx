@@ -43,6 +43,10 @@ const SHADER_COLORS: Record<string, string[]> = {
     sunset: ['#1e1b4b', '#7c3aed', '#f97316', '#fbbf24'],
     midnight: ['#020617', '#1e293b', '#334155', '#64748b'],
     caribbean: ['#0c4a6e', '#0369a1', '#0ea5e9', '#67e8f9'],
+    volcano: ['#1c1917', '#7f1d1d', '#dc2626', '#fbbf24'],
+    coral: ['#0c4a6e', '#0891b2', '#f472b6', '#fbbf24'],
+    lagoon: ['#064e3b', '#059669', '#34d399', '#a7f3d0'],
+    savanna: ['#78350f', '#d97706', '#fbbf24', '#fef3c7'],
 };
 
 const AURORA_COLORS: Record<string, string[]> = {
@@ -52,6 +56,8 @@ const AURORA_COLORS: Record<string, string[]> = {
     sunset: ['#9a3412', '#ea580c', '#7c2d12'],
     emerald: ['#065f46', '#059669', '#047857'],
     midnight: ['#020617', '#1e1b4b', '#312e81'],
+    borealis: ['#064e3b', '#14b8a6', '#a855f7'],
+    rose: ['#881337', '#e11d48', '#f472b6'],
 };
 
 function getShaderColors(preset?: string): string[] {

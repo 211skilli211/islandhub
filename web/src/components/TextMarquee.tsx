@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import api from '@/lib/api';
+import TypeWriter from '@/components/ui/TypeWriter';
 
 const PRESETS: Record<string, any> = {
     island_orange: {
@@ -87,6 +88,10 @@ export default function TextMarquee() {
     const [direction, setDirection] = useState<'normal' | 'reverse'>('normal');
     const [speed, setSpeed] = useState(1);
     const [activePreset, setActivePreset] = useState('white_black');
+    const [displayMode, setDisplayMode] = useState<'scroll' | 'typewriter'>('scroll');
+    const [typewriterPreset, setTypewriterPreset] = useState<'terminal' | 'smooth' | 'fast' | 'dramatic'>('smooth');
+    const [typewriterSpeed, setTypewriterSpeed] = useState(80);
+    const [typewriterLoop, setTypewriterLoop] = useState(true);
 
     useEffect(() => {
         const fetchMarquees = async () => {
@@ -101,6 +106,10 @@ export default function TextMarquee() {
                         setDirection(data.settings.direction);
                         setSpeed(data.settings.speed);
                         setActivePreset(data.settings.preset || 'white_black');
+                        setDisplayMode(data.settings.displayMode || 'scroll');
+                        setTypewriterPreset(data.settings.typewriterPreset || 'smooth');
+                        setTypewriterSpeed(data.settings.typewriterSpeed || 80);
+                        setTypewriterLoop(data.settings.typewriterLoop !== false);
                     }
                 } else if (Array.isArray(data)) {
                     setMarquees(data);
@@ -124,7 +133,41 @@ export default function TextMarquee() {
     const presetKey = activePreset && PRESETS[activePreset] ? activePreset : 'white_black';
     const style = PRESETS[presetKey];
 
-    return (
+    // Get the first active marquee for typewriter mode
+    const activeMarquee = marquees.find((m: any) => m.is_active) || marquees[0];
+    const marqueeText = activeMarquee
+        ? `${activeMarquee.emoji ? activeMarquee.emoji + ' ' : ''}${activeMarquee.user_name ? '[' + activeMarquee.user_name + '] ' : ''}${activeMarquee.message}`
+        : '';
+
+    // Typewriter mode
+    if (displayMode === 'typewriter' && activeMarquee) {
+        return (
+            <div
+                className="overflow-hidden py-4 sticky top-20 z-40 border-b backdrop-blur-md shadow-sm"
+                style={{ background: style.background, boxShadow: style.shadow }}
+                data-marquee
+            >
+                <div className="max-w-7xl mx-auto px-4 flex items-center justify-center min-h-[32px]">
+                    <span
+                        className={`${style.text} font-black text-sm tracking-wide leading-none`}
+                        style={{ color: activeMarquee.text_color || style.textColor }}
+                    >
+                        <TypeWriter
+                            text={marqueeText}
+                            preset={typewriterPreset}
+                            speed={typewriterSpeed}
+                            loop={typewriterLoop}
+                            cursor
+                        />
+                    </span>
+                </div>
+                <div className={`absolute inset-y-0 left-0 w-32 bg-gradient-to-r ${style.fadeFrom} to-transparent z-10`} />
+                <div className={`absolute inset-y-0 right-0 w-32 bg-gradient-to-l ${style.fadeFrom} to-transparent z-10`} />
+            </div>
+        );
+    }
+
+    // Scroll mode (default)
         <div
             className="overflow-hidden py-3 sticky top-20 z-40 border-b backdrop-blur-md shadow-sm"
             style={{ background: style.background, boxShadow: style.shadow }}
