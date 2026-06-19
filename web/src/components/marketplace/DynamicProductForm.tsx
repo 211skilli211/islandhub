@@ -132,7 +132,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                         onClick={() => handleChange(!value)}
                     >
                         <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${value ? 'bg-accent-500/100 border-teal-500' : 'border-border-primary'}`}>
-                            {value && <EmojiIcon emoji="✓" size=16 className="text-white text-xs" />}
+                            {value && <EmojiIcon emoji="✓" size={16} className="text-white text-xs" />}
                         </div>
                         <span className="font-bold text-ink-secondary">{field.placeholder || (value ? 'Yes' : 'No')}</span>
                     </div>
@@ -180,7 +180,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
             case 'location':
                 return (
                     <div className="relative">
-                        <EmojiIcon emoji="📍" size=20 className="absolute left-6 top-1/2 -translate-y-1/2 text-xl" />
+                        <EmojiIcon emoji="📍" size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-xl" />
                         <input
                             type="text"
                             placeholder={field.placeholder || "Enter address..."}
@@ -203,7 +203,7 @@ export default function DynamicProductForm({ subtypeId, metadata, onChange }: Dy
                             }}
                         />
                         <div className="w-full px-8 py-5 bg-surface-elevated border-2 border-dashed border-border-primary rounded-3xl text-center group-hover:border-teal-400 group-hover:bg-accent-500/10/30 transition-all">
-                            <EmojiIcon emoji="📁" size=24 className="text-2xl mb-2" />
+                            <EmojiIcon emoji="📁" size={24} className="text-2xl mb-2" />
                             <p className="text-ink-tertiary font-bold text-sm">
                                 {value || 'Click to upload or drag & drop'}
                             </p>

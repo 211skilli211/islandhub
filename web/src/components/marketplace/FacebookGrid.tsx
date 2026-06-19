@@ -175,7 +175,7 @@ export default function FacebookGrid({
         </div>
       ) : items.length === 0 ? (
         <div className="text-center py-16 rounded-2xl border-2 border-dashed border-border-primary">
-          <EmojiIcon emoji="🔍" size=28 className="text-3xl mb-2" />
+          <EmojiIcon emoji="🔍" size={28} className="text-3xl mb-2" />
           <p className="text-ink-tertiary font-medium">No listings found</p>
           <p className="text-xs text-ink-tertiary mt-1">Try a different category or search term</p>
         </div>

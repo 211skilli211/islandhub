@@ -144,7 +144,7 @@ function RentalDetail({ property: p }: { property: RentalProperty }) {
                 <div className="grid grid-cols-2 gap-2">
                   {p.amenities.map((amenity, i) => (
                     <div key={i} className="flex items-center gap-2 text-sm text-ink-secondary py-2">
-                      <EmojiIcon emoji="✓" size=16 className="w-5 h-5 rounded-full bg-accent-500/10 text-accent-500 flex items-center justify-center text-xs" />
+                      <EmojiIcon emoji="✓" size={16} className="w-5 h-5 rounded-full bg-accent-500/10 text-accent-500 flex items-center justify-center text-xs" />
                       {amenity}
                     </div>
                   ))}

@@ -66,7 +66,7 @@ export default function CoopDetailPage() {
         return (
             <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <EmojiIcon emoji="😕" size=48 className="text-6xl mb-4" />
+                    <EmojiIcon emoji="😕" size={48} className="text-6xl mb-4" />
                     <h1 className="text-2xl font-black text-ink-primary mb-2">Co-op not found</h1>
                     <Link href="/store/ibt-solutions/coops" className="text-accent-400 font-bold hover:underline">
                         ← Back to Co-ops
@@ -144,13 +144,13 @@ export default function CoopDetailPage() {
                             <div className="space-y-3">
                                 {coop.contact_name && (
                                     <div className="flex items-center gap-3">
-                                        <EmojiIcon emoji="👤" size=16 className="text-ink-tertiary" />
+                                        <EmojiIcon emoji="👤" size={16} className="text-ink-tertiary" />
                                         <span className="text-sm text-ink-secondary">{coop.contact_name}</span>
                                     </div>
                                 )}
                                 {coop.contact_email && (
                                     <div className="flex items-center gap-3">
-                                        <EmojiIcon emoji="✉️" size=16 className="text-ink-tertiary" />
+                                        <EmojiIcon emoji="✉️" size={16} className="text-ink-tertiary" />
                                         <a href={`mailto:${coop.contact_email}`} className="text-sm text-accent-400 hover:underline">
                                             {coop.contact_email}
                                         </a>
@@ -158,7 +158,7 @@ export default function CoopDetailPage() {
                                 )}
                                 {coop.contact_phone && (
                                     <div className="flex items-center gap-3">
-                                        <EmojiIcon emoji="📞" size=16 className="text-ink-tertiary" />
+                                        <EmojiIcon emoji="📞" size={16} className="text-ink-tertiary" />
                                         <a href={`tel:${coop.contact_phone}`} className="text-sm text-accent-400 hover:underline">
                                             {coop.contact_phone}
                                         </a>
@@ -166,7 +166,7 @@ export default function CoopDetailPage() {
                                 )}
                                 {coop.location && (
                                     <div className="flex items-center gap-3">
-                                        <EmojiIcon emoji="📍" size=16 className="text-ink-tertiary" />
+                                        <EmojiIcon emoji="📍" size={16} className="text-ink-tertiary" />
                                         <span className="text-sm text-ink-secondary">
                                             {coop.location}, {coop.island === 'st_kitts' ? 'St. Kitts' : 'Nevis'}
                                         </span>
@@ -174,7 +174,7 @@ export default function CoopDetailPage() {
                                 )}
                                 {coop.website_url && (
                                     <div className="flex items-center gap-3">
-                                        <EmojiIcon emoji="🌐" size=16 className="text-ink-tertiary" />
+                                        <EmojiIcon emoji="🌐" size={16} className="text-ink-tertiary" />
                                         <a href={coop.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-accent-400 hover:underline">
                                             Website
                                         </a>

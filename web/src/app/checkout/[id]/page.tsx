@@ -184,7 +184,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
 
             {error && (
                 <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl flex items-center gap-3">
-                    <EmojiIcon emoji="⚠️" size=20 className="text-xl" />
+                    <EmojiIcon emoji="⚠️" size={20} className="text-xl" />
                     <p className="text-rose-700 text-sm font-medium">{error}</p>
                 </div>
             )}

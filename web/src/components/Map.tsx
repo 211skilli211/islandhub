@@ -155,7 +155,7 @@ export default function Map({ center, zoom = 13, markers = [], mapId }: MapProps
                 }}
             >
                 <div style={{ textAlign: 'center', color: '#64748b' }}>
-                    <EmojiIcon emoji="🗺️" size=16 />
+                    <EmojiIcon emoji="🗺️" size={16} />
                     <div style={{ fontSize: '12px', fontWeight: 600 }}>Loading Map...</div>
                 </div>
             </div>

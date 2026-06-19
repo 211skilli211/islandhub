@@ -83,7 +83,7 @@ export default function NotificationsPage() {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
-                    <EmojiIcon emoji="🔒" size=40 className="text-4xl mb-3" />
+                    <EmojiIcon emoji="🔒" size={40} className="text-4xl mb-3" />
                     <p className="text-ink-secondary font-bold">Please log in to see your notifications.</p>
                 </div>
             </div>
@@ -117,7 +117,7 @@ export default function NotificationsPage() {
                         </div>
                     ) : notifications.length === 0 ? (
                         <div className="text-center py-16">
-                            <EmojiIcon emoji="🔔" size=48 className="text-5xl mb-4" />
+                            <EmojiIcon emoji="🔔" size={48} className="text-5xl mb-4" />
                             <p className="font-black text-ink-secondary text-lg">All caught up!</p>
                             <p className="text-ink-tertiary text-sm mt-1">No notifications yet. We'll let you know when something happens.</p>
                         </div>

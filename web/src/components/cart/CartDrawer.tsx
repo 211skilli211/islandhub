@@ -94,7 +94,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     />
                                                                     {item.donation_suggested && (
                                                                         <div className="absolute inset-0 bg-sand-500/50/10 flex items-center justify-center">
-                                                                            <EmojiIcon emoji="🎁" size=24 className="text-2xl" />
+                                                                            <EmojiIcon emoji="🎁" size={24} className="text-2xl" />
                                                                         </div>
                                                                     )}
                                                                 </div>

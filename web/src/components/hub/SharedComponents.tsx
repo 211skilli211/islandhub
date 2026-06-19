@@ -210,7 +210,7 @@ export function ImageGallery({
   if (!images.length) {
     return (
       <div className={`${aspectClasses[aspectRatio]} bg-surface-secondary rounded-2xl flex items-center justify-center ${className}`}>
-        <EmojiIcon emoji="🏝️" size=28 className="text-3xl opacity-30" />
+        <EmojiIcon emoji="🏝️" size={28} className="text-3xl opacity-30" />
       </div>
     );
   }
@@ -222,7 +222,7 @@ export function ImageGallery({
           <div key={i} className={images.length === 1 ? 'col-span-2 aspect-video' : 'aspect-square'}>
             {imgErrors.has(i) ? (
               <div className="w-full h-full bg-surface-secondary flex items-center justify-center">
-                <EmojiIcon emoji="🏝️" size=24 className="text-2xl opacity-30" />
+                <EmojiIcon emoji="🏝️" size={24} className="text-2xl opacity-30" />
               </div>
             ) : (
               <img
@@ -251,7 +251,7 @@ export function ImageGallery({
         >
           {imgErrors.has(i) ? (
             <div className="w-full h-full flex items-center justify-center">
-              <EmojiIcon emoji="🏝️" size=40 className="text-4xl opacity-30" />
+              <EmojiIcon emoji="🏝️" size={40} className="text-4xl opacity-30" />
             </div>
           ) : (
             <img

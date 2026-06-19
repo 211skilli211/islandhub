@@ -49,13 +49,13 @@ const PayPalButton = ({ campaignId, orderId, amount, currency = 'USD', onSuccess
         return (
             <div className="space-y-4">
                 <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl text-amber-800 text-xs font-medium">
-                    <EmojiIcon emoji="⚠️" size=16 className="font-bold" /> Using placeholder client ID.
+                    <EmojiIcon emoji="⚠️" size={16} className="font-bold" /> Using placeholder client ID.
                 </div>
                 <button
                     onClick={() => onSuccess?.()}
                     className="w-full py-4 bg-[#0070ba] hover:bg-[#003087] text-white rounded-2xl font-black text-lg transition-all shadow-lg shadow-blue-100 flex items-center justify-center gap-2"
                 >
-                    <span className="text-xl">🅿<EmojiIcon emoji="️" size=20 /></span> Mock PayPal Checkout
+                    <span className="text-xl">🅿<EmojiIcon emoji="️" size={20} /></span> Mock PayPal Checkout
                 </button>
             </div>
         );

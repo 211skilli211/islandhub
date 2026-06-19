@@ -273,7 +273,7 @@ export default function RequestRidePage() {
               
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <EmojiIcon emoji="👥" size=18 className="text-lg" />
+                  <EmojiIcon emoji="👥" size={18} className="text-lg" />
                   <div><div className="text-sm text-white font-medium">Passengers</div><div className="text-xs text-ink-500">How many people?</div></div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -306,7 +306,7 @@ export default function RequestRidePage() {
               <div className="h-full relative">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center"><EmojiIcon emoji="🗺️" size=48 className="text-6xl mb-2" /><p className="text-ink-500 text-sm">Live map</p></div>
+                  <div className="text-center"><EmojiIcon emoji="🗺️" size={48} className="text-6xl mb-2" /><p className="text-ink-500 text-sm">Live map</p></div>
                 </div>
                 
                 {pickup && (
@@ -357,7 +357,7 @@ export default function RequestRidePage() {
               ) : null}
             </button>
 
-            <EmojiIcon emoji="🔒" size=16 className="text-xs text-ink-600 text-center" />
+            <EmojiIcon emoji="🔒" size={16} className="text-xs text-ink-600 text-center" />
           </div>
         </div>
       </div>

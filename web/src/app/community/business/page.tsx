@@ -149,7 +149,7 @@ export default function BusinessCommunityPage() {
                     </div>
                 ) : filteredBusinesses.length === 0 ? (
                     <div className="text-center py-20">
-                        <EmojiIcon emoji="🏢" size=48 className="text-6xl mb-4" />
+                        <EmojiIcon emoji="🏢" size={48} className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No businesses found</h3>
                         <p className="text-ink-tertiary mb-6">
                             {searchQuery ? 'No businesses match your search.' : 'Be the first to list your business!'}

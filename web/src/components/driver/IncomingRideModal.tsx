@@ -119,7 +119,7 @@ export default function IncomingRideModal({
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl animate-bounce">
-                    {request.service_type === 'taxi' ? '🚖' : request.service_type === 'delivery' ? '📦' : '<EmojiIcon emoji="🚚" size=16 />'}
+                    {request.service_type === 'taxi' ? '🚖' : request.service_type === 'delivery' ? '📦' : '<EmojiIcon emoji="🚚" size={16} />'}
                   </div>
                   <div>
                     <h2 className="text-lg font-black text-ink-primary">Incoming Request!</h2>

@@ -137,7 +137,7 @@ export default function VendorSpotlight() {
                                     <div className="flex items-center gap-2 mb-8">
                                         <div className="flex text-yellow-400 text-xs">
                                             {[...Array(5)].map((_, i) => (
-                                                <span key={i}>{i < Math.floor(vendor.rating || 5) ? '★' : '<EmojiIcon emoji="☆" size=16 />'}</span>
+                                                <span key={i}>{i < Math.floor(vendor.rating || 5) ? '★' : '<EmojiIcon emoji="☆" size={16} />'}</span>
                                             ))}
                                         </div>
                                         <span className="text-ink-primary dark:text-white font-black text-sm">{vendor.rating?.toFixed(1) || '5.0'}</span>

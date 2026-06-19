@@ -145,7 +145,7 @@ export default function NewArrivals({
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                 ) : (
-                  <EmojiIcon emoji="📦" size=24 className="flex h-full w-full items-center justify-center text-2xl" />
+                  <EmojiIcon emoji="📦" size={24} className="flex h-full w-full items-center justify-center text-2xl" />
                 )}
                 <div className="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 rounded text-[9px] font-bold text-white">
                   NEW

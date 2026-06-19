@@ -96,7 +96,7 @@ export default function DriverVerification() {
                         </p>
                     </div>
                     <div className="bg-surface-elevated/20 backdrop-blur rounded-full p-4">
-                        <EmojiIcon emoji="🪪" size=40 className="text-4xl" />
+                        <EmojiIcon emoji="🪪" size={40} className="text-4xl" />
                     </div>
                 </div>
                 <div className="mt-4 pt-4 border-t border-white/20">
@@ -262,7 +262,7 @@ export default function DriverVerification() {
                             Upload {verifications.find(v => v.id === uploadingDoc)?.name}
                         </h3>
                         <div className="border-2 border-dashed border-ink-300 rounded-xl p-8 text-center">
-                            <EmojiIcon emoji="📁" size=40 className="text-4xl mb-4" />
+                            <EmojiIcon emoji="📁" size={40} className="text-4xl mb-4" />
                             <p className="text-ink-600 mb-2">Drag and drop your file here, or</p>
                             <button className="px-4 py-2 bg-[#14b8a6] text-white rounded-lg hover:bg-[#14b8a6]">
                                 Browse Files

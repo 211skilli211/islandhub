@@ -87,7 +87,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
 
     if (!listing) return (
         <div className="min-h-screen bg-surface-primary flex flex-col items-center justify-center p-4">
-            <EmojiIcon emoji="🏝️" size=48 className="text-6xl mb-4" />
+            <EmojiIcon emoji="🏝️" size={48} className="text-6xl mb-4" />
             <h1 className="text-2xl font-black text-ink-primary">Listing Not Found</h1>
             <Link href="/listings" className="mt-4 text-accent-400 font-bold hover:underline">Back to Marketplace</Link>
         </div>

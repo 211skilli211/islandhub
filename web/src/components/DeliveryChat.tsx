@@ -116,7 +116,7 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
                     </div>
                 ) : messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-ink-tertiary">
-                        <EmojiIcon emoji="💬" size=40 className="text-4xl mb-2" />
+                        <EmojiIcon emoji="💬" size={40} className="text-4xl mb-2" />
                         <p className="text-sm font-medium">No messages yet</p>
                         <p className="text-xs">Start the conversation!</p>
                     </div>

@@ -208,7 +208,7 @@ export default function PricingPage() {
                                 {activeRole === 'customer' && tier.discount !== '0%' && (
                                     <div className="bg-sand-500/5 p-6 rounded-2xl border border-sand-500/20">
                                         <p className="text-sand-700 font-black flex items-center gap-2">
-                                            <EmojiIcon emoji="🎁" size=16 /> {tier.discount} Discount on All Orders
+                                            <EmojiIcon emoji="🎁" size={16} /> {tier.discount} Discount on All Orders
                                         </p>
                                     </div>
                                 )}
@@ -216,7 +216,7 @@ export default function PricingPage() {
                                 <ul className="space-y-4">
                                     {tier.features.map((f: string) => (
                                         <li key={f} className="flex items-center gap-3 text-ink-secondary font-medium">
-                                            <EmojiIcon emoji="✓" size=16 /> {f}
+                                            <EmojiIcon emoji="✓" size={16} /> {f}
                                         </li>
                                     ))}
                                 </ul>

@@ -192,7 +192,7 @@ export default function HubTypePage() {
         return (
             <div className="min-h-screen flex items-center justify-center bg-surface-secondary dark:bg-ocean-900">
                 <div className="text-center">
-                    <EmojiIcon emoji="🏝️" size=48 className="text-6xl mb-4 block" />
+                    <EmojiIcon emoji="🏝️" size={48} className="text-6xl mb-4 block" />
                     <h1 className="text-2xl font-bold text-ink-primary dark:text-sand-50 mb-2">Hub Not Found</h1>
                     <p className="text-ink-tertiary dark:text-ink-tertiary">The hub type &quot;{type}&quot; doesn&apos;t exist.</p>
                 </div>

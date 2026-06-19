@@ -234,7 +234,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                     </div>
                 ) : filteredJobs.length === 0 ? (
                     <div className="p-8 text-center">
-                        <EmojiIcon emoji="📦" size=40 className="text-4xl mb-2" />
+                        <EmojiIcon emoji="📦" size={40} className="text-4xl mb-2" />
                         <p className="text-ink-500">No delivery requests found</p>
                         <p className="text-sm text-ink-400 mt-1">
                             {statusFilter !== 'all' ? 'Try changing the filter' : 'New requests will appear here'}
@@ -267,7 +267,7 @@ export default function DeliveryDispatch({ storeId }: DeliveryDispatchProps) {
                                             {job.status.replace('_', ' ')}
                                         </span>
                                         {job.driver_name && (
-                                            <EmojiIcon emoji="🚗" size=16 className="text-sm text-ink-500 mt-1" />
+                                            <EmojiIcon emoji="🚗" size={16} className="text-sm text-ink-500 mt-1" />
                                         )}
                                         <div className="text-xs text-ink-400 mt-1">
                                             {formatTime(job.created_at)}

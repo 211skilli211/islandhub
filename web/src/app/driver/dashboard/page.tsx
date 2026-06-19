@@ -128,10 +128,10 @@ export default function DriverDashboard() {
                     <div className="flex justify-between items-start mb-6">
                         <div>
                             <p className="text-ink-tertiary text-xs font-black uppercase tracking-widest mb-1">Driver Portal</p>
-                            <h1 className="text-3xl md:text-4xl font-black">Welcome, {user?.name?.split(' ')[0]} <EmojiIcon emoji="👋" size=40 /></h1>
+                            <h1 className="text-3xl md:text-4xl font-black">Welcome, {user?.name?.split(' ')[0]} <EmojiIcon emoji="👋" size={40} /></h1>
                             <p className="text-ink-tertiary font-medium mt-1">
                                 {user?.vehicle_type && `${user.vehicle_type.charAt(0).toUpperCase() + user.vehicle_type.slice(1)} Driver`}
-                                {user?.is_verified_driver && <EmojiIcon emoji="✓" size=16 className="ml-2 text-green-400" />}
+                                {user?.is_verified_driver && <EmojiIcon emoji="✓" size={16} className="ml-2 text-green-400" />}
                             </p>
                         </div>
                         <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-2xl flex items-center justify-center text-3xl border-2 border-white/20 shadow-lg">
@@ -191,7 +191,7 @@ export default function DriverDashboard() {
                     <div className="space-y-4">
                         {jobs.length === 0 ? (
                             <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary shadow-sm">
-                                <EmojiIcon emoji="😴" size=48 className="text-6xl mb-4" />
+                                <EmojiIcon emoji="😴" size={48} className="text-6xl mb-4" />
                                 <p className="font-bold text-ink-secondary">No jobs available for your vehicle.</p>
                                 <p className="text-sm text-ink-tertiary mt-2">Check back soon or adjust your availability.</p>
                             </div>
@@ -199,7 +199,7 @@ export default function DriverDashboard() {
                             jobs.map(job => (
                                 <div key={job.id} className="bg-surface-elevated p-6 rounded-3xl border border-border-primary shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 p-4 opacity-5 text-9xl pointer-events-none grayscale group-hover:grayscale-0 transition-all">
-                                        {job.service_type === 'taxi' ? '🚖' : job.service_type === 'delivery' ? '📦' : '<EmojiIcon emoji="🚚" size=16 />'}
+                                        {job.service_type === 'taxi' ? '🚖' : job.service_type === 'delivery' ? '📦' : '<EmojiIcon emoji="🚚" size={16} />'}
                                     </div>
 
                                     <div className="relative z-10">
@@ -248,7 +248,7 @@ export default function DriverDashboard() {
                     <div className="space-y-4">
                         {activeJobs.length === 0 ? (
                             <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary shadow-sm">
-                                <EmojiIcon emoji="🎯" size=48 className="text-6xl mb-4" />
+                                <EmojiIcon emoji="🎯" size={48} className="text-6xl mb-4" />
                                 <p className="font-bold text-ink-secondary">No active jobs. Go get 'em!</p>
                             </div>
                         ) : (
@@ -263,7 +263,7 @@ export default function DriverDashboard() {
                                             <p className="text-sm text-ink-secondary mt-1">{job.pickup_location} → {job.dropoff_location}</p>
                                         </div>
                                         <div className="w-12 h-12 bg-accent-500/100 rounded-full flex items-center justify-center text-2xl shadow-lg">
-                                            {job.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size=16 />'}
+                                            {job.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size={16} />'}
                                         </div>
                                     </div>
 
@@ -306,7 +306,7 @@ export default function DriverDashboard() {
                             <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-8 rounded-3xl text-white shadow-2xl">
                                 <p className="text-sm font-bold uppercase tracking-widest opacity-80 mb-2">Today's Earnings</p>
                                 <p className="text-5xl font-black mb-4">${earnings.today.toFixed(2)}</p>
-                                <p className="text-sm opacity-80">Keep up the great work! <EmojiIcon emoji="🚀" size=16 /></p>
+                                <p className="text-sm opacity-80">Keep up the great work! <EmojiIcon emoji="🚀" size={16} /></p>
                             </div>
                             <div className="bg-gradient-to-br from-teal-500 to-accent-400 p-8 rounded-3xl text-white shadow-2xl">
                                 <p className="text-sm font-bold uppercase tracking-widest opacity-80 mb-2">This Week</p>
@@ -428,7 +428,7 @@ export default function DriverDashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <EmojiIcon emoji="🚐" size=16 className="absolute top-0 right-0 p-8 opacity-10 text-9xl" />
+                            <EmojiIcon emoji="🚐" size={16} className="absolute top-0 right-0 p-8 opacity-10 text-9xl" />
                         </div>
                     </div>
                 )}
@@ -502,7 +502,7 @@ export default function DriverDashboard() {
                                 </Link>
                                 <div className="flex-1 p-4 bg-blue-50 border border-blue-200 rounded-2xl">
                                     <p className="text-sm text-blue-800 font-medium">
-                                        <EmojiIcon emoji="💡" size=16 /> <strong>Tip:</strong> Keep your profile updated and maintain a high completion rate to receive more job requests!
+                                        <EmojiIcon emoji="💡" size={16} /> <strong>Tip:</strong> Keep your profile updated and maintain a high completion rate to receive more job requests!
                                     </p>
                                 </div>
                             </div>

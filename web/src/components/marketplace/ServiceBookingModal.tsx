@@ -119,7 +119,7 @@ export default function ServiceBookingModal({ isOpen, onClose, service, storeId 
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
                                                     <span className="px-3 py-1 bg-[#14b8a6]/15 text-[#14b8a6] rounded-full text-[10px] font-black uppercase tracking-widest">Service Booking</span>
-                                                    <span className="text-ink-tertiary font-medium text-sm">⏱<EmojiIcon emoji="️" size=16 /> {service.duration}</span>
+                                                    <span className="text-ink-tertiary font-medium text-sm">⏱<EmojiIcon emoji="️" size={16} /> {service.duration}</span>
                                                 </div>
                                                 <h2 className="text-4xl font-black text-ink-primary uppercase tracking-tighter italic leading-none">{service.service_name}</h2>
                                                 <p className="mt-4 text-ink-tertiary font-medium text-lg leading-relaxed">{service.description}</p>

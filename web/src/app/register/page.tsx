@@ -179,7 +179,7 @@ export default function RegisterPage() {
                                         <p className="text-xs text-ink-tertiary">{role.desc}</p>
                                     </div>
                                     {selectedRole === role.id && (
-                                        <EmojiIcon emoji="✓" size=20 className="ml-auto text-accent-400 text-xl" />
+                                        <EmojiIcon emoji="✓" size={20} className="ml-auto text-accent-400 text-xl" />
                                     )}
                                 </button>
                             ))}
@@ -204,7 +204,7 @@ export default function RegisterPage() {
                                                 <p className="text-xs text-ink-tertiary">{cat.desc}</p>
                                             </div>
                                             {vendorCategory === cat.id && (
-                                                <EmojiIcon emoji="✓" size=20 className="ml-auto text-accent-400 text-xl" />
+                                                <EmojiIcon emoji="✓" size={20} className="ml-auto text-accent-400 text-xl" />
                                             )}
                                         </button>
                                     ))}
@@ -243,7 +243,7 @@ export default function RegisterPage() {
                                                 <p className="text-xs text-ink-tertiary">{cat.desc}</p>
                                             </div>
                                             {driverCategory === cat.id && (
-                                                <EmojiIcon emoji="✓" size=20 className="ml-auto text-accent-400 text-xl" />
+                                                <EmojiIcon emoji="✓" size={20} className="ml-auto text-accent-400 text-xl" />
                                             )}
                                         </button>
                                     ))}

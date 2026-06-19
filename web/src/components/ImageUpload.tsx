@@ -119,7 +119,7 @@ export default function ImageUpload({
                     </>
                 ) : (
                     <div className="text-center p-4">
-                        <EmojiIcon emoji="📸" size=28 className="text-3xl mb-2 block animate-bounce" />
+                        <EmojiIcon emoji="📸" size={28} className="text-3xl mb-2 block animate-bounce" />
                         <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Add Image</span>
                     </div>
                 )}

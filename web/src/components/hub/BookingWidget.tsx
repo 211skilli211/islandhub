@@ -388,11 +388,11 @@ export default function BookingWidget({
           <p className="text-[10px] text-ink-tertiary text-center">{cancellationText}</p>
         )}
         <div className="flex items-center justify-center gap-3 text-[10px] text-ink-tertiary font-medium">
-          <EmojiIcon emoji="🔒" size=16 className="flex items-center gap-1" />
+          <EmojiIcon emoji="🔒" size={16} className="flex items-center gap-1" />
           <span>.</span>
-          <EmojiIcon emoji="✓" size=16 className="flex items-center gap-1" />
+          <EmojiIcon emoji="✓" size={16} className="flex items-center gap-1" />
           <span>.</span>
-          <EmojiIcon emoji="💳" size=16 className="flex items-center gap-1" />
+          <EmojiIcon emoji="💳" size={16} className="flex items-center gap-1" />
         </div>
       </div>
     </div>

@@ -255,7 +255,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         </div>
                     ) : (
                         <div className="text-center py-20">
-                            <EmojiIcon emoji="🔍" size=48 className="text-6xl mb-4" />
+                            <EmojiIcon emoji="🔍" size={48} className="text-6xl mb-4" />
                             <h3 className="text-xl font-black text-ink-primary mb-2">No results found</h3>
                             <p className="text-ink-tertiary mb-6">Try adjusting your filters or search terms</p>
                             <button

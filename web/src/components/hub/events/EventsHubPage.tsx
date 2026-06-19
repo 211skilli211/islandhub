@@ -39,7 +39,7 @@ function EventCard({ event }: { event: EventItem }) {
           {img ? (
             <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" />
           ) : (
-            <EmojiIcon emoji="🎫" size=40 className="w-full h-full flex items-center justify-center text-4xl" />
+            <EmojiIcon emoji="🎫" size={40} className="w-full h-full flex items-center justify-center text-4xl" />
           )}
           {isSoldOut && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -58,9 +58,9 @@ function EventCard({ event }: { event: EventItem }) {
           <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
           <div className="flex items-center gap-2 text-xs text-ink-tertiary">
             {eventDate && (
-              <EmojiIcon emoji="📅" size=16 />
+              <EmojiIcon emoji="📅" size={16} />
             )}
-            {event.venue && <span>. <EmojiIcon emoji="📍" size=16 /> {event.venue}</span>}
+            {event.venue && <span>. <EmojiIcon emoji="📍" size={16} /> {event.venue}</span>}
           </div>
           <div className="flex items-center justify-between pt-1 border-t border-border-primary">
             {event.is_free ? (

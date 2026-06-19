@@ -9,7 +9,7 @@ export default function CheckoutCancelPage() {
     return (
         <div className="min-h-screen bg-surface-primary flex items-center justify-center">
             <div className="text-center max-w-md mx-auto px-6">
-                <EmojiIcon emoji="❌" size=48 className="text-6xl mb-4" />
+                <EmojiIcon emoji="❌" size={48} className="text-6xl mb-4" />
                 <h1 className="text-3xl font-bold text-ink-primary mb-4">Payment Cancelled</h1>
                 <p className="text-ink-secondary mb-8">
                     Your payment was not completed. Your cart items are still saved.

@@ -96,7 +96,7 @@ function SortableColumnHeader<T>({
         >
             <div className="flex items-center gap-2 overflow-hidden">
                 <span className="truncate">{col.header}</span>
-                {isDragging && <EmojiIcon emoji="✋" size=16 className="text-[10px]" />}
+                {isDragging && <EmojiIcon emoji="✋" size={16} className="text-[10px]" />}
             </div>
             
             <div
@@ -508,7 +508,7 @@ export function AdminTable<T extends Record<string, any>>({
                                 ) : items.length === 0 ? (
                                     <tr>
                                         <td colSpan={columns.length + (bulkActions ? 1 : 0) + ((rowActions || onRowAction) ? 1 : 0)} className="px-6 py-20 text-center text-ink-tertiary">
-                                            <EmojiIcon emoji="🍃" size=40 className="text-4xl mb-2" />
+                                            <EmojiIcon emoji="🍃" size={40} className="text-4xl mb-2" />
                                             <p className="font-medium">No results found</p>
                                         </td>
                                     </tr>
@@ -659,7 +659,7 @@ export function AdminTable<T extends Record<string, any>>({
                                                     title={action.label}
                                                 >
                                                     
-                                                    {action.icon ? action.icon : (action.action.includes('delete') ? '🗑️' : action.action.includes('edit') ? '✏️' : '<EmojiIcon emoji="⚡" size=16 />')}
+                                                    {action.icon ? action.icon : (action.action.includes('delete') ? '🗑️' : action.action.includes('edit') ? '✏️' : '<EmojiIcon emoji="⚡" size={16} />')}
                                                 </button>
                                             )
                                         ))}
@@ -736,7 +736,7 @@ export function AdminTable<T extends Record<string, any>>({
                             ))
                         ) : items.length === 0 ? (
                             <div className="px-6 py-20 text-center text-ink-tertiary">
-                                <EmojiIcon emoji="🍃" size=40 className="text-4xl mb-2" />
+                                <EmojiIcon emoji="🍃" size={40} className="text-4xl mb-2" />
                                 <p className="font-medium">No results found</p>
                             </div>
                         ) : (

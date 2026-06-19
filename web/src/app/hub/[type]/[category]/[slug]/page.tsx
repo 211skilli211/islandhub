@@ -52,7 +52,7 @@ export default function RentalDetailPage() {
       
       <div className="max-w-7xl mx-auto px-4">
         <div className="aspect-[16/9] bg-gradient-to-br from-teal-800 to-cyan-900 rounded-2xl flex items-center justify-center">
-          <span className="text-6xl opacity-50">{category === 'cars' ? '🚗' : category === 'sea' ? '🚤' : category === 'equipment' || category === 'tools' ? '🔧' : '<EmojiIcon emoji="🏠" size=48 />'}</span>
+          <span className="text-6xl opacity-50">{category === 'cars' ? '🚗' : category === 'sea' ? '🚤' : category === 'equipment' || category === 'tools' ? '🔧' : '<EmojiIcon emoji="🏠" size={48} />'}</span>
         </div>
       </div>
 

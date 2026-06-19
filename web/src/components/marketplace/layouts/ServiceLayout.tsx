@@ -111,17 +111,17 @@ export const ServiceLayout = ({ store, listings }: StoreProps) => {
                             className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full"
                         >
                             <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
-                                <EmojiIcon emoji="✅" size=24 className="text-2xl mb-2" />
+                                <EmojiIcon emoji="✅" size={24} className="text-2xl mb-2" />
                                 <h4 className="text-xl font-semibold text-ink-primary">100%</h4>
                                 <p className="text-xs text-ink-tertiary">Satisfaction</p>
                             </div>
                             <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
-                                <EmojiIcon emoji="🛡️" size=24 className="text-2xl mb-2" />
+                                <EmojiIcon emoji="🛡️" size={24} className="text-2xl mb-2" />
                                 <h4 className="text-xl font-semibold text-ink-primary">Verified</h4>
                                 <p className="text-xs text-ink-tertiary">Professional</p>
                             </div>
                             <div className="bg-surface-elevated p-4 rounded-xl shadow-sm border border-border-primary flex flex-col items-center text-center">
-                                <EmojiIcon emoji="🏆" size=24 className="text-2xl mb-2" />
+                                <EmojiIcon emoji="🏆" size={24} className="text-2xl mb-2" />
                                 <h4 className="text-xl font-semibold text-ink-primary">5+ Yrs</h4>
                                 <p className="text-xs text-ink-tertiary">Experience</p>
                             </div>

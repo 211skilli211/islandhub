@@ -201,7 +201,7 @@ export function EmptyVehicle() {
 export function EmptySearch() {
     return (
         <EmptyState
-            icon={<EmojiIcon emoji="🔍" size=40 className="text-4xl" />}
+            icon={<EmojiIcon emoji="🔍" size={40} className="text-4xl" />}
             title="No results found"
             description="Try adjusting your search or filters to find what you're looking for."
         />
@@ -211,7 +211,7 @@ export function EmptySearch() {
 export function EmptyStore() {
     return (
         <EmptyState
-            icon={<EmojiIcon emoji="🏪" size=40 className="text-4xl" />}
+            icon={<EmojiIcon emoji="🏪" size={40} className="text-4xl" />}
             title="Store not found"
             description="This store doesn't exist or has been removed. Browse other stores to find what you need."
             actionLabel="Browse Stores"
@@ -223,7 +223,7 @@ export function EmptyStore() {
 export function EmptyCoops() {
     return (
         <EmptyState
-            icon={<EmojiIcon emoji="🤝" size=40 className="text-4xl" />}
+            icon={<EmojiIcon emoji="🤝" size={40} className="text-4xl" />}
             title="No cooperatives yet"
             description="Cooperatives are groups of businesses working together. Be the first to start one!"
             actionLabel="Create Co-op"

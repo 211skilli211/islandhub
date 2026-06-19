@@ -119,7 +119,7 @@ export default function ReviewSection({ vendorId, listingId }: ReviewSectionProp
                                             <h5 className="font-black text-ink-primary">{review.reviewer_name}</h5>
                                             {review.verified && (
                                                 <div className="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50/50 px-2 py-0.5 rounded-full border border-emerald-100 w-fit mt-0.5">
-                                                    <EmojiIcon emoji="✅" size=16 /> Verified Purchase
+                                                    <EmojiIcon emoji="✅" size={16} /> Verified Purchase
                                                 </div>
                                             )}
                                             <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">

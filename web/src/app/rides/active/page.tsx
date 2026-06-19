@@ -13,7 +13,7 @@ const LiveTrackingMap = dynamic(() => import('@/components/transport/LiveTrackin
 function MapSkeleton() {
   return (
     <div className="w-full h-full bg-ink-900/50 rounded-2xl animate-pulse flex items-center justify-center">
-      <div className="text-center"><EmojiIcon emoji="🗺️" size=48 className="text-5xl mb-2" /><p className="text-ink-500 text-sm">Loading map...</p></div>
+      <div className="text-center"><EmojiIcon emoji="🗺️" size={48} className="text-5xl mb-2" /><p className="text-ink-500 text-sm">Loading map...</p></div>
     </div>
   );
 }
@@ -107,7 +107,7 @@ export default function ActiveRidePage() {
     return (
       <main className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <EmojiIcon emoji="🚗" size=48 className="text-6xl mb-4" />
+          <EmojiIcon emoji="🚗" size={48} className="text-6xl mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">No active rides</h1>
           <p className="text-ink-400 mb-6">You don't have any active rides at the moment.</p>
           <Link href="/request-ride" className="inline-flex items-center gap-2 bg-teal-500 hover:bg-teal-400 text-white font-bold px-6 py-3 rounded-xl transition-all">
@@ -175,16 +175,16 @@ export default function ActiveRidePage() {
           {ride.driver_name && isActive && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-black/40 border border-white/5 rounded-xl p-4 mb-4">
               <div className="flex items-center gap-3">
-                <EmojiIcon emoji="🚕" size=20 className="w-12 h-12 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-xl" />
+                <EmojiIcon emoji="🚕" size={20} className="w-12 h-12 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-xl" />
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white text-sm">{ride.driver_name}</span>
-                    {ride.driver_rating && <EmojiIcon emoji="★" size=16 className="text-xs text-yellow-400" />}
+                    {ride.driver_rating && <EmojiIcon emoji="★" size={16} className="text-xs text-yellow-400" />}
                   </div>
                   <div className="text-xs text-ink-400">{ride.driver_vehicle} . {ride.driver_plate}</div>
                 </div>
                 {ride.driver_phone && (
-                  <a href={`tel:${ride.driver_phone}`} className="w-10 h-10 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 hover:bg-green-500/20 transition-colors text-lg"><EmojiIcon emoji="📞" size=18 /></a>
+                  <a href={`tel:${ride.driver_phone}`} className="w-10 h-10 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 hover:bg-green-500/20 transition-colors text-lg"><EmojiIcon emoji="📞" size={18} /></a>
                 )}
               </div>
             </motion.div>
@@ -223,7 +223,7 @@ export default function ActiveRidePage() {
             </Link>
           </div>
 
-          <EmojiIcon emoji="🔒" size=16 className="text-xs text-ink-600 text-center mt-3" />
+          <EmojiIcon emoji="🔒" size={16} className="text-xs text-ink-600 text-center mt-3" />
         </div>
       </div>
     </main>

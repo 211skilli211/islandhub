@@ -72,7 +72,7 @@ export default function MessageCenter() {
                 <div className="flex-1 overflow-y-auto scrollbar-hide">
                     {conversations.length === 0 && !initialOtherUserId ? (
                         <div className="p-12 text-center opacity-40">
-                            <EmojiIcon emoji="📬" size=40 className="text-4xl mb-4" />
+                            <EmojiIcon emoji="📬" size={40} className="text-4xl mb-4" />
                             <p className="font-bold italic text-ink-tertiary text-sm leading-relaxed">Your inbox is empty.</p>
                         </div>
                     ) : (

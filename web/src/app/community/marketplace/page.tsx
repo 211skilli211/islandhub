@@ -180,7 +180,7 @@ export default function MarketplacePage() {
                     </div>
                 ) : filteredListings.length === 0 ? (
                     <div className="text-center py-20">
-                        <EmojiIcon emoji="🛍️" size=48 className="text-6xl mb-4" />
+                        <EmojiIcon emoji="🛍️" size={48} className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No listings found</h3>
                         <p className="text-ink-tertiary mb-6">
                             {searchQuery || category !== 'all' ? 'No listings match your filters.' : 'Be the first to list something for sale!'}
@@ -220,7 +220,7 @@ export default function MarketplacePage() {
                                             <p className="text-xs text-ink-tertiary font-bold">{listing.seller_name}</p>
                                             <div className="flex items-center gap-3 mt-1">
                                                 {listing.location && (
-                                                    <EmojiIcon emoji="📍" size=16 className="text-[10px] text-ink-tertiary" />
+                                                    <EmojiIcon emoji="📍" size={16} className="text-[10px] text-ink-tertiary" />
                                                 )}
                                                 <span className="text-[10px] text-ink-tertiary">{timeAgo(listing.created_at)}</span>
                                             </div>

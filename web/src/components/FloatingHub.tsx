@@ -72,7 +72,7 @@ export default function FloatingHub() {
                                 className="flex items-center gap-3 px-4 py-3 bg-surface-secondary text-ink-primary rounded-2xl shadow-xl border border-border-primary hover:scale-105 transition-transform group"
                             >
                                 <span className="font-bold text-sm">Quick Actions</span>
-                                <EmojiIcon emoji="⚡" size=20 className="text-xl bg-[#14b8a6]/100/10 p-2 rounded-xl group-hover:bg-[#14b8a6]/100/20 transition-colors" />
+                                <EmojiIcon emoji="⚡" size={20} className="text-xl bg-[#14b8a6]/100/10 p-2 rounded-xl group-hover:bg-[#14b8a6]/100/20 transition-colors" />
                             </button>
                         )}
 
@@ -130,7 +130,7 @@ export default function FloatingHub() {
                                 exit={{ scale: 0.5, opacity: 0 }}
                                 className="flex items-center justify-center p-1"
                             >
-                                <EmojiIcon emoji="🏝️" size=20 className="text-xl" />
+                                <EmojiIcon emoji="🏝️" size={20} className="text-xl" />
                             </motion.div>
                         )}
                     </AnimatePresence>

@@ -73,7 +73,7 @@ export default function LogisticsRatesTab() {
                                     <h3 className="text-2xl font-black uppercase tracking-tighter italic">{rule.service_type}</h3>
                                 </div>
                                 <div className="text-4xl opacity-40">
-                                    {rule.service_type === 'taxi' ? '🚖' : rule.service_type === 'pickup' ? '📦' : '<EmojiIcon emoji="🚚" size=16 />'}
+                                    {rule.service_type === 'taxi' ? '🚖' : rule.service_type === 'pickup' ? '📦' : '<EmojiIcon emoji="🚚" size={16} />'}
                                 </div>
                             </div>
 
@@ -150,7 +150,7 @@ export default function LogisticsRatesTab() {
                                         type="button"
                                         onClick={() => setEditingRule(null)}
                                         className="w-12 h-12 bg-surface-elevated/10 rounded-full flex items-center justify-center hover:bg-surface-elevated/20 transition-all font-black"
-                                    ><EmojiIcon emoji="✕" size=16 /></button>
+                                    ><EmojiIcon emoji="✕" size={16} /></button>
                                 </div>
 
                                 <div className="p-10 space-y-10 overflow-y-auto no-scrollbar">

@@ -111,7 +111,7 @@ export default function AssetLibrary() {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-10 pr-4 py-2 bg-surface-elevated border border-border-primary rounded-lg text-sm w-48"
                         />
-                        <EmojiIcon emoji="🔍" size=16 className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                        <EmojiIcon emoji="🔍" size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                     </div>
 
                     
@@ -160,7 +160,7 @@ export default function AssetLibrary() {
                 </div>
             ) : filteredAssets.length === 0 ? (
                 <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary">
-                    <EmojiIcon emoji="📂" size=48 className="text-5xl mb-4" />
+                    <EmojiIcon emoji="📂" size={48} className="text-5xl mb-4" />
                     <p className="text-ink-tertiary font-medium">No assets found</p>
                     <p className="text-xs text-ink-tertiary mt-1">Try adjusting your filters</p>
                 </div>
@@ -255,7 +255,7 @@ export default function AssetLibrary() {
                     <div className="bg-surface-elevated rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
                         <div className="flex justify-between items-center p-6 border-b border-border-primary">
                             <h3 className="font-black text-ink-primary">{selectedAsset.filename}</h3>
-                            <button onClick={() => setIsPreviewOpen(false)} className="p-2 hover:bg-surface-secondary rounded-lg"><EmojiIcon emoji="✕" size=16 /></button>
+                            <button onClick={() => setIsPreviewOpen(false)} className="p-2 hover:bg-surface-secondary rounded-lg"><EmojiIcon emoji="✕" size={16} /></button>
                         </div>
                         <div className="p-6 overflow-auto">
                             <div className="bg-surface-secondary rounded-2xl flex items-center justify-center min-h-[300px] mb-6">

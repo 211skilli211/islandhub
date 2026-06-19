@@ -115,7 +115,7 @@ export const DynamicMap = dynamic(
         loading: () => (
             <div className="w-full h-full min-h-[400px] bg-surface-secondary animate-pulse rounded-2xl flex items-center justify-center">
                 <div className="text-center">
-                    <EmojiIcon emoji="🗺️" size=40 className="text-4xl mb-4" />
+                    <EmojiIcon emoji="🗺️" size={40} className="text-4xl mb-4" />
                     <p className="text-ink-tertiary text-sm font-medium">Loading map...</p>
                 </div>
             </div>

@@ -124,7 +124,7 @@ export default function LiveTrackingMap({
     if (pickup) {
       const m = L.marker([pickup.lat, pickup.lng], { icon: ICONS.pickup() })
         .addTo(map)
-        .bindPopup(`<EmojiIcon emoji="📍" size=16 /><div style="font-size:12px;color:#666;">${pickup.address || ''}</div>`);
+        .bindPopup(`<EmojiIcon emoji="📍" size={16} /><div style="font-size:12px;color:#666;">${pickup.address || ''}</div>`);
       layersRef.current.pickup = m;
     }
     return () => { if (!pickup && layersRef.current.pickup) { map.removeLayer(layersRef.current.pickup); layersRef.current.pickup = undefined; } };
@@ -138,7 +138,7 @@ export default function LiveTrackingMap({
     if (dropoff) {
       const m = L.marker([dropoff.lat, dropoff.lng], { icon: ICONS.dropoff() })
         .addTo(map)
-        .bindPopup(`<EmojiIcon emoji="🎯" size=16 /><div style="font-size:12px;color:#666;">${dropoff.address || ''}</div>`);
+        .bindPopup(`<EmojiIcon emoji="🎯" size={16} /><div style="font-size:12px;color:#666;">${dropoff.address || ''}</div>`);
       layersRef.current.dropoff = m;
     }
     return () => { if (!dropoff && layersRef.current.dropoff) { map.removeLayer(layersRef.current.dropoff); layersRef.current.dropoff = undefined; } };
@@ -152,7 +152,7 @@ export default function LiveTrackingMap({
     if (driver) {
       const m = L.marker([driver.lat, driver.lng], { icon: driver.icon ? ICONS.driver(driver.icon) : ICONS.driver(), zIndexOffset: 1000 })
         .addTo(map)
-        .bindPopup(`<EmojiIcon emoji="🚕" size=16 /><div style="font-size:12px;color:#666;">${driver.vehicle || ''}</div>`);
+        .bindPopup(`<EmojiIcon emoji="🚕" size={16} /><div style="font-size:12px;color:#666;">${driver.vehicle || ''}</div>`);
       layersRef.current.driver = m;
       // Pan to driver
       map.panTo([driver.lat, driver.lng], { animate: true, duration: 1 });

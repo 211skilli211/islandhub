@@ -101,7 +101,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                         }`}
                     >
                         <div className="text-2xl mb-2">
-                            {t === 'light' ? '☀️' : t === 'dark' ? '🌙' : '<EmojiIcon emoji="⚙️" size=16 />'}
+                            {t === 'light' ? '☀️' : t === 'dark' ? '🌙' : '<EmojiIcon emoji="⚙️" size={16} />'}
                         </div>
                         <div className="font-bold text-sm capitalize">{t}</div>
                     </button>

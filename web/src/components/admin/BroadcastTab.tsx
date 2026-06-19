@@ -132,7 +132,7 @@ export default function BroadcastTab() {
             
             <div className="bg-ink-primary text-white p-6 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                    <EmojiIcon emoji="🎛️" size=24 className="w-12 h-12 bg-[#14b8a6]/100/20 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl" />
+                    <EmojiIcon emoji="🎛️" size={24} className="w-12 h-12 bg-[#14b8a6]/100/20 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl" />
                     <div>
                         <h3 className="text-lg font-black uppercase tracking-widest text-white">Marquee Controls</h3>
                         <p className="text-sm text-ink-tertiary font-medium">Manage global scrolling behavior</p>
@@ -176,7 +176,7 @@ export default function BroadcastTab() {
             {currentMarquee && (
                 <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <EmojiIcon emoji="📢" size=18 className="w-10 h-10 bg-accent-500/100 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-accent-500/15 text-lg" />
+                        <EmojiIcon emoji="📢" size={18} className="w-10 h-10 bg-accent-500/100 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-accent-500/15 text-lg" />
                         <div>
                             <p className="text-[10px] font-black uppercase tracking-widest text-accent-400 mb-0.5">Live On Platform</p>
                             <p className="font-bold text-ink-primary italic">"{currentMarquee.message}"</p>
@@ -200,7 +200,7 @@ export default function BroadcastTab() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-xl shadow-black/10/50">
                     <div className="flex items-center gap-4 mb-6">
-                        <EmojiIcon emoji="📢" size=20 className="w-12 h-12 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl flex items-center justify-center text-xl" />
+                        <EmojiIcon emoji="📢" size={20} className="w-12 h-12 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl flex items-center justify-center text-xl" />
                         <div>
                             <h3 className="text-xl font-black text-ink-primary">Global Broadcast</h3>
                             <p className="text-sm text-ink-tertiary font-medium">Post live updates to the platform-wide marquee</p>
@@ -376,7 +376,7 @@ export default function BroadcastTab() {
                 
                 <div className="bg-ink-primary p-8 rounded-[2.5rem] text-white shadow-2xl overflow-y-auto max-h-[500px]">
                     <h3 className="text-lg font-black uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <EmojiIcon emoji="✨" size=16 className="text-sand-400" /> Templates
+                        <EmojiIcon emoji="✨" size={16} className="text-sand-400" /> Templates
                     </h3>
                     <div className="space-y-4">
                         {templates.map(tmp => (

@@ -110,7 +110,7 @@ export default function DealsPage() {
       
       <section className="bg-gradient-to-br from-rose-900 via-red-900 to-amber-900 py-10 md:py-14 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-black text-white mb-2"><EmojiIcon emoji="🔥" size=40 /> Deals & Promotions</h1>
+          <h1 className="text-3xl md:text-4xl font-black text-white mb-2"><EmojiIcon emoji="🔥" size={40} /> Deals & Promotions</h1>
           <p className="text-sm md:text-base text-white/70 max-w-xl mx-auto">
             Limited-time offers, flash sales, and exclusive discounts from Caribbean businesses.
           </p>
@@ -178,7 +178,7 @@ export default function DealsPage() {
           </div>
         ) : deals.length === 0 ? (
           <div className="text-center py-20 rounded-2xl border-2 border-dashed border-border-primary">
-            <EmojiIcon emoji="🏷️" size=40 className="text-4xl mb-3" />
+            <EmojiIcon emoji="🏷️" size={40} className="text-4xl mb-3" />
             <p className="text-ink-tertiary font-medium text-lg">No deals found</p>
             <p className="text-sm text-ink-tertiary mt-1">Check back later for new promotions</p>
           </div>

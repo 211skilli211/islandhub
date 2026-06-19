@@ -393,9 +393,9 @@ export default function CheckoutPage() {
                             
                             <div className="mt-4 space-y-2">
                                 <div className="flex items-center justify-center gap-4 text-[10px] text-ink-tertiary font-bold uppercase tracking-wider">
-                                    <EmojiIcon emoji="🔒" size=16 className="flex items-center gap-1" />
+                                    <EmojiIcon emoji="🔒" size={16} className="flex items-center gap-1" />
                                     <span>-</span>
-                                    <EmojiIcon emoji="✔" size=16 className="flex items-center gap-1" />
+                                    <EmojiIcon emoji="✔" size={16} className="flex items-center gap-1" />
                                 </div>
                                 <p className="text-[10px] text-ink-tertiary text-center">
                                     Powered by DodoPayments — Your payment info is encrypted

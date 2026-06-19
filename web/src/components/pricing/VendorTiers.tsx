@@ -96,7 +96,7 @@ export default function VendorTiers() {
                     <ul className="space-y-4 mb-8">
                         {tier.features.map((feature) => (
                             <li key={feature} className="flex items-start gap-3 text-sm font-medium">
-                                <EmojiIcon emoji="✓" size=16 />
+                                <EmojiIcon emoji="✓" size={16} />
                                 <span className={tier.highlighted ? 'text-ink-tertiary' : 'text-ink-secondary'}>
                                     {feature}
                                 </span>

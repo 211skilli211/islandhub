@@ -58,7 +58,7 @@ export default function MyTicketsPage() {
           </div>
         ) : tickets.length === 0 ? (
           <div className="text-center py-20">
-            <EmojiIcon emoji="🎫" size=48 className="text-6xl mb-4" />
+            <EmojiIcon emoji="🎫" size={48} className="text-6xl mb-4" />
             <h3 className="text-2xl font-black text-ink-primary dark:text-sand-50">No tickets yet</h3>
             <p className="text-ink-tertiary dark:text-ink-tertiary mt-2">Browse events and grab your first ticket!</p>
             <Link href="/events" className="mt-6 inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition-colors">

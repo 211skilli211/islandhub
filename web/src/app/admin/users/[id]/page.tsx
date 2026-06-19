@@ -47,7 +47,7 @@ export default function UserDetailPage() {
     if (!userData) return (
         <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary flex items-center justify-center">
             <div className="text-center p-8 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg">
-                <EmojiIcon emoji="🔍" size=40 className="text-4xl mb-4" />
+                <EmojiIcon emoji="🔍" size={40} className="text-4xl mb-4" />
                 <h2 className="text-xl font-bold text-ink-primary dark:text-white mb-2">User not found</h2>
                 <p className="text-ink-tertiary dark:text-ink-tertiary mb-4">The user ID may be invalid or deleted.</p>
                 <button 

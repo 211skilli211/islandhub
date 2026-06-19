@@ -226,7 +226,7 @@ function PublicProfileContent() {
                                     <div className="space-y-3">
                                         {profile.phone && (
                                             <div className="flex items-center gap-3 text-sm text-ink-secondary">
-                                                <EmojiIcon emoji="📞" size=16 />
+                                                <EmojiIcon emoji="📞" size={16} />
                                                 <span>{profile.phone}</span>
                                             </div>
                                         )}

@@ -136,7 +136,7 @@ export default function KYBVerificationPage() {
                 </div>
             ) : vendors.length === 0 ? (
                 <div className="text-center py-12 bg-ink-50 rounded-xl">
-                    <EmojiIcon emoji="📋" size=48 className="text-6xl mb-4" />
+                    <EmojiIcon emoji="📋" size={48} className="text-6xl mb-4" />
                     <h3 className="text-xl font-semibold text-ink-700 mb-2">No {statusFilter} vendors</h3>
                     <p className="text-ink-500">
                         {statusFilter === 'pending'
@@ -160,7 +160,7 @@ export default function KYBVerificationPage() {
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-ink-400">
-                                            <EmojiIcon emoji="🏪" size=40 className="text-4xl" />
+                                            <EmojiIcon emoji="🏪" size={40} className="text-4xl" />
                                         </div>
                                     )}
                                 </div>
@@ -185,9 +185,9 @@ export default function KYBVerificationPage() {
                                     <p className="text-ink-600 mb-4 line-clamp-2">{vendor.description || vendor.bio}</p>
 
                                     <div className="flex items-center gap-4 text-sm text-ink-500 mb-4">
-                                        <EmojiIcon emoji="📍" size=16 />
-                                        <EmojiIcon emoji="📧" size=16 />
-                                        {vendor.contact_phone && <EmojiIcon emoji="📞" size=16 />}
+                                        <EmojiIcon emoji="📍" size={16} />
+                                        <EmojiIcon emoji="📧" size={16} />
+                                        {vendor.contact_phone && <EmojiIcon emoji="📞" size={16} />}
                                     </div>
 
                                     {vendor.admin_notes && (

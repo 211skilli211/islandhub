@@ -208,7 +208,7 @@ export default function HeroAssetTab() {
             <h3 className="text-lg font-black text-ink-primary">
               {isCreating ? 'Create Hero Asset' : `Edit: ${editing?.page_key}`}
             </h3>
-            <button onClick={cancelEdit} className="text-xs text-ink-tertiary hover:text-ink-primary"><EmojiIcon emoji="✕" size=16 /> Cancel</button>
+            <button onClick={cancelEdit} className="text-xs text-ink-tertiary hover:text-ink-primary"><EmojiIcon emoji="✕" size={16} /> Cancel</button>
           </div>
 
           
@@ -660,7 +660,7 @@ export default function HeroAssetTab() {
       
       {assets.length === 0 && (
         <div className="text-center py-12 bg-surface-secondary/50 rounded-2xl border-2 border-dashed border-border-primary">
-          <EmojiIcon emoji="🎨" size=28 className="text-3xl mb-3" />
+          <EmojiIcon emoji="🎨" size={28} className="text-3xl mb-3" />
           <p className="text-sm font-bold text-ink-secondary">No hero assets configured</p>
           <p className="text-xs text-ink-tertiary mt-1">Create your first hero asset to customize page backgrounds</p>
           <button onClick={startCreate} className="mt-4 px-6 py-2.5 bg-accent-500 text-white text-xs font-bold rounded-lg hover:bg-accent-600">

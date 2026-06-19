@@ -254,7 +254,7 @@ export default function StoriesPage() {
                                         <img src={story.media_url} alt={story.user_name} className="w-full h-full object-cover" />
                                     ) : (
                                         <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                                            {story.media_type === 'video' ? '🎥' : '<EmojiIcon emoji="📸" size=16 />'}
+                                            {story.media_type === 'video' ? '🎥' : '<EmojiIcon emoji="📸" size={16} />'}
                                         </div>
                                     )}
 
@@ -282,8 +282,8 @@ export default function StoriesPage() {
                                         {story.content}
                                     </p>
                                     <div className="flex items-center justify-between text-xs font-bold text-ink-tertiary">
-                                        <EmojiIcon emoji="👁️" size=16 />
-                                        <EmojiIcon emoji="❤️" size=16 />
+                                        <EmojiIcon emoji="👁️" size={16} />
+                                        <EmojiIcon emoji="❤️" size={16} />
                                     </div>
                                 </div>
                             </motion.div>

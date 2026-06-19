@@ -131,7 +131,7 @@ function MessageCenterPage() {
                                     placeholder="Search conversations..."
                                     className="w-full px-4 py-2 bg-surface-primary border border-border-primary rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-accent-400"
                                 />
-                                <EmojiIcon emoji="🔍" size=16 className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                                <EmojiIcon emoji="🔍" size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-tertiary" />
                             </div>
                         </div>
                         
@@ -173,7 +173,7 @@ function MessageCenterPage() {
                         <div className="flex-1 overflow-y-auto">
                             {filteredConversations.length === 0 && !initialOtherUserId ? (
                                 <div className="p-12 text-center opacity-40">
-                                    <EmojiIcon emoji="📬" size=40 className="text-4xl mb-4" />
+                                    <EmojiIcon emoji="📬" size={40} className="text-4xl mb-4" />
                                     <p className="font-bold italic text-ink-tertiary text-sm leading-relaxed">
                                         {searchQuery ? 'No matches found' : 'Your inbox is empty. Start a conversation!'}
                                     </p>

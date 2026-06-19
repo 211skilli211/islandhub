@@ -275,7 +275,7 @@ export default function OrderDetailPage() {
               <h2 className="text-xl font-bold text-ink-primary mb-4">Delivery Information</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{order.delivery_type === 'delivery' ? '🚚' : '<EmojiIcon emoji="🏪" size=24 />'}</span>
+                  <span className="text-2xl">{order.delivery_type === 'delivery' ? '🚚' : '<EmojiIcon emoji="🏪" size={24} />'}</span>
                   <div>
                     <p className="font-semibold text-ink-primary">
                       {order.delivery_type === 'delivery' ? 'Home Delivery' : 'Store Pickup'}

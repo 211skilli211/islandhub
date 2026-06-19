@@ -159,7 +159,7 @@ export default function PendingCampaignsPage() {
                     </div>
                 ) : campaigns.length === 0 ? (
                     <div className="p-12 text-center bg-surface-elevated rounded-xl border border-border-primary">
-                        <EmojiIcon emoji="✨" size=40 className="text-4xl mb-4" />
+                        <EmojiIcon emoji="✨" size={40} className="text-4xl mb-4" />
                         <p className="text-ink-tertiary font-medium">All caught up! No pending campaigns to review.</p>
                         <button
                             onClick={() => router.push('/admin')}
@@ -179,7 +179,7 @@ export default function PendingCampaignsPage() {
                                             <img src={campaign.image_url} alt={campaign.title} className="w-full h-full object-cover" />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-ink-tertiary">
-                                                <EmojiIcon emoji="🏝️" size=48 className="text-6xl" />
+                                                <EmojiIcon emoji="🏝️" size={48} className="text-6xl" />
                                             </div>
                                         )}
                                     </div>
@@ -191,7 +191,7 @@ export default function PendingCampaignsPage() {
                                                 <h2 className="text-2xl font-black text-ink-primary mb-2">{campaign.title}</h2>
                                                 <div className="flex items-center gap-3 text-sm text-ink-tertiary">
                                                     <span className="flex items-center gap-1">
-                                                        <EmojiIcon emoji="📅" size=16 />
+                                                        <EmojiIcon emoji="📅" size={16} />
                                                         {new Date(campaign.created_at).toLocaleDateString()}
                                                     </span>
                                                     <span className="flex items-center gap-1">
@@ -250,25 +250,25 @@ export default function PendingCampaignsPage() {
                                                 onClick={() => handleApprove(campaign.id)}
                                                 className="flex-1 px-6 py-4 bg-accent-500 hover:bg-accent-600 text-white font-black rounded-xl shadow-lg shadow-teal-200 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
                                             >
-                                                <EmojiIcon emoji="✓" size=16 /> Approve Campaign
+                                                <EmojiIcon emoji="✓" size={16} /> Approve Campaign
                                             </button>
                                             <button
                                                 onClick={() => handleRequestChanges(campaign)}
                                                 className="flex-1 px-6 py-4 bg-amber-600 hover:bg-amber-700 text-white font-black rounded-xl shadow-lg shadow-amber-200 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2"
                                             >
-                                                <EmojiIcon emoji="📝" size=16 /> Request Changes
+                                                <EmojiIcon emoji="📝" size={16} /> Request Changes
                                             </button>
                                             <button
                                                 onClick={() => handleReject(campaign.id)}
                                                 className="flex-1 px-6 py-4 bg-red-50 hover:bg-red-100 text-red-600 font-black rounded-xl border-2 border-red-200 transition-all flex items-center justify-center gap-2"
                                             >
-                                                <EmojiIcon emoji="✕" size=16 /> Reject & Remove
+                                                <EmojiIcon emoji="✕" size={16} /> Reject & Remove
                                             </button>
                                             <button
                                                 onClick={() => router.push(`/listings/${campaign.id}`)}
                                                 className="px-6 py-4 bg-surface-secondary hover:bg-surface-tertiary text-ink-secondary font-black rounded-xl transition-all flex items-center justify-center gap-2"
                                             >
-                                                <EmojiIcon emoji="👁️" size=16 /> View Details
+                                                <EmojiIcon emoji="👁️" size={16} /> View Details
                                             </button>
                                         </div>
                                     </div>

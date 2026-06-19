@@ -32,7 +32,7 @@ export default function CommunityMapHubPage() {
     <div className="min-h-screen bg-surface-primary">
       <section className="bg-gradient-to-br from-blue-900 via-indigo-900 to-violet-900 py-6 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight"><EmojiIcon emoji="🗺️" size=40 /> Explore Map</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight"><EmojiIcon emoji="🗺️" size={40} /> Explore Map</h1>
           <p className="text-sm text-white/70 max-w-xl mx-auto">Discover businesses, events, and places across St. Kitts & Nevis</p>
         </div>
       </section>
@@ -45,10 +45,10 @@ export default function CommunityMapHubPage() {
             <h3 className="text-lg font-bold text-ink-primary mb-2">Interactive Island Map</h3>
             <p className="text-sm text-ink-tertiary mb-4 text-center max-w-md">Explore businesses, events, jobs, and listings on an interactive map with real-time markers</p>
             <div className="flex flex-wrap gap-2 justify-center">
-              <EmojiIcon emoji="🏪" size=16 className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-medium rounded-full" />
-              <EmojiIcon emoji="📅" size=16 className="px-2 py-1 bg-blue-500/10 text-blue-500 text-xs font-medium rounded-full" />
-              <EmojiIcon emoji="💼" size=16 className="px-2 py-1 bg-amber-500/10 text-amber-500 text-xs font-medium rounded-full" />
-              <EmojiIcon emoji="🛍️" size=16 className="px-2 py-1 bg-violet-500/10 text-violet-500 text-xs font-medium rounded-full" />
+              <EmojiIcon emoji="🏪" size={16} className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-medium rounded-full" />
+              <EmojiIcon emoji="📅" size={16} className="px-2 py-1 bg-blue-500/10 text-blue-500 text-xs font-medium rounded-full" />
+              <EmojiIcon emoji="💼" size={16} className="px-2 py-1 bg-amber-500/10 text-amber-500 text-xs font-medium rounded-full" />
+              <EmojiIcon emoji="🛍️" size={16} className="px-2 py-1 bg-violet-500/10 text-violet-500 text-xs font-medium rounded-full" />
             </div>
             <Link href="/community/map" className="mt-4 px-6 py-2.5 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors flex items-center gap-2">
               <Navigation className="w-4 h-4" />
@@ -88,7 +88,7 @@ export default function CommunityMapHubPage() {
                 <h3 className="text-xs font-bold text-ink-primary truncate group-hover:text-accent-500 transition-colors">{loc.name}</h3>
                 <div className="flex items-center justify-between mt-1">
                   <span className="text-[10px] text-ink-tertiary">{loc.type}</span>
-                  <EmojiIcon emoji="★" size=16 className="text-[10px] text-amber-500 flex items-center gap-0.5" />
+                  <EmojiIcon emoji="★" size={16} className="text-[10px] text-amber-500 flex items-center gap-0.5" />
                 </div>
                 <span className="inline-block mt-1 px-1.5 py-0.5 bg-surface-secondary text-ink-tertiary text-[9px] font-medium rounded">{loc.category}</span>
               </div>

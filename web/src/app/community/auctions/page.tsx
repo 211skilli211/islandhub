@@ -195,7 +195,7 @@ export default function AuctionsPage() {
                     </div>
                 ) : filteredAuctions.length === 0 ? (
                     <div className="text-center py-20">
-                        <EmojiIcon emoji="🔨" size=48 className="text-6xl mb-4" />
+                        <EmojiIcon emoji="🔨" size={48} className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No auctions yet</h3>
                         <p className="text-ink-tertiary mb-6">
                             {searchQuery ? 'No auctions match your search.' : 'Be the first to start an auction!'}

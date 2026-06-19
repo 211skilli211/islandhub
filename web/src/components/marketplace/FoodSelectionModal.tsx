@@ -98,7 +98,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                         className="relative bg-surface-elevated w-full max-w-xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
                     >
                         <div className="absolute top-6 right-6 z-10">
-                            <button onClick={onClose} className="w-10 h-10 bg-surface-elevated/80 backdrop-blur rounded-full flex items-center justify-center text-ink-primary hover:bg-surface-elevated transition-all shadow-sm"><EmojiIcon emoji="✕" size=16 /></button>
+                            <button onClick={onClose} className="w-10 h-10 bg-surface-elevated/80 backdrop-blur rounded-full flex items-center justify-center text-ink-primary hover:bg-surface-elevated transition-all shadow-sm"><EmojiIcon emoji="✕" size={16} /></button>
                         </div>
 
                         <div className="overflow-y-auto">
@@ -106,7 +106,7 @@ export default function FoodSelectionModal({ isOpen, onClose, item, storeId }: F
                                 {item.image_url ? (
                                     <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.name} />
                                 ) : (
-                                    <EmojiIcon emoji="🥘" size=48 className="w-full h-full flex items-center justify-center text-6xl bg-surface-secondary" />
+                                    <EmojiIcon emoji="🥘" size={48} className="w-full h-full flex items-center justify-center text-6xl bg-surface-secondary" />
                                 )}
                                 <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
                             </div>

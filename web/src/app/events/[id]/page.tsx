@@ -37,7 +37,7 @@ export default function EventDetailPage() {
     return (
       <div className="min-h-screen bg-surface-primary dark:bg-ocean-900 flex items-center justify-center">
         <div className="text-center">
-          <EmojiIcon emoji="🔍" size=48 className="text-6xl mb-4" />
+          <EmojiIcon emoji="🔍" size={48} className="text-6xl mb-4" />
           <h2 className="text-2xl font-black text-ink-primary dark:text-sand-50">Event not found</h2>
           <Link href="/events" className="mt-4 inline-block text-teal-600 font-bold hover:underline">← Back to Events</Link>
         </div>
@@ -98,17 +98,17 @@ export default function EventDetailPage() {
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
-                <EmojiIcon emoji="📅" size=24 className="text-2xl mb-1" />
+                <EmojiIcon emoji="📅" size={24} className="text-2xl mb-1" />
                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Date</p>
                 <p className="font-bold text-ink-primary dark:text-sand-50 text-sm">{formatDate(event.start_date)}</p>
               </div>
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
-                <EmojiIcon emoji="🕐" size=24 className="text-2xl mb-1" />
+                <EmojiIcon emoji="🕐" size={24} className="text-2xl mb-1" />
                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Time</p>
                 <p className="font-bold text-ink-primary dark:text-sand-50 text-sm">{formatTime(event.start_date)}</p>
               </div>
               <div className="bg-surface-elevated dark:bg-ocean-800 rounded-xl p-4 text-center border border-border-primary dark:border-ocean-700">
-                <EmojiIcon emoji="📍" size=24 className="text-2xl mb-1" />
+                <EmojiIcon emoji="📍" size={24} className="text-2xl mb-1" />
                 <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Venue</p>
                 <p className="font-bold text-ink-primary dark:text-sand-50 text-sm">{event.venue}</p>
               </div>
@@ -134,7 +134,7 @@ export default function EventDetailPage() {
 
               {isSoldOut ? (
                 <div className="text-center py-8">
-                  <EmojiIcon emoji="🎫" size=40 className="text-4xl mb-3" />
+                  <EmojiIcon emoji="🎫" size={40} className="text-4xl mb-3" />
                   <p className="font-black text-red-500 text-lg">SOLD OUT</p>
                   <p className="text-sm text-ink-tertiary mt-2">All tickets have been claimed</p>
                 </div>

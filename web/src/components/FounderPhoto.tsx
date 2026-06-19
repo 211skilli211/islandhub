@@ -30,7 +30,7 @@ export default function FounderPhoto({ className = '' }: { className?: string })
   if (hasError || (!photoUrl && !loading)) {
     return (
       <div className={`bg-gradient-to-br from-teal-100 to-amber-50 flex items-center justify-center ${className}`}>
-        <EmojiIcon emoji="👨‍💻" size=40 className="text-4xl" />
+        <EmojiIcon emoji="👨‍💻" size={40} className="text-4xl" />
       </div>
     );
   }

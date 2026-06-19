@@ -121,7 +121,7 @@ export default function VendorOnboarding() {
             <div className="bg-surface-elevated rounded-2xl border border-border-primary p-8">
                 <div className="text-center">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <EmojiIcon emoji="🎉" size=28 className="text-3xl" />
+                        <EmojiIcon emoji="🎉" size={28} className="text-3xl" />
                     </div>
                     <h3 className="text-xl font-black text-ink-primary mb-2">You're All Set!</h3>
                     <p className="text-ink-tertiary mb-6">Your vendor profile is complete and ready to go.</p>
@@ -148,7 +148,7 @@ export default function VendorOnboarding() {
         <div className="bg-surface-elevated rounded-2xl border border-border-primary overflow-hidden">
             
             <div className="bg-gradient-to-r from-teal-600 to-teal-700 p-6 text-white">
-                <h2 className="text-xl font-black mb-2">Welcome to IslandHub! <EmojiIcon emoji="🌴" size=20 /></h2>
+                <h2 className="text-xl font-black mb-2">Welcome to IslandHub! <EmojiIcon emoji="🌴" size={20} /></h2>
                 <p className="text-accent-100 text-sm mb-4">Let's get your vendor profile set up</p>
                 
                 
@@ -391,7 +391,7 @@ export default function VendorOnboarding() {
                                         className="block p-4 bg-accent-500/10 border border-teal-200 rounded-xl hover:border-teal-500 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <EmojiIcon emoji="🏪" size=24 className="text-2xl" />
+                                            <EmojiIcon emoji="🏪" size={24} className="text-2xl" />
                                             <div>
                                                 <p className="font-bold text-accent-500">Add Product Listing</p>
                                                 <p className="text-xs text-accent-400">Physical items or goods</p>
@@ -403,7 +403,7 @@ export default function VendorOnboarding() {
                                         className="block p-4 bg-orange-50 border border-orange-200 rounded-xl hover:border-orange-500 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <EmojiIcon emoji="🍔" size=24 className="text-2xl" />
+                                            <EmojiIcon emoji="🍔" size={24} className="text-2xl" />
                                             <div>
                                                 <p className="font-bold text-orange-700">Add Food Item</p>
                                                 <p className="text-xs text-orange-600">Restaurants, snacks, catering</p>
@@ -415,7 +415,7 @@ export default function VendorOnboarding() {
                                         className="block p-4 bg-teal-50 border border-teal-200 rounded-xl hover:border-teal-500 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <EmojiIcon emoji="🔧" size=24 className="text-2xl" />
+                                            <EmojiIcon emoji="🔧" size={24} className="text-2xl" />
                                             <div>
                                                 <p className="font-bold text-teal-700">Add Service</p>
                                                 <p className="text-xs text-teal-600">Professional services</p>

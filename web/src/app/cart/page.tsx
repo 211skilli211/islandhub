@@ -53,7 +53,7 @@ export default function CartPage() {
 
                 
                 <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl flex items-center gap-3">
-                    <EmojiIcon emoji="⚡" size=20 className="text-xl" />
+                    <EmojiIcon emoji="⚡" size={20} className="text-xl" />
                     <p className="text-sm font-bold text-amber-800 dark:text-amber-300">
                         Items in your cart are not reserved. Complete checkout to secure your order.
                     </p>

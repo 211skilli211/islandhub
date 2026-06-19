@@ -167,7 +167,7 @@ export default function AboutPage() {
                   'Connecting islanders with opportunities'
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-ink-secondary font-medium">
-                    <EmojiIcon emoji="✓" size=16 className="w-6 h-6 bg-accent-500/15 rounded-full flex items-center justify-center text-accent-400 text-sm" />
+                    <EmojiIcon emoji="✓" size={16} className="w-6 h-6 bg-accent-500/15 rounded-full flex items-center justify-center text-accent-400 text-sm" />
                     {item}
                   </li>
                 ))}

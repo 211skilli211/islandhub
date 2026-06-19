@@ -331,7 +331,7 @@ export default function AdSpace({
                             {currentAd?.thumbnail_url || currentAd?.media_url ? (
                                 <img src={getImageUrl(currentAd.thumbnail_url || currentAd.media_url)} className="w-10 h-10 object-contain rounded-lg" alt="" />
                             ) : (
-                                <EmojiIcon emoji="🏝️" size=18 className="text-lg" />
+                                <EmojiIcon emoji="🏝️" size={18} className="text-lg" />
                             )}
                         </div>
                         <div className="flex-1 min-w-0">

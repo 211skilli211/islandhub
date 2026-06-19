@@ -326,10 +326,10 @@ export default function CreatePage() {
         return (
             <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center p-12 bg-surface-elevated rounded-[3rem] shadow-2xl">
-                    <EmojiIcon emoji="🔐" size=48 className="text-6xl mb-6 animate-bounce" />
+                    <EmojiIcon emoji="🔐" size={48} className="text-6xl mb-6 animate-bounce" />
                     <h2 className="text-3xl font-black text-ink-primary mb-4 tracking-tight italic">Verify Your Vendor Status</h2>
                     <p className="text-ink-tertiary font-medium mb-8">Accessing the creation hub requires an active vendor subscription.</p>
-                    <button onClick={() => router.push('/become-vendor')} className="px-10 py-4 bg-(--success-primary,#10b981) text-white! rounded-2xl font-black shadow-xl shadow-accent-500/10 transition-all hover:scale-105 active:scale-95">Become a Vendor <EmojiIcon emoji="🚀" size=16 /></button>
+                    <button onClick={() => router.push('/become-vendor')} className="px-10 py-4 bg-(--success-primary,#10b981) text-white! rounded-2xl font-black shadow-xl shadow-accent-500/10 transition-all hover:scale-105 active:scale-95">Become a Vendor <EmojiIcon emoji="🚀" size={16} /></button>
                 </div>
             </main>
         );
@@ -346,7 +346,7 @@ export default function CreatePage() {
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
-                            <EmojiIcon emoji="🏪" size=24 className="text-2xl" />
+                            <EmojiIcon emoji="🏪" size={24} className="text-2xl" />
                             <span className="font-bold text-accent-500">Adding to: {storeName}</span>
                         </div>
                         <h1 className="text-5xl font-black text-ink-primary mb-6 tracking-tight italic">What type of product are you creating?</h1>
@@ -472,7 +472,7 @@ export default function CreatePage() {
                 <div className="max-w-7xl mx-auto px-4 py-20">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
-                            <EmojiIcon emoji="🏪" size=24 className="text-2xl" />
+                            <EmojiIcon emoji="🏪" size={24} className="text-2xl" />
                             <span className="font-bold text-accent-500">Adding to: {storeName}</span>
                         </div>
                         <h1 className="text-5xl font-black text-ink-primary mb-6 tracking-tight italic">What are you creating today?</h1>
@@ -510,7 +510,7 @@ export default function CreatePage() {
 
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-3 bg-accent-500/10 px-6 py-3 rounded-full mb-8">
-                            <EmojiIcon emoji="🏪" size=24 className="text-2xl" />
+                            <EmojiIcon emoji="🏪" size={24} className="text-2xl" />
                             <span className="font-bold text-accent-500">Adding to: {storeName}</span>
                             <span className="text-accent-400">-</span>
                             <span className="text-lg">{productType.icon}</span>
@@ -670,11 +670,11 @@ export default function CreatePage() {
                                                 className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 style={{ minHeight: '120px' }}
                                             >
-                                                <option value="onsite"><EmojiIcon emoji="🏠" size=16 /> On-site (I travel to customer)</option>
-                                                <option value="remote"><EmojiIcon emoji="💻" size=16 /> Remote (Online/Virtual)</option>
-                                                <option value="appointment"><EmojiIcon emoji="📅" size=16 /> By Appointment Only</option>
-                                                <option value="emergency"><EmojiIcon emoji="🚨" size=16 /> Emergency Service Available</option>
-                                                <option value="scheduled"><EmojiIcon emoji="📆" size=16 /> Scheduled Visits</option>
+                                                <option value="onsite"><EmojiIcon emoji="🏠" size={16} /> On-site (I travel to customer)</option>
+                                                <option value="remote"><EmojiIcon emoji="💻" size={16} /> Remote (Online/Virtual)</option>
+                                                <option value="appointment"><EmojiIcon emoji="📅" size={16} /> By Appointment Only</option>
+                                                <option value="emergency"><EmojiIcon emoji="🚨" size={16} /> Emergency Service Available</option>
+                                                <option value="scheduled"><EmojiIcon emoji="📆" size={16} /> Scheduled Visits</option>
                                             </select>
                                             <p className="text-[10px] text-ink-tertiary ml-4 font-medium">
                                                 Hold Ctrl/Cmd to select multiple service modes
@@ -692,11 +692,11 @@ export default function CreatePage() {
                                                 className="w-full px-8 py-5 bg-surface-primary border-2 border-transparent rounded-2xl text-ink-primary font-bold focus:ring-2 focus:ring-teal-100 focus:border-teal-500 transition-all appearance-none"
                                                 style={{ minHeight: '120px' }}
                                             >
-                                                <option value="walkin"><EmojiIcon emoji="🚶" size=16 /> Walk-in (Customer walks in)</option>
-                                                <option value="delivery"><EmojiIcon emoji="🚗" size=16 /> Delivery (Delivery service)</option>
-                                                <option value="takeout"><EmojiIcon emoji="📦" size=16 /> Takeout (Takeout service)</option>
-                                                <option value="dining"><EmojiIcon emoji="🍽️" size=16 /> Dining (Dine-in service)</option>
-                                                <option value="reservations"><EmojiIcon emoji="📅" size=16 /> Reservations (Reservation-based)</option>
+                                                <option value="walkin"><EmojiIcon emoji="🚶" size={16} /> Walk-in (Customer walks in)</option>
+                                                <option value="delivery"><EmojiIcon emoji="🚗" size={16} /> Delivery (Delivery service)</option>
+                                                <option value="takeout"><EmojiIcon emoji="📦" size={16} /> Takeout (Takeout service)</option>
+                                                <option value="dining"><EmojiIcon emoji="🍽️" size={16} /> Dining (Dine-in service)</option>
+                                                <option value="reservations"><EmojiIcon emoji="📅" size={16} /> Reservations (Reservation-based)</option>
                                             </select>
                                             <p className="text-[10px] text-ink-tertiary ml-4 font-medium">
                                                 Hold Ctrl/Cmd to select multiple service modes

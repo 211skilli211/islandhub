@@ -132,7 +132,7 @@ export default function EditUserModal({ user, onClose, onSuccess }: EditUserModa
                             disabled={loading}
                             className="flex-1 py-4 bg-ink-primary text-white font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/10 rounded-2xl"
                         >
-                            {loading ? 'Saving...' : 'Update Record <EmojiIcon emoji="💾" size=16 />'}
+                            {loading ? 'Saving...' : 'Update Record <EmojiIcon emoji="💾" size={16} />'}
                         </button>
                     </div>
                 </form>

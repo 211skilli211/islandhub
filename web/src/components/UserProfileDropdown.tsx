@@ -179,12 +179,12 @@ export default function UserProfileDropdown() {
                         >
                             {theme === 'dark' ? (
                                 <>
-                                    <EmojiIcon emoji="☀️" size=16 className="text-base" />
+                                    <EmojiIcon emoji="☀️" size={16} className="text-base" />
                                     Light Mode
                                 </>
                             ) : (
                                 <>
-                                    <EmojiIcon emoji="🌙" size=16 className="text-base" />
+                                    <EmojiIcon emoji="🌙" size={16} className="text-base" />
                                     Dark Mode
                                 </>
                             )}

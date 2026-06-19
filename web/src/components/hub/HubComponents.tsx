@@ -347,7 +347,7 @@ export function HubCTA({ config }: { config: HubPageConfig }) {
                     <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">{config.ctaTitle}</h2>
                     <p className="text-white/85 text-lg md:text-xl mb-10 font-medium max-w-xl mx-auto">{config.ctaSubtitle}</p>
                     <Link href="/become-vendor" className="inline-flex items-center gap-2 px-10 py-4 bg-surface-elevated text-ink-primary font-extrabold rounded-2xl hover:bg-surface-secondary transition-all shadow-2xl shadow-black/20 text-sm uppercase tracking-wider group">
-                        <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}><EmojiIcon emoji="🚀" size=16 /></motion.span> Become a Vendor
+                        <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}><EmojiIcon emoji="🚀" size={16} /></motion.span> Become a Vendor
                         <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
                 </div>

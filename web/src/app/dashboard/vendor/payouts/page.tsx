@@ -189,7 +189,7 @@ export default function VendorPayoutsPage() {
                             <p className="text-4xl font-black mt-1">{formatCurrency(wallet.balance, wallet.currency)}</p>
                         </div>
                         <div className="w-14 h-14 bg-surface-elevated/20 rounded-2xl flex items-center justify-center">
-                            <EmojiIcon emoji="💰" size=28 className="text-3xl" />
+                            <EmojiIcon emoji="💰" size={28} className="text-3xl" />
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-4">
@@ -222,7 +222,7 @@ export default function VendorPayoutsPage() {
                 </div>
             ) : (
                 <div className="bg-surface-primary rounded-3xl p-8 text-center">
-                    <EmojiIcon emoji="💳" size=40 className="text-4xl mb-3" />
+                    <EmojiIcon emoji="💳" size={40} className="text-4xl mb-3" />
                     <p className="font-black text-ink-secondary">No wallet found</p>
                     <p className="text-ink-tertiary text-sm mt-1">Your wallet will be created automatically once you start making sales.</p>
                 </div>
@@ -236,7 +236,7 @@ export default function VendorPayoutsPage() {
                 </div>
                 {payoutRequests.length === 0 ? (
                     <div className="px-6 py-10 text-center">
-                        <EmojiIcon emoji="📋" size=28 className="text-3xl mb-2" />
+                        <EmojiIcon emoji="📋" size={28} className="text-3xl mb-2" />
                         <p className="text-sm text-ink-tertiary font-bold">No payout requests yet</p>
                     </div>
                 ) : (
@@ -276,7 +276,7 @@ export default function VendorPayoutsPage() {
                 </div>
                 {transactions.length === 0 ? (
                     <div className="px-6 py-10 text-center">
-                        <EmojiIcon emoji="💳" size=28 className="text-3xl mb-2" />
+                        <EmojiIcon emoji="💳" size={28} className="text-3xl mb-2" />
                         <p className="text-sm text-ink-tertiary font-bold">No transactions yet</p>
                     </div>
                 ) : (
@@ -324,7 +324,7 @@ export default function VendorPayoutsPage() {
 
                         {submitSuccess ? (
                             <div className="text-center py-6">
-                                <EmojiIcon emoji="✅" size=48 className="text-5xl mb-3" />
+                                <EmojiIcon emoji="✅" size={48} className="text-5xl mb-3" />
                                 <p className="font-black text-emerald-500 text-lg">Payout requested!</p>
                                 <p className="text-ink-tertiary text-sm mt-1">Your request is being reviewed.</p>
                             </div>
@@ -360,9 +360,9 @@ export default function VendorPayoutsPage() {
                                         onChange={e => setPayoutMethod(e.target.value)}
                                         className="w-full border border-border-primary rounded-xl px-4 py-3 text-sm font-bold text-ink-primary focus:outline-none focus:ring-2 focus:ring-accent-400/30 focus:border-teal-400"
                                     >
-                                        <option value="bank_transfer"><EmojiIcon emoji="🏦" size=16 /> Bank Transfer</option>
-                                        <option value="paypal"><EmojiIcon emoji="💙" size=16 /> PayPal</option>
-                                        <option value="wipay"><EmojiIcon emoji="🌴" size=16 /> WiPay</option>
+                                        <option value="bank_transfer"><EmojiIcon emoji="🏦" size={16} /> Bank Transfer</option>
+                                        <option value="paypal"><EmojiIcon emoji="💙" size={16} /> PayPal</option>
+                                        <option value="wipay"><EmojiIcon emoji="🌴" size={16} /> WiPay</option>
                                         <option value="crypto">₿ Crypto</option>
                                     </select>
                                 </div>

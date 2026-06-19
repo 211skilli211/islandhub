@@ -9,7 +9,7 @@ const MapSkeleton = memo(function MapSkeleton() {
   return (
     <div className="w-full h-full min-h-[400px] bg-surface-secondary animate-pulse rounded-2xl flex items-center justify-center">
       <div className="text-center">
-        <EmojiIcon emoji="🗺️" size=40 className="text-4xl mb-4" />
+        <EmojiIcon emoji="🗺️" size={40} className="text-4xl mb-4" />
         <p className="text-ink-tertiary text-sm font-medium">Loading map...</p>
       </div>
     </div>
@@ -20,7 +20,7 @@ const MapErrorBoundary = memo(function MapErrorBoundary({ error }: { error: Erro
   return (
     <div className="w-full h-full min-h-[400px] bg-surface-secondary rounded-2xl flex items-center justify-center border-2 border-dashed border-border-primary">
       <div className="text-center p-8">
-        <EmojiIcon emoji="⚠️" size=40 className="text-4xl mb-4" />
+        <EmojiIcon emoji="⚠️" size={40} className="text-4xl mb-4" />
         <p className="text-ink-secondary font-medium mb-2">Map Failed to Load</p>
         <p className="text-ink-tertiary text-sm">{error.message}</p>
       </div>

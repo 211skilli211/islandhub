@@ -302,12 +302,12 @@ export default function CreateEventPage() {
                     <div className="relative">
                       <img src={coverImagePreview} alt="Cover" className="w-full h-48 object-cover rounded-xl" />
                       <button onClick={() => { setCoverImageFile(null); setCoverImagePreview(''); setCoverImageUrl(''); }}
-                        className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm hover:bg-red-600"><EmojiIcon emoji="✕" size=16 /></button>
+                        className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm hover:bg-red-600"><EmojiIcon emoji="✕" size={16} /></button>
                     </div>
                   ) : (
                     <button onClick={() => coverInputRef.current?.click()}
                       className="w-full h-48 border-2 border-dashed border-border-primary dark:border-ocean-600 rounded-xl flex flex-col items-center justify-center text-ink-tertiary hover:border-teal-400 hover:text-teal-500 transition-colors">
-                      <EmojiIcon emoji="📷" size=28 className="text-3xl mb-2" />
+                      <EmojiIcon emoji="📷" size={28} className="text-3xl mb-2" />
                       <span className="font-bold text-sm">Upload Cover Image</span>
                       <span className="text-xs mt-1">Recommended: 1200×800px</span>
                     </button>
@@ -322,12 +322,12 @@ export default function CreateEventPage() {
                     <div className="relative">
                       <img src={bannerImagePreview} alt="Banner" className="w-full h-32 object-cover rounded-xl" />
                       <button onClick={() => { setBannerImageFile(null); setBannerImagePreview(''); setBannerImageUrl(''); }}
-                        className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm hover:bg-red-600"><EmojiIcon emoji="✕" size=16 /></button>
+                        className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm hover:bg-red-600"><EmojiIcon emoji="✕" size={16} /></button>
                     </div>
                   ) : (
                     <button onClick={() => bannerInputRef.current?.click()}
                       className="w-full h-32 border-2 border-dashed border-border-primary dark:border-ocean-600 rounded-xl flex flex-col items-center justify-center text-ink-tertiary hover:border-teal-400 hover:text-teal-500 transition-colors">
-                      <EmojiIcon emoji="🖼️" size=24 className="text-2xl mb-1" />
+                      <EmojiIcon emoji="🖼️" size={24} className="text-2xl mb-1" />
                       <span className="font-bold text-sm">Upload Banner Image</span>
                       <span className="text-xs mt-1">Recommended: 1920×600px</span>
                     </button>
@@ -352,7 +352,7 @@ export default function CreateEventPage() {
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-black text-ink-primary dark:text-sand-50">Tier {idx + 1}</h3>
                     {tiers.length > 1 && (
-                      <button onClick={() => removeTier(idx)} className="text-red-500 text-sm font-bold hover:text-red-600"><EmojiIcon emoji="✕" size=16 /> Remove</button>
+                      <button onClick={() => removeTier(idx)} className="text-red-500 text-sm font-bold hover:text-red-600"><EmojiIcon emoji="✕" size={16} /> Remove</button>
                     )}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

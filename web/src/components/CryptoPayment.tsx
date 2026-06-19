@@ -84,8 +84,8 @@ const CryptoPayment = ({ campaignId, orderId, amount, currency = 'USD', onSucces
                 </a>
             </div>
             <div className="text-sm text-ink-tertiary font-medium space-y-2">
-                <EmojiIcon emoji="💡" size=16 />
-                <EmojiIcon emoji="📧" size=16 />
+                <EmojiIcon emoji="💡" size={16} />
+                <EmojiIcon emoji="📧" size={16} />
             </div>
         </div>
     );

@@ -327,11 +327,11 @@ export default function EventsPage() {
                                                 {event.description}
                                             </p>
                                             <div className="flex flex-wrap gap-4 text-sm font-bold text-ink-tertiary">
-                                                <EmojiIcon emoji="📅" size=16 />
-                                                <EmojiIcon emoji="📍" size=16 />
-                                                <EmojiIcon emoji="👥" size=16 />
+                                                <EmojiIcon emoji="📅" size={16} />
+                                                <EmojiIcon emoji="📍" size={16} />
+                                                <EmojiIcon emoji="👥" size={16} />
                                                 {event.max_attendees && (
-                                                    <EmojiIcon emoji="🎫" size=16 />
+                                                    <EmojiIcon emoji="🎫" size={16} />
                                                 )}
                                             </div>
                                         </div>

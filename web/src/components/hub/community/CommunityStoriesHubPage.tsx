@@ -76,7 +76,7 @@ export function CommunityStoriesHubPage() {
           key={story.id}
           href={`/community/stories#story-${story.id}`}
           imageUrl={story.media_url}
-          emoji={story.is_viewed ? '👀' : '<EmojiIcon emoji="✨" size=16 />'}
+          emoji={story.is_viewed ? '👀' : '<EmojiIcon emoji="✨" size={16} />'}
           title={story.user_name}
           subtitle={story.content.length > 50 ? story.content.slice(0, 50) + '...' : story.content}
           badge={timeAgo(story.created_at)}

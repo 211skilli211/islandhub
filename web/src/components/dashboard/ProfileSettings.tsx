@@ -121,7 +121,7 @@ export default function ProfileSettings() {
                                 {profilePhoto ? (
                                     <img src={getImageUrl(profilePhoto)} alt="Avatar" className="w-full h-full object-cover" />
                                 ) : (
-                                    <EmojiIcon emoji="🏝️" size=40 className="text-4xl" />
+                                    <EmojiIcon emoji="🏝️" size={40} className="text-4xl" />
                                 )}
                             </div>
                             <label className="absolute inset-0 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">

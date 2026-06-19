@@ -39,7 +39,7 @@ export default function ComplianceAnalyticsPage() {
       </div>
 
       <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl border border-border-primary p-8 text-center">
-        <EmojiIcon emoji="📊" size=40 className="text-4xl mb-4" />
+        <EmojiIcon emoji="📊" size={40} className="text-4xl mb-4" />
         <h3 className="text-lg font-bold text-ink-secondary">Compliance Dashboard</h3>
         <p className="text-sm text-ink-tertiary mt-2">Detailed compliance analytics coming soon.</p>
       </div>

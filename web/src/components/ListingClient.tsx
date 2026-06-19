@@ -251,7 +251,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 onClick={() => setIsKitchenSidebarOpen(true)}
                                 className="flex items-center gap-2 px-4 py-2 bg-ink-primary text-white rounded-lg text-sm font-medium hover:bg-ink-primary transition-colors"
                             >
-                                <EmojiIcon emoji="👨‍🍳" size=16 />
+                                <EmojiIcon emoji="👨‍🍳" size={16} />
                                 Kitchen Hub
                             </button>
                         )}
@@ -784,7 +784,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         <p className="text-xs text-ink-tertiary mb-1">Rating</p>
                                         <div className="flex items-center justify-center gap-1">
                                             <span className="text-sm font-semibold text-ink-primary">{(listing.metadata as any)?.client_rating || '4.9'}</span>
-                                            <EmojiIcon emoji="★" size=16 className="text-sand-500 text-sm" />
+                                            <EmojiIcon emoji="★" size={16} className="text-sand-500 text-sm" />
                                         </div>
                                     </div>
                                 </div>
@@ -816,7 +816,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             </div>
                                         ) : (
                                             <div className="flex items-center gap-3">
-                                                <EmojiIcon emoji="📅" size=20 className="w-10 h-10 bg-surface-elevated rounded-lg flex items-center justify-center text-xl shadow-sm" />
+                                                <EmojiIcon emoji="📅" size={20} className="w-10 h-10 bg-surface-elevated rounded-lg flex items-center justify-center text-xl shadow-sm" />
                                                 <div>
                                                     <span className="text-sm font-medium text-ink-primary">Select Date & Time</span>
                                                     <p className="text-xs text-ink-tertiary">Check availability</p>

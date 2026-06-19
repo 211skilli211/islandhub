@@ -224,7 +224,7 @@ function CryptoCheckoutContent() {
                             <p className="text-sm text-ink-tertiary mb-2">Scan QR Code</p>
                             <div className="w-48 h-48 mx-auto bg-surface-elevated rounded-xl border-2 border-dashed border-border-primary flex items-center justify-center">
                                 <div className="text-center">
-                                    <EmojiIcon emoji="📱" size=40 className="text-4xl mb-2" />
+                                    <EmojiIcon emoji="📱" size={40} className="text-4xl mb-2" />
                                     <p className="text-xs text-ink-tertiary">QR Code</p>
                                     <p className="text-xs text-ink-tertiary">{payment.coin} Network</p>
                                 </div>
@@ -234,7 +234,7 @@ function CryptoCheckoutContent() {
                 </div>
 
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                    <h3 className="font-bold text-blue-900 mb-2"><EmojiIcon emoji="📋" size=16 /> Payment Instructions</h3>
+                    <h3 className="font-bold text-blue-900 mb-2"><EmojiIcon emoji="📋" size={16} /> Payment Instructions</h3>
                     <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
                         <li>Open your {payment.coin} wallet</li>
                         <li>Send <strong>exactly {payment.crypto_amount} {payment.coin}</strong> to the address above</li>

@@ -169,7 +169,7 @@ export default function AdminDispatch() {
                                                 By: {job.owner_name}
                                             </div>
                                             <div className="flex gap-2">
-                                                <button onClick={() => fetchData()} className="p-2 bg-surface-elevated rounded-lg border border-border-primary shadow-sm hover:scale-110 duration-200"><EmojiIcon emoji="📍" size=16 /></button>
+                                                <button onClick={() => fetchData()} className="p-2 bg-surface-elevated rounded-lg border border-border-primary shadow-sm hover:scale-110 duration-200"><EmojiIcon emoji="📍" size={16} /></button>
                                                 <button
                                                     onClick={() => setSelectedJobForAssign(job)}
                                                     className="p-2 bg-[#14b8a6] text-white rounded-lg shadow-sm font-black text-[8px] uppercase tracking-widest"
@@ -218,8 +218,8 @@ export default function AdminDispatch() {
 
                             
                             <div className="absolute top-8 right-8 flex gap-3 z-[1000]">
-                                <button onClick={() => fetchData()} className="p-4 bg-surface-elevated rounded-2xl shadow-xl hover:scale-105 duration-200"><EmojiIcon emoji="🔄" size=16 /></button>
-                                <button onClick={() => setIsMapExpanded(true)} className="p-4 bg-surface-tertiary text-white rounded-2xl shadow-xl hover:scale-105 duration-200 font-black text-[10px] uppercase tracking-widest">Fullscreen <EmojiIcon emoji="⛶" size=16 /></button>
+                                <button onClick={() => fetchData()} className="p-4 bg-surface-elevated rounded-2xl shadow-xl hover:scale-105 duration-200"><EmojiIcon emoji="🔄" size={16} /></button>
+                                <button onClick={() => setIsMapExpanded(true)} className="p-4 bg-surface-tertiary text-white rounded-2xl shadow-xl hover:scale-105 duration-200 font-black text-[10px] uppercase tracking-widest">Fullscreen <EmojiIcon emoji="⛶" size={16} /></button>
                             </div>
                         </div>
                     </div>
@@ -232,7 +232,7 @@ export default function AdminDispatch() {
                         <div key={rule.id} className="bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-sm space-y-6">
                             <div className="flex justify-between items-center">
                                 <div className="w-12 h-12 bg-sand-500/5 rounded-2xl flex items-center justify-center text-2xl">
-                                    {rule.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size=16 />'}
+                                    {rule.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size={16} />'}
                                 </div>
                                 <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${rule.is_active ? 'bg-accent-500/15 text-accent-400' : 'bg-surface-secondary text-ink-tertiary'}`}>
                                     {rule.is_active ? 'Active' : 'Paused'}

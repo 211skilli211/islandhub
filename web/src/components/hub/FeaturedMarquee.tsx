@@ -70,7 +70,7 @@ export default function FeaturedMarquee({ providers, hubType }: FeaturedMarqueeP
                     </h4>
                     <div className="flex items-center gap-1.5">
                       {provider.rating && (
-                        <EmojiIcon emoji="★" size=16 className="text-[10px] font-bold text-amber-500" />
+                        <EmojiIcon emoji="★" size={16} className="text-[10px] font-bold text-amber-500" />
                       )}
                       {provider.subtype && (
                         <span className="text-[10px] text-ink-tertiary capitalize">{provider.subtype.replace(/_/g, ' ')}</span>

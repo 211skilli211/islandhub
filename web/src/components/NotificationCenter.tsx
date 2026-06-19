@@ -198,7 +198,7 @@ export default function NotificationCenter() {
                                 </div>
                             ) : notifications.length === 0 ? (
                                 <div className="py-10 text-center">
-                                    <EmojiIcon emoji="🔔" size=28 className="text-3xl mb-2" />
+                                    <EmojiIcon emoji="🔔" size={28} className="text-3xl mb-2" />
                                     <p className="text-sm font-bold text-ink-tertiary">No notifications yet</p>
                                 </div>
                             ) : (

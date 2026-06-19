@@ -172,7 +172,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                         />
                         <div className="flex gap-2">
                             <button onClick={handleAddSection} className="px-4 py-3 bg-accent-500 text-white rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none">Add</button>
-                            <button onClick={() => setIsAddingSection(false)} className="px-4 py-3 bg-surface-secondary text-ink-tertiary rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none"><EmojiIcon emoji="✕" size=16 /></button>
+                            <button onClick={() => setIsAddingSection(false)} className="px-4 py-3 bg-surface-secondary text-ink-tertiary rounded-xl font-black uppercase text-[10px] flex-1 sm:flex-none"><EmojiIcon emoji="✕" size={16} /></button>
                         </div>
                     </div>
                 )}
@@ -186,8 +186,8 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                             className="absolute top-4 right-4 sm:top-8 sm:right-8 text-ink-tertiary hover:text-[#e11d48] transition-colors bg-surface-elevated/50 p-2 rounded-full sm:bg-transparent sm:p-0"
                             title="Delete Section"
                         >
-                            <EmojiIcon emoji="✕" size=18 className="sm:hidden text-lg font-bold" />
-                            <EmojiIcon emoji="✕" size=16 className="hidden sm:inline" />
+                            <EmojiIcon emoji="✕" size={18} className="sm:hidden text-lg font-bold" />
+                            <EmojiIcon emoji="✕" size={16} className="hidden sm:inline" />
                         </button>
 
                         <div className="flex items-center gap-4 mb-8">
@@ -207,7 +207,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             {item.image_url ? (
                                                 <img src={getImageUrl(item.image_url)} className="w-full h-full object-cover" alt={item.name} />
                                             ) : (
-                                                <EmojiIcon emoji="🥘" size=24 className="w-full h-full flex items-center justify-center text-2xl" />
+                                                <EmojiIcon emoji="🥘" size={24} className="w-full h-full flex items-center justify-center text-2xl" />
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0">
@@ -215,7 +215,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                             <p className="text-[10px] text-ink-tertiary mt-1 line-clamp-2">{item.description}</p>
                                             <div className="flex flex-wrap gap-1.5 mt-2">
                                                 {item.duration && (
-                                                    <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary rounded text-[8px] font-black uppercase tracking-widest">⏱<EmojiIcon emoji="️" size=16 /> {item.duration}</span>
+                                                    <span className="px-2 py-0.5 bg-surface-secondary text-ink-tertiary rounded text-[8px] font-black uppercase tracking-widest">⏱<EmojiIcon emoji="️" size={16} /> {item.duration}</span>
                                                 )}
                                                 {item.donation_suggested && (
                                                     <span className="px-2 py-0.5 bg-sand-500/5 text-sand-500 rounded text-[8px] font-black uppercase tracking-widest">Donation</span>
@@ -248,7 +248,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                 onClick={() => handleOpenItemModal(section.id)}
                                 className="h-full min-h-[100px] border-2 border-dashed border-border-primary rounded-[2.5rem] flex flex-col items-center justify-center text-ink-tertiary hover:border-teal-300 hover:text-accent-400 transition-all gap-2 group"
                             >
-                                <EmojiIcon emoji="➕" size=24 className="text-2xl group-hover:scale-125 transition-transform" />
+                                <EmojiIcon emoji="➕" size={24} className="text-2xl group-hover:scale-125 transition-transform" />
                                 <p className="text-[10px] font-black uppercase tracking-widest">New Item</p>
                             </button>
                         </div>
@@ -274,7 +274,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                 <h4 className="text-xl font-black text-ink-primary uppercase italic">
                                     {editingItem.id ? 'Edit Menu Item' : 'New Menu Item'}
                                 </h4>
-                                <button onClick={() => setIsItemModalOpen(false)} className="text-ink-tertiary hover:text-ink-primary"><EmojiIcon emoji="✕" size=16 /></button>
+                                <button onClick={() => setIsItemModalOpen(false)} className="text-ink-tertiary hover:text-ink-primary"><EmojiIcon emoji="✕" size={16} /></button>
                             </div>
 
                             <div className="p-8 space-y-6 overflow-y-auto">
@@ -312,7 +312,7 @@ export default function MenuManagement({ storeId }: { storeId?: number }) {
                                                 <img src={getImageUrl(editingItem.image_url)} className="w-full h-full object-cover" />
                                             ) : (
                                                 <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                                                    <EmojiIcon emoji="📸" size=28 className="text-3xl" />
+                                                    <EmojiIcon emoji="📸" size={28} className="text-3xl" />
                                                     <p className="text-[8px] font-black uppercase text-ink-tertiary">Add Dish Photo</p>
                                                 </div>
                                             )}

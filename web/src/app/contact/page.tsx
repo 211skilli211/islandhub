@@ -17,7 +17,7 @@ export default function ContactPage() {
     return (
       <main className="min-h-screen bg-surface-primary flex items-center justify-center px-4">
         <div className="max-w-lg w-full bg-surface-elevated p-12 rounded-[3rem] shadow-lg border border-border-primary text-center">
-          <EmojiIcon emoji="✅" size=48 className="text-6xl mb-6" />
+          <EmojiIcon emoji="✅" size={48} className="text-6xl mb-6" />
           <h1 className="text-3xl font-black text-ink-primary mb-4">Message Sent!</h1>
           <p className="text-ink-secondary mb-8">Thank you for reaching out. We'll get back to you within 24-48 hours.</p>
           <Link href="/" className="text-accent-400 font-black text-sm uppercase tracking-widest hover:underline">
@@ -83,28 +83,28 @@ export default function ContactPage() {
               <h3 className="text-xl font-black text-ink-primary mb-6">Other Ways to Reach Us</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <EmojiIcon emoji="📧" size=24 className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
+                  <EmojiIcon emoji="📧" size={24} className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
                   <div>
                     <p className="font-black text-ink-primary text-sm uppercase tracking-widest">Email</p>
                     <a href="mailto:businesstrends869@gmail.com" className="text-accent-400 hover:underline">businesstrends869@gmail.com</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <EmojiIcon emoji="📱" size=24 className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
+                  <EmojiIcon emoji="📱" size={24} className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
                   <div>
                     <p className="font-black text-ink-primary text-sm uppercase tracking-widest">Phone</p>
                     <a href="tel:+18697639919" className="text-accent-400 hover:underline">+1 (869) 763-9919</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <EmojiIcon emoji="💬" size=24 className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
+                  <EmojiIcon emoji="💬" size={24} className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
                   <div>
                     <p className="font-black text-ink-primary text-sm uppercase tracking-widest">WhatsApp</p>
                     <a href="https://wa.me/18697639919" target="_blank" rel="noopener noreferrer" className="text-accent-400 hover:underline">Chat with us</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <EmojiIcon emoji="🏝️" size=24 className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
+                  <EmojiIcon emoji="🏝️" size={24} className="w-12 h-12 bg-accent-500/10 rounded-2xl flex items-center justify-center text-2xl" />
                   <div>
                     <p className="font-black text-ink-primary text-sm uppercase tracking-widest">IBT Co-ops</p>
                     <a href="https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW" target="_blank" rel="noopener noreferrer" className="text-accent-400 hover:underline">Join WhatsApp Community</a>

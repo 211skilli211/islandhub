@@ -311,7 +311,7 @@ export default function MessagesPage() {
                                             >
                                                 <div className="relative">
                                                     <div className="w-12 h-12 bg-surface-tertiary rounded-full flex items-center justify-center text-xl">
-                                                        {otherUser ? '👤' : '<EmojiIcon emoji="👥" size=16 />'}
+                                                        {otherUser ? '👤' : '<EmojiIcon emoji="👥" size={16} />'}
                                                     </div>
                                                     {conversation.is_online && (
                                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-accent-500/100 border-2 border-white rounded-full"></div>
@@ -354,7 +354,7 @@ export default function MessagesPage() {
                                         </button>
                                         <div className="relative">
                                             <div className="w-10 h-10 bg-surface-tertiary rounded-full flex items-center justify-center text-lg">
-                                                {selectedConversation.type === 'group' ? '👥' : '<EmojiIcon emoji="👤" size=16 />'}
+                                                {selectedConversation.type === 'group' ? '👥' : '<EmojiIcon emoji="👤" size={16} />'}
                                             </div>
                                             {selectedConversation.is_online && (
                                                 <div className="absolute bottom-0 right-0 w-2 h-2 bg-accent-500/100 border-2 border-white rounded-full"></div>
@@ -480,7 +480,7 @@ export default function MessagesPage() {
                                         }}
                                         className="w-full p-4 flex items-center gap-4 hover:bg-surface-primary rounded-2xl transition-colors"
                                     >
-                                        <EmojiIcon emoji="👤" size=16 className="w-10 h-10 bg-surface-tertiary rounded-full flex items-center justify-center" />
+                                        <EmojiIcon emoji="👤" size={16} className="w-10 h-10 bg-surface-tertiary rounded-full flex items-center justify-center" />
                                         <span className="font-bold text-ink-primary">{name}</span>
                                     </button>
                                 ))}

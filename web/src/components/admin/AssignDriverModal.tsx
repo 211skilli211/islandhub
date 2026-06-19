@@ -38,7 +38,7 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                         onClick={e => e.stopPropagation()}
                     >
                         <div className="p-8 border-b border-border-primary">
-                            <h3 className="text-2xl font-black text-ink-primary uppercase italic">Assign Driver <EmojiIcon emoji="🛰️" size=24 /></h3>
+                            <h3 className="text-2xl font-black text-ink-primary uppercase italic">Assign Driver <EmojiIcon emoji="🛰️" size={24} /></h3>
                             <p className="text-xs font-bold text-ink-tertiary uppercase tracking-widest mt-1">FOR MISSION: {jobTitle}</p>
                         </div>
 
@@ -56,7 +56,7 @@ export default function AssignDriverModal({ isOpen, onClose, drivers, onAssign, 
                                     >
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 bg-surface-elevated rounded-xl flex items-center justify-center text-2xl shadow-sm group-hover:bg-[#14b8a6] group-hover:text-white transition-colors">
-                                                {driver.vehicle_category === 'scooter' ? '🛵' : driver.vehicle_category === 'van' ? '🚐' : '<EmojiIcon emoji="🚗" size=16 />'}
+                                                {driver.vehicle_category === 'scooter' ? '🛵' : driver.vehicle_category === 'van' ? '🚐' : '<EmojiIcon emoji="🚗" size={16} />'}
                                             </div>
                                             <div className="text-left">
                                                 <p className="font-black text-ink-primary group-hover:text-teal-900">{driver.name}</p>
