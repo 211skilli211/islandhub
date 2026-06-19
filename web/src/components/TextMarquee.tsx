@@ -168,6 +168,7 @@ export default function TextMarquee() {
     }
 
     // Scroll mode (default)
+    return (
         <div
             className="overflow-hidden py-3 sticky top-20 z-40 border-b backdrop-blur-md shadow-sm"
             style={{ background: style.background, boxShadow: style.shadow }}
