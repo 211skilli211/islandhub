@@ -6,70 +6,83 @@ import { motion } from 'framer-motion';
 
 /**
  * Maps emoji characters to their Lucide icon equivalents.
+ * Only uses icon names confirmed to exist in lucide-react v0.563.
  * Use in render: <EmojiIcon emoji="🍽️" size={20} />
  */
-const EMOJI_TO_LUCIDE: Record<string, keyof typeof LucideIcons> = {
+const EMOJI_TO_LUCIDE: Record<string, string> = {
     // Food & Dining
     '🍽️': 'UtensilsCrossed', '🍳': 'Flame', '🍜': 'Soup', '☕': 'Coffee', '🍺': 'Beer', '🧁': 'Cake', '🍲': 'Soup',
+    '🥘': 'Soup', '🍡': 'Candy', '🍔': 'Beef', '🍱': 'Box', '🍴': 'UtensilsCrossed', '🍷': 'Wine',
+    '🍎': 'Apple', '🌶️': 'Flame', '🌸': 'Flower', '🌾': 'Wheat', '🍃': 'Leaf', '🥛': 'Milk', '🥬': 'Leaf',
     // Shopping
-    '🛍': 'ShoppingBag', '🛒': 'ShoppingCart',
+    '🛍': 'ShoppingBag', '🛒': 'ShoppingCart', '📦': 'Package',
     // Places & Buildings
     '🏪': 'Store', '🏠': 'Home', '🏖': 'Sun', '🏢': 'Building2', '🏝': 'TreePalm', '🌴': 'TreePine', '🌱': 'Sprout', '🏡': 'Home',
+    '🏥': 'Hospital', '🏦': 'Landmark', '🏨': 'Hotel', '🏺': 'Grape', '🏛️': 'Landmark', '🏜': 'Sun', '🏰': 'Castle',
+    '🏙': 'Building', '🏚': 'Home', '🏸': 'Badge',
     // Services & Work
     '🛠': 'Wrench', '💼': 'Briefcase', '🚗': 'Car', '💊': 'Pill', '👗': 'Shirt', '🎨': 'Palette',
+    '🔨': 'Hammer', '🌿': 'Leaf', '🎭': 'Drama', '⚡': 'Zap', '👤': 'User', '💆': 'User',
     // Tours & Travel
     '🗺': 'Map', '🎟': 'Ticket', '🥾': 'Footprints', '🌊': 'Waves', '⛵': 'Sailboat', '🧗': 'Mountain', '⚓': 'Anchor',
     // Transport
-    '🚕': 'CarTaxiFront', '📦': 'Package', '🚤': 'Ship', '🚌': 'Bus', '✈': 'Plane', '🚖': 'CarTaxiFront',
+    '🚕': 'CarTaxiFront', '🚤': 'Ship', '🚌': 'Bus', '✈': 'Plane', '🚖': 'CarTaxiFront',
+    '🚂': 'Train', '🚐': 'Bus', '🚙': 'Car', '🚚': 'Truck', '🚪': 'DoorOpen', '🚲': 'Bike', '🚶': 'User',
+    '🛥': 'Ship', '🛵': 'Bike', '🛻': 'Truck', '🏎': 'Car', '🏍': 'Bike',
     // Community & Social
     '❤': 'Heart', '🤝': 'Handshake', '👥': 'Users', '💬': 'MessageCircle', '📸': 'Camera',
+    '❤️': 'Heart', '🫂': 'Users',
     // Objects & Symbols
     '🔥': 'Flame', '✨': 'Star', '🎬': 'Film', '🎯': 'Target', '💡': 'Lightbulb', '📚': 'BookOpen',
-    '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'Tag',
-    '🎉': 'PartyPopper', '🎁': 'Gift', '💎': 'Gem',
-    // Extended emoji map
-    '🔨': 'Hammer', '🌿': 'Leaf', '🎭': 'Drama', '🆘': 'AlertTriangle', '⚡': 'Zap', '🍡': 'Candy', '👤': 'User',
-    '🥘': 'Pot', '⚙️': 'Settings',
-    '☀️': 'Sun', '⭐': 'Star', '🌟': 'Star', '✅': 'Check', '❌': 'X', '❓': 'HelpCircle',
-    '➕': 'Plus', '➡️': 'ArrowRight', '⚠️': 'AlertTriangle', '💳': 'CreditCard',
-    '💰': 'Banknote', '📱': 'Smartphone', '🔍': 'Search', '🔒': 'Lock', '🔓': 'Unlock',
-    '🔔': 'Bell', '🔗': 'Link', '📧': 'Mail', '📎': 'Paperclip', '📍': 'MapPin',
-    '📅': 'Calendar', '📆': 'CalendarDays', '📊': 'BarChart3', '📋': 'Clipboard', '📌': 'Pin',
-    '📝': 'FileText', '📞': 'Phone', '📡': 'Antenna', '📢': 'Megaphone', '📤': 'Send',
-    '📥': 'Download', '🔄': 'RefreshCw', '🔧': 'Wrench', '🔭': 'Telescope', '🗑️': 'Trash2',
-    '🚫': 'Ban', '🚲': 'Bike', '🚶': 'PersonStanding', '🛡️': 'Shield', '🛠️': 'Wrench',
-    '🤔': 'HelpCircle', '😂': 'Laugh', '😊': 'Smile', '😢': 'Frown', '😴': 'Moon',
-    '🙏': 'HandHeart', '👍': 'ThumbsUp', '👋': 'Hand', '👑': 'Crown', '💥': 'Zap',
-    '💪': 'Dumbbell', '💻': 'Laptop', '💾': 'Save', '💿': 'Disc', '📀': 'Disc',
-    '📁': 'Folder', '📂': 'FolderOpen', '📄': 'File', '📈': 'TrendingUp', '📉': 'TrendingDown',
-    '📏': 'Ruler', '📐': 'Triangle', '📑': 'Bookmark', '📓': 'Book', '📖': 'BookOpen',
-    '📛': 'Badge', '📜': 'Scroll', '📟': 'Pager', '📠': 'Fax', '📣': 'Megaphone',
-    '📨': 'MailOpen', '📩': 'Mail', '📬': 'Mailbox', '📷': 'Camera',
-    '📹': 'Video', '📺': 'Tv', '🔌': 'PlugPower', '🔎': 'Search', '🔏': 'PenLine',
-    '🔐': 'LockKeyhole', '🔑': 'KeyRound', '🔕': 'BellOff', '🔖': 'Bookmark',
-    '🔘': 'CircleDot', '🔤': 'CaseSensitive', '🔴': 'Circle', '🔵': 'Circle',
-    '🔷': 'Diamond', '🕐': 'Clock', '🕒': 'Clock1', '🖤': 'Heart', '🖱': 'MousePointer2',
-    '🗺️': 'Map', '🛰️': 'Satellite', '🛵': 'Bike', '🛻': 'Truck', '🟠': 'Circle',
-    '🟢': 'Circle', '🤳': 'Camera', '🥛': 'Milk', '🥬': 'LeafyGreen',
-    '🧘': 'Sparkles', '🧠': 'Brain', '🧭': 'Compass', '🧹': 'Broom', '🧾': 'Receipt',
-    '🪪': 'IdCard', '🫂': 'Users', '🏥': 'Hospital', '🏦': 'Landmark', '🏨': 'Hotel',
-    '🏺': 'Bean', '🐦': 'Bird', '👀': 'Eye', '👁': 'Eye', '👊': 'ContactRound',
-    '💆': 'UserRound', '💙': 'Heart', '💚': 'Heart', '💸': 'Banknote',
-    '🏛️': 'Landmark', '🏜️': 'MountainSnow', '🏝️': 'Trees', '🏎️': 'Car',
-    '🏍': 'Bike', '🏁': 'Flag', '🏆': 'Trophy', '🎓': 'GraduationCap',
-    '🎪': 'Tent', '🎫': 'Ticket', '🎵': 'Music', '🎥': 'Film', '🎒': 'Backpack',
-    '🎛️': 'SlidersHorizontal', '🌃': 'MoonStar', '🌅': 'Sunrise', '🌈': 'Rainbow',
-    '🌋': 'Mountain', '🌌': 'Sparkles', '🌍': 'Globe', '🌎': 'Globe', '🌐': 'Globe',
-    '🌑': 'Moon', '🌙': 'Moon', '🌩️': 'CloudLightning', '🌶️': 'Flame',
-    '🌸': 'Flower', '🌾': 'Wheat', '🍃': 'Leaf', '🍎': 'Apple',
-    '🍔': 'Beef', '🍱': 'Box', '🍴': 'UtensilsCrossed', '🍷': 'Wine',
-    '🚂': 'Train', '🚐': 'Bus', '🚙': 'Car', '🚚': 'Truck',
-    '🚪': 'DoorOpen', '🛥': 'Ship', '🛣': 'Construction', '🕸': 'Spider',
-    '🖼': 'Image', '🗑': 'Trash2', '😄': 'Smile', '😐': 'Meh', '😕': 'Frown',
-    '😞': 'Sad', '😮': 'Circle', '⚽': 'Circle', '⚖': 'Scale', '⚪': 'Circle',
-    '⚫': 'Circle', '☪': 'StarCrescent', '☰': 'Menu', '♡': 'Heart',
-    '✂': 'Scissors', '✉': 'Mail', '✋': 'Hand', '✏': 'Pencil', '✓': 'Check',
-    '❄': 'Snowflake', '➔': 'ArrowRight', '➤': 'ArrowRight', '❤️': 'Heart',
+    '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'Tag', '⚙️': 'Settings',
+    '🎉': 'PartyPopper', '🎁': 'Gift', '💎': 'Gem', '🔧': 'Wrench', '🔩': 'Wrench',
+    // Nature & Weather
+    '☀️': 'Sun', '⭐': 'Star', '🌟': 'Star', '🌙': 'Moon', '🌑': 'Moon', '🌃': 'Moon',
+    '🌅': 'Sunrise', '🌈': 'Rainbow', '🌋': 'Mountain', '🌌': 'Stars', '🌍': 'Globe', '🌎': 'Globe', '🌐': 'Globe',
+    '🌩️': 'CloudLightning', '❄': 'Snowflake', '🌃': 'Moon',
+    // UI & Actions
+    '✅': 'Check', '❌': 'X', '❓': 'HelpCircle', '➕': 'Plus', '➡️': 'ArrowRight',
+    '⚠️': 'AlertTriangle', '🔍': 'Search', '🔎': 'Search', '🔒': 'Lock', '🔓': 'Unlock',
+    '🔔': 'Bell', '🔕': 'BellOff', '🔗': 'Link', '🔖': 'Bookmark', '🔄': 'RefreshCw',
+    '🚫': 'Ban', '🗑️': 'Trash2', '🗑': 'Trash2',
+    // Communication
+    '📧': 'Mail', '📨': 'Mail', '📩': 'Mail', '📬': 'Mail', '📢': 'Megaphone', '📣': 'Megaphone',
+    '📤': 'Send', '📥': 'Download', '📞': 'Phone', '📱': 'Smartphone',
+    // Media & Files
+    '📷': 'Camera', '📹': 'Video', '📺': 'Tv', '📁': 'Folder', '📂': 'FolderOpen', '📄': 'File',
+    '📊': 'BarChart3', '📋': 'Clipboard', '📌': 'Pin', '📎': 'Paperclip', '📏': 'Ruler',
+    '📐': 'Triangle', '📑': 'Bookmark', '📓': 'Book', '📖': 'BookOpen', '📛': 'Badge',
+    '📜': 'Scroll', '📝': 'FileText', '📟': 'Pager', '📠': 'Fax', '📡': 'Satellite',
+    '💻': 'Laptop', '💾': 'Save', '💿': 'Disc', '📀': 'Disc',
+    // Charts & Trends
+    '📈': 'TrendingUp', '📉': 'TrendingDown',
+    // Time
+    '📅': 'Calendar', '📆': 'Calendar', '🕐': 'Clock', '🕒': 'Clock',
+    // Shapes & Symbols
+    '🔴': 'Circle', '🔵': 'Circle', '🟠': 'Circle', '🟢': 'Circle', '⚪': 'Circle', '⚫': 'Circle',
+    '🔷': 'Diamond', '💠': 'Diamond', '🔘': 'Circle',
+    // People & Body
+    '👀': 'Eye', '👁': 'Eye', '👋': 'Hand', '👍': 'ThumbsUp', '👊': 'Fist', '🙏': 'Hand',
+    '💪': 'Dumbbell', '👑': 'Crown', '💙': 'Heart', '💚': 'Heart', '🖤': 'Heart', '♡': 'Heart',
+    // Faces
+    '😂': 'Smile', '😊': 'Smile', '😢': 'Frown', '😴': 'Moon', '😄': 'Smile', '😐': 'Meh',
+    '😕': 'Frown', '😞': 'Frown', '😮': 'Circle', '🤔': 'HelpCircle',
+    // Money
+    '💰': 'Banknote', '💳': 'CreditCard', '💸': 'Banknote',
+    // Misc
+    '🛡️': 'Shield', '🛠️': 'Wrench', '🧭': 'Compass', '🧹': 'Broom', '🧠': 'Brain',
+    '🧘': 'User', '🧾': 'Receipt', '🪪': 'IdCard', '🐦': 'Bird',
+    '🎓': 'GraduationCap', '🎪': 'Tent', '🎫': 'Ticket', '🎵': 'Music', '🎥': 'Film',
+    '🎒': 'Backpack', '🎛️': 'Sliders', '🏁': 'Flag', '🏆': 'Trophy',
+    '🏖️': 'Sun', '🏝️': 'TreePalm', '🏎️': 'Car', '🏍️': 'Bike',
+    '🚪': 'DoorOpen', '🛣': 'Construction', '🕸': 'Spider', '🖼': 'Image',
+    '🗺️': 'Map', '🛰️': 'Satellite', '🤳': 'Camera',
+    '✂': 'Scissors', '✉': 'Mail', '✋': 'Hand', '✏': 'Pencil', '✓': 'Check', '✔': 'Check',
+    '✕': 'X', '✗': 'X', '➔': 'ArrowRight', '➤': 'ArrowRight',
+    '☪': 'Star', '☰': 'Menu', '⚖': 'Scale', '⚽': 'Circle',
+    '🔌': 'Plug', '🔏': 'Lock', '🔐': 'Lock', '🔑': 'Key',
+    '🔤': 'Type', '🔭': 'Telescope', '🖱': 'Mouse',
+    '☃': 'Snowflake', '⛄': 'Snowflake',
 };
 
 const iconVariants = {
@@ -83,7 +96,7 @@ const pulseVariants = {
     initial: { scale: 1 },
     animate: {
         scale: [1, 1.1, 1],
-        transition: { repeat: Infinity, duration: 2, ease: 'easeInOut' },
+        transition: { repeat: Infinity, duration: 2, ease: 'easeInOut' as const },
     },
 };
 
@@ -98,45 +111,43 @@ export function EmojiIcon({
     emoji: string;
     size?: number;
     className?: string;
-    animate?: boolean;   // continuous pulse animation
-    hover?: boolean;     // hover scale effect
+    animate?: boolean;
+    hover?: boolean;
 }) {
     let iconName = EMOJI_TO_LUCIDE[emoji];
     if (!iconName) iconName = EMOJI_TO_LUCIDE[emoji.charAt(0)];
     if (!iconName && emoji.length >= 2) iconName = EMOJI_TO_LUCIDE[emoji.slice(0, 2)];
 
-    if (iconName) {
-        const Icon = LucideIcons[iconName] as LucideIcon;
-        if (Icon) {
-            if (animate) {
-                return (
-                    <motion.span
-                        className={`inline-flex ${className}`}
-                        variants={pulseVariants}
-                        initial="initial"
-                        animate="animate"
-                    >
-                        <Icon size={size} />
-                    </motion.span>
-                );
-            }
-            if (hover) {
-                return (
-                    <motion.span
-                        className={`inline-flex ${className}`}
-                        variants={iconVariants}
-                        initial="initial"
-                        animate="animate"
-                        whileHover="hover"
-                        whileTap="tap"
-                        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                    >
-                        <Icon size={size} />
-                    </motion.span>
-                );
-            }
-            return <Icon size={size} className={className} />;
+    if (iconName && (LucideIcons as Record<string, LucideIcon>)[iconName]) {
+        const Icon = (LucideIcons as Record<string, LucideIcon>)[iconName];
+        if (animate) {
+            return (
+                <motion.span
+                    className={`inline-flex ${className}`}
+                    variants={pulseVariants}
+                    initial="initial"
+                    animate="animate"
+                >
+                    <Icon size={size} />
+                </motion.span>
+            );
         }
+        if (hover) {
+            return (
+                <motion.span
+                    className={`inline-flex ${className}`}
+                    variants={iconVariants}
+                    initial="initial"
+                    animate="animate"
+                    whileHover="hover"
+                    whileTap="tap"
+                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                >
+                    <Icon size={size} />
+                </motion.span>
+            );
+        }
+        return <Icon size={size} className={className} />;
     }
 
     // Fallback: render original emoji
@@ -165,7 +176,7 @@ export function EmojiText({
             const chunk = remaining.slice(0, len);
             const iconName = EMOJI_TO_LUCIDE[chunk] || EMOJI_TO_LUCIDE[chunk.charAt(0)];
             if (iconName) {
-                const Icon = LucideIcons[iconName] as LucideIcon;
+                const Icon = (LucideIcons as Record<string, LucideIcon>)[iconName];
                 if (Icon) {
                     if (animate) {
                         parts.push(
