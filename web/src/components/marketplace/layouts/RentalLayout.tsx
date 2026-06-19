@@ -8,6 +8,7 @@ import api, { getImageUrl } from '@/lib/api';
 import { BadgeList } from '../BadgeSelector';
 import React, { useState, useEffect } from 'react';
 import KitchenSidebar from '../KitchenSidebar';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import FoodSelectionModal from '../FoodSelectionModal';
 import ServiceBookingModal from '../ServiceBookingModal';
 import { useStoreSections } from '../hooks/useStoreSections';
@@ -225,13 +226,13 @@ export const RentalLayout = ({ store, listings }: StoreProps) => {
 
                                         <div className="grid grid-cols-2 gap-3 mb-4 pt-4 border-t border-border-primary">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-base">{item.metadata?.seats ? '👤' : '📦'}</span>
+                                                <EmojiIcon emoji={item.metadata?.seats ? '👤' : '📦'} size={16} className="inline-flex" />
                                                 <span className="text-xs text-ink-tertiary">
                                                     {item.metadata?.seats ? `${item.metadata.seats} Seats` : item.metadata?.capacity ? `${item.metadata.capacity} Capacity` : 'General Use'}
                                                 </span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <span className="text-base">{item.metadata?.transmission ? '⚙️' : '🏷️'}</span>
+                                                <EmojiIcon emoji={item.metadata?.transmission ? '⚙️' : '🏷️'} size={16} className="inline-flex" />
                                                 <span className="text-xs text-ink-tertiary">
                                                     {item.metadata?.transmission || item.metadata?.condition || 'Standard'}
                                                 </span>

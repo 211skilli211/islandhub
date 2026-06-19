@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Sponsor {
     id: number;
@@ -26,7 +27,7 @@ export default function SponsorSection() {
             <div className="flex items-center justify-between mb-12">
                 <div>
                     <h2 className="text-3xl font-black text-ink-primary tracking-tight flex items-center gap-3">
-                        <span className="text-sand-500 text-4xl">✨</span>
+                        <EmojiIcon emoji="✨" size={36} className="text-sand-500" />
                         Featured Partners
                     </h2>
                     <p className="text-ink-tertiary font-medium mt-2">Verified local businesses we highly recommend.</p>

@@ -29,6 +29,7 @@ const EMOJI_TO_LUCIDE: Record<string, keyof typeof LucideIcons> = {
     '🎉': 'PartyPopper', '🎁': 'Gift', '💎': 'Gem',
     // Extra emojis used across the app
     '🔨': 'Hammer', '🌿': 'Leaf', '🎭': 'Drama', '🆘': 'Siren', '⚡': 'Zap', '🍡': 'Candy', '👤': 'User',
+    '🥘': 'Pot', '⚙️': 'Settings', '🏷️': 'Tag', '📦': 'Package', '🍽️': 'UtensilsCrossed', '🛒': 'ShoppingCart',
 };
 
 const iconVariants = {

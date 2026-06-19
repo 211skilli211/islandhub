@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const CATEGORIES = [
     { id: 'community', name: 'Community', icon: '🏡' },
@@ -218,7 +219,7 @@ export default function NewCampaignPage() {
 
                                     <div className="bg-accent-500/10 p-6 rounded-2xl border border-teal-100">
                                         <h4 className="text-accent-600 font-bold mb-2 flex items-center gap-2">
-                                            <span>💡</span> Pro Tip
+                                            <EmojiIcon emoji="💡" size={16} className="inline-flex" /> Pro Tip
                                         </h4>
                                         <p className="text-accent-500 text-sm italic">
                                             Campaigns with at least 300 words and clear progress updates tend to raise 3x more funds!

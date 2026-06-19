@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import ListingCard from '@/components/ListingCard';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import ReviewSection from '@/components/ReviewSection';
 import api, { getImageUrl } from '@/lib/api';
 import { BadgeList } from '../BadgeSelector';
@@ -487,7 +488,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                                             alt={item.name}
                                                         />
                                                     ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-2xl md:text-3xl">{isSoupKitchen ? '🍲' : '🥘'}</div>
+                                                        <div className="w-full h-full flex items-center justify-center"><EmojiIcon emoji={isSoupKitchen ? '🍲' : '🥘'} size={28} /></div>
                                                     )}
                                                 </div>
                                                 <div className="flex-1 flex flex-col justify-center min-w-0">
@@ -611,7 +612,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 className="w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center"
                                 style={{ backgroundColor: `${brandingColor}15` }}
                             >
-                                <span className="text-5xl">{isSoupKitchen ? '🍲' : '🍽️'}</span>
+                                <EmojiIcon emoji={isSoupKitchen ? '🍲' : '🍽️'} size={48} />
                             </div>
                             <h3 className="text-xl font-semibold text-ink-primary mb-2">
                                 Menu Coming Soon
@@ -709,7 +710,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 {store.aims && (
                                     <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-[#14b8a6]/10 dark:bg-teal-900/30 text-[#14b8a6] dark:text-[#14b8a6] rounded-lg flex items-center justify-center text-lg">🎯</span>
+                                            <span className="w-8 h-8 bg-[#14b8a6]/10 dark:bg-teal-900/30 text-[#14b8a6] dark:text-[#14b8a6] rounded-lg flex items-center justify-center"><EmojiIcon emoji="🎯" size={18} /></span>
                                             <h3 className="text-base font-semibold text-ink-primary">Strategic Aims</h3>
                                         </div>
                                         <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.aims}&rdquo;</p>
@@ -718,7 +719,7 @@ export const FoodShopLayout = ({ store, listings }: StoreProps) => {
                                 {store.objectives && (
                                     <div className="flex-1 p-6 bg-surface-secondary rounded-xl border border-border-primary">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <span className="w-8 h-8 bg-emerald-500/10 dark:bg-emerald-900/30 text-emerald-400 dark:text-emerald-400 rounded-lg flex items-center justify-center text-lg">🚀</span>
+                                            <span className="w-8 h-8 bg-emerald-500/10 dark:bg-emerald-900/30 text-emerald-400 dark:text-emerald-400 rounded-lg flex items-center justify-center"><EmojiIcon emoji="🚀" size={18} /></span>
                                             <h3 className="text-base font-semibold text-ink-primary">Key Objectives</h3>
                                         </div>
                                         <p className="text-sm text-ink-secondary leading-relaxed">&ldquo;{store.objectives}&rdquo;</p>

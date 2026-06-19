@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface RecentItem {
   id: number;
@@ -120,7 +121,7 @@ export function CelebrationAnimation({ show, onComplete }: { show: boolean; onCo
               animate={{ scale: [0, 1.2, 1] }}
               transition={{ duration: 0.5 }}
               className="text-7xl mb-4"
-            >🎉</motion.div>
+            ><EmojiIcon emoji="🎉" size={16} /></motion.div>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRecommendations } from '@/lib/hooks/use-swr';
 import ListingCard from '@/components/ListingCard';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function RecommendedForYou({ userId, limit = 4 }: { userId?: string, limit?: number }) {
     const { recommendations, isLoading: recLoading } = useRecommendations(userId ? 'personalized' : 'trending', limit);
@@ -23,7 +24,7 @@ export default function RecommendedForYou({ userId, limit = 4 }: { userId?: stri
         return (
             <section className="py-16">
                 <div className="flex items-center gap-3 mb-8">
-                    <span className="text-3xl">✨</span>
+                    <EmojiIcon emoji="✨" size={28} />
                     <h2 className="text-3xl font-black text-ink-primary">Recommended For You</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -40,7 +41,7 @@ export default function RecommendedForYou({ userId, limit = 4 }: { userId?: stri
         return (
             <section className="py-16 border-t border-border-primary">
                 <div className="flex items-center gap-3 mb-8">
-                    <span className="text-3xl">🔥</span>
+                    <EmojiIcon emoji="🔥" size={28} />
                     <h2 className="text-3xl font-black text-ink-primary">Trending Now</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

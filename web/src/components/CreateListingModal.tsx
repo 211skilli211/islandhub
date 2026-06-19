@@ -3,6 +3,7 @@ import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import { useEffect } from 'react';
 import DynamicForm from './marketplace/DynamicForm';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface CreateListingModalProps {
     isOpen: boolean;
@@ -185,7 +186,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
                         onClick={() => handleTypeSelect(opt.type as ListingType)}
                         className="rounded-lg border border-ink-300 bg-surface-elevated px-6 py-5 shadow-sm flex flex-col items-center space-y-2 hover:border-teal-500 hover:bg-accent-500/10 transition-all focus:outline-none"
                     >
-                        <span className="text-4xl">{opt.icon}</span>
+                        <EmojiIcon emoji={opt.icon} size={40} />
                         <span className="text-sm font-medium text-ink-900">{opt.label}</span>
                         <span className="text-xs text-ink-500">{opt.desc}</span>
                     </button>
