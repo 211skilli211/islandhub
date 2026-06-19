@@ -18,7 +18,7 @@ import { EmojiIcon } from '@/components/ui/EmojiIcon';
 const HUB_ICON_MAP: Record<string, LucideIcon> = {
     food: UtensilsCrossed, product: ShoppingBag, service: Wrench, tour: Map,
     transport: CarTaxiFront, rental: Home, campaign: Heart, community: TreePine,
-    shop: Store, professional: Briefcase, automotive: Car, beauty: Sparkles,
+    shop: Store, professional: Briefcase, automotive: Car, beauty: Star,
     marine: Anchor, events: PartyPopper, land: Mountain, sea: Waves,
     adventure: Gem, charter: Sailboat, ride: CarTaxiFront, delivery: Package,
     moving: Truck, kitchen: Flame, restaurant: UtensilsCrossed, cafe: Coffee,

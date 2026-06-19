@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import {
-    Sparkles, Wind, Zap, Eye, EyeOff, Palette, Layers,
+    Stars, Wind, Zap, Eye, EyeOff, Palette, Layers,
     ChevronDown, ChevronUp, RotateCcw, Save, ToggleLeft, ToggleRight
 } from 'lucide-react';
 
@@ -190,7 +190,7 @@ export default function VisualEffectsPanel() {
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center">
-                        <Sparkles size={20} className="text-white" />
+                        <Stars size={20} className="text-white" />
                     </div>
                     <div>
                         <h3 className="text-lg font-black text-ink-primary">Visual Effects</h3>
@@ -219,7 +219,7 @@ export default function VisualEffectsPanel() {
                         <div className="flex gap-1 p-1 bg-surface-secondary rounded-2xl border border-border-primary">
                             {([
                                 { id: 'hero' as const, label: 'Hero', icon: <Layers size={14} /> },
-                                { id: 'effects' as const, label: 'Effects', icon: <Sparkles size={14} /> },
+                                { id: 'effects' as const, label: 'Effects', icon: <Stars size={14} /> },
                                 { id: 'accessibility' as const, label: 'Accessibility', icon: <Eye size={14} /> },
                             ]).map(tab => (
                                 <button

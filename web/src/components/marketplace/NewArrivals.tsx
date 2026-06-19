@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { getImageUrl } from '@/lib/api';
-import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Stars } from 'lucide-react';
 
 type NewArrival = {
   id: number | string;
@@ -96,7 +96,7 @@ export default function NewArrivals({
     <section className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-ink-primary flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-amber-500" />
+          <Stars className="h-4 w-4 text-amber-500" />
           {title}
         </h2>
         <div className="flex items-center gap-2">

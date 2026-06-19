@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Search, Mic, Sparkles } from 'lucide-react';
+import { Search, Mic, Stars } from 'lucide-react';
 
 interface SearchResult {
     type: 'product' | 'store' | 'tour' | 'listing';
@@ -138,7 +138,7 @@ export function NaturalLanguageSearch() {
                         }}
                         className="px-3 py-1.5 text-sm bg-ink-100 hover:bg-ink-200 text-ink-700 rounded-full transition-colors flex items-center gap-1"
                     >
-                        <Sparkles className="h-3 w-3 text-blue-500" />
+                        <Stars className="h-3 w-3 text-blue-500" />
                         {item.label}
                     </button>
                 ))}

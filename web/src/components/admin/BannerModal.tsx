@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Smartphone, Monitor, Sparkles, Users, Timer, Tag, ShoppingBag, Flame, Gem, Gift, Megaphone, Shield, Building2, Utensils, Briefcase, Target, Store } from 'lucide-react';
+import { X, Smartphone, Monitor, Stars, Users, Timer, Tag, ShoppingBag, Flame, Gem, Gift, Megaphone, Shield, Building2, Utensils, Briefcase, Target, Store } from 'lucide-react';
 import toast from '@/lib/toast';
 
 interface BannerModalProps {
@@ -65,7 +65,7 @@ const LOCATIONS = [
 ];
 
 const ICONS = [
-    { emoji: '✨', icon: Sparkles },
+    { emoji: '✨', icon: Stars },
     { emoji: '🚨', icon: Timer },
     { emoji: '🏷️', icon: Tag },
     { emoji: '🏝️', icon: Building2 },
@@ -210,7 +210,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
     // Get the icon component for preview
     const getIconComponent = (emoji: string) => {
         const iconData = ICONS.find(i => i.emoji === emoji);
-        return iconData?.icon || Sparkles;
+        return iconData?.icon || Stars;
     };
 
     const IconComponent = getIconComponent(formData.icon || '✨');
@@ -1261,7 +1261,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             <div className="mt-6 space-y-3">
                                 <div className="bg-surface-elevated rounded-xl p-4 border border-border-primary">
                                     <h4 className="text-xs font-black text-ink-primary uppercase mb-2 flex items-center gap-2">
-                                        <Sparkles size={12} className="text-accent-500" />
+                                        <Stars size={12} className="text-accent-500" />
                                         Layout Features
                                     </h4>
                                     <ul className="text-[11px] text-ink-secondary space-y-1">

@@ -23,7 +23,7 @@ const EMOJI_TO_LUCIDE: Record<string, keyof typeof LucideIcons> = {
     // Community & Social
     '❤': 'Heart', '🤝': 'Handshake', '🌴': 'TreePine', '👥': 'Users', '💬': 'MessageCircle', '📸': 'Camera',
     // Objects & Symbols
-    '🔥': 'Flame', '✨': 'Sparkles', '🎬': 'Film', '🎯': 'Target', '💡': 'Lightbulb', '📚': 'BookOpen',
+    '🔥': 'Flame', '✨': 'Star', '🎬': 'Film', '🎯': 'Target', '💡': 'Lightbulb', '📚': 'BookOpen',
     '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'Tag', '📦': 'Package',
     '🎉': 'PartyPopper', '🎁': 'Gift', '💎': 'Gem',
 };
