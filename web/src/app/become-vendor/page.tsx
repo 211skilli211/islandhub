@@ -6,6 +6,7 @@ import { useAuthStore } from '@/lib/auth';
 import api, { getImageUrl } from '@/lib/api';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const CATEGORIES = [
     { id: 'food', name: 'Food & Dining', icon: '🍲', subTypes: ['Restaurant', 'Ghost Kitchen', 'Catering', 'Street Food', 'Juice Bar & Smoothies', 'Ital & Vegan', 'Dessert & Treats', 'Snackette', 'Bakery'] },
@@ -204,10 +205,10 @@ function BecomeVendorContent() {
                     {step === 1 && (
                         <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
                             className="bg-surface-elevated rounded-[3rem] p-12 shadow-2xl shadow-black/10 border border-border-primary text-center">
-                            <span className="text-6xl mb-8 block">🚀</span>
+                            <EmojiIcon emoji="🚀" size={56} className="mb-8 block" />
                             <h1 className="text-4xl font-black text-ink-primary mb-6 tracking-tight italic">Ready to make waves?</h1>
                             <p className="text-ink-tertiary font-medium text-lg max-w-xl mx-auto mb-12">Join hundreds of island entrepreneurs who are growing their business with IslandHub.</p>
-                            <button onClick={nextStep} className="px-12 py-5 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-accent-500/10 transition-all">Let's Get Started ⚡</button>
+                            <button onClick={nextStep} className="px-12 py-5 bg-accent-500 hover:bg-accent-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-accent-500/10 transition-all">Let's Get Started <EmojiIcon emoji="⚡" size={18} className="inline-flex" /></button>
                         </motion.div>
                     )}
 
@@ -223,7 +224,7 @@ function BecomeVendorContent() {
                                         const isService = cat.id === 'services';
                                         setFormData({ ...formData, category: cat.id, sub_type: '', type: isService ? 'service' : 'product' });
                                     }} className={`p-8 rounded-[2.5rem] text-left transition-all border-4 ${formData.category === cat.id ? 'bg-accent-500/10 border-teal-500 shadow-xl' : 'bg-surface-elevated border-transparent hover:border-border-primary hover:bg-surface-primary/50'}`}>
-                                        <div className="text-4xl mb-4">{cat.icon}</div>
+                                        <EmojiIcon emoji={cat.icon} size={40} className="mb-4" />
                                         <h3 className="text-xl font-black text-ink-primary mb-2">{cat.name}</h3>
                                         <p className="text-ink-tertiary text-sm font-medium">Connect with buyers looking for {cat.name.toLowerCase()}.</p>
                                     </button>

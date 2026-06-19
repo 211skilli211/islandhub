@@ -12,6 +12,7 @@ import CartDrawer from '@/components/cart/CartDrawer';
 import { getImageUrl } from '@/lib/api';
 import NotificationCenter from './NotificationCenter';
 import { Search, Menu, X, ShoppingCart, Sun, Moon } from 'lucide-react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const NAV_LINKS = [
   { href: '/hub', label: 'Explore' },
@@ -130,7 +131,7 @@ export default function Navbar() {
                             href={hub.href}
                             className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors"
                           >
-                            <span className="text-base">{hub.emoji}</span>
+                            <EmojiIcon emoji={hub.emoji} size={16} />
                             {hub.label}
                           </Link>
                         ))}
@@ -295,7 +296,7 @@ export default function Navbar() {
                 {EXPLORE_HUBS.filter(h => h.group === 'Marketplace').map((hub) => (
                   <Link key={hub.href} href={hub.href} onClick={() => setMobileOpen(false)}
                     className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white rounded-xl transition-colors">
-                    <span>{hub.emoji}</span>
+                    <EmojiIcon emoji={hub.emoji} size={16} />
                     {hub.label}
                   </Link>
                 ))}
@@ -306,7 +307,7 @@ export default function Navbar() {
                 {EXPLORE_HUBS.filter(h => h.group !== 'Marketplace').map((hub) => (
                   <Link key={hub.href} href={hub.href} onClick={() => setMobileOpen(false)}
                     className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-white/70 hover:bg-white/10 hover:text-white rounded-xl transition-colors">
-                    <span>{hub.emoji}</span>
+                    <EmojiIcon emoji={hub.emoji} size={16} />
                     {hub.label}
                   </Link>
                 ))}

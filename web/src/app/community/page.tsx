@@ -8,6 +8,7 @@ import api from '@/lib/api';
 import Aurora from '@/components/react-bits/backgrounds/Aurora';
 import BlurText from '@/components/react-bits/text/BlurText';
 import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface StoryPreview {
   id: number;
@@ -105,7 +106,7 @@ export default function CommunityFeedPage() {
             animate={{ opacity: 1, scale: 1 }}
             className="inline-block px-4 py-2 bg-surface-elevated/10 backdrop-blur-xl rounded-full text-accent-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-white/10"
           >
-            Island Community 🌴
+            Island Community <EmojiIcon emoji="🌴" size={14} className="inline-flex" />
           </motion.div>
           <BlurText
             text="Your Island, Your Community"
@@ -140,7 +141,7 @@ export default function CommunityFeedPage() {
                     href={card.href}
                     className={`block bg-gradient-to-br ${card.color} rounded-2xl p-4 sm:p-5 text-white hover:scale-[1.02] hover:shadow-xl transition-all group`}
                   >
-                    <span className="text-2xl sm:text-3xl block mb-2 group-hover:scale-110 transition-transform">{card.emoji}</span>
+                    <EmojiIcon emoji={card.emoji} size={28} className="block mb-2" />
                     <h3 className="text-sm sm:text-base font-black tracking-tight">{card.title}</h3>
                     <p className="text-[10px] sm:text-xs text-white/70 mt-1 leading-snug">{card.desc}</p>
                   </Link>
