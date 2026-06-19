@@ -21,10 +21,10 @@ const EMOJI_TO_LUCIDE: Record<string, keyof typeof LucideIcons> = {
     // Transport
     '🚕': 'CarTaxiFront', '📦': 'Package', '🚤': 'Ship', '🚌': 'Bus', '✈': 'Plane',
     // Community & Social
-    '❤': 'Heart', '🤝': 'Handshake', '🌴': 'TreePine', '👥': 'Users', '💬': 'MessageCircle', '📸': 'Camera',
+    '❤': 'Heart', '🤝': 'Handshake', '👥': 'Users', '💬': 'MessageCircle', '📸': 'Camera',
     // Objects & Symbols
     '🔥': 'Flame', '✨': 'Star', '🎬': 'Film', '🎯': 'Target', '💡': 'Lightbulb', '📚': 'BookOpen',
-    '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'Tag', '📦': 'Package',
+    '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'Tag',
     '🎉': 'PartyPopper', '🎁': 'Gift', '💎': 'Gem',
 };
 
