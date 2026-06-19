@@ -118,8 +118,8 @@ export function EmojiIcon({
     if (!iconName) iconName = EMOJI_TO_LUCIDE[emoji.charAt(0)];
     if (!iconName && emoji.length >= 2) iconName = EMOJI_TO_LUCIDE[emoji.slice(0, 2)];
 
-    if (iconName && (LucideIcons as Record<string, LucideIcon>)[iconName]) {
-        const Icon = (LucideIcons as Record<string, LucideIcon>)[iconName];
+    if (iconName && (LucideIcons as unknown as Record<string, LucideIcon>)[iconName]) {
+        const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName];
         if (animate) {
             return (
                 <motion.span
