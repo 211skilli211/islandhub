@@ -176,7 +176,7 @@ export function EmojiText({
             const chunk = remaining.slice(0, len);
             const iconName = EMOJI_TO_LUCIDE[chunk] || EMOJI_TO_LUCIDE[chunk.charAt(0)];
             if (iconName) {
-                const Icon = (LucideIcons as Record<string, LucideIcon>)[iconName];
+                const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName];
                 if (Icon) {
                     if (animate) {
                         parts.push(
