@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, type ReactNode } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    UtensilsCrossed, ShoppingBag, Wrench, Map, Taxi, Home, Heart, TreePine,
+    UtensilsCrossed, ShoppingBag, Wrench, Map, CarTaxiFront, Home, Heart, TreePine,
     Store, Car, Briefcase, Anchor, PartyPopper, Mountain, Waves, Sailboat, Gem,
     Package, Truck, Flame, Coffee, Beer, Palette, Shirt, Pill, Star, Search,
     type LucideIcon,
@@ -12,14 +12,15 @@ import {
 import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 import BrandMarquee from '@/components/BrandMarquee';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // ─── Icon Map (replaces emoji icons) ──────────────────────────
 const HUB_ICON_MAP: Record<string, LucideIcon> = {
     food: UtensilsCrossed, product: ShoppingBag, service: Wrench, tour: Map,
-    transport: Taxi, rental: Home, campaign: Heart, community: TreePine,
+    transport: CarTaxiFront, rental: Home, campaign: Heart, community: TreePine,
     shop: Store, professional: Briefcase, automotive: Car, beauty: Sparkles,
     marine: Anchor, events: PartyPopper, land: Mountain, sea: Waves,
-    adventure: Gem, charter: Sailboat, ride: Taxi, delivery: Package,
+    adventure: Gem, charter: Sailboat, ride: CarTaxiFront, delivery: Package,
     moving: Truck, kitchen: Flame, restaurant: UtensilsCrossed, cafe: Coffee,
     grill: Beer, specialty: Palette, fashion: Shirt, health: Pill,
 };

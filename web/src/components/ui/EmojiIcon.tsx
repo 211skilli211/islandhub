@@ -9,23 +9,23 @@ import type { LucideIcon } from 'lucide-react';
  */
 const EMOJI_TO_LUCIDE: Record<string, keyof typeof LucideIcons> = {
     // Food & Dining
-    '🍽️': 'UtensilsCrossed', '🍳': 'Flame', '🍜': 'Soup', '☕': 'Coffee', '🍺': 'Beer', '🧁': 'CupcakeCookie',
+    '🍽️': 'UtensilsCrossed', '🍳': 'Flame', '🍜': 'Soup', '☕': 'Coffee', '🍺': 'Beer', '🧁': 'Cake',
     // Shopping
     '🛍': 'ShoppingBag', '🛒': 'ShoppingCart',
     // Places & Buildings
-    '🏪': 'Store', '🏠': 'Home', '🏖': 'Sun', '🏢': 'Building2', '🏝': 'Palmtree', '🌴': 'TreePine', '🌱': 'Sprout',
+    '🏪': 'Store', '🏠': 'Home', '🏖': 'Sun', '🏢': 'Building2', '🏝': 'TreePalm', '🌴': 'TreePine', '🌱': 'Sprout',
     // Services & Work
     '🛠': 'Wrench', '💼': 'Briefcase', '🚗': 'Car', '💊': 'Pill', '👗': 'Shirt', '🎨': 'Palette',
     // Tours & Travel
     '🗺': 'Map', '🎟': 'Ticket', '🥾': 'Footprints', '🌊': 'Waves', '⛵': 'Sailboat', '🧗': 'Mountain', '⚓': 'Anchor',
     // Transport
-    '🚕': 'Taxi', '📦': 'Package', '🚤': 'Ship', '🚌': 'Bus', '✈': 'Plane',
+    '🚕': 'CarTaxiFront', '📦': 'Package', '🚤': 'Ship', '🚌': 'Bus', '✈': 'Plane',
     // Community & Social
     '❤': 'Heart', '🤝': 'Handshake', '🌴': 'TreePine', '👥': 'Users', '💬': 'MessageCircle', '📸': 'Camera',
     // Objects & Symbols
     '🔥': 'Flame', '✨': 'Sparkles', '🎬': 'Film', '🎯': 'Target', '💡': 'Lightbulb', '📚': 'BookOpen',
-    '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'BadgeDollarSign', '📦': 'Package',
-    '🎉': 'PartyPopper', '🎁': 'BadgeAward', '💎': 'Gem',
+    '🚀': 'Rocket', '🤖': 'Bot', '⚙': 'Settings', '🏷': 'Tag', '📦': 'Package',
+    '🎉': 'PartyPopper', '🎁': 'Gift', '💎': 'Gem',
 };
 
 /**
