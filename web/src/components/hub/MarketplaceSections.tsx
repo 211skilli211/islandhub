@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // ─── Hero Slider (Best Buy style manual carousel) ─────────────────────────────
 
@@ -191,7 +192,7 @@ export function CategoryTiles({ title, tiles, columns = 3, className = '' }: Cat
               {tile.imageUrl ? (
                 <img src={tile.imageUrl} alt={tile.label} className="w-full h-full object-cover" loading="lazy" />
               ) : (
-                <span className="text-2xl leading-none">{tile.emoji || '📦'}</span>
+                <span className="text-2xl leading-none"><EmojiIcon emoji={tile.emoji || '📦'} size={28} /></span>
               )}
             </div>
             <span className="text-[10px] sm:text-xs font-medium text-ink-secondary group-hover:text-accent-500 text-center leading-tight">
@@ -223,7 +224,7 @@ export function DealCard({ imageUrl, emoji, offerText, description, ctaText = 'S
         {imageUrl ? (
           <img src={imageUrl} alt={offerText} className="w-full h-full object-cover" loading="lazy" />
         ) : (
-          <span className="text-3xl">{emoji || '🏷️'}</span>
+          <span className="text-3xl"><EmojiIcon emoji={emoji || '🏷️'} size={32} /></span>
         )}
       </div>
       <div className="p-3">
@@ -256,7 +257,7 @@ export function PromoCard({ imageUrl, emoji, headline, description, ctaText = 'E
         {imageUrl ? (
           <img src={imageUrl} alt={headline} className="w-full h-full object-cover" loading="lazy" />
         ) : (
-          <span className="text-3xl">{emoji || '🎯'}</span>
+          <span className="text-3xl"><EmojiIcon emoji={emoji || '🎯'} size={32} /></span>
         )}
       </div>
       <div className="p-3">

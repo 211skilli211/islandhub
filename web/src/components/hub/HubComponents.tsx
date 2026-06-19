@@ -3,9 +3,27 @@
 import { useState, useEffect, useMemo, type ReactNode } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+    UtensilsCrossed, ShoppingBag, Wrench, Map, Taxi, Home, Heart, TreePine,
+    Store, Car, Briefcase, Anchor, PartyPopper, Mountain, Waves, Sailboat, Gem,
+    Package, Truck, Flame, Coffee, Beer, Palette, Shirt, Pill, Star, Search,
+    type LucideIcon,
+} from 'lucide-react';
 import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 import BrandMarquee from '@/components/BrandMarquee';
+
+// ─── Icon Map (replaces emoji icons) ──────────────────────────
+const HUB_ICON_MAP: Record<string, LucideIcon> = {
+    food: UtensilsCrossed, product: ShoppingBag, service: Wrench, tour: Map,
+    transport: Taxi, rental: Home, campaign: Heart, community: TreePine,
+    shop: Store, professional: Briefcase, automotive: Car, beauty: Sparkles,
+    marine: Anchor, events: PartyPopper, land: Mountain, sea: Waves,
+    adventure: Gem, charter: Sailboat, ride: Taxi, delivery: Package,
+    moving: Truck, kitchen: Flame, restaurant: UtensilsCrossed, cafe: Coffee,
+    grill: Beer, specialty: Palette, fashion: Shirt, health: Pill,
+};
+
 
 // ─── Types ───────────────────────────────────────────────────
 export interface Store {
@@ -89,9 +107,16 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
         community: 'from-green-50 via-emerald-50 to-teal-50',
     };
 
-    const emojiMap: Record<string, string> = {
-        food: '🍜', product: '🛍️', service: '🛠️', tour: '🗺️',
-        transport: '🚕', rental: '🏠', campaign: '❤️', community: '🌴',
+    const AnimatedStoreIcon = ({ variant, size = 40 }: { variant: string; size?: number }) => {
+        const Icon = HUB_ICON_MAP[variant] || Store;
+        return (
+            <motion.div
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            >
+                <Icon size={size} className="text-current" />
+            </motion.div>
+        );
     };
 
     const accentColors: Record<string, string> = {
@@ -117,9 +142,9 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
     };
 
     const labels: Record<string, string> = {
-        food: '🛒 Order Now', product: '🛍️ Shop Now', service: '📞 Book Now',
-        tour: '🗺️ Explore', transport: '🚕 Book Ride', rental: '🏠 Book Now',
-        campaign: '❤️ Support', community: '🌴 Join',
+        food: 'Order Now', product: 'Shop Now', service: 'Book Now',
+        tour: 'Explore', transport: 'Book Ride', rental: 'Book Now',
+        campaign: 'Support', community: 'Join',
     };
 
     return (
@@ -141,8 +166,8 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                     ) : (
-                        <div className={`w-full h-full bg-gradient-to-br ${bgGradients[variant] || bgGradients.product} flex items-center justify-center`}>
-                            <span className="text-4xl">{emojiMap[variant] || '🏪'}</span>
+                        <div className={`w-full h-full bg-gradient-to-br ${bgGradients[variant] || bgGradients.product} flex items-center justify-center text-white/80`}>
+                            <AnimatedStoreIcon variant={variant} />
                         </div>
                     )}
                     
@@ -155,11 +180,11 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
                     )}
                     
                     {store.is_trending && (
-                        <div className="absolute top-2 right-2">
+                        <motion.div className="absolute top-2 right-2" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
                             <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500 text-white shadow-sm">
-                                🔥
+                                <Flame size={12} className="text-white" />
                             </span>
-                        </div>
+                        </motion.div>
                     )}
                     
                     <div className="absolute bottom-2 left-2 w-8 h-8 rounded-lg overflow-hidden border-2 border-white dark:border-ocean-700 shadow-md bg-surface-elevated dark:bg-ocean-800 z-10">
@@ -215,7 +240,7 @@ export function HubHero({ config, totalStores, searchTerm, onSearch, children }:
             >
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
                     className="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-elevated/15 backdrop-blur-md rounded-full text-white/90 text-sm font-semibold mb-5 ring-1 ring-white/20">
-                    {config.heroEmoji} {config.type.charAt(0).toUpperCase() + config.type.slice(1)} Hub
+                    {HUB_ICON_MAP[config.type] && (() => { const Icon = HUB_ICON_MAP[config.type]; return <Icon size={16} className="text-white" />; })()} {config.type.charAt(0).toUpperCase() + config.type.slice(1)} Hub
                 </motion.div>
 
                 <h1 className="text-5xl md:text-7xl font-black text-white mb-3 drop-shadow-xl leading-tight">
@@ -246,7 +271,13 @@ export function HubHero({ config, totalStores, searchTerm, onSearch, children }:
                     </div>
                     <div className="w-px h-10 bg-surface-elevated/20" />
                     <div className="text-center">
-                        <div className="text-3xl font-black text-white">{config.heroStats.emoji}</div>
+                        <motion.div
+                            className="text-3xl font-black text-white flex items-center justify-center"
+                            animate={{ y: [0, -4, 0] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                        >
+                            <TreePine size={28} className="text-white" />
+                        </motion.div>
                         <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">Island</div>
                     </div>
                 </div>
@@ -268,6 +299,7 @@ export function CategoryFilterBar({ categories, activeCategory, onCategoryChange
                     {categories.map(cat => {
                         const count = cat.id === 'all' ? totalStores : (storesByCategory[cat.id]?.length || 0);
                         const isActive = activeCategory === cat.id;
+                        const CatIcon = HUB_ICON_MAP[cat.id];
                         return (
                             <button key={cat.id} onClick={() => onCategoryChange(cat.id)}
                                 className={`relative inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold transition-all duration-200 whitespace-nowrap ${
@@ -275,7 +307,7 @@ export function CategoryFilterBar({ categories, activeCategory, onCategoryChange
                                         ? `bg-gradient-to-r ${theme.gradient} text-white shadow-lg`
                                         : `bg-surface-secondary dark:bg-ocean-700 text-ink-secondary dark:text-ink-tertiary hover:${theme.lightBg} ${theme.lightText} ring-1 ring-ink-200 dark:ring-ocean-600`
                                 }`}>
-                                <span className="text-base">{cat.icon}</span>
+                                {CatIcon ? <CatIcon size={16} /> : <span className="text-base">{cat.icon}</span>}
                                 <span>{cat.title}</span>
                                 <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isActive ? 'bg-surface-elevated/25 text-white' : `${theme.lightBg} ${theme.lightText}`}`}>
                                     {loading ? '…' : count}
@@ -291,18 +323,30 @@ export function CategoryFilterBar({ categories, activeCategory, onCategoryChange
 
 // ─── Hub CTA Section ──────────────────────────────────────────
 export function HubCTA({ config }: { config: HubPageConfig }) {
+    const CtaIcon = HUB_ICON_MAP[config.type] || Store;
     return (
         <section className="relative overflow-hidden">
             <div className={`absolute inset-0 bg-gradient-to-br ${config.theme.gradient}`} />
             <div className="relative z-10 py-20 px-6">
                 <div className="max-w-3xl mx-auto text-center">
-                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.1, type: 'spring', stiffness: 200 }} className="text-6xl mb-6">
-                        {config.ctaEmoji}
+                    <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+                        className="mb-6 text-white"
+                    >
+                        <motion.div
+                            animate={{ y: [0, -6, 0] }}
+                            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                            className="inline-block"
+                        >
+                            <CtaIcon size={56} strokeWidth={1.5} />
+                        </motion.div>
                     </motion.div>
                     <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">{config.ctaTitle}</h2>
                     <p className="text-white/85 text-lg md:text-xl mb-10 font-medium max-w-xl mx-auto">{config.ctaSubtitle}</p>
                     <Link href="/become-vendor" className="inline-flex items-center gap-2 px-10 py-4 bg-surface-elevated text-ink-primary font-extrabold rounded-2xl hover:bg-surface-secondary transition-all shadow-2xl shadow-black/20 text-sm uppercase tracking-wider group">
-                        <span>🚀</span> Become a Vendor
+                        <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>🚀</motion.span> Become a Vendor
                         <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
                 </div>
@@ -328,7 +372,7 @@ export function HubEmptyState({ emoji, title, message, onClear }: {
 }) {
     return (
         <div className="text-center py-24">
-            <span className="text-7xl mb-5 block">{emoji}</span>
+            <span className="text-7xl mb-5 block"><EmojiIcon emoji={emoji} size={64} /></span>
             <h3 className="text-2xl font-extrabold text-ink-primary dark:text-sand-50 mb-2">{title}</h3>
             <p className="text-ink-tertiary dark:text-ink-tertiary mb-8 max-w-md mx-auto">{message}</p>
             <button onClick={onClear} className="inline-flex items-center gap-2 px-8 py-3.5 bg-ocean-500 hover:bg-ocean-400 text-white font-bold rounded-2xl transition-all shadow-xl">

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { RatingBadge, UrgencyCue } from '@/components/hub/SharedComponents';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import { getImageUrl } from '@/lib/api';
 
 // ─── Discount Badge ───────────────────────────────────────────────────────────
@@ -85,7 +86,7 @@ export function ProductCard({
             <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-surface-secondary to-surface-tertiary">
-              {emoji}
+              <EmojiIcon emoji={emoji || '📦'} size={32} />
             </div>
           )}
           

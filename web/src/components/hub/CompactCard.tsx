@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { RatingBadge } from '@/components/hub/SharedComponents';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import { getImageUrl } from '@/lib/api';
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -44,7 +45,7 @@ export function CompactCard({
             <img src={img} alt={title} className="w-full h-full object-cover" loading="lazy" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-3xl leading-none bg-gradient-to-br from-surface-secondary to-surface-tertiary">
-              {emoji}
+              <EmojiIcon emoji={emoji} size={32} />
             </div>
           )}
           
@@ -142,7 +143,7 @@ export function CompactHubPage({
       
       <section className={`bg-gradient-to-br ${gradient} py-6 px-4`}>
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight">{emoji} {title}</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight"><EmojiIcon emoji={emoji} size={28} className="inline-block mr-1" /> {title}</h1>
           <p className="text-sm text-white/70 max-w-xl mx-auto">{subtitle}</p>
         </div>
       </section>
@@ -195,7 +196,7 @@ export function CompactHubPage({
           </div>
         ) : items.length === 0 ? (
           <div className="py-16 text-center">
-            <div className="text-4xl mb-3">{emptyEmoji}</div>
+            <div className="text-4xl mb-3"><EmojiIcon emoji={emptyEmoji} size={40} /></div>
             <h3 className="text-base font-bold text-ink-primary mb-1">{emptyTitle}</h3>
             <p className="text-xs text-ink-tertiary">{emptyMessage}</p>
           </div>
