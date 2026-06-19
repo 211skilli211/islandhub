@@ -39,7 +39,7 @@ const EMOJI_TO_LUCIDE: Record<string, string> = {
     // Nature & Weather
     '☀️': 'Sun', '⭐': 'Star', '🌟': 'Star', '🌙': 'Moon', '🌑': 'Moon', '🌃': 'Moon',
     '🌅': 'Sunrise', '🌈': 'Rainbow', '🌋': 'Mountain', '🌌': 'Stars', '🌍': 'Globe', '🌎': 'Globe', '🌐': 'Globe',
-    '🌩️': 'CloudLightning', '❄': 'Snowflake', '🌃': 'Moon',
+    '🌩️': 'CloudLightning', '❄': 'Snowflake',
     // UI & Actions
     '✅': 'Check', '❌': 'X', '❓': 'HelpCircle', '➕': 'Plus', '➡️': 'ArrowRight',
     '⚠️': 'AlertTriangle', '🔍': 'Search', '🔎': 'Search', '🔒': 'Lock', '🔓': 'Unlock',
@@ -75,7 +75,7 @@ const EMOJI_TO_LUCIDE: Record<string, string> = {
     '🎓': 'GraduationCap', '🎪': 'Tent', '🎫': 'Ticket', '🎵': 'Music', '🎥': 'Film',
     '🎒': 'Backpack', '🎛️': 'Sliders', '🏁': 'Flag', '🏆': 'Trophy',
     '🏖️': 'Sun', '🏝️': 'TreePalm', '🏎️': 'Car', '🏍️': 'Bike',
-    '🚪': 'DoorOpen', '🛣': 'Construction', '🕸': 'Spider', '🖼': 'Image',
+    '🛣': 'Construction', '🕸': 'Spider', '🖼': 'Image',
     '🗺️': 'Map', '🛰️': 'Satellite', '🤳': 'Camera',
     '✂': 'Scissors', '✉': 'Mail', '✋': 'Hand', '✏': 'Pencil', '✓': 'Check', '✔': 'Check',
     '✕': 'X', '✗': 'X', '➔': 'ArrowRight', '➤': 'ArrowRight',
