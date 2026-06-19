@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '@/lib/auth';
 import { useTheme } from '@/components/ThemeContext';
 import { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function UserProfileDropdown() {
     const [isOpen, setIsOpen] = useState(false);
@@ -178,12 +179,12 @@ export default function UserProfileDropdown() {
                         >
                             {theme === 'dark' ? (
                                 <>
-                                    <span className="text-base">☀️</span>
+                                    <EmojiIcon emoji="☀️" size=16 className="text-base" />
                                     Light Mode
                                 </>
                             ) : (
                                 <>
-                                    <span className="text-base">🌙</span>
+                                    <EmojiIcon emoji="🌙" size=16 className="text-base" />
                                     Dark Mode
                                 </>
                             )}

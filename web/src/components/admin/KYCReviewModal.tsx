@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { getImageUrl, api } from '@/lib/api';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface KYCSubmission {
     kyc_id: number;
@@ -74,7 +75,7 @@ export default function KYCReviewModal({ submission, onClose, onAction }: KYCRev
                         <p className="text-sm text-ink-tertiary">{submission.business_name}</p>
                         <p className="text-xs text-ink-tertiary">{submission.email}</p>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-surface-secondary rounded-lg">✕</button>
+                    <button onClick={onClose} className="p-2 hover:bg-surface-secondary rounded-lg"><EmojiIcon emoji="✕" size=16 /></button>
                 </div>
 
                 

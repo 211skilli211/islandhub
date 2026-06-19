@@ -6,6 +6,7 @@ import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface KYCStatus {
   status: 'none' | 'pending' | 'approved' | 'rejected';
@@ -122,7 +123,7 @@ export default function DriverVerificationPage() {
     return (
       <div className="min-h-screen bg-surface-primary flex items-center justify-center p-4">
         <div className="max-w-md w-full text-center">
-          <div className="text-6xl mb-4">✅</div>
+          <EmojiIcon emoji="✅" size=48 className="text-6xl mb-4" />
           <h1 className="text-2xl font-black text-ink-primary mb-2">You're Verified!</h1>
           <p className="text-ink-tertiary mb-6">Your driver account is fully verified. Start accepting jobs now.</p>
           <div className="flex gap-3">
@@ -178,7 +179,7 @@ export default function DriverVerificationPage() {
     return (
       <div className="min-h-screen bg-surface-primary flex items-center justify-center p-4">
         <div className="max-w-md w-full text-center">
-          <div className="text-6xl mb-4">❌</div>
+          <EmojiIcon emoji="❌" size=48 className="text-6xl mb-4" />
           <h1 className="text-2xl font-black text-ink-primary mb-2">Verification Rejected</h1>
           <p className="text-ink-tertiary mb-2">We couldn't verify your documents.</p>
           {kycStatus?.rejection_reason && (
@@ -254,7 +255,7 @@ export default function DriverVerificationPage() {
 
                   {isUploaded ? (
                     <div className="flex items-center gap-2 text-emerald-400 text-sm font-bold">
-                      <span>✓ Document uploaded</span>
+                      <EmojiIcon emoji="✓" size=16 />
                     </div>
                   ) : (
                     <label className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold cursor-pointer transition-all ${

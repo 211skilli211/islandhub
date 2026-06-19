@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 import { Search } from 'lucide-react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Event {
     event_id: number;
@@ -326,11 +327,11 @@ export default function EventsPage() {
                                                 {event.description}
                                             </p>
                                             <div className="flex flex-wrap gap-4 text-sm font-bold text-ink-tertiary">
-                                                <span>📅 {formatDate(event.date)}</span>
-                                                <span>📍 {event.location}</span>
-                                                <span>👥 {event.rsvp_count} attending</span>
+                                                <EmojiIcon emoji="📅" size=16 />
+                                                <EmojiIcon emoji="📍" size=16 />
+                                                <EmojiIcon emoji="👥" size=16 />
                                                 {event.max_attendees && (
-                                                    <span>🎫 {event.max_attendees - event.rsvp_count} spots left</span>
+                                                    <EmojiIcon emoji="🎫" size=16 />
                                                 )}
                                             </div>
                                         </div>

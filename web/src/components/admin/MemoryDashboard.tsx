@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface MemoryStatus {
     contextSizeInBytes: number;
@@ -224,7 +225,7 @@ export default function MemoryDashboard() {
                         </div>
                     ) : (
                         <div className="text-center py-10 text-ink-tertiary">
-                            <span className="text-4xl mb-4 block">🔍</span>
+                            <EmojiIcon emoji="🔍" size=40 className="text-4xl mb-4 block" />
                             <p className="text-sm">No vector memories found. Use the search or store memories.</p>
                         </div>
                     )}
@@ -250,7 +251,7 @@ export default function MemoryDashboard() {
                     ))}
                     {skills.length === 0 && (
                         <div className="col-span-2 text-center py-10 text-ink-tertiary">
-                            <span className="text-4xl mb-4 block">⚡</span>
+                            <EmojiIcon emoji="⚡" size=40 className="text-4xl mb-4 block" />
                             <p className="text-sm">No skills available. Skills load from the agent_skills table.</p>
                         </div>
                     )}
@@ -269,7 +270,7 @@ export default function MemoryDashboard() {
                         className="bg-ink-primary rounded-3xl p-6 border border-border-primary shadow-xl relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <span className="text-4xl text-accent-400">🧠</span>
+                            <EmojiIcon emoji="🧠" size=40 className="text-4xl text-accent-400" />
                         </div>
                         <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent-500/80 mb-6 font-mono">Context Buffer</h4>
                         <div className="flex items-baseline gap-2 mb-2">
@@ -325,7 +326,7 @@ export default function MemoryDashboard() {
                                                     onClick={() => loadFile(file)}
                                                     className={`w-full text-left p-3 rounded-2xl flex items-center gap-3 transition-all ${selectedFile === file ? 'bg-accent-500/100/10 text-accent-400 dark:text-accent-400 border border-teal-500/20 shadow-inner scale-[1.02]' : 'hover:bg-surface-secondary dark:hover:bg-surface-elevated/5 opacity-70 hover:opacity-100 hover:translate-x-1'}`}
                                                 >
-                                                    <span className="text-base">{file.endsWith('.md') ? '📄' : file.endsWith('.txt') ? '📝' : '⚙️'}</span>
+                                                    <span className="text-base">{file.endsWith('.md') ? '📄' : file.endsWith('.txt') ? '📝' : '<EmojiIcon emoji="⚙️" size=16 />'}</span>
                                                     <div className="flex flex-col min-w-0">
                                                         <span className="text-[10px] font-black truncate tracking-tight uppercase">{file.split('/').pop()}</span>
                                                         <span className="text-[8px] opacity-50 truncate italic">
@@ -349,7 +350,7 @@ export default function MemoryDashboard() {
                                             onClick={() => loadFile(file)}
                                             className={`w-full text-left p-2.5 rounded-xl flex items-center gap-3 transition-all ${selectedFile === file ? 'bg-accent-500/100/10 text-accent-400 dark:text-accent-400 border border-teal-500/20 shadow-inner' : 'hover:bg-surface-secondary dark:hover:bg-surface-elevated/5 grayscale opacity-60 hover:grayscale-0 hover:opacity-100'}`}
                                         >
-                                            <span className="text-lg">📄</span>
+                                            <EmojiIcon emoji="📄" size=18 className="text-lg" />
                                             <span className="text-[10px] font-bold truncate tracking-tight">{file}</span>
                                         </button>
                                     ))}

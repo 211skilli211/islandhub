@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { ErrorBoundary, dynamicImportErrorFallback } from '@/components/ErrorBoundary';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // Skeleton components
 function ChartSkeleton({ type }: { type: 'line' | 'bar' | 'pie' }) {
@@ -114,7 +115,7 @@ export const DynamicMap = dynamic(
         loading: () => (
             <div className="w-full h-full min-h-[400px] bg-surface-secondary animate-pulse rounded-2xl flex items-center justify-center">
                 <div className="text-center">
-                    <div className="text-4xl mb-4">🗺️</div>
+                    <EmojiIcon emoji="🗺️" size=40 className="text-4xl mb-4" />
                     <p className="text-ink-tertiary text-sm font-medium">Loading map...</p>
                 </div>
             </div>

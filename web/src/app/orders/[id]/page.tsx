@@ -6,6 +6,7 @@ import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Order {
   order_id: number;
@@ -274,7 +275,7 @@ export default function OrderDetailPage() {
               <h2 className="text-xl font-bold text-ink-primary mb-4">Delivery Information</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{order.delivery_type === 'delivery' ? '🚚' : '🏪'}</span>
+                  <span className="text-2xl">{order.delivery_type === 'delivery' ? '🚚' : '<EmojiIcon emoji="🏪" size=24 />'}</span>
                   <div>
                     <p className="font-semibold text-ink-primary">
                       {order.delivery_type === 'delivery' ? 'Home Delivery' : 'Store Pickup'}

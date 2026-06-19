@@ -8,6 +8,7 @@ import RatingModal from '@/components/RatingModal';
 import { useAuthStore } from '@/lib/auth';
 import DriverOnboarding from './DriverOnboarding';
 import dynamic from 'next/dynamic';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const DispatchMap = dynamic(() => import('@/components/admin/DispatchMap'), { ssr: false });
 
@@ -66,7 +67,7 @@ export default function LogisticsHub() {
                 <div className="mb-12">
                     <div className="bg-gradient-to-r from-teal-600 to-teal-600 p-8 rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-teal-100">
                         <div className="flex items-center gap-6">
-                            <div className="w-16 h-16 bg-surface-elevated/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl">🚀</div>
+                            <EmojiIcon emoji="🚀" size=28 className="w-16 h-16 bg-surface-elevated/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl" />
                             <div>
                                 <h3 className="text-xl font-black italic uppercase italic">Become an Island Driver</h3>
                                 <p className="text-white/80 font-medium text-sm">Earn on your own terms. Deliver joy across the island.</p>
@@ -84,7 +85,7 @@ export default function LogisticsHub() {
 
             {myRequests.length === 0 ? (
                 <div className="py-20 text-center bg-surface-secondary rounded-[3rem] border-2 border-dashed border-border-primary">
-                    <div className="text-5xl mb-4">🚖</div>
+                    <EmojiIcon emoji="🚖" size=48 className="text-5xl mb-4" />
                     <h3 className="text-xl font-black text-ink-primary uppercase italic">No Active Journeys</h3>
                     <p className="text-ink-tertiary font-medium mb-8">Ready to explore? Book a ride or request a delivery.</p>
                 </div>
@@ -199,16 +200,16 @@ export default function LogisticsHub() {
                         <div className="bg-surface-elevated rounded-[3rem] w-full max-w-4xl h-[80vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
                             <div className="p-8 border-b border-border-primary flex justify-between items-center">
                                 <div>
-                                    <h3 className="text-2xl font-black text-ink-primary uppercase italic">On the Way 🚀</h3>
+                                    <h3 className="text-2xl font-black text-ink-primary uppercase italic">On the Way <EmojiIcon emoji="🚀" size=24 /></h3>
                                     <p className="text-xs font-bold text-ink-tertiary uppercase tracking-widest">Tracking Job #{trackingJob.id}</p>
                                 </div>
-                                <button onClick={() => setTrackingJob(null)} className="p-4 bg-ink-primary text-white rounded-2xl font-black text-xs uppercase tracking-widest">Close ✕</button>
+                                <button onClick={() => setTrackingJob(null)} className="p-4 bg-ink-primary text-white rounded-2xl font-black text-xs uppercase tracking-widest">Close <EmojiIcon emoji="✕" size=16 /></button>
                             </div>
                             <div className="flex-1 bg-surface-secondary relative">
                                 <DispatchMap jobs={[trackingJob]} />
                                 <div className="absolute top-8 left-8 p-6 bg-surface-elevated rounded-3xl shadow-2xl z-[1000] border border-border-primary max-w-xs">
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="w-12 h-12 bg-[#14b8a6]/10 rounded-2xl flex items-center justify-center text-2xl">👨‍✈️</div>
+                                        <EmojiIcon emoji="👨‍✈️" size=24 className="w-12 h-12 bg-[#14b8a6]/10 rounded-2xl flex items-center justify-center text-2xl" />
                                         <div>
                                             <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Your Driver</p>
                                             <p className="font-black text-ink-primary">{trackingJob.driver_name || 'Assigned'}</p>

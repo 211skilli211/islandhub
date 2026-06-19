@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { AdminTable, Column } from './shared/AdminTable';
 import AdVisualManager from './AdVisualManager';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface AdSpace {
     space_id: number;
@@ -124,9 +125,9 @@ export default function AdManagementTab() {
             header: 'Analytics',
             accessor: (ad) => (
                 <div className="flex gap-4 text-[10px] font-black uppercase tracking-widest">
-                    <div className="text-ink-tertiary">👁 {ad.impressions || 0}</div>
-                    <div className="text-[#a5b4fc]0">🖱 {ad.clicks || 0}</div>
-                    <div className="text-emerald-400">📈 {ad.impressions > 0 ? ((ad.clicks / ad.impressions) * 100).toFixed(1) : 0}%</div>
+                    <EmojiIcon emoji="👁" size=16 className="text-ink-tertiary" />
+                    <EmojiIcon emoji="🖱" size=16 className="text-[#a5b4fc]0" />
+                    <EmojiIcon emoji="📈" size=16 className="text-emerald-400" />
                 </div>
             )
         },
@@ -258,7 +259,7 @@ export default function AdManagementTab() {
                                 <h3 className="text-xl font-black text-rose-900 italic uppercase">Pending Approval Queue</h3>
                                 <p className="text-[#e11d48] text-xs font-medium mt-1">Review and verify vendor promotions before they go live</p>
                             </div>
-                            <div className="w-16 h-16 bg-surface-elevated rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-rose-100">⚖️</div>
+                            <EmojiIcon emoji="⚖️" size=28 className="w-16 h-16 bg-surface-elevated rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-rose-100" />
                         </div>
                         <AdminTable<PendingPromotion>
                             endpoint="/advertisements/admin/promotions/pending"

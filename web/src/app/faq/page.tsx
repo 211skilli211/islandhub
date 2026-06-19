@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const faqCategories = [
     {
@@ -148,7 +149,7 @@ export default function FAQPage() {
             
             <section className="max-w-2xl mx-auto px-4 -mt-8 relative z-20">
                 <div className="bg-surface-elevated p-2 rounded-[2rem] shadow-2xl flex items-center gap-4">
-                    <span className="pl-6 text-2xl">🔍</span>
+                    <EmojiIcon emoji="🔍" size=24 className="pl-6 text-2xl" />
                     <input 
                         type="text" 
                         placeholder="Search for answers..."

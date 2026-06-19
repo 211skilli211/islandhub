@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Gavel, Clock, DollarSign, TrendingUp, Search, Hammer } from 'lucide-react';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Auction {
     id: number;
@@ -194,7 +195,7 @@ export default function AuctionsPage() {
                     </div>
                 ) : filteredAuctions.length === 0 ? (
                     <div className="text-center py-20">
-                        <div className="text-6xl mb-4">🔨</div>
+                        <EmojiIcon emoji="🔨" size=48 className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No auctions yet</h3>
                         <p className="text-ink-tertiary mb-6">
                             {searchQuery ? 'No auctions match your search.' : 'Be the first to start an auction!'}

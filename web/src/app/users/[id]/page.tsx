@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
 import { MapPin, Link as LinkIcon, Calendar, Mail, ShoppingBag, Star, Grid3X3, Heart } from 'lucide-react';
 import ListingCard from '@/components/ListingCard';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface PublicProfile {
     user_id: number;
@@ -225,7 +226,7 @@ function PublicProfileContent() {
                                     <div className="space-y-3">
                                         {profile.phone && (
                                             <div className="flex items-center gap-3 text-sm text-ink-secondary">
-                                                <span>📞</span>
+                                                <EmojiIcon emoji="📞" size=16 />
                                                 <span>{profile.phone}</span>
                                             </div>
                                         )}

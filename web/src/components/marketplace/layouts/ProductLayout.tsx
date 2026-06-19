@@ -14,6 +14,7 @@ import { useStoreSections } from '../hooks/useStoreSections';
 import HeroBackground from '@/components/HeroBackground';
 import PromotionBanner from '@/components/advertising/PromotionBanner';
 import AdSpace from '@/components/advertising/AdSpace';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface StoreProps {
     store: any;
@@ -248,7 +249,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
             
             <section className="bg-surface-secondary dark:bg-surface-tertiary py-16 md:py-20 border-t border-border-primary dark:border-border-primary">
                 <div className="max-w-2xl mx-auto px-4 md:px-6 text-center">
-                    <span className="text-3xl mb-4 block">📩</span>
+                    <EmojiIcon emoji="📩" size=28 className="text-3xl mb-4 block" />
                     <h2 className="text-2xl md:text-3xl font-semibold text-ink-primary dark:text-white mb-3">Join The Pulse Club</h2>
                     <p className="text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary mb-8">Get early access to drops, smart tech updates, and exclusive island styling tips.</p>
                     <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
@@ -273,7 +274,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
                         <div className="col-span-1 md:col-span-2">
-                            <h4 className="text-xl font-semibold mb-4" style={{ color: brandingColor }}>🏝️ {store.business_name}</h4>
+                            <h4 className="text-xl font-semibold mb-4" style={{ color: brandingColor }}><EmojiIcon emoji="🏝️" size=20 /> {store.business_name}</h4>
                             <p className="text-ink-tertiary dark:text-ink-tertiary dark:text-ink-tertiary text-sm max-w-sm mb-6 leading-relaxed">
                                 {store.bio || "Hand-picked local products that embody the spirit of paradise. Quality, sustainable, and authentic."}
                             </p>

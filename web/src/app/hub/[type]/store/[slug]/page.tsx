@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { RatingBadge, PriceTag, AvailabilityBadge, FilterBar, EmptyState, UrgencyCue } from '@/components/hub/SharedComponents';
 import BookingWidget from '@/components/hub/BookingWidget';
 import api, { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Props {
   params: Promise<{ type: string; slug: string }>;
@@ -79,10 +80,10 @@ export default function ProviderStorefrontPage({ params }: Props) {
             </div>
             <div className="min-w-0">
               <h1 className="text-3xl font-black text-white truncate">{store.name}</h1>
-              {store.location && <p className="text-white/60 text-sm mt-1">📍 {store.location}</p>}
+              {store.location && <EmojiIcon emoji="📍" size=16 className="text-white/60 text-sm mt-1" />}
               <div className="flex items-center gap-3 mt-2">
                 {store.is_featured && (
-                  <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-bold">★ Featured</span>
+                  <EmojiIcon emoji="★" size=16 className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-bold" />
                 )}
                 {store.subtype && (
                   <span className="px-2 py-0.5 rounded-full bg-white/10 text-white/60 text-[10px] font-medium capitalize">
@@ -96,8 +97,8 @@ export default function ProviderStorefrontPage({ params }: Props) {
             <p className="text-white/50 mt-4 max-w-2xl line-clamp-2">{store.description}</p>
           )}
           <div className="flex gap-6 mt-4 text-sm text-white/40">
-            {store.phone && <span>📞 {store.phone}</span>}
-            {store.website && <span>🌐 <a href={store.website} target="_blank" rel="noreferrer" className="text-accent-400 hover:underline">Website</a></span>}
+            {store.phone && <EmojiIcon emoji="📞" size=16 />}
+            {store.website && <EmojiIcon emoji="🌐" size=16 />}
           </div>
         </div>
       </section>
@@ -147,7 +148,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
                       {item.banner_url || item.image_url ? (
                         <img src={getImageUrl(item.banner_url || item.image_url)} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-3xl">📦</div>
+                        <EmojiIcon emoji="📦" size=28 className="w-full h-full flex items-center justify-center text-3xl" />
                       )}
                     </div>
                     <div className="p-4 space-y-2">
@@ -177,7 +178,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
                       {item.image_url ? (
                         <img src={getImageUrl(item.image_url)} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-3xl">🛍️</div>
+                        <EmojiIcon emoji="🛍️" size=28 className="w-full h-full flex items-center justify-center text-3xl" />
                       )}
                     </div>
                     <div className="p-4 space-y-1">
@@ -231,7 +232,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
           <div className="bg-surface-primary rounded-3xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold text-ink-primary">Book Service</h3>
-              <button onClick={() => setBookingProvider(null)} className="p-2 rounded-xl hover:bg-surface-secondary text-ink-secondary">✕</button>
+              <button onClick={() => setBookingProvider(null)} className="p-2 rounded-xl hover:bg-surface-secondary text-ink-secondary"><EmojiIcon emoji="✕" size=16 /></button>
             </div>
             <BookingWidget type="calendar" />
           </div>

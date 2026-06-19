@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Briefcase, Search, MapPin, DollarSign, Clock, Building } from 'lucide-react';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Job {
     id: number;
@@ -168,7 +169,7 @@ export default function JobsPage() {
                     </div>
                 ) : filteredJobs.length === 0 ? (
                     <div className="text-center py-20">
-                        <div className="text-6xl mb-4">💼</div>
+                        <EmojiIcon emoji="💼" size=48 className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No jobs found</h3>
                         <p className="text-ink-tertiary mb-6">
                             {searchQuery || filter !== 'all' ? 'No jobs match your filters.' : 'Be the first to post a job on the island!'}

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 interface CoopSector {
     sector_id: number;
     sector_key: string;
@@ -172,7 +173,7 @@ export default function CoopsPage() {
             <section className="max-w-7xl mx-auto px-6 py-12">
                 {groupedCoops.length === 0 ? (
                     <div className="text-center py-20">
-                        <div className="text-6xl mb-4">🔍</div>
+                        <EmojiIcon emoji="🔍" size=48 className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No co-ops found</h3>
                         <p className="text-ink-tertiary">Try adjusting your filters.</p>
                     </div>
@@ -208,7 +209,7 @@ export default function CoopsPage() {
                                                         </p>
                                                     </div>
                                                     {coop.is_verified && (
-                                                        <span className="text-accent-500 text-sm" title="Verified">✓</span>
+                                                        <EmojiIcon emoji="✓" size=16 className="text-accent-500 text-sm" />
                                                     )}
                                                 </div>
                                                 <p className="text-ink-tertiary text-sm leading-relaxed mb-4 line-clamp-2">

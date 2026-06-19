@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ThemeSettingsPanel from './ThemeSettingsPanel';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface AdminSettingsTabProps {
     settings: any;
@@ -110,7 +111,7 @@ export default function AdminSettingsTab({
                                 onClick={() => handleExport('users')}
                                 className="group p-8 bg-surface-secondary dark:bg-surface-tertiary/50 rounded-3xl border border-border-primary dark:border-border-primary hover:border-teal-500 transition-all text-left"
                             >
-                                <div className="w-12 h-12 rounded-2xl bg-[#14b8a6]/100/10 text-[#a5b4fc]0 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">📊</div>
+                                <EmojiIcon emoji="📊" size=16 className="w-12 h-12 rounded-2xl bg-[#14b8a6]/100/10 text-[#a5b4fc]0 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" />
                                 <h4 className="font-black text-ink-primary dark:text-white uppercase text-xs tracking-widest mb-1">Export User Directory</h4>
                                 <p className="text-ink-tertiary text-[10px]">Download all registered users as CSV.</p>
                             </button>
@@ -118,7 +119,7 @@ export default function AdminSettingsTab({
                                 onClick={() => handleExport('listings')}
                                 className="group p-8 bg-surface-secondary dark:bg-surface-tertiary/50 rounded-3xl border border-border-primary dark:border-border-primary hover:border-teal-500 transition-all text-left"
                             >
-                                <div className="w-12 h-12 rounded-2xl bg-accent-500/100/10 text-accent-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">🏺</div>
+                                <EmojiIcon emoji="🏺" size=16 className="w-12 h-12 rounded-2xl bg-accent-500/100/10 text-accent-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" />
                                 <h4 className="font-black text-ink-primary dark:text-white uppercase text-xs tracking-widest mb-1">Export Marketplace</h4>
                                 <p className="text-ink-tertiary text-[10px]">Download all active listings as CSV.</p>
                             </button>

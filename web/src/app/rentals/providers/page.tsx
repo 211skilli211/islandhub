@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
 import CategoryHero from '@/components/CategoryHero';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Vendor {
     id: number;
@@ -116,7 +117,7 @@ export default function RentalProvidersPage() {
                                     <h3 className="text-xl font-black text-ink-primary mb-1 group-hover:text-[#14b8a6] transition-colors uppercase tracking-tight">{vendor.name}</h3>
                                     <p className="text-[10px] font-black text-[#a5b4fc]0 uppercase tracking-widest mb-4">{vendor.subtype || vendor.category}</p>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-yellow-400">★</span>
+                                        <EmojiIcon emoji="★" size=16 className="text-yellow-400" />
                                         <span className="text-sm font-black text-ink-primary">{vendor.rating || '4.9'}</span>
                                     </div>
                                 </Link>

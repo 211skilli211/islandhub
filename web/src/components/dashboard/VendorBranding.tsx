@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import toast from '@/lib/toast';
 import { useAuthStore } from '@/lib/auth';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const INITIAL_FORM_STATE = {
     branding_color: '#0d9488',
@@ -201,7 +202,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
     if (!vendor) {
         return (
             <div className="p-20 text-center bg-gradient-to-br from-sand-50 to-sand-100 rounded-[3rem] border-2 border-dashed border-border-primary">
-                <div className="text-5xl mb-4">🏪</div>
+                <EmojiIcon emoji="🏪" size=48 className="text-5xl mb-4" />
                 <h3 className="text-xl font-black text-ink-primary uppercase tracking-tight mb-2">Set Up Your Store</h3>
                 <p className="text-ink-tertiary font-medium mb-8 max-w-md mx-auto">Create your first store to unlock branding customization and start selling on IslandHub.</p>
                 <a
@@ -265,7 +266,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 {formData.logo_url ? (
                                     <img src={getImageUrl(formData.logo_url)} className="w-full h-full object-contain" alt="Logo" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-2xl font-black text-ink-tertiary">🖼️</div>
+                                    <EmojiIcon emoji="🖼️" size=24 className="w-full h-full flex items-center justify-center text-2xl font-black text-ink-tertiary" />
                                 )}
                             </div>
                             <div className="flex-1 space-y-3 w-full">
@@ -297,7 +298,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 {formData.banner_url ? (
                                     <img src={getImageUrl(formData.banner_url)} className="w-full h-full object-cover opacity-80" alt="Banner" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-xl font-black text-ink-tertiary">🏝️ Hub Background</div>
+                                    <EmojiIcon emoji="🏝️" size=20 className="w-full h-full flex items-center justify-center text-xl font-black text-ink-tertiary" />
                                 )}
                             </div>
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -590,7 +591,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                         </div>
                         <div className="space-y-2 p-6 bg-surface-secondary rounded-3xl border-2 border-[#14b8a6]/20 shadow-sm transition-all hover:bg-surface-elevated hover:border-teal-300">
                             <div className="flex items-center gap-2 mb-1">
-                                <span className="text-lg">🔗</span>
+                                <EmojiIcon emoji="🔗" size=18 className="text-lg" />
                                 <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Store Slug (Custom URL)</label>
                             </div>
                             <div className="relative">
@@ -634,12 +635,12 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                             onClick={() => setFormData({ ...formData, promo_video_url: '' })}
                                             className="absolute top-2 right-2 bg-[#e11d48]/50 text-white p-1 rounded-lg"
                                         >
-                                            <span className="text-xs">✕</span>
+                                            <EmojiIcon emoji="✕" size=16 className="text-xs" />
                                         </button>
                                     </div>
                                 ) : (
                                     <div className="text-center py-4">
-                                        <span className="text-3xl mb-2 block">🎬</span>
+                                        <EmojiIcon emoji="🎬" size=28 className="text-3xl mb-2 block" />
                                         <p className="text-[10px] font-black uppercase text-ink-tertiary">Add Shop Intro Video</p>
                                     </div>
                                 )}
@@ -663,7 +664,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                     </div>
                                 ) : (
                                     <div className="text-center py-4">
-                                        <span className="text-3xl mb-2 block">🎵</span>
+                                        <EmojiIcon emoji="🎵" size=28 className="text-3xl mb-2 block" />
                                         <p className="text-[10px] font-black uppercase text-ink-tertiary">Upload Shop Atmosphere</p>
                                     </div>
                                 )}

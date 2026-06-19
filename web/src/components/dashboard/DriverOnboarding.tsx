@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface CombinedApplicationData {
     licenseNumber: string;
@@ -97,7 +98,7 @@ export default function DriverOnboarding() {
         return (
             <div className="max-w-xl mx-auto p-10 bg-surface-elevated border border-border-primary rounded-[3rem] text-center shadow-xl">
                 <div className="text-6xl mb-6">
-                    {status.verification_status === 'pending' ? '⏳' : status.verification_status === 'approved' ? '✅' : '❌'}
+                    {status.verification_status === 'pending' ? '⏳' : status.verification_status === 'approved' ? '✅' : '<EmojiIcon emoji="❌" size=16 />'}
                 </div>
                 <h2 className="text-2xl font-black text-ink-primary uppercase italic tracking-tighter mb-2">
                     Verification {status.verification_status}
@@ -211,7 +212,7 @@ export default function DriverOnboarding() {
                                         <input required type="date" name="licenseExpiry" value={formData.licenseExpiry} onChange={handleKYCChange} className="w-full p-4 bg-surface-secondary rounded-2xl border-none focus:ring-2 focus:ring-accent-400 font-bold" />
                                     </div>
                                     <div className="bg-sand-500/5 p-6 rounded-3xl border border-sand-500/20 flex items-start gap-4">
-                                        <span className="text-2xl">📋</span>
+                                        <EmojiIcon emoji="📋" size=24 className="text-2xl" />
                                         <p className="text-xs font-medium text-sand-500 leading-relaxed">
                                             By submitting, you agree to a background check and certify that all vehicle maintenance is up to date. You will be required to upload ID photos shortly after initial review.
                                         </p>

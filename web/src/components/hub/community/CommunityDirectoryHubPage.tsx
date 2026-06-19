@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { CompactCard, CompactHubPage } from '@/components/hub/CompactCard';
 import { ContentSection } from '@/components/hub/MarketplaceSections';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // COMMUNITY DIRECTORY — Main hub page showing featured content from all sections
@@ -120,7 +121,7 @@ export function CommunityDirectoryHubPage() {
       
       <section className="bg-gradient-to-br from-green-900 via-emerald-900 to-teal-900 py-6 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight">🌴 Island Community</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-white mb-1 leading-tight"><EmojiIcon emoji="🌴" size=40 /> Island Community</h1>
           <p className="text-sm text-white/70 max-w-xl mx-auto">Events, stories, groups, and auctions across the Caribbean</p>
         </div>
       </section>
@@ -229,12 +230,12 @@ export function CommunityDirectoryHubPage() {
                   key={story.id}
                   href={`/community/stories#story-${story.id}`}
                   imageUrl={story.media_url}
-                  emoji={story.is_viewed ? '👀' : '✨'}
+                  emoji={story.is_viewed ? '👀' : '<EmojiIcon emoji="✨" size=16 />'}
                   title={story.user_name}
                   subtitle={story.content.slice(0, 40) + (story.content.length > 40 ? '...' : '')}
                   badge={`${story.view_count} views`}
                   badgeColor="bg-violet-500"
-                  meta={[`❤️ ${story.reaction_count}`]}
+                  meta={[`<EmojiIcon emoji="❤️" size=16 /> ${story.reaction_count}`]}
                   ctaLabel="Read"
                 />
               ))}

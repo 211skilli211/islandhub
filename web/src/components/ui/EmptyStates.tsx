@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ShoppingBag, Wallet, MessageSquare, Heart, Package, Truck, Star, CreditCard, Car, FileText, Settings } from 'lucide-react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface EmptyStateProps {
     icon: React.ReactNode;
@@ -200,7 +201,7 @@ export function EmptyVehicle() {
 export function EmptySearch() {
     return (
         <EmptyState
-            icon={<span className="text-4xl">🔍</span>}
+            icon={<EmojiIcon emoji="🔍" size=40 className="text-4xl" />}
             title="No results found"
             description="Try adjusting your search or filters to find what you're looking for."
         />
@@ -210,7 +211,7 @@ export function EmptySearch() {
 export function EmptyStore() {
     return (
         <EmptyState
-            icon={<span className="text-4xl">🏪</span>}
+            icon={<EmojiIcon emoji="🏪" size=40 className="text-4xl" />}
             title="Store not found"
             description="This store doesn't exist or has been removed. Browse other stores to find what you need."
             actionLabel="Browse Stores"
@@ -222,7 +223,7 @@ export function EmptyStore() {
 export function EmptyCoops() {
     return (
         <EmptyState
-            icon={<span className="text-4xl">🤝</span>}
+            icon={<EmojiIcon emoji="🤝" size=40 className="text-4xl" />}
             title="No cooperatives yet"
             description="Cooperatives are groups of businesses working together. Be the first to start one!"
             actionLabel="Create Co-op"

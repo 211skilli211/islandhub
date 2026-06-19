@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import CategoryHero from '@/components/CategoryHero';
 import ListingCard from '@/components/ListingCard';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const CAT_CONFIG: Record<string, any> = {
     sea: { title: 'Sea & Aquatic', icon: '🚤', desc: 'Catamarans, diving, and fishing expeditions in crystal clear waters.', color: 'cyan' },
@@ -97,7 +98,7 @@ export default function TourCategoryPage() {
                     </div>
                 ) : filteredTours.length === 0 ? (
                     <div className="text-center py-32 bg-surface-primary rounded-[4rem] border-4 border-dashed border-border-primary">
-                        <div className="text-6xl mb-6 opacity-30">🏜️</div>
+                        <EmojiIcon emoji="🏜️" size=48 className="text-6xl mb-6 opacity-30" />
                         <h3 className="text-2xl font-black text-ink-tertiary uppercase tracking-tighter italic">No Experiences matched your filters</h3>
                         <button
                             onClick={() => { setPriceRange(1000); setActiveDuration('All'); }}

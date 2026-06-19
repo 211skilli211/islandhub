@@ -22,6 +22,7 @@ import {
     Filler
 } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 ChartJS.register(
     CategoryScale,
@@ -222,7 +223,7 @@ export default function DriverPortal() {
                         className={`relative w-20 h-10 rounded-full transition-all duration-300 p-1 ${isOnline ? 'bg-accent-500' : 'bg-surface-tertiary'}`}
                     >
                         <div className={`w-8 h-8 bg-surface-elevated rounded-full shadow-md flex items-center justify-center transition-all duration-300 ${isOnline ? 'translate-x-10' : 'translate-x-0'}`}>
-                            {isOnline ? '🟢' : '🔴'}
+                            {isOnline ? '🟢' : '<EmojiIcon emoji="🔴" size=16 />'}
                         </div>
                     </button>
                     <div>
@@ -286,7 +287,7 @@ export default function DriverPortal() {
                                 <div key={job.id} className="p-6 bg-surface-elevated border border-border-primary rounded-4xl flex flex-col md:flex-row justify-between items-center hover:shadow-xl transition-all group gap-6">
                                     <div className="flex items-center gap-6">
                                         <div className="w-16 h-16 bg-surface-secondary rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
-                                            {job.service_type === 'taxi' ? '🚖' : '📦'}
+                                            {job.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size=16 />'}
                                         </div>
                                         <div>
                                             <h4 className="font-black text-ink-primary text-lg">
@@ -327,7 +328,7 @@ export default function DriverPortal() {
                         <div className="grid grid-cols-1 gap-6">
                             {activeJobs.length > 0 ? activeJobs.map(job => (
                                 <div key={job.id} className="p-8 bg-accent-500 text-white rounded-[3rem] shadow-2xl shadow-accent-500/10 space-y-8 relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 p-8 opacity-20 text-8xl">🚚</div>
+                                    <EmojiIcon emoji="🚚" size=16 className="absolute top-0 right-0 p-8 opacity-20 text-8xl" />
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent-100 mb-2">Live Mission</p>
@@ -356,7 +357,7 @@ export default function DriverPortal() {
                                             onClick={() => handleUpdateStatus(job.id, job.transport_status === 'accepted' ? 'in_progress' : 'completed')}
                                             className="flex-1 py-5 bg-surface-elevated text-accent-400 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl hover:scale-105 transition-all"
                                         >
-                                            {job.transport_status === 'accepted' ? 'Start Journey ➔' : 'Complete Delivery ✔️'}
+                                            {job.transport_status === 'accepted' ? 'Start Journey ➔' : 'Complete Delivery <EmojiIcon emoji="✔️" size=16 />'}
                                         </button>
                                         <button
                                             onClick={() => openNavigation(job.pickup_location)}
@@ -408,7 +409,7 @@ export default function DriverPortal() {
                             <div className="bg-surface-elevated rounded-[2.5rem] border border-border-primary overflow-hidden">
                                 <div className="p-6 border-b border-border-primary flex justify-between items-center">
                                     <h4 className="font-black text-ink-primary uppercase text-xs tracking-widest">Public Work Profile</h4>
-                                    <span className="px-3 py-1 bg-sand-500/10 text-sand-500 rounded-full text-[9px] font-black uppercase">Verified ✨</span>
+                                    <span className="px-3 py-1 bg-sand-500/10 text-sand-500 rounded-full text-[9px] font-black uppercase">Verified <EmojiIcon emoji="✨" size=16 /></span>
                                 </div>
                                 <div className="p-8 space-y-6">
                                     <div>
@@ -429,7 +430,7 @@ export default function DriverPortal() {
                         <div className="space-y-6">
                             <div className="bg-gradient-to-br from-teal-600 to-teal-600 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                                 <div className="relative z-10">
-                                    <h4 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Post Fixed Services 📣</h4>
+                                    <h4 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Post Fixed Services <EmojiIcon emoji="📣" size=28 /></h4>
                                     <p className="text-white/80 text-sm max-w-md font-medium mb-8 leading-relaxed">
                                         Want to offer "Airport Shuttles", "Full Day Tours", or "Construction Hauling"? Create a permanent Hub listing.
                                     </p>
@@ -439,14 +440,14 @@ export default function DriverPortal() {
                                         </button>
                                     </Link>
                                 </div>
-                                <div className="absolute top-0 right-0 p-10 opacity-10 text-9xl font-black">🌟</div>
+                                <EmojiIcon emoji="🌟" size=16 className="absolute top-0 right-0 p-10 opacity-10 text-9xl font-black" />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {myServices.map(service => (
                                     <div key={service.id} className="p-6 bg-surface-elevated border border-border-primary rounded-4xl flex justify-between items-center group shadow-sm hover:shadow-md transition-all">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-surface-secondary rounded-2xl flex items-center justify-center text-2xl group-hover:bg-[#14b8a6]/10 transition-colors">📦</div>
+                                            <EmojiIcon emoji="📦" size=24 className="w-14 h-14 bg-surface-secondary rounded-2xl flex items-center justify-center text-2xl group-hover:bg-[#14b8a6]/10 transition-colors" />
                                             <div>
                                                 <p className="font-black text-ink-primary">{service.title}</p>
                                                 <p className="text-[9px] text-ink-tertiary font-black uppercase tracking-[0.2em] mt-1">{service.category} - {service.status}</p>

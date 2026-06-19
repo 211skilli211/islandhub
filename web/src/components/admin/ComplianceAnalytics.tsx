@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import { motion } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface ComplianceStats {
     totalVendors: number;
@@ -101,7 +102,7 @@ export default function ComplianceAnalytics() {
                 >
                     <div className="flex items-center justify-between mb-3">
                         <span className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Total Vendors</span>
-                        <span className="text-2xl">🏪</span>
+                        <EmojiIcon emoji="🏪" size=24 className="text-2xl" />
                     </div>
                     <p className="text-2xl font-black text-ink-primary">{stats?.totalVendors}</p>
                 </motion.div>
@@ -114,7 +115,7 @@ export default function ComplianceAnalytics() {
                 >
                     <div className="flex items-center justify-between mb-3">
                         <span className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Compliant</span>
-                        <span className="text-2xl">✅</span>
+                        <EmojiIcon emoji="✅" size=24 className="text-2xl" />
                     </div>
                     <p className="text-2xl font-black text-green-600">{stats?.compliantVendors}</p>
                     <p className="text-xs text-ink-tertiary mt-1">{complianceRate}% of total</p>
@@ -142,7 +143,7 @@ export default function ComplianceAnalytics() {
                 >
                     <div className="flex items-center justify-between mb-3">
                         <span className="text-xs font-black text-ink-tertiary uppercase tracking-widest">Non-Compliant</span>
-                        <span className="text-2xl">⚠️</span>
+                        <EmojiIcon emoji="⚠️" size=24 className="text-2xl" />
                     </div>
                     <p className="text-2xl font-black text-red-600">{stats?.nonCompliantVendors}</p>
                     <p className="text-xs text-ink-tertiary mt-1">Action needed</p>

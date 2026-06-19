@@ -5,6 +5,7 @@ import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
 import dynamic from 'next/dynamic';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // Dynamic Imports for Heavy Chart Components
 const RevenueChart = dynamic(() => import('@/components/charts/RevenueChart'), {
@@ -175,7 +176,7 @@ export default function VendorAnalyticsDashboard() {
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Total Revenue</h3>
-                            <span className="text-2xl">💰</span>
+                            <EmojiIcon emoji="💰" size=24 className="text-2xl" />
                         </div>
                         <p className="text-3xl font-bold text-ink-primary">
                             ${stats?.total_revenue?.toLocaleString(undefined, { minimumFractionDigits: 2 }) || '0.00'}
@@ -188,7 +189,7 @@ export default function VendorAnalyticsDashboard() {
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Total Orders</h3>
-                            <span className="text-2xl">📦</span>
+                            <EmojiIcon emoji="📦" size=24 className="text-2xl" />
                         </div>
                         <p className="text-3xl font-bold text-ink-primary">{stats?.total_orders || 0}</p>
                         <p className="text-sm text-accent-400 mt-2 font-medium">
@@ -199,7 +200,7 @@ export default function VendorAnalyticsDashboard() {
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Avg Order Value</h3>
-                            <span className="text-2xl">📊</span>
+                            <EmojiIcon emoji="📊" size=24 className="text-2xl" />
                         </div>
                         <p className="text-3xl font-bold text-ink-primary">
                             ${stats?.avg_order_value?.toFixed(2) || '0.00'}
@@ -210,7 +211,7 @@ export default function VendorAnalyticsDashboard() {
                     <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Customers</h3>
-                            <span className="text-2xl">👥</span>
+                            <EmojiIcon emoji="👥" size=24 className="text-2xl" />
                         </div>
                         <p className="text-3xl font-bold text-ink-primary">{customerStats?.total_customers || 0}</p>
                         <p className="text-sm text-accent-400 mt-2 font-medium">
@@ -303,7 +304,7 @@ export default function VendorAnalyticsDashboard() {
                                         </td>
                                         <td className="px-6 py-4 text-center">
                                             <div className="flex items-center justify-center gap-1">
-                                                <span className="text-yellow-500">★</span>
+                                                <EmojiIcon emoji="★" size=16 className="text-yellow-500" />
                                                 <span className="font-bold text-ink-primary">{product.avg_rating?.toFixed(1) || '0.0'}</span>
                                             </div>
                                         </td>

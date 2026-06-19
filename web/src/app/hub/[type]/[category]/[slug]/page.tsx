@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { RatingBadge, PriceTag, ImageGallery, EmptyState } from '@/components/hub/SharedComponents';
 import BookingWidget from '@/components/hub/BookingWidget';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 /**
  * Rental detail page — works for stays, cars, sea, tools, long-term.
@@ -51,7 +52,7 @@ export default function RentalDetailPage() {
       
       <div className="max-w-7xl mx-auto px-4">
         <div className="aspect-[16/9] bg-gradient-to-br from-teal-800 to-cyan-900 rounded-2xl flex items-center justify-center">
-          <span className="text-6xl opacity-50">{category === 'cars' ? '🚗' : category === 'sea' ? '🚤' : category === 'equipment' || category === 'tools' ? '🔧' : '🏠'}</span>
+          <span className="text-6xl opacity-50">{category === 'cars' ? '🚗' : category === 'sea' ? '🚤' : category === 'equipment' || category === 'tools' ? '🔧' : '<EmojiIcon emoji="🏠" size=48 />'}</span>
         </div>
       </div>
 

@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import api, { getImageUrl } from '@/lib/api';
 import { FilterBar, EmptyState } from '@/components/hub/SharedComponents';
 import { getHubConfig } from '@/lib/hubConfigs';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface EventItem {
   id: number;
@@ -38,7 +39,7 @@ function EventCard({ event }: { event: EventItem }) {
           {img ? (
             <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-4xl">🎫</div>
+            <EmojiIcon emoji="🎫" size=40 className="w-full h-full flex items-center justify-center text-4xl" />
           )}
           {isSoldOut && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -57,9 +58,9 @@ function EventCard({ event }: { event: EventItem }) {
           <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
           <div className="flex items-center gap-2 text-xs text-ink-tertiary">
             {eventDate && (
-              <span>📅 {eventDate.toLocaleDateString('en', { month: 'short', day: 'numeric' })}</span>
+              <EmojiIcon emoji="📅" size=16 />
             )}
-            {event.venue && <span>. 📍 {event.venue}</span>}
+            {event.venue && <span>. <EmojiIcon emoji="📍" size=16 /> {event.venue}</span>}
           </div>
           <div className="flex items-center justify-between pt-1 border-t border-border-primary">
             {event.is_free ? (

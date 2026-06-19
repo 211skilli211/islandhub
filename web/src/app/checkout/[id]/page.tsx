@@ -9,6 +9,7 @@ import WiPayButton from '@/components/WiPayButton';
 import PayPalButton from '@/components/PayPalButton';
 import CryptoPayment from '@/components/CryptoPayment';
 import PaymentProvider, { usePayment } from '@/components/payment/PaymentProvider';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campaignTitle: string }) => {
     const stripe = useStripe();
@@ -183,7 +184,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
 
             {error && (
                 <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl flex items-center gap-3">
-                    <span className="text-xl">⚠️</span>
+                    <EmojiIcon emoji="⚠️" size=20 className="text-xl" />
                     <p className="text-rose-700 text-sm font-medium">{error}</p>
                 </div>
             )}

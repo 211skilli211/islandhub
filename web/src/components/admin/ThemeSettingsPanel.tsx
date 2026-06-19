@@ -5,6 +5,7 @@ import api from '@/lib/api';
 import toast from '@/lib/toast';
 import type { ToastStyle } from '@/lib/toast';
 import VisualEffectsPanel from './VisualEffectsPanel';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface ThemeSettingsPanelProps {
     onThemeChange?: (theme: string) => void;
@@ -100,7 +101,7 @@ export default function ThemeSettingsPanel({ onThemeChange }: ThemeSettingsPanel
                         }`}
                     >
                         <div className="text-2xl mb-2">
-                            {t === 'light' ? '☀️' : t === 'dark' ? '🌙' : '⚙️'}
+                            {t === 'light' ? '☀️' : t === 'dark' ? '🌙' : '<EmojiIcon emoji="⚙️" size=16 />'}
                         </div>
                         <div className="font-bold text-sm capitalize">{t}</div>
                     </button>

@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import ListingCard from '@/components/ListingCard';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function SearchPage() {
     return (
@@ -161,7 +162,7 @@ function SearchContent() {
                 </>
                 ) : (
                     <div className="text-center py-20 bg-surface-primary rounded-3xl border-2 border-dashed border-border-primary">
-                        <div className="text-6xl mb-4">🏝️🔍</div>
+                        <EmojiIcon emoji="🏝️🔍" size=48 className="text-6xl mb-4" />
                         <h2 className="text-2xl font-black text-ink-primary">No results found</h2>
                         <p className="text-ink-tertiary mt-2">Try adjusting your search terms or exploring a different category.</p>
                         <Link href="/" className="mt-8 inline-block px-8 py-3 bg-accent-500 text-white font-black rounded-full shadow-lg shadow-accent-500/20 hover:scale-105 transition-all">

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import api, { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Advertisement {
     ad_id: number;
@@ -330,7 +331,7 @@ export default function AdSpace({
                             {currentAd?.thumbnail_url || currentAd?.media_url ? (
                                 <img src={getImageUrl(currentAd.thumbnail_url || currentAd.media_url)} className="w-10 h-10 object-contain rounded-lg" alt="" />
                             ) : (
-                                <span className="text-lg">🏝️</span>
+                                <EmojiIcon emoji="🏝️" size=18 className="text-lg" />
                             )}
                         </div>
                         <div className="flex-1 min-w-0">

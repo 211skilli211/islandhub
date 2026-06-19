@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import 'leaflet/dist/leaflet.css';
 
 export interface MapProps {
@@ -154,7 +155,7 @@ export default function Map({ center, zoom = 13, markers = [], mapId }: MapProps
                 }}
             >
                 <div style={{ textAlign: 'center', color: '#64748b' }}>
-                    <div style={{ fontSize: '32px', marginBottom: '8px' }}>🗺️</div>
+                    <EmojiIcon emoji="🗺️" size=16 />
                     <div style={{ fontSize: '12px', fontWeight: 600 }}>Loading Map...</div>
                 </div>
             </div>

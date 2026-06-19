@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Provider {
   id: string;
@@ -69,7 +70,7 @@ export default function FeaturedMarquee({ providers, hubType }: FeaturedMarqueeP
                     </h4>
                     <div className="flex items-center gap-1.5">
                       {provider.rating && (
-                        <span className="text-[10px] font-bold text-amber-500">★ {provider.rating.toFixed(1)}</span>
+                        <EmojiIcon emoji="★" size=16 className="text-[10px] font-bold text-amber-500" />
                       )}
                       {provider.subtype && (
                         <span className="text-[10px] text-ink-tertiary capitalize">{provider.subtype.replace(/_/g, ' ')}</span>

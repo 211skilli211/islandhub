@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import toast from '@/lib/toast';
 import { useAuthStore } from '@/lib/auth';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function ProfileSettings() {
     const { user, setUser } = useAuthStore();
@@ -120,7 +121,7 @@ export default function ProfileSettings() {
                                 {profilePhoto ? (
                                     <img src={getImageUrl(profilePhoto)} alt="Avatar" className="w-full h-full object-cover" />
                                 ) : (
-                                    <span className="text-4xl">🏝️</span>
+                                    <EmojiIcon emoji="🏝️" size=40 className="text-4xl" />
                                 )}
                             </div>
                             <label className="absolute inset-0 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">

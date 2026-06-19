@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { CompactCard, CompactHubPage } from '@/components/hub/CompactCard';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Story {
   id: number; user_name: string; profile_photo_url: string;
@@ -75,7 +76,7 @@ export function CommunityStoriesHubPage() {
           key={story.id}
           href={`/community/stories#story-${story.id}`}
           imageUrl={story.media_url}
-          emoji={story.is_viewed ? '👀' : '✨'}
+          emoji={story.is_viewed ? '👀' : '<EmojiIcon emoji="✨" size=16 />'}
           title={story.user_name}
           subtitle={story.content.length > 50 ? story.content.slice(0, 50) + '...' : story.content}
           badge={timeAgo(story.created_at)}

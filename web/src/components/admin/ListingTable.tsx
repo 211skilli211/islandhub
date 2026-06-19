@@ -2,6 +2,7 @@
 
 import React from 'react';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Listing {
     id: number;
@@ -48,7 +49,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                         <div className="h-48 bg-surface-secondary relative">
                             
                             <div className="absolute inset-0 flex items-center justify-center text-4xl text-ink-tertiary">
-                                {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '📅'}
+                                {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '<EmojiIcon emoji="📅" size=16 />'}
                             </div>
                             
                             <div className="absolute top-4 left-4">
@@ -126,7 +127,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded bg-surface-secondary flex items-center justify-center text-lg">
-                                        {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '📅'}
+                                        {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '<EmojiIcon emoji="📅" size=16 />'}
                                     </div>
                                     <div>
                                         <div className="text-sm font-medium text-ink-primary">{listing.title}</div>
@@ -186,7 +187,7 @@ export default function ListingTable({ listings, onEdit, onRefresh, viewMode }: 
                         <div className="flex justify-between items-start">
                             <div className="flex gap-3">
                                 <div className="h-10 w-10 rounded bg-surface-secondary flex items-center justify-center text-lg">
-                                    {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '📅'}
+                                    {listing.type === 'campaign' ? '❤️' : listing.type === 'product' ? '🛍️' : listing.type === 'rental' ? '🏠' : '<EmojiIcon emoji="📅" size=16 />'}
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-ink-primary line-clamp-1">{listing.title}</h3>

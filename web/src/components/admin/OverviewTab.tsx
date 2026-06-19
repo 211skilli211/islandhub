@@ -18,6 +18,7 @@ import {
     ArcElement
 } from 'chart.js';
 import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 ChartJS.register(
     CategoryScale,
@@ -223,7 +224,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
             <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-6 rounded-3xl shadow-2xl text-white">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h3 className="text-2xl font-black mb-1">Dispatch Command Center 🛰️</h3>
+                        <h3 className="text-2xl font-black mb-1">Dispatch Command Center <EmojiIcon emoji="🛰️" size=24 /></h3>
                         <p className="text-accent-100 font-medium">Real-time fleet management & driver tracking</p>
                     </div>
                     <a
@@ -239,7 +240,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-teal-500 transition-all">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-accent-500/10 text-accent-400 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🏪</div>
+                        <EmojiIcon emoji="🏪" size=24 className="w-12 h-12 bg-accent-500/10 text-accent-400 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform" />
                         <div>
                             <h4 className="font-black text-ink-primary uppercase tracking-widest text-[10px]">Onboard Vendor</h4>
                             <p className="text-[9px] text-ink-tertiary font-medium tracking-tight">Create a new store</p>
@@ -249,7 +250,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
                 <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-[#14b8a6] transition-all">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📦</div>
+                        <EmojiIcon emoji="📦" size=24 className="w-12 h-12 bg-[#14b8a6]/10 text-[#14b8a6] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform" />
                         <div>
                             <h4 className="font-black text-ink-primary uppercase tracking-widest text-[10px]">Add Listing</h4>
                             <p className="text-[9px] text-ink-tertiary font-medium tracking-tight">Post item or service</p>
@@ -259,7 +260,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 </div>
                 <div className="bg-surface-elevated p-6 rounded-4xl border border-border-primary shadow-xl flex items-center justify-between group hover:border-[#e11d48] transition-all">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#e11d48]/5 text-[#e11d48] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📣</div>
+                        <EmojiIcon emoji="📣" size=24 className="w-12 h-12 bg-[#e11d48]/5 text-[#e11d48] rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform" />
                         <div>
                             <h4 className="font-black text-ink-primary uppercase tracking-widest text-[10px]">New Campaign</h4>
                             <p className="text-[9px] text-ink-tertiary font-medium tracking-tight">Launch fundraiser</p>
@@ -273,7 +274,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-1">
                 <div className="bg-ink-primary rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-10">
-                        <span className="text-6xl">⚙️</span>
+                        <EmojiIcon emoji="⚙️" size=48 className="text-6xl" />
                     </div>
                     <h3 className="text-lg font-black uppercase tracking-widest mb-6">System Control Panel</h3>
                     <div className="grid grid-cols-2 gap-4">
@@ -281,7 +282,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             onClick={() => toast.success('Neural Engine Synced!')}
                             className="bg-surface-elevated/5 hover:bg-surface-elevated/10 border border-white/10 p-4 rounded-2xl text-left transition-all group/btn"
                         >
-                            <span className="text-xl mb-2 block group-hover/btn:scale-125 transition-transform">🧠</span>
+                            <EmojiIcon emoji="🧠" size=20 className="text-xl mb-2 block group-hover/btn:scale-125 transition-transform" />
                             <span className="text-[9px] font-black uppercase tracking-widest block opacity-60">Memory Engine</span>
                             <span className="text-xs font-bold text-accent-400">Sync Weights</span>
                         </button>
@@ -298,7 +299,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             }}
                             className="bg-surface-elevated/5 hover:bg-surface-elevated/10 border border-white/10 p-4 rounded-2xl text-left transition-all group/btn"
                         >
-                            <span className="text-xl mb-2 block group-hover/btn:scale-125 transition-transform">🧹</span>
+                            <EmojiIcon emoji="🧹" size=20 className="text-xl mb-2 block group-hover/btn:scale-125 transition-transform" />
                             <span className="text-[9px] font-black uppercase tracking-widest block opacity-60">Log Buffer</span>
                             <span className="text-xs font-bold text-[#fb7185]">Clear Telemetry</span>
                         </button>
@@ -351,7 +352,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             <p className="font-bold text-green-600 text-xs">{users.active}</p>
                         </div>
                         <div className="text-right flex-1">
-                            <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">Manage ➔</span>
+                            <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">Manage <EmojiIcon emoji="➔" size=16 /></span>
                         </div>
                     </div>
                 </button>
@@ -377,7 +378,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             <p className="font-bold text-accent-400 text-xs">{stores.active}</p>
                         </div>
                         <div className="text-right flex-1">
-                            <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">View All ➔</span>
+                            <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">View All <EmojiIcon emoji="➔" size=16 /></span>
                         </div>
                     </div>
                 </button>
@@ -405,7 +406,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                             <p className="font-bold text-sand-500 text-xs">+12%</p>
                         </div>
                         <div className="text-right flex-1">
-                            <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">Inspect ➔</span>
+                            <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">Inspect <EmojiIcon emoji="➔" size=16 /></span>
                         </div>
                     </div>
                 </button>
@@ -431,7 +432,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                     <div className="text-[10px] font-bold text-ink-tertiary uppercase tracking-widest leading-none">Total Platform Revenue</div>
                     <div className="mt-3 border-t border-border-primary pt-3 flex justify-between items-center">
                         <p className="text-[8px] font-black text-ink-tertiary uppercase tracking-widest">Total Sales</p>
-                        <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">Deep Dive ➔</span>
+                        <span className="text-[10px] font-black text-accent-400 opacity-0 group-hover:opacity-100 transition-opacity">Deep Dive <EmojiIcon emoji="➔" size=16 /></span>
                     </div>
                 </button>
             </div>
@@ -535,7 +536,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                         </div>
                     )) : (
                         <div className="text-center py-12 text-ink-tertiary bg-surface-secondary/30 rounded-3xl border-2 border-dashed border-border-primary">
-                            <div className="text-4xl mb-2">🔭</div>
+                            <EmojiIcon emoji="🔭" size=40 className="text-4xl mb-2" />
                             <p className="font-bold uppercase tracking-widest text-[10px]">No activity logs found</p>
                         </div>
                     )}
@@ -551,7 +552,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                 <svg className="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>
                             </div>
 
-                            <h3 className="text-2xl font-black mb-1">Global Broadcast Hub 📣</h3>
+                            <h3 className="text-2xl font-black mb-1">Global Broadcast Hub <EmojiIcon emoji="📣" size=24 /></h3>
                             <p className="text-[#a5b4fc] text-sm font-medium mb-8">Deploy live announcements to the platform-wide marquee</p>
 
                             <div className="bg-surface-elevated/10 backdrop-blur-xl rounded-4xl p-6 border border-white/20">
@@ -568,7 +569,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                             disabled={isLaunching || !newMarquee}
                                             className="px-5 py-2.5 bg-surface-elevated text-[#14b8a6] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#14b8a6]/10 transition-all shadow-xl disabled:opacity-50 flex-1 sm:flex-none whitespace-nowrap"
                                         >
-                                            {isLaunching ? 'Launching...' : 'Launch Now 🚀'}
+                                            {isLaunching ? 'Launching...' : 'Launch Now <EmojiIcon emoji="🚀" size=16 />'}
                                         </button>
                                         <button
                                             onClick={handleSaveTemplate}
@@ -613,7 +614,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                     onClick={() => handleOpenBannerModal()}
                                     className="aspect-video bg-surface-secondary rounded-2xl border-2 border-dashed border-border-primary flex flex-col items-center justify-center gap-2 group cursor-pointer hover:border-teal-400 transition-all"
                                 >
-                                    <span className="text-2xl group-hover:scale-125 transition-transform">🖼️</span>
+                                    <EmojiIcon emoji="🖼️" size=24 className="text-2xl group-hover:scale-125 transition-transform" />
                                     <span className="text-[8px] font-black text-ink-tertiary uppercase tracking-widest">Upload Promo</span>
                                 </div>
                                 {(!promoBanners || promoBanners.length === 0) && (
@@ -702,7 +703,7 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                                     }}
                                     className="w-full flex items-center gap-4 p-4 rounded-2xl bg-surface-elevated/5 border border-white/10 hover:bg-surface-elevated/10 transition-all text-left group"
                                 >
-                                    <span className="text-xl group-hover:scale-125 transition-transform">⚡</span>
+                                    <EmojiIcon emoji="⚡" size=20 className="text-xl group-hover:scale-125 transition-transform" />
                                     <div className="flex-1 overflow-hidden">
                                         <div className="text-xs font-black uppercase tracking-widest text-[#a5b4fc] truncate">{mission.name}</div>
                                         <div className="text-[9px] font-medium text-ink-tertiary uppercase tracking-tight truncate">Level {mission.priority} Priority</div>

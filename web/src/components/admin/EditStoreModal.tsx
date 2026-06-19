@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import BadgeSelector from '../marketplace/BadgeSelector';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Store {
     store_id: number;
@@ -152,7 +153,7 @@ export default function EditStoreModal({ store, isOpen, onClose, onSuccess }: Ed
                             Editing: <span className="text-accent-400">{store.name}</span> (ID: {store.store_id})
                         </p>
                     </div>
-                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-surface-elevated shadow-sm flex items-center justify-center text-ink-tertiary hover:text-ink-secondary transition-all border border-border-primary">✕</button>
+                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-surface-elevated shadow-sm flex items-center justify-center text-ink-tertiary hover:text-ink-secondary transition-all border border-border-primary"><EmojiIcon emoji="✕" size=16 /></button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">

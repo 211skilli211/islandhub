@@ -4,6 +4,7 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStr
 import { CSS } from '@dnd-kit/utilities';
 import api, { getImageUrl } from '@/lib/api';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export interface MediaItem {
     id: string;
@@ -231,7 +232,7 @@ export default function MediaManager({ initialMedia = [], onChange, maxFiles = 1
 
             {media.length === 0 && (
                 <div className="border-2 border-dashed border-border-primary rounded-2xl p-8 text-center bg-surface-secondary/50">
-                    <span className="text-4xl block mb-2">📷</span>
+                    <EmojiIcon emoji="📷" size=40 className="text-4xl block mb-2" />
                     <p className="text-ink-tertiary text-sm font-medium">No images yet. Upload some to get started.</p>
                 </div>
             )}

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface CryptoPaymentProps {
     campaignId?: string;
@@ -83,8 +84,8 @@ const CryptoPayment = ({ campaignId, orderId, amount, currency = 'USD', onSucces
                 </a>
             </div>
             <div className="text-sm text-ink-tertiary font-medium space-y-2">
-                <p>💡 Payment will be confirmed automatically once received on the blockchain</p>
-                <p>📧 You'll receive a receipt email when the transaction is complete</p>
+                <EmojiIcon emoji="💡" size=16 />
+                <EmojiIcon emoji="📧" size=16 />
             </div>
         </div>
     );

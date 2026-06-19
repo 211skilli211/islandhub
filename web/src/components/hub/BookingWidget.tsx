@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { PriceTag, RatingBadge, AvailabilityBadge, UrgencyCue } from './SharedComponents';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -387,11 +388,11 @@ export default function BookingWidget({
           <p className="text-[10px] text-ink-tertiary text-center">{cancellationText}</p>
         )}
         <div className="flex items-center justify-center gap-3 text-[10px] text-ink-tertiary font-medium">
-          <span className="flex items-center gap-1">🔒 Secure</span>
+          <EmojiIcon emoji="🔒" size=16 className="flex items-center gap-1" />
           <span>.</span>
-          <span className="flex items-center gap-1">✓ Verified</span>
+          <EmojiIcon emoji="✓" size=16 className="flex items-center gap-1" />
           <span>.</span>
-          <span className="flex items-center gap-1">💳 Encrypted</span>
+          <EmojiIcon emoji="💳" size=16 className="flex items-center gap-1" />
         </div>
       </div>
     </div>

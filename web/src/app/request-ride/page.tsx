@@ -7,6 +7,7 @@ import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -272,7 +273,7 @@ export default function RequestRidePage() {
               
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">👥</span>
+                  <EmojiIcon emoji="👥" size=18 className="text-lg" />
                   <div><div className="text-sm text-white font-medium">Passengers</div><div className="text-xs text-ink-500">How many people?</div></div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -305,7 +306,7 @@ export default function RequestRidePage() {
               <div className="h-full relative">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center"><div className="text-6xl mb-2">🗺️</div><p className="text-ink-500 text-sm">Live map</p></div>
+                  <div className="text-center"><EmojiIcon emoji="🗺️" size=48 className="text-6xl mb-2" /><p className="text-ink-500 text-sm">Live map</p></div>
                 </div>
                 
                 {pickup && (
@@ -356,7 +357,7 @@ export default function RequestRidePage() {
               ) : null}
             </button>
 
-            <p className="text-xs text-ink-600 text-center">🔒 Free cancellation up to 5 min after booking</p>
+            <EmojiIcon emoji="🔒" size=16 className="text-xs text-ink-600 text-center" />
           </div>
         </div>
       </div>

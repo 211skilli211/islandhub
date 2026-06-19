@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import api from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Message {
     message_id: number;
@@ -115,7 +116,7 @@ export default function DeliveryChat({ deliveryId, otherUserId, otherUserName, o
                     </div>
                 ) : messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-ink-tertiary">
-                        <div className="text-4xl mb-2">💬</div>
+                        <EmojiIcon emoji="💬" size=40 className="text-4xl mb-2" />
                         <p className="text-sm font-medium">No messages yet</p>
                         <p className="text-xs">Start the conversation!</p>
                     </div>

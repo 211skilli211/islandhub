@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { MapPin, Search, Layers } from 'lucide-react';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Location {
     id: number;
@@ -202,7 +203,7 @@ export default function MapPage() {
                     <div className="bg-surface-elevated rounded-2xl border border-border-primary">
                         <div className="h-[500px] flex items-center justify-center">
                             <div className="text-center p-8">
-                                <div className="text-6xl mb-4">🗺️</div>
+                                <EmojiIcon emoji="🗺️" size=48 className="text-6xl mb-4" />
                                 <h3 className="text-xl font-black text-ink-primary mb-2">No locations found</h3>
                                 <p className="text-ink-tertiary">
                                     {searchQuery || activeFilter !== 'all'

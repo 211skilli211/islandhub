@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function FounderPhoto({ className = '' }: { className?: string }) {
   const [hasError, setHasError] = useState(false);
@@ -29,7 +30,7 @@ export default function FounderPhoto({ className = '' }: { className?: string })
   if (hasError || (!photoUrl && !loading)) {
     return (
       <div className={`bg-gradient-to-br from-teal-100 to-amber-50 flex items-center justify-center ${className}`}>
-        <span className="text-4xl">👨‍💻</span>
+        <EmojiIcon emoji="👨‍💻" size=40 className="text-4xl" />
       </div>
     );
   }

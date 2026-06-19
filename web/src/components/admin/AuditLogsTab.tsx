@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AdminTable, Column } from './shared/AdminTable';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface AuditLog {
     id: number;
@@ -88,10 +89,10 @@ export default function AuditLogsTab() {
         <div className="space-y-6">
             <div className="bg-gradient-to-r from-ink-900 to-teal-900 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
                 <div className="relative z-10">
-                    <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-2">Audit Intelligence Hub 📜</h2>
+                    <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-2">Audit Intelligence Hub <EmojiIcon emoji="📜" size=40 /></h2>
                     <p className="text-ink-tertiary font-bold uppercase text-[10px] tracking-widest">Permanent Immutable Record of Administrative Operations</p>
                 </div>
-                <div className="absolute top-0 right-0 p-10 opacity-10 text-9xl font-black">🏛️</div>
+                <EmojiIcon emoji="🏛️" size=16 className="absolute top-0 right-0 p-10 opacity-10 text-9xl font-black" />
             </div>
 
             <AdminTable<AuditLog>

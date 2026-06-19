@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const FOOTER_LINKS = {
   marketplace: [
@@ -46,7 +47,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">🏝️</span>
+                <EmojiIcon emoji="🏝️" size=24 className="text-2xl" />
                 <span className="text-lg font-black text-ink-primary tracking-tight">IslandHub</span>
               </div>
             </Link>

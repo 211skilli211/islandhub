@@ -6,12 +6,13 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const LiveTrackingMap = dynamic(() => import('@/components/transport/LiveTrackingMap'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full bg-ink-900/50 rounded-2xl animate-pulse flex items-center justify-center">
-      <div className="text-center"><div className="text-5xl mb-2">🗺️</div><p className="text-ink-500 text-sm">Loading map...</p></div>
+      <div className="text-center"><EmojiIcon emoji="🗺️" size=48 className="text-5xl mb-2" /><p className="text-ink-500 text-sm">Loading map...</p></div>
     </div>
   ),
 });
@@ -90,7 +91,7 @@ export default function TrackRidePage() {
     return (
       <main className="min-h-screen bg-black flex items-center justify-center p-4">
         <div className="text-center">
-          <div className="text-6xl mb-4">🔍</div>
+          <EmojiIcon emoji="🔍" size=48 className="text-6xl mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">{error || 'Trip not found'}</h1>
           <p className="text-ink-400 mb-6">This trip doesn't exist or has ended.</p>
           <Link href="/request-ride" className="px-8 py-3 bg-teal-500 text-white rounded-xl font-bold inline-block">
@@ -151,7 +152,7 @@ export default function TrackRidePage() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               className="bg-black/40 border border-white/5 rounded-xl p-4 mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-xl">🚕</div>
+                <EmojiIcon emoji="🚕" size=20 className="w-11 h-11 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-xl" />
                 <div className="flex-1">
                   <span className="font-bold text-white text-sm">{trip.driver_name}</span>
                   {trip.driver_vehicle && <p className="text-xs text-ink-400">{trip.driver_vehicle}</p>}
@@ -192,7 +193,7 @@ export default function TrackRidePage() {
           
           {trip.status === 'completed' && (
             <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-5 text-center">
-              <div className="text-3xl mb-2">🎉</div>
+              <EmojiIcon emoji="🎉" size=28 className="text-3xl mb-2" />
               <h3 className="text-lg font-bold text-green-400 mb-1">Trip Completed!</h3>
               <p className="text-sm text-ink-400 mb-4">Thanks for riding with IslandHub</p>
               <Link href="/request-ride" className="inline-block px-6 py-2.5 bg-teal-500 text-white rounded-xl font-bold text-sm">

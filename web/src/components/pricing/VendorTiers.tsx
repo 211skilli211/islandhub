@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Tier {
     id: string;
@@ -95,7 +96,7 @@ export default function VendorTiers() {
                     <ul className="space-y-4 mb-8">
                         {tier.features.map((feature) => (
                             <li key={feature} className="flex items-start gap-3 text-sm font-medium">
-                                <span className={tier.highlighted ? 'text-accent-400' : 'text-accent-400'}>✓</span>
+                                <EmojiIcon emoji="✓" size=16 />
                                 <span className={tier.highlighted ? 'text-ink-tertiary' : 'text-ink-secondary'}>
                                     {feature}
                                 </span>

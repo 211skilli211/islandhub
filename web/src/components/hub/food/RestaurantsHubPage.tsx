@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { CompactCard, CompactHubPage } from '@/components/hub/CompactCard';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const subtypes = ['restaurant', 'dining', 'fine_dining'];
 const gradient = 'from-orange-900 via-red-900 to-rose-900';
@@ -26,7 +27,7 @@ export default function RestaurantsHubPage() {
 
   return (
     <CompactHubPage title="Restaurants" subtitle="Full-service dining across St. Kitts & Nevis" emoji="🍽️" gradient={gradient} items={items} loading={loading} filters={['All', 'Caribbean', 'Italian', 'Seafood', 'Steakhouse']} activeFilter="All" onFilterChange={() => {}} sortOptions={['Popular', 'Rating', 'Distance']} activeSort="Popular" onSortChange={() => {}} emptyEmoji="🍽️" emptyTitle="No restaurants found" emptyMessage="Check back later for new restaurant listings."
-      renderCard={(s, i) => <CompactCard key={s.store_id || s.id} href={`/hub/food/restaurants/${s.slug}`} imageUrl={s.banner_url} emoji="🍽️" title={s.name || s.business_name} subtitle={s._subtype} rating={s.rating} badge={s._price} badgeColor="bg-orange-500" meta={[`🕐 ${s._time}`]} ctaLabel="Order Now" />}
+      renderCard={(s, i) => <CompactCard key={s.store_id || s.id} href={`/hub/food/restaurants/${s.slug}`} imageUrl={s.banner_url} emoji="🍽️" title={s.name || s.business_name} subtitle={s._subtype} rating={s.rating} badge={s._price} badgeColor="bg-orange-500" meta={[`<EmojiIcon emoji="🕐" size=16 /> ${s._time}`]} ctaLabel="Order Now" />}
     />
   );
 }

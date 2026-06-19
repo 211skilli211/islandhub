@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import { 
   ShoppingBag, Heart, Clock, CreditCard, Package, 
   MapPin, Star, ChevronRight, Truck, MessageSquare 
@@ -78,7 +79,7 @@ export default function BuyerDashboard() {
     <div className="space-y-8">
       
       <div>
-        <h1 className="text-display-md text-ink-primary">Welcome back, {user?.name?.split(' ')[0]} 👋</h1>
+        <h1 className="text-display-md text-ink-primary">Welcome back, {user?.name?.split(' ')[0]} <EmojiIcon emoji="👋" size=16 /></h1>
         <p className="text-body-md text-ink-secondary mt-2">Here's what's happening with your account.</p>
       </div>
 
@@ -129,19 +130,19 @@ export default function BuyerDashboard() {
       
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Link href="/create?type=product" className="p-5 bg-surface-elevated rounded-2xl border border-border-primary hover:shadow-lg flex flex-col items-center gap-3 group transition-all">
-          <span className="text-3xl p-3 bg-accent-50 rounded-2xl group-hover:scale-110 transition-all">📦</span>
+          <EmojiIcon emoji="📦" size=28 className="text-3xl p-3 bg-accent-50 rounded-2xl group-hover:scale-110 transition-all" />
           <span className="text-caption font-bold text-center">Sell Something</span>
         </Link>
         <Link href="/create?type=service" className="p-5 bg-surface-elevated rounded-2xl border border-border-primary hover:shadow-lg flex flex-col items-center gap-3 group transition-all">
-          <span className="text-3xl p-3 bg-palm-50 rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
+          <EmojiIcon emoji="🛠️" size=28 className="text-3xl p-3 bg-palm-50 rounded-2xl group-hover:scale-110 transition-all" />
           <span className="text-caption font-bold text-center">Offer Service</span>
         </Link>
         <Link href="/request-ride?type=taxi" className="p-5 bg-surface-elevated rounded-2xl border border-border-primary hover:shadow-lg flex flex-col items-center gap-3 group transition-all">
-          <span className="text-3xl p-3 bg-sand-50 rounded-2xl group-hover:scale-110 transition-all">🚕</span>
+          <EmojiIcon emoji="🚕" size=28 className="text-3xl p-3 bg-sand-50 rounded-2xl group-hover:scale-110 transition-all" />
           <span className="text-caption font-bold text-center">Book a Ride</span>
         </Link>
         <Link href="/bookmarks" className="p-5 bg-surface-elevated rounded-2xl border border-border-primary hover:shadow-lg flex flex-col items-center gap-3 group transition-all">
-          <span className="text-3xl p-3 bg-coral-50 rounded-2xl group-hover:scale-110 transition-all">❤️</span>
+          <EmojiIcon emoji="❤️" size=28 className="text-3xl p-3 bg-coral-50 rounded-2xl group-hover:scale-110 transition-all" />
           <span className="text-caption font-bold text-center">My Wishlist</span>
         </Link>
       </div>
@@ -194,11 +195,11 @@ export default function BuyerDashboard() {
         <h2 className="text-headline-lg font-black mb-2">Explore the Marketplace</h2>
         <p className="text-body-sm opacity-80 mb-6">Discover local products, services, and experiences across the Caribbean.</p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/food" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🍽️ Food</Link>
-          <Link href="/products" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🛍️ Shop</Link>
-          <Link href="/services" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🛠️ Services</Link>
-          <Link href="/rentals" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🏠 Stays</Link>
-          <Link href="/tours" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors">🗺️ Tours</Link>
+          <Link href="/food" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors"><EmojiIcon emoji="🍽️" size=16 /> Food</Link>
+          <Link href="/products" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors"><EmojiIcon emoji="🛍️" size=16 /> Shop</Link>
+          <Link href="/services" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors"><EmojiIcon emoji="🛠️" size=16 /> Services</Link>
+          <Link href="/rentals" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors"><EmojiIcon emoji="🏠" size=16 /> Stays</Link>
+          <Link href="/tours" className="px-5 py-2.5 bg-surface-elevated/20 backdrop-blur rounded-xl text-sm font-bold hover:bg-surface-elevated/30 transition-colors"><EmojiIcon emoji="🗺️" size=16 /> Tours</Link>
         </div>
       </div>
     </div>

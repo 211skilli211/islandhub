@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/contexts/CartContext';
 import { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface ShippingOption {
     id: string;
@@ -93,7 +94,7 @@ export default function CrossVendorCart() {
     if (!cart?.items?.length) {
         return (
             <div className="text-center py-20 bg-surface-elevated rounded-[3rem] border border-border-primary shadow-sm mx-auto max-w-4xl">
-                <span className="text-8xl mb-6 block">🛒</span>
+                <EmojiIcon emoji="🛒" size=16 className="text-8xl mb-6 block" />
                 <h2 className="text-3xl font-black text-ink-primary mb-2">Your cart is empty</h2>
                 <p className="text-ink-tertiary text-lg mb-8">Add items from multiple vendors to get started!</p>
                 <a href="/listings" className="inline-block px-8 py-4 bg-accent-500 text-white rounded-2xl font-bold uppercase tracking-widest text-sm hover:bg-accent-600 transition-all">
@@ -121,7 +122,7 @@ export default function CrossVendorCart() {
                             
                             <div className="flex items-center justify-between pb-6 border-b border-border-primary mb-6">
                                 <div className="flex items-center gap-4">
-                                    <span className="text-3xl bg-surface-secondary w-12 h-12 flex items-center justify-center rounded-xl">🏪</span>
+                                    <EmojiIcon emoji="🏪" size=28 className="text-3xl bg-surface-secondary w-12 h-12 flex items-center justify-center rounded-xl" />
                                     <div>
                                         <h3 className="font-bold text-ink-primary text-lg">{group.vendorName}</h3>
                                         <p className="text-sm text-ink-tertiary font-medium">

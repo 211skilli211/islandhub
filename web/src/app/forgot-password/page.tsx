@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState('');
@@ -32,7 +33,7 @@ export default function ForgotPasswordPage() {
                 <div className="min-h-screen bg-ink-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
                         <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                            <span className="text-3xl">✓</span>
+                            <EmojiIcon emoji="✓" size=28 className="text-3xl" />
                         </div>
                         <h2 className="text-2xl font-bold text-ink-900">Check your email</h2>
                         <p className="mt-2 text-sm text-ink-600">We sent a password reset link to <strong>{email}</strong></p>

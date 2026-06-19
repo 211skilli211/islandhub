@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface SidebarLayoutProps {
     children: ReactNode;
@@ -76,7 +77,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                 
                 <div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="text-2xl">🌴</span>
+                        <EmojiIcon emoji="🌴" size=24 className="text-2xl" />
                         {!collapsed && <span className="font-black text-lg tracking-tight text-gray-900">IslandHub</span>}
                     </Link>
                     <button onClick={() => setMobileOpen(false)} className="lg:hidden p-2 hover:bg-gray-100 rounded-lg text-gray-500">
@@ -161,7 +162,7 @@ export default function SidebarLayout({ children, title = 'Dashboard' }: Sidebar
                     </button>
                     <button onClick={handleLogout}
                         className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-600 w-full transition-colors">
-                        <span className="text-xl">🚪</span>
+                        <EmojiIcon emoji="🚪" size=20 className="text-xl" />
                         {!collapsed && <span className="font-bold text-sm">Logout</span>}
                     </button>
                 </div>

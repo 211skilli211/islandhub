@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface AddAssetModalProps {
     onClose: () => void;
@@ -48,7 +49,7 @@ export default function AddAssetModal({ onClose, onSuccess }: AddAssetModalProps
                             accept="image/*"
                         />
                         <label htmlFor="asset-upload" className="cursor-pointer block">
-                            <div className="text-4xl mb-2">📸</div>
+                            <EmojiIcon emoji="📸" size=40 className="text-4xl mb-2" />
                             <div className="font-bold text-ink-secondary">{file ? file.name : 'Select an image file'}</div>
                             <div className="text-xs text-ink-tertiary mt-1">Supports JPG, PNG, WebP</div>
                         </label>

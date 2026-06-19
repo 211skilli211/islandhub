@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function BecomeDriver() {
     const [applicationStep, setApplicationStep] = useState(1);
@@ -301,24 +302,24 @@ export default function BecomeDriver() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-ink-600">
-                            <span className="text-emerald-400">✓</span> Must be 18+ years old
+                            <EmojiIcon emoji="✓" size=16 className="text-emerald-400" /> Must be 18+ years old
                         </li>
                         <li className="flex items-center gap-2 text-sm text-ink-600">
-                            <span className="text-emerald-400">✓</span> Valid government-issued ID
+                            <EmojiIcon emoji="✓" size=16 className="text-emerald-400" /> Valid government-issued ID
                         </li>
                         <li className="flex items-center gap-2 text-sm text-ink-600">
-                            <span className="text-emerald-400">✓</span> Smartphone with data plan
+                            <EmojiIcon emoji="✓" size=16 className="text-emerald-400" /> Smartphone with data plan
                         </li>
                     </ul>
                     <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-ink-600">
-                            <span className="text-emerald-400">✓</span> Clean driving record
+                            <EmojiIcon emoji="✓" size=16 className="text-emerald-400" /> Clean driving record
                         </li>
                         <li className="flex items-center gap-2 text-sm text-ink-600">
-                            <span className="text-emerald-400">✓</span> Vehicle insurance (if applicable)
+                            <EmojiIcon emoji="✓" size=16 className="text-emerald-400" /> Vehicle insurance (if applicable)
                         </li>
                         <li className="flex items-center gap-2 text-sm text-ink-600">
-                            <span className="text-emerald-400">✓</span> Background check clearance
+                            <EmojiIcon emoji="✓" size=16 className="text-emerald-400" /> Background check clearance
                         </li>
                     </ul>
                 </div>

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { getImageUrl } from '@/lib/api';
 import VendorComplianceStatus from './VendorComplianceStatus';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface VendorOverviewProps {
     subscription: any;
@@ -88,7 +89,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                         href={`/store/${activeStore.slug}`}
                         className="px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white rounded-xl font-black uppercase text-xs tracking-widest transition-all flex items-center gap-2 shadow-lg shadow-accent-500/10"
                     >
-                        <span>👁️</span> View Storefront
+                        <EmojiIcon emoji="👁️" size=16 /> View Storefront
                     </Link>
                 )}
             </div>
@@ -127,7 +128,7 @@ export default function VendorOverview({ subscription, stores, activeStore, list
                                 {activeStore?.logo_url ? (
                                     <img src={getImageUrl(activeStore.logo_url)} alt="Store Logo" className="w-full h-full object-contain" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-2xl sm:text-3xl">🏪</div>
+                                    <EmojiIcon emoji="🏪" size=28 className="w-full h-full flex items-center justify-center text-2xl sm:text-3xl" />
                                 )}
                             </div>
                             <div className="flex-1 min-w-0">

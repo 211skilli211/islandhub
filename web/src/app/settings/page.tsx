@@ -8,6 +8,7 @@ import api, { getImageUrl } from '@/lib/api';
 import toast from '@/lib/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import PushNotificationManager from '@/components/notifications/PushNotificationManager';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const ImageUpload = dynamic(
     () => import('@/components/ImageUpload'),
@@ -351,7 +352,7 @@ function SettingsContent() {
 
                                         <div className="space-y-6">
                                             <div className="p-6 bg-surface-primary dark:bg-surface-tertiary rounded-3xl">
-                                                <h3 className="font-bold text-ink-primary dark:text-white mb-4">📧 Email Notifications</h3>
+                                                <h3 className="font-bold text-ink-primary dark:text-white mb-4"><EmojiIcon emoji="📧" size=16 /> Email Notifications</h3>
                                                 <div className="space-y-4">
                                                     {[
                                                         { key: 'email_orders', label: 'Order Updates', desc: 'Status changes on your orders' },
@@ -369,7 +370,7 @@ function SettingsContent() {
                                             </div>
 
                                             <div className="p-6 bg-surface-primary dark:bg-surface-tertiary rounded-3xl">
-                                                <h3 className="font-bold text-ink-primary dark:text-white mb-4">🔔 Push Notifications</h3>
+                                                <h3 className="font-bold text-ink-primary dark:text-white mb-4"><EmojiIcon emoji="🔔" size=16 /> Push Notifications</h3>
                                                 <div className="space-y-4">
                                                     {[
                                                         { key: 'push_dispatch', label: '🚗 Dispatch Alerts', desc: 'New ride requests' },
@@ -391,19 +392,19 @@ function SettingsContent() {
                                             <div className="p-6 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-3xl border border-teal-100">
                                                 <div className="flex items-center justify-between">
                                                     <div>
-                                                        <h3 className="font-bold text-ink-primary dark:text-white">🤖 AI Auto-Reply</h3>
+                                                        <h3 className="font-bold text-ink-primary dark:text-white"><EmojiIcon emoji="🤖" size=16 /> AI Auto-Reply</h3>
                                                         <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">Automatically respond to buyer messages using AI</p>
                                                     </div>
                                                     <Toggle checked={notifPrefs.ai_auto_reply} onChange={handleToggleAutoReply} />
                                                 </div>
                                                 {notifPrefs.ai_auto_reply && (
-                                                    <p className="text-xs text-accent-400 mt-3">✓ AI will respond to incoming messages when you're unavailable</p>
+                                                    <EmojiIcon emoji="✓" size=16 className="text-xs text-accent-400 mt-3" />
                                                 )}
                                             </div>
                                         </div>
 
                                         <div className="border-t border-border-primary pt-6">
-                                            <h3 className="font-bold text-ink-primary dark:text-white mb-4">📱 Device Registration</h3>
+                                            <h3 className="font-bold text-ink-primary dark:text-white mb-4"><EmojiIcon emoji="📱" size=16 /> Device Registration</h3>
                                             <PushNotificationManager />
                                         </div>
 
@@ -454,7 +455,7 @@ function SettingsContent() {
 
                                         <div className="p-6 bg-surface-primary dark:bg-surface-tertiary rounded-3xl">
                                             <div className="flex items-center justify-between mb-4">
-                                                <h3 className="font-bold text-ink-primary dark:text-white">🔑 Password</h3>
+                                                <h3 className="font-bold text-ink-primary dark:text-white"><EmojiIcon emoji="🔑" size=16 /> Password</h3>
                                                 <button onClick={() => setShowChangePassword(!showChangePassword)} className="text-accent-400 font-bold text-sm">
                                                     {showChangePassword ? 'Cancel' : 'Change'}
                                                 </button>
@@ -477,8 +478,8 @@ function SettingsContent() {
 
                                         <div className="p-6 bg-surface-primary dark:bg-surface-tertiary rounded-3xl">
                                             <div className="flex items-center justify-between mb-4">
-                                                <h3 className="font-bold text-ink-primary dark:text-white">🔐 Two-Factor Authentication</h3>
-                                                {twoFAEnabled && <span className="text-accent-400 text-xs font-bold">✓ {twoFAMethod === 'email' ? 'Email OTP' : 'Authenticator'} Enabled</span>}
+                                                <h3 className="font-bold text-ink-primary dark:text-white"><EmojiIcon emoji="🔐" size=16 /> Two-Factor Authentication</h3>
+                                                {twoFAEnabled && <EmojiIcon emoji="✓" size=16 className="text-accent-400 text-xs font-bold" />}
                                             </div>
                                             <p className="text-sm text-ink-tertiary dark:text-ink-tertiary mb-4">Add an extra layer of security to your account</p>
                                             
@@ -490,14 +491,14 @@ function SettingsContent() {
                                                             onClick={() => { setTwoFAMethod('authenticator'); setShow2FAMethodSelect(false); handleEnable2FA(); }}
                                                             className="p-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary0 rounded-xl text-left hover:border-teal-500 transition-colors"
                                                         >
-                                                            <div className="font-bold text-ink-primary dark:text-white">📱 Authenticator App</div>
+                                                            <EmojiIcon emoji="📱" size=16 className="font-bold text-ink-primary dark:text-white" />
                                                             <div className="text-xs text-ink-tertiary dark:text-ink-tertiary mt-1">Google Auth, Authy, etc.</div>
                                                         </button>
                                                         <button 
                                                             onClick={() => { setTwoFAMethod('email'); setShow2FAMethodSelect(false); handleEnable2FA(); }}
                                                             className="p-4 bg-surface-elevated dark:bg-surface-tertiary border border-border-primary dark:border-border-primary0 rounded-xl text-left hover:border-teal-500 transition-colors"
                                                         >
-                                                            <div className="font-bold text-ink-primary dark:text-white">📧 Email Code</div>
+                                                            <EmojiIcon emoji="📧" size=16 className="font-bold text-ink-primary dark:text-white" />
                                                             <div className="text-xs text-ink-tertiary dark:text-ink-tertiary mt-1">Receive code via email</div>
                                                         </button>
                                                     </div>
@@ -548,7 +549,7 @@ function SettingsContent() {
                                         </div>
 
                                         <div className="p-6 bg-[#e11d48]/5 rounded-3xl border border-[#e11d48]/20">
-                                            <h3 className="font-bold text-rose-900 mb-2">⚠️ Danger Zone</h3>
+                                            <h3 className="font-bold text-rose-900 mb-2"><EmojiIcon emoji="⚠️" size=16 /> Danger Zone</h3>
                                             <p className="text-sm text-rose-800 mb-4">Permanently delete your account and all data</p>
                                             
                                             {showDeleteAccount ? (

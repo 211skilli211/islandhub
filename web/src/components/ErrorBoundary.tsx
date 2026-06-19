@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Props {
     children: ReactNode;
@@ -41,7 +42,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
             return (
                 <div className="p-6 rounded-2xl bg-red-50 border border-red-200 text-center">
-                    <div className="text-4xl mb-4">⚠️</div>
+                    <EmojiIcon emoji="⚠️" size=40 className="text-4xl mb-4" />
                     <h3 className="text-lg font-bold text-red-800 mb-2">Something went wrong</h3>
                     <p className="text-red-600 text-sm mb-4">
                         {this.state.error?.message || 'An unexpected error occurred'}
@@ -77,7 +78,7 @@ export function withErrorBoundary<P extends object>(
 // Generic error fallback for dynamic imports
 export const dynamicImportErrorFallback = (error: Error, reset: () => void) => (
     <div className="p-8 rounded-2xl bg-surface-secondary border-2 border-dashed border-border-primary text-center">
-        <div className="text-4xl mb-4">💥</div>
+        <EmojiIcon emoji="💥" size=40 className="text-4xl mb-4" />
         <p className="text-ink-secondary font-medium mb-2">Failed to load component</p>
         <p className="text-ink-tertiary text-xs mb-4">{error.message}</p>
         <button

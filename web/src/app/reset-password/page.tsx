@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 function ResetPasswordContent() {
     const [password, setPassword] = useState('');
@@ -48,7 +49,7 @@ function ResetPasswordContent() {
             <div className="min-h-screen bg-surface-primary flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
                     <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                        <span className="text-3xl">⚠️</span>
+                        <EmojiIcon emoji="⚠️" size=28 className="text-3xl" />
                     </div>
                     <h2 className="text-2xl font-bold text-ink-primary">Invalid Link</h2>
                     <p className="mt-2 text-sm text-ink-secondary">This password reset link is invalid or has expired.</p>

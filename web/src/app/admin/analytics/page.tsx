@@ -18,6 +18,7 @@ import {
   Filler
 } from 'chart.js';
 import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 ChartJS.register(
   CategoryScale,
@@ -184,7 +185,7 @@ export default function AdminAnalyticsDashboard() {
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Total Revenue</h3>
-              <span className="text-2xl">💰</span>
+              <EmojiIcon emoji="💰" size=24 className="text-2xl" />
             </div>
             <p className="text-2xl font-bold text-ink-primary">
               ${overview?.total_revenue?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) || '0'}
@@ -194,7 +195,7 @@ export default function AdminAnalyticsDashboard() {
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Commission</h3>
-              <span className="text-2xl">🏦</span>
+              <EmojiIcon emoji="🏦" size=24 className="text-2xl" />
             </div>
             <p className="text-2xl font-bold text-ink-primary">
               ${overview?.total_commission?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) || '0'}
@@ -204,7 +205,7 @@ export default function AdminAnalyticsDashboard() {
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Total Orders</h3>
-              <span className="text-2xl">📦</span>
+              <EmojiIcon emoji="📦" size=24 className="text-2xl" />
             </div>
             <p className="text-2xl font-bold text-ink-primary">{overview?.total_orders || 0}</p>
           </div>
@@ -212,7 +213,7 @@ export default function AdminAnalyticsDashboard() {
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Active Stores</h3>
-              <span className="text-2xl">🏪</span>
+              <EmojiIcon emoji="🏪" size=24 className="text-2xl" />
             </div>
             <p className="text-2xl font-bold text-ink-primary">{overview?.active_stores || 0}</p>
           </div>
@@ -220,7 +221,7 @@ export default function AdminAnalyticsDashboard() {
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Active Buyers</h3>
-              <span className="text-2xl">👥</span>
+              <EmojiIcon emoji="👥" size=24 className="text-2xl" />
             </div>
             <p className="text-2xl font-bold text-ink-primary">{overview?.active_customers || 0}</p>
           </div>
@@ -228,7 +229,7 @@ export default function AdminAnalyticsDashboard() {
           <div className="bg-surface-elevated p-6 rounded-2xl shadow-sm border border-border-primary">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-ink-tertiary uppercase tracking-wider">Avg Order</h3>
-              <span className="text-2xl">📊</span>
+              <EmojiIcon emoji="📊" size=24 className="text-2xl" />
             </div>
             <p className="text-2xl font-bold text-ink-primary">
               ${overview?.avg_order_value?.toFixed(2) || '0.00'}

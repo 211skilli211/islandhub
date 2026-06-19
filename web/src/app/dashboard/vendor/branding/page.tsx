@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import api, { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // Layout template previews with category-specific designs
 const LAYOUT_TEMPLATES = {
@@ -376,7 +377,7 @@ export default function VendorBrandingPage() {
             case 'rejected':
                 return (
                     <span className="inline-flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 rounded-full text-sm font-bold">
-                        <span>❌</span>
+                        <EmojiIcon emoji="❌" size=16 />
                         Your store was rejected. Contact support.
                     </span>
                 );
@@ -438,7 +439,7 @@ export default function VendorBrandingPage() {
                                         />
                                     ) : (
                                         <div className="w-full h-full bg-surface-secondary flex items-center justify-center">
-                                            <span className="text-3xl">🏪</span>
+                                            <EmojiIcon emoji="🏪" size=28 className="text-3xl" />
                                         </div>
                                     )}
                                     
@@ -446,7 +447,7 @@ export default function VendorBrandingPage() {
                                         {uploading === 'logo' ? (
                                             <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                                         ) : (
-                                            <span className="text-white text-xs font-bold">📷</span>
+                                            <EmojiIcon emoji="📷" size=16 className="text-white text-xs font-bold" />
                                         )}
                                     </div>
                                 </button>
@@ -507,7 +508,7 @@ export default function VendorBrandingPage() {
                     
                     <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-xl shadow-black/10/50 border border-border-primary">
                         <h2 className="text-xl font-black text-ink-primary mb-2 flex items-center gap-3">
-                            <span className="w-8 h-8 bg-teal-50 text-teal-500 rounded-lg flex items-center justify-center text-sm">🎨</span>
+                            <EmojiIcon emoji="🎨" size=16 className="w-8 h-8 bg-teal-50 text-teal-500 rounded-lg flex items-center justify-center text-sm" />
                             Choose Your Store Layout
                         </h2>
                         <p className="text-ink-tertiary font-medium mb-8">Select a template that best fits your {vendor.category?.toLowerCase() || 'business'} type</p>
@@ -542,7 +543,7 @@ export default function VendorBrandingPage() {
                                             <p className="text-xs text-ink-tertiary font-medium mt-1">{template.description}</p>
                                         </div>
                                         {vendor.template_id === template.key && (
-                                            <span className="w-6 h-6 bg-teal-500 text-white rounded-full flex items-center justify-center text-xs shrink-0">✓</span>
+                                            <EmojiIcon emoji="✓" size=16 className="w-6 h-6 bg-teal-500 text-white rounded-full flex items-center justify-center text-xs shrink-0" />
                                         )}
                                     </div>
 
@@ -562,7 +563,7 @@ export default function VendorBrandingPage() {
                     
                     <div className="bg-surface-elevated p-10 rounded-[3rem] shadow-xl shadow-black/10/50 border border-border-primary">
                         <h2 className="text-xl font-black text-ink-primary mb-2 flex items-center gap-3">
-                            <span className="w-8 h-8 bg-rose-50 text-rose-500 rounded-lg flex items-center justify-center text-sm">🖼️</span>
+                            <EmojiIcon emoji="🖼️" size=16 className="w-8 h-8 bg-rose-50 text-rose-500 rounded-lg flex items-center justify-center text-sm" />
                             Store Assets
                         </h2>
                         <p className="text-ink-tertiary font-medium mb-8">Upload your store logo and hero banner</p>
@@ -592,7 +593,7 @@ export default function VendorBrandingPage() {
                                                 className="w-16 h-16 object-contain rounded-lg"
                                             />
                                         ) : (
-                                            <span className="text-3xl">🏪</span>
+                                            <EmojiIcon emoji="🏪" size=28 className="text-3xl" />
                                         )}
                                     </div>
                                     <h3 className="font-bold text-ink-primary mb-1">Store Logo</h3>

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import ImageCropper from '@/components/ui/ImageCropper';
 import { IMAGE_PRESETS, CATEGORY_PRESET_MAP, getPresetForCategory, getPresetDimensions, ImagePreset } from '@/lib/imagePresets';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface ImageUploadProps {
     currentImage?: string;
@@ -118,7 +119,7 @@ export default function ImageUpload({
                     </>
                 ) : (
                     <div className="text-center p-4">
-                        <span className="text-3xl mb-2 block animate-bounce">📸</span>
+                        <EmojiIcon emoji="📸" size=28 className="text-3xl mb-2 block animate-bounce" />
                         <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Add Image</span>
                     </div>
                 )}

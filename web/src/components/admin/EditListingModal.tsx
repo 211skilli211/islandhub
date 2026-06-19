@@ -7,6 +7,7 @@ import { CATEGORY_SCHEMAS } from '@/lib/schemas';
 import { getImageUrl } from '@/lib/api';
 import toast from '@/lib/toast';
 import MediaManager, { MediaItem } from './shared/MediaManager';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface EditListingModalProps {
     listing: any;
@@ -193,7 +194,7 @@ export default function EditListingModal({ listing, onClose, onSuccess }: EditLi
                     {subType && (
                         <div className="pt-4 border-t border-border-primary mt-6">
                             <div className="flex items-center gap-2 mb-4">
-                                <span className="text-xl">🛠️</span>
+                                <EmojiIcon emoji="🛠️" size=20 className="text-xl" />
                                 <h3 className="text-sm font-bold text-(--text-primary)">Specific Details ({subType})</h3>
                             </div>
                             <DynamicForm

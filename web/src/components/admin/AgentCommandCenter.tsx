@@ -6,6 +6,7 @@ import { useAuthStore } from '@/lib/auth';
 import api from '@/lib/api';
 import MemoryDashboard from './MemoryDashboard';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // ─── Types ──────────────────────────────────────────────────
 interface AgentConfig {
@@ -475,7 +476,7 @@ export default function AgentCommandCenter() {
                             <div className="space-y-8">
                                 {!providerReady && (
                                     <div className="p-6 bg-[#e11d48]/5 dark:bg-[#e11d48]/50/10 border border-[#e11d48]/20 dark:border-[#e11d48]/20 rounded-3xl text-xs font-bold text-[#e11d48] flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-[#e11d48]/50 rounded-2xl flex items-center justify-center text-white text-xl">⚠️</div>
+                                        <EmojiIcon emoji="⚠️" size=20 className="w-10 h-10 bg-[#e11d48]/50 rounded-2xl flex items-center justify-center text-white text-xl" />
                                         <div>
                                             <p className="uppercase tracking-widest font-black">Bridge Disconnected</p>
                                             <p className="text-[#e11d48]/70">No AI provider keys detected. Platform intelligence is currently offline.</p>
@@ -821,7 +822,7 @@ export default function AgentCommandCenter() {
                                                                     className="flex-1 bg-transparent px-4 py-2 text-sm font-mono outline-none dark:text-white" 
                                                                 />
                                                                 <button onClick={() => updateProviderKey(p.provider_name)} className="px-4 py-2 bg-accent-500 text-white rounded-xl text-[10px] font-black uppercase">Save</button>
-                                                                <button onClick={() => { setEditingProvider(null); setNewApiKey(''); }} className="px-3 py-2 text-[10px] font-black uppercase text-ink-tertiary">✕</button>
+                                                                <button onClick={() => { setEditingProvider(null); setNewApiKey(''); }} className="px-3 py-2 text-[10px] font-black uppercase text-ink-tertiary"><EmojiIcon emoji="✕" size=16 /></button>
                                                             </div>
                                                         ) : (
                                                             <button 
@@ -854,14 +855,14 @@ export default function AgentCommandCenter() {
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {workflows.length === 0 ? (
                                                 <div className="col-span-full py-20 bg-surface-elevated dark:bg-ink-primary rounded-[3rem] border border-border-primary dark:border-border-primary text-center opacity-50">
-                                                    <div className="text-4xl mb-4">🕸️</div>
+                                                    <EmojiIcon emoji="🕸️" size=40 className="text-4xl mb-4" />
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">No active procedures detected in the matrix</p>
                                                 </div>
                                             ) : (
                                                 workflows.map(wf => (
                                                     <div key={wf.workflow_id} className="bg-surface-elevated dark:bg-ink-primary rounded-4xl p-8 border border-border-primary dark:border-border-primary shadow-sm hover:shadow-xl transition-all">
                                                         <div className="flex justify-between items-start mb-6">
-                                                            <div className="w-12 h-12 bg-[#14b8a6]/10 dark:bg-[#14b8a6]/100/10 rounded-2xl flex items-center justify-center text-2xl">🔗</div>
+                                                            <EmojiIcon emoji="🔗" size=24 className="w-12 h-12 bg-[#14b8a6]/10 dark:bg-[#14b8a6]/100/10 rounded-2xl flex items-center justify-center text-2xl" />
                                                             <span className="px-3 py-1 bg-accent-500/100/10 text-accent-400 text-[8px] font-black uppercase tracking-widest rounded-full">Operational</span>
                                                         </div>
                                                         <h4 className="text-lg font-black dark:text-white mb-2">{wf.name}</h4>
@@ -901,7 +902,7 @@ export default function AgentCommandCenter() {
                                 </h3>
                                 <p className="text-[10px] text-ink-tertiary uppercase tracking-widest font-black">Entity configuration and personality architecture</p>
                             </div>
-                            <button onClick={() => { setEditingAgent(null); setShowNewAgent(false); }} className="p-4 bg-surface-secondary dark:bg-surface-tertiary rounded-full hover:rotate-90 transition-transform">✕</button>
+                            <button onClick={() => { setEditingAgent(null); setShowNewAgent(false); }} className="p-4 bg-surface-secondary dark:bg-surface-tertiary rounded-full hover:rotate-90 transition-transform"><EmojiIcon emoji="✕" size=16 /></button>
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">

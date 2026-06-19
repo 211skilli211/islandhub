@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const FALLBACK_SERVICES: Record<string, any> = {
     'ai-digital-employees': { title: 'AI Digital Employees', description: 'AI-powered digital employees that handle customer service, data entry, scheduling, and more — 24/7 availability with human-like interaction.', price: 5000, metadata: { pricing_model: 'monthly', features: ['24/7 Availability', 'Natural Language Processing', 'Custom Training', 'API Integration', 'Multi-language Support'] } },
@@ -72,7 +73,7 @@ export default function IBTServiceDetailPage() {
         return (
             <main className="min-h-screen bg-surface-primary flex items-center justify-center">
                 <div className="text-center">
-                    <div className="text-6xl mb-4">😕</div>
+                    <EmojiIcon emoji="😕" size=48 className="text-6xl mb-4" />
                     <h1 className="text-2xl font-black text-ink-primary mb-2">Service not found</h1>
                     <Link href="/store/ibt-solutions" className="text-accent-400 font-bold hover:underline">
                         ← Back to IBT Solutions
@@ -122,7 +123,7 @@ export default function IBTServiceDetailPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {service.metadata.features.map((feature: string, i: number) => (
                                         <div key={i} className="flex items-center gap-3 p-3 bg-surface-primary rounded-xl">
-                                            <span className="w-6 h-6 rounded-full bg-accent-500/15 text-accent-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                            <EmojiIcon emoji="✓" size=16 className="w-6 h-6 rounded-full bg-accent-500/15 text-accent-400 flex items-center justify-center text-xs font-bold" />
                                             <span className="text-sm font-medium text-ink-secondary">{feature}</span>
                                         </div>
                                     ))}
@@ -146,7 +147,7 @@ export default function IBTServiceDetailPage() {
 
                             {inquirySent ? (
                                 <div className="text-center py-8">
-                                    <div className="text-4xl mb-4">✅</div>
+                                    <EmojiIcon emoji="✅" size=40 className="text-4xl mb-4" />
                                     <h4 className="text-lg font-black text-ink-primary mb-2">Inquiry Sent!</h4>
                                     <p className="text-ink-tertiary text-sm">We&apos;ll get back to you within 24 hours.</p>
                                 </div>

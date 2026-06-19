@@ -7,6 +7,7 @@ import { useCart } from '@/contexts/CartContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface CartDrawerProps {
     open: boolean;
@@ -93,7 +94,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                                                                     />
                                                                     {item.donation_suggested && (
                                                                         <div className="absolute inset-0 bg-sand-500/50/10 flex items-center justify-center">
-                                                                            <span className="text-2xl">🎁</span>
+                                                                            <EmojiIcon emoji="🎁" size=24 className="text-2xl" />
                                                                         </div>
                                                                     )}
                                                                 </div>

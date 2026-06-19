@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { registerUser, useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const ROLE_OPTIONS = [
     { id: 'buyer', label: 'Buyer', icon: '🛒', desc: 'Shop products and services' },
@@ -178,7 +179,7 @@ export default function RegisterPage() {
                                         <p className="text-xs text-ink-tertiary">{role.desc}</p>
                                     </div>
                                     {selectedRole === role.id && (
-                                        <span className="ml-auto text-accent-400 text-xl">✓</span>
+                                        <EmojiIcon emoji="✓" size=20 className="ml-auto text-accent-400 text-xl" />
                                     )}
                                 </button>
                             ))}
@@ -203,7 +204,7 @@ export default function RegisterPage() {
                                                 <p className="text-xs text-ink-tertiary">{cat.desc}</p>
                                             </div>
                                             {vendorCategory === cat.id && (
-                                                <span className="ml-auto text-accent-400 text-xl">✓</span>
+                                                <EmojiIcon emoji="✓" size=20 className="ml-auto text-accent-400 text-xl" />
                                             )}
                                         </button>
                                     ))}
@@ -242,7 +243,7 @@ export default function RegisterPage() {
                                                 <p className="text-xs text-ink-tertiary">{cat.desc}</p>
                                             </div>
                                             {driverCategory === cat.id && (
-                                                <span className="ml-auto text-accent-400 text-xl">✓</span>
+                                                <EmojiIcon emoji="✓" size=20 className="ml-auto text-accent-400 text-xl" />
                                             )}
                                         </button>
                                     ))}

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import TypeBadge from '@/components/TypeBadge';
 import { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function CartPage() {
     const { cart, removeItem, updateQuantity, totalAmount, itemCount } = useCart();
@@ -52,7 +53,7 @@ export default function CartPage() {
 
                 
                 <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl flex items-center gap-3">
-                    <span className="text-xl">⚡</span>
+                    <EmojiIcon emoji="⚡" size=20 className="text-xl" />
                     <p className="text-sm font-bold text-amber-800 dark:text-amber-300">
                         Items in your cart are not reserved. Complete checkout to secure your order.
                     </p>

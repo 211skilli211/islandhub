@@ -5,6 +5,7 @@ import api from '@/lib/api';
 import toast from '@/lib/toast';
 import { AdminTable, Column } from './shared/AdminTable';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Driver {
     id: number;
@@ -118,7 +119,7 @@ export default function DriversTab() {
             accessor: (driver) => (
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-surface-secondary border border-border-primary flex items-center justify-center text-xl shadow-inner">
-                        {driver.v_category === 'scooter' ? '🛵' : driver.v_category === 'van' ? '🚐' : '🚗'}
+                        {driver.v_category === 'scooter' ? '🛵' : driver.v_category === 'van' ? '🚐' : '<EmojiIcon emoji="🚗" size=16 />'}
                     </div>
                     <div>
                         <p className="text-[10px] font-black uppercase text-ink-tertiary tracking-tighter leading-none mb-1">{driver.v_make || 'Generic'}</p>
@@ -174,7 +175,7 @@ export default function DriversTab() {
                             href="/admin/dispatch"
                             className="px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#14b8a6] transition-all shadow-xl shadow-slate-100 flex items-center gap-2"
                         >
-                            <span className="animate-pulse">🛰️</span> Live Tracking
+                            <EmojiIcon emoji="🛰️" size=16 className="animate-pulse" /> Live Tracking
                         </a>
                     </div>
                 </div>
@@ -241,13 +242,13 @@ export default function DriversTab() {
                                     <h3 className="text-3xl font-black text-ink-primary italic uppercase tracking-tighter">KYC Document Vault</h3>
                                     <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Authentication for {selectedKYC.name}</p>
                                 </div>
-                                <button onClick={() => setSelectedKYC(null)} className="w-12 h-12 bg-surface-elevated rounded-2xl flex items-center justify-center font-black text-sm shadow-xl hover:scale-110 transition-transform">✕</button>
+                                <button onClick={() => setSelectedKYC(null)} className="w-12 h-12 bg-surface-elevated rounded-2xl flex items-center justify-center font-black text-sm shadow-xl hover:scale-110 transition-transform"><EmojiIcon emoji="✕" size=16 /></button>
                             </div>
 
                             <div className="flex-1 overflow-y-auto p-10 space-y-10">
                                 <section>
                                     <h4 className="text-[10px] font-black uppercase text-[#14b8a6] tracking-widest mb-6 border-b border-teal-50 pb-2 flex items-center gap-2">
-                                        <span>🛡️</span> Identity & Legal
+                                        <EmojiIcon emoji="🛡️" size=16 /> Identity & Legal
                                     </h4>
                                     <div className="grid grid-cols-2 gap-8">
                                         <div className="p-6 bg-surface-secondary rounded-3xl">
@@ -263,7 +264,7 @@ export default function DriversTab() {
 
                                 <section>
                                     <h4 className="text-[10px] font-black uppercase text-accent-400 tracking-widest mb-6 border-b border-teal-50 pb-2 flex items-center gap-2">
-                                        <span>⚙️</span> Vehicle Specification
+                                        <EmojiIcon emoji="⚙️" size=16 /> Vehicle Specification
                                     </h4>
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="p-6 border-2 border-border-primary rounded-3xl">
@@ -279,11 +280,11 @@ export default function DriversTab() {
 
                                 <section>
                                     <h4 className="text-[10px] font-black uppercase text-sand-500 tracking-widest mb-6 border-b border-amber-50 pb-2 flex items-center gap-2">
-                                        <span>🖼️</span> Document Evidence
+                                        <EmojiIcon emoji="🖼️" size=16 /> Document Evidence
                                     </h4>
                                     <div className="flex items-center justify-center p-20 bg-surface-secondary rounded-[3rem] border-2 border-dashed border-border-primary">
                                         <div className="text-center">
-                                            <span className="text-4xl mb-4 block">📸</span>
+                                            <EmojiIcon emoji="📸" size=40 className="text-4xl mb-4 block" />
                                             <p className="text-xs font-bold text-ink-tertiary">Identity document scans appear here upon secondary verification stage.</p>
                                         </div>
                                     </div>

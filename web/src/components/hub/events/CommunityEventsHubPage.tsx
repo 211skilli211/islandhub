@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { RatingBadge, PriceTag, UrgencyCue, FilterBar, EmptyState } from '@/components/hub/SharedComponents';
 import api, { getImageUrl } from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface EventItem {
   id: number; name: string; slug: string;
@@ -19,7 +20,7 @@ function EventCard({ event }: { event: EventItem }) {
       <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-lg transition-all">
         <div className="relative aspect-[16/10] bg-gradient-to-br from-green-800 to-emerald-900">
           {img ? <img src={img} alt={name} className="w-full h-full object-cover" loading="lazy" /> : (
-            <div className="w-full h-full flex items-center justify-center text-4xl">📅</div>
+            <EmojiIcon emoji="📅" size=40 className="w-full h-full flex items-center justify-center text-4xl" />
           )}
           <div className="absolute top-3 left-3">
             <span className="px-2 py-0.5 rounded-full bg-white/90 text-ink-primary text-[10px] font-bold">{event.category || 'Community'}</span>
@@ -33,8 +34,8 @@ function EventCard({ event }: { event: EventItem }) {
         <div className="p-4 space-y-2">
           <h3 className="text-sm font-bold text-ink-primary group-hover:text-accent-500 truncate">{name}</h3>
           <div className="flex items-center gap-2 text-xs text-ink-tertiary">
-            {event.date_display && <span>📅 {event.date_display}</span>}
-            {event.venue && <span>. 📍 {event.venue}</span>}
+            {event.date_display && <EmojiIcon emoji="📅" size=16 />}
+            {event.venue && <span>. <EmojiIcon emoji="📍" size=16 /> {event.venue}</span>}
           </div>
           <div className="flex items-center justify-between pt-1 border-t border-border-primary">
             {event.is_free ? (

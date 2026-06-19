@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import { useAuthStore } from '@/lib/auth';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Conversation {
     id: number;
@@ -143,7 +144,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                 <h3 className="text-lg font-black text-ink-primary dark:text-white">Messages</h3>
                 {onClose && (
                     <button onClick={onClose} className="p-2 hover:bg-surface-tertiary dark:hover:bg-surface-tertiary rounded-xl">
-                        <span className="text-xl">✕</span>
+                        <EmojiIcon emoji="✕" size=20 className="text-xl" />
                     </button>
                 )}
             </div>
@@ -156,7 +157,7 @@ export default function BuyerSellerChat({ listingId, sellerId, initialMessage, o
                             onClick={startNewConversation}
                             className="w-full p-4 mx-auto m-4 bg-accent-500 hover:bg-accent-500/100 text-white rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2"
                         >
-                            <span>💬</span> New Conversation
+                            <EmojiIcon emoji="💬" size=16 /> New Conversation
                         </button>
                     )}
                     

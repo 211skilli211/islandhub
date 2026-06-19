@@ -7,6 +7,7 @@ import api, { getImageUrl } from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 import { useCart } from '@/contexts/CartContext';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function TourDetailPage() {
     const params = useParams();
@@ -90,9 +91,9 @@ export default function TourDetailPage() {
                             {tour.title}
                         </h1>
                         <div className="flex flex-wrap items-center gap-6 text-white/70 font-bold uppercase tracking-widest text-xs">
-                            <span className="flex items-center gap-2">📍 {tour.location}</span>
+                            <EmojiIcon emoji="📍" size=16 className="flex items-center gap-2" />
                             <span className="flex items-center gap-2">⏳ {tour.duration}</span>
-                            <span className="flex items-center gap-2">👥 Max {tour.capacity} Spots</span>
+                            <EmojiIcon emoji="👥" size=16 className="flex items-center gap-2" />
                         </div>
                     </motion.div>
                 </div>
@@ -124,7 +125,7 @@ export default function TourDetailPage() {
                                 className="w-full p-8 flex items-center justify-between text-left hover:bg-surface-primary transition-all focus:outline-none"
                             >
                                 <div className="flex items-center gap-4">
-                                    <span className="text-2xl">🎁</span>
+                                    <EmojiIcon emoji="🎁" size=24 className="text-2xl" />
                                     <h3 className="text-lg font-black text-ink-primary uppercase tracking-tight italic">What's Included</h3>
                                 </div>
                                 <span className={`transform transition-transform duration-300 font-black text-ink-tertiary ${expandedSections.includes('included') ? 'rotate-180' : ''}`}>▼</span>
@@ -140,7 +141,7 @@ export default function TourDetailPage() {
                                         <div className="px-8 pb-8 pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             {(tour.addons || []).map((addon: any, i: number) => (
                                                 <div key={i} className="flex items-center gap-3 p-4 bg-surface-elevated rounded-2xl border border-border-primary shadow-sm shadow-black/10/50">
-                                                    <span className="text-emerald-500">✓</span>
+                                                    <EmojiIcon emoji="✓" size=16 className="text-emerald-500" />
                                                     <span className="text-sm font-bold text-ink-secondary italic">{addon.name}</span>
                                                 </div>
                                             ))}
@@ -160,7 +161,7 @@ export default function TourDetailPage() {
                                 className="w-full p-8 flex items-center justify-between text-left hover:bg-surface-primary transition-all focus:outline-none"
                             >
                                 <div className="flex items-center gap-4">
-                                    <span className="text-2xl">📋</span>
+                                    <EmojiIcon emoji="📋" size=24 className="text-2xl" />
                                     <h3 className="text-lg font-black text-ink-primary uppercase tracking-tight italic">Important Info</h3>
                                 </div>
                                 <span className={`transform transition-transform duration-300 font-black text-ink-tertiary ${expandedSections.includes('details') ? 'rotate-180' : ''}`}>▼</span>
@@ -177,7 +178,7 @@ export default function TourDetailPage() {
                                             <div>
                                                 <h4 className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest mb-3">Operator / Vendor</h4>
                                                 <div className="flex items-center gap-4 p-4 bg-surface-elevated rounded-2xl border border-border-primary">
-                                                    <div className="w-12 h-12 rounded-full bg-surface-secondary flex items-center justify-center text-lg">🛡️</div>
+                                                    <EmojiIcon emoji="🛡️" size=18 className="w-12 h-12 rounded-full bg-surface-secondary flex items-center justify-center text-lg" />
                                                     <div>
                                                         <div className="font-black text-ink-primary uppercase text-sm tracking-tight">{tour.vendor_name || 'Signature Tours'}</div>
                                                         <div className="text-[10px] text-emerald-600 font-black uppercase tracking-widest">Verified Multi-Silo Operator</div>
@@ -215,7 +216,7 @@ export default function TourDetailPage() {
                                     <div className="flex items-center gap-4 mt-4">
                                         {tour.guide_languages && (
                                             <div className="flex items-center gap-1.5">
-                                                <span className="text-xs">🌐</span>
+                                                <EmojiIcon emoji="🌐" size=16 className="text-xs" />
                                                 <span className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">{tour.guide_languages}</span>
                                             </div>
                                         )}
@@ -227,7 +228,7 @@ export default function TourDetailPage() {
                                         )}
                                         {tour.guide_rating && (
                                             <div className="flex items-center gap-1.5">
-                                                <span className="text-xs text-amber-500">★</span>
+                                                <EmojiIcon emoji="★" size=16 className="text-xs text-amber-500" />
                                                 <span className="text-[10px] font-bold text-amber-500">{tour.guide_rating} rating</span>
                                             </div>
                                         )}
@@ -272,7 +273,7 @@ export default function TourDetailPage() {
                                 />
                             </div>
                             <div className="p-4 bg-orange-50 rounded-2xl border border-orange-100/50 flex items-center gap-3">
-                                <span className="text-xl">💳</span>
+                                <EmojiIcon emoji="💳" size=20 className="text-xl" />
                                 <div className="text-[10px] font-black uppercase tracking-widest text-orange-800">
                                     Only <span className="text-lg block tracking-tight">${(tour.price * 0.3).toFixed(2)} Deposit</span> required today
                                 </div>

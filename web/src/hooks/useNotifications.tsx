@@ -4,6 +4,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
 import React from 'react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface NotificationEvent {
     type: string;
@@ -70,7 +71,7 @@ export function useNotifications(options: UseNotificationsOptions = {}) {
                 <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-surface-elevated shadow-2xl rounded-2xl pointer-events-auto flex ring-1 ring-black ring-opacity-5`}>
                     <div className="flex-1 w-0 p-4">
                         <div className="flex items-center">
-                            <div className="text-2xl mr-3">📦</div>
+                            <EmojiIcon emoji="📦" size=24 className="text-2xl mr-3" />
                             <div className="flex-1">
                                 <p className="text-sm font-black text-ink-primary">New Job Available!</p>
                                 <p className="mt-1 text-xs text-ink-tertiary">{data.title} - ${data.price}</p>

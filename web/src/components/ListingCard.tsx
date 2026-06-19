@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getImageUrl } from '@/lib/api';
 import TypeBadge from './TypeBadge';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Listing {
     id: string;
@@ -211,7 +212,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                             alt={listing.title}
                         />
                         {listing.is_promoted && (
-                            <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-sand-500 text-white rounded text-[7px] font-black uppercase">★</span>
+                            <EmojiIcon emoji="★" size=16 className="absolute top-1 left-1 px-1.5 py-0.5 bg-sand-500 text-white rounded text-[7px] font-black uppercase" />
                         )}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -234,7 +235,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                                 <span className="text-[9px] font-bold text-ink-tertiary truncate">by {listing.shop_name}</span>
                             )}
                             {location && (
-                                <span className="text-[9px] text-accent-400 font-medium">📍 {location}</span>
+                                <EmojiIcon emoji="📍" size=16 className="text-[9px] text-accent-400 font-medium" />
                             )}
                         </div>
                     </div>
@@ -254,7 +255,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                         alt={listing.title}
                     />
                     {listing.is_promoted && (
-                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-sand-500 text-white rounded text-[8px] font-black uppercase shadow">★</span>
+                        <EmojiIcon emoji="★" size=16 className="absolute top-2 left-2 px-2 py-0.5 bg-sand-500 text-white rounded text-[8px] font-black uppercase shadow" />
                     )}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
                 </div>
@@ -314,7 +315,7 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
                                 {listing.shop_logo ? (
                                     <img src={getImageUrl(listing.shop_logo)} alt={listing.shop_name} className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-[10px] grayscale group-hover/shop:grayscale-0 transition-all">🏪</div>
+                                    <EmojiIcon emoji="🏪" size=16 className="w-full h-full flex items-center justify-center text-[10px] grayscale group-hover/shop:grayscale-0 transition-all" />
                                 )}
                             </div>
                             <span className="text-[9px] font-black text-ink-primary uppercase tracking-tight truncate max-w-[80px]">

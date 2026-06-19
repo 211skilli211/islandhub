@@ -7,6 +7,7 @@ import { useAuthStore } from '@/lib/auth';
 import EditListingModal from '@/components/admin/EditListingModal';
 import { CATEGORY_SCHEMAS, FormField } from '@/lib/schemas';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function ListingDetailPage() {
     const { user, isAuthenticated } = useAuthStore();
@@ -101,7 +102,7 @@ export default function ListingDetailPage() {
     if (!listing) return (
         <div className="min-h-screen bg-surface-primary dark:bg-surface-tertiary flex items-center justify-center">
             <div className="text-center p-8 bg-surface-elevated dark:bg-surface-tertiary rounded-2xl border border-border-primary dark:border-border-primary shadow-lg">
-                <div className="text-4xl mb-4">📦</div>
+                <EmojiIcon emoji="📦" size=40 className="text-4xl mb-4" />
                 <h2 className="text-xl font-bold text-ink-primary dark:text-white mb-2">Listing not found</h2>
                 <p className="text-ink-tertiary dark:text-ink-tertiary mb-4">The listing ID may be invalid or deleted.</p>
                 <button 

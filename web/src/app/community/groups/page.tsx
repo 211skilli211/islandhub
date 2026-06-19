@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import HeroBackground from '@/components/HeroBackground';
 import { Search, Users, Calendar, Lock, Globe, Plus, MessageCircle, MapPin, ChevronRight } from 'lucide-react';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Group {
     id: number;
@@ -172,7 +173,7 @@ export default function GroupsPage() {
                     </div>
                 ) : (
                     <div className="bg-surface-elevated rounded-2xl border border-border-primary p-12 text-center">
-                        <div className="text-5xl mb-4">👥</div>
+                        <EmojiIcon emoji="👥" size=48 className="text-5xl mb-4" />
                         <h3 className="text-lg font-black text-ink-primary mb-2">No groups found</h3>
                         <p className="text-sm text-ink-tertiary mb-6">Try a different search or create a new group!</p>
                         <button onClick={() => setShowCreateModal(true)} className="px-6 py-3 bg-accent-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-accent-600">Create Group</button>

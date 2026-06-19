@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function SuspendedPage() {
     return (
         <div className="min-h-screen bg-surface-primary flex items-center justify-center px-4">
             <div className="max-w-md w-full bg-surface-elevated rounded-2xl shadow-xl p-8 text-center">
                 <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-4xl">🚫</span>
+                    <EmojiIcon emoji="🚫" size=40 className="text-4xl" />
                 </div>
                 <h1 className="text-2xl font-black text-ink-primary mb-2">Account Suspended</h1>
                 <p className="text-ink-secondary mb-6">

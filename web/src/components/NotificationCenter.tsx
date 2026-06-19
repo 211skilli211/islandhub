@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuthStore } from '@/lib/auth';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Notification {
     id: number;
@@ -197,7 +198,7 @@ export default function NotificationCenter() {
                                 </div>
                             ) : notifications.length === 0 ? (
                                 <div className="py-10 text-center">
-                                    <p className="text-3xl mb-2">🔔</p>
+                                    <EmojiIcon emoji="🔔" size=28 className="text-3xl mb-2" />
                                     <p className="text-sm font-bold text-ink-tertiary">No notifications yet</p>
                                 </div>
                             ) : (

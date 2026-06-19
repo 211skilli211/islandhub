@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
 import BadgeSelector from '../marketplace/BadgeSelector';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface User {
     id: number;
@@ -149,7 +150,7 @@ export default function CreateStoreModal({ isOpen, onClose, onSuccess }: CreateS
                         <h2 className="text-2xl font-black text-ink-primary tracking-tight italic">Provision New Store</h2>
                         <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest mt-1">Admin Dashboard | Multi-Store Control</p>
                     </div>
-                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-surface-elevated shadow-sm flex items-center justify-center text-ink-tertiary hover:text-ink-secondary transition-all border border-border-primary">✕</button>
+                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-surface-elevated shadow-sm flex items-center justify-center text-ink-tertiary hover:text-ink-secondary transition-all border border-border-primary"><EmojiIcon emoji="✕" size=16 /></button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6 overflow-y-auto">
@@ -274,7 +275,7 @@ export default function CreateStoreModal({ isOpen, onClose, onSuccess }: CreateS
                             disabled={loading || !formData.vendor_id || !formData.name}
                             className="flex-2 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-accent-500 disabled:bg-surface-tertiary disabled:text-ink-tertiary transition-all shadow-xl shadow-black/10"
                         >
-                            {loading ? 'Creating Store...' : 'Launch Store 🚀'}
+                            {loading ? 'Creating Store...' : 'Launch Store <EmojiIcon emoji="🚀" size=16 />'}
                         </button>
                     </div>
                 </form>

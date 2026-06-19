@@ -32,6 +32,7 @@ import DriverVerification from '@/components/dashboard/DriverVerification';
 import VendorComplianceStatus from '@/components/dashboard/VendorComplianceStatus';
 import VendorOnboarding from '@/components/dashboard/VendorOnboarding';
 import BuyerDashboard from './buyer/page';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 // Dynamic imports for heavy components
 const CreateListingModal = dynamic(
@@ -214,7 +215,7 @@ function DashboardPageContent() {
                                 <button
                                     onClick={() => setIsDetailModalOpen(false)}
                                     className="absolute top-6 right-6 w-10 h-10 bg-surface-elevated rounded-full flex items-center justify-center text-ink-primary shadow-xl hover:scale-110 transition-all font-black"
-                                >✕</button>
+                                ><EmojiIcon emoji="✕" size=16 /></button>
                                 <div className="absolute inset-0 bg-gradient-to-t from-ink-900 to-transparent" />
                                 <div className="absolute bottom-8 left-8">
                                     <span className="px-3 py-1 bg-accent-500/100 text-white rounded-lg text-[9px] font-black uppercase tracking-widest mb-4 inline-block">
@@ -298,7 +299,7 @@ function DashboardPageContent() {
                                 )}
                             </div>
                             <div className="flex flex-col gap-3 mt-4">
-                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-sm">Welcome back, {user?.name} 👋</p>
+                                <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-sm">Welcome back, {user?.name} <EmojiIcon emoji="👋" size=16 /></p>
                                 {viewMode === 'vendor' && stores.length > 0 && (
                                     <div className="flex flex-col gap-3">
                                         
@@ -359,28 +360,28 @@ function DashboardPageContent() {
                         className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4"
                     >
                         <Link href="/create?type=product" className="p-4 sm:p-6 bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
-                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-sand-500/5 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all">📦</span>
+                            <EmojiIcon emoji="📦" size=28 className="text-2xl sm:text-3xl p-2 sm:p-3 bg-sand-500/5 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all" />
                             <div>
                                 <p className="text-[9px] sm:text-[10px] font-black uppercase text-ink-primary tracking-widest">Add Product</p>
                                 <p className="text-[8px] sm:text-[9px] text-ink-tertiary font-medium">List a new item</p>
                             </div>
                         </Link>
                         <Link href="/create?type=service" className="p-4 sm:p-6 bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
-                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-[#14b8a6]/10 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all">🛠️</span>
+                            <EmojiIcon emoji="🛠️" size=28 className="text-2xl sm:text-3xl p-2 sm:p-3 bg-[#14b8a6]/10 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all" />
                             <div>
                                 <p className="text-[9px] sm:text-[10px] font-black uppercase text-ink-primary tracking-widest">Post Service</p>
                                 <p className="text-[8px] sm:text-[9px] text-ink-tertiary font-medium">Offer your skills</p>
                             </div>
                         </Link>
                         <Link href="/campaigns/new" className="p-4 sm:p-6 bg-surface-elevated rounded-2xl sm:rounded-4xl border border-border-primary shadow-sm hover:shadow-xl transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
-                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-[#e11d48]/5 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all">📣</span>
+                            <EmojiIcon emoji="📣" size=28 className="text-2xl sm:text-3xl p-2 sm:p-3 bg-[#e11d48]/5 rounded-xl sm:rounded-2xl group-hover:scale-110 transition-all" />
                             <div>
                                 <p className="text-[9px] sm:text-[10px] font-black uppercase text-ink-primary tracking-widest">Start Campaign</p>
                                 <p className="text-[8px] sm:text-[9px] text-ink-tertiary font-medium">Raise island funds</p>
                             </div>
                         </Link>
                         <Link href="/start" className="p-4 sm:p-6 bg-accent-500 rounded-2xl sm:rounded-4xl shadow-xl shadow-black/10 border border-accent-600 hover:shadow-2xl hover:scale-[1.02] transition-all flex flex-col items-center gap-2 sm:gap-3 group text-center">
-                            <span className="text-2xl sm:text-3xl p-2 sm:p-3 bg-white/20 rounded-xl sm:rounded-2xl group-hover:rotate-12 transition-all">✨</span>
+                            <EmojiIcon emoji="✨" size=28 className="text-2xl sm:text-3xl p-2 sm:p-3 bg-white/20 rounded-xl sm:rounded-2xl group-hover:rotate-12 transition-all" />
                             <div>
                                 <p className="text-[9px] sm:text-[10px] font-black uppercase text-white tracking-widest">Creation Hub</p>
                                 <p className="text-[8px] sm:text-[9px] text-white/70 font-medium">Launch more</p>
@@ -403,7 +404,7 @@ function DashboardPageContent() {
                             { id: 'delivery', label: 'Delivery Dispatch', icon: '📦' },
                             { id: 'shipping', label: 'Shipping & Tracking', icon: '🌍' },
                             { id: 'branding', label: 'Store Branding', icon: '🎨' },
-                            { id: 'menu', label: ['Service', 'Services'].includes(activeStore?.category) ? 'Service Catalogue' : 'Menu Builder', icon: ['Service', 'Services'].includes(activeStore?.category) ? '📋' : '🍴' },
+                            { id: 'menu', label: ['Service', 'Services'].includes(activeStore?.category) ? 'Service Catalogue' : 'Menu Builder', icon: ['Service', 'Services'].includes(activeStore?.category) ? '📋' : '<EmojiIcon emoji="🍴" size=16 />' },
                             { id: 'promotions', label: 'Offers & Promos', icon: '🎟️' },
                             { id: 'orders', label: 'Sales & Bookings', icon: '🔥' },
                             { id: 'reviews', label: 'Reviews', icon: '⭐' },
@@ -453,7 +454,7 @@ function DashboardPageContent() {
                 {subscription && subscription.status === 'active' && activeTab === 'activity' && (
                     <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl sm:rounded-4xl border border-[#14b8a6]/20 p-4 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
                         <div className="flex items-center gap-3 sm:gap-6">
-                            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-surface-elevated rounded-xl sm:rounded-2xl shadow-sm flex items-center justify-center text-2xl sm:text-3xl shrink-0">🎫</div>
+                            <EmojiIcon emoji="🎫" size=28 className="w-12 h-12 sm:w-16 sm:h-16 bg-surface-elevated rounded-xl sm:rounded-2xl shadow-sm flex items-center justify-center text-2xl sm:text-3xl shrink-0" />
                             <div>
                                 <h3 className="text-base sm:text-xl font-black text-ink-primary dark:text-white">You're on the <span className="text-[#14b8a6] uppercase tracking-widest">{subscription.tier_name}</span> plan</h3>
                                 <p className="text-ink-tertiary dark:text-ink-tertiary font-medium text-xs sm:text-base">Your next billing date is {new Date(subscription.current_period_end).toLocaleDateString()}</p>
@@ -539,7 +540,7 @@ function DashboardPageContent() {
                                             ))
                                         ) : (
                                             <div className="col-span-full py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-border-primary">
-                                                <div className="text-5xl mb-4">✨</div>
+                                                <EmojiIcon emoji="✨" size=48 className="text-5xl mb-4" />
                                                 <h3 className="text-xl font-black text-ink-primary dark:text-white">No Listings Found</h3>
                                                 <p className="text-ink-tertiary dark:text-ink-tertiary font-medium mb-8">Start your journey by creating your first showcase.</p>
                                                 <Link
@@ -637,7 +638,7 @@ function DashboardPageContent() {
                                                             <Link key={order.order_id} href={`/dashboard/orders/${order.order_id}`} className="block">
                                                                 <div className="p-6 bg-surface-elevated border border-border-primary rounded-2xl flex justify-between items-center hover:shadow-md transition-all hover:bg-surface-primary">
                                                                     <div className="flex items-center gap-4">
-                                                                        <div className="w-12 h-12 bg-accent-500/10 rounded-xl flex items-center justify-center text-xl">🛒</div>
+                                                                        <EmojiIcon emoji="🛒" size=20 className="w-12 h-12 bg-accent-500/10 rounded-xl flex items-center justify-center text-xl" />
                                                                         <div>
                                                                             <div className="font-black text-ink-primary">Order #{order.order_id}</div>
                                                                             <div className="text-xs text-ink-tertiary">
@@ -701,7 +702,7 @@ function DashboardPageContent() {
                                                     {donations.map((donation: any) => (
                                                         <div key={donation.transaction_id || donation.id} className="p-6 bg-surface-primary dark:bg-surface-tertiary border border-border-primary dark:border-border-primary rounded-2xl flex justify-between items-center hover:bg-surface-elevated transition-colors">
                                                             <div className="flex items-center gap-4">
-                                                                <div className="w-12 h-12 bg-surface-elevated dark:bg-surface-tertiary rounded-xl shadow-sm flex items-center justify-center text-xl">🎁</div>
+                                                                <EmojiIcon emoji="🎁" size=20 className="w-12 h-12 bg-surface-elevated dark:bg-surface-tertiary rounded-xl shadow-sm flex items-center justify-center text-xl" />
                                                                 <div>
                                                                     <div className="font-black text-ink-primary">{donation.campaign_title || 'Community Contribution'}</div>
                                                                     <div className="text-[10px] font-black uppercase text-ink-tertiary tracking-widest">{new Date(donation.created_at).toLocaleDateString()}</div>
@@ -716,7 +717,7 @@ function DashboardPageContent() {
                                             
                                             {orders.length === 0 && donations.length === 0 && myRequests.length === 0 && (
                                                 <div className="py-20 text-center bg-surface-primary/50 dark:bg-surface-tertiary/50 rounded-[3rem] border-2 border-dashed border-border-primary dark:border-border-primary">
-                                                    <div className="text-5xl mb-4">🏝️</div>
+                                                    <EmojiIcon emoji="🏝️" size=48 className="text-5xl mb-4" />
                                                     <h3 className="text-xl font-black text-ink-primary dark:text-white">Quiet Waters...</h3>
                                                     <p className="text-ink-tertiary dark:text-ink-tertiary font-medium">Support a cause or shop to see your activity history here.</p>
                                                     <Link href="/listings" className="mt-6 inline-block px-8 py-4 bg-accent-500 text-white dark:bg-accent-500/100 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl dark:shadow-teal-900/20">

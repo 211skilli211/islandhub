@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Building2, Users, Search, Calendar } from 'lucide-react';
 import api from '@/lib/api';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Cooperative {
     id: number;
@@ -147,7 +148,7 @@ export default function CoopsPage() {
                     </div>
                 ) : filteredCoops.length === 0 ? (
                     <div className="text-center py-20">
-                        <div className="text-6xl mb-4">🤝</div>
+                        <EmojiIcon emoji="🤝" size=48 className="text-6xl mb-4" />
                         <h3 className="text-xl font-black text-ink-primary mb-2">No cooperatives found</h3>
                         <p className="text-ink-tertiary mb-6">
                             {searchQuery ? 'No cooperatives match your search.' : 'Start the first cooperative in your community!'}

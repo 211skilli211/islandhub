@@ -4,6 +4,7 @@ import ShareButtonsClient from '@/components/ShareButtons';
 import Link from 'next/link';
 import api from '@/lib/api';
 import { redirect } from 'next/navigation';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -86,7 +87,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
 
     if (!listing) return (
         <div className="min-h-screen bg-surface-primary flex flex-col items-center justify-center p-4">
-            <span className="text-6xl mb-4">🏝️</span>
+            <EmojiIcon emoji="🏝️" size=48 className="text-6xl mb-4" />
             <h1 className="text-2xl font-black text-ink-primary">Listing Not Found</h1>
             <Link href="/listings" className="mt-4 text-accent-400 font-bold hover:underline">Back to Marketplace</Link>
         </div>

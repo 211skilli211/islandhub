@@ -10,6 +10,7 @@ import toast from '@/lib/toast';
 import Link from 'next/link';
 import IncomingRideModal from '@/components/driver/IncomingRideModal';
 import DriverEarnings from '@/components/driver/DriverEarnings';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 const LiveTrackingMap = dynamic(() => import('@/components/transport/LiveTrackingMap'), { ssr: false });
 
@@ -190,7 +191,7 @@ export default function DriverApp() {
       <div className="bg-black/90 backdrop-blur-xl border-b border-white/5 p-4 sticky top-0 z-50">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-black text-teal-400">🚕 Driver</h1>
+            <h1 className="text-lg font-black text-teal-400"><EmojiIcon emoji="🚕" size=18 /> Driver</h1>
             <p className="text-xs text-ink-500">{user?.name} {locationSharing && <span className="text-green-400">. GPS Active</span>}</p>
           </div>
           <button onClick={toggleOnline}
@@ -228,7 +229,7 @@ export default function DriverApp() {
                 </div>
               </div>
               {activeTrip.rider_phone && (
-                <a href={`tel:${activeTrip.rider_phone}`} className="block w-full py-2.5 bg-white/5 border border-white/10 rounded-xl font-bold text-sm text-center mb-3">📞 Call Rider</a>
+                <a href={`tel:${activeTrip.rider_phone}`} className="block w-full py-2.5 bg-white/5 border border-white/10 rounded-xl font-bold text-sm text-center mb-3"><EmojiIcon emoji="📞" size=16 /> Call Rider</a>
               )}
               
               <div className="flex gap-2">
@@ -251,7 +252,7 @@ export default function DriverApp() {
           
           {!activeTrip && status.is_online && (
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-8 text-center">
-              <div className="text-5xl mb-3">🚗</div>
+              <EmojiIcon emoji="🚗" size=48 className="text-5xl mb-3" />
               <p className="text-white font-bold">Waiting for ride requests...</p>
               <p className="text-xs text-ink-500 mt-1">Stay online to receive dispatch offers</p>
               <div className="mt-4 flex items-center justify-center gap-2">
@@ -264,7 +265,7 @@ export default function DriverApp() {
           
           {!status.is_online && (
             <div className="bg-ink-900/60 border border-white/5 rounded-2xl p-8 text-center">
-              <div className="text-5xl mb-3">😴</div>
+              <EmojiIcon emoji="😴" size=48 className="text-5xl mb-3" />
               <p className="text-white font-bold">You are offline</p>
               <p className="text-xs text-ink-500 mt-1">Go online to start receiving ride requests</p>
             </div>

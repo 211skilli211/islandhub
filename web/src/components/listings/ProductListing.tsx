@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import ListingCard from '@/components/ListingCard';
 import ListingFilters from '@/components/ListingFilters';
 import { filterConfigs } from '@/lib/filterConfig';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface ProductListingProps {
     initialListings?: any[];
@@ -254,7 +255,7 @@ export default function ProductListing({ initialListings = [], category = 'marke
                         </div>
                     ) : (
                         <div className="text-center py-20">
-                            <div className="text-6xl mb-4">🔍</div>
+                            <EmojiIcon emoji="🔍" size=48 className="text-6xl mb-4" />
                             <h3 className="text-xl font-black text-ink-primary mb-2">No results found</h3>
                             <p className="text-ink-tertiary mb-6">Try adjusting your filters or search terms</p>
                             <button

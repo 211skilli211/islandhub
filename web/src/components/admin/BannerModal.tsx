@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Smartphone, Monitor, Stars, Users, Timer, Tag, ShoppingBag, Flame, Gem, Gift, Megaphone, Shield, Building2, Utensils, Briefcase, Target, Store } from 'lucide-react';
 import toast from '@/lib/toast';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface BannerModalProps {
     isOpen: boolean;
@@ -685,7 +686,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                                 <img src={formData.image_url} className="w-full h-full object-cover rounded-xl" />
                                             ) : (
                                                 <>
-                                                    <span className="text-2xl mb-2">📷</span>
+                                                    <EmojiIcon emoji="📷" size=24 className="text-2xl mb-2" />
                                                     <span className="text-xs font-black uppercase tracking-widest">Select Image</span>
                                                 </>
                                             )}
@@ -834,7 +835,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         : 'border-border-primary hover:border-border-primary'
                                         }`}
                                 >
-                                    <div className="text-2xl mb-2">📱</div>
+                                    <EmojiIcon emoji="📱" size=24 className="text-2xl mb-2" />
                                     <p className="text-xs font-bold text-ink-secondary mb-1">Hero Embed</p>
                                     <p className="text-[10px] text-ink-tertiary">Shows in hero section</p>
                                 </button>
@@ -846,7 +847,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         : 'border-border-primary hover:border-border-primary'
                                         }`}
                                 >
-                                    <div className="text-2xl mb-2">💬</div>
+                                    <EmojiIcon emoji="💬" size=24 className="text-2xl mb-2" />
                                     <p className="text-xs font-bold text-ink-secondary mb-1">Floating Card</p>
                                     <p className="text-[10px] text-ink-tertiary">Overlay at bottom</p>
                                 </button>
@@ -959,7 +960,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                         
                         <div className="bg-gradient-to-br from-sand-50 to-sand-100 rounded-2xl p-6 border border-border-primary">
                             <div className="flex items-center gap-2 mb-4">
-                                <span className="text-xl">🎨</span>
+                                <EmojiIcon emoji="🎨" size=20 className="text-xl" />
                                 <label className="block text-sm font-bold text-ink-secondary">
                                     Enhanced Appearance Controls
                                 </label>

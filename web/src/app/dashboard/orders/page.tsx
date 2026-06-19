@@ -7,6 +7,7 @@ import { useAuthStore } from '@/lib/auth';
 import Image from 'next/image';
 import toast from '@/lib/toast';
 import Link from 'next/link';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface Order {
   order_id: number;
@@ -149,7 +150,7 @@ export default function MyOrdersPage() {
 
         {filteredOrders.length === 0 ? (
           <div className="bg-surface-elevated dark:bg-ocean-800 rounded-2xl shadow-sm border border-border-primary p-12 text-center">
-            <div className="text-6xl mb-4">📦</div>
+            <EmojiIcon emoji="📦" size=48 className="text-6xl mb-4" />
             <h2 className="text-2xl font-bold text-ink-primary mb-2">
               {filter === 'all' ? 'No orders yet' : `No ${filter} orders`}
             </h2>

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import FounderPhoto from '@/components/FounderPhoto';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 function FounderModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   if (!open) return null;
@@ -166,7 +167,7 @@ export default function AboutPage() {
                   'Connecting islanders with opportunities'
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-ink-secondary font-medium">
-                    <span className="w-6 h-6 bg-accent-500/15 rounded-full flex items-center justify-center text-accent-400 text-sm">✓</span>
+                    <EmojiIcon emoji="✓" size=16 className="w-6 h-6 bg-accent-500/15 rounded-full flex items-center justify-center text-accent-400 text-sm" />
                     {item}
                   </li>
                 ))}

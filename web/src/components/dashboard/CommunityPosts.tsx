@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import api, { getImageUrl } from '@/lib/api';
 import toast from '@/lib/toast';
 import { useAuthStore } from '@/lib/auth';
+import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 export default function CommunityPosts() {
     const { user } = useAuthStore();
@@ -102,10 +103,10 @@ export default function CommunityPosts() {
                                 onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
                                 className="w-full px-5 py-3 rounded-2xl border border-border-primary focus:ring-4 focus:ring-teal-50 focus:border-[#14b8a6] font-bold bg-surface-elevated"
                             >
-                                <option value="general">📢 General Announcement</option>
-                                <option value="food">🍱 Food & Dining</option>
-                                <option value="deals">🏷️ Exclusive Deals</option>
-                                <option value="events">🎉 Upcoming Events</option>
+                                <option value="general"><EmojiIcon emoji="📢" size=16 /> General Announcement</option>
+                                <option value="food"><EmojiIcon emoji="🍱" size=16 /> Food & Dining</option>
+                                <option value="deals"><EmojiIcon emoji="🏷️" size=16 /> Exclusive Deals</option>
+                                <option value="events"><EmojiIcon emoji="🎉" size=16 /> Upcoming Events</option>
                             </select>
                         </div>
                     </div>
@@ -127,7 +128,7 @@ export default function CommunityPosts() {
                             <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary ml-1 block mb-2">Attached Media</label>
                             <div className="flex items-center gap-4">
                                 <label className="flex-1 p-4 rounded-2xl border-2 border-dashed border-border-primary hover:border-teal-300 transition-all cursor-pointer flex items-center justify-center gap-2">
-                                    <span className="text-xl">🖼️</span>
+                                    <EmojiIcon emoji="🖼️" size=20 className="text-xl" />
                                     <span className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Upload Image/Video</span>
                                     <input type="file" className="hidden" accept="image/*,video/*" onChange={handleMediaUpload} />
                                 </label>
@@ -210,15 +211,15 @@ export default function CommunityPosts() {
                             <div className="p-6">
                                 <div className="flex items-center gap-6 mb-6">
                                     <button className="flex items-center gap-2 group/btn">
-                                        <span className="text-2xl group-hover/btn:scale-125 transition-transform">❤️</span>
+                                        <EmojiIcon emoji="❤️" size=24 className="text-2xl group-hover/btn:scale-125 transition-transform" />
                                         <span className="text-xs font-black text-ink-primary">12.5k</span>
                                     </button>
                                     <button className="flex items-center gap-2 group/btn">
-                                        <span className="text-2xl group-hover/btn:scale-125 transition-transform text-ink-tertiary">💬</span>
+                                        <EmojiIcon emoji="💬" size=24 className="text-2xl group-hover/btn:scale-125 transition-transform text-ink-tertiary" />
                                         <span className="text-xs font-black text-ink-primary uppercase tracking-widest">48</span>
                                     </button>
                                     <button className="ml-auto flex items-center gap-2 group/btn">
-                                        <span className="text-2xl group-hover/btn:rotate-12 transition-transform">🔖</span>
+                                        <EmojiIcon emoji="🔖" size=24 className="text-2xl group-hover/btn:rotate-12 transition-transform" />
                                     </button>
                                 </div>
 
@@ -246,7 +247,7 @@ export default function CommunityPosts() {
                     ))
                 ) : (
                     <div className="py-20 text-center bg-surface-secondary rounded-[4rem] border-2 border-dashed border-border-primary">
-                        <div className="text-6xl mb-6">🌊</div>
+                        <EmojiIcon emoji="🌊" size=48 className="text-6xl mb-6" />
                         <h3 className="text-2xl font-black text-ink-primary tracking-tight">The airwaves are quiet</h3>
                         <p className="text-ink-tertiary font-medium italic mb-8">Be the first to broadcast from your slice of paradise.</p>
                         <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-[#14b8a6] text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-teal-100">Send First Broadcast</button>
