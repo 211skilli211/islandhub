@@ -112,27 +112,3 @@ export default function TypeWriter({
     );
 }
 
-// Standalone typewriter for single-line use (headlines, CTAs, etc.)
-export function TypeWriterLine({
-    text,
-    as: Tag = 'span',
-    preset = 'smooth',
-    speed,
-    className = '',
-    cursor = true,
-    loop = false,
-}: {
-    text: string;
-    as?: keyof JSX.IntrinsicElements;
-    preset?: 'terminal' | 'smooth' | 'fast' | 'dramatic';
-    speed?: number;
-    className?: string;
-    cursor?: boolean;
-    loop?: boolean;
-}) {
-    return (
-        <Tag className={className}>
-            <TypeWriter text={text} preset={preset} speed={speed} cursor={cursor} loop={loop} />
-        </Tag>
-    );
-}
