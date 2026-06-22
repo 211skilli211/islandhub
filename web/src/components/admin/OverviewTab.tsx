@@ -19,6 +19,7 @@ import {
 } from 'chart.js';
 import { Line, Bar, Doughnut } from 'react-chartjs-2';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
+import MediaUploader from './MediaUploader';
 
 ChartJS.register(
     CategoryScale,
@@ -202,16 +203,28 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
     };
 
     const handleEditBanner = async (banner: any) => {
-        const title = prompt('Edit Title:', banner.title);
-        if (title === null) return;
-        const subtitle = prompt('Edit Subtitle:', banner.subtitle);
-        const target_url = prompt('Edit Target URL:', banner.target_url);
-        const image_url = prompt('Edit Image URL:', banner.image_url);
-        const color_theme = prompt('Edit Color (teal, indigo, rose...):', banner.color_theme || 'teal');
+        // Open a proper edit modal instead of raw prompt()
+        setEditingBanner(banner);
+        setBannerEditForm({
+            title: banner.title || '',
+            subtitle: banner.subtitle || '',
+            target_url: banner.target_url || '',
+            image_url: banner.image_url || '',
+            color_theme: banner.color_theme || 'teal',
+        });
+    };
 
+    const [editingBanner, setEditingBanner] = useState<any>(null);
+    const [bannerEditForm, setBannerEditForm] = useState({
+        title: '', subtitle: '', target_url: '', image_url: '', color_theme: 'teal',
+    });
+
+    const saveBannerEdit = async () => {
+        if (!editingBanner) return;
         try {
-            await api.patch(`/admin/promotions/banners/${banner.banner_id}`, { title, subtitle, target_url, image_url, color_theme });
+            await api.patch(`/admin/promotions/banners/${editingBanner.banner_id}`, bannerEditForm);
             toast.success('Banner updated');
+            setEditingBanner(null);
             fetchMissionData();
         } catch (e) {
             toast.error('Update failed');
@@ -740,6 +753,54 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
                 initialData={editingBanner}
                 mode={editingBanner ? 'edit' : 'create'}
             />
-        </div >
+
+            {/* Banner Edit Modal — replaces raw prompt() with MediaUploader */}
+            {editingBanner && !isBannerModalOpen && (
+                <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-ink-primary/60 backdrop-blur-sm">
+                    <div className="bg-surface-elevated w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
+                        <div className="p-6 border-b border-border-primary flex justify-between items-center">
+                            <h3 className="text-lg font-black text-ink-primary">Edit Banner</h3>
+                            <button onClick={() => setEditingBanner(null)} className="p-2 hover:bg-surface-secondary rounded-xl transition-colors text-ink-tertiary">✕</button>
+                        </div>
+                        <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                            <div>
+                                <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Title</label>
+                                <input type="text" value={bannerEditForm.title} onChange={e => setBannerEditForm(f => ({ ...f, title: e.target.value }))}
+                                    className="w-full mt-1 px-4 py-3 bg-surface-secondary rounded-xl border border-border-primary text-sm font-bold" />
+                            </div>
+                            <div>
+                                <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Subtitle</label>
+                                <input type="text" value={bannerEditForm.subtitle} onChange={e => setBannerEditForm(f => ({ ...f, subtitle: e.target.value }))}
+                                    className="w-full mt-1 px-4 py-3 bg-surface-secondary rounded-xl border border-border-primary text-sm font-bold" />
+                            </div>
+                            <MediaUploader
+                                value={bannerEditForm.image_url}
+                                onChange={(url) => setBannerEditForm(f => ({ ...f, image_url: url }))}
+                                accept="image"
+                                label="Banner Image"
+                            />
+                            <div>
+                                <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Target URL</label>
+                                <input type="text" value={bannerEditForm.target_url} onChange={e => setBannerEditForm(f => ({ ...f, target_url: e.target.value }))}
+                                    className="w-full mt-1 px-4 py-3 bg-surface-secondary rounded-xl border border-border-primary text-sm font-bold" placeholder="https://..." />
+                            </div>
+                            <div>
+                                <label className="text-[10px] font-bold text-ink-tertiary uppercase tracking-wider">Color Theme</label>
+                                <select value={bannerEditForm.color_theme} onChange={e => setBannerEditForm(f => ({ ...f, color_theme: e.target.value }))}
+                                    className="w-full mt-1 px-4 py-3 bg-surface-secondary rounded-xl border border-border-primary text-sm font-bold">
+                                    {['teal','indigo','rose','amber','emerald','violet','cyan','orange'].map(c => (
+                                        <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="p-6 border-t border-border-primary flex gap-3">
+                            <button onClick={saveBannerEdit} className="flex-1 py-3 bg-accent-500 text-white text-xs font-bold rounded-xl hover:bg-accent-600 transition-colors">Save Changes</button>
+                            <button onClick={() => setEditingBanner(null)} className="px-6 py-3 text-ink-tertiary text-xs font-bold hover:text-ink-primary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 }

@@ -23,6 +23,7 @@ import {
 import { AdminTable, Column } from './shared/AdminTable';
 import AdVisualManager from './AdVisualManager';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
+import MediaUploader from './MediaUploader';
 
 interface AdSpace {
     space_id: number;
@@ -61,6 +62,7 @@ export default function AdManagementTab() {
     const [adSpaces, setAdSpaces] = useState<AdSpace[]>([]);
     const [isAdModalOpen, setIsAdModalOpen] = useState(false);
     const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
+    const [adFormImage, setAdFormImage] = useState('');
     const [loading, setLoading] = useState(true);
 
     const fetchAnalytics = async () => {
@@ -217,7 +219,7 @@ export default function AdManagementTab() {
                                 <h3 className="text-sm font-black text-white/50 uppercase tracking-widest">Quick Deploy</h3>
                             </div>
                             <button
-                                onClick={() => setIsAdModalOpen(true)}
+                                onClick={() => { setIsAdModalOpen(true); setAdFormImage(''); }}
                                 className="w-full py-3 bg-surface-elevated text-ink-900 dark:text-ink-50 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
                             >
                                 Launch New Campaign
@@ -244,7 +246,7 @@ export default function AdManagementTab() {
                                 { label: 'Delete', action: 'delete', className: 'text-[#e11d48]' }
                             ]}
                             onRowAction={(action, item) => {
-                                if (action === 'edit') { setSelectedAd(item); setIsAdModalOpen(true); }
+                                if (action === 'edit') { setSelectedAd(item); setAdFormImage(item.image_url || ''); setIsAdModalOpen(true); }
                                 if (action === 'delete') { /* Handle delete */ }
                             }}
                         />
@@ -295,7 +297,7 @@ export default function AdManagementTab() {
                                     <h3 className="text-2xl font-black text-ink-primary uppercase italic">Creative Campaign Deploy</h3>
                                     <p className="text-xs text-ink-tertiary font-bold uppercase tracking-widest">Global Site Visibility</p>
                                 </div>
-                                <button onClick={() => { setIsAdModalOpen(false); setSelectedAd(null); }} className="p-3 bg-surface-elevated border border-border-primary rounded-2xl hover:bg-surface-secondary transition-colors">
+                                <button onClick={() => { setIsAdModalOpen(false); setSelectedAd(null); setAdFormImage(''); }} className="p-3 bg-surface-elevated border border-border-primary rounded-2xl hover:bg-surface-secondary transition-colors">
                                     <XCircle size={20} className="text-ink-tertiary" />
                                 </button>
                             </div>
@@ -319,6 +321,7 @@ export default function AdManagementTab() {
                                     }
                                     setIsAdModalOpen(false);
                                     setSelectedAd(null);
+                                    setAdFormImage('');
                                 } catch (e) {
                                     toast.error('Deployment failed');
                                 }
@@ -346,17 +349,13 @@ export default function AdManagementTab() {
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Creative Asset URL</label>
-                                    <input
-                                        name="image_url"
-                                        defaultValue={selectedAd?.image_url}
-                                        required
-                                        className="w-full px-6 py-4 bg-surface-secondary rounded-2xl border-2 border-transparent focus:border-teal-500 outline-none transition-all font-bold"
-                                        placeholder="https://..."
-                                    />
-                                    <p className="text-[9px] text-ink-tertiary font-medium">Recommended: High Resolution PNG or WebP</p>
-                                </div>
+                                <MediaUploader
+                                    value={adFormImage || ''}
+                                    onChange={(url) => setAdFormImage(url)}
+                                    accept="image"
+                                    label="Creative Asset"
+                                />
+                                <input type="hidden" name="image_url" value={adFormImage || ''} />
 
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Destination URL</label>

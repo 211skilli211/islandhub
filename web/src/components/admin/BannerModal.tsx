@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { X, Smartphone, Monitor, Stars, Users, Timer, Tag, ShoppingBag, Flame, Gem, Gift, Megaphone, Shield, Building2, Utensils, Briefcase, Target, Store } from 'lucide-react';
 import toast from '@/lib/toast';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
+import MediaUploader from './MediaUploader';
 
 interface BannerModalProps {
     isOpen: boolean;
@@ -674,57 +675,12 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                             <label className="block text-sm font-bold text-ink-secondary mb-2">
                                 Banner Image (Optional)
                             </label>
-                            <div className="flex gap-4 items-start">
-                                <div className="flex-1">
-                                    <div className="relative group">
-                                        <button
-                                            type="button"
-                                            onClick={() => document.getElementById('banner-upload')?.click()}
-                                            className="w-full h-32 border-2 border-dashed border-border-primary rounded-xl flex flex-col items-center justify-center bg-surface-secondary hover:bg-surface-secondary hover:border-teal-500 transition-all text-ink-tertiary hover:text-accent-400"
-                                        >
-                                            {formData.image_url ? (
-                                                <img src={formData.image_url} className="w-full h-full object-cover rounded-xl" />
-                                            ) : (
-                                                <>
-                                                    <EmojiIcon emoji="📷" size={24} className="text-2xl mb-2" />
-                                                    <span className="text-xs font-black uppercase tracking-widest">Select Image</span>
-                                                </>
-                                            )}
-                                        </button>
-                                        <input
-                                            id="banner-upload"
-                                            type="file"
-                                            accept="image/*"
-                                            className="hidden"
-                                            onChange={(e) => {
-                                                const file = e.target.files?.[0];
-                                                if (file) {
-                                                    const url = URL.createObjectURL(file);
-                                                    setFormData({ ...formData, image_url: url });
-                                                }
-                                            }}
-                                        />
-                                        {formData.image_url && (
-                                            <div className="absolute top-2 right-2 flex gap-2">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => toast.success('Image editing - use upload to replace')}
-                                                    className="bg-surface-elevated/50 text-ink-tertiary p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg cursor-not-allowed opacity-50"
-                                                    disabled
-                                                >
-                                                    ✂️ Crop
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setFormData({ ...formData, image_url: '' })}
-                                                    className="bg-surface-elevated text-[#e11d48] p-2 rounded-lg font-bold text-[10px] uppercase shadow-lg hover:bg-[#e11d48]/5"
-                                                >
-                                                    ✕
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+                            <MediaUploader
+                                value={formData.image_url || ''}
+                                onChange={(url) => setFormData({ ...formData, image_url: url })}
+                                accept="image"
+                                label="Banner Image"
+                            />
                             </div>
                         </div>
 
