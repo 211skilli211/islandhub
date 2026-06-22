@@ -3,7 +3,7 @@ import api from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from '@/lib/toast';
 import { getImageUrl } from '@/lib/urlUtils';
-import { Grid, Layout, ChevronRight, Monitor, Smartphone, Save, Image as ImageIcon, Trash2, Palette, Plus, Settings, Type } from 'lucide-react';
+import { Grid, Layout, ChevronRight, Monitor, Smartphone, Save, Image as ImageIcon, Trash2, Palette, Plus, Settings, Type, Sparkles } from 'lucide-react';
 
 interface ListItem {
     icon: string;
@@ -110,7 +110,13 @@ export default function AdVisualManager() {
     const [selectedSection, setSelectedSection] = useState<SiteSection | null>(null);
     const [stores, setStores] = useState<{ id: number; business_name: string }[]>([]);
     const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
-    const [activeTab, setActiveTab] = useState<'spaces' | 'sections'>('spaces');
+    const [activeTab, setActiveTab] = useState<'spaces' | 'sections' | 'ai_generate'>('spaces');
+    const [aiPrompt, setAiPrompt] = useState('');
+    const [aiAspectRatio, setAiAspectRatio] = useState('16:9');
+    const [aiStyle, setAiStyle] = useState('professional');
+    const [aiGenerating, setAiGenerating] = useState(false);
+    const [aiGeneratedUrl, setAiGeneratedUrl] = useState('');
+    const [aiError, setAiError] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -257,10 +263,178 @@ export default function AdVisualManager() {
                         >
                             <Layout size={14} /> Site Sections
                         </button>
+                        <button
+                            onClick={() => { setActiveTab('ai_generate'); setSelectedSpace(null); setSelectedSection(null); }}
+                            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'ai_generate' ? 'bg-surface-elevated shadow-sm text-ink-primary' : 'text-ink-tertiary'}`}
+                        >
+                            <Sparkles size={14} /> AI Generate
+                        </button>
                     </div>
 
                     <div className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                        {activeTab === 'spaces' ? (
+                        {activeTab === 'ai_generate' ? (
+                            <div className="space-y-4">
+                                <div className="p-5 rounded-2xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 border border-violet-500/20">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="p-2 bg-violet-500/20 rounded-xl">
+                                            <Sparkles size={18} className="text-violet-400" />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-sm font-black text-white uppercase tracking-widest">Higgsfield AI Generation</h4>
+                                            <p className="text-[10px] text-ink-tertiary">Generate ad creatives with AI</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3 p-4 bg-surface-secondary rounded-2xl border border-border-primary">
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Prompt</label>
+                                        <textarea
+                                            rows={4}
+                                            value={aiPrompt}
+                                            onChange={(e) => setAiPrompt(e.target.value)}
+                                            className="w-full p-3 bg-surface-elevated rounded-xl border border-border-primary text-xs font-medium text-ink-primary placeholder:text-ink-tertiary focus:border-violet-500 outline-none transition-all resize-none"
+                                            placeholder="e.g. Tropical beach resort sunset advertisement with palm trees, luxury villa in the background, warm golden hour lighting, professional marketing banner style"
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Aspect Ratio</label>
+                                            <select
+                                                value={aiAspectRatio}
+                                                onChange={(e) => setAiAspectRatio(e.target.value)}
+                                                className="w-full p-2.5 bg-surface-elevated rounded-xl border border-border-primary text-xs font-bold text-ink-primary focus:border-violet-500 outline-none"
+                                            >
+                                                <option value="16:9">16:9 Banner</option>
+                                                <option value="9:16">9:16 Story</option>
+                                                <option value="1:1">1:1 Square</option>
+                                                <option value="4:3">4:3 Classic</option>
+                                                <option value="21:9">21:9 Ultra-wide</option>
+                                            </select>
+                                        </div>
+                                        <div className="space-y-1.5">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Style</label>
+                                            <select
+                                                value={aiStyle}
+                                                onChange={(e) => setAiStyle(e.target.value)}
+                                                className="w-full p-2.5 bg-surface-elevated rounded-xl border border-border-primary text-xs font-bold text-ink-primary focus:border-violet-500 outline-none"
+                                            >
+                                                <option value="professional">Professional</option>
+                                                <option value="tropical">Tropical</option>
+                                                <option value="luxury">Luxury</option>
+                                                <option value="minimalist">Minimalist</option>
+                                                <option value="vibrant">Vibrant</option>
+                                                <option value="cinematic">Cinematic</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={async () => {
+                                            if (!aiPrompt.trim()) { setAiError('Please enter a prompt'); return; }
+                                            setAiGenerating(true);
+                                            setAiError('');
+                                            setAiGeneratedUrl('');
+                                            try {
+                                                const res = await api.post('/admin/ai/generate-image', {
+                                                    prompt: aiPrompt,
+                                                    aspect_ratio: aiAspectRatio,
+                                                    style: aiStyle,
+                                                    context: 'advertisement_banner',
+                                                });
+                                                setAiGeneratedUrl(res.data.image_url || res.data.url || '');
+                                                toast.success('Image generated!');
+                                            } catch (err: any) {
+                                                setAiError(err.response?.data?.message || 'Generation failed. Check Higgsfield API configuration.');
+                                                toast.error('AI generation failed');
+                                            } finally {
+                                                setAiGenerating(false);
+                                            }
+                                        }}
+                                        disabled={aiGenerating}
+                                        className="w-full py-3 bg-violet-500 hover:bg-violet-400 disabled:opacity-50 text-white rounded-xl font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 transition-all"
+                                    >
+                                        {aiGenerating ? (
+                                            <>
+                                                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
+                                                Generating...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ImageIcon size={14} />
+                                                Generate Image
+                                            </>
+                                        )}
+                                    </button>
+
+                                    {aiError && (
+                                        <p className="text-[10px] text-red-400 font-medium bg-red-500/10 p-2 rounded-lg">{aiError}</p>
+                                    )}
+                                </div>
+
+                                {aiGeneratedUrl && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="space-y-3"
+                                    >
+                                        <div className="rounded-2xl overflow-hidden border border-border-primary bg-surface-elevated">
+                                            <div className="aspect-video relative">
+                                                <img src={getImageUrl(aiGeneratedUrl)} alt="AI Generated" className="w-full h-full object-cover" />
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(aiGeneratedUrl);
+                                                    toast.success('URL copied!');
+                                                }}
+                                                className="flex-1 py-2.5 bg-surface-secondary border border-border-primary rounded-xl text-[10px] font-black uppercase tracking-widest text-ink-tertiary hover:text-ink-primary transition-colors"
+                                            >
+                                                Copy URL
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    const spaceId = spaces[0]?.space_id;
+                                                    if (spaceId) {
+                                                        updateSpaceStyle({ bgAssetUrl: aiGeneratedUrl, bgMode: 'image' });
+                                                        toast.success('Applied to banner! Ad space updated.');
+                                                    } else {
+                                                        toast.error('Select an ad space first');
+                                                    }
+                                                }}
+                                                className="flex-1 py-2.5 bg-teal-500 rounded-xl text-[10px] font-black uppercase tracking-widest text-white hover:bg-teal-400 transition-colors"
+                                            >
+                                                Use as Banner
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                                )}
+
+                                {/* Quick Prompt Templates */}
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Quick Templates</label>
+                                    <div className="grid grid-cols-1 gap-1.5">
+                                        {[
+                                            { label: '🏝️ Caribbean Resort', prompt: 'Luxury Caribbean beach resort at sunset, turquoise water, palm trees, golden hour lighting, travel advertisement banner, professional marketing style' },
+                                            { label: '🎨 Product Showcase', prompt: 'Clean white background product photography style, modern e-commerce banner, soft shadows, professional lighting, 4K quality' },
+                                            { label: '🌊 Ocean Adventure', prompt: 'Crystal clear Caribbean ocean water, snorkeling adventure, vibrant coral reefs, underwater photography style, travel marketing banner' },
+                                            { label: '🏪 Local Business Promo', prompt: 'Caribbean small business storefront, colorful buildings in St. Kitts, local shopping district, vibrant community commerce banner, professional advertisement' },
+                                            { label: '✈️ Travel Deal', prompt: 'Aerial view of Caribbean islands, airplane wing in frame, vacation travel deal banner, blue ocean below, professional travel agency advertisement style' },
+                                        ].map((t) => (
+                                            <button
+                                                key={t.label}
+                                                onClick={() => setAiPrompt(t.prompt)}
+                                                className="w-full text-left p-2.5 bg-surface-secondary rounded-xl border border-border-primary text-[10px] font-bold text-ink-tertiary hover:text-ink-primary hover:border-violet-500/30 transition-all"
+                                            >
+                                                {t.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : null}
                             <div className="space-y-3">
                                 {spaces.map(space => (
                                     <button
