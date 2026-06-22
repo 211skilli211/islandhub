@@ -273,10 +273,18 @@ export default function HeroAssetTab() {
                   }} />
                 )}
                 {(form.asset_type === 'image' || form.asset_type === 'video') && form.asset_url && (
-                  <img src={form.asset_url} alt="" className="absolute inset-0 w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                  <>
+                    {form.asset_type === 'video' ? (
+                      <video src={form.asset_url} className="absolute inset-0 w-full h-full object-cover" muted loop playsInline autoPlay />
+                    ) : (
+                      <img src={form.asset_url} alt="" className="absolute inset-0 w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    )}
+                  </>
                 )}
-                {!form.asset_url && form.asset_type === 'image' && (
-                  <div className="absolute inset-0 bg-surface-tertiary flex items-center justify-center text-ink-tertiary text-xs">No image URL</div>
+                {!form.asset_url && (form.asset_type === 'image' || form.asset_type === 'video') && (
+                  <div className="absolute inset-0 bg-surface-tertiary flex items-center justify-center text-ink-tertiary text-xs">
+                    No {form.asset_type === 'video' ? 'video' : 'image'} selected
+                  </div>
                 )}
               </div>
               
@@ -606,6 +614,9 @@ export default function HeroAssetTab() {
               <div key={asset.id} className="flex items-center gap-4 p-4 bg-surface-elevated rounded-xl border border-border-primary hover:border-accent-500/30 transition-colors">
                 {asset.asset_url && asset.asset_type === 'image' && (
                   <img src={asset.asset_url} alt={asset.page_key} className="w-20 h-12 object-cover rounded-lg shrink-0" />
+                )}
+                {asset.asset_url && asset.asset_type === 'video' && (
+                  <video src={asset.asset_url} className="w-20 h-12 object-cover rounded-lg shrink-0" muted />
                 )}
                 {!asset.asset_url && (
                   <div className="w-20 h-12 rounded-lg shrink-0 flex items-center justify-center text-lg"
