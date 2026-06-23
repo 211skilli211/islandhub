@@ -435,67 +435,72 @@ export default function AdVisualManager() {
                                 </div>
                             </div>
                         ) : null}
-                            <div className="space-y-3">
-                                {spaces.map(space => (
-                                    <button
-                                        key={space.space_id}
-                                        onClick={() => setSelectedSpace(space)}
-                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group ${selectedSpace?.space_id === space.space_id ? 'border-teal-500 bg-accent-500/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
-                                    >
-                                        <div>
-                                            <div className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary group-hover:text-accent-400 mb-1">{space.location}</div>
-                                            <div className="font-bold text-ink-primary text-sm">{space.display_name}</div>
-                                        </div>
-                                        <ChevronRight size={16} className={selectedSpace?.space_id === space.space_id ? 'text-accent-500' : 'text-ink-tertiary'} />
-                                    </button>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="space-y-3">
-                                {sections.map(section => (
-                                    <div
-                                        key={section.id}
-                                        onClick={() => setSelectedSection(section)}
-                                        className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group cursor-pointer ${selectedSection?.id === section.id ? 'border-[#14b8a6] bg-[#14b8a6]/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
-                                    >
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${section.section_type === 'homepage' ? 'bg-orange-100 text-orange-600' : 'bg-[#14b8a6]/15 text-[#14b8a6]'}`}>
-                                                    {section.section_type === 'homepage' ? 'Homepage' : 'Store'}
-                                                </span>
-                                                <span className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">/{section.name}</span>
+
+                        {/* Non-AI tab: show spaces or sections */}
+                        {activeTab !== 'ai_generate' && (
+                            spaces.length > 0 ? (
+                                <div className="space-y-3">
+                                    {spaces.map(space => (
+                                        <button
+                                            key={space.space_id}
+                                            onClick={() => setSelectedSpace(space)}
+                                            className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group ${selectedSpace?.space_id === space.space_id ? 'border-teal-500 bg-accent-500/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
+                                        >
+                                            <div>
+                                                <div className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary group-hover:text-accent-400 mb-1">{space.location}</div>
+                                                <div className="font-bold text-ink-primary text-sm">{space.display_name}</div>
                                             </div>
-                                            <div className="font-bold text-ink-primary text-sm truncate">{section.title}</div>
+                                            <ChevronRight size={16} className={selectedSpace?.space_id === space.space_id ? 'text-accent-500' : 'text-ink-tertiary'} />
+                                        </button>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="space-y-3">
+                                    {sections.map(section => (
+                                        <div
+                                            key={section.id}
+                                            onClick={() => setSelectedSection(section)}
+                                            className={`w-full p-5 rounded-3xl border text-left transition-all flex items-center justify-between group cursor-pointer ${selectedSection?.id === section.id ? 'border-[#14b8a6] bg-[#14b8a6]/10/20' : 'border-border-primary hover:border-border-primary bg-surface-elevated'}`}
+                                        >
+                                            <div className="flex-1">
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${section.section_type === 'homepage' ? 'bg-orange-100 text-orange-600' : 'bg-[#14b8a6]/15 text-[#14b8a6]'}`}>
+                                                        {section.section_type === 'homepage' ? 'Homepage' : 'Store'}
+                                                    </span>
+                                                    <span className="text-[9px] font-black uppercase tracking-widest text-ink-tertiary">/{section.name}</span>
+                                                </div>
+                                                <div className="font-bold text-ink-primary text-sm truncate">{section.title}</div>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); handleDeleteSection(section.id!); }}
+                                                    className="p-2 text-ink-tertiary hover:text-red-500 transition-colors"
+                                                >
+                                                    <Trash2 size={14} />
+                                                </button>
+                                                <ChevronRight size={16} className={selectedSection?.id === section.id ? 'text-[#a5b4fc]' : 'text-ink-tertiary'} />
+                                            </div>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); handleDeleteSection(section.id!); }}
-                                                className="p-2 text-ink-tertiary hover:text-red-500 transition-colors"
-                                            >
-                                                <Trash2 size={14} />
-                                            </button>
-                                            <ChevronRight size={16} className={selectedSection?.id === section.id ? 'text-[#a5b4fc]0' : 'text-ink-tertiary'} />
-                                        </div>
-                                    </div>
-                                ))}
-                                <button
-                                    onClick={() => setSelectedSection({
-                                        name: 'new_section',
-                                        section_type: 'homepage',
-                                        title: 'New Content Block',
-                                        body: '',
-                                        cta_text: 'Discover',
-                                        cta_link: '#',
-                                        image_url: '',
-                                        list_items: [],
-                                        style_config: {},
-                                        is_active: true
-                                    })}
-                                    className="w-full p-5 rounded-3xl border-2 border-dashed border-border-primary text-ink-tertiary font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 hover:border-border-primary hover:text-ink-tertiary transition-all bg-surface-secondary/50"
-                                >
-                                    <Plus size={18} /> New Section
-                                </button>
-                            </div>
+                                    ))}
+                                    <button
+                                        onClick={() => setSelectedSection({
+                                            name: 'new_section',
+                                            section_type: 'homepage',
+                                            title: 'New Content Block',
+                                            body: '',
+                                            cta_text: 'Discover',
+                                            cta_link: '#',
+                                            image_url: '',
+                                            list_items: [],
+                                            style_config: {},
+                                            is_active: true
+                                        })}
+                                        className="w-full p-5 rounded-3xl border-2 border-dashed border-border-primary text-ink-tertiary font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2 hover:border-border-primary hover:text-ink-tertiary transition-all bg-surface-secondary/50"
+                                    >
+                                        <Plus size={18} /> New Section
+                                    </button>
+                                </div>
+                            )
                         )}
                     </div>
                 </div>
