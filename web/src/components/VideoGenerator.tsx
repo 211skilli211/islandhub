@@ -554,7 +554,7 @@ export default function VideoGenerator({
                       Share your video
                     </p>
                     <div className="grid grid-cols-3 gap-2">
-                      {SHARE_LINKS(videoResult.url || '').map(link => (
+                      {SHARE_LINKS(videoResult.url || '', customTitle).map(link => (
                         <a
                           key={link.platform}
                           href={link.url}
