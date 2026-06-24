@@ -681,7 +681,6 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                 accept="image"
                                 label="Banner Image"
                             />
-                            </div>
                         </div>
 
                         
