@@ -2,9 +2,10 @@ import VideoGenerator from '@/components/VideoGenerator';
 
 interface ShareButtonsClientProps {
   listing: {
-    id: string;
+    id: number;
     title: string;
-    images: string[];
+    images?: string[];
+    photos?: { id: string; url: string; is_primary: boolean; order_index: number }[];
     description?: string;
     vendor?: { name: string };
     store?: { name: string };
@@ -23,9 +24,9 @@ export default function ShareButtonsClient({ listing }: ShareButtonsClientProps)
 
         {/* Video Generator Button */}
         <VideoGenerator
-          listingId={listing.id}
+          listingId={String(listing.id)}
           listingTitle={listing.title}
-          listingImages={listing.images || []}
+          listingImages={listing.images || listing.photos?.filter(p => p.url).map(p => p.url).slice(0, 5) || []}
           listingDescription={listing.description}
           vendorName={listing.vendor?.name || listing.store?.name}
           primaryColor={listing.primaryColor || '#0ea5e9'}
