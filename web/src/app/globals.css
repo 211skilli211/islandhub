@@ -47,24 +47,25 @@
     --color-segment-cta: var(--segment-cta-bg, var(--accent-primary));
     --color-segment-icon: var(--segment-icon-tint, var(--accent-muted));
 
-    /* Ink (Caribbean-tinted text neutrals) */
-    --color-ink-950: #0A1628;
-    --color-ink-900: #0F1729;
-    --color-ink-800: #1A2436;
-    --color-ink-700: #2A3444;
-    --color-ink-600: #4A5568;
-    --color-ink-500: #6B7B8D;
-    --color-ink-400: #94A3B8;
-    --color-ink-300: #CBD5E1;
-    --color-ink-200: #E2E8F0;
-    --color-ink-100: #F1F5F9;
-    --color-ink-50: #F8FAFC;
+    /* Ink (Caribbean-tinted text neutrals — OKLCH for perceptual uniformity) */
+    --color-ink-950: oklch(0.10 0.012 230);
+    --color-ink-900: oklch(0.13 0.014 230);
+    --color-ink-800: oklch(0.20 0.016 230);
+    --color-ink-700: oklch(0.30 0.018 230);
+    --color-ink-600: oklch(0.42 0.020 230);
+    --color-ink-500: oklch(0.55 0.020 230);
+    --color-ink-400: oklch(0.72 0.016 230);
+    --color-ink-300: oklch(0.82 0.012 230);
+    --color-ink-200: oklch(0.90 0.008 230);
+    --color-ink-100: oklch(0.96 0.004 230);
+    --color-ink-50: oklch(0.98 0.002 230);
 
-    /* Surface (Caribbean-tinted backgrounds) */
-    --color-surface-0: #0A1628;
-    --color-surface-1: #0F2744;
-    --color-surface-2: #1A3A5C;
-    --color-surface-3: #264D73;
+    /* Surface (Caribbean-tinted backgrounds — OKLCH for perceptual uniformity) */
+    --color-surface-0: oklch(0.10 0.012 230);
+    --color-surface-1: oklch(0.13 0.018 230);
+    --color-surface-2: oklch(0.20 0.022 230);
+    --color-surface-3: oklch(0.30 0.024 230);
+    --color-surface-elevated: var(--surface-elevated);
 
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
@@ -111,6 +112,9 @@
     --input-focus-ring: rgba(20, 184, 166, 0.3);
 
     --overlay-bg: rgba(15, 23, 42, 0.5);
+
+    /* Elevated surface — cards, modals, dropdowns */
+    --surface-elevated: oklch(0.98 0.003 230);
 }
 
 /* Dark mode - automatically applied when 'dark' class is present */
@@ -153,6 +157,9 @@
     --input-focus-ring: rgba(20, 184, 166, 0.4);
 
     --overlay-bg: rgba(0, 0, 0, 0.6);
+
+    /* Elevated surface — cards, modals, dropdowns */
+    --surface-elevated: oklch(0.16 0.018 230);
 }
 
 /* Base element styles */
@@ -216,6 +223,11 @@ body {
 .bg-card {
     background-color: var(--card-bg);
     border-color: var(--card-border);
+}
+
+/* Elevated surface — cards, modals, dropdowns, popovers */
+.bg-surface-elevated {
+    background-color: var(--surface-elevated);
 }
 
 /* Theme-aware input styles */
