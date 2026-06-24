@@ -368,7 +368,7 @@ export default function VideoGenerator({
                             }`}
                             style={selectedImages.includes(img) ? {
                               borderColor: primaryColor,
-                              ringColor: primaryColor,
+                              boxShadow: `0 0 0 2px white, 0 0 0 4px ${primaryColor}`,
                             } : {}}
                           >
                             <img src={img} alt="" className="w-full h-full object-cover" />
