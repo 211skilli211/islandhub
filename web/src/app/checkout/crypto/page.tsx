@@ -102,7 +102,7 @@ function CryptoCheckoutContent() {
                 toast.success('Payment confirmed!');
                 router.push(`/orders/${data.order_id}/confirmation`);
             } else {
-                toast.info('Payment not yet confirmed. Please wait for blockchain confirmations.');
+                toast('Payment not yet confirmed. Please wait for blockchain confirmations.', { icon: 'ℹ️' });
             }
         } catch (error: any) {
             toast.error(error.response?.data?.error || 'Verification failed');
