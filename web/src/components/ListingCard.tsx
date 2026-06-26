@@ -48,6 +48,7 @@ interface Listing {
     review_count?: number;
     is_verified?: boolean;
     status?: string;
+    listing_id?: string | number;
 }
 
 interface ListingCardProps {
