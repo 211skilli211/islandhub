@@ -164,9 +164,9 @@ export default function DriverDashboard() {
                         {([
                             { id: 'available', label: 'Available', count: jobs.length, icon: '🎯' },
                             { id: 'active', label: 'Active', count: activeJobs.length, icon: '🚗' },
-                            { id: 'earnings', label: 'Earnings', icon: '💰' },
-                            { id: 'vehicles', label: 'Vehicles', icon: '🚐' },
-                            { id: 'profile', label: 'Profile', icon: '👤' }
+                            { id: 'earnings', label: 'Earnings', count: undefined, icon: '💰' },
+                            { id: 'vehicles', label: 'Vehicles', count: undefined, icon: '🚐' },
+                            { id: 'profile', label: 'Profile', count: undefined, icon: '👤' }
                         ] as const).map(tab => (
                             <button
                                 key={tab.id}
