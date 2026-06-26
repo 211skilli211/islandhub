@@ -531,7 +531,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                         value ? 'Yes' : 'No'
                                                     ) : typeof value === 'object' && value !== null ? (
                                                         (value as Record<string, unknown>).label || (value as Record<string, unknown>).name || JSON.stringify(value)
-                                                    ) : value.toString()}
+                                                    ) : String(value ?? '')}
                                                 </span>
                                             </div>
                                         );
