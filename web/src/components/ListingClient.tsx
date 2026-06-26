@@ -339,9 +339,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         </div>
 
                         
-                        {(listing.metadata?.inclusions?.length > 0 || listing.metadata?.exclusions?.length > 0) && (
+                        {((listing.metadata?.inclusions?.length ?? 0) > 0 || (listing.metadata?.exclusions?.length ?? 0) > 0) && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {listing.metadata.inclusions?.length > 0 && (
+                                {(listing.metadata?.inclusions?.length ?? 0) > 0 && (
                                     <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                         <h3 className="text-sm font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                             <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -359,7 +359,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         </ul>
                                     </div>
                                 )}
-                                {listing.metadata.exclusions?.length > 0 && (
+                                {(listing.metadata?.exclusions?.length ?? 0) > 0 && (
                                     <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                         <h3 className="text-sm font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                             <svg className="w-5 h-5 text-[#e11d48]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
