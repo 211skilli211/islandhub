@@ -28,7 +28,7 @@ export default function CarsHubPage() {
           make: s.make || ['Toyota', 'Honda', 'Nissan', 'Ford', 'Hyundai'][i % 5],
           model: s.model || ['Corolla', 'Civic', 'Sentra', 'Focus', 'Elantra'][i % 5],
           year: s.year || (2020 + (i % 5)).toString(),
-          transmission: (i % 2 === 0 ? 'Automatic' : 'Manual') as any,
+          transmission: (i % 2 === 0 ? 'Automatic' : 'Manual') as string,
           seats: s.seats || [4, 5, 7][i % 3],
           price_per_day: s.price_per_day || 45 + (i * 10),
           rating: s.rating || (4.0 + Math.random()),

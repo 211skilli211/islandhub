@@ -137,7 +137,7 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
                         <button
                             key={method.key}
                             type="button"
-                            onClick={() => setPaymentMethod(method.key as any)}
+                            onClick={() => setPaymentMethod(method.key)}
                             className={`py-3 rounded-xl border-2 font-bold transition-all ${paymentMethod === method.key
                                 ? 'bg-accent-500/10 border-teal-500 text-accent-500'
                                 : 'bg-surface-elevated border-border-primary text-ink-tertiary hover:border-border-primary'

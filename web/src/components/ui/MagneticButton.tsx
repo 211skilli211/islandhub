@@ -38,7 +38,7 @@ export default function MagneticButton({ children, className, ...props }: Magnet
         'active:scale-[0.98]',
         className ?? '',
       )}
-      {...(props as any)}
+      {...(props as Record<string, unknown>)}
     >
       {children}
     </motion.button>

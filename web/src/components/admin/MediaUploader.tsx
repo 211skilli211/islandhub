@@ -73,7 +73,7 @@ export default function MediaUploader({
       formData.append('image', file);
 
       const isAdmin = typeof window !== 'undefined' &&
-        (window as any).__userRole === 'admin';
+        (window as Window & { __userRole?: string }).__userRole === 'admin';
       const endpoint = isAdmin ? '/admin/upload' : '/uploads/asset';
 
       const res = await api.post(endpoint, formData, {

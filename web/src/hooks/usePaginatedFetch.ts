@@ -19,7 +19,7 @@ export const usePaginatedFetch = <T>(endpoint: string, key: string, initialFilte
     const [filters, setFilters] = useState<Record<string, any>>(initialFilters);
     const [sort, setSort] = useState<SortConfig>({ sortBy: 'created_at', sortOrder: 'desc' });
     const [loading, setLoading] = useState(true);
-    const [selectedRows, setSelectedRows] = useState<any[]>([]);
+    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
 

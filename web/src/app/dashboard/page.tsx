@@ -69,7 +69,7 @@ function DashboardPageContent() {
     const viewMode = driverTabs.includes(currentTab) ? 'driver' : 
                     vendorTabs.includes(currentTab) ? 'vendor' : 'buyer';
 
-    const [activeTab, setActiveTab] = useState<'overview' | 'activity' | 'posts' | 'settings' | 'branding' | 'menu' | 'portal' | 'orders' | 'promotions' | 'messages' | 'wallet' | 'reviews' | 'delivery' | 'shipping' | 'become-driver' | 'driver-hub' | 'driver-verification' | 'onboarding'>(currentTab as any);
+    const [activeTab, setActiveTab] = useState<string>(currentTab);
 
     // Data State
     const [myListings, setMyListings] = useState<any[]>([]);
@@ -437,7 +437,7 @@ function DashboardPageContent() {
                         ) : (
                             <button
                                 key={tab.id}
-                                onClick={() => setActiveTab(tab.id as any)}
+                                onClick={() => setActiveTab(tab.id)}
                                 className={`px-6 py-3 rounded-xl flex items-center gap-2 font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap
                                 ${activeTab === tab.id
                                         ? 'bg-surface-elevated text-accent-400 shadow-sm'

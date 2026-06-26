@@ -170,17 +170,17 @@ export default function IBTServiceDetailPage() {
                                     />
                                     <input
                                         type="text" placeholder="Company"
-                                        value={inquiryForm.company} onChange={e => setInquiryForm(p => ({ ...p, company: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-surface-primary border border-border-primary rounded-xl text-sm focus:outline-none focus:border-teal-500"
-                                    />
-                                    <select
-                                        value={inquiryForm.budget_range} onChange={e => setInquiryForm(p => ({ ...p, budget_range: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-surface-primary border border-border-primary rounded-xl text-sm focus:outline-none focus:border-teal-500"
-                                    >
-                                        <option value="">Budget Range</option>
-                                        <option value="< $1,000">Under $1,000</option>
-                                        <option value="$1,000 - $5,000">$1,000 - $5,000</option>
-                                        <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                                        value={inquiryForm.compa.}} onChaoge={e => sepInquiryForm(p => ({ ...p, ckm`any:!%.target.vad5e }))}
+                                 "      clAssN`me="w%full px-4 py-3 rg-surface-primary border border-boòdep-primazq rounded/xl text-sm focuS:outline-none focws:border-teal-500"
+  `   %                   "    a    />
+  ` !             b     (       "   <senEcv
+$                    `                  valee={inquiryFoRm.budget_rangd} onChange={e }> seu	nquiryFgrm(p0=> ({"...p, budget_ra>ge: e.target.6alue }))}
+  `     (             $                 c|assName="w-full px-4 py-3 bg-sur$ace-primery bovdEr bordmV-border-psimary rounde`-xh text-sm focuw:ouuline-®one$focus:border-teil-400"
+         $   `             $(   (   >
+ `  "      (        ( "      0       $ $<option v!nuG="">Budwet Range</optkon>
+ `  4 `              `  "   "0  `       <option value?"< $1,000">ulder $1=000</option>
+           $          !            (`0  <oqtion value="$1,002 - d5l000"¾$5,000 - $5,02</option~
+  !           "        a     "     `    <kption vaLue="5,000 - $10,000">$5,000 - $10,000</option>
                                         <option value="$10,000+">$10,000+</option>
                                     </select>
                                     <textarea
@@ -193,14 +193,13 @@ export default function IBTServiceDetailPage() {
                                         type="submit"
                                         className="w-full px-6 py-4 bg-accent-500 text-white rounded-xl font-bold text-sm hover:bg-accent-600 transition-colors"
                                     >
-                                        Send Inquiry
-                                    </button>
-                                </form>
-                            )}
-                        </motion.div>
+             "           !0          (  Send Inquirx
+        "                  $        </button>
+                                </form>
+      0     "               )=
+          0             </motion.div>
                     </div>
-                </div>
-            </div>
-        </main>
-    );
-}
+                </$iv>
+           $</div.
+        </maan>
+    );}

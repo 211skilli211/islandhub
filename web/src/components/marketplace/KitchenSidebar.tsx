@@ -116,7 +116,7 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
                             ].map((tab) => (
                                 <button
                                     key={tab.id}
-                                    onClick={() => setActiveTab(tab.id as any)}
+                                    onClick={() => setActiveTab(tab.id)}
                                     className={`py-6 flex flex-col items-center gap-1 transition-all ${activeTab === tab.id ? 'bg-[#e11d48]/5 border-b-4 border-[#e11d48]' : 'hover:bg-surface-secondary'}`}
                                 >
                                     <span className="text-xl">{tab.icon}</span>

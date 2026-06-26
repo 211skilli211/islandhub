@@ -86,7 +86,7 @@ export default function AdminSettingsTab({
                 {['general', 'theme', 'vendor', 'moderation', 'export'].map(tab => (
                     <button
                         key={tab}
-                        onClick={() => setSettingsTab(tab as any)}
+                        onClick={() => setSettingsTab(tab as string)}
                         className={`w-full px-4 py-3 rounded-xl text-left text-[10px] font-black uppercase tracking-widest transition-all ${settingsTab === tab
                                 ? 'bg-surface-elevated dark:bg-surface-tertiary text-accent-400 dark:text-accent-400 shadow-sm border border-border-primary dark:border-border-primary'
                                 : 'text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'

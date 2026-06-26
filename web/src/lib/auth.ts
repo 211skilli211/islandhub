@@ -75,7 +75,7 @@ export const useAuthStore = create<AuthState>((set) => {
             } catch (error) {
                 console.error('Failed to refresh user', error);
                 // If it fails with 401, we might want to logout
-                if ((error as any).response?.status === 401) {
+                if ((error as { response?: { status?: number } })?.response?.status === 401) {
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
                     set({ user: null, token: null, isAuthenticated: false });

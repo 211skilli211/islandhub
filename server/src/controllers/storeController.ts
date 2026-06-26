@@ -297,7 +297,7 @@ export const getStoreBySlug = async (req: Request, res: Response) => {
     try {
         const { slug } = req.params;
         const result = await pool.query(
-            `SELECT s.*, v.business_name as vendor_name, v.id as vendor_primary_id, v.contact_email, v.contact_phone, v.location, v.bio, v.badges, v.admin_rating as rating,
+            `SELECT s.*, v.business_name as vendor_name, v.id as vendor_primary_id, v.contact_email, v.contact_phone, v.location, v.lat, v.lng, v.bio, v.badges, v.admin_rating as rating,
                     COALESCE(s.logo_url, v.logo_url) as logo_url,
                     COALESCE(s.banner_url, v.banner_url) as banner_url,
                     COALESCE(s.branding_color, v.branding_color, '#14b8a6') as branding_color,

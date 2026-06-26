@@ -37,18 +37,36 @@ ChartJS.register(
 );
 
 export default function DriverPortal() {
-    const [jobs, setJobs] = useState<any[]>([]);
-    const [activeJobs, setActiveJobs] = useState<any[]>([]);
-    const [completedJobs, setCompletedJobs] = useState<any[]>([]);
+    interface Job {
+        id: string | number;
+        [key: string]: unknown;
+    }
+    interface DriverSummary {
+        totalJobs: number;
+        avgRating: number;
+        successRate?: number;
+        totalMissions?: number;
+    }
+    interface EarningsData {
+        today: number;
+        week: number;
+        month: number;
+        total: number;
+        chartData: Array<{ label: string; value: number } | Record<string, unknown>>;
+    }
+
+    const [jobs, setJobs] = useState<Job[]>([]);
+    const [activeJobs, setActiveJobs] = useState<Job[]>([]);
+    const [completedJobs, setCompletedJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeView, setActiveView] = useState<'available' | 'active' | 'earnings' | 'services' | 'intel'>('available');
     const [isOnline, setIsOnline] = useState(false);
-    const [earnings, setEarnings] = useState({ today: 0, week: 0, month: 0, total: 0, chartData: [] as any[] });
-    const [driverSummary, setDriverSummary] = useState({ totalJobs: 0, avgRating: 5.0 });
-    const [myServices, setMyServices] = useState<any[]>([]);
-    const [chatJob, setChatJob] = useState<any>(null);
+    const [earnings, setEarnings] = useState<EarningsData>({ today: 0, week: 0, month: 0, total: 0, chartData: [] });
+    const [driverSummary, setDriverSummary] = useState<DriverSummary>({ totalJobs: 0, avgRating: 5.0 });
+    const [myServices, setMyServices] = useState<Job[]>([]);
+    const [chatJob, setChatJob] = useState<Job | null>(null);
     const trackingInterval = useRef<NodeJS.Timeout | null>(null);
-    const { user, refreshUser } = useAuthStore() as any;
+    const { user, refreshUser } = useAuthStore() as { user: { is_online?: boolean; [key: string]: unknown } | null; refreshUser: () => Promise<void> };
 
     useEffect(() => {
         refreshUser().then(() => {
@@ -392,16 +410,16 @@ export default function DriverPortal() {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="p-8 bg-[#14b8a6] text-white rounded-3xl">
                                     <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Success Rate</p>
-                                    <p className="text-4xl font-black mt-2">{(driverSummary as any).successRate || 100}%</p>
+                                    <p className="text-4xl font-black mt-2">{driverSummary.successRate || 100}%</p>
                                 </div>
                                 <div className="p-8 bg-ink-primary text-white rounded-3xl">
                                     <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Total Missions</p>
-                                    <p className="text-4xl font-black mt-2">{(driverSummary as any).totalMissions || 0}</p>
+                                    <p className="text-4xl font-black mt-2">{driverSummary.totalMissions || 0}</p>
                                 </div>
                                 <div className="p-8 bg-accent-500 text-white rounded-3xl">
                                     <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Level</p>
                                     <p className="text-4xl font-black mt-2">
-                                        {(driverSummary as any).totalJobs > 50 ? 'Elite' : (driverSummary as any).totalJobs > 10 ? 'Pro' : 'Rookie'}
+                                        {driverSummary.totalJobs > 50 ? 'Elite' : driverSummary.totalJobs > 10 ? 'Pro' : 'Rookie'}
                                     </p>
                                 </div>
                             </div>

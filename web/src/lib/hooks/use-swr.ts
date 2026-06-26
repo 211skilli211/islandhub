@@ -38,7 +38,7 @@ const fetcher = (url: string) => api.get(url).then(res => res.data);
 // --- Generic Data Hooks ---
 
 export function useListings(params?: ListingFilters) {
-  const queryString = params ? '?' + new URLSearchParams(params as any).toString() : '';
+  const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : '';
 
   return useSWR(
     `/listings${queryString}`,
@@ -68,7 +68,7 @@ export function useCampaigns(featured?: boolean) {
 }
 
 export function useStores(params?: any) {
-  const queryString = params ? '?' + new URLSearchParams(params as any).toString() : '';
+  const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : '';
 
   return useSWR<any[]>(
     `/stores${queryString}`,

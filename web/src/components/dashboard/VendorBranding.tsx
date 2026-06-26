@@ -29,7 +29,7 @@ const INITIAL_FORM_STATE = {
         align: 'left',
         heading: { model: 'classic', color: '#ffffff', size: 72, effect: '', custom_font: '' },
         subtitle: { model: 'classic', color: 'rgba(255,255,255,0.8)', size: 24, effect: '', custom_font: '' }
-    } as any,
+    } as Record<string, unknown>,
     description: '',
     location: '',
     logo_url: '',

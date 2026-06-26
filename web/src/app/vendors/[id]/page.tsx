@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import { getImageUrl } from '@/lib/urlUtils';
+import VendorMap from '@/components/VendorMap';
+import { MapPin } from 'lucide-react';
 
 export default function VendorProfilePage() {
     const params = useParams();
@@ -124,6 +126,20 @@ export default function VendorProfilePage() {
                         </div>
                     )}
                 </div>
+
+                {/* Vendor Location Map */}
+                {vendor.location && (
+                    <div className="py-12">
+                        <h2 className="text-2xl font-black text-ink-primary mb-8 flex items-center gap-3">
+                            <MapPin size={24} className="text-accent-400" />
+                            Location
+                        </h2>
+                        <VendorMap
+                            location={vendor.location}
+                            businessName={vendor.business_name}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );

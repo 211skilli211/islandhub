@@ -14,7 +14,7 @@ export function detectPerformanceTier(): PerformanceTier {
   let score = 0;
 
   // Device memory (GB)
-  const memory = (navigator as any).deviceMemory || 4;
+  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 4;
   if (memory >= 8) score += 3;
   else if (memory >= 4) score += 2;
   else if (memory >= 2) score += 1;
@@ -34,7 +34,7 @@ export function detectPerformanceTier(): PerformanceTier {
   if (pixelCount > 2073600) score -= 1; // >1080p penalty
 
   // Connection type
-  const conn = (navigator as any).connection;
+  const conn = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
   if (conn) {
     if (conn.effectiveType === '4g') score += 1;
     else if (conn.effectiveType === '3g') score -= 1;

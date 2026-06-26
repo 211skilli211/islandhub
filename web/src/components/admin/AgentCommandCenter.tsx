@@ -449,13 +449,13 @@ export default function AgentCommandCenter() {
                 {sections.map(s => (
                     <button
                         key={s.id}
-                        onClick={() => setActiveSection(s.id as any)}
+                        onClick={() => setActiveSection(s.id as string)}
                         className={`flex-1 py-4 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 min-w-[120px] ${activeSection === s.id
                             ? 'bg-ink-primary dark:bg-surface-tertiary text-white shadow-lg'
                             : 'text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
                             }`}
                     >
-                        <span className="text-sm">{(sectionIcons as any)[s.id]}</span>
+                        <span className="text-sm">{(sectionIcons as Record<string, string>)[s.id]}</span>
                         {s.label}
                     </button>
                 ))}

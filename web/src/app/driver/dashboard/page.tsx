@@ -170,7 +170,7 @@ export default function DriverDashboard() {
                         ].map(tab => (
                             <button
                                 key={tab.id}
-                                onClick={() => setActiveTab(tab.id as any)}
+                                onClick={() => setActiveTab(tab.id)}
                                 className={`flex-1 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab.id
                                     ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg'
                                     : 'text-ink-tertiary hover:text-white hover:bg-surface-elevated/5'

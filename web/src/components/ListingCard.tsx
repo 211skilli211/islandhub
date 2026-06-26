@@ -49,9 +49,9 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     const memoizedListingData = useMemo(() => {
         const { type, title, price, goal_amount, metadata, is_promoted, location, duration, capacity } = listing;
 
-        const isTransport = (listing as any).service_type && ['taxi', 'delivery', 'pickup'].includes((listing as any).service_type);
-        const vehicleType = (listing as any).vehicle_category;
-        const isFood = (listing as any).category?.toLowerCase() === 'food' || type?.toLowerCase() === 'food';
+        const isTransport = listing.service_type && ['taxi', 'delivery', 'pickup'].includes(listing.service_type);
+        const vehicleType = listing.vehicle_category;
+        const isFood = listing.category?.toLowerCase() === 'food' || type?.toLowerCase() === 'food';
         const activeType = isFood ? 'food' : type;
 
         const extractPhotoUrl = (photo: any): string | null => {
@@ -160,11 +160,11 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
 
     const getDetailHref = useCallback(() => {
         if (onClick) return '#';
-        const id = listing.id || (listing as any).listing_id;
+        const id = listing.id || listing.listing_id;
         if (type === 'rental') return `/rentals/${id}`;
         if (type === 'campaign') return `/campaigns/${id}`;
         return `/listings/${id}`;
-    }, [onClick, listing.id, (listing as any).listing_id, type]);
+    }, [onClick, listing.id, listing.listing_id, type]);
 
     const CardWrapper = ({ children }: { children: React.ReactNode }) => {
         const handleCardClick = (e: React.MouseEvent) => {

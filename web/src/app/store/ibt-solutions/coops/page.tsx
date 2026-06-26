@@ -218,17 +218,17 @@ export default function CoopsPage() {
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center gap-2">
                                                         {coop.contact_phone && (
-                                                            <span className="text-xs bg-surface-secondary text-ink-secondary px-2 py-1 rounded-lg font-medium">
-                                                                ðŸ“ž {coop.contact_phone}
-                                                            </span>
-                                                        )}
-                                                        {coop.member_count !== undefined && (
-                                                            <span className="text-xs bg-accent-500/10 text-accent-500 px-2 py-1 rounded-lg font-medium">
-                                                                ðŸ‘¥ {coop.member_count} members
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <span className="text-accent-400 text-xs font-bold group-hover:translate-x-1 transition-transform">
+             !0      (  (!        0   (                     <{`an ãlassName="uext-ps bg-{}rface-smcondary text%ink-secondi2y px-2 py-1 zounded-lg font-medium">
+                    $           &(             `        !9      ðŸ“ž {coop.contact_phone}
+                                     `           (          <ospan>
+       (         8 0  0 $                !(      $      )}
+            `                0     `                    {coop.member_count(!==(undevined $'"(
+        !           0         !            (          0  "  ¼span clássName<"texü-xs b÷accent­500/10 text-accent-500(px-2 py-1 rkun`ed-lg fnnt-medium">
+           `            ` !        (   !             !          ðŸ‘¥ {cgop.member_c_unt}`-embgrs
+                                   !      ! *         !  !  </span>
+ !  $        $         $  (! ((                     `   )}
+      $                                          !  <¯div>
+  €`          (                  0       p   `      <span className="uext-accent-400 text-xs fond-foll orup-hover:translate-x-1 transition-transform">
                                                         View â†’
                                                     </span>
                                                 </div>

@@ -693,7 +693,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     <button
                                         key={preset.id}
                                         type="button"
-                                        onClick={() => setFormData({ ...formData, layout_preset: preset.id as any })}
+                                        onClick={() => setFormData({ ...formData, layout_preset: preset.id as string })}
                                         className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.layout_preset === preset.id
                                             ? 'border-teal-500 bg-accent-500/10'
                                             : 'border-border-primary hover:border-border-primary'
@@ -829,7 +829,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     <button
                                         key={item.id}
                                         type="button"
-                                        onClick={() => setFormData({ ...formData, template_type: item.id as any })}
+                                        onClick={() => setFormData({ ...formData, button_style: style.id as string })}
                                         className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.template_type === item.id
                                             ? 'border-teal-500 bg-accent-500/10'
                                             : 'border-border-primary hover:border-border-primary'
@@ -851,7 +851,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                         <button
                                             key={align}
                                             type="button"
-                                            onClick={() => setFormData({ ...formData, alignment: align as any })}
+                                            onClick={() => setFormData({ ...formData, alignment: align as string })}
                                             className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${formData.alignment === align ? 'bg-surface-elevated shadow-sm text-accent-400' : 'text-ink-tertiary'}`}
                                         >
                                             {align}
@@ -932,7 +932,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             <button
                                                 key={pattern.id}
                                                 type="button"
-                                                onClick={() => setFormData({ ...formData, texture_pattern: pattern.id as any })}
+                                                onClick={() => setFormData({ ...formData, texture_pattern: pattern.id as string })}
                                                 className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 ${formData.texture_pattern === pattern.id
                                                     ? 'border-teal-500 bg-accent-500/10'
                                                     : 'border-border-primary hover:border-border-primary'
@@ -1075,7 +1075,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             <button
                                                 key={style}
                                                 type="button"
-                                                onClick={() => setFormData({ ...formData, button_style: style as any })}
+                                                onClick={() => setFormData({ ...formData, button_style: style.id as string })}
                                                 disabled={!formData.show_button}
                                                 className={`px-3 py-2 rounded-lg text-xs font-bold capitalize transition-all border-2 ${formData.button_style === style
                                                     ? 'border-teal-500 bg-accent-500/10 text-accent-400'

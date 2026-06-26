@@ -218,7 +218,7 @@ export default function AdminBrandsPage() {
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
                                     <button
                                         onClick={() => handleToggle(brand.id, brand.is_active !== false)}
-                                        className="px-2 py-1 text-xs bg-white rounded hover:bg-gray-100"
+                                        className="px-2 py-1 text-xs bg-surface-secondary rounded hover:bg-surface-elevated"
                                     >
                                         {brand.is_active !== false ? 'Hide' : 'Show'}
                                     </button>

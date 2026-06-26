@@ -45,7 +45,7 @@ export default function CreateListingModal({ isOpen, onClose, onSuccess, storeId
         vehicle_category: 'car',
         scheduled_time: '',
         slug: '',
-        metadata: {} as any
+        metadata: {}
     });
 
     useEffect(() => {

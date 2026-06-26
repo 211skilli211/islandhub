@@ -148,7 +148,7 @@ export default function PricingPage() {
                     ].map((role) => (
                         <button
                             key={role.id}
-                            onClick={() => setActiveRole(role.id as any)}
+                            onClick={() => setActiveRole(role.id)}
                             className={`flex-1 py-6 rounded-[1.8rem] flex items-center justify-center gap-3 font-black text-sm uppercase tracking-widest transition-all ${activeRole === role.id ? 'bg-accent-500 text-white shadow-xl shadow-accent-500/10 scale-[1.02]' : 'bg-transparent text-ink-tertiary hover:bg-surface-primary'}`}
                         >
                             <span className="text-xl">{role.icon}</span>

@@ -261,8 +261,11 @@ router.get('/provider/:slug/listings', async (req: Request, res: Response) => {
           s.is_featured,
           s.phone,
           s.email,
-          s.website
+          s.website,
+          v.lat,
+          v.lng
         FROM stores s
+        LEFT JOIN vendors v ON s.vendor_id = v.user_id
         WHERE s.slug = $1 AND s.is_active = true
         LIMIT 1`,
         [slug]

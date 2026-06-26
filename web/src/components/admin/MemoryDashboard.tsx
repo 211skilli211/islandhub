@@ -183,7 +183,7 @@ export default function MemoryDashboard() {
                 ].map(tab => (
                     <button
                         key={tab.id}
-                        onClick={() => setActiveTab(tab.id as any)}
+                        onClick={() => setActiveTab(tab.id)}
                         className={`flex-1 py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${activeTab === tab.id ? 'bg-accent-500 text-white' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         <span>{tab.icon}</span>

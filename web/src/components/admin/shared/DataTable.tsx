@@ -3,27 +3,31 @@
 import { useState, useMemo } from 'react';
 import { ChevronUp, ChevronDown, Search, Filter, MoreHorizontal, ArrowUpDown } from 'lucide-react';
 
-interface Column<T> {
+interface Column {
   key: string;
   label: string;
   sortable?: boolean;
-  render?: (row: T) => React.ReactNode;
+  render?: (row: DataRow) => React.ReactNode;
   width?: string;
 }
 
-interface DataTableProps<T> {
-  columns: Column<T>[];
-  data: T[];
-  keyExtractor: (row: T) => string | number;
+interface DataTableProps {
+  columns: Column[];
+  data: DataRow[];
+  keyExtractor: (row: DataRow) => string | number;
   searchable?: boolean;
   searchKeys?: string[];
   pageSize?: number;
   emptyMessage?: string;
-  onRowClick?: (row: T) => void;
+  onRowClick?: (row: DataRow) => void;
   className?: string;
 }
 
-export function DataTable<T>({
+interface DataRow {
+  [key: string]: unknown;
+}
+
+export function DataTable({
   columns,
   data,
   keyExtractor,
@@ -33,7 +37,7 @@ export function DataTable<T>({
   emptyMessage = 'No data found',
   onRowClick,
   className = '',
-}: DataTableProps<T>) {
+}: DataTableProps) {
   const [search, setSearch] = useState('');
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
@@ -45,15 +49,15 @@ export function DataTable<T>({
       const q = search.toLowerCase();
       result = result.filter(row =>
         searchKeys.some(key => {
-          const val = (row as any)?.[key];
+          const val = row[key];
           return val != null && String(val).toLowerCase().includes(q);
         })
       );
     }
     if (sortKey) {
       result = [...result].sort((a, b) => {
-        const aVal = (a as any)[sortKey] ?? '';
-        const bVal = (b as any)[sortKey] ?? '';
+        const aVal = a[sortKey] ?? '';
+        const bVal = b[sortKey] ?? '';
         const cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true });
         return sortDir === 'asc' ? cmp : -cmp;
       });
@@ -133,7 +137,7 @@ export function DataTable<T>({
                 >
                   {columns.map(col => (
                     <td key={col.key} className="px-4 py-3 text-sm text-ink-primary">
-                      {col.render ? col.render(row) : String((row as any)[col.key] ?? '—')}
+                      {col.render ? col.render(row) : String(row[col.key] ?? '—')}
                     </td>
                   ))}
                 </tr>

@@ -257,7 +257,7 @@ export const ProductLayout = ({ store, listings }: StoreProps) => {
                             type="email"
                             placeholder="your@email.com"
                             className="flex-1 px-4 py-3 rounded-lg border border-border-primary dark:border-border-primary focus:ring-2 focus:ring-offset-1 outline-none transition-all text-sm"
-                            style={{ '--tw-ring-color': brandingColor } as any}
+                            style={{ '--tw-ring-color': brandingColor } as React.CSSProperties}
                         />
                         <button
                             className="px-6 py-3 text-white rounded-lg font-medium text-sm transition-all active:scale-95"

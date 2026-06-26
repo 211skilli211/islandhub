@@ -53,7 +53,7 @@ export default function SubscriptionsTab() {
                 ].map((role) => (
                     <button
                         key={role.id}
-                        onClick={() => setActiveTab(role.id as any)}
+                        onClick={() => setActiveTab(role.id as string)}
                         className={`px-6 py-3 rounded-xl flex items-center gap-2 font-black text-xs uppercase tracking-widest transition-all ${activeTab === role.id ? 'bg-surface-elevated text-accent-400 shadow-md' : 'text-ink-tertiary hover:text-ink-secondary'}`}
                     >
                         <span>{role.icon}</span>

@@ -103,8 +103,8 @@ function SettingsContent() {
 
     useEffect(() => {
         if (user) {
-            setAccountData({ name: user.name || '', bio: (user as any).bio || '', country: (user as any).country || '' });
-            setEmailData({ email: (user as any).email || '' });
+            setAccountData({ name: user.name || '', bio: user.bio || '', country: user.country || '' });
+            setEmailData({ email: user?.email || '' });
         }
     }, [user]);
 
@@ -330,7 +330,7 @@ function SettingsContent() {
                                                 </div>
                                             ) : (
                                                 <div className="flex items-center justify-between">
-                                                    <span className="font-medium text-ink-secondary dark:text-ink-tertiary dark:text-ink-tertiary">{(user as any)?.email || 'No email'}</span>
+                                                    <span className="font-medium text-ink-secondary dark:text-ink-tertiary dark:text-ink-tertiary">{(user as { email?: string })?.email || 'No email'}</span>
                                                     <button onClick={() => setChangingEmail(true)} className="text-accent-400 font-bold text-sm hover:underline">Change</button>
                                                 </div>
                                             )}

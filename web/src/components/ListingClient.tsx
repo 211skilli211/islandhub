@@ -41,12 +41,11 @@ export interface Listing {
         shipping_info?: string;
         unavailable_dates?: string[];
         location_notes?: string;
-        variants?: any;
-        addons?: any[];
-        menu_sections?: any[];
+        variants?: Record<string, unknown>;
+        addons?: Array<Record<string, unknown>>;
+        menu_sections?: Array<Record<string, unknown>>;
         gallery?: string[];
-        specialties?: any[];
-        [key: string]: any;
+        specialties?: Array<Record<string, unknown>>;
         duration?: string;
         vendor_bio?: string;
         make?: string;
@@ -64,15 +63,21 @@ export interface Listing {
         site_ids?: string;
         client_rating?: number;
         experience_years?: string;
-        pickup_schedules?: { location: string; time: string }[];
+        pickup_schedules?: Array<{ location: string; time: string }>;
         appointment_config?: {
             days: string[];
             start: string;
             end: string;
         };
-        catalogue_sections?: any[];
+        catalogue_sections?: Array<Record<string, unknown>>;
+        image?: string;
+        [key: string]: unknown;
     };
     created_at: string;
+    branding_color?: string;
+    vendor_logo?: string;
+    store_slug?: string;
+    store_name?: string;
 }
 
 const CATEGORY_THEMES: Record<string, { color: string; label: string; icon: string }> = {
@@ -114,7 +119,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
     }, [listing.id]);
 
     const theme = CATEGORY_THEMES[listing.type === 'product' && listing.category?.toLowerCase() === 'food' ? 'food' : listing.type] || CATEGORY_THEMES.product;
-    const accentColor = (listing as any).branding_color || '#14b8a6';
+    const accentColor = listing.branding_color || '#14b8a6';
 
     const displayImages = React.useMemo(() => {
         // Extract available image sources
@@ -158,7 +163,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
         }
 
         // Last resort: metadata image
-        const metadataImage = (listing.metadata as any)?.image;
+        const metadataImage = listing.metadata?.image;
         if (metadataImage) {
             return [metadataImage];
         }
@@ -334,9 +339,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         </div>
 
                         
-                        {((listing.metadata as any)?.inclusions?.length > 0 || (listing.metadata as any)?.exclusions?.length > 0) && (
+                        {(listing.metadata?.inclusions?.length > 0 || listing.metadata?.exclusions?.length > 0) && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {(listing.metadata as any).inclusions?.length > 0 && (
+                                {listing.metadata.inclusions?.length > 0 && (
                                     <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                         <h3 className="text-sm font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                             <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -345,7 +350,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             What's Included
                                         </h3>
                                         <ul className="space-y-2">
-                                            {(listing.metadata as any).inclusions.map((item: string, i: number) => (
+                                            {listing.metadata.inclusions.map((item: string, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-ink-secondary">
                                                     <span className="text-emerald-400 mt-0.5">-</span>
                                                     {item}
@@ -354,7 +359,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         </ul>
                                     </div>
                                 )}
-                                {(listing.metadata as any).exclusions?.length > 0 && (
+                                {listing.metadata.exclusions?.length > 0 && (
                                     <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                         <h3 className="text-sm font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                             <svg className="w-5 h-5 text-[#e11d48]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -363,7 +368,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             What's Not Included
                                         </h3>
                                         <ul className="space-y-2">
-                                            {(listing.metadata as any).exclusions.map((item: string, i: number) => (
+                                            {listing.metadata.exclusions.map((item: string, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-ink-tertiary">
                                                     <span className="text-[#fb7185] mt-0.5">-</span>
                                                     {item}
@@ -376,11 +381,11 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         )}
 
                         
-                        {(listing.metadata as any)?.menu_sections && (
+                        {listing.metadata?.menu_sections && (
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Restaurant Menu</h2>
                                 <div className="space-y-8">
-                                    {(listing.metadata as any).menu_sections?.map((section: any, sIdx: number) => (
+                                    {listing.metadata.menu_sections?.map((section: any, sIdx: number) => (
                                         <div key={sIdx}>
                                             <h3 className="text-sm font-medium text-ink-tertiary uppercase tracking-wide mb-4">
                                                 {section.section_name}
@@ -434,11 +439,11 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                         )}
 
                         
-                        {(listing.metadata as any)?.catalogue_sections && (
+                        {listing.metadata?.catalogue_sections && (
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Boutique Catalogue</h2>
                                 <div className="space-y-8">
-                                    {(listing.metadata as any).catalogue_sections?.map((section: any, sIdx: number) => (
+                                    {listing.metadata.catalogue_sections?.map((section: any, sIdx: number) => (
                                         <div key={sIdx}>
                                             <h3 className="text-sm font-medium text-ink-tertiary uppercase tracking-wide mb-4">
                                                 {section.section_name}
@@ -525,7 +530,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                     ) : typeof value === 'boolean' ? (
                                                         value ? 'Yes' : 'No'
                                                     ) : typeof value === 'object' && value !== null ? (
-                                                        (value as any).label || (value as any).name || JSON.stringify(value)
+                                                        (value as Record<string, unknown>).label || (value as Record<string, unknown>).name || JSON.stringify(value)
                                                     ) : value.toString()}
                                                 </span>
                                             </div>
@@ -540,8 +545,8 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             <div className="flex flex-col md:flex-row items-center gap-6">
                                 <div className="relative">
                                     <div className="w-20 h-20 rounded-2xl bg-surface-secondary flex items-center justify-center text-3xl overflow-hidden">
-                                        {(listing as any).vendor_logo ? (
-                                            <img src={getImageUrl((listing as any).vendor_logo)} className="w-full h-full object-cover" alt="" />
+                                        {listing.vendor_logo ? (
+                                            <img src={getImageUrl(listing.vendor_logo)} className="w-full h-full object-cover" alt="" />
                                         ) : (
                                             <span>{theme.icon}</span>
                                         )}
@@ -555,14 +560,14 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 <div className="text-center md:text-left flex-1">
                                     <span className="text-xs font-medium text-emerald-400 uppercase tracking-wide">Verified Island Partner</span>
                                     <h3 className="text-xl font-semibold text-ink-primary mt-1">
-                                        {(listing as any).store_name || (listing as any).vendor_name || listing.owner_name || 'Island Partner'}
+                                        {listing.store_name || listing.vendor_name || listing.owner_name || 'Island Partner'}
                                     </h3>
-                                    {(listing as any).vendor_bio && (
-                                        <p className="text-sm text-ink-tertiary mt-1 line-clamp-2">{(listing as any).vendor_bio}</p>
+                                    {listing.vendor_bio && (
+                                        <p className="text-sm text-ink-tertiary mt-1 line-clamp-2">{listing.vendor_bio}</p>
                                     )}
                                 </div>
                                 <div className="flex gap-3">
-                                    <Link href={(listing as any).store_slug ? `/store/${(listing as any).store_slug}` : `/vendors/${listing.creator_id}`}>
+                                    <Link href={listing.store_slug ? `/store/${listing.store_slug}` : `/vendors/${listing.creator_id}`}>
                                         <button className="px-6 py-2.5 bg-ink-primary text-white rounded-lg text-sm font-medium hover:bg-ink-primary transition-colors">
                                             View Store
                                         </button>
@@ -778,12 +783,12 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 <div className="grid grid-cols-2 gap-3">
                                     <div className="p-3 bg-surface-secondary rounded-xl border border-border-primary text-center">
                                         <p className="text-xs text-ink-tertiary mb-1">Experience</p>
-                                        <p className="text-sm font-semibold text-ink-primary">{(listing.metadata as any)?.experience_years || '10y+'}</p>
+                                        <p className="text-sm font-semibold text-ink-primary">{listing.metadata?.experience_years || '10y+'}</p>
                                     </div>
                                     <div className="p-3 bg-surface-secondary rounded-xl border border-border-primary text-center">
                                         <p className="text-xs text-ink-tertiary mb-1">Rating</p>
                                         <div className="flex items-center justify-center gap-1">
-                                            <span className="text-sm font-semibold text-ink-primary">{(listing.metadata as any)?.client_rating || '4.9'}</span>
+                                            <span className="text-sm font-semibold text-ink-primary">{listing.metadata?.client_rating || '4.9'}</span>
                                             <EmojiIcon emoji="★" size={16} className="text-sand-500 text-sm" />
                                         </div>
                                     </div>
@@ -916,7 +921,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <div className="space-y-4 text-sm">
                                         <div className="flex items-center gap-3">
                                             <span className="text-ink-tertiary">Duration:</span>
-                                            <span className="font-medium">{(listing.metadata as any)?.duration || '60 min'}</span>
+                                            <span className="font-medium">{listing.metadata?.duration || '60 min'}</span>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <span className="text-ink-tertiary">Starting from:</span>

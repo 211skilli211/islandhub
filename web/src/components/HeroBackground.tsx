@@ -306,7 +306,7 @@ export default function HeroBackground({
                                 padding: `${(48 * (overlayScale / 100)).toFixed(0)}px`,
                                 maxWidth: `${(800 * (overlayScale / 100)).toFixed(0)}px`,
                                 alignItems: overlayAlign === 'center' ? 'center' : overlayAlign === 'right' ? 'flex-end' : 'flex-start',
-                                textAlign: overlayAlign as any
+                                textAlign: overlayAlign
                             } : {}}
                         >
                             
@@ -328,7 +328,7 @@ export default function HeroBackground({
                                                         src={getImageUrl(iconUrl)}
                                                         className="w-full h-full object-contain drop-shadow-2xl translate-y-1 md:translate-y-2 group-hover:translate-y-0 transition-transform duration-700"
                                                         alt=""
-                                                        onError={(e) => { (e.target as any).style.display = 'none'; }}
+                                                        onError={(e) => { e.target.style.display = 'none'; }}
                                                     />
                                                 ) : (
                                                     <span className="text-4xl md:text-8xl drop-shadow-2xl select-none leading-none">{iconUrl}</span>

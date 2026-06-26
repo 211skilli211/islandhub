@@ -292,7 +292,7 @@ export default function DriverApp() {
             center={driverLocation || { lat: 17.2948, lng: -62.7261 }}
             zoom={14}
             height="100%"
-            driver={driverLocation ? { id: 'me', name: 'You', lat: driverLocation.lat, lng: driverLocation.lng, icon: (status.vehicle_type as any) || 'car' } : null}
+            driver={driverLocation ? { id: 'me', name: 'You', lat: driverLocation.lat, lng: driverLocation.lng, icon: (status.vehicle_type as string) || 'car' } : null}
             pickup={tripPickup}
             dropoff={tripDropoff}
             routePolyline={
@@ -322,7 +322,7 @@ export default function DriverApp() {
           { id: 'map', icon: '🗺️', label: 'Map' },
           { id: 'earnings', icon: '💰', label: 'Earnings' },
         ].map(tab => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             className={`flex flex-col items-center p-2 rounded-xl transition-colors ${activeTab === tab.id ? 'text-teal-400' : 'text-ink-500'}`}>
             <span className="text-xl">{tab.icon}</span>
             <span className="text-[10px] font-bold">{tab.label}</span>

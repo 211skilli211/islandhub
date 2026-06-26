@@ -4,6 +4,7 @@ import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { RatingBadge, PriceTag, AvailabilityBadge, FilterBar, EmptyState, UrgencyCue } from '@/components/hub/SharedComponents';
 import BookingWidget from '@/components/hub/BookingWidget';
+import SimpleMap from '@/components/SimpleMap';
 import api, { getImageUrl } from '@/lib/api';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
@@ -127,7 +128,7 @@ export default function ProviderStorefrontPage({ params }: Props) {
             { id: 'products', label: `Products (${products.length})` },
             { id: 'about', label: 'About' },
           ].map((tab) => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                 activeTab === tab.id ? 'bg-accent-500 text-white shadow-lg' : 'text-ink-secondary hover:text-ink-primary'
               }`}>
@@ -222,6 +223,31 @@ export default function ProviderStorefrontPage({ params }: Props) {
                 </div>
               )}
             </div>
+
+            {/* Location Map */}
+            {store.lat && store.lng && (
+              <div className="mt-6 pt-6 border-t border-border-primary">
+                <h3 className="text-sm font-bold text-ink-primary mb-3 flex items-center gap-2">
+                  <span className="text-base">📍</span> Location
+                </h3>
+                <SimpleMap
+                  center={[Number(store.lat), Number(store.lng)]}
+                  zoom={14}
+                  markers={[
+                    {
+                      lat: Number(store.lat),
+                      lng: Number(store.lng),
+                      label: store.name,
+                      color: 'oklch(0.65 0.18 145)',
+                    },
+                  ]}
+                  height="240px"
+                />
+                {store.location && (
+                  <p className="text-xs text-ink-tertiary mt-2">{store.location}</p>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>

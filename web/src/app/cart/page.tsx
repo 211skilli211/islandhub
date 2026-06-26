@@ -81,7 +81,7 @@ export default function CartPage() {
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-start mb-2">
                                         <div>
-                                            <TypeBadge type={item.type as any} />
+                                            <TypeBadge type={item.type} />
                                             <h3 className="text-xl font-black text-ink-primary mt-1">{item.title}</h3>
                                         </div>
                                         <button
