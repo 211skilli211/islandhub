@@ -37,6 +37,17 @@ interface Listing {
     shop_name?: string;
     shop_logo?: string;
     shop_slug?: string;
+    // Extended fields from API (not in base type)
+    service_type?: string;
+    vehicle_category?: string;
+    vendor_name?: string;
+    owner_name?: string;
+    store_name?: string;
+    vendor_logo?: string;
+    rating?: number;
+    review_count?: number;
+    is_verified?: boolean;
+    status?: string;
 }
 
 interface ListingCardProps {
@@ -49,8 +60,8 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     const memoizedListingData = useMemo(() => {
         const { type, title, price, goal_amount, metadata, is_promoted, location, duration, capacity } = listing;
 
-        const isTransport = (listing as any).service_type && ['taxi', 'delivery', 'pickup'].includes((listing as any).service_type);
-        const vehicleType = (listing as any).vehicle_category;
+        const isTransport = listing.service_type && ['taxi', 'delivery', 'pickup'].includes(listing.service_type);
+        const vehicleType = listing.vehicle_category;
         const isFood = listing.category?.toLowerCase() === 'food' || type?.toLowerCase() === 'food';
         const activeType = isFood ? 'food' : type;
 
