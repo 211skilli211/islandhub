@@ -123,11 +123,11 @@ export default function ProviderStorefrontPage({ params }: Props) {
       
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex gap-1 mb-6 bg-surface-elevated rounded-xl p-1 w-fit">
-          {[
+          {([
             { id: 'listings', label: `Listings (${listings.length})` },
             { id: 'products', label: `Products (${products.length})` },
             { id: 'about', label: 'About' },
-          ].map((tab) => (
+          ] as const).map((tab) => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                 activeTab === tab.id ? 'bg-accent-500 text-white shadow-lg' : 'text-ink-secondary hover:text-ink-primary'

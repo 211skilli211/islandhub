@@ -161,13 +161,13 @@ export default function DriverDashboard() {
 
                     
                     <div className="mt-6 flex gap-2 p-1 bg-surface-tertiary/50 backdrop-blur-md rounded-2xl border border-white/10">
-                        {[
+                        {([
                             { id: 'available', label: 'Available', count: jobs.length, icon: '🎯' },
                             { id: 'active', label: 'Active', count: activeJobs.length, icon: '🚗' },
                             { id: 'earnings', label: 'Earnings', icon: '💰' },
                             { id: 'vehicles', label: 'Vehicles', icon: '🚐' },
                             { id: 'profile', label: 'Profile', icon: '👤' }
-                        ].map(tab => (
+                        ] as const).map(tab => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}

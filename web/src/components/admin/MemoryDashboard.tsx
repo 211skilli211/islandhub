@@ -176,11 +176,11 @@ export default function MemoryDashboard() {
         <div className="p-1 space-y-8 animate-in fade-in duration-700">
             
             <div className="flex p-1 bg-surface-elevated dark:bg-ink-primary rounded-2xl border border-border-primary dark:border-border-primary">
-                {[
+                {([
                     { id: 'files', label: 'Neural Files', icon: '📁' },
                     { id: 'vector', label: 'Vector Memory', icon: '🔍' },
                     { id: 'skills', label: 'Agent Skills', icon: '⚡' }
-                ].map(tab => (
+                ] as const).map(tab => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}

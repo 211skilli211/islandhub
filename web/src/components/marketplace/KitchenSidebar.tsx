@@ -108,12 +108,12 @@ export default function KitchenSidebar({ isOpen, onClose, listingTitle, storeId 
 
                         
                         <div className="grid grid-cols-4 border-b border-border-primary">
-                            {[
+                            {([
                                 { id: 'menu', icon: '🍴', label: 'Menu' },
                                 { id: 'receipt', icon: '🧾', label: 'Draft' },
                                 { id: 'orders', icon: '📦', label: 'Orders' },
                                 { id: 'prefs', icon: '⚙️', label: 'Overview' }
-                            ].map((tab) => (
+                            ] as const).map((tab) => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
