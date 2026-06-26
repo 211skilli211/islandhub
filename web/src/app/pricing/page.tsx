@@ -141,11 +141,11 @@ export default function PricingPage() {
             
             <section className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
                 <div className="bg-surface-elevated p-2 rounded-[2rem] shadow-2xl shadow-teal-900/10 flex flex-col md:flex-row gap-2">
-                    {[
+                    {([
                         { id: 'vendor', label: 'Sell & Rent', icon: '🛍️' },
                         { id: 'customer', label: 'Shop & Save', icon: '✨' },
                         { id: 'creator', label: 'Raise Funds', icon: '❤️' }
-                    ].map((role) => (
+                    ] as const).map((role) => (
                         <button
                             key={role.id}
                             onClick={() => setActiveRole(role.id)}
