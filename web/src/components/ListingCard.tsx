@@ -49,8 +49,8 @@ const ListingCardComponent = function ListingCard({ listing, onClick, layout = '
     const memoizedListingData = useMemo(() => {
         const { type, title, price, goal_amount, metadata, is_promoted, location, duration, capacity } = listing;
 
-        const isTransport = listing.service_type && ['taxi', 'delivery', 'pickup'].includes(listing.service_type);
-        const vehicleType = listing.vehicle_category;
+        const isTransport = (listing as any).service_type && ['taxi', 'delivery', 'pickup'].includes((listing as any).service_type);
+        const vehicleType = (listing as any).vehicle_category;
         const isFood = listing.category?.toLowerCase() === 'food' || type?.toLowerCase() === 'food';
         const activeType = isFood ? 'food' : type;
 
