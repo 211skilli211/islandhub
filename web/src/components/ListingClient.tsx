@@ -350,7 +350,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             What's Included
                                         </h3>
                                         <ul className="space-y-2">
-                                            {listing.metadata.inclusions.map((item: string, i: number) => (
+                                            {listing.metadata?.inclusions?.map((item: string, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-ink-secondary">
                                                     <span className="text-emerald-400 mt-0.5">-</span>
                                                     {item}
@@ -368,7 +368,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                             What's Not Included
                                         </h3>
                                         <ul className="space-y-2">
-                                            {listing.metadata.exclusions.map((item: string, i: number) => (
+                                            {listing.metadata?.exclusions?.map((item: string, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-ink-tertiary">
                                                     <span className="text-[#fb7185] mt-0.5">-</span>
                                                     {item}
@@ -385,7 +385,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Restaurant Menu</h2>
                                 <div className="space-y-8">
-                                    {listing.metadata.menu_sections?.map((section: any, sIdx: number) => (
+                                    {listing.metadata?.menu_sections?.map((section: any, sIdx: number) => (
                                         <div key={sIdx}>
                                             <h3 className="text-sm font-medium text-ink-tertiary uppercase tracking-wide mb-4">
                                                 {section.section_name}
@@ -443,7 +443,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             <div className="bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h2 className="text-lg font-semibold text-ink-primary mb-6">Boutique Catalogue</h2>
                                 <div className="space-y-8">
-                                    {listing.metadata.catalogue_sections?.map((section: any, sIdx: number) => (
+                                    {listing.metadata?.catalogue_sections?.map((section: any, sIdx: number) => (
                                         <div key={sIdx}>
                                             <h3 className="text-sm font-medium text-ink-tertiary uppercase tracking-wide mb-4">
                                                 {section.section_name}
@@ -665,7 +665,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                 
                                 {listing.metadata?.variants && Array.isArray(listing.metadata.variants) && (
                                     <div className="space-y-4">
-                                        {listing.metadata.variants.map((variant: any, idx: number) => (
+                                        {listing.metadata?.variants?.map((variant: any, idx: number) => (
                                             <div key={idx}>
                                                 <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-2">{variant.name}</p>
                                                 <div className="flex flex-wrap gap-2">
@@ -697,7 +697,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <div className="space-y-3">
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Enhance your order</p>
                                         <div className="space-y-2">
-                                            {listing.metadata.addons.map((addon, idx) => {
+                                            {listing.metadata?.addons?.map((addon, idx) => {
                                                 const isSelected = selectedAddons.find((a: any) => a.name === addon.name);
                                                 return (
                                                     <button
@@ -755,7 +755,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                     <div className="p-4 bg-surface-secondary rounded-xl border border-border-primary">
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide mb-3">Pickup Schedule</p>
                                         <div className="space-y-2">
-                                            {listing.metadata.pickup_schedules.map((sched: any, sIdx: number) => (
+                                            {listing.metadata?.pickup_schedules?.map((sched: any, sIdx: number) => (
                                                 <div key={sIdx} className="flex justify-between items-center text-sm bg-surface-elevated p-2 rounded-lg border border-border-primary">
                                                     <span className="text-ink-secondary">{sched.location}</span>
                                                     <span className="text-emerald-400 font-medium">{sched.time}</span>
@@ -857,7 +857,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                             <div className="mt-6 bg-surface-elevated rounded-2xl p-6 shadow-sm border border-border-primary">
                                 <h3 className="text-lg font-semibold text-ink-primary mb-4">Our Specialties</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    {Array.isArray(listing.metadata.specialties) && listing.metadata.specialties.map((spec: any, idx: number) => (
+                                    {Array.isArray(listing.metadata?.specialties) && listing.metadata?.specialties?.map((spec: any, idx: number) => (
                                         <div key={idx} className="p-3 bg-[#14b8a6]/10 rounded-xl">
                                             <p className="font-medium text-teal-900 text-sm">{spec.name || spec}</p>
                                             {spec.description && <p className="text-xs text-[#a78bfa]/70 mt-1">{spec.description}</p>}
