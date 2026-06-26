@@ -129,11 +129,11 @@ const CheckoutForm = ({ campaignId, campaignTitle }: { campaignId: string, campa
             <div>
                 <label className="block text-sm font-black text-ink-secondary uppercase tracking-widest mb-4">Payment Method</label>
                 <div className="grid grid-cols-3 gap-3 mb-4">
-                    {[
+                    {([
                         { key: 'wipay', label: '💳 Card', icon: '💳' },
                         { key: 'paypal', label: '🅿️ PayPal', icon: '🅿️' },
                         { key: 'crypto', label: '₿ Crypto', icon: '₿' }
-                    ].map((method) => (
+                    ] as const).map((method) => (
                         <button
                             key={method.key}
                             type="button"
