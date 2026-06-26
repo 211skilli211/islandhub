@@ -103,7 +103,7 @@ function SettingsContent() {
 
     useEffect(() => {
         if (user) {
-            setAccountData({ name: user.name || '', bio: user.bio || '', country: user.country || '' });
+            setAccountData({ name: user.name || '', bio: (user as any).bio || '', country: (user as any).country || '' });
             setEmailData({ email: user?.email || '' });
         }
     }, [user]);
