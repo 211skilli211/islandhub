@@ -31,6 +31,8 @@ interface Listing {
         vendor_bio?: string;
         image?: string;
         beneficiary?: string;
+        inclusions?: string[];
+        exclusions?: string[];
     };
     is_promoted?: boolean;
     created_at: string;
