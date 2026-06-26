@@ -292,7 +292,7 @@ export default function DriverApp() {
             center={driverLocation || { lat: 17.2948, lng: -62.7261 }}
             zoom={14}
             height="100%"
-            driver={driverLocation ? { id: 'me', name: 'You', lat: driverLocation.lat, lng: driverLocation.lng, icon: (status.vehicle_type as string) || 'car' } : null}
+            driver={driverLocation ? { id: 'me', name: 'You', lat: driverLocation.lat, lng: driverLocation.lng, icon: ((status.vehicle_type && ['boat','car','suv','truck','scooter'].includes(status.vehicle_type) ? status.vehicle_type : 'car') as 'boat' | 'car' | 'suv' | 'truck' | 'scooter') } : null}
             pickup={tripPickup}
             dropoff={tripDropoff}
             routePolyline={
