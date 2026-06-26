@@ -317,11 +317,11 @@ export default function DriverApp() {
 
       
       <div className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-xl border-t border-white/5 p-2 flex justify-around z-50">
-        {[
+        {([
           { id: 'home', icon: '🏠', label: 'Home' },
           { id: 'map', icon: '🗺️', label: 'Map' },
           { id: 'earnings', icon: '💰', label: 'Earnings' },
-        ].map(tab => (
+        ] as const).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             className={`flex flex-col items-center p-2 rounded-xl transition-colors ${activeTab === tab.id ? 'text-teal-400' : 'text-ink-500'}`}>
             <span className="text-xl">{tab.icon}</span>
