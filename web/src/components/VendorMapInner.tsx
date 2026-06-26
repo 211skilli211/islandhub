@@ -11,7 +11,12 @@ interface VendorLocation {
   category: string;
 }
 
-export default function VendorMapInner() {
+interface VendorMapInnerProps {
+  location?: string;
+  businessName?: string;
+}
+
+export default function VendorMapInner({ location, businessName }: VendorMapInnerProps) {
   const [vendors, setVendors] = useState<VendorLocation[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +39,9 @@ export default function VendorMapInner() {
   }
 
   return (
-    <div className="w-full h-full bg-surface-secondary rounded-2xl border border-white/10 flex items-center justify-center">
+    <div className="w-full h-full bg-surface-secondary rounded-2xl border border-white/10 flex flex-col items-center justify-center gap-2">
+      {businessName && <p className="text-ink-secondary text-xs font-bold">{businessName}</p>}
+      {location && <p className="text-ink-tertiary text-xs">{location}</p>}
       <p className="text-ink-tertiary text-sm">Map loading ({vendors.length} vendors)</p>
     </div>
   );
