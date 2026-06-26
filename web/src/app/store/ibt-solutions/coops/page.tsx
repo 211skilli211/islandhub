@@ -5,260 +5,119 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
-import HeroBackground from '@/components/HeroBackground';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
+
 interface CoopSector {
-    sector_id: number;
-    sector_key: string;
-    display_name: string;
-    description: string;
-    icon: string;
-    color: string;
+  sector_id: number;
+  sector_key: string;
+  display_name: string;
+  description: string;
+  icon: string;
+  color: string;
 }
 
 interface Coop {
-    coop_id: number;
-    name: string;
-    slug: string;
-    description: string;
-    contact_name: string;
-    contact_email: string;
-    contact_phone: string;
-    location: string;
-    island: string;
-    is_verified: boolean;
-    is_featured: boolean;
-    sector_key: string;
-    sector_name: string;
-    sector_icon: string;
-    sector_color: string;
-    member_count?: number;
+  coop_id: number;
+  name: string;
+  slug: string;
+  description: string;
+  contact_name: string;
+  contact_email: string;
+  contact_phone: string;
+  location: string;
+  island: string;
+  is_verified: boolean;
+  is_featured: boolean;
+  member_count: number;
+  sectors: CoopSector[];
 }
 
-const ISLAND_FILTERS = [
-    { key: 'all', label: 'All Islands' },
-    { key: 'st_kitts', label: 'St. Kitts' },
-    { key: 'nevis', label: 'Nevis' },
-];
-
 export default function CoopsPage() {
-    const [sectors, setSectors] = useState<CoopSector[]>([]);
-    const [coops, setCoops] = useState<Coop[]>([]);
-    const [selectedSector, setSelectedSector] = useState<string>('all');
-    const [selectedIsland, setSelectedIsland] = useState<string>('all');
-    const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  const [coops, setCoops] = useState<Coop[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIsland, setSelectedIsland] = useState('all');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [sectorsRes, coopsRes] = await Promise.all([
-                    api.get('/ibt/coops/sectors'),
-                    api.get('/ibt/coops'),
-                ]);
-                setSectors(sectorsRes.data || []);
-                setCoops(coopsRes.data || []);
-            } catch (error) {
-                console.error('Error fetching coops data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchCoops = async () => {
+      try {
+        const res = await api.get('/coops', { params: { island: selectedIsland } });
+        setCoops(res.data.coops || res.data || []);
+      } catch (error) {
+        console.error('Failed to fetch coops:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCoops();
+  }, [selectedIsland]);
 
-    const filteredCoops = coops.filter((coop) => {
-        if (selectedSector !== 'all' && coop.sector_key !== selectedSector) return false;
-        if (selectedIsland !== 'all' && coop.island !== selectedIsland) return false;
-        return true;
-    });
+  const islands = ['all', 'St. Kitts', 'Nevis', 'Jamaica', 'Trinidad', 'Bahamas', 'Barbados', 'Antigua'];
 
-    const groupedCoops = sectors.map((sector) => ({
-        ...sector,
-        coops: filteredCoops.filter((c) => c.sector_key === sector.sector_key),
-    })).filter((g) => g.coops.length > 0);
+  return (
+    <div className="min-h-screen bg-surface-primary">
+      <section className="relative py-16 bg-gradient-to-br from-teal-900/50 to-surface-primary">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-3xl font-black text-white mb-2">Co-operative Federation</h1>
+            <p className="text-ink-secondary">Discover member-owned businesses and cooperatives across the Caribbean.</p>
+          </motion.div>
+        </div>
+      </section>
 
-    if (loading) {
-        return (
-            <main className="min-h-screen bg-surface-primary flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <p className="text-ink-tertiary font-medium">Loading co-ops...</p>
-                </div>
-            </main>
-        );
-    }
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          {islands.map((island) => (
+            <button
+              key={island}
+              onClick={() => setSelectedIsland(island)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
+                selectedIsland === island
+                  ? 'bg-accent-500 text-white'
+                  : 'bg-surface-elevated text-ink-secondary hover:text-white'
+              }`}
+            >
+              {island === 'all' ? 'All Islands' : island}
+            </button>
+          ))}
+        </div>
 
-    return (
-        <main className="min-h-screen bg-surface-primary">
-            
-            <HeroBackground pageKey="ibt-coops">
-                <div className="relative z-10 max-w-4xl mx-auto text-center">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <span className="inline-block px-4 py-1 bg-accent-500/20 text-accent-400 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
-                            IBT Co-operative Federation
-                        </span>
-                        <h1 className="text-4xl md:text-6xl font-black text-white mb-6 italic uppercase tracking-tighter">
-                            Caribbean <span className="text-accent-400">Co-ops</span>
-                        </h1>
-                        <p className="text-xl text-white/60 max-w-2xl mx-auto">
-                            Democratically-governed cooperatives uniting tradespeople, farmers, creatives, and logistics providers across the islands.
-                        </p>
-                    </motion.div>
-                </div>
-            </HeroBackground>
-
-            
-            <section className="sticky top-0 z-20 bg-surface-elevated border-b border-border-primary shadow-sm">
-                <div className="max-w-7xl mx-auto px-6 py-4">
-                    <div className="flex flex-wrap items-center gap-4">
-                        
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-ink-tertiary uppercase tracking-wider">Sector:</span>
-                            <div className="flex gap-1">
-                                <button
-                                    onClick={() => setSelectedSector('all')}
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                                        selectedSector === 'all'
-                                            ? 'bg-surface-tertiary text-white'
-                                            : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'
-                                    }`}
-                                >
-                                    All
-                                </button>
-                                {sectors.map((s) => (
-                                    <button
-                                        key={s.sector_key}
-                                        onClick={() => setSelectedSector(s.sector_key)}
-                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                                            selectedSector === s.sector_key
-                                                ? 'bg-surface-tertiary text-white'
-                                                : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'
-                                        }`}
-                                    >
-                                        {s.icon} {s.display_name}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        
-                        <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-ink-tertiary uppercase tracking-wider">Island:</span>
-                            <div className="flex gap-1">
-                                {ISLAND_FILTERS.map((f) => (
-                                    <button
-                                        key={f.key}
-                                        onClick={() => setSelectedIsland(f.key)}
-                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                                            selectedIsland === f.key
-                                                ? 'bg-accent-500 text-white'
-                                                : 'bg-surface-secondary text-ink-secondary hover:bg-surface-tertiary'
-                                        }`}
-                                    >
-                                        {f.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        
-                        <div className="ml-auto text-xs font-bold text-ink-tertiary">
-                            {filteredCoops.length} co-op{filteredCoops.length !== 1 ? 's' : ''}
-                        </div>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-pulse text-ink-tertiary">Loading cooperatives...</div>
+          </div>
+        ) : coops.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-ink-tertiary">No cooperatives found for this island.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {coops.map((coop) => (
+              <Link key={coop.coop_id} href={`/store/ibt-solutions/coops/${coop.slug}`}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="bg-surface-elevated rounded-2xl border border-white/10 p-5 hover:border-accent-500/30 transition-all"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-accent-500/20 flex items-center justify-center">
+                      <EmojiIcon emoji="ü§ù" size={20} />
                     </div>
-                </div>
-            </section>
-
-            
-            <section className="max-w-7xl mx-auto px-6 py-12">
-                {groupedCoops.length === 0 ? (
-                    <div className="text-center py-20">
-                        <EmojiIcon emoji="üîç" size={48} className="text-6xl mb-4" />
-                        <h3 className="text-xl font-black text-ink-primary mb-2">No co-ops found</h3>
-                        <p className="text-ink-tertiary">Try adjusting your filters.</p>
+                    <div>
+                      <h3 className="text-sm font-bold text-white">{coop.name}</h3>
+                      <p className="text-xs text-ink-tertiary">{coop.location}</p>
                     </div>
-                ) : (
-                    groupedCoops.map((group, gi) => (
-                        <div key={group.sector_key} className="mb-16">
-                            <div className="flex items-center gap-3 mb-8">
-                                <span className="text-3xl">{group.icon}</span>
-                                <div>
-                                    <h2 className="text-2xl font-black text-ink-primary italic uppercase">{group.display_name}</h2>
-                                    <p className="text-ink-tertiary text-sm">{group.description}</p>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {group.coops.map((coop, ci) => (
-                                    <motion.div
-                                        key={coop.coop_id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: ci * 0.05 }}
-                                    >
-                                        <Link href={`/store/ibt-solutions/coops/${coop.slug}`}>
-                                            <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6 hover:shadow-xl hover:-translate-y-1 transition-all h-full group">
-                                                <div className="flex items-start justify-between mb-4">
-                                                    <div>
-                                                        <h3 className="text-lg font-black text-ink-primary group-hover:text-accent-400 transition-colors">
-                                                            {coop.name}
-                                                        </h3>
-                                                        <p className="text-xs text-ink-tertiary font-medium">
-                                                            üìç {coop.location}, {coop.island === 'st_kitts' ? 'St. Kitts' : 'Nevis'}
-                                                        </p>
-                                                    </div>
-                                                    {coop.is_verified && (
-                                                        <EmojiIcon emoji="‚úì" size={16} className="text-accent-500 text-sm" />
-                                                    )}
-                                                </div>
-                                                <p className="text-ink-tertiary text-sm leading-relaxed mb-4 line-clamp-2">
-                                                    {coop.description}
-                                                </p>
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-2">
-                                                        {coop.contact_phone && (
-             !0      (  (! †      0   (                     <{`an „lassName="uext-ps bg-{}rface-smcondary text%ink-secondi2y px-2 py-1 zounded-lg font-medium">
-                    $           &(             `  †     !9      üìû {coop.contact_phone}
-              †                      `           (          <ospan>
-       (         8 0  0 $                !(†     $      )}
-            `                0     `                  † {coop.member_count(!==(undevined $'"(
-        !           0         !            (          0  "  ºspan cl·ssName<"tex¸-xs b˜accent≠500/10 text-accent-500(px-2 py-1 rkun`ed-lg fnnt-medium">
-           `            ` !        (   !†            !         †üë• {cgop.member_c_unt}`-embgrs
-                                   !      ! *         !  !  </span>
- !  $        $         $  (! ((                     `   )}
-      $                                          !  <Ødiv>
-  Ä`          (                  0       p   `      <span className="uext-accent-400 text-xs fond-foll orup-hover:translate-x-1 transition-transform">
-                                                        View ‚Üí
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    ))
-                )}
-            </section>
-
-            
-            <section className="bg-surface-tertiary py-20 px-6">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="text-3xl md:text-4xl font-black text-white mb-4 italic uppercase">
-                        Start Your Own <span className="text-accent-400">Co-op</span>
-                    </h2>
-                    <p className="text-ink-tertiary mb-8">
-                        Have a group of Caribbean professionals ready to collaborate? Apply to join the IBT Co-operative Federation.
-                    </p>
-                    <Link
-                        href="/store/ibt-solutions/coops/apply"
-                        className="inline-block px-8 py-4 bg-accent-500 text-white rounded-2xl font-bold uppercase text-sm tracking-wider hover:bg-accent-500/100 transition-all"
-                    >
-                        Apply to Join
-                    </Link>
-                </div>
-            </section>
-        </main>
-    );
+                  </div>
+                  <p className="text-xs text-ink-secondary line-clamp-2 mb-3">{coop.description}</p>
+                  <div className="flex items-center gap-3 text-xs text-ink-tertiary">
+                    <span>üë• {coop.member_count || 0} members</span>
+                    {coop.is_verified && <span className="text-emerald-400">‚úì Verified</span>}
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
