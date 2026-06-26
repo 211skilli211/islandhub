@@ -16,9 +16,9 @@ export default function ComplianceAnalyticsPage() {
 
   useEffect(() => {
     api.get('/admin/analytics/overview').then((res: { data?: ComplianceData }) => {
-      setData(res.data || []);
+      setData(res.data ?? null);
     }).catch(() => {
-      setData([]);
+      setData(null);
     }).finally(() => setLoading(false));
   }, []);
 
