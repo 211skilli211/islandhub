@@ -449,7 +449,7 @@ export default function AgentCommandCenter() {
                 {sections.map(s => (
                     <button
                         key={s.id}
-                        onClick={() => setActiveSection(s.id as string)}
+                        onClick={() => setActiveSection(s.id as 'status' | 'chat' | 'settings' | 'agents' | 'teams' | 'providers' | 'memory' | 'audit')}
                         className={`flex-1 py-4 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 min-w-[120px] ${activeSection === s.id
                             ? 'bg-ink-primary dark:bg-surface-tertiary text-white shadow-lg'
                             : 'text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
