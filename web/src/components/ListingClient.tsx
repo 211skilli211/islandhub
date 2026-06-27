@@ -698,15 +698,15 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                         <p className="text-xs font-medium text-ink-tertiary uppercase tracking-wide">Enhance your order</p>
                                         <div className="space-y-2">
                                             {listing.metadata?.addons?.map((addon, idx) => {
-                                                const isSelected = selectedAddons.find((a: any) => a.name === addon.name);
+                                                const isSelected = selectedAddons.find((a: any) => a.name === (addon as Record<string, unknown>).name);
                                                 return (
                                                     <button
                                                         key={idx}
                                                         onClick={() => {
                                                             if (isSelected) {
-                                                                setSelectedAddons(prev => prev.filter((a: any) => a.name !== addon.name));
+                                                                setSelectedAddons(prev => prev.filter((a: any) => a.name !== (addon as Record<string, unknown>).name));
                                                             } else {
-                                                                setSelectedAddons(prev => [...prev, { name: addon.name, price: addon.price }]);
+                                                                setSelectedAddons(prev => [...prev, { name: String((addon as Record<string, unknown>).name), price: Number((addon as Record<string, unknown>).price) || 0 }]);
                                                             }
                                                         }}
                                                         className={`w-full flex items-center justify-between p-3 rounded-xl transition-all border ${isSelected
@@ -718,9 +718,9 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-ink-primary border-surface-elevated' : 'border-border-primary'}`}>
                                                                 {isSelected && <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}
                                                             </div>
-                                                            <span className="text-sm font-medium">{addon.name}</span>
+                                                            <span className="text-sm font-medium">{String((addon as Record<string, unknown>).name)}</span>
                                                         </div>
-                                                        <span className={`text-sm font-medium ${isSelected ? 'text-ink-tertiary' : 'text-ink-tertiary'}`}>+${addon.price}</span>
+                                                        <span className={`text-sm font-medium ${isSelected ? 'text-ink-tertiary' : 'text-ink-tertiary'}`}>+{Number((addon as Record<string, unknown>).price) || 0}</span>
                                                     </button>
                                                 );
                                             })}
@@ -1031,7 +1031,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             </div>
                                                             <span className={`text-sm font-medium ${isSelected ? 'text-[#be123c]' : 'text-ink-secondary'}`}>{addon.name}</span>
                                                         </div>
-                                                        <span className="text-sm font-medium text-ink-tertiary">+${addon.price}</span>
+                                                        <span className="text-sm font-medium text-ink-tertiary">+{Number((addon as Record<string, unknown>).price) || 0}</span>
                                                     </button>
                                                 );
                                             })}
