@@ -521,7 +521,7 @@ export default function ListingClient({ listing }: { listing: Listing }) {
                                                             {value.map((v, i) => {
                                                                 const displayValue = typeof v === 'object' && v !== null ? ((v as Record<string, unknown>).label || (v as Record<string, unknown>).name || JSON.stringify(v)) : String(v);
                                                                 return (
-                                                                    <span key={(v as Record<string, unknown>)?.id || (v as Record<string, unknown>)?.name || i} className="px-2 py-0.5 bg-surface-elevated rounded text-xs text-ink-secondary border border-border-primary">
+                                                                    <span key={String((v as Record<string, unknown>)?.id || (v as Record<string, unknown>)?.name || i)} className="px-2 py-0.5 bg-surface-elevated rounded text-xs text-ink-secondary border border-border-primary">
                                                                         {displayValue}
                                                                     </span>
                                                                 );
