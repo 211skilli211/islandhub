@@ -829,7 +829,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     <button
                                         key={item.id}
                                         type="button"
-                                        onClick={() => setFormData({ ...formData, button_style: style.id as 'filled' | 'outline' | 'ghost' | 'gradient' })}
+                                        onClick={() => setFormData({ ...formData, button_style: item.id as 'filled' | 'outline' | 'ghost' | 'gradient' })}
                                         className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.template_type === item.id
                                             ? 'border-teal-500 bg-accent-500/10'
                                             : 'border-border-primary hover:border-border-primary'
@@ -1075,7 +1075,7 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                             <button
                                                 key={style}
                                                 type="button"
-                                                onClick={() => setFormData({ ...formData, button_style: style.id as 'filled' | 'outline' | 'ghost' | 'gradient' })}
+                                                onClick={() => setFormData({ ...formData, button_style: item.id as 'filled' | 'outline' | 'ghost' | 'gradient' })}
                                                 disabled={!formData.show_button}
                                                 className={`px-3 py-2 rounded-lg text-xs font-bold capitalize transition-all border-2 ${formData.button_style === style
                                                     ? 'border-teal-500 bg-accent-500/10 text-accent-400'
