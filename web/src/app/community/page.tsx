@@ -649,15 +649,18 @@ export default function CommunityPage() {
           <>
             <AnimatePresence mode="popLayout">
               {posts.map((post, idx) => (
-                <FeedPostCard
+                <motion.div
                   key={post.post_id}
-                  post={post}
-                  onLike={handleLike}
-                  onSave={handleSave}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                />
+                >
+                  <FeedPostCard
+                    post={post}
+                    onLike={handleLike}
+                    onSave={handleSave}
+                  />
+                </motion.div>
               ))}
             </AnimatePresence>
 
