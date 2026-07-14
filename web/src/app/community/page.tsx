@@ -9,7 +9,11 @@ import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import {
   Heart, MessageCircle, Share2, Bookmark, MoreHorizontal,
   Send, Smile, Image, Video, MapPin, Globe, Lock,
-  ChevronLeft, ChevronRight, X, Play, Pause, Plus
+  ChevronLeft, ChevronRight, X, Play, Pause, Plus,
+  Home, Users, Calendar, MessageCircle as MessageCircleIcon,
+  ShoppingBag, Gavel, Building2, Briefcase, MapPin as MapPinIcon,
+  Sparkles, Bell, Search, Menu, User, Settings, LogOut,
+  Bookmark as BookmarkIcon, Flag, EllipsisVertical
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────
@@ -144,9 +148,7 @@ function getAvatarColor(name: string): string {
 
 // ─── Components ───────────────────────────────────────
 
-function StoryCircle({ story, isFirst, onClick }: {
-  story: Story; isFirst: boolean; onClick: () => void;
-}) {
+function StoryCircle({ story, isFirst, onClick }: { story: Story; isFirst: boolean; onClick: () => void }) {
   const gradient = story.is_viewed
     ? 'border-white/30'
     : 'from-teal-400 via-cyan-400 to-amber-400';
@@ -175,59 +177,75 @@ function StoryCircle({ story, isFirst, onClick }: {
   );
 }
 
-function StoryViewer({ stories, initialIndex, onClose }: {
+function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }: {
   stories: Story[]; initialIndex: number; onClose: () => void;
+  onPrevUser: () => void; onNextUser: () => void;
 }) {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [currentIdx, setCurrentIdx] = useState(initialIndex);
   const [progress, setProgress] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [replyText, setReplyText] = useState('');
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const progressRef = useRef(0);
+  const touchStartX = useRef(0);
 
-  const current = stories[currentIndex];
+  const current = stories[currentIdx];
 
   useEffect(() => {
     setProgress(0);
-    intervalRef.current = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          if (currentIndex < stories.length - 1) {
-            setCurrentIndex(c => c + 1);
-            return 0;
-          } else {
-            onClose();
-            return 100;
-          }
+    progressRef.current = 0;
+    setLiked(false);
+    setReplyText('');
+
+    const tick = () => {
+      progressRef.current += 1.67;
+      setProgress(progressRef.current);
+      if (progressRef.current >= 100) {
+        if (currentIdx < stories.length - 1) {
+          setCurrentIdx(c => c + 1);
+        } else {
+          onNextUser();
         }
-        return prev + 1.67; // ~3s total
-      });
-    }, 50);
+      }
+    };
+
+    if (!paused) {
+      intervalRef.current = setInterval(tick, 50);
+    }
+
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [currentIndex]);
+  }, [currentIdx, paused]);
 
   const handlePrev = () => {
-    if (currentIndex > 0) { setCurrentIndex(c => c - 1); setProgress(0); }
+    if (currentIdx > 0) { setCurrentIdx(c => c - 1); setProgress(0); }
+    else onPrevUser();
   };
+
   const handleNext = () => {
-    if (currentIndex < stories.length - 1) { setCurrentIndex(c => c + 1); setProgress(0); }
+    if (currentIdx < stories.length - 1) { setCurrentIdx(c => c + 1); setProgress(0); }
     else onClose();
   };
 
+  const handleLike = () => { setLiked(!liked); api.post(`/stories/${current.id}/react`).catch(() => {}); };
+  const handleReply = (e: React.FormEvent) => { e.preventDefault(); if (replyText.trim()) { api.post(`/stories/${current.id}/reply`, { message: replyText.trim() }).catch(() => {}); setReplyText(''); } };
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e: React.TouchEvent) => { const diff = e.changedTouches[0].clientX - touchStartX.current; if (Math.abs(diff) > 50) { if (diff > 0) handlePrev(); else handleNext(); } };
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-[100] bg-black flex items-center justify-center"
       onClick={onClose}
     >
-      <div className="relative w-full max-w-sm h-[80vh]" onClick={e => e.stopPropagation()}>
+      <div className="relative w-full max-w-sm h-[80vh]" onClick={e => e.stopPropagation()} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {/* Progress bars */}
         <div className="absolute top-4 left-4 right-4 z-10 flex gap-1.5">
           {stories.slice(0, 5).map((_, i) => (
             <div key={i} className="flex-1 h-0.5 bg-white/30 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-white rounded-full transition-all duration-75"
-                style={{ width: i < currentIndex ? '100%' : i === currentIndex ? `${progress}%` : '0%' }}
-              />
+              <div className="h-full bg-white rounded-full transition-all duration-75"
+                style={{ width: i < currentIdx ? '100%' : i === currentIdx ? `${progress}%` : '0%' }} />
             </div>
           ))}
         </div>
@@ -235,14 +253,14 @@ function StoryViewer({ stories, initialIndex, onClose }: {
         {/* User info */}
         <div className="absolute top-8 left-4 right-4 z-10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 p-[2px]">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-teal-400 to-teal-600 p-[2px]">
               <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
                 <span className="text-white text-[10px] font-bold">{getInitials(current.user_name)}</span>
               </div>
             </div>
             <div>
-              <span className="text-white text-sm font-bold">{current.user_name}</span>
-              <span className="text-white/60 text-xs ml-2">{timeAgo(current.created_at)}</span>
+              <span className="text-white text-sm font-bold block">{current.user_name}</span>
+              <span className="text-white/60 text-xs">{timeAgo(current.created_at)}</span>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
@@ -251,8 +269,8 @@ function StoryViewer({ stories, initialIndex, onClose }: {
         </div>
 
         {/* Story content */}
-        <div className="w-full h-full rounded-2xl overflow-hidden bg-surface-elevated flex items-center justify-center">
-          <div className="text-center p-8">
+        <div className="w-full h-full rounded-2xl overflow-hidden bg-surface-elevated flex items-center justify-center cursor-pointer" onClick={() => setPaused(!paused)}>
+          <div className="w-full h-full flex items-center justify-center relative">
             {current.media_url ? (
               <img src={current.media_url} alt="" className="w-full h-full object-cover" />
             ) : (
@@ -263,16 +281,47 @@ function StoryViewer({ stories, initialIndex, onClose }: {
                 <p className="text-white text-xl font-bold leading-relaxed max-w-xs mx-auto">{current.content}</p>
               </>
             )}
+            <AnimatePresence>
+              {paused && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  className="absolute inset-0 flex items-center justify-center bg-black/20"
+                >
+                  <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                    <Play size={28} className="text-white ml-1" />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
         {/* Nav buttons */}
-        <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors">
+        <button onClick={handlePrev} className="absolute left-2 top-1/2 -translate-y-1/2 -translate-x-1 z-20 p-2 bg-black/30 backdrop-blur-sm rounded-full hover:bg-black/50 transition-colors opacity-0 hover:opacity-100">
           <ChevronLeft size={20} className="text-white" />
         </button>
-        <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors">
+        <button onClick={handleNext} className="absolute right-2 top-1/2 -translate-y-1/2 translate-x-1 z-20 p-2 bg-black/30 backdrop-blur-sm rounded-full hover:bg-black/50 transition-colors opacity-0 hover:opacity-100">
           <ChevronRight size={20} className="text-white" />
         </button>
+
+        {/* Bottom - reply input */}
+        <div className="absolute bottom-3 left-3 right-3 z-20">
+          <form onSubmit={handleReply} className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder="Send a message..."
+              value={replyText}
+              onChange={e => setReplyText(e.target.value)}
+              className="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all"
+            />
+            <button type="submit" disabled={!replyText.trim()}
+              className="w-10 h-10 rounded-full bg-accent-500 flex items-center justify-center hover:bg-accent-600 disabled:opacity-40 transition-all shadow-lg">
+              <Send size={16} className="text-white ml-0.5" />
+            </button>
+          </form>
+        </div>
       </div>
     </motion.div>
   );
@@ -342,9 +391,7 @@ function CreatePostBar({ user, onSubmit }: { user: any; onSubmit: (content: stri
   );
 }
 
-function FeedPostCard({ post, onLike, onSave }: {
-  post: FeedPost; onLike: (id: number) => void; onSave: (id: number) => void;
-}) {
+function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: number) => void; onSave: (id: number) => void }) {
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(post.is_liked);
   const [likeCount, setLikeCount] = useState(post.like_count);
@@ -359,10 +406,7 @@ function FeedPostCard({ post, onLike, onSave }: {
     setTimeout(() => setLiking(false), 300);
   };
 
-  const handleSave = () => {
-    setSaved(!saved);
-    onSave(post.id);
-  };
+  const handleSave = () => { setSaved(!saved); onSave(post.id); };
 
   return (
     <motion.div
@@ -374,7 +418,7 @@ function FeedPostCard({ post, onLike, onSave }: {
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <Link href={`/profile/${post.user_id}`} className="flex items-center gap-3 group">
           <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${getAvatarColor(post.user_name)} p-[2px] shrink-0`}>
-            <div className="w-full h-full rounded-full bg-surface-elevated flex items-center justify-center">
+            <div className="w-full h-full rounded-full bg-surface-elevated flex items-center justify-center overflow-hidden">
               {post.profile_photo_url ? (
                 <img src={post.profile_photo_url} alt="" className="w-full h-full object-cover rounded-full" />
               ) : (
@@ -393,7 +437,7 @@ function FeedPostCard({ post, onLike, onSave }: {
           </div>
         </Link>
         <button className="p-1.5 hover:bg-surface-secondary rounded-lg text-ink-tertiary transition-colors">
-          <MoreHorizontal size={18} />
+          <EllipsisVertical size={18} />
         </button>
       </div>
 
@@ -475,7 +519,7 @@ function FeedPostCard({ post, onLike, onSave }: {
           <span className="text-xs font-bold">Share</span>
         </button>
         <button onClick={handleSave} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${saved ? 'text-accent-500' : 'text-ink-tertiary'}`}>
-          <Bookmark size={20} fill={saved ? 'currentColor' : 'none'} />
+          <BookmarkIcon size={20} fill={saved ? 'currentColor' : 'none'} />
           <span className="text-xs font-bold">{saved ? 'Saved' : 'Save'}</span>
         </button>
       </div>
@@ -749,12 +793,9 @@ export default function CommunityFeedPage() {
       {/* Story viewer */}
       <AnimatePresence>
         {storyViewerOpen && (
-          <StoryViewer stories={stories} initialIndex={storyIndex} onClose={() => setStoryViewerOpen(false)} />
+          <StoryViewer stories={stories} initialIndex={storyIndex} onClose={() => setStoryViewerOpen(false)} onPrevUser={() => { if (storyIndex > 0) setStoryIndex(storyIndex - 1); }} onNextUser={() => { if (storyIndex < stories.length - 1) setStoryIndex(storyIndex + 1); else setStoryViewerOpen(false); }} />
         )}
       </AnimatePresence>
     </main>
   );
 }
-
-// ─── Missing imports for lucide icons used in template ──
-import { Home, Users, Calendar } from 'lucide-react';
