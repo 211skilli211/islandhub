@@ -190,7 +190,6 @@ export default function Navbar() {
                               className="relative p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
                               aria-label="Cart"
                             >
-              >
                 <ShoppingCart className="w-5 h-5" />
                 {itemCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
@@ -235,7 +234,6 @@ export default function Navbar() {
                               className="lg:hidden p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
                               aria-label="Menu"
                             >
-              >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
