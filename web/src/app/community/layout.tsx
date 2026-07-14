@@ -160,46 +160,46 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
       </Link>
 
       {/* Navigation sections */}
-      {SIDEBAR_SECTIONS.map((section, sIdx) => (
-        <div key={sIdx} className="space-y-0.5">
-          {section.items.map(item => {
-            const Icon = item.icon;
-            const active = pathname === item.href || pathname.startsWith(item.href + '/');
-            const linkClass = `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
-              active
-                ? 'bg-accent-500/10 text-accent-500 font-bold'
-                : 'text-secondary hover:bg-surface-secondary hover:text-primary'
-            }`;
-            return (
-              <Link key={item.id} href={item.href} onClick={onClose}
-                className={linkClass}>
-                <Icon size={20} className="shrink-0" />
-                <span className="text-sm font-medium truncate">{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      ))}
-
-      {/* Shortcuts */}
-      <div className="pt-3 border-t border-border-primary">
-        <div className="px-3 mb-2 text-[10px] font-black uppercase tracking-widest text-tertiary">Your shortcuts</div>
-        <div className="space-y-0.5">
-          {SHORTCUTS.map(sc => (
-            <Link key={sc.label} href={sc.href} onClick={onClose}
-              className="flex items-center gap-3 px-3 py-2 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-brand-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
-                {sc.label.charAt(0)}
+            {SIDEBAR_SECTIONS.map((section, sIdx) => (
+              <div key={sIdx} className="space-y-0.5">
+                {section.items.map(item => {
+                  const Icon = item.icon;
+                  const active = pathname === item.href || pathname.startsWith(item.href + '/');
+                  const linkClass = `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+                    active
+                      ? 'bg-accent-500/10 text-accent-500 font-bold'
+                      : 'text-theme-secondary hover:bg-surface-secondary hover:text-theme-primary'
+                  }`;
+                  return (
+                    <Link key={item.id} href={item.href} onClick={onClose}
+                      className={linkClass}>
+                      <Icon size={20} className="shrink-0" />
+                      <span className="text-sm font-medium truncate">{item.label}</span>
+                    </Link>
+                  );
+                })}
               </div>
-              <span className="text-sm font-medium truncate">{sc.label}</span>
-            </Link>
-          ))}
-        </div>
-      </div>
+            ))}
+
+            {/* Shortcuts */}
+            <div className="pt-3 border-t border-border-primary">
+              <div className="px-3 mb-2 text-[10px] font-black uppercase tracking-widest text-theme-tertiary">Your shortcuts</div>
+              <div className="space-y-0.5">
+                {SHORTCUTS.map(sc => (
+                  <Link key={sc.label} href={sc.href} onClick={onClose}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-theme-secondary hover:bg-surface-secondary hover:text-theme-primary transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-brand-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                      {sc.label.charAt(0)}
+                    </div>
+                    <span className="text-sm font-medium truncate">{sc.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
 
       {/* Footer links */}
       <div className="pt-3 border-t border-border-primary">
-        <div className="flex flex-wrap gap-x-2 gap-y-1 px-3 text-[10px] text-tertiary">
+        <div className="flex flex-wrap gap-x-2 gap-y-1 px-3 text-[10px] text-theme-tertiary">
                   <Link href="/about" onClick={onClose} className="hover:underline">About</Link>
                   <span>.</span>
                   <Link href="/privacy" onClick={onClose} className="hover:underline">Privacy</Link>
@@ -212,7 +212,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
 
       {/* Logout */}
       <button onClick={onLogout}
-        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors w-full">
+        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-theme-secondary hover:bg-surface-secondary hover:text-theme-primary transition-colors w-full">
         <LogOut size={16} className="shrink-0" />
         <span className="text-sm font-medium">Log out</span>
       </button>
