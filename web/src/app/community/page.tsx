@@ -15,105 +15,78 @@ import {
   Sparkles, Bell, Search, Menu, User, Settings, LogOut,
   Bookmark as BookmarkIcon, Flag, EllipsisVertical
 } from 'lucide-react';
+import { useFeedPosts, useStoriesFeed, useGroups, useCommunityEvents } from '@/lib/hooks/use-swr';
 
 // ─── Types ────────────────────────────────────────────
 
 interface Story {
-  id: number;
+  story_id: number;
   user_id: number;
   user_name: string;
-  profile_photo_url: string;
+  user_photo: string;
   media_url: string;
-  media_type: 'image' | 'video';
-  content: string;
+  media_type: string;
+  caption: string;
+  expires_at: string;
+  view_count: number;
+  user_viewed?: boolean;
   created_at: string;
-  is_viewed: boolean;
+}
+
+interface StoryGroup {
+  user_id: number;
+  user_name: string;
+  user_photo: string;
+  stories: Story[];
 }
 
 interface FeedPost {
-  id: number;
-  type: 'post' | 'shared_event' | 'shared_group' | 'shared_auction';
+  post_id: number;
   user_id: number;
   user_name: string;
   profile_photo_url: string;
+  title: string;
   content: string;
-  media_urls: string[];
+  media_url: string;
+  media_type: string;
+  category: string;
+  visibility: string;
   created_at: string;
-  like_count: number;
-  comment_count: number;
-  share_count: number;
+  likes_count: number;
+  comments_count: number;
   is_liked: boolean;
-  is_saved: boolean;
-  comments?: FeedComment[];
-  tags?: string[];
-  location?: string;
-  group_name?: string;
-  event_name?: string;
+  is_bookmarked: boolean;
+  media?: string[];
 }
 
-interface FeedComment {
-  id: number;
-  user_id: number;
-  user_name: string;
-  profile_photo_url: string;
-  content: string;
+interface Group {
+  group_id: number;
+  name: string;
+  slug: string;
+  description: string;
+  privacy: string;
+  category: string;
+  cover_image_url: string;
+  avatar_url: string;
+  owner_name: string;
+  member_count: number;
+  is_member?: boolean;
+  user_role?: string;
+}
+
+interface CommunityEvent {
+  event_id: number;
+  title: string;
+  description: string;
+  event_date: string;
+  location: string;
+  category: string;
+  cover_image_url: string;
+  organizer_name: string;
+  attendee_count: number;
+  is_rsvped?: boolean;
   created_at: string;
-  like_count: number;
 }
-
-// ─── Sample Data ──────────────────────────────────────
-
-const SAMPLE_STORIES: Story[] = [
-  { id: 1, user_id: 1, user_name: 'Your Story', profile_photo_url: '', media_url: '', media_type: 'image', content: 'Create a story', created_at: new Date().toISOString(), is_viewed: false },
-  { id: 2, user_id: 2, user_name: 'Maria Santos', profile_photo_url: '', media_url: '', media_type: 'image', content: 'Sunset at South Friars Bay! 🌅', created_at: new Date(Date.now() - 3600000).toISOString(), is_viewed: false },
-  { id: 3, user_id: 3, user_name: 'James Wilson', profile_photo_url: '', media_url: '', media_type: 'image', content: 'New catch of the day!', created_at: new Date(Date.now() - 7200000).toISOString(), is_viewed: true },
-  { id: 4, user_id: 4, user_name: 'Sarah Chen', profile_photo_url: '', media_url: '', media_type: 'image', content: 'Handmade jewelry launch 🎉', created_at: new Date(Date.now() - 10800000).toISOString(), is_viewed: false },
-  { id: 5, user_id: 5, user_name: 'Mike Rivera', profile_photo_url: '', media_url: '', media_type: 'image', content: 'Surf check 🌊', created_at: new Date(Date.now() - 14400000).toISOString(), is_viewed: false },
-  { id: 6, user_id: 6, user_name: 'Ana Paul', profile_photo_url: '', media_url: '', media_type: 'image', content: 'Farmers market haul', created_at: new Date(Date.now() - 18000000).toISOString(), is_viewed: false },
-  { id: 7, user_id: 7, user_name: 'David King', profile_photo_url: '', media_url: '', media_type: 'image', content: 'Live music tonight!', created_at: new Date(Date.now() - 21600000).toISOString(), is_viewed: true },
-];
-
-const SAMPLE_POSTS: FeedPost[] = [
-  {
-    id: 1, type: 'post', user_id: 2, user_name: 'Maria Santos', profile_photo_url: '', content: 'Just launched my new line of handmade coconut jewelry! 🌴✨ Each piece is crafted with love using locally sourced materials. Check out my store for the full collection!\n\n#SupportLocal #CaribbeanMade #HandmadeWithLove',
-    media_urls: [], created_at: new Date(Date.now() - 1800000).toISOString(),
-    like_count: 142, comment_count: 23, share_count: 12, is_liked: false, is_saved: false, location: 'Basseterre, St. Kitts',
-    tags: ['#SupportLocal', '#CaribbeanMade', '#HandmadeWithLove'],
-    comments: [
-      { id: 1, user_id: 3, user_name: 'James Wilson', profile_photo_url: '', content: 'These are beautiful! How do I order?', created_at: new Date(Date.now() - 900000).toISOString(), like_count: 5 },
-      { id: 2, user_id: 5, user_name: 'Mike Rivera', profile_photo_url: '', content: 'My wife would love this! 🔥', created_at: new Date(Date.now() - 600000).toISOString(), like_count: 3 },
-    ]
-  },
-  {
-    id: 2, type: 'post', user_id: 4, user_name: 'Sarah Chen', profile_photo_url: '', content: 'Found the perfect spot for sunset yoga this evening 🧘‍♀️🌅 Join us at South Friars Bay at 5:30 PM — mats provided! All levels welcome.',
-    media_urls: [], created_at: new Date(Date.now() - 3600000).toISOString(),
-    like_count: 89, comment_count: 15, share_count: 8, is_liked: true, is_saved: false, location: 'South Friars Bay',
-    tags: ['#Yoga', '#Wellness', '#StKitts'],
-  },
-  {
-    id: 3, type: 'shared_event', user_id: 6, user_name: 'Ana Paul', profile_photo_url: '', content: 'Who\'s going to the Food Festival this weekend? 🍽️ I\'ll be there with my famous jerk chicken!',
-    media_urls: [], created_at: new Date(Date.now() - 7200000).toISOString(),
-    like_count: 234, comment_count: 45, share_count: 27, is_liked: false, is_saved: true, location: 'Downtown Market Plaza',
-    event_name: 'Island Food Festival 2026',
-  },
-  {
-    id: 4, type: 'post', user_id: 7, user_name: 'David King', profile_photo_url: '', content: 'Caught this beauty this morning! 🎣 45lb mahi-mahi off the west coast. Fresh fish for dinner tonight!',
-    media_urls: [], created_at: new Date(Date.now() - 10800000).toISOString(),
-    like_count: 312, comment_count: 56, share_count: 34, is_liked: false, is_saved: false, location: 'West Coast',
-    tags: ['#Fishing', '#CaribbeanLife', '#FreshCatch'],
-  },
-  {
-    id: 5, type: 'post', user_id: 3, user_name: 'James Wilson', profile_photo_url: '', content: 'Big thanks to IslandHub for helping me find the perfect vacation rental! 🙌 Amazing oceanfront villa with private pool. Highly recommend the platform for anyone looking to book on the island.',
-    media_urls: [], created_at: new Date(Date.now() - 14400000).toISOString(),
-    like_count: 67, comment_count: 12, share_count: 5, is_liked: false, is_saved: true, location: 'Frigate Bay',
-  },
-  {
-    id: 6, type: 'shared_group', user_id: 5, user_name: 'Mike Rivera', profile_photo_url: '', content: 'New to the island and looking to meet people. Just joined the Water Sports Enthusiasts group — who\'s going surfing this weekend? 🏄‍♂️',
-    media_urls: [], created_at: new Date(Date.now() - 21600000).toISOString(),
-    like_count: 45, comment_count: 18, share_count: 3, is_liked: false, is_saved: false,
-    group_name: 'Water Sports Enthusiasts',
-  },
-];
 
 // ─── Helpers ──────────────────────────────────────────
 
@@ -146,42 +119,53 @@ function getAvatarColor(name: string): string {
   return colors[Math.abs(hash) % colors.length];
 }
 
+function getImageUrl(url: string | null | undefined): string {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  const base = typeof window !== 'undefined' ? (window.location.hostname === 'localhost' ? 'http://localhost:5001' : '') : '';
+  return `${base}/api/media/file/${url.startsWith('/') ? url.slice(1) : url}`;
+}
+
 // ─── Components ───────────────────────────────────────
 
-function StoryCircle({ story, isFirst, onClick }: { story: Story; isFirst: boolean; onClick: () => void }) {
-  const gradient = story.is_viewed
-    ? 'border-white/30'
-    : 'from-teal-400 via-cyan-400 to-amber-400';
+function StoryCircle({ storyGroup, isFirst, onClick }: { storyGroup: StoryGroup; isFirst: boolean; onClick: () => void }) {
+  const firstStory = storyGroup.stories[0];
+  const isViewed = firstStory.user_viewed;
 
   return (
     <button onClick={onClick} className="flex flex-col items-center gap-1.5 shrink-0 group">
-      <div className={`w-[68px] h-[68px] rounded-full bg-gradient-to-tr ${gradient} p-[3px] ${isFirst ? 'ring-2 ring-accent-400/30' : ''}`}>
+      <div className={`w-[68px] h-[68px] rounded-full bg-gradient-to-tr ${isViewed ? 'border-white/30' : 'from-teal-400 via-cyan-400 to-amber-400'} p-[3px] ${isFirst ? 'ring-2 ring-accent-400/30' : ''}`}>
         <div className={`w-full h-full rounded-full bg-surface-primary flex items-center justify-center overflow-hidden ${isFirst ? 'ring-2 ring-surface-primary' : ''}`}>
           {isFirst ? (
             <div className="flex items-center justify-center w-full h-full bg-accent-500/10">
               <Plus size={20} className="text-accent-400" />
             </div>
-          ) : story.profile_photo_url ? (
-            <img src={story.profile_photo_url} alt="" className="w-full h-full object-cover" />
+          ) : firstStory.user_photo ? (
+            <img src={getImageUrl(firstStory.user_photo)} alt="" className="w-full h-full object-cover" />
           ) : (
-            <div className={`w-full h-full bg-gradient-to-br ${getAvatarColor(story.user_name)} flex items-center justify-center`}>
-              <span className="text-white text-xs font-bold">{getInitials(story.user_name)}</span>
+            <div className={`w-full h-full bg-gradient-to-br ${getAvatarColor(storyGroup.user_name)} flex items-center justify-center`}>
+              <span className="text-white text-xs font-bold">{getInitials(storyGroup.user_name)}</span>
             </div>
           )}
         </div>
       </div>
       <span className="text-[10px] font-semibold text-secondary truncate w-[72px] text-center">
-        {isFirst ? 'Your Story' : story.user_name.split(' ')[0]}
+        {isFirst ? 'Your Story' : storyGroup.user_name.split(' ')[0]}
       </span>
     </button>
   );
 }
 
-function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }: {
-  stories: Story[]; initialIndex: number; onClose: () => void;
-  onPrevUser: () => void; onNextUser: () => void;
+function StoryViewer({ storyGroups, initialGroupIndex, initialStoryIndex, onClose, onPrevGroup, onNextGroup }: {
+  storyGroups: StoryGroup[];
+  initialGroupIndex: number;
+  initialStoryIndex: number;
+  onClose: () => void;
+  onPrevGroup: () => void;
+  onNextGroup: () => void;
 }) {
-  const [currentIdx, setCurrentIdx] = useState(initialIndex);
+  const [groupIdx, setGroupIdx] = useState(initialGroupIndex);
+  const [storyIdx, setStoryIdx] = useState(initialStoryIndex);
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -191,7 +175,8 @@ function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }:
   const progressRef = useRef(0);
   const touchStartX = useRef(0);
 
-  const current = stories[currentIdx];
+  const currentGroup = storyGroups[groupIdx];
+  const currentStory = currentGroup?.stories[storyIdx];
 
   useEffect(() => {
     setProgress(0);
@@ -203,10 +188,10 @@ function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }:
       progressRef.current += 1.67;
       setProgress(progressRef.current);
       if (progressRef.current >= 100) {
-        if (currentIdx < stories.length - 1) {
-          setCurrentIdx(c => c + 1);
+        if (storyIdx < currentGroup.stories.length - 1) {
+          setStoryIdx(s => s + 1);
         } else {
-          onNextUser();
+          onNextGroup();
         }
       }
     };
@@ -216,22 +201,24 @@ function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }:
     }
 
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [currentIdx, paused]);
+  }, [groupIdx, storyIdx, paused]);
 
   const handlePrev = () => {
-    if (currentIdx > 0) { setCurrentIdx(c => c - 1); setProgress(0); }
-    else onPrevUser();
+    if (storyIdx > 0) { setStoryIdx(s => s - 1); setProgress(0); }
+    else onPrevGroup();
   };
 
   const handleNext = () => {
-    if (currentIdx < stories.length - 1) { setCurrentIdx(c => c + 1); setProgress(0); }
+    if (storyIdx < currentGroup.stories.length - 1) { setStoryIdx(s => s + 1); setProgress(0); }
     else onClose();
   };
 
-  const handleLike = () => { setLiked(!liked); api.post(`/stories/${current.id}/react`).catch(() => {}); };
-  const handleReply = (e: React.FormEvent) => { e.preventDefault(); if (replyText.trim()) { api.post(`/stories/${current.id}/reply`, { message: replyText.trim() }).catch(() => {}); setReplyText(''); } };
+  const handleLike = () => { setLiked(!liked); api.post(`/stories/${currentStory?.story_id}/react`).catch(() => {}); };
+  const handleReply = (e: React.FormEvent) => { e.preventDefault(); if (replyText.trim()) { api.post(`/stories/${currentStory?.story_id}/reply`, { message: replyText.trim() }).catch(() => {}); setReplyText(''); } };
   const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
   const handleTouchEnd = (e: React.TouchEvent) => { const diff = e.changedTouches[0].clientX - touchStartX.current; if (Math.abs(diff) > 50) { if (diff > 0) handlePrev(); else handleNext(); } };
+
+  if (!currentStory) return null;
 
   return (
     <motion.div
@@ -242,10 +229,12 @@ function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }:
       <div className="relative w-full max-w-sm h-[80vh]" onClick={e => e.stopPropagation()} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {/* Progress bars */}
         <div className="absolute top-4 left-4 right-4 z-10 flex gap-1.5">
-          {stories.slice(0, 5).map((_, i) => (
-            <div key={i} className="flex-1 h-0.5 bg-white/30 rounded-full overflow-hidden">
-              <div className="h-full bg-white rounded-full transition-all duration-75"
-                style={{ width: i < currentIdx ? '100%' : i === currentIdx ? `${progress}%` : '0%' }} />
+          {storyGroups.slice(0, 5).map((group, gi) => (
+            <div key={gi} className="flex-1 h-0.5 bg-white/30 rounded-full overflow-hidden">
+              {group.stories.map((_, si) => (
+                <div key={si} className="h-full bg-white rounded-full transition-all duration-75"
+                  style={{ width: gi < groupIdx || (gi === groupIdx && si < storyIdx) ? '100%' : gi === groupIdx && si === storyIdx ? `${progress}%` : '0%' }} />
+              ))}
             </div>
           ))}
         </div>
@@ -255,12 +244,12 @@ function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }:
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-teal-400 to-teal-600 p-[2px]">
               <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
-                <span className="text-white text-[10px] font-bold">{getInitials(current.user_name)}</span>
+                <span className="text-white text-[10px] font-bold">{getInitials(currentGroup.user_name)}</span>
               </div>
             </div>
             <div>
-              <span className="text-white text-sm font-bold block">{current.user_name}</span>
-              <span className="text-white/60 text-xs">{timeAgo(current.created_at)}</span>
+              <span className="text-white text-sm font-bold block">{currentGroup.user_name}</span>
+              <span className="text-white/60 text-xs">{timeAgo(currentStory.created_at)}</span>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-white/10 rounded-full transition-colors">
@@ -271,14 +260,18 @@ function StoryViewer({ stories, initialIndex, onClose, onPrevUser, onNextUser }:
         {/* Story content */}
         <div className="w-full h-full rounded-2xl overflow-hidden bg-surface-elevated flex items-center justify-center cursor-pointer" onClick={() => setPaused(!paused)}>
           <div className="w-full h-full flex items-center justify-center relative">
-            {current.media_url ? (
-              <img src={current.media_url} alt="" className="w-full h-full object-cover" />
+            {currentStory.media_url ? (
+              currentStory.media_type === 'video' ? (
+                <video src={getImageUrl(currentStory.media_url)} className="w-full h-full object-cover" muted={muted} playsInline />
+              ) : (
+                <img src={getImageUrl(currentStory.media_url)} alt="" className="w-full h-full object-cover" />
+              )
             ) : (
               <>
-                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${getAvatarColor(current.user_name)} mx-auto mb-6 flex items-center justify-center`}>
-                  <span className="text-white text-3xl font-black">{getInitials(current.user_name)}</span>
+                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${getAvatarColor(currentGroup.user_name)} mx-auto mb-6 flex items-center justify-center`}>
+                  <span className="text-white text-3xl font-black">{getInitials(currentGroup.user_name)}</span>
                 </div>
-                <p className="text-white text-xl font-bold leading-relaxed max-w-xs mx-auto">{current.content}</p>
+                <p className="text-white text-xl font-bold leading-relaxed max-w-xs mx-auto">{currentStory.caption}</p>
               </>
             )}
             <AnimatePresence>
@@ -394,19 +387,21 @@ function CreatePostBar({ user, onSubmit }: { user: any; onSubmit: (content: stri
 function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: number) => void; onSave: (id: number) => void }) {
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(post.is_liked);
-  const [likeCount, setLikeCount] = useState(post.like_count);
-  const [saved, setSaved] = useState(post.is_saved);
+  const [likeCount, setLikeCount] = useState(post.likes_count);
+  const [saved, setSaved] = useState(post.is_bookmarked);
   const [liking, setLiking] = useState(false);
 
   const handleLike = () => {
     setLiking(true);
     if (liked) { setLiked(false); setLikeCount(c => c - 1); }
     else { setLiked(true); setLikeCount(c => c + 1); }
-    onLike(post.id);
+    onLike(post.post_id);
     setTimeout(() => setLiking(false), 300);
   };
 
-  const handleSave = () => { setSaved(!saved); onSave(post.id); };
+  const handleSave = () => { setSaved(!saved); onSave(post.post_id); };
+
+  const mediaUrls = post.media || (post.media_url ? [post.media_url] : []);
 
   return (
     <motion.div
@@ -420,7 +415,7 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
           <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${getAvatarColor(post.user_name)} p-[2px] shrink-0`}>
             <div className="w-full h-full rounded-full bg-surface-elevated flex items-center justify-center overflow-hidden">
               {post.profile_photo_url ? (
-                <img src={post.profile_photo_url} alt="" className="w-full h-full object-cover rounded-full" />
+                <img src={getImageUrl(post.profile_photo_url)} alt="" className="w-full h-full object-cover rounded-full" />
               ) : (
                 <span className="text-[10px] font-bold">{getInitials(post.user_name)}</span>
               )}
@@ -429,9 +424,6 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-primary group-hover:text-accent-400 transition-colors">{post.user_name}</span>
-              {post.location && (
-                <span className="text-[9px] text-tertiary">• {post.location}</span>
-              )}
             </div>
             <span className="text-[11px] text-tertiary">{timeAgo(post.created_at)}</span>
           </div>
@@ -441,42 +433,17 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
         </button>
       </div>
 
-      {/* Shared event/group badge */}
-      {post.type === 'shared_event' && post.event_name && (
-        <div className="mx-4 mb-2 px-3 py-2 bg-accent-500/5 rounded-xl border border-accent-500/10 flex items-center gap-2">
-          <Calendar size={14} className="text-accent-400 shrink-0" />
-          <span className="text-xs font-semibold text-accent-400">{post.event_name}</span>
-          <Link href="/community/events" className="ml-auto text-[10px] font-bold text-accent-500 hover:underline">See event</Link>
-        </div>
-      )}
-      {post.type === 'shared_group' && post.group_name && (
-        <div className="mx-4 mb-2 px-3 py-2 bg-violet-500/5 rounded-xl border border-violet-500/10 flex items-center gap-2">
-          <Users size={14} className="text-violet-400 shrink-0" />
-          <span className="text-xs font-semibold text-violet-400">{post.group_name}</span>
-          <Link href="/community/groups" className="ml-auto text-[10px] font-bold text-violet-500 hover:underline">View group</Link>
-        </div>
-      )}
-
       {/* Content */}
       <div className="px-4 py-2">
-        <p className="text-sm text-primary leading-relaxed whitespace-pre-line">{post.content}</p>
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-2">
-            {post.tags.map(tag => (
-              <Link key={tag} href={`/search?q=${encodeURIComponent(tag)}`} className="text-xs font-semibold text-accent-400 hover:text-accent-500 transition-colors">
-                {tag}
-              </Link>
-            ))}
-          </div>
-        )}
+        <p className="text-sm text-primary leading-relaxed whitespace-pre-line">{post.content || post.title}</p>
       </div>
 
       {/* Media grid */}
-      {post.media_urls.length > 0 && (
-        <div className={`px-4 pb-2 ${post.media_urls.length === 1 ? '' : 'grid grid-cols-2 gap-1'}`}>
-          {post.media_urls.map((url, i) => (
+      {mediaUrls.length > 0 && (
+        <div className={`px-4 pb-2 ${mediaUrls.length === 1 ? '' : 'grid grid-cols-2 gap-1'}`}>
+          {mediaUrls.map((url, i) => (
             <div key={i} className="rounded-xl overflow-hidden bg-surface-secondary aspect-square">
-              <img src={url} alt="" className="w-full h-full object-cover" />
+              <img src={getImageUrl(url)} alt="" className="w-full h-full object-cover" />
             </div>
           ))}
         </div>
@@ -486,7 +453,7 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
       <div className="flex items-center justify-between px-4 py-2 border-b border-border-primary/50">
         <div className="flex items-center gap-1.5">
           <div className="flex -space-x-1">
-            {[1, 2, 3].slice(0, Math.min(3, post.like_count > 0 ? 3 : 0)).map(i => (
+            {[1, 2, 3].slice(0, Math.min(3, likeCount > 0 ? 3 : 0)).map(i => (
               <div key={i} className="w-4 h-4 rounded-full bg-accent-500 flex items-center justify-center ring-2 ring-surface-elevated">
                 <Heart size={8} className="text-white" fill="white" />
               </div>
@@ -496,75 +463,32 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
         </div>
         <div className="flex items-center gap-3 text-xs text-tertiary font-semibold">
           <button onClick={() => setShowComments(!showComments)} className="hover:text-primary transition-colors">
-            {post.comment_count} comments
+            {post.comments_count} comments
           </button>
-          <span>{post.share_count} shares</span>
+          <button onClick={handleSave} className="hover:text-primary transition-colors">
+            <BookmarkIcon size={16} className={saved ? 'fill-current text-accent-500' : ''} />
+          </button>
+          <button onClick={handleLike} className={liking ? 'animate-pulse' : ''} disabled={liking}>
+            <Heart size={16} className={liked ? 'fill-current text-accent-500' : ''} />
+          </button>
+          <button className="hover:text-primary transition-colors">
+            <Share2 size={16} />
+          </button>
         </div>
       </div>
 
-      {/* Action buttons */}
-      <div className="flex items-center justify-around px-2 py-1">
-        <button onClick={handleLike} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${liked ? 'text-rose-500' : 'text-tertiary'}`}>
-          <motion.div animate={{ scale: liking ? [1, 1.3, 1] : 1 }} transition={{ duration: 0.3 }}>
-            <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
-          </motion.div>
-          <span className="text-xs font-bold">{liked ? 'Liked' : 'Like'}</span>
-        </button>
-        <button onClick={() => setShowComments(!showComments)} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary text-tertiary transition-colors">
-          <MessageCircle size={20} />
-          <span className="text-xs font-bold">Comment</span>
-        </button>
-        <button className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary text-tertiary transition-colors">
-          <Share2 size={20} />
-          <span className="text-xs font-bold">Share</span>
-        </button>
-        <button onClick={handleSave} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${saved ? 'text-accent-500' : 'text-tertiary'}`}>
-          <BookmarkIcon size={20} fill={saved ? 'currentColor' : 'none'} />
-          <span className="text-xs font-bold">{saved ? 'Saved' : 'Save'}</span>
-        </button>
-      </div>
-
-      {/* Comments section */}
+      {/* Comments */}
       <AnimatePresence>
-        {showComments && post.comments && (
+        {showComments && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="border-t border-border-primary/50 overflow-hidden"
+            className="px-4 py-3 border-t border-border-primary/50 bg-surface-secondary/50"
           >
-            <div className="px-4 py-3 space-y-3">
-              {post.comments.map(comment => (
-                <div key={comment.id} className="flex gap-2.5">
-                  <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${getAvatarColor(comment.user_name)} flex items-center justify-center shrink-0 mt-0.5`}>
-                    <span className="text-white text-[8px] font-bold">{getInitials(comment.user_name)}</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="bg-surface-secondary rounded-xl px-3 py-2">
-                      <Link href={`/profile/${comment.user_id}`} className="text-xs font-bold text-primary hover:underline">{comment.user_name}</Link>
-                      <p className="text-xs text-secondary mt-0.5">{comment.content}</p>
-                    </div>
-                    <div className="flex items-center gap-3 mt-1 ml-2">
-                      <button className="text-[10px] font-semibold text-tertiary hover:text-primary">Like</button>
-                      <button className="text-[10px] font-semibold text-tertiary hover:text-primary">Reply</button>
-                      <span className="text-[10px] text-tertiary">{timeAgo(comment.created_at)}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {/* Comment input */}
-              <div className="flex items-center gap-2 pt-1">
-                <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${getAvatarColor('You')} flex items-center justify-center shrink-0`}>
-                  <span className="text-white text-[8px] font-bold">{getInitials('You')}</span>
-                </div>
-                <div className="flex-1 flex items-center bg-surface-secondary rounded-xl px-3 py-1.5">
-                  <input type="text" placeholder="Write a comment..." className="flex-1 bg-transparent text-xs text-primary placeholder:text-tertiary outline-none" />
-                  <div className="flex items-center gap-1 ml-2">
-                    <button className="p-1 hover:bg-surface-secondary rounded"><Smile size={14} className="text-tertiary" /></button>
-                    <button className="p-1 hover:bg-surface-secondary rounded"><Send size={14} className="text-accent-400" /></button>
-                  </div>
-                </div>
-              </div>
+            <div className="space-y-3 max-h-60 overflow-y-auto">
+              {/* Comments would be fetched here */}
+              <p className="text-xs text-tertiary text-center py-2">Tap to view comments</p>
             </div>
           </motion.div>
         )}
@@ -573,95 +497,36 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
   );
 }
 
-function RightSidebar() {
-  return (
-    <aside className="hidden xl:block w-[300px] shrink-0 space-y-4">
-      {/* Suggested groups */}
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-black uppercase tracking-widest text-tertiary">Suggested Groups</h3>
-          <Link href="/community/groups" className="text-[10px] font-bold text-accent-500 hover:underline">See All</Link>
-        </div>
-        {[
-          { name: 'St. Kitts Foodies', members: '1.2k members', icon: '🍽️' },
-          { name: 'Water Sports', members: '890 members', icon: '🏄' },
-          { name: 'Local Business Network', members: '567 members', icon: '💼' },
-        ].map(group => (
-          <Link key={group.name} href="/community/groups" className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-surface-secondary transition-colors">
-            <div className="w-10 h-10 rounded-xl bg-accent-500/10 flex items-center justify-center text-lg shrink-0">
-              {group.icon}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-primary truncate">{group.name}</p>
-              <p className="text-[10px] text-tertiary">{group.members}</p>
-            </div>
-            <button className="px-3 py-1 bg-accent-500/10 text-accent-500 rounded-lg text-[10px] font-bold hover:bg-accent-500/20 transition-colors">Join</button>
-          </Link>
-        ))}
-      </div>
+// ─── Main Community Page ────────────────────────────
 
-      {/* Trending topics */}
-      <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4">
-        <h3 className="text-xs font-black uppercase tracking-widest text-tertiary mb-3">Trending on IslandHub</h3>
-        {['#FoodFest2026', '#CaribbeanMade', '#BeachCleanup', '#SunsetYoga', '#LocalArt'].map(tag => (
-          <Link key={tag} href={`/search?q=${encodeURIComponent(tag)}`} className="block px-2 py-1.5 rounded-lg hover:bg-surface-secondary text-xs font-semibold text-accent-400 transition-colors">
-            {tag}
-          </Link>
-        ))}
-      </div>
-
-      {/* Footer links */}
-      <div className="px-2">
-        <div className="flex flex-wrap gap-x-2 gap-y-1 text-[10px] text-tertiary">
-          <Link href="/about" className="hover:underline">About</Link>
-          <span>·</span>
-          <Link href="/privacy" className="hover:underline">Privacy</Link>
-          <span>·</span>
-          <Link href="/terms" className="hover:underline">Terms</Link>
-          <span>·</span>
-          <Link href="/help" className="hover:underline">Help</Link>
-        </div>
-        <p className="text-[10px] text-tertiary/50 mt-2">© 2026 IslandHub Community</p>
-      </div>
-    </aside>
-  );
-}
-
-// ─── Main Page ────────────────────────────────────────
-
-export default function CommunityFeedPage() {
+export default function CommunityPage() {
   const { user } = useAuthStore();
-  const [stories, setStories] = useState<Story[]>(SAMPLE_STORIES);
-  const [posts, setPosts] = useState<FeedPost[]>(SAMPLE_POSTS);
-  const [loading, setLoading] = useState(true);
-  const [storyViewerOpen, setStoryViewerOpen] = useState(false);
-  const [storyIndex, setStoryIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState<'for_you' | 'following'>('for_you');
+  const [activeTab, setActiveTab] = useState<'for-you' | 'following'>('for-you');
+  const [storyGroups, setStoryGroups] = useState<StoryGroup[]>([]);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [viewerGroupIdx, setViewerGroupIdx] = useState(0);
+  const [viewerStoryIdx, setViewerStoryIdx] = useState(0);
 
+  // Fetch real data from API
+  const { data: posts = [], isLoading: postsLoading, error: postsError, mutate: mutatePosts } = useFeedPosts({ limit: 20 });
+  const { data: storiesFeed = [], isLoading: storiesLoading } = useStoriesFeed();
+  const { data: groups = [], isLoading: groupsLoading } = useGroups({ limit: 10 });
+  const { data: events = [], isLoading: eventsLoading } = useCommunityEvents({ limit: 10 });
+
+  // Transform stories feed into groups
   useEffect(() => {
-    const fetchFeed = async () => {
-      try {
-        const [storiesRes, postsRes] = await Promise.allSettled([
-          api.get('/stories/feed'),
-          api.get('/community/feed?limit=20'),
-        ]);
-        if (storiesRes.status === 'fulfilled') {
-          const data = storiesRes.value.data;
-          if (data) setStories(Array.isArray(data) ? data : data.stories || SAMPLE_STORIES);
-        }
-        if (postsRes.status === 'fulfilled') {
-          const data = postsRes.value.data;
-          if (data) setPosts(Array.isArray(data) ? data : data.posts || SAMPLE_POSTS);
-        }
-      } catch { /* use sample data */ }
-      setLoading(false);
-    };
-    fetchFeed();
-  }, []);
+    if (storiesFeed.length > 0) {
+      setStoryGroups(storiesFeed);
+    }
+  }, [storiesFeed]);
 
-  const handleStoryClick = (index: number) => {
-    setStoryIndex(index);
-    setStoryViewerOpen(true);
+  const handleCreatePost = async (content: string) => {
+    try {
+      const res = await api.post('/community/posts', { content });
+      mutatePosts();
+    } catch (e) {
+      console.error('Failed to create post:', e);
+    }
   };
 
   const handleLike = (postId: number) => {
@@ -669,133 +534,211 @@ export default function CommunityFeedPage() {
   };
 
   const handleSave = (postId: number) => {
-    api.post(`/community/posts/${postId}/save`).catch(() => {});
+    api.post(`/community/posts/${postId}/bookmark`).catch(() => {});
   };
 
-  const handleCreatePost = (content: string) => {
-    const newPost: FeedPost = {
-      id: Date.now(), type: 'post', user_id: user?.id || 999,
-      user_name: user?.name || 'You', profile_photo_url: user?.avatar_url || '',
-      content, media_urls: [], created_at: new Date().toISOString(),
-      like_count: 0, comment_count: 0, share_count: 0,
-      is_liked: false, is_saved: false,
-    };
-    setPosts([newPost, ...posts]);
-    api.post('/community/posts', { content }).catch(() => {});
+  const openStoryViewer = (groupIndex: number, storyIndex = 0) => {
+    setViewerGroupIdx(groupIndex);
+    setViewerStoryIdx(storyIndex);
+    setViewerOpen(true);
   };
+
+  const handlePrevGroup = () => {
+    if (viewerGroupIdx > 0) {
+      setViewerGroupIdx(g => g - 1);
+      setViewerStoryIdx(0);
+    }
+  };
+
+  const handleNextGroup = () => {
+    if (viewerGroupIdx < storyGroups.length - 1) {
+      setViewerGroupIdx(g => g + 1);
+      setViewerStoryIdx(0);
+    } else {
+      setViewerOpen(false);
+    }
+  };
+
+  // Combine "Your Story" with fetched stories
+  const allStoryGroups: StoryGroup[] = [
+    {
+      user_id: user?.user_id || 0,
+      user_name: user?.name || 'You',
+      user_photo: user?.avatar_url || '',
+      stories: []
+    },
+    ...storyGroups
+  ];
+
+  if (postsLoading && posts.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-accent-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-tertiary">Loading your feed...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <main className="min-h-screen bg-surface-primary">
-      {/* Top spacing for the fixed top bar */}
-      <div className="h-0" />
-
-      <div className="max-w-[1280px] mx-auto flex gap-6 px-4 py-4">
-        {/* Left sidebar - hidden on mobile, visible on lg */}
-        <aside className="hidden lg:block w-[280px] shrink-0">
-          <div className="sticky top-20 space-y-1">
-            <Link href="/community" className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-accent-500/10 text-accent-500 font-bold">
-              <Home size={20} />
-              <span className="text-sm">Feed</span>
-            </Link>
-            {[
-              { href: '/community/stories', label: 'Stories', icon: '📸' as const },
-              { href: '/community/groups', label: 'Groups', icon: '👥' as const },
-              { href: '/community/events', label: 'Events', icon: '🎉' as const },
-              { href: '/community/marketplace', label: 'Marketplace', icon: '🛍️' as const },
-              { href: '/community/auctions', label: 'Auctions', icon: '🔨' as const },
-              { href: '/community/business', label: 'Business', icon: '💼' as const },
-              { href: '/community/jobs', label: 'Jobs', icon: '💼' as const },
-              { href: '/community/messages', label: 'Messages', icon: '💬' as const },
-            ].map(item => (
-              <Link key={item.href} href={item.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors">
-                <span className="text-lg">{item.icon}</span>
-                <span className="text-sm font-medium">{item.label}</span>
-              </Link>
+    <div className="min-h-screen bg-surface-primary">
+      {/* Stories row */}
+      <div className="border-b border-border-primary bg-surface-elevated/50 backdrop-blur-sm sticky top-14 z-30 lg:top-0 lg:border-b lg:bg-surface-elevated/50">
+        <div className="max-w-[1280px] mx-auto px-4 py-3">
+          <div className="flex gap-3 overflow-x-auto pb-2 snap-x" style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}>
+            {allStoryGroups.slice(0, 8).map((group, idx) => (
+              <StoryCircle
+                key={group.user_id}
+                storyGroup={group}
+                isFirst={idx === 0}
+                onClick={() => idx === 0 ? openStoryViewer(0, 0) : openStoryViewer(idx, 0)}
+              />
             ))}
+          </div>
+        </div>
+      </div>
 
-            <div className="pt-4 mt-2 border-t border-border-primary">
-              <p className="px-3 text-[10px] font-black uppercase tracking-widest text-tertiary mb-2">Your Shortcuts</p>
-              {[
-                { label: 'SKN Bridge Trade', emoji: '🌉' },
-                { label: 'St. Kitts Foodies', emoji: '🍽️' },
-                { label: 'Island Events', emoji: '📅' },
-              ].map(sc => (
-                <Link key={sc.label} href="/community/groups"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-brand-500 flex items-center justify-center text-sm">
-                    {sc.emoji}
+      {/* Create post bar */}
+      <div className="max-w-2xl mx-auto px-4 py-4">
+        {user && <CreatePostBar user={user} onSubmit={handleCreatePost} />}
+        {!user && (
+          <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6 text-center">
+            <p className="text-secondary mb-3">Join the conversation</p>
+            <div className="flex gap-2 justify-center">
+              <Link href="/login" className="px-5 py-2.5 bg-accent-500 text-white rounded-xl text-sm font-bold hover:bg-accent-600 transition-colors">Log in</Link>
+              <Link href="/register" className="px-5 py-2.5 border border-border-primary text-secondary rounded-xl text-sm font-bold hover:bg-surface-secondary transition-colors">Sign up</Link>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Feed tabs */}
+      <div className="border-b border-border-primary sticky top-[calc(var(--navbar-height, 72px) + 120px)] z-20 bg-surface-primary/95 backdrop-blur-sm lg:top-[calc(var(--navbar-height, 72px) + 56px)]">
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="flex gap-1">
+            <button
+              onClick={() => setActiveTab('for-you')}
+              className={`flex-1 py-3 px-4 text-sm font-semibold rounded-xl transition-all ${
+                activeTab === 'for-you' ? 'bg-accent-500/10 text-accent-500' : 'text-tertiary hover:text-secondary hover:bg-surface-secondary'
+              }`}
+            >
+              For You
+            </button>
+            <button
+              onClick={() => setActiveTab('following')}
+              className={`flex-1 py-3 px-4 text-sm font-semibold rounded-xl transition-all ${
+                activeTab === 'following' ? 'bg-accent-500/10 text-accent-500' : 'text-tertiary hover:text-secondary hover:bg-surface-secondary'
+              }`}
+            >
+              Following
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Feed */}
+      <div className="max-w-2xl mx-auto px-4 py-4 pb-20 lg:pb-0">
+        {posts.length === 0 && !postsLoading ? (
+          <div className="text-center py-12 bg-surface-elevated rounded-2xl border border-border-primary">
+            <MessageCircleIcon size={48} className="mx-auto text-tertiary mb-4 opacity-50" />
+            <h3 className="text-lg font-bold text-primary mb-2">No posts yet</h3>
+            <p className="text-tertiary text-sm">Be the first to share something with the community!</p>
+          </div>
+        ) : (
+          <>
+            <AnimatePresence mode="popLayout">
+              {posts.map((post, idx) => (
+                <FeedPostCard
+                  key={post.post_id}
+                  post={post}
+                  onLike={handleLike}
+                  onSave={handleSave}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                />
+              ))}
+            </AnimatePresence>
+
+            {/* Suggested groups sidebar on desktop */}
+            <div className="hidden lg:block mt-8">
+              <h3 className="text-sm font-bold text-primary mb-3 flex items-center gap-2">
+                <Users size={16} className="text-accent-500" />
+                Suggested Groups
+              </h3>
+              <div className="space-y-3">
+                {groups.slice(0, 3).map(group => (
+                  <Link
+                    key={group.group_id}
+                    href={`/community/groups/${group.slug}`}
+                    className="flex items-center gap-3 px-3 py-2.5 bg-surface-elevated rounded-xl border border-border-primary hover:border-accent-500/30 transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-brand-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                      {group.name.charAt(0)}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-sm font-semibold text-primary truncate group-hover:text-accent-400 transition-colors">{group.name}</div>
+                      <div className="text-[10px] text-tertiary flex items-center gap-1">
+                        <Users size={10} /> {group.member_count.toLocaleString()} members
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Upcoming events */}
+        {events.length > 0 && (
+          <div className="mt-8">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-bold text-primary flex items-center gap-2">
+                <Calendar size={16} className="text-accent-500" />
+                Upcoming Events
+              </h3>
+              <Link href="/community/events" className="text-xs font-bold text-accent-500 hover:underline">See all</Link>
+            </div>
+            <div className="space-y-2">
+              {events.slice(0, 3).map(event => (
+                <Link
+                  key={event.event_id}
+                  href={`/community/events/${event.event_id}`}
+                  className="flex items-center gap-3 px-3 py-2.5 bg-surface-elevated rounded-xl border border-border-primary hover:border-accent-500/30 transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-[9px] font-bold shrink-0">
+                    <Calendar size={14} />
                   </div>
-                  <span className="text-xs font-medium truncate">{sc.label}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-semibold text-primary truncate group-hover:text-accent-400 transition-colors">{event.title}</div>
+                    <div className="text-[10px] text-tertiary flex items-center gap-1">
+                      <MapPinIcon size={10} /> {event.location} · {timeAgo(event.event_date)}
+                    </div>
+                  </div>
+                  {event.cover_image_url && (
+                    <img src={getImageUrl(event.cover_image_url)} alt="" className="w-16 h-16 rounded-lg object-cover shrink-0" />
+                  )}
                 </Link>
               ))}
             </div>
           </div>
-        </aside>
-
-        {/* Main feed */}
-        <div className="flex-1 min-w-0 max-w-[640px] mx-auto lg:mx-0 space-y-4">
-          {/* Stories row */}
-          <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4">
-            <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
-              {stories.map((story, i) => (
-                <StoryCircle key={story.id} story={story} isFirst={i === 0} onClick={() => handleStoryClick(i)} />
-              ))}
-            </div>
-          </div>
-
-          {/* Create post bar */}
-          <CreatePostBar user={user} onSubmit={handleCreatePost} />
-
-          {/* Feed tabs */}
-          <div className="flex items-center gap-1 bg-surface-elevated rounded-xl border border-border-primary p-1">
-            <button onClick={() => setActiveTab('for_you')}
-              className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'for_you' ? 'bg-accent-500 text-white shadow-sm' : 'text-tertiary hover:text-primary'}`}>
-              For You
-            </button>
-            <button onClick={() => setActiveTab('following')}
-              className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'following' ? 'bg-accent-500 text-white shadow-sm' : 'text-tertiary hover:text-primary'}`}>
-              Following
-            </button>
-          </div>
-
-          {/* Post feed */}
-          {loading ? (
-            <div className="space-y-4">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="bg-surface-elevated rounded-2xl border border-border-primary p-4 space-y-3 animate-pulse">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-surface-tertiary" />
-                    <div className="space-y-2 flex-1">
-                      <div className="h-3 bg-surface-tertiary rounded w-1/3" />
-                      <div className="h-2 bg-surface-secondary rounded w-1/5" />
-                    </div>
-                  </div>
-                  <div className="h-3 bg-surface-tertiary rounded w-3/4" />
-                  <div className="h-3 bg-surface-tertiary rounded w-1/2" />
-                  <div className="h-48 bg-surface-tertiary rounded-xl" />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {posts.map(post => (
-                <FeedPostCard key={post.id} post={post} onLike={handleLike} onSave={handleSave} />
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Right sidebar - trending */}
-        <RightSidebar />
+        )}
       </div>
 
-      {/* Story viewer */}
+      {/* Story Viewer Modal */}
       <AnimatePresence>
-        {storyViewerOpen && (
-          <StoryViewer stories={stories} initialIndex={storyIndex} onClose={() => setStoryViewerOpen(false)} onPrevUser={() => { if (storyIndex > 0) setStoryIndex(storyIndex - 1); }} onNextUser={() => { if (storyIndex < stories.length - 1) setStoryIndex(storyIndex + 1); else setStoryViewerOpen(false); }} />
+        {viewerOpen && storyGroups.length > 0 && (
+          <StoryViewer
+            storyGroups={allStoryGroups}
+            initialGroupIndex={viewerGroupIdx}
+            initialStoryIndex={viewerStoryIdx}
+            onClose={() => setViewerOpen(false)}
+            onPrevGroup={handlePrevGroup}
+            onNextGroup={handleNextGroup}
+          />
         )}
       </AnimatePresence>
-    </main>
+    </div>
   );
 }

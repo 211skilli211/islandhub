@@ -224,3 +224,125 @@ export function useRecommendations(type?: 'personalized' | 'trending' | null, li
     refresh: mutate,
   };
 }
+
+// --- Community Data Hooks ---
+
+interface FeedPost {
+  post_id: number;
+  user_id: number;
+  user_name: string;
+  profile_photo_url: string;
+  title: string;
+  content: string;
+  media_url: string;
+  media_type: string;
+  category: string;
+  visibility: string;
+  created_at: string;
+  likes_count: number;
+  comments_count: number;
+  is_liked: boolean;
+  is_bookmarked: boolean;
+  media?: string[];
+}
+
+interface Story {
+  story_id: number;
+  user_id: number;
+  user_name: string;
+  user_photo: string;
+  media_url: string;
+  media_type: string;
+  caption: string;
+  expires_at: string;
+  view_count: number;
+  user_viewed?: boolean;
+  created_at: string;
+}
+
+interface Group {
+  group_id: number;
+  name: string;
+  slug: string;
+  description: string;
+  privacy: string;
+  category: string;
+  cover_image_url: string;
+  avatar_url: string;
+  owner_name: string;
+  member_count: number;
+  is_member?: boolean;
+  user_role?: string;
+}
+
+interface CommunityEvent {
+  event_id: number;
+  title: string;
+  description: string;
+  event_date: string;
+  location: string;
+  category: string;
+  cover_image_url: string;
+  organizer_name: string;
+  attendee_count: number;
+  is_rsvped?: boolean;
+  created_at: string;
+}
+
+export function useFeedPosts(params?: { category?: string; limit?: number; offset?: number }) {
+  const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : '';
+
+  return useSWR<FeedPost[]>(
+    `/community/posts${queryString}`,
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+      refreshInterval: 120000,
+      fallbackData: [],
+    }
+  );
+}
+
+export function useStoriesFeed() {
+  return useSWR<any[]>(
+    '/stories/feed',
+    fetcher,
+    {
+      dedupingInterval: 60000,
+      revalidateOnFocus: false,
+      refreshInterval: 180000,
+      fallbackData: [],
+    }
+  );
+}
+
+export function useGroups(params?: { category?: string; limit?: number; offset?: number }) {
+  const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : '';
+
+  return useSWR<Group[]>(
+    `/groups${queryString}`,
+    fetcher,
+    {
+      dedupingInterval: 120000,
+      revalidateOnFocus: false,
+      refreshInterval: 300000,
+      fallbackData: [],
+    }
+  );
+}
+
+export function useCommunityEvents(params?: { limit?: number; offset?: number }) {
+  const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : '';
+
+  return useSWR<CommunityEvent[]>(
+    `/community-events${queryString}`,
+    fetcher,
+    {
+      dedupingInterval: 120000,
+      revalidateOnFocus: false,
+      refreshInterval: 300000,
+      fallbackData: [],
+    }
+  );
+}
