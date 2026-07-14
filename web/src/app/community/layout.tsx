@@ -67,13 +67,13 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
 
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-lg" onClick={() => setSidebarOpen(false)} />
-          <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-surface-elevated/95 backdrop-blur-xl border-r border-border-primary z-50 overflow-y-auto shadow-2xl">
-            <SidebarContent pathname={pathname} user={user} onLogout={handleLogout} onClose={() => setSidebarOpen(false)} />
-          </aside>
-        </div>
-      )}
+              <div className="fixed inset-0 z-40 lg:hidden">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-lg" onClick={() => setSidebarOpen(false)} />
+                <aside className="absolute left-0 top-0 bottom-0 w-[280px] bg-surface-elevated/95 backdrop-blur-xl border-r border-border-primary z-50 overflow-y-auto shadow-2xl">
+                  <SidebarContent pathname={pathname} user={user} onLogout={handleLogout} onClose={() => setSidebarOpen(false)} />
+                </aside>
+              </div>
+            )}
 
       {/* Top spacing for fixed top bar */}
       <div className="h-14" />
@@ -116,11 +116,11 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
                 key={item.id}
                 href={item.href}
                 className={`flex flex-col items-center justify-center gap-0.5 min-w-[60px] py-1 transition-colors ${
-                  active ? 'text-accent-500' : 'text-ink-tertiary hover:text-ink-secondary'
+                  {active ? 'text-accent-500' : 'text-tertiary hover:text-secondary'}
                 }`}
               >
                 <Icon size={22} fill={active ? 'currentColor' : 'none'} />
-                <span className={`text-[9px] font-bold tracking-tight ${active ? 'text-accent-500' : 'text-ink-tertiary'}`}>
+                <span className={`text-[9px] font-bold tracking-tight ${active ? 'text-accent-500' : 'text-tertiary'}`}>
                   {item.label}
                 </span>
               </Link>
@@ -153,9 +153,9 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
           </div>
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-bold text-ink-primary truncate group-hover:text-accent-400 transition-colors">{user?.name || 'Guest'}</div>
-          {user?.role && <div className="text-[10px] text-ink-tertiary truncate font-medium">{user.role}</div>}
-        </div>
+                    <div className="text-sm font-semibold text-primary truncate">{user?.name || 'Guest'}</div>
+                    {user?.role && <div className="text-[10px] text-tertiary truncate font-medium">{user.role}</div>}
+                  </div>
       </Link>
 
       {/* Navigation sections */}
@@ -169,7 +169,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
                   active
                     ? 'bg-accent-500/10 text-accent-500 font-bold'
-                    : 'text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary'
+                    : 'text-secondary hover:bg-surface-secondary hover:text-primary'
                 }`}>
                 <Icon size={20} className="shrink-0" />
                 <span className="text-sm font-medium truncate">{item.label}</span>
@@ -185,7 +185,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
         <div className="space-y-0.5">
           {SHORTCUTS.map(sc => (
             <Link key={sc.label} href={sc.href} onClick={onClose}
-              className="flex items-center gap-3 px-3 py-2 rounded-xl text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors">
+              className="flex items-center gap-3 px-3 py-2 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-brand-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
                 {sc.label.charAt(0)}
               </div>
@@ -197,20 +197,20 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
 
       {/* Footer links */}
       <div className="pt-3 border-t border-border-primary">
-        <div className="flex flex-wrap gap-x-2 gap-y-1 px-3 text-[10px] text-ink-tertiary">
-          <Link href="/about" onClick={onClose} className="hover:underline">About</Link>
-          <span>·</span>
-          <Link href="/privacy" onClick={onClose} className="hover:underline">Privacy</Link>
-          <span>·</span>
-          <Link href="/terms" onClick={onClose} className="hover:underline">Terms</Link>
-          <span>·</span>
-          <Link href="/help" onClick={onClose} className="hover:underline">Help</Link>
-        </div>
+        <div className="flex flex-wrap gap-x-2 gap-y-1 px-3 text-[10px] text-tertiary">
+                  <Link href="/about" onClick={onClose} className="hover:underline">About</Link>
+                  <span>.</span>
+                  <Link href="/privacy" onClick={onClose} className="hover:underline">Privacy</Link>
+                  <span>.</span>
+                  <Link href="/terms" onClick={onClose} className="hover:underline">Terms</Link>
+                  <span>.</span>
+                  <Link href="/help" onClick={onClose} className="hover:underline">Help</Link>
+                </div>
       </div>
 
       {/* Logout */}
       <button onClick={onLogout}
-        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-ink-tertiary hover:bg-surface-secondary hover:text-ink-secondary transition-colors w-full">
+        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors w-full">
         <LogOut size={16} className="shrink-0" />
         <span className="text-sm font-medium">Log out</span>
       </button>
