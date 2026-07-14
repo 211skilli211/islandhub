@@ -224,28 +224,28 @@ function AuctionCard({ auction, onBid, onWatch }: {
                     <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white text-[8px] font-bold">
                         {auction.seller_name?.charAt(0) || '?'}
                     </div>
-                    <span className="text-[11px] font-semibold text-ink-tertiary">{auction.seller_name}</span>
+                    <span className="text-[11px] font-semibold text-tertiary">{auction.seller_name}</span>
                     {auction.seller_rating && (
                         <span className="text-[10px] text-amber-500 font-bold">★ {auction.seller_rating}</span>
                     )}
                 </div>
 
                 {/* Title */}
-                <h3 className="text-sm font-black text-ink-primary leading-snug line-clamp-2 group-hover:text-accent-400 transition-colors">
+                <h3 className="text-sm font-black text-primary leading-snug line-clamp-2 group-hover:text-accent-400 transition-colors">
                     {auction.title}
                 </h3>
 
                 {/* Price & Timer */}
                 <div className="flex items-end justify-between">
                     <div>
-                        <p className="text-[10px] text-ink-tertiary font-semibold uppercase tracking-wider">Current Bid</p>
+                        <p className="text-[10px] text-tertiary font-semibold uppercase tracking-wider">Current Bid</p>
                         <p className="text-xl font-black text-accent-400">{formatCurrency(auction.current_bid)}</p>
                     </div>
                     <div className="text-right">
-                        <p className="text-[10px] text-ink-tertiary font-semibold uppercase tracking-wider">
+                        <p className="text-[10px] text-tertiary font-semibold uppercase tracking-wider">
                             {status === 'ended' ? 'Ended' : 'Time Left'}
                         </p>
-                        <p className={`text-sm font-black font-mono ${status === 'ending_soon' ? 'text-rose-400' : 'text-ink-primary'}`}>
+                        <p className={`text-sm font-black font-mono ${status === 'ending_soon' ? 'text-rose-400' : 'text-primary'}`}>
                             {timeLeft}
                         </p>
                     </div>
@@ -260,7 +260,7 @@ function AuctionCard({ auction, onBid, onWatch }: {
                                 Buy ${auction.buy_now_price?.toFixed(0)}
                             </button>
                         )}
-                        <button className="p-2.5 bg-surface-secondary rounded-xl text-ink-tertiary hover:bg-surface-tertiary transition-colors">
+                        <button className="p-2.5 bg-surface-secondary rounded-xl text-tertiary hover:bg-surface-tertiary transition-colors">
                             <Share2 size={16} />
                         </button>
                     </div>
@@ -331,29 +331,29 @@ export default function AuctionsPage() {
                         <div>
                             <div className="flex items-center gap-2 mb-2">
                                 <span className="px-2.5 py-1 bg-rose-500/10 text-rose-400 rounded-lg text-[9px] font-black uppercase tracking-widest">Live Now</span>
-                                <span className="text-xs text-ink-tertiary font-semibold">{liveCount} active auctions</span>
+                                <span className="text-xs text-tertiary font-semibold">{liveCount} active auctions</span>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-black text-ink-primary tracking-tight">
+                            <h1 className="text-3xl md:text-4xl font-black text-primary tracking-tight">
                                 Island Auctions <span className="text-accent-400">Marketplace</span>
                             </h1>
-                            <p className="text-sm text-ink-tertiary mt-1 max-w-xl">
+                            <p className="text-sm text-tertiary mt-1 max-w-xl">
                                 Bid on unique island treasures. Live auctions ending daily.
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
                             <div className="relative">
-                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-tertiary" />
                                 <input
                                     type="text"
                                     placeholder="Search auctions..."
                                     value={searchQuery}
                                     onChange={e => setSearchQuery(e.target.value)}
-                                    className="w-56 pl-10 pr-4 py-2.5 bg-surface-elevated border border-border-primary rounded-xl text-sm text-ink-primary placeholder:text-ink-tertiary/60 focus:outline-none focus:ring-2 focus:ring-accent-400/30 transition-all"
+                                    className="w-56 pl-10 pr-4 py-2.5 bg-surface-elevated border border-border-primary rounded-xl text-sm text-primary placeholder:text-tertiary/60 focus:outline-none focus:ring-2 focus:ring-accent-400/30 transition-all"
                                 />
                             </div>
                             <button
                                 onClick={() => setShowFilters(!showFilters)}
-                                className="p-2.5 bg-surface-elevated border border-border-primary rounded-xl text-ink-secondary hover:bg-surface-secondary transition-colors"
+                                className="p-2.5 bg-surface-elevated border border-border-primary rounded-xl text-secondary hover:bg-surface-secondary transition-colors"
                             >
                                 <Filter size={18} />
                             </button>
@@ -369,7 +369,7 @@ export default function AuctionsPage() {
                                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all ${
                                     category === cat.id
                                         ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/15'
-                                        : 'bg-surface-elevated text-ink-tertiary border border-border-primary hover:bg-surface-secondary'
+                                        : 'bg-surface-elevated text-tertiary border border-border-primary hover:bg-surface-secondary'
                                 }`}
                             >
                                 <span>{cat.icon}</span>
@@ -392,7 +392,7 @@ export default function AuctionsPage() {
                                     className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
                                         sort === s
                                             ? 'bg-accent-500/10 text-accent-500'
-                                            : 'text-ink-tertiary hover:text-ink-primary'
+                                            : 'text-tertiary hover:text-primary'
                                     }`}
                                 >
                                     {s === 'ending_soon' ? '⏰ Ending Soon' : s === 'newest' ? '🆕 Newest' : s === 'most_bids' ? '🔥 Most Bids' : s === 'price_low' ? '💰 Price: Low' : '💰 Price: High'}
@@ -431,7 +431,7 @@ export default function AuctionsPage() {
                             <div className="mt-8">
                                 <div className="flex items-center gap-2 mb-4">
                                     <Zap size={16} className="text-accent-400" />
-                                    <h3 className="text-sm font-black text-ink-primary uppercase tracking-wider">Live Bids</h3>
+                                    <h3 className="text-sm font-black text-primary uppercase tracking-wider">Live Bids</h3>
                                 </div>
                                 <div className="bg-surface-elevated rounded-2xl border border-border-primary p-3 max-h-32 overflow-y-auto">
                                     {bidHistory.slice(0, 10).map((bid, i) => {
@@ -439,11 +439,11 @@ export default function AuctionsPage() {
                                         return (
                                             <div key={i} className="flex items-center gap-2 py-1.5 text-xs border-b border-border-primary/50 last:border-0">
                                                 <span className="text-accent-400 font-black">⚡</span>
-                                                <span className="font-bold text-ink-primary">New bid</span>
+                                                <span className="font-bold text-primary">New bid</span>
                                                 <span className="text-accent-400 font-black">{formatCurrency(bid.amount)}</span>
-                                                <span className="text-ink-tertiary">on</span>
-                                                <span className="text-ink-primary font-semibold truncate">{auction?.title || 'Unknown'}</span>
-                                                <span className="text-ink-tertiary ml-auto text-[10px]">{new Date(bid.time).toLocaleTimeString()}</span>
+                                                <span className="text-tertiary">on</span>
+                                                <span className="text-primary font-semibold truncate">{auction?.title || 'Unknown'}</span>
+                                                <span className="text-tertiary ml-auto text-[10px]">{new Date(bid.time).toLocaleTimeString()}</span>
                                             </div>
                                         );
                                     })}
@@ -454,8 +454,8 @@ export default function AuctionsPage() {
                 ) : (
                     <div className="bg-surface-elevated rounded-2xl border border-border-primary p-16 text-center">
                         <span className="text-5xl block mb-4">🔨</span>
-                        <h3 className="text-xl font-black text-ink-primary mb-2">No auctions found</h3>
-                        <p className="text-sm text-ink-tertiary mb-6">Try a different category or check back later for new listings.</p>
+                        <h3 className="text-xl font-black text-primary mb-2">No auctions found</h3>
+                        <p className="text-sm text-tertiary mb-6">Try a different category or check back later for new listings.</p>
                         <button onClick={() => { setCategory('all'); setSearchQuery(''); }} className="px-6 py-3 bg-accent-500 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-accent-600 transition-colors">
                             View All Auctions
                         </button>

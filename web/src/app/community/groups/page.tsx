@@ -107,22 +107,22 @@ export default function GroupsPage() {
                                 <span className="px-2.5 py-1 bg-violet-500/10 text-violet-400 rounded-lg text-[9px] font-black uppercase tracking-widest">
                                     👥 Groups
                                 </span>
-                                <span className="text-xs text-ink-tertiary font-semibold">{groups.length} groups available</span>
+                                <span className="text-xs text-tertiary font-semibold">{groups.length} groups available</span>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-black text-ink-primary tracking-tight">
+                            <h1 className="text-3xl md:text-4xl font-black text-primary tracking-tight">
                                 Find Your <span className="text-accent-400">Community</span>
                             </h1>
-                            <p className="text-sm text-ink-tertiary mt-1">Join local groups and connect with people who share your interests.</p>
+                            <p className="text-sm text-tertiary mt-1">Join local groups and connect with people who share your interests.</p>
                         </div>
                         <div className="flex items-center gap-3">
                             <div className="relative">
-                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary" />
+                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-tertiary" />
                                 <input
                                     type="text"
                                     placeholder="Search groups..."
                                     value={searchQuery}
                                     onChange={e => setSearchQuery(e.target.value)}
-                                    className="w-56 pl-10 pr-4 py-2.5 bg-surface-elevated border border-border-primary rounded-xl text-sm text-ink-primary placeholder:text-ink-tertiary/60 focus:outline-none focus:ring-2 focus:ring-accent-400/30 transition-all"
+                                    className="w-56 pl-10 pr-4 py-2.5 bg-surface-elevated border border-border-primary rounded-xl text-sm text-primary placeholder:text-tertiary/60 focus:outline-none focus:ring-2 focus:ring-accent-400/30 transition-all"
                                 />
                             </div>
                             <button
@@ -139,13 +139,13 @@ export default function GroupsPage() {
                     <div className="flex items-center gap-1 bg-surface-elevated rounded-xl border border-border-primary p-1 mt-6 w-fit">
                         <button onClick={() => setViewMode('discover')}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
-                                viewMode === 'discover' ? 'bg-accent-500 text-white shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'
+                                viewMode === 'discover' ? 'bg-accent-500 text-white shadow-sm' : 'text-tertiary hover:text-primary'
                             }`}>
                             <Sparkles size={14} /> Discover
                         </button>
                         <button onClick={() => setViewMode('my_groups')}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${
-                                viewMode === 'my_groups' ? 'bg-accent-500 text-white shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'
+                                viewMode === 'my_groups' ? 'bg-accent-500 text-white shadow-sm' : 'text-tertiary hover:text-primary'
                             }`}>
                             <Users size={14} /> My Groups {myGroups.length > 0 && <span className="ml-1 w-5 h-5 rounded-full bg-accent-500/20 text-accent-500 text-[9px] flex items-center justify-center">{myGroups.length}</span>}
                         </button>
@@ -160,7 +160,7 @@ export default function GroupsPage() {
                                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all ${
                                     selectedCategory === cat.id
                                         ? 'bg-accent-500 text-white shadow-lg shadow-accent-500/15'
-                                        : 'bg-surface-elevated text-ink-tertiary border border-border-primary hover:bg-surface-secondary'
+                                        : 'bg-surface-elevated text-tertiary border border-border-primary hover:bg-surface-secondary'
                                 }`}
                             >
                                 <span>{cat.icon}</span>
@@ -209,13 +209,13 @@ export default function GroupsPage() {
                                     <div className="p-5 flex-1 flex flex-col">
                                         {/* Group name & admin badge */}
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h3 className="text-base font-black text-ink-primary group-hover:text-accent-400 transition-colors">{group.name}</h3>
+                                            <h3 className="text-base font-black text-primary group-hover:text-accent-400 transition-colors">{group.name}</h3>
                                             {group.is_admin && <Crown size={14} className="text-amber-400 shrink-0" />}
                                         </div>
-                                        <p className="text-xs text-ink-tertiary line-clamp-2 mb-3 flex-1">{group.description}</p>
+                                        <p className="text-xs text-tertiary line-clamp-2 mb-3 flex-1">{group.description}</p>
 
                                         {/* Stats */}
-                                        <div className="flex items-center justify-between text-[10px] text-ink-tertiary mb-4">
+                                        <div className="flex items-center justify-between text-[10px] text-tertiary mb-4">
                                             <div className="flex items-center gap-3">
                                                 <span className="flex items-center gap-1 font-bold"><Users size={12} /> {group.member_count.toLocaleString()}</span>
                                                 <span className="flex items-center gap-1 font-bold"><MessageCircle size={12} /> {group.post_count}</span>
@@ -241,7 +241,7 @@ export default function GroupsPage() {
                                                         View Group
                                                     </Link>
                                                     <button onClick={() => handleLeaveGroup(group.id)}
-                                                        className="px-4 py-2.5 bg-surface-secondary text-ink-tertiary rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-surface-tertiary hover:text-ink-secondary transition-colors">
+                                                        className="px-4 py-2.5 bg-surface-secondary text-tertiary rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-surface-tertiary hover:text-secondary transition-colors">
                                                         Leave
                                                     </button>
                                                 </>
@@ -252,7 +252,7 @@ export default function GroupsPage() {
                                                         <Plus size={12} /> Join Group
                                                     </button>
                                                     <Link href={`/community/groups/${group.id}`}
-                                                        className="px-4 py-2.5 bg-surface-secondary rounded-xl text-ink-tertiary hover:bg-surface-tertiary transition-colors">
+                                                        className="px-4 py-2.5 bg-surface-secondary rounded-xl text-tertiary hover:bg-surface-tertiary transition-colors">
                                                         <ChevronRight size={14} />
                                                     </Link>
                                                 </>
@@ -266,8 +266,8 @@ export default function GroupsPage() {
                 ) : (
                     <div className="bg-surface-elevated rounded-2xl border border-border-primary p-16 text-center">
                         <EmojiIcon emoji="👥" size={48} className="text-5xl mb-4" />
-                        <h3 className="text-xl font-black text-ink-primary mb-2">No groups found</h3>
-                        <p className="text-sm text-ink-tertiary mb-6">
+                        <h3 className="text-xl font-black text-primary mb-2">No groups found</h3>
+                        <p className="text-sm text-tertiary mb-6">
                             {viewMode === 'my_groups' ? "You haven't joined any groups yet. Discover some!" : 'Try a different search or category.'}
                         </p>
                         {viewMode === 'my_groups' ? (

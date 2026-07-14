@@ -46,7 +46,7 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onMenuToggle}
-                            className="p-2 rounded-xl hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors lg:hidden"
+                            className="p-2 rounded-xl hover:bg-surface-secondary text-secondary hover:text-primary transition-colors lg:hidden"
                             aria-label="Toggle sidebar"
                         >
                             <Menu size={20} />
@@ -55,7 +55,7 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center">
                                 <span className="text-white text-xs font-black">IH</span>
                             </div>
-                            <span className="text-base font-black text-ink-primary tracking-tight hidden md:block">
+                            <span className="text-base font-black text-primary tracking-tight hidden md:block">
                                 Community
                             </span>
                         </Link>
@@ -64,20 +64,20 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                     {/* Center: Search */}
                     <div ref={searchRef} className="flex-1 max-w-md mx-2 sm:mx-4">
                         <form onSubmit={handleSearch} className="relative">
-                            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary pointer-events-none" />
+                            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-tertiary pointer-events-none" />
                             <input
                                 type="text"
                                 placeholder="Search community..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onFocus={() => setSearchExpanded(true)}
-                                className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-xl text-sm text-ink-primary placeholder:text-ink-tertiary/60 focus:outline-none focus:ring-2 focus:ring-accent-400/30 focus:border-accent-400/50 transition-all"
+                                className="w-full pl-10 pr-4 py-2 bg-surface-secondary border border-border-primary rounded-xl text-sm text-primary placeholder:text-tertiary/60 focus:outline-none focus:ring-2 focus:ring-accent-400/30 focus:border-accent-400/50 transition-all"
                             />
                             {searchExpanded && searchQuery && (
                                 <button
                                     type="button"
                                     onClick={() => { setSearchQuery(''); setSearchExpanded(false); }}
-                                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 rounded hover:bg-surface-secondary text-ink-tertiary"
+                                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 rounded hover:bg-surface-secondary text-tertiary"
                                 >
                                     <X size={14} />
                                 </button>
@@ -94,7 +94,7 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                                     <Plus size={14} />
                                     <span className="hidden md:inline">Create</span>
                                 </Link>
-                                <button className="relative p-2 rounded-xl hover:bg-surface-secondary text-ink-secondary hover:text-ink-primary transition-colors">
+                                <button className="relative p-2 rounded-xl hover:bg-surface-secondary text-secondary hover:text-primary transition-colors">
                                     <Bell size={20} />
                                     <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-surface-elevated"></span>
                                 </button>
@@ -111,7 +111,7 @@ export default function CommunityTopBar({ onMenuToggle }: CommunityTopBarProps) 
                         ) : (
                             <div className="flex items-center gap-2">
                                 <Link href="/login"
-                                    className="px-4 py-1.5 text-sm font-bold text-ink-primary hover:bg-surface-secondary rounded-xl transition-colors">
+                                    className="px-4 py-1.5 text-sm font-bold text-primary hover:bg-surface-secondary rounded-xl transition-colors">
                                     Log in
                                 </Link>
                                 <Link href="/register"

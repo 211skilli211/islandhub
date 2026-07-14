@@ -314,12 +314,12 @@ export default function StoriesPage() {
                         <div>
                             <div className="flex items-center gap-2 mb-2">
                                 <span className="px-2.5 py-1 bg-violet-500/10 text-violet-400 rounded-lg text-[9px] font-black uppercase tracking-widest">📸 Stories</span>
-                                <span className="text-xs text-ink-tertiary font-semibold">24h stories from the island</span>
+                                <span className="text-xs text-tertiary font-semibold">24h stories from the island</span>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-black text-ink-primary tracking-tight">
+                            <h1 className="text-3xl md:text-4xl font-black text-primary tracking-tight">
                                 Island <span className="text-accent-400">Stories</span>
                             </h1>
-                            <p className="text-sm text-ink-tertiary mt-1">Watch stories from your community before they disappear.</p>
+                            <p className="text-sm text-tertiary mt-1">Watch stories from your community before they disappear.</p>
                         </div>
                         <Link href="/community/stories/create"
                             className="flex items-center gap-2 px-5 py-2.5 bg-accent-500 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-accent-600 transition-colors shadow-sm shadow-accent-500/20">
@@ -389,9 +389,9 @@ export default function StoriesPage() {
                 ) : (
                     <div className="bg-surface-elevated rounded-2xl border border-border-primary p-16 text-center">
                         <span className="text-5xl block mb-4">📸</span>
-                        <h3 className="text-xl font-black text-ink-primary mb-2">No stories yet</h3>
-                        <p className="text-sm text-ink-tertiary mb-2">Be the first to share a story!</p>
-                        <p className="text-xs text-ink-tertiary/60 mb-6">Stories disappear after 24 hours.</p>
+                        <h3 className="text-xl font-black text-primary mb-2">No stories yet</h3>
+                        <p className="text-sm text-tertiary mb-2">Be the first to share a story!</p>
+                        <p className="text-xs text-tertiary/60 mb-6">Stories disappear after 24 hours.</p>
                         <Link href="/community/stories/create"
                             className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-accent-600 transition-colors">
                             <Plus size={14} /> Create Story

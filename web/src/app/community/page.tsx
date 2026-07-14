@@ -170,7 +170,7 @@ function StoryCircle({ story, isFirst, onClick }: { story: Story; isFirst: boole
           )}
         </div>
       </div>
-      <span className="text-[10px] font-semibold text-ink-secondary truncate w-[72px] text-center">
+      <span className="text-[10px] font-semibold text-secondary truncate w-[72px] text-center">
         {isFirst ? 'Your Story' : story.user_name.split(' ')[0]}
       </span>
     </button>
@@ -355,7 +355,7 @@ function CreatePostBar({ user, onSubmit }: { user: any; onSubmit: (content: stri
             value={content}
             onChange={e => setContent(e.target.value)}
             onFocus={() => setExpanded(true)}
-            className="flex-1 bg-surface-secondary border border-border-primary rounded-xl px-4 py-2.5 text-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400/30 transition-all"
+            className="flex-1 bg-surface-secondary border border-border-primary rounded-xl px-4 py-2.5 text-sm text-primary placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent-400/30 transition-all"
           />
         </div>
         {expanded && (
@@ -366,13 +366,13 @@ function CreatePostBar({ user, onSubmit }: { user: any; onSubmit: (content: stri
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary text-xs font-semibold transition-colors">
+                <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-surface-secondary text-secondary text-xs font-semibold transition-colors">
                   <Image size={16} className="text-emerald-400" /> Photo
                 </button>
-                <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary text-xs font-semibold transition-colors">
+                <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-surface-secondary text-secondary text-xs font-semibold transition-colors">
                   <Video size={16} className="text-violet-400" /> Video
                 </button>
-                <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-surface-secondary text-ink-secondary text-xs font-semibold transition-colors">
+                <button type="button" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-surface-secondary text-secondary text-xs font-semibold transition-colors">
                   <MapPin size={16} className="text-rose-400" /> Location
                 </button>
               </div>
@@ -428,15 +428,15 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-ink-primary group-hover:text-accent-400 transition-colors">{post.user_name}</span>
+              <span className="text-sm font-bold text-primary group-hover:text-accent-400 transition-colors">{post.user_name}</span>
               {post.location && (
-                <span className="text-[9px] text-ink-tertiary">• {post.location}</span>
+                <span className="text-[9px] text-tertiary">• {post.location}</span>
               )}
             </div>
-            <span className="text-[11px] text-ink-tertiary">{timeAgo(post.created_at)}</span>
+            <span className="text-[11px] text-tertiary">{timeAgo(post.created_at)}</span>
           </div>
         </Link>
-        <button className="p-1.5 hover:bg-surface-secondary rounded-lg text-ink-tertiary transition-colors">
+        <button className="p-1.5 hover:bg-surface-secondary rounded-lg text-tertiary transition-colors">
           <EllipsisVertical size={18} />
         </button>
       </div>
@@ -459,7 +459,7 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
 
       {/* Content */}
       <div className="px-4 py-2">
-        <p className="text-sm text-ink-primary leading-relaxed whitespace-pre-line">{post.content}</p>
+        <p className="text-sm text-primary leading-relaxed whitespace-pre-line">{post.content}</p>
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-2">
             {post.tags.map(tag => (
@@ -492,10 +492,10 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
               </div>
             ))}
           </div>
-          <span className="text-xs text-ink-tertiary font-semibold">{likeCount.toLocaleString()} likes</span>
+          <span className="text-xs text-tertiary font-semibold">{likeCount.toLocaleString()} likes</span>
         </div>
-        <div className="flex items-center gap-3 text-xs text-ink-tertiary font-semibold">
-          <button onClick={() => setShowComments(!showComments)} className="hover:text-ink-primary transition-colors">
+        <div className="flex items-center gap-3 text-xs text-tertiary font-semibold">
+          <button onClick={() => setShowComments(!showComments)} className="hover:text-primary transition-colors">
             {post.comment_count} comments
           </button>
           <span>{post.share_count} shares</span>
@@ -504,21 +504,21 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
 
       {/* Action buttons */}
       <div className="flex items-center justify-around px-2 py-1">
-        <button onClick={handleLike} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${liked ? 'text-rose-500' : 'text-ink-tertiary'}`}>
+        <button onClick={handleLike} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${liked ? 'text-rose-500' : 'text-tertiary'}`}>
           <motion.div animate={{ scale: liking ? [1, 1.3, 1] : 1 }} transition={{ duration: 0.3 }}>
             <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
           </motion.div>
           <span className="text-xs font-bold">{liked ? 'Liked' : 'Like'}</span>
         </button>
-        <button onClick={() => setShowComments(!showComments)} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary text-ink-tertiary transition-colors">
+        <button onClick={() => setShowComments(!showComments)} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary text-tertiary transition-colors">
           <MessageCircle size={20} />
           <span className="text-xs font-bold">Comment</span>
         </button>
-        <button className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary text-ink-tertiary transition-colors">
+        <button className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary text-tertiary transition-colors">
           <Share2 size={20} />
           <span className="text-xs font-bold">Share</span>
         </button>
-        <button onClick={handleSave} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${saved ? 'text-accent-500' : 'text-ink-tertiary'}`}>
+        <button onClick={handleSave} className={`flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg hover:bg-surface-secondary transition-colors ${saved ? 'text-accent-500' : 'text-tertiary'}`}>
           <BookmarkIcon size={20} fill={saved ? 'currentColor' : 'none'} />
           <span className="text-xs font-bold">{saved ? 'Saved' : 'Save'}</span>
         </button>
@@ -541,13 +541,13 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
                   </div>
                   <div className="flex-1">
                     <div className="bg-surface-secondary rounded-xl px-3 py-2">
-                      <Link href={`/profile/${comment.user_id}`} className="text-xs font-bold text-ink-primary hover:underline">{comment.user_name}</Link>
-                      <p className="text-xs text-ink-secondary mt-0.5">{comment.content}</p>
+                      <Link href={`/profile/${comment.user_id}`} className="text-xs font-bold text-primary hover:underline">{comment.user_name}</Link>
+                      <p className="text-xs text-secondary mt-0.5">{comment.content}</p>
                     </div>
                     <div className="flex items-center gap-3 mt-1 ml-2">
-                      <button className="text-[10px] font-semibold text-ink-tertiary hover:text-ink-primary">Like</button>
-                      <button className="text-[10px] font-semibold text-ink-tertiary hover:text-ink-primary">Reply</button>
-                      <span className="text-[10px] text-ink-tertiary">{timeAgo(comment.created_at)}</span>
+                      <button className="text-[10px] font-semibold text-tertiary hover:text-primary">Like</button>
+                      <button className="text-[10px] font-semibold text-tertiary hover:text-primary">Reply</button>
+                      <span className="text-[10px] text-tertiary">{timeAgo(comment.created_at)}</span>
                     </div>
                   </div>
                 </div>
@@ -558,9 +558,9 @@ function FeedPostCard({ post, onLike, onSave }: { post: FeedPost; onLike: (id: n
                   <span className="text-white text-[8px] font-bold">{getInitials('You')}</span>
                 </div>
                 <div className="flex-1 flex items-center bg-surface-secondary rounded-xl px-3 py-1.5">
-                  <input type="text" placeholder="Write a comment..." className="flex-1 bg-transparent text-xs text-ink-primary placeholder:text-ink-tertiary outline-none" />
+                  <input type="text" placeholder="Write a comment..." className="flex-1 bg-transparent text-xs text-primary placeholder:text-tertiary outline-none" />
                   <div className="flex items-center gap-1 ml-2">
-                    <button className="p-1 hover:bg-surface-secondary rounded"><Smile size={14} className="text-ink-tertiary" /></button>
+                    <button className="p-1 hover:bg-surface-secondary rounded"><Smile size={14} className="text-tertiary" /></button>
                     <button className="p-1 hover:bg-surface-secondary rounded"><Send size={14} className="text-accent-400" /></button>
                   </div>
                 </div>
@@ -579,7 +579,7 @@ function RightSidebar() {
       {/* Suggested groups */}
       <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary">Suggested Groups</h3>
+          <h3 className="text-xs font-black uppercase tracking-widest text-tertiary">Suggested Groups</h3>
           <Link href="/community/groups" className="text-[10px] font-bold text-accent-500 hover:underline">See All</Link>
         </div>
         {[
@@ -592,8 +592,8 @@ function RightSidebar() {
               {group.icon}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-ink-primary truncate">{group.name}</p>
-              <p className="text-[10px] text-ink-tertiary">{group.members}</p>
+              <p className="text-sm font-bold text-primary truncate">{group.name}</p>
+              <p className="text-[10px] text-tertiary">{group.members}</p>
             </div>
             <button className="px-3 py-1 bg-accent-500/10 text-accent-500 rounded-lg text-[10px] font-bold hover:bg-accent-500/20 transition-colors">Join</button>
           </Link>
@@ -602,7 +602,7 @@ function RightSidebar() {
 
       {/* Trending topics */}
       <div className="bg-surface-elevated rounded-2xl border border-border-primary p-4">
-        <h3 className="text-xs font-black uppercase tracking-widest text-ink-tertiary mb-3">Trending on IslandHub</h3>
+        <h3 className="text-xs font-black uppercase tracking-widest text-tertiary mb-3">Trending on IslandHub</h3>
         {['#FoodFest2026', '#CaribbeanMade', '#BeachCleanup', '#SunsetYoga', '#LocalArt'].map(tag => (
           <Link key={tag} href={`/search?q=${encodeURIComponent(tag)}`} className="block px-2 py-1.5 rounded-lg hover:bg-surface-secondary text-xs font-semibold text-accent-400 transition-colors">
             {tag}
@@ -612,7 +612,7 @@ function RightSidebar() {
 
       {/* Footer links */}
       <div className="px-2">
-        <div className="flex flex-wrap gap-x-2 gap-y-1 text-[10px] text-ink-tertiary">
+        <div className="flex flex-wrap gap-x-2 gap-y-1 text-[10px] text-tertiary">
           <Link href="/about" className="hover:underline">About</Link>
           <span>·</span>
           <Link href="/privacy" className="hover:underline">Privacy</Link>
@@ -621,7 +621,7 @@ function RightSidebar() {
           <span>·</span>
           <Link href="/help" className="hover:underline">Help</Link>
         </div>
-        <p className="text-[10px] text-ink-tertiary/50 mt-2">© 2026 IslandHub Community</p>
+        <p className="text-[10px] text-tertiary/50 mt-2">© 2026 IslandHub Community</p>
       </div>
     </aside>
   );
@@ -708,21 +708,21 @@ export default function CommunityFeedPage() {
               { href: '/community/messages', label: 'Messages', icon: '💬' as const },
             ].map(item => (
               <Link key={item.href} href={item.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors">
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors">
                 <span className="text-lg">{item.icon}</span>
                 <span className="text-sm font-medium">{item.label}</span>
               </Link>
             ))}
 
             <div className="pt-4 mt-2 border-t border-border-primary">
-              <p className="px-3 text-[10px] font-black uppercase tracking-widest text-ink-tertiary mb-2">Your Shortcuts</p>
+              <p className="px-3 text-[10px] font-black uppercase tracking-widest text-tertiary mb-2">Your Shortcuts</p>
               {[
                 { label: 'SKN Bridge Trade', emoji: '🌉' },
                 { label: 'St. Kitts Foodies', emoji: '🍽️' },
                 { label: 'Island Events', emoji: '📅' },
               ].map(sc => (
                 <Link key={sc.label} href="/community/groups"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors">
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-secondary hover:bg-surface-secondary hover:text-primary transition-colors">
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-500 to-brand-500 flex items-center justify-center text-sm">
                     {sc.emoji}
                   </div>
@@ -750,11 +750,11 @@ export default function CommunityFeedPage() {
           {/* Feed tabs */}
           <div className="flex items-center gap-1 bg-surface-elevated rounded-xl border border-border-primary p-1">
             <button onClick={() => setActiveTab('for_you')}
-              className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'for_you' ? 'bg-accent-500 text-white shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'}`}>
+              className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'for_you' ? 'bg-accent-500 text-white shadow-sm' : 'text-tertiary hover:text-primary'}`}>
               For You
             </button>
             <button onClick={() => setActiveTab('following')}
-              className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'following' ? 'bg-accent-500 text-white shadow-sm' : 'text-ink-tertiary hover:text-ink-primary'}`}>
+              className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'following' ? 'bg-accent-500 text-white shadow-sm' : 'text-tertiary hover:text-primary'}`}>
               Following
             </button>
           </div>
