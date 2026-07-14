@@ -52,7 +52,7 @@ export default function DriverPortal() {
         week: number;
         month: number;
         total: number;
-        chartData: Array<{ label: string; value: number } | Record<string, unknown>>;
+        chartData: Array<Record<string, unknown>>;
     }
 
     const [jobs, setJobs] = useState<Job[]>([]);
