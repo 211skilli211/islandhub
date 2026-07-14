@@ -206,10 +206,10 @@ export default function DriverPortal() {
     };
 
     const chartData = {
-        labels: earnings.chartData.map(d => new Date(d.date).toLocaleDateString([], { weekday: 'short' })),
+        labels: earnings.chartData.map(d => new Date(d.date as string).toLocaleDateString([], { weekday: 'short' })),
         datasets: [{
             label: 'Daily Earnings ($)',
-            data: earnings.chartData.map(d => parseFloat(d.earnings)),
+            data: earnings.chartData.map(d => parseFloat(d.earnings as string)),
             borderColor: '#0d9488',
             backgroundColor: 'rgba(13, 148, 136, 0.1)',
             fill: true,
