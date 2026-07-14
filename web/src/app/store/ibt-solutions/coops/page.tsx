@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
@@ -33,7 +32,6 @@ interface Coop {
 }
 
 export default function CoopsPage() {
-  const searchParams = useSearchParams();
   const [coops, setCoops] = useState<Coop[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIsland, setSelectedIsland] = useState('all');
