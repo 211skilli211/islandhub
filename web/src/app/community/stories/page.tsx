@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import api from '@/lib/api';
-import { X, ChevronLeft, ChevronRight, Heart, Send, Plus, Play, Pause, Volume2, VolumeX, MoreHorizontal } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Heart, Send, Plus, Play, Pause, Volume2, VolumeX, MoreHorizontal, Eye } from 'lucide-react';
 
 interface Story {
     id: number;
