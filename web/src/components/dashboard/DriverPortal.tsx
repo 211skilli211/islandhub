@@ -309,7 +309,7 @@ export default function DriverPortal() {
                                         </div>
                                         <div>
                                             <h4 className="font-black text-ink-primary text-lg">
-                                                {typeof job.title === 'object' && job.title ? (job.title.display || 'Market Job') : (job.title ?? 'Market Job')}
+                                                {typeof job.title === 'object' && job.title ? ((job.title as { display?: string }).display || 'Market Job') : (job.title ?? 'Market Job')}
                                             </h4>
                                             <div className="flex flex-wrap gap-2 mt-1">
                                                 <span className="px-2 py-0.5 bg-accent-500/15 text-accent-500 rounded text-[9px] font-black uppercase">
@@ -351,7 +351,7 @@ export default function DriverPortal() {
                                         <div>
                                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent-100 mb-2">Live Mission</p>
                                             <h4 className="text-3xl font-black italic uppercase tracking-tighter">
-                                                {typeof job.title === 'object' && job.title ? (job.title.display || 'Job') : (job.title ?? 'Job')}
+                                                {typeof job.title === 'object' && job.title ? ((job.title as { display?: string }).display || 'Job') : (job.title ?? 'Job')}
                                             </h4>
                                         </div>
                                         <div className="text-right">
