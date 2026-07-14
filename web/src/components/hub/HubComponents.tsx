@@ -89,7 +89,7 @@ export function StarIcon({ className = "w-3.5 h-3.5" }: { className?: string }) 
 
 // ─── Store Card ───────────────────────────────────────────────
 export function StoreCard({ store, index, theme, variant, hubType }: {
-    store: Store; index: number; theme: HubTheme; variant: string; hubType?: string;
+    store: Store; index: number; theme: HubTheme; variant: string; hubType: string;
 }) {
     const storeName = store.name || store.business_name || 'Unknown Store';
     const rating = store.rating ? Number(store.rating).toFixed(1) : '4.9';
@@ -155,7 +155,7 @@ export function StoreCard({ store, index, theme, variant, hubType }: {
             transition={{ delay: index * 0.04, duration: 0.3 }}
         >
             <Link
-                href={`/hub/${hubType || store.category || 'food'}/${store.slug}`}
+                href={`/hub/${hubType}/${store.slug}`}
                 className="group block bg-surface-elevated dark:bg-ocean-800 rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 hover:shadow-md transition-all"
             >
                 
