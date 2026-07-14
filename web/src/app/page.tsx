@@ -20,6 +20,7 @@ import { CompactCard } from '@/components/hub/CompactCard';
 import Aurora from '@/components/react-bits/backgrounds/Aurora';
 import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
 import BlurText from '@/components/react-bits/text/BlurText';
+import { Bot, Monitor, Zap, Users, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   const { user } = useAuthStore();
@@ -243,18 +244,21 @@ export default function Home() {
 
       
       <section className="max-w-7xl mx-auto px-4 py-6">
-        <ContentSection title="💼 Business Solutions" subtitle="AI, web, automation & co-ops" seeMoreHref="/hub/services">
+        <ContentSection title="Business Solutions" subtitle="AI, web, automation & co-ops" seeMoreHref="/hub/services">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { icon: '🤖', title: 'AI Employees', desc: '24/7 digital workforce', href: '/hub/services/professional' },
-              { icon: '💻', title: 'Web & App Design', desc: 'Custom development', href: '/hub/services/professional' },
-              { icon: '⚙️', title: 'Automation', desc: 'Streamline operations', href: '/hub/services/professional' },
-              { icon: '🤝', title: 'Co-ops', desc: 'Join the federation', href: '/store/ibt-solutions/coops' },
+              { Icon: Bot, title: 'AI Employees', desc: '24/7 digital workforce', href: '/hub/services/professional' },
+              { Icon: Monitor, title: 'Web & App Design', desc: 'Custom development', href: '/hub/services/professional' },
+              { Icon: Zap, title: 'Automation', desc: 'Streamline operations', href: '/hub/services/professional' },
+              { Icon: Users, title: 'Co-ops', desc: 'Join the federation', href: '/store/ibt-solutions/coops' },
             ].map((item) => (
               <Link key={item.title} href={item.href} className="group bg-surface-elevated rounded-xl border border-border-primary p-4 text-center hover:border-accent-500/30 transition-all">
-                <span className="text-2xl mb-2 block group-hover:scale-110 transition-transform">{item.icon}</span>
-                <h4 className="text-xs font-bold text-ink-primary mb-0.5">{item.title}</h4>
-                <p className="text-[9px] text-ink-tertiary uppercase tracking-wider">{item.desc}</p>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <item.Icon size={24} className="text-brand-500 group-hover:scale-110 transition-transform" />
+                </div>
+                <h4 className="text-xs font-bold text-theme-primary mb-0.5">{item.title}</h4>
+                <p className="text-[9px] text-theme-tertiary uppercase tracking-wider">{item.desc}</p>
+                <ArrowRight size={12} className="mx-auto mt-2 text-theme-tertiary group-hover:text-accent-500 transition-colors" />
               </Link>
             ))}
           </div>
