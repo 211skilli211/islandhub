@@ -309,7 +309,7 @@ export default function DriverPortal() {
                                         </div>
                                         <div>
                                             <h4 className="font-black text-ink-primary text-lg">
-                                                {typeof job.title === 'object' ? (job.title.display || 'Market Job') : job.title}
+                                                {typeof job.title === 'object' ? (job.title.display || 'Market Job') : (job.title ?? 'Market Job')}
                                             </h4>
                                             <div className="flex flex-wrap gap-2 mt-1">
                                                 <span className="px-2 py-0.5 bg-accent-500/15 text-accent-500 rounded text-[9px] font-black uppercase">
