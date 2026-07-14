@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
-import MediaUploader from './MediaUploader';
+import MediaUploader from '@/components/admin/MediaUploader';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface TileAsset {
@@ -112,25 +112,22 @@ export default function TileManagerPage() {
         setDragOver(null);
         const file = e.dataTransfer.files[0];
         if (file && file.type.startsWith('image/')) {
-            uploadFile(file, tileKey);
-        }
-    };
-
-    const uploadFile = async (file: File, tileKey: string) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        try {
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                await handleUpload(tileKey, data.url);
+            // Use MediaUploader instead of custom upload
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    await handleUpload(tileKey, data.url);
+                }
+            } catch (e) {
+                console.error('Upload failed:', e);
             }
-        } catch (e) {
-            console.error('Upload failed:', e);
         }
     };
 
