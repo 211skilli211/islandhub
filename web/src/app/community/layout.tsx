@@ -165,13 +165,14 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
           {section.items.map(item => {
             const Icon = item.icon;
             const active = pathname === item.href || pathname.startsWith(item.href + '/');
+            const linkClass = `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+              active
+                ? 'bg-accent-500/10 text-accent-500 font-bold'
+                : 'text-secondary hover:bg-surface-secondary hover:text-primary'
+            }`;
             return (
               <Link key={item.id} href={item.href} onClick={onClose}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
-                  active
-                    ? 'bg-accent-500/10 text-accent-500 font-bold'
-                    : 'text-secondary hover:bg-surface-secondary hover:text-primary'
-                }`}>
+                className={linkClass}>
                 <Icon size={20} className="shrink-0" />
                 <span className="text-sm font-medium truncate">{item.label}</span>
               </Link>
