@@ -261,8 +261,9 @@ export function DynamicCategoryTiles({ title, columns = 3, className = '' }: Dyn
     4: 'grid-cols-4',
   };
 
-  // Default fallback tiles (matching homepage categoryTiles)
+  // Default fallback tiles (matching homepage categoryTiles and admin tile manager)
   const fallbackTiles: DynamicTile[] = [
+    // Homepage Main Categories
     { tile_key: 'food', tile_label: 'Food & Dining', tile_emoji: '🍽️', image_url: null, is_active: true, display_order: 1 },
     { tile_key: 'products', tile_label: 'Shopping', tile_emoji: '🛍️', image_url: null, is_active: true, display_order: 2 },
     { tile_key: 'services', tile_label: 'Services', tile_emoji: '🛠️', image_url: null, is_active: true, display_order: 3 },
@@ -272,6 +273,30 @@ export function DynamicCategoryTiles({ title, columns = 3, className = '' }: Dyn
     { tile_key: 'events', tile_label: 'Events', tile_emoji: '🎫', image_url: null, is_active: true, display_order: 7 },
     { tile_key: 'campaigns', tile_label: 'Campaigns', tile_emoji: '❤️', image_url: null, is_active: true, display_order: 8 },
     { tile_key: 'community', tile_label: 'Community', tile_emoji: '🌴', image_url: null, is_active: true, display_order: 9 },
+
+    // On-Demand Services (Homepage RequestServicesSection)
+    { tile_key: 'taxi', tile_label: 'Request a Ride', tile_emoji: '🚕', image_url: null, is_active: true, display_order: 10 },
+    { tile_key: 'food-delivery', tile_label: 'Order Food', tile_emoji: '🍔', image_url: null, is_active: true, display_order: 11 },
+    { tile_key: 'delivery', tile_label: 'Pickup & Delivery', tile_emoji: '📦', image_url: null, is_active: true, display_order: 12 },
+
+    // Service Subcategories
+    { tile_key: 'services-professional', tile_label: 'Professional Services', tile_emoji: '💼', image_url: null, is_active: true, display_order: 13 },
+    { tile_key: 'services-automotive', tile_label: 'Automotive Services', tile_emoji: '🚗', image_url: null, is_active: true, display_order: 14 },
+    { tile_key: 'services-health', tile_label: 'Health & Beauty', tile_emoji: '💆', image_url: null, is_active: true, display_order: 15 },
+    { tile_key: 'services-marine', tile_label: 'Marine Services', tile_emoji: '⚓', image_url: null, is_active: true, display_order: 16 },
+    { tile_key: 'services-events', tile_label: 'Event Services', tile_emoji: '🎉', image_url: null, is_active: true, display_order: 17 },
+
+    // Hot Deals Section Tiles
+    { tile_key: 'hot-deals-electronics', tile_label: 'Electronics & Gadgets', tile_emoji: '📱', image_url: null, is_active: true, display_order: 18 },
+    { tile_key: 'hot-deals-fashion', tile_label: 'Fashion & Accessories', tile_emoji: '👗', image_url: null, is_active: true, display_order: 19 },
+    { tile_key: 'hot-deals-rentals', tile_label: 'Vacation Rentals', tile_emoji: '🏠', image_url: null, is_active: true, display_order: 20 },
+    { tile_key: 'hot-deals-tours', tile_label: 'Tour Bundles', tile_emoji: '🗺️', image_url: null, is_active: true, display_order: 21 },
+
+    // Business Solutions Section
+    { tile_key: 'biz-ai', tile_label: 'AI Employees', tile_emoji: '🤖', image_url: null, is_active: true, display_order: 22 },
+    { tile_key: 'biz-web', tile_label: 'Web & App Design', tile_emoji: '💻', image_url: null, is_active: true, display_order: 23 },
+    { tile_key: 'biz-automation', tile_label: 'Automation', tile_emoji: '⚙️', image_url: null, is_active: true, display_order: 24 },
+    { tile_key: 'biz-coops', tile_label: 'Co-ops', tile_emoji: '🤝', image_url: null, is_active: true, display_order: 25 },
   ];
 
   const displayTiles = tiles.length > 0 ? tiles : fallbackTiles;

@@ -19,20 +19,40 @@ interface TileAsset {
 }
 
 const DEFAULT_TILES = [
+    // Homepage Main Categories
     { key: 'food', label: 'Food & Dining', emoji: '🍽️' },
     { key: 'products', label: 'Shopping', emoji: '🛍️' },
     { key: 'services', label: 'Services', emoji: '🛠️' },
-    { key: 'services-professional', label: 'Professional Services', emoji: '💼' },
-    { key: 'services-automotive', label: 'Automotive Services', emoji: '🚗' },
-    { key: 'services-health', label: 'Health & Beauty', emoji: '💆' },
-    { key: 'services-marine', label: 'Marine Services', emoji: '⚓' },
-    { key: 'services-events', label: 'Event Services', emoji: '🎉' },
     { key: 'rentals', label: 'Rentals', emoji: '🏠' },
     { key: 'tours', label: 'Tours', emoji: '🗺️' },
     { key: 'transport', label: 'Transport', emoji: '🚕' },
     { key: 'events', label: 'Events', emoji: '🎫' },
     { key: 'campaigns', label: 'Campaigns', emoji: '❤️' },
     { key: 'community', label: 'Community', emoji: '🌴' },
+
+    // On-Demand Services (Homepage RequestServicesSection)
+    { key: 'taxi', label: 'Request a Ride', emoji: '🚕' },
+    { key: 'food-delivery', label: 'Order Food', emoji: '🍔' },
+    { key: 'delivery', label: 'Pickup & Delivery', emoji: '📦' },
+
+    // Service Subcategories
+    { key: 'services-professional', label: 'Professional Services', emoji: '💼' },
+    { key: 'services-automotive', label: 'Automotive Services', emoji: '🚗' },
+    { key: 'services-health', label: 'Health & Beauty', emoji: '💆' },
+    { key: 'services-marine', label: 'Marine Services', emoji: '⚓' },
+    { key: 'services-events', label: 'Event Services', emoji: '🎉' },
+
+    // Hot Deals Section Tiles
+    { key: 'hot-deals-electronics', label: 'Electronics & Gadgets', emoji: '📱' },
+    { key: 'hot-deals-fashion', label: 'Fashion & Accessories', emoji: '👗' },
+    { key: 'hot-deals-rentals', label: 'Vacation Rentals', emoji: '🏠' },
+    { key: 'hot-deals-tours', label: 'Tour Bundles', emoji: '🗺️' },
+
+    // Business Solutions Section
+    { key: 'biz-ai', label: 'AI Employees', emoji: '🤖' },
+    { key: 'biz-web', label: 'Web & App Design', emoji: '💻' },
+    { key: 'biz-automation', label: 'Automation', emoji: '⚙️' },
+    { key: 'biz-coops', label: 'Co-ops', emoji: '🤝' },
 ];
 
 export default function TileManagerPage() {
