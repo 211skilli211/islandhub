@@ -168,7 +168,7 @@ export default function TileManagerPage() {
                             <div className="aspect-square relative rounded-lg overflow-hidden">
                                 {hasImage ? (
                                     <img
-                                        src={asset.asset_url}
+                                        src={asset.asset_url!}
                                         alt={tile.label}
                                         className="w-full h-full object-cover transition-transform group-hover:scale-105"
                                     />
