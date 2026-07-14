@@ -42,8 +42,8 @@ export function DashboardSidebar({ navItems, activeTab, onTabChange, expandedIte
             }}
             className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
               activeTab === item.id || (item.children?.some(c => c.id === activeTab))
-                ? 'bg-accent-500/10 dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
-                : 'text-ink-secondary dark:text-ink-tertiary hover:bg-surface-secondary dark:hover:bg-surface-tertiary/50 hover:text-ink-primary dark:hover:text-white'
+                ? 'bg-theme-tertiary dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
+                : 'text-theme-secondary dark:text-ink-tertiary hover:bg-theme-tertiary dark:hover:bg-surface-tertiary/50 hover:text-theme-primary dark:hover:text-white'
             }`}
           >
             <span className="flex-shrink-0">{item.icon}</span>
@@ -62,8 +62,8 @@ export function DashboardSidebar({ navItems, activeTab, onTabChange, expandedIte
                   onClick={() => onTabChange(child.id)}
                   className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                     activeTab === child.id
-                      ? 'bg-accent-500/10 dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
-                      : 'text-ink-tertiary dark:text-ink-tertiary hover:text-ink-secondary dark:hover:text-ink-tertiary'
+                      ? 'bg-theme-tertiary dark:bg-accent-800/20 text-accent-500 dark:text-accent-400'
+                      : 'text-theme-tertiary dark:text-ink-tertiary hover:text-theme-secondary dark:hover:text-ink-tertiary'
                   }`}
                 >
                   {child.icon}
@@ -103,14 +103,14 @@ export default function DashboardLayout({
   return (
     <div className="flex flex-col lg:flex-row min-h-[calc(100vh-64px)] bg-surface-secondary dark:bg-ink-primary">
       
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-surface-elevated dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary">
+      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-theme-primary dark:bg-surface-tertiary border-b border-border-primary dark:border-border-primary">
         <div>
-          <p className="text-sm font-semibold text-ink-primary dark:text-white">{title}</p>
-          {subtitle && <p className="text-xs text-ink-tertiary dark:text-ink-tertiary">{subtitle}</p>}
+          <p className="text-sm font-semibold text-theme-primary dark:text-white">{title}</p>
+          {subtitle && <p className="text-xs text-theme-tertiary dark:text-ink-tertiary">{subtitle}</p>}
         </div>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-lg hover:bg-surface-secondary dark:hover:bg-surface-tertiary text-ink-secondary dark:text-ink-tertiary"
+          className="p-2 rounded-lg hover:bg-theme-tertiary dark:hover:bg-surface-tertiary text-theme-secondary dark:text-ink-tertiary"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileMenuOpen ? (
@@ -123,7 +123,7 @@ export default function DashboardLayout({
       </div>
 
       
-      <aside className={`w-full lg:w-60 bg-surface-elevated dark:bg-surface-tertiary border-b lg:border-b-0 lg:border-r border-border-primary dark:border-border-primary flex-shrink-0 ${
+      <aside className={`w-full lg:w-60 bg-theme-primary dark:bg-surface-tertiary border-b lg:border-b-0 lg:border-r border-border-primary dark:border-border-primary flex-shrink-0 ${
         mobileMenuOpen ? 'block' : 'hidden lg:block'
       }`}>
         <div className="hidden lg:block p-4 border-b border-border-primary dark:border-border-primary">

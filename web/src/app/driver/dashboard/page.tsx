@@ -121,13 +121,13 @@ export default function DriverDashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-sand-50 to-white pb-20">
-            
-            <div className="bg-gradient-to-br from-ink-900 via-ink-800 to-ink-900 text-white p-6 pt-24 pb-8 rounded-b-[3rem] shadow-2xl">
+        <div className="min-h-screen bg-gradient-to-b from-background-primary to-background-secondary pb-20">
+           
+                    <div className="bg-gradient-to-br from-ink-900 via-ink-800 to-ink-900 text-white p-6 pt-24 pb-8 rounded-b-[3rem] shadow-2xl">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex justify-between items-start mb-6">
                         <div>
-                            <p className="text-ink-tertiary text-xs font-black uppercase tracking-widest mb-1">Driver Portal</p>
+                            <p className="text-white/70 text-xs font-black uppercase tracking-widest mb-1">Driver Portal</p>
                             <h1 className="text-3xl md:text-4xl font-black">Welcome, {user?.name?.split(' ')[0]} <EmojiIcon emoji="👋" size={40} /></h1>
                             <p className="text-ink-tertiary font-medium mt-1">
                                 {user?.vehicle_type && `${user.vehicle_type.charAt(0).toUpperCase() + user.vehicle_type.slice(1)} Driver`}
