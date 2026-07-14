@@ -34,7 +34,7 @@ const SHORTCUTS = [
   { label: 'Island Events', href: '/groups/island-events' },
 ];
 
-// Mobile bottom nav items (Instagram-style)
+// Mobile bottom nav (Instagram-style)
 const BOTTOM_NAV = [
   { id: 'feed', label: 'Home', icon: Home, href: '/community' },
   { id: 'search', label: 'Search', icon: Search, href: '/community/search' },
