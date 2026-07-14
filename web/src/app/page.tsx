@@ -20,7 +20,7 @@ import { CompactCard } from '@/components/hub/CompactCard';
 import Aurora from '@/components/react-bits/backgrounds/Aurora';
 import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
 import BlurText from '@/components/react-bits/text/BlurText';
-import { Bot, Monitor, Zap, Users, ArrowRight } from 'lucide-react';
+import { Bot, Code, Zap, Users, TrendingUp, ShoppingBag, Home, MapPin, Heart, MessageCircle, Monitor, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   const { user } = useAuthStore();
