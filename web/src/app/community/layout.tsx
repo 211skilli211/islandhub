@@ -92,42 +92,43 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
       </div>
 
       {/* Mobile bottom nav (Instagram-style) */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-surface-elevated/95 backdrop-blur-xl border-t border-border-primary safe-area-bottom">
-        <div className="flex items-center justify-around h-14 px-2">
-          {BOTTOM_NAV.map(item => {
-            const active = pathname === item.href || pathname.startsWith(item.href + '/');
-            const Icon = item.icon;
+            <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-surface-elevated/95 backdrop-blur-xl border-t border-border-primary safe-area-bottom">
+              <div className="flex items-center justify-around h-14 px-2">
+                {BOTTOM_NAV.map(item => {
+                  const active = pathname === item.href || pathname.startsWith(item.href + '/');
+                  const Icon = item.icon;
 
-            if (item.isCreate) {
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => router.push(item.href)}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/25 active:scale-90 transition-transform"
-                  aria-label={item.label}
-                >
-                  <Icon size={20} className="text-white" />
-                </button>
-              );
-            }
+                  if (item.isCreate) {
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => router.push(item.href)}
+                        className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/25 active:scale-90 transition-transform"
+                        aria-label={item.label}
+                      >
+                        <Icon size={20} className="text-white" />
+                      </button>
+                    );
+                  }
 
-            return (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={`flex flex-col items-center justify-center gap-0.5 min-w-[60px] py-1 transition-colors ${
-                  {active ? 'text-accent-500' : 'text-tertiary hover:text-secondary'}
-                }`}
-              >
-                <Icon size={22} fill={active ? 'currentColor' : 'none'} />
-                <span className={`text-[9px] font-bold tracking-tight ${active ? 'text-accent-500' : 'text-tertiary'}`}>
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
+                  const linkClass = `flex flex-col items-center justify-center gap-0.5 min-w-[60px] py-1 transition-colors ${
+                    active ? 'text-accent-500' : 'text-tertiary hover:text-secondary'
+                  }`;
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className={linkClass}
+                    >
+                      <Icon size={22} fill={active ? 'currentColor' : 'none'} />
+                      <span className={`text-[9px] font-bold tracking-tight ${active ? 'text-accent-500' : 'text-tertiary'}`}>
+                        {item.label}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </nav>
     </div>
   );
 }
