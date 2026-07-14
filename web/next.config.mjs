@@ -34,12 +34,7 @@ const nextConfig = {
       { source: '/services', destination: '/hub/services', permanent: true },
       { source: '/events', destination: '/hub/events', permanent: true },
       { source: '/campaigns', destination: '/hub/campaigns', permanent: true },
-      // Community section now lives at /community (not /hub/community)
       { source: '/transport', destination: '/hub/transport', permanent: true },
-      // Old community sub-pages (redirect to new /community/* routes)
-      { source: '/community/events', destination: '/community/events', permanent: true },
-      { source: '/community/groups', destination: '/community/groups', permanent: true },
-      { source: '/community/stories', destination: '/community/stories', permanent: true },
       // Old rental sub-pages
       { source: '/rental-hub', destination: '/hub/rentals', permanent: true },
       { source: '/rental-hub/stays', destination: '/hub/rentals/stays', permanent: true },

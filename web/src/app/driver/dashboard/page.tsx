@@ -129,7 +129,7 @@ export default function DriverDashboard() {
                         <div>
                             <p className="text-white/70 text-xs font-black uppercase tracking-widest mb-1">Driver Portal</p>
                             <h1 className="text-3xl md:text-4xl font-black">Welcome, {user?.name?.split(' ')[0]} <EmojiIcon emoji="👋" size={40} /></h1>
-                            <p className="text-ink-tertiary font-medium mt-1">
+                            <p className="text-theme-tertiary font-medium mt-1">
                                 {user?.vehicle_type && `${user.vehicle_type.charAt(0).toUpperCase() + user.vehicle_type.slice(1)} Driver`}
                                 {user?.is_verified_driver && <EmojiIcon emoji="✓" size={16} className="ml-2 text-green-400" />}
                             </p>
@@ -141,26 +141,26 @@ export default function DriverDashboard() {
 
                     
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
-                            <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">Today</p>
+                        <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                            <p className="text-[10px] uppercase font-black text-theme-tertiary tracking-widest">Today</p>
                             <p className="text-2xl font-black text-green-400">${earnings.today.toFixed(2)}</p>
                         </div>
-                        <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
-                            <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">This Week</p>
+                        <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                            <p className="text-[10px] uppercase font-black text-theme-tertiary tracking-widest">This Week</p>
                             <p className="text-2xl font-black text-accent-400">${earnings.week.toFixed(2)}</p>
                         </div>
-                        <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
-                            <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">Active</p>
+                        <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                            <p className="text-[10px] uppercase font-black text-theme-tertiary tracking-widest">Active</p>
                             <p className="text-2xl font-black text-blue-400">{activeJobs.length}</p>
                         </div>
-                        <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
-                            <p className="text-[10px] uppercase font-black text-ink-tertiary tracking-widest">Completed</p>
+                        <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                            <p className="text-[10px] uppercase font-black text-theme-tertiary tracking-widest">Completed</p>
                             <p className="text-2xl font-black text-teal-400">{completedJobs.length}</p>
                         </div>
                     </div>
 
                     
-                    <div className="mt-6 flex gap-2 p-1 bg-surface-tertiary/50 backdrop-blur-md rounded-2xl border border-white/10">
+                    <div className="mt-6 flex gap-2 p-1 bg-theme-tertiary/50 backdrop-blur-md rounded-2xl border border-white/10">
                         {([
                             { id: 'available', label: 'Available', count: jobs.length, icon: '🎯' },
                             { id: 'active', label: 'Active', count: activeJobs.length, icon: '🚗' },
@@ -173,7 +173,7 @@ export default function DriverDashboard() {
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex-1 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab.id
                                     ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg'
-                                    : 'text-ink-tertiary hover:text-white hover:bg-surface-elevated/5'
+                                    : 'text-theme-tertiary hover:text-white hover:bg-theme-tertiary/5'
                                     }`}
                             >
                                 <span className="mr-1">{tab.icon}</span>
@@ -190,14 +190,14 @@ export default function DriverDashboard() {
                 {activeTab === 'available' && (
                     <div className="space-y-4">
                         {jobs.length === 0 ? (
-                            <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary shadow-sm">
+                            <div className="text-center py-20 bg-theme-tertiary rounded-3xl border border-border-primary shadow-sm">
                                 <EmojiIcon emoji="😴" size={48} className="text-6xl mb-4" />
-                                <p className="font-bold text-ink-secondary">No jobs available for your vehicle.</p>
-                                <p className="text-sm text-ink-tertiary mt-2">Check back soon or adjust your availability.</p>
+                                <p className="font-bold text-theme-secondary">No jobs available for your vehicle.</p>
+                                <p className="text-sm text-theme-tertiary mt-2">Check back soon or adjust your availability.</p>
                             </div>
                         ) : (
                             jobs.map(job => (
-                                <div key={job.id} className="bg-surface-elevated p-6 rounded-3xl border border-border-primary shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
+                                <div key={job.id} className="bg-theme-tertiary p-6 rounded-3xl border border-border-primary shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 p-4 opacity-5 text-9xl pointer-events-none grayscale group-hover:grayscale-0 transition-all">
                                         {job.service_type === 'taxi' ? '🚖' : job.service_type === 'delivery' ? '📦' : '<EmojiIcon emoji="🚚" size={16} />'}
                                     </div>
@@ -210,23 +210,23 @@ export default function DriverDashboard() {
                                             <span className="text-2xl font-black text-accent-400">${job.price}</span>
                                         </div>
 
-                                        <h3 className="text-xl font-black text-ink-primary mb-2">{job.title}</h3>
-                                        <p className="text-sm text-ink-tertiary mb-4 line-clamp-2">{job.description}</p>
+                                        <h3 className="text-xl font-black text-theme-primary mb-2">{job.title}</h3>
+                                        <p className="text-sm text-theme-tertiary mb-4 line-clamp-2">{job.description}</p>
 
-                                        <div className="space-y-3 mb-6 bg-surface-primary p-4 rounded-xl">
+                                        <div className="space-y-3 mb-6 bg-theme-primary p-4 rounded-xl">
                                             <div className="flex items-start gap-3">
                                                 <div className="w-3 h-3 bg-green-500 rounded-full mt-1 flex-shrink-0" />
                                                 <div className="flex-1">
-                                                    <p className="text-[10px] text-ink-tertiary font-bold uppercase">Pickup</p>
-                                                    <p className="text-sm font-bold text-ink-primary">{job.pickup_location}</p>
+                                                    <p className="text-[10px] text-theme-tertiary font-bold uppercase">Pickup</p>
+                                                    <p className="text-sm font-bold text-theme-primary">{job.pickup_location}</p>
                                                 </div>
                                             </div>
-                                            <div className="w-0.5 h-4 bg-surface-tertiary ml-1.5" />
+                                            <div className="w-0.5 h-4 bg-theme-tertiary ml-1.5" />
                                             <div className="flex items-start gap-3">
                                                 <div className="w-3 h-3 bg-red-500 rounded-full mt-1 flex-shrink-0" />
                                                 <div className="flex-1">
-                                                    <p className="text-[10px] text-ink-tertiary font-bold uppercase">Dropoff</p>
-                                                    <p className="text-sm font-bold text-ink-primary">{job.dropoff_location}</p>
+                                                    <p className="text-[10px] text-theme-tertiary font-bold uppercase">Dropoff</p>
+                                                    <p className="text-sm font-bold text-theme-primary">{job.dropoff_location}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,9 +247,9 @@ export default function DriverDashboard() {
                 {activeTab === 'active' && (
                     <div className="space-y-4">
                         {activeJobs.length === 0 ? (
-                            <div className="text-center py-20 bg-surface-elevated rounded-3xl border border-border-primary shadow-sm">
+                            <div className="text-center py-20 bg-theme-tertiary rounded-3xl border border-border-primary shadow-sm">
                                 <EmojiIcon emoji="🎯" size={48} className="text-6xl mb-4" />
-                                <p className="font-bold text-ink-secondary">No active jobs. Go get 'em!</p>
+                                <p className="font-bold text-theme-secondary">No active jobs. Go get 'em!</p>
                             </div>
                         ) : (
                             activeJobs.map(job => (
@@ -259,8 +259,8 @@ export default function DriverDashboard() {
                                             <span className="px-3 py-1 bg-accent-500 text-white rounded-lg text-[10px] font-black uppercase tracking-widest mb-2 inline-block">
                                                 {job.transport_status.replace('_', ' ')}
                                             </span>
-                                            <h3 className="text-xl font-black text-ink-primary">{job.title}</h3>
-                                            <p className="text-sm text-ink-secondary mt-1">{job.pickup_location} → {job.dropoff_location}</p>
+                                            <h3 className="text-xl font-black text-theme-primary">{job.title}</h3>
+                                            <p className="text-sm text-theme-secondary mt-1">{job.pickup_location} → {job.dropoff_location}</p>
                                         </div>
                                         <div className="w-12 h-12 bg-accent-500/100 rounded-full flex items-center justify-center text-2xl shadow-lg">
                                             {job.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size={16} />'}
@@ -273,7 +273,7 @@ export default function DriverDashboard() {
                                             disabled={job.transport_status === 'in_progress'}
                                             className={`py-3 rounded-xl font-black uppercase text-xs tracking-widest border-2 transition-all ${job.transport_status === 'in_progress'
                                                 ? 'bg-[#14b8a6] text-white border-[#14b8a6]'
-                                                : 'bg-surface-elevated text-[#14b8a6] border-[#14b8a6]/20 hover:bg-[#14b8a6]/10'
+                                                : 'bg-theme-tertiary text-[#14b8a6] border-[#14b8a6]/20 hover:bg-[#14b8a6]/10'
                                                 }`}>
                                             🚗 Start / En Route
                                         </button>
@@ -284,8 +284,8 @@ export default function DriverDashboard() {
                                         </button>
                                     </div>
 
-                                    <div className="bg-surface-elevated/80 backdrop-blur-sm p-4 rounded-xl text-center border border-teal-200">
-                                        <p className="text-[10px] text-ink-tertiary font-bold uppercase mb-2">Navigation</p>
+                                    <div className="bg-theme-tertiary/80 backdrop-blur-sm p-4 rounded-xl text-center border border-teal-200">
+                                        <p className="text-[10px] text-theme-tertiary font-bold uppercase mb-2">Navigation</p>
                                         <a
                                             href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(job.dropoff_location)}`}
                                             target="_blank"
@@ -315,19 +315,19 @@ export default function DriverDashboard() {
                             </div>
                         </div>
 
-                        <div className="bg-surface-elevated p-8 rounded-3xl border border-border-primary shadow-xl">
-                            <h3 className="text-2xl font-black text-ink-primary mb-6">Earnings Breakdown</h3>
+                        <div className="bg-theme-tertiary p-8 rounded-3xl border border-border-primary shadow-xl">
+                            <h3 className="text-2xl font-black text-theme-primary mb-6">Earnings Breakdown</h3>
                             <div className="space-y-4">
-                                <div className="flex justify-between items-center p-4 bg-surface-primary rounded-2xl">
-                                    <span className="font-bold text-ink-secondary">This Month</span>
+                                <div className="flex justify-between items-center p-4 bg-theme-primary rounded-2xl">
+                                    <span className="font-bold text-theme-secondary">This Month</span>
                                     <span className="text-2xl font-black text-accent-400">${earnings.month.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between items-center p-4 bg-surface-primary rounded-2xl">
-                                    <span className="font-bold text-ink-secondary">Total Lifetime</span>
+                                <div className="flex justify-between items-center p-4 bg-theme-primary rounded-2xl">
+                                    <span className="font-bold text-theme-secondary">Total Lifetime</span>
                                     <span className="text-2xl font-black text-[#14b8a6]">${earnings.total.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between items-center p-4 bg-surface-primary rounded-2xl">
-                                    <span className="font-bold text-ink-secondary">Average per Job</span>
+                                <div className="flex justify-between items-center p-4 bg-theme-primary rounded-2xl">
+                                    <span className="font-bold text-theme-secondary">Average per Job</span>
                                     <span className="text-2xl font-black text-teal-600">
                                         ${completedJobs.length > 0 ? (earnings.total / completedJobs.length).toFixed(2) : '0.00'}
                                     </span>
@@ -340,13 +340,13 @@ export default function DriverDashboard() {
                 
                 {activeTab === 'vehicles' && (
                     <div className="space-y-6">
-                        <div className="bg-surface-elevated p-8 rounded-3xl border border-border-primary shadow-xl">
-                            <h3 className="text-2xl font-black text-ink-primary mb-6">Manage My Fleet & Services</h3>
+                        <div className="bg-theme-tertiary p-8 rounded-3xl border border-border-primary shadow-xl">
+                            <h3 className="text-2xl font-black text-theme-primary mb-6">Manage My Fleet & Services</h3>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 
                                 <div className="space-y-4">
-                                    <h4 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Active Vehicle</h4>
+                                    <h4 className="text-sm font-black text-theme-tertiary uppercase tracking-widest">Active Vehicle</h4>
                                     <div className="grid grid-cols-2 gap-3">
                                         {[
                                             { id: 'scooter', label: 'Scooter', icon: '🛵' },
@@ -367,7 +367,7 @@ export default function DriverDashboard() {
                                                 }}
                                                 className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${user?.vehicle_type === v.id
                                                     ? 'border-teal-500 bg-accent-500/10 shadow-md'
-                                                    : 'border-border-primary bg-surface-primary hover:border-teal-200'
+                                                    : 'border-border-primary bg-theme-primary hover:border-teal-200'
                                                     }`}>
                                                 <span className="text-3xl">{v.icon}</span>
                                                 <span className="text-xs font-black uppercase tracking-widest">{v.label}</span>
@@ -378,26 +378,26 @@ export default function DriverDashboard() {
 
                                 
                                 <div className="space-y-4">
-                                    <h4 className="text-sm font-black text-ink-tertiary uppercase tracking-widest">Services Offered</h4>
+                                    <h4 className="text-sm font-black text-theme-tertiary uppercase tracking-widest">Services Offered</h4>
                                     <div className="space-y-3">
                                         {[
                                             { id: 'taxi', label: 'Taxi / Rideshare', icon: '🚖' },
                                             { id: 'delivery', label: 'Parcel Delivery', icon: '📦' },
                                             { id: 'pickup', label: 'Heavy Pickup', icon: '🚚' }
                                         ].map(s => (
-                                            <div key={s.id} className="flex items-center justify-between p-4 bg-surface-primary rounded-2xl border border-border-primary">
+                                            <div key={s.id} className="flex items-center justify-between p-4 bg-theme-primary rounded-2xl border border-border-primary">
                                                 <div className="flex items-center gap-3">
                                                     <span className="text-xl">{s.icon}</span>
-                                                    <span className="font-bold text-ink-secondary">{s.label}</span>
+                                                    <span className="font-bold text-theme-secondary">{s.label}</span>
                                                 </div>
                                                 <div className="relative inline-block w-10 mr-2 align-middle select-none">
-                                                    <input type="checkbox" name="toggle" id={s.id} readOnly checked className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-surface-elevated border-4 appearance-none cursor-pointer border-teal-500 checked:right-0 right-4 transition-all duration-200" />
+                                                    <input type="checkbox" name="toggle" id={s.id} readOnly checked className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-theme-tertiary border-4 appearance-none cursor-pointer border-teal-500 checked:right-0 right-4 transition-all duration-200" />
                                                     <label htmlFor={s.id} className="toggle-label block overflow-hidden h-6 rounded-full bg-accent-500/100 cursor-pointer"></label>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-                                    <p className="text-[10px] text-ink-tertiary font-medium italic">
+                                    <p className="text-[10px] text-theme-tertiary font-medium italic">
                                         * You will only receive jobs matching your active vehicle and selected services.
                                     </p>
                                 </div>
@@ -410,19 +410,19 @@ export default function DriverDashboard() {
                                 <h3 className="text-2xl font-black mb-2">Fleet Performance</h3>
                                 <p className="text-[#a5b4fc] mb-6">Your current vehicle efficiency and stats</p>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-xl">
+                                    <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-xl">
                                         <p className="text-[10px] font-black uppercase opacity-60">Reliability</p>
                                         <p className="text-xl font-black">98.5%</p>
                                     </div>
-                                    <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-xl">
+                                    <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-xl">
                                         <p className="text-[10px] font-black uppercase opacity-60">Avg Rating</p>
                                         <p className="text-xl font-black">4.92 ⭐</p>
                                     </div>
-                                    <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-xl">
+                                    <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-xl">
                                         <p className="text-[10px] font-black uppercase opacity-60">Response</p>
                                         <p className="text-xl font-black">2.4m</p>
                                     </div>
-                                    <div className="bg-surface-elevated/10 backdrop-blur-md p-4 rounded-xl">
+                                    <div className="bg-theme-tertiary/10 backdrop-blur-md p-4 rounded-xl">
                                         <p className="text-[10px] font-black uppercase opacity-60">Tier</p>
                                         <p className="text-xl font-black">Silver</p>
                                     </div>
@@ -436,14 +436,14 @@ export default function DriverDashboard() {
                 
                 {activeTab === 'profile' && (
                     <div className="space-y-6">
-                        <div className="bg-surface-elevated p-8 rounded-3xl border border-border-primary shadow-xl">
+                        <div className="bg-theme-tertiary p-8 rounded-3xl border border-border-primary shadow-xl">
                             <div className="flex items-center gap-6 mb-8">
                                 <div className="w-24 h-24 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-3xl flex items-center justify-center text-5xl border-4 border-white shadow-lg">
                                     👨‍✈️
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl font-black text-ink-primary">{user?.name}</h2>
-                                    <p className="text-ink-tertiary font-medium">{user?.email}</p>
+                                    <h2 className="text-3xl font-black text-theme-primary">{user?.name}</h2>
+                                    <p className="text-theme-tertiary font-medium">{user?.email}</p>
                                     <div className="flex gap-2 mt-2">
                                         {user?.is_verified_driver && (
                                             <span className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-black">
@@ -458,33 +458,33 @@ export default function DriverDashboard() {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="p-6 bg-surface-primary rounded-2xl">
-                                    <h3 className="font-black text-ink-primary mb-4 uppercase tracking-widest text-xs">Driver Stats</h3>
+                                <div className="p-6 bg-theme-primary rounded-2xl">
+                                    <h3 className="font-black text-theme-primary mb-4 uppercase tracking-widest text-xs">Driver Stats</h3>
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
-                                            <span className="text-ink-secondary font-medium">Total Jobs</span>
-                                            <span className="font-black text-ink-primary">{completedJobs.length}</span>
+                                            <span className="text-theme-secondary font-medium">Total Jobs</span>
+                                            <span className="font-black text-theme-primary">{completedJobs.length}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-ink-secondary font-medium">Active Jobs</span>
+                                            <span className="text-theme-secondary font-medium">Active Jobs</span>
                                             <span className="font-black text-blue-600">{activeJobs.length}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-ink-secondary font-medium">Total Earned</span>
+                                            <span className="text-theme-secondary font-medium">Total Earned</span>
                                             <span className="font-black text-green-600">${earnings.total.toFixed(2)}</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="p-6 bg-surface-primary rounded-2xl">
-                                    <h3 className="font-black text-ink-primary mb-4 uppercase tracking-widest text-xs">Vehicle Info</h3>
+                                <div className="p-6 bg-theme-primary rounded-2xl">
+                                    <h3 className="font-black text-theme-primary mb-4 uppercase tracking-widest text-xs">Vehicle Info</h3>
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
-                                            <span className="text-ink-secondary font-medium">Type</span>
-                                            <span className="font-black text-ink-primary capitalize">{user?.vehicle_type || 'Not Set'}</span>
+                                            <span className="text-theme-secondary font-medium">Type</span>
+                                            <span className="font-black text-theme-primary capitalize">{user?.vehicle_type || 'Not Set'}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-ink-secondary font-medium">Status</span>
+                                            <span className="text-theme-secondary font-medium">Status</span>
                                             <span className={`font-black ${user?.is_verified_driver ? 'text-green-600' : 'text-sand-500'}`}>
                                                 {user?.is_verified_driver ? 'Verified' : 'Pending'}
                                             </span>
@@ -496,7 +496,7 @@ export default function DriverDashboard() {
                             <div className="mt-6 flex flex-col sm:flex-row gap-4">
                                 <Link
                                     href={`/users/${user?.id}`}
-                                    className="px-6 py-3 bg-surface-tertiary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface-tertiary transition-all text-center"
+                                    className="px-6 py-3 bg-theme-tertiary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-theme-tertiary transition-all text-center"
                                 >
                                     View Public Profile 👤
                                 </Link>
