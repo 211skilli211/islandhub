@@ -490,7 +490,7 @@ export default function DriverPortal() {
                     <DeliveryChat
                         deliveryId={Number(chatJob.id)}
                         otherUserId={Number(chatJob.creator_id)}
-                        otherUserName={chatJob.creator_name || 'Customer'}
+                        otherUserName={String(chatJob.creator_name ?? 'Customer')}
                         onClose={() => setChatJob(null)}
                     />
                 )}
