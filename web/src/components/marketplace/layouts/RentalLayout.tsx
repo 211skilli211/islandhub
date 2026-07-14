@@ -11,6 +11,7 @@ import KitchenSidebar from '../KitchenSidebar';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import FoodSelectionModal from '../FoodSelectionModal';
 import ServiceBookingModal from '../ServiceBookingModal';
+import RentalBookingModal from '../RentalBookingModal';
 import { useStoreSections } from '../hooks/useStoreSections';
 import HeroBackground from '@/components/HeroBackground';
 import PromotionBanner from '@/components/advertising/PromotionBanner';
