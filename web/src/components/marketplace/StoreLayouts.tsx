@@ -29,7 +29,7 @@ interface StoreProps {
 // Layout selection - uses explicit layoutType if provided, otherwise falls back to category detection
 function detectLayoutType(store: any, layoutType?: string): 'food' | 'service' | 'rental' | 'product' {
     if (layoutType && ['food', 'service', 'rental', 'product'].includes(layoutType)) {
-        return layoutType as string;
+        return layoutType as 'food' | 'service' | 'rental' | 'product';
     }
     const templateMap: Record<string, 'food' | 'service' | 'rental' | 'product'> = {
         'food_vendor': 'food',
