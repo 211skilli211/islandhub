@@ -167,7 +167,7 @@ export const RentalBookingModal = ({ isOpen, onClose, rental, storeId }: RentalB
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                    transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                    transition={{ type: 'spring', damping: 25, stiffness: 300 } as const}
                     className="bg-surface-elevated dark:bg-ink-primary rounded-3xl shadow-2xl border border-border-primary overflow-hidden"
                 >
                     <div className="flex items-center justify-between p-5 border-b border-border-primary bg-gradient-to-r from-teal-600 via-teal-500 to-emerald-500 rounded-t-3xl">
