@@ -372,7 +372,7 @@ export default function DriverPortal() {
 
                                     <div className="flex flex-wrap gap-4">
                                         <button
-                                            onClick={() => handleUpdateStatus(job.id, job.transport_status === 'accepted' ? 'in_progress' : 'completed')}
+                                            onClick={() => handleUpdateStatus(Number(job.id), job.transport_status === 'accepted' ? 'in_progress' : 'completed')}
                                             className="flex-1 py-5 bg-surface-elevated text-accent-400 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl hover:scale-105 transition-all"
                                         >
                                             {job.transport_status === 'accepted' ? 'Start Journey ➔' : 'Complete Delivery <EmojiIcon emoji="✔️" size={16} />'}
