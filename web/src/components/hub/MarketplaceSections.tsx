@@ -180,24 +180,43 @@ export function CategoryTiles({ title, tiles, columns = 3, className = '' }: Cat
 
   return (
     <section className={`py-4 ${className}`}>
-      <h2 className="text-base font-bold text-ink-primary mb-3">{title}</h2>
+      <h2 className="text-base font-bold text-theme-primary mb-3">{title}</h2>
       <div className={`grid ${colClass[columns]} gap-3`}>
         {tiles.map((tile) => (
           <Link
             key={tile.id}
             href={tile.href}
-            className="group flex flex-col items-center gap-1.5"
+            className="group relative block aspect-square rounded-xl bg-surface-elevated border border-border-primary overflow-hidden flex flex-col group-hover:border-accent-500/30 transition-all"
           >
-            <div className="w-full aspect-square rounded-xl bg-surface-elevated border border-border-primary overflow-hidden flex items-center justify-center group-hover:border-accent-500/30 transition-all">
+            {/* Top-left icon badge */}
+            <div className="absolute top-2 left-2 z-10 w-8 h-8 rounded-lg bg-black/60 backdrop-blur-sm flex items-center justify-center text-white shadow-md">
               {tile.imageUrl ? (
-                <img src={tile.imageUrl} alt={tile.label} className="w-full h-full object-cover" loading="lazy" />
+                <span className="text-[10px] font-bold">•</span>
               ) : (
-                <span className="text-2xl leading-none"><EmojiIcon emoji={tile.emoji || '📦'} size={28} /></span>
+                <EmojiIcon emoji={tile.emoji || '📦'} size={16} />
               )}
             </div>
-            <span className="text-[10px] sm:text-xs font-medium text-ink-secondary group-hover:text-accent-500 text-center leading-tight">
-              {tile.label}
-            </span>
+            
+            {/* Center area - clear, background image only */}
+            <div className="flex-1 w-full relative">
+              {tile.imageUrl ? (
+                <img
+                  src={tile.imageUrl}
+                  alt={tile.label}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-surface-secondary to-surface-tertiary" />
+              )}
+            </div>
+            
+            {/* Bottom label */}
+            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+              <span className="text-[10px] sm:text-xs font-medium text-white leading-tight truncate block">
+                {tile.label}
+              </span>
+            </div>
           </Link>
         ))}
       </div>
