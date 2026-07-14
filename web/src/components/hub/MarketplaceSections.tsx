@@ -154,7 +154,7 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
   );
 }
 
-// ─── Category Tiles Grid (Best Buy style) ─────────────────────────────────────
+// ─── Category Tiles Grid (Minimalist style) ─────────────────────────────────────
 
 interface CategoryTile {
   id: string;
@@ -186,34 +186,23 @@ export function CategoryTiles({ title, tiles, columns = 3, className = '' }: Cat
           <Link
             key={tile.id}
             href={tile.href}
-            className="group relative block aspect-square rounded-xl bg-surface-elevated border border-border-primary overflow-hidden flex flex-col group-hover:border-accent-500/30 transition-all"
+            className="group relative block aspect-square rounded-xl bg-surface-primary border border-border-primary overflow-hidden flex flex-col p-4 group-hover:border-accent-500/30 group-hover:shadow-md transition-all"
           >
-            {/* Top-left icon badge */}
-            <div className="absolute top-2 left-2 z-10 w-8 h-8 rounded-lg bg-black/60 backdrop-blur-sm flex items-center justify-center text-white shadow-md">
+            {/* Top-left icon - direct on background, dark color */}
+            <div className="absolute top-3 left-3 z-10 text-theme-primary">
               {tile.imageUrl ? (
                 <span className="text-[10px] font-bold">•</span>
               ) : (
-                <EmojiIcon emoji={tile.emoji || '📦'} size={16} />
+                <EmojiIcon emoji={tile.emoji || '📦'} size={24} />
               )}
             </div>
             
-            {/* Center area - clear, background image only */}
-            <div className="flex-1 w-full relative">
-              {tile.imageUrl ? (
-                <img
-                  src={tile.imageUrl}
-                  alt={tile.label}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-surface-secondary to-surface-tertiary" />
-              )}
-            </div>
+            {/* Center area - clean, empty */}
+            <div className="flex-1 w-full" />
             
-            {/* Bottom label */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-              <span className="text-[10px] sm:text-xs font-medium text-white leading-tight truncate block">
+            {/* Bottom label - directly on clean background */}
+            <div className="absolute bottom-3 left-3 right-3 text-left">
+              <span className="text-[10px] sm:text-xs font-medium text-theme-primary leading-tight truncate block">
                 {tile.label}
               </span>
             </div>
