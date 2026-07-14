@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
@@ -31,7 +32,8 @@ interface Coop {
   sectors: CoopSector[];
 }
 
-export default function CoopsPage() {
+function CoopsPageContent() {
+  const searchParams = useSearchParams();
   const [coops, setCoops] = useState<Coop[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIsland, setSelectedIsland] = useState('all');
@@ -117,5 +119,17 @@ export default function CoopsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function CoopsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-surface-primary flex items-center justify-center">
+        <div className="animate-pulse text-ink-tertiary">Loading...</div>
+      </div>
+    }>
+      <CoopsPageContent />
+    </Suspense>
   );
 }
