@@ -9,7 +9,7 @@ import { EmojiIcon } from '@/components/ui/EmojiIcon';
 import {
   Heart, MessageCircle, Share2, Bookmark, MoreHorizontal,
   Send, Smile, Image, Video, MapPin, Globe, Lock,
-  ChevronLeft, ChevronRight, X, Play, Pause
+  ChevronLeft, ChevronRight, X, Play, Pause, Plus
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────
