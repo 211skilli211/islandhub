@@ -488,8 +488,8 @@ export default function DriverPortal() {
             <AnimatePresence>
                 {chatJob && (
                     <DeliveryChat
-                        deliveryId={chatJob.id}
-                        otherUserId={chatJob.creator_id}
+                        deliveryId={Number(chatJob.id)}
+                        otherUserId={Number(chatJob.creator_id)}
                         otherUserName={chatJob.creator_name || 'Customer'}
                         onClose={() => setChatJob(null)}
                     />
