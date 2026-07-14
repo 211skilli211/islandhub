@@ -15,7 +15,7 @@ import AdSpace from '@/components/advertising/AdSpace';
 import IslandPulse from '@/components/IslandPulse';
 import BrandMarquee from '@/components/BrandMarquee';
 import { ProductCard, CarouselSection } from '@/components/hub/ListingCard';
-import { HeroSlider, DealCard, CategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
+import { HeroSlider, DealCard, DynamicCategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
 import { CompactCard } from '@/components/hub/CompactCard';
 import Aurora from '@/components/react-bits/backgrounds/Aurora';
 import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
@@ -79,18 +79,6 @@ export default function Home() {
     ];
   }, [promoBanners]);
 
-  const categoryTiles = [
-    { id: 'food', label: 'Food & Dining', emoji: '🍽️', href: '/hub/food' },
-    { id: 'products', label: 'Shopping', emoji: '🛍️', href: '/hub/products' },
-    { id: 'services', label: 'Services', emoji: '🛠️', href: '/hub/services' },
-    { id: 'rentals', label: 'Rentals', emoji: '🏠', href: '/hub/rentals' },
-    { id: 'tours', label: 'Tours', emoji: '🗺️', href: '/hub/tours' },
-    { id: 'transport', label: 'Transport', emoji: '🚕', href: '/hub/transport' },
-    { id: 'events', label: 'Events', emoji: '🎫', href: '/hub/events' },
-    { id: 'campaigns', label: 'Campaigns', emoji: '❤️', href: '/hub/campaigns' },
-    { id: 'community', label: 'Community', emoji: '🌴', href: '/hub/community' },
-  ];
-
   return (
     <main className="min-h-screen bg-surface-primary">
 
@@ -119,7 +107,7 @@ export default function Home() {
       
       <AnimatedContent distance={50}>
         <section className="max-w-7xl mx-auto px-4 py-6">
-          <CategoryTiles title="Shop by Category" tiles={categoryTiles} columns={3} />
+          <DynamicCategoryTiles title="Shop by Category" columns={3} />
         </section>
       </AnimatedContent>
 

@@ -22,6 +22,7 @@ import { categoryController } from '../controllers/categoryController';
 import { getAllStores } from '../controllers/storeController';
 import { getAllCampaigns } from '../controllers/campaignController';
 import { getAllMedia } from '../controllers/uploadController';
+import { getTileAssets, getTileAssetByKey, updateTileAsset, deleteTileAsset } from '../controllers/tileAssetController';
 import { authenticateJWT, isAdmin } from '../middleware/authMiddleware';
 
 const router = Router();
@@ -118,5 +119,11 @@ router.post('/subtypes', authenticateJWT, isAdmin, categoryController.createSubt
 router.put('/subtypes/:id', authenticateJWT, isAdmin, categoryController.updateSubtype);
 router.post('/form-fields', authenticateJWT, isAdmin, categoryController.createFormField);
 router.get('/subtypes/:id/form-config', categoryController.getFormConfig);
+
+// Tile Asset Management
+router.get('/tile-assets', authenticateJWT, isAdmin, getTileAssets);
+router.get('/tile-assets/:tileKey', getTileAssetByKey);
+router.post('/tile-assets', authenticateJWT, isAdmin, updateTileAsset);
+router.delete('/tile-assets/:tileKey', authenticateJWT, isAdmin, deleteTileAsset);
 
 export default router;

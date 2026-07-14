@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
@@ -204,6 +204,143 @@ export function CategoryTiles({ title, tiles, columns = 3, className = '' }: Cat
             <div className="absolute bottom-3 left-3 right-3 text-left">
               <span className="text-[10px] sm:text-xs font-medium text-theme-primary leading-tight truncate block">
                 {tile.label}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── Dynamic Category Tiles (API-driven) ───────────────────────────────────────
+
+interface DynamicTile {
+  tile_key: string;
+  tile_label: string;
+  tile_emoji: string;
+  image_url: string | null;
+  is_active: boolean;
+  display_order: number;
+}
+
+interface DynamicCategoryTilesProps {
+  title: string;
+  columns?: 2 | 3 | 4;
+  className?: string;
+}
+
+export function DynamicCategoryTiles({ title, columns = 3, className = '' }: DynamicCategoryTilesProps) {
+  const [tiles, setTiles] = useState<DynamicTile[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTiles = async () => {
+      try {
+        const res = await fetch('/api/tile-assets/public');
+        if (res.ok) {
+          const data = await res.json();
+          // Filter active tiles and sort by display_order
+          const activeTiles = (data || [])
+            .filter((t: DynamicTile) => t.is_active)
+            .sort((a: DynamicTile, b: DynamicTile) => a.display_order - b.display_order);
+          setTiles(activeTiles);
+        }
+      } catch (e) {
+        console.error('Failed to fetch tile assets:', e);
+      }
+      setLoading(false);
+    };
+
+    fetchTiles();
+  }, []);
+
+  const colClass = {
+    2: 'grid-cols-2',
+    3: 'grid-cols-3',
+    4: 'grid-cols-4',
+  };
+
+  // Default fallback tiles (matching homepage categoryTiles)
+  const fallbackTiles: DynamicTile[] = [
+    { tile_key: 'food', tile_label: 'Food & Dining', tile_emoji: '🍽️', image_url: null, is_active: true, display_order: 1 },
+    { tile_key: 'products', tile_label: 'Shopping', tile_emoji: '🛍️', image_url: null, is_active: true, display_order: 2 },
+    { tile_key: 'services', tile_label: 'Services', tile_emoji: '🛠️', image_url: null, is_active: true, display_order: 3 },
+    { tile_key: 'rentals', tile_label: 'Rentals', tile_emoji: '🏠', image_url: null, is_active: true, display_order: 4 },
+    { tile_key: 'tours', tile_label: 'Tours', tile_emoji: '🗺️', image_url: null, is_active: true, display_order: 5 },
+    { tile_key: 'transport', tile_label: 'Transport', tile_emoji: '🚕', image_url: null, is_active: true, display_order: 6 },
+    { tile_key: 'events', tile_label: 'Events', tile_emoji: '🎫', image_url: null, is_active: true, display_order: 7 },
+    { tile_key: 'campaigns', tile_label: 'Campaigns', tile_emoji: '❤️', image_url: null, is_active: true, display_order: 8 },
+    { tile_key: 'community', tile_label: 'Community', tile_emoji: '🌴', image_url: null, is_active: true, display_order: 9 },
+  ];
+
+  const displayTiles = tiles.length > 0 ? tiles : fallbackTiles;
+
+  if (loading && tiles.length === 0) {
+    return (
+      <section className={`py-4 ${className}`}>
+        <h2 className="text-base font-bold text-theme-primary mb-3">{title}</h2>
+        <div className={`grid ${colClass[columns]} gap-3`}>
+          {fallbackTiles.map((tile) => (
+            <Link
+              key={tile.tile_key}
+              href={`/hub/${tile.tile_key}`}
+              className="group relative block aspect-square rounded-xl bg-surface-primary border border-border-primary overflow-hidden flex flex-col p-4 group-hover:border-accent-500/30 group-hover:shadow-md transition-all"
+            >
+              <div className="absolute top-3 left-3 z-10 text-theme-primary">
+                <EmojiIcon emoji={tile.tile_emoji} size={24} />
+              </div>
+              <div className="flex-1 w-full" />
+              <div className="absolute bottom-3 left-3 right-3 text-left">
+                <span className="text-[10px] sm:text-xs font-medium text-theme-primary leading-tight truncate block">
+                  {tile.tile_label}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className={`py-4 ${className}`}>
+      <h2 className="text-base font-bold text-theme-primary mb-3">{title}</h2>
+      <div className={`grid ${colClass[columns]} gap-3`}>
+        {displayTiles.map((tile) => (
+          <Link
+            key={tile.tile_key}
+            href={`/hub/${tile.tile_key}`}
+            className="group relative block aspect-square rounded-xl bg-surface-primary border border-border-primary overflow-hidden flex flex-col p-4 group-hover:border-accent-500/30 group-hover:shadow-md transition-all"
+          >
+            {/* Top-left icon - direct on background, dark color */}
+            <div className="absolute top-3 left-3 z-10 text-theme-primary">
+              {tile.image_url ? (
+                <span className="text-[10px] font-bold">•</span>
+              ) : (
+                <EmojiIcon emoji={tile.tile_emoji || '📦'} size={24} />
+              )}
+            </div>
+            
+            {/* Center area - background image if available, otherwise clean */}
+            {tile.image_url && (
+              <div className="absolute inset-0 -m-4">
+                <img
+                  src={tile.image_url}
+                  alt={tile.tile_label}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            
+            {/* Center area - clean, empty */}
+            <div className="flex-1 w-full relative z-10" />
+            
+            {/* Bottom label - directly on clean background */}
+            <div className="absolute bottom-3 left-3 right-3 text-left">
+              <span className="text-[10px] sm:text-xs font-medium text-theme-primary leading-tight truncate block">
+                {tile.tile_label}
               </span>
             </div>
           </Link>
