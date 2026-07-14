@@ -34,7 +34,7 @@ const EXPLORE_HUBS = [
   { href: '/hub/events', label: 'Events & Tickets', emoji: '🎫', group: 'Explore' },
   { href: '/hub/tours', label: 'Tours', emoji: '🗺️', group: 'Explore' },
   { href: '/hub/campaigns', label: 'Campaigns', emoji: '❤️', group: 'Impact' },
-  { href: '/hub/community', label: 'Community', emoji: '🌴', group: 'Impact' },
+  { href: '/community', label: 'Community', emoji: '🌴', group: 'Impact' },
 ];
 
 export default function Navbar() {
@@ -82,75 +82,71 @@ export default function Navbar() {
         <div className="max-w-[var(--content-max-width, 1280px)] mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full">
 
-            
             <div className="flex items-center gap-8">
-              
+
               <Link href="/" className="shrink-0 group">
                 <span className="text-display-md text-gradient-brand tracking-tight">
                   IslandHub
                 </span>
               </Link>
 
-              
               <div className="hidden lg:flex items-center gap-1">
-                              {NAV_LINKS.map((link) => (
-                                <Link
-                                  key={link.href}
-                                  href={link.href}
-                                  className="px-3 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg hover:bg-theme-tertiary transition-all duration-200"
-                                >
-                                  {link.label}
-                                </Link>
-                              ))}
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-3 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg hover:bg-theme-tertiary transition-all duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
-                              <div
-                                className="relative"
-                                onMouseEnter={() => setExploreOpen(true)}
-                                onMouseLeave={() => setExploreOpen(false)}
-                              >
-                                <button className="px-3 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg hover:bg-theme-tertiary transition-all duration-200 flex items-center gap-1">
-                                  More
-                                  <svg className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: exploreOpen ? 'rotate(180deg)' : 'rotate(0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                                  </svg>
-                                </button>
+                <div
+                  className="relative"
+                  onMouseEnter={() => setExploreOpen(true)}
+                  onMouseLeave={() => setExploreOpen(false)}
+                >
+                  <button className="px-3 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg hover:bg-theme-tertiary transition-all duration-200 flex items-center gap-1">
+                    More
+                    <svg className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: exploreOpen ? 'rotate(180deg)' : 'rotate(0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
 
-                                <AnimatePresence>
-                                  {exploreOpen && (
-                                    <motion.div
-                                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                                      transition={{ duration: 0.15 }}
-                                      className="absolute left-0 top-full mt-2 w-64 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary py-3 z-50"
-                                    >
-                                      {EXPLORE_HUBS.map((hub, i) => (
-                                        <Link
-                                          key={hub.href}
-                                          href={hub.href}
-                                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary transition-colors"
-                                        >
-                                          <EmojiIcon emoji={hub.emoji} size={16} />
-                                          {hub.label}
-                                        </Link>
-                                      ))}
-                                      <div className="my-2 border-t border-border-primary" />
-                                      <Link
-                                        href="/hub/services"
-                                        className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-amber-500 hover:bg-amber-500/10 transition-colors"
-                                      >
-                                        <span className="text-base">⚡</span>
-                                        IBT Solutions
-                                      </Link>
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
-                              </div>
-                            </div>
+                  <AnimatePresence>
+                    {exploreOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute left-0 top-full mt-2 w-64 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary py-3 z-50"
+                      >
+                        {EXPLORE_HUBS.map((hub, i) => (
+                          <Link
+                            key={hub.href}
+                            href={hub.href}
+                            className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary transition-colors"
+                          >
+                            <EmojiIcon emoji={hub.emoji} size={16} />
+                            {hub.label}
+                          </Link>
+                        ))}
+                        <div className="my-2 border-t border-border-primary" />
+                        <Link
+                          href="/hub/services"
+                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-amber-500 hover:bg-amber-500/10 transition-colors"
+                        >
+                          <span className="text-base">⚡</span>
+                          IBT Solutions
+                        </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
 
-            
             <div className="hidden md:flex flex-1 max-w-md mx-8">
               <form
                 onSubmit={(e) => {
@@ -172,24 +168,22 @@ export default function Navbar() {
               </form>
             </div>
 
-            
             <div className="flex items-center gap-2">
-              
               {mounted && (
-                              <button
-                                onClick={toggleTheme}
-                                className="p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
-                                aria-label="Toggle theme"
-                              >
-                                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                              </button>
-                            )}
+                <button
+                  onClick={toggleTheme}
+                  className="p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
+              )}
 
-                            <button
-                              onClick={() => setCartOpen(true)}
-                              className="relative p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
-                              aria-label="Cart"
-                            >
+              <button
+                onClick={() => setCartOpen(true)}
+                className="relative p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
+                aria-label="Cart"
+              >
                 <ShoppingCart className="w-5 h-5" />
                 {itemCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
@@ -198,42 +192,40 @@ export default function Navbar() {
                 )}
               </button>
 
-              
               {mounted && isAuthenticated && (
                 <div className="hidden sm:block">
                   <NotificationCenter />
                 </div>
               )}
 
-              
               <div className="hidden lg:flex items-center gap-2 ml-2">
-                              {mounted && (
-                                isAuthenticated ? (
-                                  <UserProfileDropdown />
-                                ) : (
-                                  <>
-                                    <Link
-                                      href="/login"
-                                      className="px-4 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg transition-colors"
-                                    >
-                                      Log in
-                                    </Link>
-                                    <Link
-                                      href="/register"
-                                      className="px-5 py-2.5 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl hover:from-brand-700 hover:to-accent-700 shadow-sm transition-all"
-                                    >
-                                      Join Free
-                                    </Link>
-                                  </>
-                                )
-                              )}
-                            </div>
+                {mounted && (
+                  isAuthenticated ? (
+                    <UserProfileDropdown />
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="px-4 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg transition-colors"
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="px-5 py-2.5 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl hover:from-brand-700 hover:to-accent-700 shadow-sm transition-all"
+                      >
+                        Join Free
+                      </Link>
+                    </>
+                  )
+                )}
+              </div>
 
-                            <button
-                              onClick={() => setMobileOpen(!mobileOpen)}
-                              className="lg:hidden p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
-                              aria-label="Menu"
-                            >
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="lg:hidden p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
+                aria-label="Menu"
+              >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
@@ -241,7 +233,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -260,7 +251,7 @@ export default function Navbar() {
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               className="fixed right-0 top-0 bottom-0 z-[70] w-[320px] bg-surface-elevated shadow-2xl lg:hidden flex flex-col overflow-y-auto"
             >
-              
+
               <div className="flex items-center justify-between p-5 border-b border-white/10 shrink-0">
                 <span className="text-headline-md text-white font-bold">IslandHub</span>
                 <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl hover:bg-white/10 transition-colors">
@@ -268,7 +259,6 @@ export default function Navbar() {
                 </button>
               </div>
 
-              
               <div className="p-4 border-b border-white/10">
                 <form onSubmit={(e) => { e.preventDefault(); const q = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value; if (q.trim()) { router.push(`/search?q=${encodeURIComponent(q)}`); setMobileOpen(false); } }}>
                   <div className="relative">
@@ -279,7 +269,6 @@ export default function Navbar() {
                 </form>
               </div>
 
-              
               <div className="flex-1 p-4 space-y-1">
                 {NAV_LINKS.map((link) => (
                   <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
@@ -318,7 +307,6 @@ export default function Navbar() {
                 </Link>
               </div>
 
-              
               <div className="p-4 border-t border-white/10 shrink-0 space-y-3">
                 {mounted && (
                   isAuthenticated ? (
@@ -374,7 +362,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );
