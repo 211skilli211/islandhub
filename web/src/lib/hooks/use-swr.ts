@@ -293,7 +293,7 @@ export function useFeedPosts(params?: { category?: string; limit?: number; offse
   const queryString = params ? '?' + new URLSearchParams(params as Record<string, string>).toString() : '';
 
   return useSWR<FeedPost[]>(
-    `/community/posts${queryString}`,
+    `/posts${queryString}`,
     fetcher,
     {
       dedupingInterval: 60000,
