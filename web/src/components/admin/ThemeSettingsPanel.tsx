@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from '@/lib/toast';
-import type { ToastStyle } from '@/lib/toast';
 import VisualEffectsPanel from './VisualEffectsPanel';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
+
+type ToastStyle = 'modern-dark' | 'clean-light' | 'teal-accent' | 'neumorphic' | 'minimal';
 
 interface ThemeSettingsPanelProps {
     onThemeChange?: (theme: string) => void;
