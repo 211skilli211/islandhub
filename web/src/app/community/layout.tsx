@@ -183,7 +183,7 @@ function SidebarContent({ pathname, user, onLogout, onClose }: {
 
       {/* Shortcuts */}
       <div className="pt-3 border-t border-border-primary">
-        <div className="px-3 mb-2 text-[10px] font-black uppercase tracking-widest text-ink-tertiary">Your shortcuts</div>
+        <div className="px-3 mb-2 text-[10px] font-black uppercase tracking-widest text-tertiary">Your shortcuts</div>
         <div className="space-y-0.5">
           {SHORTCUTS.map(sc => (
             <Link key={sc.label} href={sc.href} onClick={onClose}

@@ -586,7 +586,7 @@ export default function CommunityPage() {
       {/* Stories row */}
       <div className="border-b border-border-primary bg-surface-elevated/50 backdrop-blur-sm sticky top-14 z-30 lg:top-0 lg:border-b lg:bg-surface-elevated/50">
         <div className="max-w-[1280px] mx-auto px-4 py-3">
-          <div className="flex gap-3 overflow-x-auto pb-2 snap-x" style={{ scrollbarWidth: 'none', '-ms-overflow-style': 'none' }}>
+          <div className="flex gap-3 overflow-x-auto pb-2 snap-x" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}>
             {allStoryGroups.slice(0, 8).map((group, idx) => (
               <StoryCircle
                 key={group.user_id}
