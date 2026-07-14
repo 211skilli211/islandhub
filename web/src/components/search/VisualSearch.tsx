@@ -79,7 +79,7 @@ export default function VisualSearch() {
         }
         byteArrays.push(new Uint8Array(byteNumbers));
       }
-      const blob = new Blob(byteArrays, { type: 'image/jpeg' });
+      const blob = new Blob(byteArrays as BlobPart[], { type: 'image/jpeg' });
 
       const formData = new FormData();
       formData.append('image', blob, 'search.jpg');
