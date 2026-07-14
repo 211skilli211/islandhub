@@ -9,8 +9,7 @@ import { BadgeList } from './BadgeSelector';
 import React, { useState, useEffect } from 'react';
 import KitchenSidebar from './KitchenSidebar';
 import FoodSelectionModal from './FoodSelectionModal';
-import ServiceBookingModal from './ServiceBookingModal';
-import HeroBackground from '@/components/HeroBackground';
+import { useStoreSections } from './hooks/useStoreSections';
 import PromotionBanner from '@/components/advertising/PromotionBanner';
 import AdSpace from '@/components/advertising/AdSpace';
 
