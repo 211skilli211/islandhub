@@ -93,60 +93,60 @@ export default function Navbar() {
 
               
               <div className="hidden lg:flex items-center gap-1">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="px-3 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg hover:bg-surface-secondary transition-all duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                              {NAV_LINKS.map((link) => (
+                                <Link
+                                  key={link.href}
+                                  href={link.href}
+                                  className="px-3 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg hover:bg-theme-tertiary transition-all duration-200"
+                                >
+                                  {link.label}
+                                </Link>
+                              ))}
 
-                
-                <div
-                  className="relative"
-                  onMouseEnter={() => setExploreOpen(true)}
-                  onMouseLeave={() => setExploreOpen(false)}
-                >
-                  <button className="px-3 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg hover:bg-surface-secondary transition-all duration-200 flex items-center gap-1">
-                    More
-                    <svg className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: exploreOpen ? 'rotate(180deg)' : 'rotate(0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
+                              <div
+                                className="relative"
+                                onMouseEnter={() => setExploreOpen(true)}
+                                onMouseLeave={() => setExploreOpen(false)}
+                              >
+                                <button className="px-3 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg hover:bg-theme-tertiary transition-all duration-200 flex items-center gap-1">
+                                  More
+                                  <svg className="w-3.5 h-3.5 transition-transform duration-200" style={{ transform: exploreOpen ? 'rotate(180deg)' : 'rotate(0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                  </svg>
+                                </button>
 
-                  <AnimatePresence>
-                    {exploreOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute left-0 top-full mt-2 w-64 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary py-3 z-50"
-                      >
-                        {EXPLORE_HUBS.map((hub, i) => (
-                          <Link
-                            key={hub.href}
-                            href={hub.href}
-                            className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-ink-secondary hover:bg-surface-secondary hover:text-ink-primary transition-colors"
-                          >
-                            <EmojiIcon emoji={hub.emoji} size={16} />
-                            {hub.label}
-                          </Link>
-                        ))}
-                        <div className="my-2 border-t border-border-primary" />
-                        <Link
-                          href="/hub/services"
-                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-amber-500 hover:bg-amber-500/10 transition-colors"
-                        >
-                          <span className="text-base">⚡</span>
-                          IBT Solutions
-                        </Link>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                                <AnimatePresence>
+                                  {exploreOpen && (
+                                    <motion.div
+                                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                                      transition={{ duration: 0.15 }}
+                                      className="absolute left-0 top-full mt-2 w-64 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary py-3 z-50"
+                                    >
+                                      {EXPLORE_HUBS.map((hub, i) => (
+                                        <Link
+                                          key={hub.href}
+                                          href={hub.href}
+                                          className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-medium text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary transition-colors"
+                                        >
+                                          <EmojiIcon emoji={hub.emoji} size={16} />
+                                          {hub.label}
+                                        </Link>
+                                      ))}
+                                      <div className="my-2 border-t border-border-primary" />
+                                      <Link
+                                        href="/hub/services"
+                                        className="flex items-center gap-3 px-4 py-2.5 text-body-sm font-semibold text-amber-500 hover:bg-amber-500/10 transition-colors"
+                                      >
+                                        <span className="text-base">⚡</span>
+                                        IBT Solutions
+                                      </Link>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            </div>
               </div>
             </div>
 
@@ -161,12 +161,12 @@ export default function Navbar() {
                 className="w-full"
               >
                 <div className="relative">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-tertiary" />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-theme-tertiary" />
                   <input
                     name="search"
                     type="search"
                     placeholder="Search the island..."
-                    className="w-full pl-10 pr-4 py-2.5 rounded-full bg-surface-secondary border border-border-primary text-body-sm text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-full bg-theme-tertiary border border-border-primary text-body-sm text-theme-primary placeholder:text-theme-tertiary focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 transition-all"
                   />
                 </div>
               </form>
@@ -176,20 +176,20 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               
               {mounted && (
-                <button
-                  onClick={toggleTheme}
-                  className="p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
-                  aria-label="Toggle theme"
-                >
-                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                </button>
-              )}
+                              <button
+                                onClick={toggleTheme}
+                                className="p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
+                                aria-label="Toggle theme"
+                              >
+                                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                              </button>
+                            )}
 
-              
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
-                aria-label="Cart"
+                            <button
+                              onClick={() => setCartOpen(true)}
+                              className="relative p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
+                              aria-label="Cart"
+                            >
               >
                 <ShoppingCart className="w-5 h-5" />
                 {itemCount > 0 && (
@@ -208,33 +208,33 @@ export default function Navbar() {
 
               
               <div className="hidden lg:flex items-center gap-2 ml-2">
-                {mounted && (
-                  isAuthenticated ? (
-                    <UserProfileDropdown />
-                  ) : (
-                    <>
-                      <Link
-                        href="/login"
-                        className="px-4 py-2 text-body-sm font-semibold text-ink-secondary hover:text-ink-primary rounded-lg transition-colors"
-                      >
-                        Log in
-                      </Link>
-                      <Link
-                        href="/register"
-                        className="px-5 py-2.5 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl hover:from-brand-700 hover:to-accent-700 shadow-sm transition-all"
-                      >
-                        Join Free
-                      </Link>
-                    </>
-                  )
-                )}
-              </div>
+                              {mounted && (
+                                isAuthenticated ? (
+                                  <UserProfileDropdown />
+                                ) : (
+                                  <>
+                                    <Link
+                                      href="/login"
+                                      className="px-4 py-2 text-body-sm font-semibold text-theme-secondary hover:text-theme-primary rounded-lg transition-colors"
+                                    >
+                                      Log in
+                                    </Link>
+                                    <Link
+                                      href="/register"
+                                      className="px-5 py-2.5 text-body-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-600 rounded-xl hover:from-brand-700 hover:to-accent-700 shadow-sm transition-all"
+                                    >
+                                      Join Free
+                                    </Link>
+                                  </>
+                                )
+                              )}
+                            </div>
 
-              
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden p-2.5 rounded-xl text-ink-secondary hover:text-ink-primary hover:bg-surface-secondary transition-all"
-                aria-label="Menu"
+                            <button
+                              onClick={() => setMobileOpen(!mobileOpen)}
+                              className="lg:hidden p-2.5 rounded-xl text-theme-secondary hover:text-theme-primary hover:bg-theme-tertiary transition-all"
+                              aria-label="Menu"
+                            >
               >
                 {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
