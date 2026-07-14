@@ -34,7 +34,7 @@ export function detectPerformanceTier(): PerformanceTier {
   if (pixelCount > 2073600) score -= 1; // >1080p penalty
 
   // Connection type
-  const conn = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
+  const conn = (navigator as Navigator & { connection?: { effectiveType?: string; saveData?: boolean } }).connection;
   if (conn) {
     if (conn.effectiveType === '4g') score += 1;
     else if (conn.effectiveType === '3g') score -= 1;
