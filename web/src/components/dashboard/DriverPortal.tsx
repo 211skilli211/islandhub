@@ -327,7 +327,7 @@ export default function DriverPortal() {
                                         </div>
                                         <button
                                             disabled={!isOnline}
-                                            onClick={() => handleAcceptJob(job.id)}
+                                            onClick={() => handleAcceptJob(Number(job.id))}
                                             className="px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 disabled:opacity-50 disabled:scale-100 transition-all"
                                         >
                                             Accept ➔
