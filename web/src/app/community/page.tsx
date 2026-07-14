@@ -562,7 +562,7 @@ export default function CommunityPage() {
   // Combine "Your Story" with fetched stories
   const allStoryGroups: StoryGroup[] = [
     {
-      user_id: user?.user_id || 0,
+      user_id: user?.id || 0,
       user_name: user?.name || 'You',
       user_photo: user?.avatar_url || '',
       stories: []
