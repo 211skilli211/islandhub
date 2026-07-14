@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth';
-import MediaUploader from '@/components/admin/MediaUploader';
+import MediaUploader from './MediaUploader';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
 interface TileAsset {
@@ -107,7 +107,7 @@ export default function TileManagerPage() {
 
     const handleDragLeave = () => setDragOver(null);
 
-    const handleDrop = (e: React.DragEvent, tileKey: string) => {
+    const handleDrop = async (e: React.DragEvent, tileKey: string) => {
         e.preventDefault();
         setDragOver(null);
         const file = e.dataTransfer.files[0];
