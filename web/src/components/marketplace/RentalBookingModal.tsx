@@ -160,7 +160,7 @@ export const RentalBookingModal = ({ isOpen, onClose, rental, storeId }: RentalB
     if (!isOpen) return null;
 
     return (
-        <Transition.Root show={isOpen} as={Dialog}>
+        <Transition.Root show={isOpen} as={Dialog} onClose={onClose}>
             <Dialog.Panel className="relative z-50 max-w-lg mx-auto">
                 <Transition.Child
                     as={motion.div}
