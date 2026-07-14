@@ -1072,10 +1072,10 @@ export default function BannerModal({ isOpen, onClose, onSave, initialData, mode
                                     </label>
                                     <div className="grid grid-cols-4 gap-2">
                                         {['filled', 'outline', 'ghost', 'gradient'].map(style => (
-                                            <button
-                                                key={style}
-                                                type="button"
-                                                onClick={() => setFormData({ ...formData, button_style: item.id as 'filled' | 'outline' | 'ghost' | 'gradient' })}
+                                                    <button
+                                                        key={style}
+                                                        type="button"
+                                                        onClick={() => setFormData({ ...formData, button_style: style as 'filled' | 'outline' | 'ghost' | 'gradient' })}
                                                 disabled={!formData.show_button}
                                                 className={`px-3 py-2 rounded-lg text-xs font-bold capitalize transition-all border-2 ${formData.button_style === style
                                                     ? 'border-teal-500 bg-accent-500/10 text-accent-400'
