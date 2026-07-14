@@ -323,7 +323,7 @@ export default function DriverPortal() {
                                     </div>
                                     <div className="flex items-center gap-6">
                                         <div className="text-right">
-                                            <p className="text-2xl font-black text-ink-primary italic tracking-tighter">${job.price}</p>
+                                            <p className="text-2xl font-black text-ink-primary italic tracking-tighter">${String(job.price ?? '')}</p>
                                         </div>
                                         <button
                                             disabled={!isOnline}
@@ -355,7 +355,7 @@ export default function DriverPortal() {
                                             </h4>
                                         </div>
                                         <div className="text-right">
-                                            <p className="text-3xl font-black tracking-tighter italic">${job.price}</p>
+                                            <p className="text-3xl font-black tracking-tighter italic">${String(job.price ?? '')}</p>
                                         </div>
                                     </div>
 
