@@ -313,7 +313,7 @@ export default function DriverPortal() {
                                             </h4>
                                             <div className="flex flex-wrap gap-2 mt-1">
                                                 <span className="px-2 py-0.5 bg-accent-500/15 text-accent-500 rounded text-[9px] font-black uppercase">
-                                                    {job.service_type}
+                                                    {String(job.service_type ?? '')}
                                                 </span>
                                                 <span className="text-[10px] font-bold text-ink-tertiary">
                                                     📍 {parseLocation(job.pickup_location).split(',')[0]}
