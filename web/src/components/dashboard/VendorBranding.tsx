@@ -29,7 +29,7 @@ const INITIAL_FORM_STATE = {
         align: 'left',
         heading: { model: 'classic', color: '#ffffff', size: 72, effect: '', custom_font: '' },
         subtitle: { model: 'classic', color: 'rgba(255,255,255,0.8)', size: 24, effect: '', custom_font: '' }
-    } as Record<string, unknown>,
+    },
     description: '',
     location: '',
     logo_url: '',
@@ -435,7 +435,7 @@ export default function VendorBranding({ storeId }: { storeId?: number }) {
                                 <div className="flex items-center gap-2">
                                     <input
                                         type="color"
-                                        value={formData.typography?.heading?.color || '#ffffff'}
+                                        value={(formData.typography as any)?.heading?.color || '#ffffff'}
                                         onChange={(e) => setFormData({ ...formData, typography: { ...formData.typography, heading: { ...(formData.typography?.heading || {}), color: e.target.value } } })}
                                         className="w-6 h-6 rounded-full overflow-hidden border-none cursor-pointer"
                                     />
