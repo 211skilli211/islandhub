@@ -214,7 +214,6 @@ export default function OverviewTab({ stats, onNavigate }: OverviewTabProps) {
         });
     };
 
-    const [editingBanner, setEditingBanner] = useState<any>(null);
     const [bannerEditForm, setBannerEditForm] = useState({
         title: '', subtitle: '', target_url: '', image_url: '', color_theme: 'teal',
     });
