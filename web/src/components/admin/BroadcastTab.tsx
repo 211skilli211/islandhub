@@ -512,7 +512,6 @@ export default function BroadcastTab() {
                                                                             className="p-1.5 bg-danger-primary/20 text-danger-primary rounded-lg scale-75 hover:scale-90 transition-all"
                                                                         >
                                                                             🗑️
-                                                                        <div className="space-y-4">
                                                                                         <div className="flex justify-between items-end">
                                                                                             <div>
                                                                                                 <h3 className="text-2xl font-black text-theme-primary tracking-tight">Broadcast History</h3>
