@@ -19,11 +19,11 @@ interface Marquee {
 }
 
 const marqueeColumns: Column<Marquee>[] = [
-    { key: 'marquee_id', header: 'ID', className: 'w-16' },
-    { key: 'message', header: 'Message', className: 'flex-1' },
-    { key: 'priority', header: 'Priority', className: 'w-24' },
-    { key: 'is_active', header: 'Status', className: 'w-28', render: (m) => m.is_active ? <span className="text-green-600 font-medium">Active</span> : <span className="text-red-600 font-medium">Inactive</span> },
-    { key: 'created_at', header: 'Created', className: 'w-40', render: (m) => new Date(m.created_at).toLocaleString() },
+    { accessor: 'marquee_id', header: 'ID', className: 'w-16' },
+    { accessor: 'message', header: 'Message', className: 'flex-1' },
+    { accessor: 'priority', header: 'Priority', className: 'w-24' },
+    { accessor: 'is_active', header: 'Status', className: 'w-28', render: (m) => m.is_active ? <span className="text-green-600 font-medium">Active</span> : <span className="text-red-600 font-medium">Inactive</span> },
+    { accessor: 'created_at', header: 'Created', className: 'w-40', render: (m) => new Date(m.created_at).toLocaleString() },
 ];
 
 export default function BroadcastTab() {
