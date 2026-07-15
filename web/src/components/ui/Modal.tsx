@@ -58,7 +58,6 @@ export default function Modal({
     <AnimatePresence>
       {isOpen && (
         <>
-          
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -68,7 +67,6 @@ export default function Modal({
             onClick={onClose}
           />
 
-          
           <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -77,22 +75,21 @@ export default function Modal({
               transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className={`
                 w-full ${sizeStyles[size]}
-                bg-surface-elevated rounded-2xl shadow-2xl
+                bg-card rounded-2xl shadow-2xl
                 border border-border-primary
                 pointer-events-auto
                 flex flex-col max-h-[90vh]
               `}
               onClick={(e) => e.stopPropagation()}
             >
-              
               {(title || showClose) && (
                 <div className="flex items-start justify-between px-6 pt-6 pb-2 shrink-0">
                   <div>
                     {title && (
-                      <h3 className="text-headline-md text-ink-primary">{title}</h3>
+                      <h3 className="text-headline-md text-theme-primary">{title}</h3>
                     )}
                     {description && (
-                      <p className="text-body-sm text-ink-secondary mt-1">{description}</p>
+                      <p className="text-body-sm text-theme-secondary mt-1">{description}</p>
                     )}
                   </div>
                   {showClose && (
@@ -108,7 +105,6 @@ export default function Modal({
                 </div>
               )}
 
-              
               <div className="px-6 pb-6 pt-4 overflow-y-auto flex-1">
                 {children}
               </div>
@@ -147,12 +143,12 @@ export function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm" showClose={false}>
-      <p className="text-body-sm text-ink-secondary mb-6">{message}</p>
+      <p className="text-body-sm text-theme-secondary mb-6">{message}</p>
       <div className="flex justify-end gap-3">
         <button
           onClick={onClose}
           disabled={loading}
-          className="px-4 py-2 text-sm font-semibold text-ink-secondary hover:bg-surface-secondary rounded-xl transition-colors disabled:opacity-50"
+          className="px-4 py-2 text-sm font-semibold text-theme-secondary hover:bg-theme-tertiary rounded-xl transition-colors disabled:opacity-50"
         >
           {cancelLabel}
         </button>
@@ -162,8 +158,8 @@ export function ConfirmModal({
           className={`
             px-4 py-2 text-sm font-semibold rounded-xl transition-colors disabled:opacity-50
             ${variant === 'danger'
-              ? 'bg-danger-600 text-white hover:bg-danger-700'
-              : 'bg-brand-600 text-white hover:bg-brand-700'
+              ? 'bg-danger-primary text-white hover:bg-danger-primary/90'
+              : 'bg-accent-primary text-white hover:bg-accent-primary/90'
             }
           `}
         >

@@ -3,6 +3,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import Modal from './Modal';
 
 interface ToastProps {
   message: string;
@@ -12,10 +13,10 @@ interface ToastProps {
 }
 
 const typeStyles = {
-  success: 'bg-palm-600 text-white',
-  error: 'bg-danger-600 text-white',
-  warning: 'bg-sand-500 text-white',
-  info: 'bg-brand-600 text-white',
+  success: 'bg-success-primary text-white border-success-primary/20',
+  error: 'bg-danger-primary text-white border-danger-primary/20',
+  warning: 'bg-warning-primary text-white border-warning-primary/20',
+  info: 'bg-accent-primary text-white border-accent-primary/20',
 };
 
 const typeIcons = {
@@ -40,8 +41,8 @@ export default function Toast({ message, type = 'info', isVisible, onClose }: To
         >
           <div
             className={`
-              px-5 py-3 rounded-xl shadow-xl
-              flex items-center gap-3 min-w-[280px]
+              px-5 py-3 rounded-xl shadow-xl border
+              flex items-center gap-3 min-w-[280px] max-w-md
               ${typeStyles[type]}
             `}
           >
@@ -49,7 +50,7 @@ export default function Toast({ message, type = 'info', isVisible, onClose }: To
             <p className="text-sm font-semibold flex-1">{message}</p>
             <button
               onClick={onClose}
-              className="text-white/70 hover:text-white transition-colors text-lg font-bold"
+              className="text-white/70 hover:text-white transition-colors text-lg font-bold leading-none"
             >
               ×
             </button>
@@ -85,4 +86,75 @@ export function useToast() {
       onClose={() => setToast((t) => ({ ...t, visible: false }))}
     />
   )};
+}
+
+/* PromptModal - replaces native prompt() */
+interface PromptModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (value: string) => void;
+  title: string;
+  message?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  inputType?: 'text' | 'password';
+}
+
+export function PromptModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  title,
+  message,
+  placeholder = '',
+  defaultValue = '',
+  inputType = 'text',
+}: PromptModalProps) {
+  const [value, setValue] = React.useState(defaultValue);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      setValue(defaultValue);
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [isOpen, defaultValue]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(value);
+    onClose();
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm" showClose={false}>
+      {message && <p className="text-body-sm text-theme-secondary mb-4">{message}</p>}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <input
+          ref={inputRef}
+          type={inputType}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-lg border border-border-primary bg-input text-theme-primary placeholder:text-theme-tertiary focus:outline-none focus:border-accent-primary/50"
+          autoFocus
+        />
+        <div className="flex justify-end gap-3 pt-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 text-sm font-semibold text-theme-secondary hover:bg-theme-tertiary rounded-xl transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 text-sm font-semibold rounded-xl bg-accent-primary text-white hover:bg-accent-primary/90 transition-colors"
+          >
+            OK
+          </button>
+        </div>
+      </form>
+    </Modal>
+  );
 }
