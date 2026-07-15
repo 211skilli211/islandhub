@@ -133,7 +133,7 @@ export default function BroadcastTab() {
     ];
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-700">
+        <div className="space-y-8 animate-in fade-in duration-700 pb-24">
             
             <div className="bg-ink-primary text-white p-6 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
@@ -143,12 +143,12 @@ export default function BroadcastTab() {
                         <p className="text-sm text-ink-tertiary font-medium">Manage global scrolling behavior</p>
                     </div>
                 </div>
-                <div className="flex bg-surface-tertiary p-1.5 rounded-2xl gap-2 items-center">
-                    <div className="relative">
+                <div className="flex flex-col sm:flex-row bg-surface-tertiary p-1.5 rounded-2xl gap-2 items-center w-full sm:w-auto">
+                    <div className="relative w-full sm:w-auto">
                         <select
                             value={controls.preset}
                             onChange={(e) => updateControls({ preset: e.target.value })}
-                            className="bg-ink-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-border-primary outline-none appearance-none pr-10 hover:bg-surface-tertiary transition-all cursor-pointer shadow-lg"
+                            className="w-full sm:w-auto bg-ink-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-border-primary outline-none appearance-none pr-10 hover:bg-surface-tertiary transition-all cursor-pointer shadow-lg"
                         >
                             {PRESETS.map(p => (
                                 <option key={p.id} value={p.id}>
@@ -160,42 +160,42 @@ export default function BroadcastTab() {
                             <ChevronRight size={14} className="rotate-90" />
                         </div>
                     </div>
-                    <div className="w-px bg-surface-tertiary h-6 mx-1" />
-                    <button
-                        onClick={() => updateControls({ direction: controls.direction === 'normal' ? 'reverse' : 'normal' })}
-                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${controls.direction === 'reverse' ? 'bg-[#14b8a6] text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
-                    >
-                        {controls.direction === 'normal' ? '⬅️ Left' : '➡️ Right'}
-                    </button>
-                    <div className="w-px bg-surface-tertiary h-6 mx-1" />
-                    <button
-                        onClick={() => updateControls({ isPlaying: !controls.isPlaying })}
-                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${!controls.isPlaying ? 'bg-sand-500/50 text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
-                    >
-                        {controls.isPlaying ? '⏸ Pause' : '▶ Play'}
-                    </button>
-                    <div className="w-px bg-surface-tertiary h-6 mx-1" />
-                    <button
-                        onClick={() => updateControls({ displayMode: controls.displayMode === 'scroll' ? 'typewriter' : 'scroll' })}
-                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-1.5 ${controls.displayMode === 'typewriter' ? 'bg-purple-500 text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
-                    >
-                        {controls.displayMode === 'typewriter' ? <Type size={12} /> : <AlignLeft size={12} />}
-                        {controls.displayMode === 'typewriter' ? 'Typewriter' : 'Scroll'}
-                    </button>
+                    <div className="w-full sm:w-px bg-surface-tertiary h-6 mx-1 sm:mx-1 sm:my-0" />
+                    <div className="flex flex-wrap items-center justify-center gap-1.5 w-full sm:w-auto">
+                        <button
+                            onClick={() => updateControls({ direction: controls.direction === 'normal' ? 'reverse' : 'normal' })}
+                            className={`px-3 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${controls.direction === 'reverse' ? 'bg-[#14b8a6] text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
+                        >
+                            {controls.direction === 'normal' ? '⬅️ Left' : '➡️ Right'}
+                        </button>
+                        <button
+                            onClick={() => updateControls({ isPlaying: !controls.isPlaying })}
+                            className={`px-3 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${!controls.isPlaying ? 'bg-sand-500/50 text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
+                        >
+                            {controls.isPlaying ? '⏸ Pause' : '▶ Play'}
+                        </button>
+                        <button
+                            onClick={() => updateControls({ displayMode: controls.displayMode === 'scroll' ? 'typewriter' : 'scroll' })}
+                            className={`px-3 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 whitespace-nowrap ${controls.displayMode === 'typewriter' ? 'bg-purple-500 text-white shadow-lg' : 'text-ink-tertiary hover:bg-surface-tertiary'}`}
+                        >
+                            {controls.displayMode === 'typewriter' ? <Type size={10} /> : <AlignLeft size={10} />}
+                            {controls.displayMode === 'typewriter' ? 'Typewriter' : 'Scroll'}
+                        </button>
+                    </div>
                 </div>
             </div>
 
             
             {currentMarquee && (
-                <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <EmojiIcon emoji="📢" size={18} className="w-10 h-10 bg-accent-500/100 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-accent-500/15 text-lg" />
-                        <div>
+                <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                        <EmojiIcon emoji="📢" size={18} className="w-10 h-10 bg-accent-500/100 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-accent-500/15 text-lg shrink-0" />
+                        <div className="min-w-0">
                             <p className="text-[10px] font-black uppercase tracking-widest text-accent-400 mb-0.5">Live On Platform</p>
-                            <p className="font-bold text-ink-primary italic">"{currentMarquee.message}"</p>
+                            <p className="font-bold text-ink-primary italic text-wrap break-words">"{currentMarquee.message}"</p>
                         </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 shrink-0">
                         <button
                             onClick={() => {
                                 setNewMarquee(currentMarquee.message);
