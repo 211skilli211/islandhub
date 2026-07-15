@@ -47,24 +47,24 @@
     --color-segment-cta: var(--segment-cta-bg, var(--accent-primary));
     --color-segment-icon: var(--segment-icon-tint, var(--accent-muted));
 
-    /* Ink (Caribbean-tinted text neutrals — OKLCH for perceptual uniformity) */
-    --color-ink-950: oklch(0.10 0.012 230);
-    --color-ink-900: oklch(0.13 0.014 230);
-    --color-ink-800: oklch(0.20 0.016 230);
-    --color-ink-700: oklch(0.30 0.018 230);
-    --color-ink-600: oklch(0.42 0.020 230);
-    --color-ink-500: oklch(0.55 0.020 230);
-    --color-ink-400: oklch(0.72 0.016 230);
-    --color-ink-300: oklch(0.82 0.012 230);
-    --color-ink-200: oklch(0.90 0.008 230);
-    --color-ink-100: oklch(0.96 0.004 230);
-    --color-ink-50: oklch(0.98 0.002 230);
+    /* Ink (Caribbean-tinted text neutrals — OKLCH for perceptual uniformity) — now theme-aware via CSS variables */
+    --color-ink-950: var(--ink-950);
+    --color-ink-900: var(--ink-900);
+    --color-ink-800: var(--ink-800);
+    --color-ink-700: var(--ink-700);
+    --color-ink-600: var(--ink-600);
+    --color-ink-500: var(--ink-500);
+    --color-ink-400: var(--ink-400);
+    --color-ink-300: var(--ink-300);
+    --color-ink-200: var(--ink-200);
+    --color-ink-100: var(--ink-100);
+    --color-ink-50: var(--ink-50);
 
-    /* Surface (Caribbean-tinted backgrounds — OKLCH for perceptual uniformity) */
-    --color-surface-0: oklch(0.10 0.012 230);
-    --color-surface-1: oklch(0.13 0.018 230);
-    --color-surface-2: oklch(0.20 0.022 230);
-    --color-surface-3: oklch(0.30 0.024 230);
+    /* Surface (Caribbean-tinted backgrounds — OKLCH for perceptual uniformity) — now theme-aware via CSS variables */
+    --color-surface-0: var(--surface-0);
+    --color-surface-1: var(--surface-1);
+    --color-surface-2: var(--surface-2);
+    --color-surface-3: var(--surface-3);
     --color-surface-elevated: var(--surface-elevated);
 
     --font-sans: var(--font-geist-sans);
@@ -115,6 +115,25 @@
 
     /* Elevated surface — cards, modals, dropdowns */
     --surface-elevated: oklch(0.98 0.003 230);
+
+    /* Ink (text neutrals) — Light Mode */
+    --ink-950: oklch(0.10 0.012 230);
+    --ink-900: oklch(0.13 0.014 230);
+    --ink-800: oklch(0.20 0.016 230);
+    --ink-700: oklch(0.30 0.018 230);
+    --ink-600: oklch(0.42 0.020 230);
+    --ink-500: oklch(0.55 0.020 230);
+    --ink-400: oklch(0.72 0.016 230);
+    --ink-300: oklch(0.82 0.012 230);
+    --ink-200: oklch(0.90 0.008 230);
+    --ink-100: oklch(0.96 0.004 230);
+    --ink-50: oklch(0.98 0.002 230);
+
+    /* Surface (background neutrals) — Light Mode */
+    --surface-0: oklch(0.98 0.003 230);
+    --surface-1: oklch(0.96 0.004 230);
+    --surface-2: oklch(0.90 0.008 230);
+    --surface-3: oklch(0.82 0.012 230);
 }
 
 /* Dark mode - automatically applied when 'dark' class is present */
@@ -160,6 +179,25 @@
 
     /* Elevated surface — cards, modals, dropdowns */
     --surface-elevated: oklch(0.16 0.018 230);
+
+    /* Ink (text neutrals) — Dark Mode */
+    --ink-950: oklch(0.98 0.002 230);
+    --ink-900: oklch(0.96 0.004 230);
+    --ink-800: oklch(0.90 0.008 230);
+    --ink-700: oklch(0.82 0.012 230);
+    --ink-600: oklch(0.72 0.016 230);
+    --ink-500: oklch(0.55 0.020 230);
+    --ink-400: oklch(0.42 0.020 230);
+    --ink-300: oklch(0.30 0.018 230);
+    --ink-200: oklch(0.20 0.016 230);
+    --ink-100: oklch(0.13 0.014 230);
+    --ink-50: oklch(0.10 0.012 230);
+
+    /* Surface (background neutrals) — Dark Mode */
+    --surface-0: oklch(0.10 0.012 230);
+    --surface-1: oklch(0.13 0.018 230);
+    --surface-2: oklch(0.20 0.022 230);
+    --surface-3: oklch(0.30 0.024 230);
 }
 
 /* Base element styles */
