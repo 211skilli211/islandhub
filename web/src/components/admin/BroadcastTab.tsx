@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -18,6 +17,14 @@ interface Marquee {
     emoji?: string;
     created_at: string;
 }
+
+const marqueeColumns: Column<Marquee>[] = [
+    { key: 'marquee_id', header: 'ID', className: 'w-16' },
+    { key: 'message', header: 'Message', className: 'flex-1' },
+    { key: 'priority', header: 'Priority', className: 'w-24' },
+    { key: 'is_active', header: 'Status', className: 'w-28', render: (m) => m.is_active ? <span className="text-green-600 font-medium">Active</span> : <span className="text-red-600 font-medium">Inactive</span> },
+    { key: 'created_at', header: 'Created', className: 'w-40', render: (m) => new Date(m.created_at).toLocaleString() },
+];
 
 export default function BroadcastTab() {
     const [templates, setTemplates] = useState<any[]>([]);
@@ -48,497 +55,397 @@ export default function BroadcastTab() {
         speed: 1, // 1 = normal, 2 = fast, 0.5 = slow
         preset: 'white_black', // Default to white_black instead of island_orange
         displayMode: 'scroll' as 'scroll' | 'typewriter',
-        typewriterPreset: 'smooth' as 'terminal' | 'smooth' | 'fast' | 'dramatic',
-        typewriterSpeed: 80, // ms per character
-        typewriterLoop: true,
     });
 
-    const updateControls = async (updates: any) => {
-        const newControls = { ...controls, ...updates };
-        setControls(newControls);
-        try {
-            await api.post('/marquee/settings', newControls);
-            toast.success('Marquee settings updated');
-        } catch (error) {
-            console.error(error);
-            toast.error('Failed to save settings');
-        }
-    };
-
-    const PRESETS = [
-        { id: 'island_orange', label: 'Island Orange', icon: '🟠' },
-        { id: 'highland_dark', label: 'Highland Dark', icon: '⚫' },
-        { id: 'ocean_breeze', label: 'Ocean Breeze', icon: '🌊' },
-        { id: 'sunset_glow', label: 'Sunset Glow', icon: '🌅' },
-        { id: 'neon_green', label: 'Neon Green', icon: '🟢' },
-        { id: 'sky_blue', label: 'Sky Blue', icon: '🔵' },
-        { id: 'white_black', label: 'White / Black', icon: '⚪' },
-        { id: 'black_white', label: 'Black / White', icon: '⚫' },
-    ];
-
-    useEffect(() => {
-        fetchCurrentMarquee();
-    }, []);
-
-    const fetchCurrentMarquee = async () => {
-        try {
-            const res = await api.get('/marquee');
-            const data = res.data;
-            const items = data.items || (Array.isArray(data) ? data : []);
-
-            if (data.settings) {
-                setControls(data.settings);
-            }
-
-            const active = items.find((m: any) => m.is_active);
-            if (active) setCurrentMarquee(active);
-        } catch (e) { console.error(e); }
-    };
-
     const handlePostMarquee = async (message: string) => {
+        if (!message.trim()) return;
         try {
-            await api.post('/marquee', { message, priority, text_color: marqueeTextColor, emoji: marqueeEmoji });
-            toast.success('Marquee broadcasted successfully!');
+            await api.post('/marquee', {
+                message: message.trim(),
+                priority,
+                text_color: marqueeTextColor,
+                emoji: marqueeEmoji,
+            });
+            toast.success('Broadcast sent!');
             setNewMarquee('');
-            fetchCurrentMarquee();
-            // Trigger table refresh
-            window.dispatchEvent(new CustomEvent('refresh-marquees'));
         } catch (error) {
-            toast.error('Failed to post marquee');
+            console.error('Failed to post marquee', error);
+            toast.error('Failed to send broadcast');
         }
     };
 
-    const marqueeColumns: Column<Marquee>[] = [
-        { header: 'ID', accessor: 'marquee_id', className: 'w-16 text-icon-tertiary' },
-        { header: 'Message', accessor: (m) => <span className="font-bold text-theme-primary">{m.message}</span> },
-        {
-            header: 'Priority',
-            accessor: (m) => (
-                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${m.priority > 5 ? 'bg-danger-primary/10 text-danger-primary' : 'bg-accent-primary/10 text-accent-primary'
-                    }`}>
-                    Level {m.priority}
-                </span>
-            )
-        },
-        {
-            header: 'Status',
-            accessor: (m) => (
-                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${m.is_active ? 'bg-success-primary/10 text-success-primary' : 'bg-theme-tertiary text-icon-tertiary'
-                    }`}>
-                    {m.is_active ? 'Live' : 'Hidden'}
-                </span>
-            )
-        },
-        { header: 'Created', accessor: (m) => new Date(m.created_at).toLocaleDateString() }
+    const handleUpdateGlobalControls = async (key: string, value: any) => {
+        setControls(prev => ({ ...prev, [key]: value }));
+        try {
+            await api.patch('/marquee/global-controls', { [key]: value });
+        } catch (error) {
+            console.error(`Failed to update ${key}`, error);
+        }
+    };
+
+    const presets = [
+        { id: 'white_black', label: 'White on Black', bg: 'bg-black', text: 'text-white', emoji: '⚪' },
+        { id: 'island_orange', label: 'Island Orange', bg: 'bg-orange-500', text: 'text-white', emoji: '🟠' },
+        { id: 'ocean_teal', label: 'Ocean Teal', bg: 'bg-teal-500', text: 'text-white', emoji: '🟢' },
+        { id: 'sunset_pink', label: 'Sunset Pink', bg: 'bg-pink-500', text: 'text-white', emoji: '🌸' },
+        { id: 'forest_green', label: 'Forest Green', bg: 'bg-green-600', text: 'text-white', emoji: '🌲' },
+        { id: 'royal_purple', label: 'Royal Purple', bg: 'bg-purple-600', text: 'text-white', emoji: '💜' },
     ];
+
+    const emojis = ['📢', '🔥', '⚡', '🌟', '💰', '🎉', '🚀', '💎', '🏝️', '🌊', '☀️', '🌙', '⚠️', '✅', '🔔', '📣', '🎯', '💡', '🎁', '🏆', '🌈', '⭐', '💥', '🎪', '🎨', '🎭', '🎮', '🎲', '🎪', '🎪'];
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-700 pb-24">
-           
-            <div className="bg-theme-inverse text-theme-inverse p-6 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
-                    <EmojiIcon emoji="🎛️" size={24} className="w-12 h-12 bg-accent-primary/20 text-accent-primary rounded-2xl flex items-center justify-center text-2xl" />
-                    <div>
-                        <h3 className="text-lg font-black uppercase tracking-widest text-theme-inverse">Marquee Controls</h3>
-                        <p className="text-sm text-icon-tertiary font-medium">Manage global scrolling behavior</p>
-                    </div>
+        <div className="p-6 space-y-8">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h2 className="text-3xl font-black text-theme-primary tracking-tight">Broadcast Center</h2>
+                    <p className="text-theme-secondary mt-1">Manage global announcements, marquees, and live broadcasts</p>
                 </div>
-                <div className="flex flex-col sm:flex-row bg-theme-tertiary p-1.5 rounded-2xl gap-2 items-center w-full sm:w-auto">
-                    <div className="relative w-full sm:w-auto">
-                        <select
-                            value={controls.preset}
-                            onChange={(e) => updateControls({ preset: e.target.value })}
-                            className="w-full sm:w-auto bg-theme-inverse text-theme-inverse text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-border-primary outline-none appearance-none pr-10 hover:bg-theme-tertiary transition-all cursor-pointer shadow-lg"
-                        >
-                            {PRESETS.map(p => (
-                                <option key={p.id} value={p.id}>
-                                    {p.icon} {p.label}
-                                </option>
-                            ))}
-                        </select>
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-icon-tertiary">
-                            <ChevronRight size={14} className="rotate-90" />
-                        </div>
+            </div>
+
+            {/* Live on Platform Card */}
+            <div className="bg-card border border-border-primary rounded-2xl p-6 shadow-xl">
+                <h3 className="text-xl font-black text-theme-primary mb-4 flex items-center gap-2">
+                    <EmojiIcon emoji="📡" size={20} /> Live on Platform
+                </h3>
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between min-w-0">
+                    <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-theme-primary text-wrap break-words">
+                            {currentMarquee?.message || 'No active broadcast'}
+                        </p>
+                        <p className="text-xs text-theme-tertiary mt-1">
+                            Priority: {currentMarquee?.priority || 'N/A'} | 
+                            {currentMarquee?.is_active ? '🟢 Live' : '🔴 Paused'}
+                        </p>
                     </div>
-                    <div className="w-full sm:w-px bg-theme-tertiary h-6 mx-1 sm:mx-1 sm:my-0" />
-                    <div className="flex flex-wrap items-center justify-center gap-1.5 w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                         <button
-                            onClick={() => updateControls({ direction: controls.direction === 'normal' ? 'reverse' : 'normal' })}
-                            className={`px-3 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${controls.direction === 'reverse' ? 'bg-accent-primary text-white shadow-lg' : 'text-icon-tertiary hover:bg-theme-tertiary'}`}
+                            onClick={async () => {
+                                if (currentMarquee) {
+                                    await api.patch(`/marquee/${currentMarquee.marquee_id}`, { is_active: !currentMarquee.is_active });
+                                    toast.success(currentMarquee.is_active ? 'Broadcast paused' : 'Broadcast resumed');
+                                }
+                            }}
+                            disabled={!currentMarquee}
+                            className="px-4 py-2 bg-accent-primary text-white rounded-lg font-medium hover:bg-accent-primary/90 transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
-                            {controls.direction === 'normal' ? '⬅️ Left' : '➡️ Right'}
+                            {currentMarquee?.is_active ? 'Pause' : 'Resume'}
                         </button>
                         <button
-                            onClick={() => updateControls({ isPlaying: !controls.isPlaying })}
-                            className={`px-3 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${!controls.isPlaying ? 'bg-warning-primary/50 text-white shadow-lg' : 'text-icon-tertiary hover:bg-theme-tertiary'}`}
+                            onClick={async () => {
+                                if (currentMarquee && confirm('Deactivate this broadcast?')) {
+                                    await api.patch(`/marquee/${currentMarquee.marquee_id}`, { is_active: false });
+                                    toast.success('Broadcast deactivated');
+                                }
+                            }}
+                            disabled={!currentMarquee}
+                            className="px-4 py-2 bg-danger-primary text-white rounded-lg font-medium hover:bg-danger-primary/90 transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
-                            {controls.isPlaying ? '⏸ Pause' : '▶ Play'}
-                        </button>
-                        <button
-                            onClick={() => updateControls({ displayMode: controls.displayMode === 'scroll' ? 'typewriter' : 'scroll' })}
-                            className={`px-3 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 whitespace-nowrap ${controls.displayMode === 'typewriter' ? 'bg-purple-500 text-white shadow-lg' : 'text-icon-tertiary hover:bg-theme-tertiary'}`}
-                        >
-                            {controls.displayMode === 'typewriter' ? <Type size={10} /> : <AlignLeft size={10} />}
-                            {controls.displayMode === 'typewriter' ? 'Typewriter' : 'Scroll'}
+                            Deactivate
                         </button>
                     </div>
                 </div>
             </div>
 
-            
-            {currentMarquee && (
-                <div className="bg-gradient-to-r from-teal-500/10 to-teal-500/10 border border-teal-100 p-6 rounded-[2.5rem] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <EmojiIcon emoji="📢" size={18} className="w-10 h-10 bg-accent-primary/100 text-white rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-accent-500/15 text-lg shrink-0" />
-                        <div className="min-w-0">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-accent-400 mb-0.5">Live On Platform</p>
-                            <p className="font-bold text-theme-primary italic text-wrap break-words">"{currentMarquee.message}"</p>
+            {/* Global Marquee Controls */}
+            <div className="bg-card border border-border-primary rounded-2xl p-6 shadow-xl">
+                <h3 className="text-xl font-black text-theme-primary mb-6 flex items-center gap-2">
+                    <EmojiIcon emoji="🎛️" size={20} /> Global Marquee Controls
+                </h3>
+                <div className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-semibold text-theme-secondary mb-3">Animation Preset</label>
+                        <div className="flex flex-wrap gap-3">
+                            {presets.map(preset => (
+                                <button
+                                    key={preset.id}
+                                    onClick={() => handleUpdateGlobalControls('preset', preset.id)}
+                                    className={`flex items-center gap-2 px-4 py-3 rounded-xl border-2 transition-all ${
+                                        controls.preset === preset.id
+                                            ? 'ring-2 ring-accent-primary border-accent-primary shadow-lg shadow-accent-primary/20'
+                                            : 'border-border-primary hover:border-accent-primary/50'
+                                    }`}
+                                >
+                                    <span className={`w-3 h-3 rounded-full ${preset.bg}`} />
+                                    <span className="text-sm font-medium text-theme-primary">{preset.label}</span>
+                                </button>
+                            ))}
                         </div>
                     </div>
-                    <div className="flex gap-2 shrink-0">
-                        <button
-                            onClick={() => {
-                                setNewMarquee(currentMarquee.message);
-                                setPriority(currentMarquee.priority);
-                            }}
-                            className="px-4 py-2 bg-surface-elevated text-ink-secondary rounded-xl text-[10px] font-black uppercase tracking-widest border border-border-primary hover:bg-surface-secondary transition-all"
-                        >
-                            Copy to Editor
-                        </button>
-                    </div>
-                </div>
-            )}
 
-            {/* Typewriter Settings */}
-            {controls.displayMode === 'typewriter' && (
-                <div className="bg-gradient-to-r from-purple-500/5 to-indigo-500/5 border border-purple-200 p-6 rounded-[2.5rem] space-y-4">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 rounded-xl bg-purple-500/10 flex items-center justify-center">
-                            <Type size={16} className="text-purple-600" />
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label className="block text-sm font-semibold text-theme-secondary mb-2">Play/Pause</label>
+                            <select
+                                value={controls.isPlaying ? 'play' : 'pause'}
+                                onChange={(e) => handleUpdateGlobalControls('isPlaying', e.target.value === 'play')}
+                                className="w-full px-4 py-3 rounded-xl border border-border-primary bg-input text-theme-primary focus:outline-none focus:border-accent-primary/50"
+                            >
+                                <option value="play">▶️ Playing</option>
+                                <option value="pause">⏸️ Paused</option>
+                            </select>
                         </div>
                         <div>
-                            <h4 className="text-sm font-black uppercase tracking-widest text-purple-700">Typewriter Effect</h4>
-                            <p className="text-[10px] text-icon-tertiary">Character-by-character reveal animation</p>
+                            <label className="block text-sm font-semibold text-theme-secondary mb-2">Direction</label>
+                            <select
+                                value={controls.direction}
+                                onChange={(e) => handleUpdateGlobalControls('direction', e.target.value)}
+                                className="w-full px-4 py-3 rounded-xl border border-border-primary bg-input text-theme-primary focus:outline-none focus:border-accent-primary/50"
+                            >
+                                <option value="normal">➡️ Left to Right</option>
+                                <option value="reverse">⬅️ Right to Left</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-theme-secondary mb-2">Speed</label>
+                            <select
+                                value={controls.speed}
+                                onChange={(e) => handleUpdateGlobalControls('speed', parseFloat(e.target.value))}
+                                className="w-full px-4 py-3 rounded-xl border border-border-primary bg-input text-theme-primary focus:outline-none focus:border-accent-primary/50"
+                            >
+                                <option value={0.5}>🐌 Slow (0.5x)</option>
+                                <option value={1}>🚶 Normal (1x)</option>
+                                <option value={2}>🏃 Fast (2x)</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                        {(['terminal', 'smooth', 'fast', 'dramatic'] as const).map(p => (
+                    <div>
+                        <label className="block text-sm font-semibold text-theme-secondary mb-3">Display Mode</label>
+                        <div className="flex gap-4">
                             <button
-                                key={p}
-                                onClick={() => updateControls({ typewriterPreset: p })}
-                                className={`px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all border-2 ${controls.typewriterPreset === p
-                                    ? 'border-purple-500 bg-purple-500 text-white shadow-lg shadow-purple-500/20'
-                                    : 'border-border-primary text-icon-tertiary hover:border-purple-300'
-                                    }`}
-                            >
-                                {p === 'terminal' && '⌨️ '}
-                                {p === 'smooth' && '✨ '}
-                                {p === 'fast' && '⚡ '}
-                                {p === 'dramatic' && '🎬 '}
-                                {p}
-                            </button>
-                        ))}
-                    </div>
-
-                    <div className="flex items-center gap-4 bg-theme-tertiary/50 px-4 py-3 rounded-2xl border border-border-primary">
-                        <span className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest whitespace-nowrap">Speed</span>
-                        <input
-                            type="range"
-                            min={20}
-                            max={200}
-                            step={10}
-                            value={controls.typewriterSpeed}
-                            onChange={(e) => updateControls({ typewriterSpeed: parseInt(e.target.value) })}
-                            className="flex-1 accent-purple-600"
-                        />
-                        <span className="font-black text-purple-600 text-xs w-16 text-right">{controls.typewriterSpeed}ms</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <button
-                            onClick={() => updateControls({ typewriterLoop: !controls.typewriterLoop })}
-                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-2 ${controls.typewriterLoop
-                                ? 'border-purple-500 bg-purple-50 text-purple-700'
-                                : 'border-border-primary text-icon-tertiary'
+                                onClick={() => handleUpdateGlobalControls('displayMode', 'scroll')}
+                                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${
+                                    controls.displayMode === 'scroll'
+                                        ? 'bg-accent-primary text-white'
+                                        : 'bg-theme-tertiary text-theme-secondary hover:bg-theme-secondary'
                                 }`}
-                        >
-                            {controls.typewriterLoop ? '🔁 Loop On' : '➡️ Loop Off'}
-                        </button>
+                            >
+                                📜 Scroll
+                            </button>
+                            <button
+                                onClick={() => handleUpdateGlobalControls('displayMode', 'typewriter')}
+                                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${
+                                    controls.displayMode === 'typewriter'
+                                        ? 'bg-accent-primary text-white'
+                                        : 'bg-theme-tertiary text-theme-secondary hover:bg-theme-secondary'
+                                }`}
+                            >
+                                ⌨️ Typewriter
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Live Typewriter Preview */}
-                    {currentMarquee && (
-                        <div className="bg-theme-inverse rounded-2xl p-4 mt-2">
-                            <p className="text-[9px] font-black uppercase tracking-widest text-icon-tertiary mb-2">Live Preview</p>
-                            <div className="text-theme-inverse font-bold text-sm min-h-[24px]">
-                                <TypeWriter
-                                    text={currentMarquee.message}
-                                    preset={controls.typewriterPreset}
-                                    speed={controls.typewriterSpeed}
-                                    loop={controls.typewriterLoop}
-                                    cursor
+                    <div className="pt-4 border-t border-border-primary">
+                        <TypeWriter
+                            text={currentMarquee?.message || 'Your broadcast will appear here...'}
+                            speed={50}
+                            className="text-lg font-medium text-theme-primary min-h-[2rem]"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* Create New Broadcast */}
+            <div className="bg-card border border-border-primary rounded-2xl p-6 shadow-xl">
+                <h3 className="text-xl font-black text-theme-primary mb-6 flex items-center gap-2">
+                    <EmojiIcon emoji="✍️" size={20} /> Create New Broadcast
+                </h3>
+
+                <div className="space-y-4 mb-6">
+                    <div>
+                        <label className="block text-sm font-semibold text-theme-secondary mb-2">Message</label>
+                        <textarea
+                            value={newMarquee}
+                            onChange={(e) => setNewMarquee(e.target.value)}
+                            placeholder="Enter your broadcast message..."
+                            rows={3}
+                            className="w-full px-4 py-3 rounded-xl border border-border-primary bg-input text-theme-primary placeholder:text-theme-tertiary focus:outline-none focus:border-accent-primary/50 resize-none"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label className="block text-sm font-semibold text-theme-secondary mb-2">Priority</label>
+                            <select
+                                value={priority}
+                                onChange={(e) => setPriority(parseInt(e.target.value))}
+                                className="w-full px-4 py-3 rounded-xl border border-border-primary bg-input text-theme-primary focus:outline-none focus:border-accent-primary/50"
+                            >
+                                <option value={1}>🔴 High</option>
+                                <option value={2}>🟡 Medium</option>
+                                <option value={3}>🟢 Low</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-semibold text-theme-secondary mb-2">Text Color</label>
+                            <div className="flex flex-wrap items-center gap-2 bg-theme-tertiary px-3 py-2 rounded-xl border border-theme-primary max-w-full">
+                                <span className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest mr-1">Text Color</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setMarqueeTextColor('#0f766e')}
+                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#0f766e' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
+                                    style={{ backgroundColor: '#0f766e' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setMarqueeTextColor('#ffffff')}
+                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ffffff' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
+                                    style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setMarqueeTextColor('#fef08a')}
+                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#fef08a' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
+                                    style={{ backgroundColor: '#fef08a' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setMarqueeTextColor('#fca5a5')}
+                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#fca5a5' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
+                                    style={{ backgroundColor: '#fca5a5' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setMarqueeTextColor('#a5f3fc')}
+                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#a5f3fc' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
+                                    style={{ backgroundColor: '#a5f3fc' }}
                                 />
                             </div>
                         </div>
-                    )}
-                </div>
-            )}
 
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <div className="lg:col-span-2 bg-card p-8 rounded-[2.5rem] border border-theme-primary shadow-xl shadow-theme">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <EmojiIcon emoji="📢" size={20} className="w-12 h-12 bg-accent-primary/10 text-accent-primary rounded-2xl flex items-center justify-center text-xl" />
-                                    <div>
-                                        <h3 className="text-xl font-black text-theme-primary">Global Broadcast</h3>
-                                        <p className="text-sm text-icon-tertiary font-medium">Post live updates to the platform-wide marquee</p>
+                        <div>
+                            <label className="block text-sm font-semibold text-theme-secondary mb-2">Leading Emoji</label>
+                            <div className="relative">
+                                <button
+                                    onClick={() => setMarqueeEmoji(marqueeEmoji)}
+                                    className="w-full px-4 py-3 rounded-xl border border-border-primary bg-input text-2xl text-left focus:outline-none focus:border-accent-primary/50"
+                                >
+                                    {marqueeEmoji}
+                                </button>
+                                <div className="absolute bottom-full left-0 mb-2 w-80 max-h-48 overflow-y-auto bg-card border border-border-primary rounded-xl shadow-xl p-3 hidden group-hover:block z-10">
+                                    <div className="grid grid-cols-6 gap-1">
+                                        {emojis.map(emoji => (
+                                            <button
+                                                key={emoji}
+                                                type="button"
+                                                onClick={() => setMarqueeEmoji(emoji)}
+                                                className={`w-8 h-8 rounded-lg transition-all text-xl ${marqueeEmoji === emoji ? 'bg-accent-primary/20 ring-2 ring-accent-primary' : 'hover:bg-theme-secondary'}`}
+                                            >
+                                                {emoji}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="flex flex-wrap items-center gap-2 mt-3 pt-3 border-t border-border-primary">
+                                        <span className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest mr-1">Quick:</span>
+                                        <button type="button" onClick={() => setMarqueeEmoji('🏝️')} className={`w-8 h-8 rounded-lg transition-all ${marqueeEmoji === '🏝️' ? 'bg-accent-primary/15 ring-2 ring-accent-primary' : 'hover:bg-theme-secondary'}`}>🏝️</button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div className="space-y-4">
-                                    <textarea
-                                        value={newMarquee}
-                                        onChange={(e) => setNewMarquee(e.target.value)}
-                                        placeholder="What's the buzz on the island today?"
-                                        className="w-full h-32 p-4 bg-theme-tertiary border border-theme-primary rounded-3xl text-theme-primary placeholder:text-icon-tertiary focus:outline-none focus:ring-4 focus:ring-accent-primary/10 focus:border-accent-primary transition-all resize-none font-medium"
-                                    />
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        <button
+                            onClick={() => handlePostMarquee(newMarquee)}
+                            disabled={!newMarquee}
+                            className="w-full sm:w-auto px-6 py-3 bg-accent-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-accent-primary/20 hover:bg-accent-secondary hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 whitespace-nowrap"
+                        >
+                            Launch Broadcast 🚀
+                        </button>
+                        <button
+                            onClick={async () => {
+                                const name = prompt('Template Name:');
+                                if (!name) return;
+                                await api.post('/admin/marquee/templates', { name, content: newMarquee, priority });
+                                toast.success('Template saved');
+                                fetchTemplates();
+                            }}
+                            disabled={!newMarquee}
+                            className="w-full sm:w-auto px-6 py-3 bg-theme-tertiary text-icon-secondary font-bold uppercase text-[10px] tracking-widest rounded-2xl hover:bg-theme-secondary transition-all disabled:opacity-50 whitespace-nowrap"
+                        >
+                            Save Template
+                        </button>
+                    </div>
+                </div>
 
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                        <div className="flex items-center justify-between w-full md:w-auto gap-3 bg-theme-tertiary px-4 py-3 rounded-2xl border border-theme-primary">
-                                            <span className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest">Priority</span>
-                                            <input
-                                                type="range"
-                                                min="1"
-                                                max="10"
-                                                value={priority}
-                                                onChange={(e) => setPriority(parseInt(e.target.value))}
-                                                className="flex-1 md:w-24 accent-teal-600 mx-2"
-                                            />
-                                            <span className="font-black text-accent-primary text-sm w-4 text-center">{priority}</span>
-                                        </div>
-
-                           
-                                        <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
-                               
-                                            <div className="flex items-center gap-1 bg-theme-tertiary px-3 py-2 rounded-xl border border-theme-primary">
-                                                <span className="text-xs font-black text-icon-tertiary uppercase tracking-widest mr-2">Icon</span>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeEmoji('📢')}
-                                                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '📢' ? 'bg-accent-primary/15 ring-2 ring-accent-primary' : 'hover:bg-theme-secondary'}`}
-                                                >
-                                                    📢
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeEmoji('🔥')}
-                                                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '🔥' ? 'bg-warning-primary/10 ring-2 ring-warning-primary' : 'hover:bg-theme-secondary'}`}
-                                                >
-                                                    🔥
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeEmoji('⭐')}
-                                                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '⭐' ? 'bg-warning-primary/10 ring-2 ring-warning-primary' : 'hover:bg-theme-secondary'}`}
-                                                >
-                                                    ⭐
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeEmoji('🎉')}
-                                                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '🎉' ? 'bg-danger-primary/10 ring-2 ring-danger-primary' : 'hover:bg-theme-secondary'}`}
-                                                >
-                                                    🎉
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeEmoji('🏝️')}
-                                                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${marqueeEmoji === '🏝️' ? 'bg-accent-primary/15 ring-2 ring-accent-primary' : 'hover:bg-theme-secondary'}`}
-                                                >
-                                                    🏝️
-                                                </button>
-                                            </div>
-
-                               
-                                            <div className="flex flex-wrap items-center gap-2 bg-theme-tertiary px-3 py-2 rounded-xl border border-theme-primary max-w-full">
-                                                <span className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest mr-1">Text Color</span>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#0f766e')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#0f766e' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
-                                                    style={{ backgroundColor: '#0f766e' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#14b8a6')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#14b8a6' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
-                                                    style={{ backgroundColor: '#14b8a6' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#f59e0b')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#f59e0b' ? 'ring-2 ring-offset-2 ring-warning-primary' : ''}`}
-                                                    style={{ backgroundColor: '#f59e0b' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#ef4444')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ef4444' ? 'ring-2 ring-offset-2 ring-danger-primary' : ''}`}
-                                                    style={{ backgroundColor: '#ef4444' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#39ff14')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#39ff14' ? 'ring-2 ring-offset-2 ring-success-primary' : ''}`}
-                                                    style={{ backgroundColor: '#39ff14' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#7dd3fc')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#7dd3fc' ? 'ring-2 ring-offset-2 ring-sky-300' : ''}`}
-                                                    style={{ backgroundColor: '#7dd3fc' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#ffffff')}
-                                                    className={`w-6 h-6 rounded-full transition-all border border-theme-primary ${marqueeTextColor === '#ffffff' ? 'ring-2 ring-offset-2 ring-icon-tertiary dark:ring-icon-secondary' : ''}`}
-                                                    style={{ backgroundColor: '#ffffff' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#a855f7')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#a855f7' ? 'ring-2 ring-offset-2 ring-accent-primary' : ''}`}
-                                                    style={{ backgroundColor: '#a855f7' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#ec4899')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ec4899' ? 'ring-2 ring-offset-2 ring-danger-primary' : ''}`}
-                                                    style={{ backgroundColor: '#ec4899' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#0ea5e9')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#0ea5e9' ? 'ring-2 ring-offset-2 ring-sky-500' : ''}`}
-                                                    style={{ backgroundColor: '#0ea5e9' }}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setMarqueeTextColor('#ff0033')}
-                                                    className={`w-6 h-6 rounded-full transition-all ${marqueeTextColor === '#ff0033' ? 'ring-2 ring-offset-2 ring-danger-primary' : ''}`}
-                                                    style={{ backgroundColor: '#ff0033' }}
-                                                />
-                                                <input
-                                                    type="color"
-                                                    value={marqueeTextColor}
-                                                    onChange={(e) => setMarqueeTextColor(e.target.value)}
-                                                    className="w-8 h-8 rounded-lg cursor-pointer border-none bg-transparent"
-                                                    title="Custom Color"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
+                <div className="bg-theme-inverse p-8 rounded-[2.5rem] text-theme-inverse shadow-2xl overflow-y-auto max-h-[500px]">
+                    <h3 className="text-lg font-black uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <EmojiIcon emoji="✨" size={16} className="text-warning-primary" /> Templates
+                    </h3>
+                    <div className="space-y-4">
+                        {templates.map(tmp => (
+                            <div key={tmp.template_id} className="relative group">
+                                <button
+                                    onClick={() => {
+                                        setNewMarquee(tmp.content);
+                                        setPriority(tmp.priority);
+                                    }}
+                                    className="w-full p-4 bg-surface-elevated/5 border border-theme-primary/10 rounded-2xl hover:bg-surface-elevated/10 transition-all text-left group"
+                                >
+                                    <div className="text-xs font-black text-warning-primary uppercase tracking-widest mb-1 group-hover:text-warning-secondary">{tmp.name}</div>
+                                    <div className="text-sm text-icon-tertiary line-clamp-2 font-medium">{tmp.content}</div>
+                                </button>
+                                <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
-                                        onClick={() => handlePostMarquee(newMarquee)}
-                                        disabled={!newMarquee}
-                                        className="w-full sm:w-auto px-6 py-3 bg-accent-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-accent-primary/20 hover:bg-accent-secondary hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 whitespace-nowrap"
+                                        onClick={async () => {
+                                            const newContent = prompt('Edit Content:', tmp.content);
+                                            if (newContent) {
+                                                await api.patch(`/admin/marquee/templates/${tmp.template_id}`, { content: newContent });
+                                                toast.success('Template updated');
+                                                fetchTemplates();
+                                            }
+                                        }}
+                                        className="p-1.5 bg-accent-primary/20 text-accent-primary rounded-lg scale-75 hover:scale-90 transition-all"
                                     >
-                                        Launch Broadcast 🚀
+                                        ✏️
                                     </button>
                                     <button
-                                                                        onClick={() => handlePostMarquee(newMarquee)}
-                                                                        disabled={!newMarquee}
-                                                                        className="w-full sm:w-auto px-6 py-3 bg-accent-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-accent-primary/20 hover:bg-accent-secondary hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 whitespace-nowrap"
-                                                                    >
-                                                                        Launch Broadcast 🚀
-                                                                    </button>
-                                                                    <button
-                                                                        onClick={async () => {
-                                                                            const name = prompt('Template Name:');
-                                                                            if (!name) return;
-                                                                            await api.post('/admin/marquee/templates', { name, content: newMarquee, priority });
-                                                                            toast.success('Template saved');
-                                                                            fetchTemplates();
-                                                                        }}
-                                                                        disabled={!newMarquee}
-                                                                        className="w-full sm:w-auto px-6 py-3 bg-theme-tertiary text-icon-secondary font-bold uppercase text-[10px] tracking-widest rounded-2xl hover:bg-theme-secondary transition-all disabled:opacity-50 whitespace-nowrap"
-                                                                    >
-                                                                        Save Template
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-               
-                                                                <div className="bg-theme-inverse p-8 rounded-[2.5rem] text-theme-inverse shadow-2xl overflow-y-auto max-h-[500px]">
-                                                        <h3 className="text-lg font-black uppercase tracking-widest mb-6 flex items-center gap-2">
-                                                            <EmojiIcon emoji="✨" size={16} className="text-warning-primary" /> Templates
-                                                        </h3>
-                                                        <div className="space-y-4">
-                                                            {templates.map(tmp => (
-                                                                <div key={tmp.template_id} className="relative group">
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            setNewMarquee(tmp.content);
-                                                                            setPriority(tmp.priority);
-                                                                        }}
-                                                                        className="w-full p-4 bg-surface-elevated/5 border border-theme-primary/10 rounded-2xl hover:bg-surface-elevated/10 transition-all text-left group"
-                                                                    >
-                                                                        <div className="text-xs font-black text-warning-primary uppercase tracking-widest mb-1 group-hover:text-warning-secondary">{tmp.name}</div>
-                                                                        <div className="text-sm text-icon-tertiary line-clamp-2 font-medium">{tmp.content}</div>
-                                                                    </button>
-                                                                    <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                        <button
-                                                                            onClick={async () => {
-                                                                                const newContent = prompt('Edit Content:', tmp.content);
-                                                                                if (newContent) {
-                                                                                    await api.patch(`/admin/marquee/templates/${tmp.template_id}`, { content: newContent });
-                                                                                    toast.success('Template updated');
-                                                                                    fetchTemplates();
-                                                                                }
-                                                                            }}
-                                                                            className="p-1.5 bg-accent-primary/20 text-accent-primary rounded-lg scale-75 hover:scale-90 transition-all"
-                                                                        >
-                                                                            ✏️
-                                                                        </button>
-                                                                        <button
-                                                                            onClick={async () => {
-                                                                                if (confirm('Delete template?')) {
-                                                                                    await api.delete(`/admin/marquee/templates/${tmp.template_id}`);
-                                                                                    fetchTemplates();
-                                                                                }
-                                                                            }}
-                                                                            className="p-1.5 bg-danger-primary/20 text-danger-primary rounded-lg scale-75 hover:scale-90 transition-all"
-                                                                        >
-                                                                            🗑️
-                                                                                        <div className="flex justify-between items-end">
-                                                                                            <div>
-                                                                                                <h3 className="text-2xl font-black text-theme-primary tracking-tight">Broadcast History</h3>
-                                                                                                <p className="text-sm font-medium text-icon-tertiary">Manage active and past announcements</p>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div className="bg-card rounded-[2.5rem] border border-theme-primary shadow-xl shadow-theme overflow-hidden">
-                    <AdminTable<Marquee>
-                        endpoint="/marquee"
-                        keyName="marquees"
-                        idKey="marquee_id"
-                        columns={marqueeColumns}
-                        rowActions={[
-                            { label: 'Deactivate', action: 'toggle', condition: (m) => m.is_active, className: 'text-sand-500 bg-sand-500/5' },
-                            { label: 'Activate', action: 'toggle', condition: (m) => !m.is_active, className: 'text-green-600 bg-green-50' },
-                            { label: 'Delete', action: 'delete', className: 'text-red-500 bg-red-50' }
-                        ]}
-                        onRowAction={async (action, item) => {
-                            if (action === 'delete') {
-                                if (confirm('Delete marquee?')) await api.delete(`/marquee/${item.marquee_id}`);
-                            } else if (action === 'toggle') {
-                                await api.patch(`/marquee/${item.marquee_id}`, { is_active: !item.is_active });
-                            }
-                        }}
-                    />
+                                        onClick={async () => {
+                                            if (confirm('Delete template?')) {
+                                                await api.delete(`/admin/marquee/templates/${tmp.template_id}`);
+                                                fetchTemplates();
+                                            }
+                                        }}
+                                        className="p-1.5 bg-danger-primary/20 text-danger-primary rounded-lg scale-75 hover:scale-90 transition-all"
+                                    >
+                                        🗑️
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
+            </div>
+
+            {/* Broadcast History */}
+            <div className="flex justify-between items-end">
+                <div>
+                    <h3 className="text-2xl font-black text-theme-primary tracking-tight">Broadcast History</h3>
+                    <p className="text-sm font-medium text-icon-tertiary">Manage active and past announcements</p>
+                </div>
+            </div>
+
+            <div className="bg-card rounded-[2.5rem] border border-theme-primary shadow-xl shadow-theme overflow-hidden">
+                <AdminTable<Marquee>
+                    endpoint="/marquee"
+                    keyName="marquees"
+                    idKey="marquee_id"
+                    columns={marqueeColumns}
+                    rowActions={[
+                        { label: 'Deactivate', action: 'toggle', condition: (m) => m.is_active, className: 'text-sand-500 bg-sand-500/5' },
+                        { label: 'Activate', action: 'toggle', condition: (m) => !m.is_active, className: 'text-green-600 bg-green-50' },
+                        { label: 'Delete', action: 'delete', className: 'text-red-500 bg-red-50' }
+                    ]}
+                    onRowAction={async (action, item) => {
+                        if (action === 'delete') {
+                            if (confirm('Delete marquee?')) await api.delete(`/marquee/${item.marquee_id}`);
+                        } else if (action === 'toggle') {
+                            await api.patch(`/marquee/${item.marquee_id}`, { is_active: !item.is_active });
+                        }
+                    }}
+                />
             </div>
         </div>
     );
