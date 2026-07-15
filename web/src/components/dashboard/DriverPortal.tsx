@@ -305,7 +305,7 @@ export default function DriverPortal() {
                                 <div key={job.id} className="p-6 bg-surface-elevated border border-border-primary rounded-4xl flex flex-col md:flex-row justify-between items-center hover:shadow-xl transition-all group gap-6">
                                     <div className="flex items-center gap-6">
                                         <div className="w-16 h-16 bg-surface-secondary rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
-                                            {job.service_type === 'taxi' ? '🚖' : '<EmojiIcon emoji="📦" size={16} />'}
+                                            {job.service_type === 'taxi' ? '🚖' : <EmojiIcon emoji="📦" size={16} />}
                                         </div>
                                         <div>
                                             <h4 className="font-black text-ink-primary text-lg">

@@ -161,7 +161,7 @@ export default function SmartSearch() {
                                                         src={suggestion.image}
                                                         alt=""
                                                         className="w-full h-full object-cover"
-                                                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                                                        onError={(e) => { e.currentTarget.style.display = 'none' }}
                                                     />
                                                 </div>
                                             ) : (

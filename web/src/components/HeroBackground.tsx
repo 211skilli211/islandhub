@@ -328,7 +328,7 @@ export default function HeroBackground({
                                                         src={getImageUrl(iconUrl)}
                                                         className="w-full h-full object-contain drop-shadow-2xl translate-y-1 md:translate-y-2 group-hover:translate-y-0 transition-transform duration-700"
                                                         alt=""
-                                                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                                                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                                     />
                                                 ) : (
                                                     <span className="text-4xl md:text-8xl drop-shadow-2xl select-none leading-none">{iconUrl}</span>

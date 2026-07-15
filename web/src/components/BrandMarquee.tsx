@@ -77,7 +77,7 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
                                         src={brand.image_url}
                                         alt={brand.name}
                                         className="h-full w-auto object-contain opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                     />
                                 </a>
                             ) : (
@@ -85,7 +85,7 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
                                     src={brand.image_url}
                                     alt={brand.name}
                                     className="h-full w-auto object-contain opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                 />
                             )}
                         </div>
