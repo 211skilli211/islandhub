@@ -119,7 +119,7 @@ export default function DriversTab() {
             accessor: (driver) => (
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-surface-secondary border border-border-primary flex items-center justify-center text-xl shadow-inner">
-                        {driver.v_category === 'scooter' ? '🛵' : driver.v_category === 'van' ? '🚐' : '<EmojiIcon emoji="🚗" size={16} />'}
+                        {driver.v_category === 'scooter' ? '🛵' : driver.v_category === 'van' ? '🚐' : <EmojiIcon emoji="🚗" size={16} />}
                     </div>
                     <div>
                         <p className="text-[10px] font-black uppercase text-ink-tertiary tracking-tighter leading-none mb-1">{driver.v_make || 'Generic'}</p>
