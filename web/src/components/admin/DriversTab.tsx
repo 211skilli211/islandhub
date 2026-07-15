@@ -85,12 +85,12 @@ export default function DriversTab() {
                     </div>
                     <div>
                         <div className="flex items-center gap-1.5">
-                            <p className="font-bold text-ink-primary leading-none">{driver.name}</p>
+                            <p className="font-bold text-theme-primary leading-none">{driver.name}</p>
                             {driver.role === 'admin' && (
-                                <span className="text-[8px] font-black bg-[#14b8a6]/15 text-[#14b8a6] px-1 py-0.5 rounded uppercase tracking-tighter">Admin</span>
+                                <span className="text-[8px] font-black bg-accent-primary/15 text-accent-primary px-1 py-0.5 rounded uppercase tracking-tighter">Admin</span>
                             )}
                         </div>
-                        <p className="text-xs text-ink-tertiary mt-0.5">{driver.email}</p>
+                        <p className="text-xs text-icon-tertiary mt-0.5">{driver.email}</p>
                     </div>
                 </div>
             )
@@ -100,12 +100,12 @@ export default function DriversTab() {
             accessor: (driver) => (
                 <div className="flex flex-col gap-1.5">
                     <div className="flex flex-wrap gap-1.5">
-                        <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${driver.is_verified_driver ? 'bg-accent-500/15 text-accent-500' : 'bg-surface-secondary text-ink-tertiary'}`}>
+                        <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${driver.is_verified_driver ? 'bg-accent-primary/15 text-accent-primary' : 'bg-theme-tertiary text-icon-tertiary'}`}>
                             {driver.is_verified_driver ? 'Verified' : 'Unverified'}
                         </span>
                         {driver.verification_status && (
-                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${driver.verification_status === 'pending' ? 'bg-sand-500/10 text-sand-500 animate-pulse' :
-                                    driver.verification_status === 'approved' ? 'bg-accent-500/10 text-accent-400' : 'bg-[#e11d48]/5 text-[#e11d48]'
+                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${driver.verification_status === 'pending' ? 'bg-warning-primary/10 text-warning-primary animate-pulse' :
+                                    driver.verification_status === 'approved' ? 'bg-accent-primary/10 text-accent-primary' : 'bg-danger-primary/5 text-danger-primary'
                                 }`}>
                                 KYC: {driver.verification_status}
                             </span>
@@ -118,13 +118,13 @@ export default function DriversTab() {
             header: 'Machine',
             accessor: (driver) => (
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-surface-secondary border border-border-primary flex items-center justify-center text-xl shadow-inner">
+                    <div className="w-10 h-10 rounded-xl bg-theme-tertiary border border-theme-primary flex items-center justify-center text-xl shadow-inner">
                         {driver.v_category === 'scooter' ? '🛵' : driver.v_category === 'van' ? '🚐' : <EmojiIcon emoji="🚗" size={16} />}
                     </div>
                     <div>
-                        <p className="text-[10px] font-black uppercase text-ink-tertiary tracking-tighter leading-none mb-1">{driver.v_make || 'Generic'}</p>
-                        <p className="font-bold text-ink-primary text-xs">{driver.v_model || 'Vehicle'}</p>
-                        {driver.v_plate && <p className="text-[9px] font-black text-[#14b8a6] bg-[#14b8a6]/10 px-1 py-0.5 rounded w-fit mt-1">{driver.v_plate}</p>}
+                        <p className="text-[10px] font-black uppercase text-icon-tertiary tracking-tighter leading-none mb-1">{driver.v_make || 'Generic'}</p>
+                        <p className="font-bold text-theme-primary text-xs">{driver.v_model || 'Vehicle'}</p>
+                        {driver.v_plate && <p className="text-[9px] font-black text-accent-primary bg-accent-primary/10 px-1 py-0.5 rounded w-fit mt-1">{driver.v_plate}</p>}
                     </div>
                 </div>
             )
@@ -134,12 +134,12 @@ export default function DriversTab() {
             accessor: (driver) => (
                 <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                        <span className="text-[9px] text-ink-tertiary font-black uppercase tracking-widest w-12">Jobs:</span>
-                        <span className="font-black text-ink-primary text-xs">{driver.total_jobs || 0}</span>
+                        <span className="text-[9px] text-icon-tertiary font-black uppercase tracking-widest w-12">Jobs:</span>
+                        <span className="font-black text-theme-primary text-xs">{driver.total_jobs || 0}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-[9px] text-ink-tertiary font-black uppercase tracking-widest w-12">Earnings:</span>
-                        <span className="font-black text-emerald-400 text-xs">${Number(driver.total_earnings || 0).toLocaleString()}</span>
+                        <span className="text-[9px] text-icon-tertiary font-black uppercase tracking-widest w-12">Earnings:</span>
+                        <span className="font-black text-success-primary text-xs">${Number(driver.total_earnings || 0).toLocaleString()}</span>
                     </div>
                 </div>
             )
@@ -148,11 +148,11 @@ export default function DriversTab() {
             header: 'Legal',
             accessor: (driver) => (
                 <div className="space-y-1">
-                    <p className="text-[10px] font-bold text-ink-secondary truncate max-w-[120px]">
+                    <p className="text-[10px] font-bold text-icon-secondary truncate max-w-[120px]">
                         ID: <span className="font-black">{driver.license_number || 'N/A'}</span>
                     </p>
                     {driver.license_expiry && (
-                        <p className={`text-[9px] font-black uppercase italic ${new Date(driver.license_expiry) < new Date() ? 'text-[#e11d48]' : 'text-ink-tertiary'}`}>
+                        <p className={`text-[9px] font-black uppercase italic ${new Date(driver.license_expiry) < new Date() ? 'text-danger-primary' : 'text-icon-tertiary'}`}>
                             Exp: {new Date(driver.license_expiry).toLocaleDateString()}
                         </p>
                     )}
@@ -163,17 +163,17 @@ export default function DriversTab() {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col md:flex-row items-center justify-between bg-surface-elevated p-8 rounded-[2.5rem] border border-border-primary shadow-sm gap-6">
+            <div className="flex flex-col md:flex-row items-center justify-between bg-card p-8 rounded-[2.5rem] border border-theme-primary shadow-sm gap-6">
                 <div>
-                    <h2 className="text-4xl font-black text-ink-primary italic uppercase tracking-tighter">Strategic Fleet Intelligence</h2>
-                    <p className="text-ink-tertiary font-bold uppercase text-[10px] tracking-[0.2em] mt-2">Global Driver Verification & Performance Monitoring</p>
+                    <h2 className="text-4xl font-black text-theme-primary italic uppercase tracking-tighter">Strategic Fleet Intelligence</h2>
+                    <p className="text-icon-tertiary font-bold uppercase text-[10px] tracking-[0.2em] mt-2">Global Driver Verification & Performance Monitoring</p>
                 </div>
                 <div className="flex gap-3">
                     <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest mb-1">Fleet Operations</span>
+                        <span className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest mb-1">Fleet Operations</span>
                         <a
                             href="/admin/dispatch"
-                            className="px-8 py-4 bg-ink-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-[#14b8a6] transition-all shadow-xl shadow-slate-100 flex items-center gap-2"
+                            className="px-8 py-4 bg-theme-inverse text-theme-inverse rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-accent-primary transition-all shadow-xl shadow-theme flex items-center gap-2"
                         >
                             <EmojiIcon emoji="🛰️" size={16} className="animate-pulse" /> Live Tracking
                         </a>
@@ -181,7 +181,7 @@ export default function DriversTab() {
                 </div>
             </div>
 
-            <div className="bg-surface-elevated rounded-[3rem] border border-border-primary shadow-2xl overflow-hidden">
+            <div className="bg-card rounded-[3rem] border border-theme-primary shadow-2xl overflow-hidden">
                 <AdminTable<Driver>
                     key={`drivers-table-${refreshKey}`}
                     endpoint="/admin/drivers"
@@ -226,89 +226,89 @@ export default function DriversTab() {
             </div>
 
             <AnimatePresence>
-                {selectedKYC && (
-                    <motion.div
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-ink-primary/60 backdrop-blur-md z-[5000] flex items-center justify-center p-6"
-                        onClick={() => setSelectedKYC(null)}
-                    >
-                        <motion.div
-                            initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
-                            className="bg-surface-elevated rounded-[3.5rem] w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <div className="p-10 border-b border-border-primary flex justify-between items-center bg-surface-secondary/50">
-                                <div>
-                                    <h3 className="text-3xl font-black text-ink-primary italic uppercase tracking-tighter">KYC Document Vault</h3>
-                                    <p className="text-[10px] font-black text-ink-tertiary uppercase tracking-widest">Authentication for {selectedKYC.name}</p>
-                                </div>
-                                <button onClick={() => setSelectedKYC(null)} className="w-12 h-12 bg-surface-elevated rounded-2xl flex items-center justify-center font-black text-sm shadow-xl hover:scale-110 transition-transform"><EmojiIcon emoji="✕" size={16} /></button>
-                            </div>
-
-                            <div className="flex-1 overflow-y-auto p-10 space-y-10">
-                                <section>
-                                    <h4 className="text-[10px] font-black uppercase text-[#14b8a6] tracking-widest mb-6 border-b border-teal-50 pb-2 flex items-center gap-2">
-                                        <EmojiIcon emoji="🛡️" size={16} /> Identity & Legal
-                                    </h4>
-                                    <div className="grid grid-cols-2 gap-8">
-                                        <div className="p-6 bg-surface-secondary rounded-3xl">
-                                            <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest mb-1">License Number</p>
-                                            <p className="text-xl font-black text-ink-primary">{selectedKYC.license_number}</p>
-                                        </div>
-                                        <div className="p-6 bg-surface-secondary rounded-3xl">
-                                            <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest mb-1">Expiration</p>
-                                            <p className="text-xl font-black text-ink-primary">{selectedKYC.license_expiry}</p>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <section>
-                                    <h4 className="text-[10px] font-black uppercase text-accent-400 tracking-widest mb-6 border-b border-teal-50 pb-2 flex items-center gap-2">
-                                        <EmojiIcon emoji="⚙️" size={16} /> Vehicle Specification
-                                    </h4>
-                                    <div className="grid grid-cols-2 gap-6">
-                                        <div className="p-6 border-2 border-border-primary rounded-3xl">
-                                            <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest mb-1">Make & Model</p>
-                                            <p className="font-black text-ink-primary text-lg uppercase italic">{selectedKYC.v_make} {selectedKYC.v_model}</p>
-                                        </div>
-                                        <div className="p-6 border-2 border-border-primary rounded-3xl">
-                                            <p className="text-[9px] font-black text-ink-tertiary uppercase tracking-widest mb-1">License Plate</p>
-                                            <p className="font-black text-[#14b8a6] text-lg uppercase tracking-widest">{selectedKYC.v_plate}</p>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <section>
-                                    <h4 className="text-[10px] font-black uppercase text-sand-500 tracking-widest mb-6 border-b border-amber-50 pb-2 flex items-center gap-2">
-                                        <EmojiIcon emoji="🖼️" size={16} /> Document Evidence
-                                    </h4>
-                                    <div className="flex items-center justify-center p-20 bg-surface-secondary rounded-[3rem] border-2 border-dashed border-border-primary">
-                                        <div className="text-center">
-                                            <EmojiIcon emoji="📸" size={40} className="text-4xl mb-4 block" />
-                                            <p className="text-xs font-bold text-ink-tertiary">Identity document scans appear here upon secondary verification stage.</p>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-
-                            <div className="p-10 bg-ink-primary flex gap-4">
-                                <button
-                                    onClick={() => handleRowAction('unverify', selectedKYC)}
-                                    className="flex-1 py-5 bg-surface-tertiary text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-[#e11d48] transition-colors"
+                            {selectedKYC && (
+                                <motion.div
+                                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                    className="fixed inset-0 bg-theme-inverse/60 backdrop-blur-md z-[5000] flex items-center justify-center p-6"
+                                    onClick={() => setSelectedKYC(null)}
                                 >
-                                    Reject Application
-                                </button>
-                                <button
-                                    onClick={() => handleRowAction('verify', selectedKYC)}
-                                    className="flex-1 py-5 bg-accent-500/100 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-accent-400 shadow-xl shadow-teal-900/40"
-                                >
-                                    Approve Driver ➔
-                                </button>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
-    );
-}
+                                    <motion.div
+                                        initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
+                                        className="bg-card rounded-[3.5rem] w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                                        onClick={e => e.stopPropagation()}
+                                    >
+                                        <div className="p-10 border-b border-theme-primary flex justify-between items-center bg-theme-tertiary/50">
+                                            <div>
+                                                <h3 className="text-3xl font-black text-theme-primary italic uppercase tracking-tighter">KYC Document Vault</h3>
+                                                <p className="text-[10px] font-black text-icon-tertiary uppercase tracking-widest">Authentication for {selectedKYC.name}</p>
+                                            </div>
+                                            <button onClick={() => setSelectedKYC(null)} className="w-12 h-12 bg-theme-tertiary rounded-2xl flex items-center justify-center font-black text-sm shadow-xl hover:scale-110 transition-transform"><EmojiIcon emoji="✕" size={16} /></button>
+                                        </div>
+
+                                        <div className="flex-1 overflow-y-auto p-10 space-y-10">
+                                            <section>
+                                                <h4 className="text-[10px] font-black uppercase text-accent-primary tracking-widest mb-6 border-b border-accent-primary/50 pb-2 flex items-center gap-2">
+                                                    <EmojiIcon emoji="🛡️" size={16} /> Identity & Legal
+                                                </h4>
+                                                <div className="grid grid-cols-2 gap-8">
+                                                    <div className="p-6 bg-theme-tertiary rounded-3xl">
+                                                        <p className="text-[9px] font-black text-icon-tertiary uppercase tracking-widest mb-1">License Number</p>
+                                                        <p className="text-xl font-black text-theme-primary">{selectedKYC.license_number}</p>
+                                                    </div>
+                                                    <div className="p-6 bg-theme-tertiary rounded-3xl">
+                                                        <p className="text-[9px] font-black text-icon-tertiary uppercase tracking-widest mb-1">Expiration</p>
+                                                        <p className="text-xl font-black text-theme-primary">{selectedKYC.license_expiry}</p>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+                                            <section>
+                                                <h4 className="text-[10px] font-black uppercase text-warning-primary tracking-widest mb-6 border-b border-warning-primary/50 pb-2 flex items-center gap-2">
+                                                    <EmojiIcon emoji="⚙️" size={16} /> Vehicle Specification
+                                                </h4>
+                                                <div className="grid grid-cols-2 gap-6">
+                                                    <div className="p-6 border-2 border-theme-primary rounded-3xl">
+                                                        <p className="text-[9px] font-black text-icon-tertiary uppercase tracking-widest mb-1">Make & Model</p>
+                                                        <p className="font-black text-theme-primary text-lg uppercase italic">{selectedKYC.v_make} {selectedKYC.v_model}</p>
+                                                    </div>
+                                                    <div className="p-6 border-2 border-theme-primary rounded-3xl">
+                                                        <p className="text-[9px] font-black text-icon-tertiary uppercase tracking-widest mb-1">License Plate</p>
+                                                        <p className="font-black text-accent-primary text-lg uppercase tracking-widest">{selectedKYC.v_plate}</p>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+                                            <section>
+                                                <h4 className="text-[10px] font-black uppercase text-success-primary tracking-widest mb-6 border-b border-success-primary/50 pb-2 flex items-center gap-2">
+                                                    <EmojiIcon emoji="🖼️" size={16} /> Document Evidence
+                                                </h4>
+                                                <div className="flex items-center justify-center p-20 bg-theme-tertiary rounded-[3rem] border-2 border-dashed border-theme-primary">
+                                                    <div className="text-center">
+                                                        <EmojiIcon emoji="📸" size={40} className="text-4xl mb-4 block" />
+                                                        <p className="text-xs font-bold text-icon-tertiary">Identity document scans appear here upon secondary verification stage.</p>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+
+                                        <div className="p-10 bg-theme-inverse flex gap-4">
+                                            <button
+                                                onClick={() => handleRowAction('unverify', selectedKYC)}
+                                                className="flex-1 py-5 bg-theme-tertiary text-theme-inverse rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-danger-primary transition-colors"
+                                            >
+                                                Reject Application
+                                            </button>
+                                            <button
+                                                onClick={() => handleRowAction('verify', selectedKYC)}
+                                                className="flex-1 py-5 bg-accent-primary/100 text-theme-inverse rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-accent-secondary shadow-xl shadow-teal-900/40"
+                                            >
+                                                Approve Driver ➔
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                );
+            }

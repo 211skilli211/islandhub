@@ -255,6 +255,109 @@ body {
     background-color: var(--overlay-bg);
 }
 
+/* ===== THEME-AWARE SEMANTIC COLOR CLASSES ===== */
+/* Accent colors */
+.bg-accent-primary { background-color: var(--accent-primary); }
+.bg-accent-secondary { background-color: var(--accent-secondary); }
+.bg-accent-muted { background-color: var(--accent-muted); }
+.text-accent-primary { color: var(--accent-primary); }
+.text-accent-secondary { color: var(--accent-secondary); }
+.text-accent-muted { color: var(--accent-muted); }
+.border-accent-primary { border-color: var(--accent-primary); }
+
+/* Danger colors */
+.bg-danger-primary { background-color: var(--danger-primary); }
+.bg-danger-secondary { background-color: var(--danger-secondary); }
+.text-danger-primary { color: var(--danger-primary); }
+.text-danger-secondary { color: var(--danger-secondary); }
+.border-danger-primary { border-color: var(--danger-primary); }
+
+/* Success colors */
+.bg-success-primary { background-color: var(--success-primary); }
+.bg-success-secondary { background-color: var(--success-secondary); }
+.text-success-primary { color: var(--success-primary); }
+.text-success-secondary { color: var(--success-secondary); }
+.border-success-primary { border-color: var(--success-primary); }
+
+/* Warning colors */
+.bg-warning-primary { background-color: var(--warning-primary); }
+.bg-warning-secondary { background-color: var(--warning-secondary); }
+.text-warning-primary { color: var(--warning-primary); }
+.text-warning-secondary { color: var(--warning-secondary); }
+.border-warning-primary { border-color: var(--warning-primary); }
+
+/* Icon color utilities - theme aware */
+.text-icon-primary { color: var(--text-primary); }
+.text-icon-secondary { color: var(--text-secondary); }
+.text-icon-tertiary { color: var(--text-tertiary); }
+.text-icon-inverse { color: var(--text-inverse); }
+.text-icon-accent { color: var(--accent-primary); }
+
+/* Ring/focus utilities */
+.ring-theme { --tw-ring-color: var(--accent-primary); }
+.ring-offset-theme { --tw-ring-offset-color: var(--background-primary); }
+
+/* Button state variants */
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+.btn-primary:hover { background-color: var(--accent-secondary); }
+.btn-primary:focus { box-shadow: 0 0 0 3px var(--input-focus-ring); }
+
+.btn-secondary {
+    background-color: var(--background-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+}
+.btn-secondary:hover { background-color: var(--border-secondary); }
+
+.btn-danger {
+    background-color: var(--danger-primary);
+    color: white;
+    border-color: var(--danger-primary);
+}
+.btn-danger:hover { background-color: var(--danger-secondary); }
+
+.btn-success {
+    background-color: var(--success-primary);
+    color: white;
+    border-color: var(--success-primary);
+}
+.btn-success:hover { background-color: var(--success-secondary); }
+
+/* Card interactive states */
+.card-interactive {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.card-interactive:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Badge variants */
+.badge-primary { background-color: var(--accent-primary); color: white; }
+.badge-secondary { background-color: var(--background-tertiary); color: var(--text-primary); border: 1px solid var(--border-primary); }
+.badge-success { background-color: var(--success-primary); color: white; }
+.badge-warning { background-color: var(--warning-primary); color: white; }
+.badge-danger { background-color: var(--danger-primary); color: white; }
+.badge-outline { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border-primary); }
+
+/* Priority/Status colors */
+.priority-high { background-color: var(--danger-primary); color: white; }
+.priority-medium { background-color: var(--warning-primary); color: white; }
+.priority-low { background-color: var(--success-primary); color: white; }
+.priority-normal { background-color: var(--accent-primary); color: white; }
+
+.status-active { background-color: var(--success-primary); color: white; }
+.status-inactive { background-color: var(--border-tertiary); color: var(--text-tertiary); }
+.status-pending { background-color: var(--warning-primary); color: white; }
+.status-completed { background-color: var(--accent-primary); color: white; }
+.status-cancelled { background-color: var(--danger-primary); color: white; }
+
 /* Animation utilities */
 @layer utilities {
     .animate-slide-left {
