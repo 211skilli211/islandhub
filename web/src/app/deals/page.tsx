@@ -204,7 +204,7 @@ export default function DealsPage() {
                         alt={deal.title}
                         className="h-full w-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
                         loading="lazy"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        onError={(e: React.SyntheticEvent<HTMLImageElement>) => { e.currentTarget.style.display = 'none'; }}
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-4xl bg-gradient-to-br from-rose-500/10 to-amber-500/10">
