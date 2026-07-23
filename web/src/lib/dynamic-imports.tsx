@@ -26,9 +26,71 @@ function DashboardSkeleton() {
     );
 }
 
+function SearchSkeleton() {
+    return (
+        <div className="w-full max-w-3xl mx-auto">
+            <div className="h-14 bg-surface-secondary rounded-2xl animate-pulse border border-border-primary" />
+            <div className="mt-4 h-64 bg-surface-secondary rounded-2xl animate-pulse" />
+        </div>
+    );
+}
+
+function HeroSkeleton() {
+    return (
+        <div className="relative min-h-[500px] bg-surface-secondary animate-pulse rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-700 via-cyan-800 to-teal-900" />
+            <div className="relative h-full flex items-center justify-center">
+                <div className="text-center text-white">
+                    <div className="h-12 bg-white/20 rounded w-3/4 mx-auto mb-4 animate-pulse" />
+                    <div className="h-8 bg-white/20 rounded w-1/2 mx-auto animate-pulse" />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function SliderSkeleton() {
+    return (
+        <div className="relative h-[500px] bg-surface-secondary animate-pulse rounded-3xl overflow-hidden" />
+    );
+}
+
+function PulseSkeleton() {
+    return (
+        <div className="bg-surface-elevated rounded-2xl border border-border-primary p-6 animate-pulse space-y-4">
+            <div className="h-8 bg-surface-tertiary rounded w-1/4" />
+            <div className="grid grid-cols-3 gap-4">
+                {[1, 2, 3].map(i => (
+                    <div key={i} className="h-32 bg-surface-secondary rounded-xl" />
+                ))}
+            </div>
+            <div className="h-64 bg-surface-secondary rounded-xl" />
+        </div>
+    );
+}
+
+function MarqueeSkeleton() {
+    return (
+        <div className="h-16 bg-surface-secondary animate-pulse rounded-xl overflow-hidden" />
+    );
+}
+
+function SectionSkeleton() {
+    return (
+        <div className="space-y-4 animate-pulse">
+            <div className="h-8 bg-surface-tertiary rounded w-1/3" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[1, 2, 3, 4].map(i => (
+                    <div key={i} className="h-40 bg-surface-secondary rounded-xl" />
+                ))}
+            </div>
+        </div>
+    );
+}
+
 // Chart components - only load when dashboard is visible
 export const SalesChart = dynamic(
-    () => import('@/components/charts/RevenueChart').then(mod => mod.default), // Reusing RevenueChart as SalesChart for now or generic Chart
+    () => import('@/components/charts/RevenueChart').then(mod => mod.default),
     {
         loading: () => <ChartSkeleton type="line" />,
         ssr: false
@@ -132,6 +194,80 @@ export const DispatchMap = dynamic(
                 Loading Map...
             </div>
         ),
+        ssr: false
+    }
+);
+
+// --- Homepage Heavy Components ---
+
+export const SmartSearch = dynamic(
+    () => import('@/components/search/SmartSearch'),
+    {
+        loading: () => <SearchSkeleton />,
+        ssr: false
+    }
+);
+
+export const HeroBackground = dynamic(
+    () => import('@/components/HeroBackground'),
+    {
+        loading: () => <HeroSkeleton />,
+        ssr: false
+    }
+);
+
+export const HeroSlider = dynamic(
+    () => import('@/components/hub/MarketplaceSections').then(mod => mod.HeroSlider),
+    {
+        loading: () => <SliderSkeleton />,
+        ssr: false
+    }
+);
+
+export const RecommendedForYou = dynamic(
+    () => import('@/components/recommendations/RecommendedForYou'),
+    {
+        loading: () => <SectionSkeleton />,
+        ssr: false
+    }
+);
+
+export const VendorSpotlight = dynamic(
+    () => import('@/components/marketplace/VendorSpotlight'),
+    {
+        loading: () => <SectionSkeleton />,
+        ssr: false
+    }
+);
+
+export const IslandPulse = dynamic(
+    () => import('@/components/IslandPulse'),
+    {
+        loading: () => <PulseSkeleton />,
+        ssr: false
+    }
+);
+
+export const BrandMarquee = dynamic(
+    () => import('@/components/BrandMarquee'),
+    {
+        loading: () => <MarqueeSkeleton />,
+        ssr: false
+    }
+);
+
+export const RequestServicesSection = dynamic(
+    () => import('@/components/RequestServicesSection'),
+    {
+        loading: () => <SectionSkeleton />,
+        ssr: false
+    }
+);
+
+export const AdSpace = dynamic(
+    () => import('@/components/advertising/AdSpace'),
+    {
+        loading: () => <div className="h-32 bg-surface-secondary animate-pulse rounded-xl" />,
         ssr: false
     }
 );

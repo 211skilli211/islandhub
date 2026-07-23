@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 interface BrandLogo {
     id: number;
@@ -19,6 +20,7 @@ interface BrandMarqueeProps {
 export default function BrandMarquee({ speed = 25, className = '', title }: BrandMarqueeProps) {
     const [brands, setBrands] = useState<BrandLogo[]>([]);
     const [loading, setLoading] = useState(true);
+    const shouldReduceMotion = useReducedMotion();
 
     useEffect(() => {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -57,7 +59,7 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
                 <div
                     className="flex items-center gap-10"
                     style={{
-                        animation: `marquee-scroll ${speed}s linear infinite`,
+                        animation: shouldReduceMotion ? 'none' : `marquee-scroll ${speed}s linear infinite`,
                         width: 'max-content',
                     }}
                 >
@@ -91,13 +93,21 @@ export default function BrandMarquee({ speed = 25, className = '', title }: Bran
                         </div>
                     ))}
                 </div>
-            </div>
-            <style>{`
-                @keyframes marquee-scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-            `}</style>
+                        </div>
+                        <style>{`
+                            @media (prefers-reduced-motion: reduce) {
+                                @keyframes marquee-scroll {
+                                    0% { transform: translateX(0); }
+                                    100% { transform: translateX(0); }
+                                }
+                            }
+                            @media (prefers-reduced-motion: no-preference) {
+                                @keyframes marquee-scroll {
+                                    0% { transform: translateX(0); }
+                                    100% { transform: translateX(-50%); }
+                                }
+                            }
+                        `}</style>
         </div>
     );
 }

@@ -2,20 +2,26 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import api, { getImageUrl } from '@/lib/api';
-import SmartSearch from '@/components/search/SmartSearch';
 import { useCampaigns, useListings } from '@/lib/hooks/use-swr';
 import { useAuthStore } from '@/lib/auth';
-import RecommendedForYou from '@/components/recommendations/RecommendedForYou';
-import VendorSpotlight from '@/components/marketplace/VendorSpotlight';
-import HeroBackground from '@/components/HeroBackground';
-import RequestServicesSection from '@/components/RequestServicesSection';
-import AdSpace from '@/components/advertising/AdSpace';
-import IslandPulse from '@/components/IslandPulse';
-import BrandMarquee from '@/components/BrandMarquee';
+
+// Dynamic imports for heavy components
+import { 
+  SmartSearch, 
+  HeroBackground, 
+  HeroSlider,
+  RecommendedForYou,
+  VendorSpotlight,
+  IslandPulse,
+  BrandMarquee,
+  RequestServicesSection,
+  AdSpace
+} from '@/lib/dynamic-imports';
+
 import { ProductCard, CarouselSection } from '@/components/hub/ListingCard';
-import { HeroSlider, DealCard, DynamicCategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
+import { DealCard, DynamicCategoryTiles, ContentSection } from '@/components/hub/MarketplaceSections';
 import { CompactCard } from '@/components/hub/CompactCard';
 import Aurora from '@/components/react-bits/backgrounds/Aurora';
 import AnimatedContent from '@/components/react-bits/animations/AnimatedContent';
@@ -24,6 +30,7 @@ import { Bot, Code, Zap, Users, TrendingUp, ShoppingBag, Home as HomeIcon, MapPi
 
 export default function Home() {
   const { user } = useAuthStore();
+  const shouldReduceMotion = useReducedMotion();
 
   const { data: campaignsData, isLoading: campaignsLoading } = useCampaigns(true);
   const { data: toursData, isLoading: toursLoading } = useListings({ category: 'tour', sub_category: 'culture,land,sea,rail,adventure,charter', featured: true, limit: 10 });
@@ -87,10 +94,20 @@ export default function Home() {
       <HeroBackground pageKey="home" align="center">
         <div className="max-w-7xl mx-auto w-full">
           <HeroSlider slides={heroSlides} autoPlay autoPlayInterval={6000} className="mb-6 md:mb-8" />
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="max-w-3xl mx-auto relative mb-6">
+          <motion.div 
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }} 
+            animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }} 
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }} 
+            className="max-w-3xl mx-auto relative mb-6"
+          >
             <SmartSearch />
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex flex-wrap justify-center gap-3">
+          <motion.div 
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }} 
+            animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }} 
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3 }} 
+            className="flex flex-wrap justify-center gap-3"
+          >
             <Link href="/hub" className="px-5 py-2.5 bg-white text-teal-900 text-sm font-bold rounded-xl hover:bg-white/90 transition-colors">
               Browse Marketplace 🛒
             </Link>
@@ -214,7 +231,7 @@ export default function Home() {
         <ContentSection title="🏠 Island Rentals" subtitle="From villas, cars, to boats" seeMoreHref="/hub/rentals">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {diverseFeaturedRentals.map((item: any) => (
-              <motion.div key={item.id} whileHover={{ y: -4 }}>
+              <motion.div key={item.id} whileHover={shouldReduceMotion ? false : { y: -4 }}>
                 <Link href={`/hub/rentals/stays/${item.slug || item.id}`} className="block group">
                   <div className="bg-surface-elevated rounded-xl border border-border-primary overflow-hidden hover:border-accent-500/30 transition-all">
                     <div className="relative aspect-square bg-surface-secondary">

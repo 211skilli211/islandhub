@@ -40,10 +40,19 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
   ...props
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useRef(false);
 
   useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     const el = ref.current;
     if (!el) return;
+
+    // If reduced motion is preferred, show content immediately without animation
+    if (prefersReducedMotion.current) {
+      gsap.set(el, { visibility: 'visible', opacity: 1, x: 0, y: 0, scale: 1 });
+      return;
+    }
 
     let scrollerTarget: Element | string | null = container || null;
     if (typeof scrollerTarget === 'string') {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
 
@@ -31,6 +31,7 @@ interface HeroSliderProps {
 export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, className = '' }: HeroSliderProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   const goTo = useCallback((idx: number) => {
     setDirection(idx > current ? 1 : -1);
@@ -71,10 +72,10 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
           key={slide.id}
           custom={direction}
           variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.35, ease: 'easeInOut' }}
+          initial={shouldReduceMotion ? false : "enter"}
+          animate={shouldReduceMotion ? "center" : "center"}
+          exit={shouldReduceMotion ? false : "exit"}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.35, ease: 'easeInOut' }}
           className={`relative bg-gradient-to-br ${slide.gradient} min-h-[220px] sm:min-h-[280px] flex flex-col justify-end p-5 sm:p-8`}
         >
           

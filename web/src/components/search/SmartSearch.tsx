@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useDebounce } from '@/lib/hooks/use-debounce';
 
 interface SearchSuggestion {
@@ -24,6 +24,7 @@ export default function SmartSearch() {
     const inputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
     const debouncedQuery = useDebounce(query, 300);
+    const shouldReduceMotion = useReducedMotion();
 
     // Fetch suggestions when query changes
     useEffect(() => {
@@ -123,9 +124,10 @@ export default function SmartSearch() {
             <AnimatePresence>
                 {showDropdown && suggestions.length > 0 && (
                     <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
+                        animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
+                        transition={shouldReduceMotion ? { duration: 0 } : undefined}
                         className="absolute top-full left-0 right-0 mt-2 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
                     >
                         
