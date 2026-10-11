@@ -76,7 +76,14 @@ class VisualSearchClient {
    */
   async searchByImage(imageBuffer: Buffer, contentType: string, topK: number = 10): Promise<PixelRAGSearchResponse> {
     const formData = new FormData();
-    formData.append('image', new Blob([imageBuffer], { type: contentType }), 'query.jpg');
+    // A `Buffer` is typed over `ArrayBufferLike`, which includes `SharedArrayBuffer`,
+    // and `BlobPart` only accepts the non-shared `ArrayBuffer` flavours — hence
+    // TS2322. Copying into a `Uint8Array` over a plain `ArrayBuffer` gives the
+    // constructor a type it accepts, and copies rather than views, so a later
+    // mutation of the caller's buffer cannot change what is uploaded.
+    const bytes = new Uint8Array(imageBuffer.byteLength);
+    bytes.set(imageBuffer);
+    formData.append('image', new Blob([bytes], { type: contentType }), 'query.jpg');
     formData.append('n_docs', String(topK));
 
     if (this.apiKey) {

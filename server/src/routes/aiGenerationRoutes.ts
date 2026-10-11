@@ -21,14 +21,20 @@ router.post('/generate-image', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Prompt too long (max 2000 chars)' });
     }
 
-    const stylePrefix = {
+    // Typed as a lookup record rather than an inferred literal object. `style`
+    // comes from the request body and is `any`, so indexing an inferred object
+    // type with it is a type error (TS7053) as well as an unchecked lookup — an
+    // unknown style would have yielded `undefined` and silently produced a prompt
+    // with no style prefix at all. The fallback below makes that explicit.
+    const stylePrefixes: Record<string, string> = {
       professional: 'Professional marketing advertisement, clean design, high quality, ',
       tropical: 'Tropical Caribbean style, vibrant colors, island aesthetic, warm lighting, ',
       luxury: 'Premium luxury aesthetic, elegant, sophisticated, gold accents, ',
       minimalist: 'Minimalist design, clean lines, white space, modern, ',
       vibrant: 'Vivid saturated colors, energetic, eye-catching, dynamic composition, ',
       cinematic: 'Cinematic lighting, dramatic composition, film quality, 4K, ',
-    }[style] || '';
+    };
+    const stylePrefix = typeof style === 'string' ? (stylePrefixes[style] ?? stylePrefixes.professional) : stylePrefixes.professional;
 
     const contextSuffix = context === 'advertisement_banner'
       ? ', advertisement banner format, marketing creative, commercial quality'
