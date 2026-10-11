@@ -139,9 +139,17 @@ async function dispatch(
     const message = bodyFor(type, data);
 
     // Persist first, so the durable record exists even if the push below is lost.
+    //
+    // Column names are taken from the **live** table, which does not match the
+    // migration in this repo: the deployed `public.notifications` has
+    // `notification_id` as its key and stores the text in `body`, whereas
+    // `src/migrations/042_notifications_table.sql` declares `id` and `message`.
+    // Writing the migration's names would have failed on every insert — caught,
+    // logged, and therefore silent, which is precisely the failure this service
+    // exists to end. Verified against the database rather than the file.
     try {
         await pool.query(
-            `INSERT INTO notifications (user_id, type, title, message, data)
+            `INSERT INTO notifications (user_id, type, title, body, data)
              VALUES ($1, $2, $3, $4, $5)`,
             [userId, type.slice(0, 50), resolvedTitle.slice(0, 255), message, JSON.stringify(data)],
         );
