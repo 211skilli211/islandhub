@@ -198,7 +198,7 @@ export default function LoginPage() {
               />
             </svg>
             <span className="googleText">Continue with Google</span>
-          </button>
+          </motion.button>
 
           <div className={styles.divider}>
             <div className="dividerLine" />
@@ -416,10 +416,10 @@ export default function LoginPage() {
               </Link>
             </p>
           </motion.div>
-        </form>
+        </motion.div>
       </div>
-    </div>
-    </>;
+    </>
+  );
 };
 
 export default LoginPage;

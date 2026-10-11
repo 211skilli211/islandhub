@@ -89,6 +89,14 @@ export const adminNavItems: NavItem[] = [
         ]
     },
     { 
+        title: 'Marketplace', 
+        href: '/admin/applications', 
+        icon: 'ClipboardList',
+        children: [
+            { title: 'Applications', href: '/admin/applications', icon: 'ClipboardList' }
+        ]
+    },
+    { 
         title: 'Revenue', 
         href: '/admin/revenue', 
         icon: 'DollarSign'

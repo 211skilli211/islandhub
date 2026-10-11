@@ -24,8 +24,15 @@ import { getAllCampaigns } from '../controllers/campaignController';
 import { getAllMedia } from '../controllers/uploadController';
 import { getTileAssets, getTileAssetByKey, updateTileAsset, deleteTileAsset } from '../controllers/tileAssetController';
 import { authenticateJWT, isAdmin } from '../middleware/authMiddleware';
+import memberApplicationRoutes from './memberApplicationRoutes';
 
 const router = Router();
+
+// Marketplace (SKN Bridge Trade) applications, submitted on the public site and
+// stored in the shared database's `islandhub` schema. Mounted here so they sit
+// behind the same authenticateJWT + isAdmin guard as every other admin surface,
+// rather than introducing a second permission model.
+router.use('/member-applications', memberApplicationRoutes);
 
 // Dashboard stats
 router.get('/stats', authenticateJWT, isAdmin, getDashboardStats);

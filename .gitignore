@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+out/
+coverage/
+
+# TypeScript incremental build state
+*.tsbuildinfo
+
+# Note on package-lock.json: deliberately NOT ignored.
+#
+# CI (.github/workflows/ci.yml) runs `npm ci`, which requires a lockfile and
+# fails without one. Since the repo has neither a root lockfile nor per-package
+# ones committed, both `backend-ci` and `frontend-ci` cannot pass today. Lockfiles
+# should be committed rather than ignored - `npm ci` is the reproducible install,
+# and `npm install` in CI can silently drift from what was tested.
+#
+# That is a decision for the repo owner rather than something to slip into a
+# feature branch, because the lockfiles this branch generated are large.
+
+# Environment files - never commit real values
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+*.swp

@@ -33,6 +33,7 @@ const adminNavItems = [
   { id: 'media', label: 'Media', icon: Image, href: '/admin/assets' },
   { id: 'brands', label: 'Brands', icon: Award, href: '/admin/brands' },
   { id: 'ibt-partners', label: 'IBT Partners', icon: Building2, href: '/admin/ibt-partners' },
+  { id: 'applications', label: 'Applications', icon: ClipboardList, href: '/admin/applications' },
   { id: 'ads', label: 'Ads', icon: Megaphone, href: '/admin/ads' },
   { id: 'agent', label: 'Agent', icon: Bot, href: '/admin/agent' },
   { id: 'settings', label: 'Settings', icon: Settings, href: '/admin/settings' },
