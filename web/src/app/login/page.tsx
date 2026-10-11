@@ -24,7 +24,16 @@ interface LoginFormData {
   rememberMe: boolean;
 }
 
-export default function LoginPage() {
+/**
+ * Login page.
+ *
+ * Note the export style: the declaration is deliberately NOT `export default
+ * function`. An earlier version had both that AND a trailing
+ * `export default LoginPage`, which Turbopack rejects with "the name `default` is
+ * exported multiple times". `tsc` does not flag it, so it only surfaced in the
+ * production build.
+ */
+function LoginPage() {
   const router = useRouter();
   const login = useAuthStore((state) => state.login);
   const [showPassword, setShowPassword] = useState(false);
@@ -420,6 +429,6 @@ export default function LoginPage() {
       </div>
     </>
   );
-};
+}
 
 export default LoginPage;
