@@ -8,7 +8,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { registerUser, useAuthStore } from '@/lib/auth';
 import toast from '@/lib/toast';
 import { EmojiIcon } from '@/components/ui/EmojiIcon';
-import styles from './AuthForm.module.css';
+// The stylesheet lives in the sibling `login/` route and is shared. Importing
+// './AuthForm.module.css' resolved on a case-insensitive Windows filesystem only
+// when the file happened to be duplicated; on Vercel's Linux builder it does not
+// exist in this directory at all, which failed the build with
+// "Can't resolve './AuthForm.module.css'".
+import styles from '../login/AuthForm.module.css';
 import {
   EyeIcon,
   EyeOffIcon,
@@ -60,7 +65,14 @@ interface RegisterFormData {
 
 type RegisterStep = 1 | 2 | 3;
 
-export default function RegisterPage() {
+/**
+ * Registration page.
+ *
+ * Note the export style: the declaration is deliberately not
+ * `export default function`. It used to be, alongside a trailing
+ * `export default RegisterPage`, which is a duplicate-default-export error.
+ */
+function RegisterPage() {
   const router = useRouter();
   const { logout, isAuthenticated } = useAuthStore();
   const [step, setStep] = useState<RegisterStep>(1);
@@ -111,7 +123,16 @@ export default function RegisterPage() {
     }
   }, [isAuthenticated, logout]);
 
-  const handleSubmit = async (data: RegisterFormData) => {
+  /**
+   * The registration handler.
+   *
+   * Named `submitRegistration`, not `handleSubmit`. `handleSubmit` is already the
+   * validation wrapper `useForm` returns, and this file also declared it twice
+   * more as a function — then called `handleSubmit(handleSubmit)` from the form,
+   * which is self-referential and hands React Hook Form a function of the wrong
+   * shape. Renaming removes the collision and the confusion.
+   */
+  const submitRegistration = async (data: RegisterFormData) => {
     setLoading(true);
     
     try {
@@ -134,7 +155,10 @@ export default function RegisterPage() {
         finalRole = 'sponsor';
       }
 
-      const data = await registerUser({
+      // Awaited without binding the result. The response is never read, and naming
+      // it `data` shadowed the `data` parameter — so every property below resolved
+      // to the not-yet-initialised inner binding rather than the form values.
+      await registerUser({
         name: data.name,
         email: data.email,
         password: data.password,
@@ -204,132 +228,6 @@ export default function RegisterPage() {
     }
     return true;
   };
-
-  const getPasswordStrength = (pwd: string) => {
-    let score = 0;
-    if (!pwd) return { level: 'weak', score: 0 };
-    if (pwd.length >= 8) score++;
-    if (pwd.length >= 12) score++;
-    if (/[A-Z]/.test(pwd)) score++;
-    if (/[a-z]/.test(pwd)) score++;
-    if (/[0-9]/.test(pwd)) score++;
-    if (/[^A-Za-z0-9]/.test(pwd)) score++;
-    
-    if (score <= 2) return { level: 'weak', score: 1 };
-    if (score === 3) return { level: 'fair', score: 2 };
-    if (score === 4 || score === 5) return { level: 'good', score: 3 };
-    return { level: 'strong', score: 4 };
-  };
-
-  const passwordStrength = getPasswordStrength(watch('password') || '');
-
-  const handleSubmit = async (data: any) => {
-    setLoading(true);
-    
-    try {
-      let finalRole = 'buyer';
-      let roleCategory = data.selectedRole;
-
-      if (data.selectedRole === 'vendor') {
-        finalRole = data.vendorCategory === 'other' && data.customCategory
-          ? `vendor_${data.customCategory.toLowerCase().replace(/\s+/g, '_')}`
-          : `vendor_${data.vendorCategory}`;
-      } else if (data.selectedRole === 'driver') {
-        finalRole = `driver_${data.driverCategory}`;
-      } else if (data.selectedRole === 'creator') {
-        finalRole = 'creator';
-      } else if (data.selectedRole === 'sponsor') {
-        finalRole = 'sponsor';
-      }
-
-      const data = await registerUser({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        role: finalRole,
-        role_category: data.selectedRole || 'buyer',
-        vendor_category: data.vendorCategory || undefined,
-        driver_category: data.driverCategory || undefined,
-        custom_category: data.customCategory || undefined,
-      });
-
-      toast.success('Registration successful! Please check your email.');
-      setTimeout(() => router.push('/login'), 2000);
-    } catch (error: any) {
-      console.error('Registration error:', error);
-      
-      const details = error.response?.data?.details;
-      const message = error.response?.data?.message;
-      const status = error.response?.status;
-
-      if (details && Array.isArray(details) && details.length > 0) {
-        details.forEach((detail: any) => {
-          if (detail.field) {
-            const fieldMap: Record<string, string> = {
-              name: 'name',
-              email: 'email',
-              password: 'password',
-              vendor_category: 'vendorCategory',
-              driver_category: 'driverCategory',
-              custom_category: 'customCategory',
-            };
-            const fieldName = fieldMap[detail.field] || detail.field;
-            setError(fieldName as any, { message: detail.message });
-          }
-        });
-      } else if (message) {
-        const lowerMessage = message.toLowerCase();
-        if (lowerMessage.includes('email') && (lowerMessage.includes('exists') || lowerMessage.includes('taken'))) {
-          setError('email', { message: 'An account with this email already exists' });
-        } else if (lowerMessage.includes('password')) {
-          setError('password', { message: 'Password does not meet requirements' });
-        } else if (lowerMessage.includes('name')) {
-          setError('name', { message: 'Please enter a valid name' });
-        } else {
-          toast.error(message, { duration: 5000, style: { maxWidth: '400px' } });
-        }
-      } else {
-        toast.error('Registration failed. Please try again.', { duration: 4000 });
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const canProceedToStep2 = () => {
-    if (step === 1) return selectedRole !== '';
-    if (step === 2 && selectedRole === 'vendor') return vendorCategory !== '';
-    if (step === 2 && selectedRole === 'driver') return driverCategory !== '';
-    return true;
-  };
-
-  const canProceedToStep3 = () => {
-    if (step === 2) {
-      if (selectedRole === 'vendor') return vendorCategory !== '';
-      if (selectedRole === 'driver') return driverCategory !== '';
-      return true;
-    }
-    return true;
-  };
-
-  const passwordStrength = getPasswordStrength(watch('password') || '');
-
-  const getPasswordStrength = (pwd: string) => {
-    let score = 0;
-    if (!pwd) return { level: 'weak', score: 0 };
-    if (pwd.length >= 8) score++;
-    if (pwd.length >= 12) score++;
-    if (/[A-Z]/.test(pwd)) score++;
-    if (/[a-z]/.test(pwd)) score++;
-    if (/[0-9]/.test(pwd)) score++;
-    if (/[^A-Za-z0-9]/.test(pwd)) score++;
-    
-    if (score <= 2) return { level: 'weak', score: 1 };
-    if (score === 3) return { level: 'fair', score: 2 };
-    if (score === 4 || score === 5) return { level: 'good', score: 3 };
-    return { level: 'strong', score: 4 };
-  };
-
   return (
     <>
       <div className={styles.formContainer}>
@@ -438,10 +336,10 @@ export default function RegisterPage() {
                     disabled={!canProceedToStep2()}
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
-                    disabled={!canProceedToStep2()}
                   >
                     Continue
                   </motion.button>
+                </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -522,7 +420,6 @@ export default function RegisterPage() {
                               onChange={(e) => setValue('customCategory', e.target.value)}
                               placeholder="e.g., Photographer, Event Planner..."
                               className="input"
-                              placeholder="e.g., Photographer, Event Planner..."
                             />
                           </motion.div>
                         )}
@@ -595,11 +492,11 @@ export default function RegisterPage() {
                       disabled={!canProceedToStep2()}
                       whileHover={{ scale: 1.01 }}
                       whileTap={{ scale: 0.99 }}
-                      disabled={!canProceedToStep2()}
                     >
                       <ChevronRightIcon className="w-5 h-5 ml-2" />
                       Continue
                     </motion.button>
+                  </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -634,7 +531,7 @@ export default function RegisterPage() {
                     </div>
 
                     <AnimatePresence mode="wait">
-                      <form onSubmit={handleSubmit(handleSubmit)} className="space-y-6" noValidate>
+                      <form onSubmit={handleSubmit(submitRegistration)} className="space-y-6" noValidate>
                         {/* Name Field */}
                         <motion.div
                           className={styles.fieldGroup}
@@ -859,12 +756,10 @@ export default function RegisterPage() {
                         </Link>
                       </p>
                     </motion.div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+        </motion.div>
       </div>
     </>
   );

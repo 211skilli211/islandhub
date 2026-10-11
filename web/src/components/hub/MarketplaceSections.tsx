@@ -74,7 +74,11 @@ export function HeroSlider({ slides, autoPlay = false, autoPlayInterval = 5000, 
           variants={variants}
           initial={shouldReduceMotion ? false : "enter"}
           animate={shouldReduceMotion ? "center" : "center"}
-          exit={shouldReduceMotion ? false : "exit"}
+          // `exit` cannot be `false`: framer-motion's types accept `boolean` for
+          // `initial` but not for `exit`, and the build fails type-checking. An
+          // explicit no-op target keeps reduced motion free of animation while
+          // satisfying the type.
+          exit={shouldReduceMotion ? { opacity: 1 } : "exit"}
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.35, ease: 'easeInOut' }}
           className={`relative bg-gradient-to-br ${slide.gradient} min-h-[220px] sm:min-h-[280px] flex flex-col justify-end p-5 sm:p-8`}
         >

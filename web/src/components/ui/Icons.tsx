@@ -195,20 +195,14 @@ export const UsersIcon = createIcon([
   <path key="4" d="M16 3.13a4 4 0 0 1 0 7.75" />,
 ]);
 
-export const EmojiIcon = ({ emoji = '😀', size = 20, className = '', ...props }: React.SVGProps<SVGSVGElement> & { emoji?: string; size?: number }) => {
-  return (
-    <span
-      style={{
-        fontSize: size,
-        lineHeight: 1,
-        display: 'inline-block',
-      }}
-      className={className}
-      role="img"
-      aria-label={emoji}
-      {...props}
-    >
-      {emoji}
-    </span>
-  );
-};
+/**
+ * Re-exported rather than declared here.
+ *
+ * This file used to carry its own `EmojiIcon` that rendered the emoji as text and
+ * spread `React.SVGProps<SVGSVGElement>` onto a `<span>`, which is a type error
+ * (SVG props are not span props) and a second, worse implementation of a component
+ * that already has a proper home: `./EmojiIcon` maps emoji to animated Lucide
+ * icons, and all 18 call sites import it from there. This re-export exists only so
+ * `Icons` stays a complete surface.
+ */
+export { EmojiIcon } from './EmojiIcon';

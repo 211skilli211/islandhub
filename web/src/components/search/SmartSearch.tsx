@@ -126,7 +126,10 @@ export default function SmartSearch() {
                     <motion.div
                         initial={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
                         animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-                        exit={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
+                        // `exit` cannot be `false`: framer-motion's types accept
+                        // `boolean` for `initial` but not for `exit`. A no-op target
+                        // keeps reduced motion animation-free and type-checks.
+                        exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
                         transition={shouldReduceMotion ? { duration: 0 } : undefined}
                         className="absolute top-full left-0 right-0 mt-2 bg-surface-elevated rounded-2xl shadow-xl border border-border-primary overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
                     >

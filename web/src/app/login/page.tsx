@@ -84,8 +84,12 @@ function LoginPage() {
     clearErrors();
     
     try {
-      const data = await loginUser({ email, password });
-      login(data.token, data.user, data.refresh_token);
+      // `data.email`, not a bare `email`: the only `email` in scope is the field
+      // name passed to `register('email', …)`, so the shorthand here referenced
+      // nothing. The result is bound to `session` rather than `data`, because
+      // naming it `data` shadowed this function's own parameter.
+      const session = await loginUser({ email: data.email, password: data.password });
+      login(session.token, session.user, session.refresh_token);
       toast.success('Welcome back!');
       router.push('/');
     } catch (error: any) {
