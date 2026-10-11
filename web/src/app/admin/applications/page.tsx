@@ -116,8 +116,16 @@ export default function AdminApplicationsPage() {
     const move = async (application: Application, status: ApplicationStatus) => {
         setBusyId(application.id);
         try {
-            await api.patch(`/admin/member-applications/${application.id}/status`, { status });
-            toast.success(`${application.name} moved to ${status}`);
+            const res = await api.patch(`/admin/member-applications/${application.id}/status`, { status });
+            // Approving creates the seller record, and the server reports what it
+            // did. Surfaced rather than swallowed: the operator is the only person
+            // who can tell a new seller they still need to sign up with an email,
+            // because an application never carries one.
+            if (status === 'approved' && res.data?.sellerNote) {
+                toast.success(`${application.name} approved. ${res.data.sellerNote}`, { duration: 8000 });
+            } else {
+                toast.success(`${application.name} moved to ${status}`);
+            }
             setRejecting(null);
             await load(filter);
         } catch (err: unknown) {

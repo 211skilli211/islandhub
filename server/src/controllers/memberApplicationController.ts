@@ -45,6 +45,13 @@ const t = (name: string): string => {
 
 const APPLICATIONS = t('member_applications');
 
+/**
+ * The marketplace's storefront table, in the same shared schema. An approved
+ * applicant needs a row here as well as in `public.vendors` — see
+ * `provisionSeller` for why both exist.
+ */
+const SELLERS = t('sellers');
+
 type ApplicationStatus = 'received' | 'contacted' | 'verified' | 'approved' | 'rejected';
 
 const STATUSES: ApplicationStatus[] = ['received', 'contacted', 'verified', 'approved', 'rejected'];
@@ -232,8 +239,18 @@ export const updateMemberApplicationStatus = async (req: Request, res: Response)
             [next, id],
         );
 
+        // Approving is the point at which the marketplace gains a seller, so the
+        // seller record is created in the same transaction. Inside it, for the
+        // reason that matters: an approval that recorded the decision but failed
+        // to create the seller would leave someone told they are a member with
+        // nothing to sell on, and no way to tell from the queue that it happened.
+        let sellerNote: string | null = null;
+        if (next === 'approved' && from !== 'approved') {
+            sellerNote = await provisionSeller(client, updated.rows[0]);
+        }
+
         await client.query('COMMIT');
-        return res.json(shapeApplication(updated.rows[0]));
+        return res.json({ ...shapeApplication(updated.rows[0]), sellerNote });
     } catch (error) {
         await client.query('ROLLBACK').catch(() => undefined);
         console.error('Update member application status error:', error);
@@ -242,3 +259,74 @@ export const updateMemberApplicationStatus = async (req: Request, res: Response)
         client.release();
     }
 };
+
+/**
+ * Give an approved application a presence in both halves of the platform.
+ *
+ * Symmetric, because the platform is: `public.vendors` is the canonical vendor
+ * record that the rest of IslandHub reads, while this marketplace's own listings
+ * and orders reference `islandhub.sellers`. An approved applicant needs both —
+ * one to exist as a vendor, one to be able to sell here.
+ *
+ * **`public.vendors.user_id` is left NULL**, and that is the crux. The column is
+ * nullable (there is already a live `user_id IS NULL` vendor), because the
+ * applicant has no account yet: their application carries a name and a phone
+ * number, never an email, so no `public.users` row can be created at this point
+ * and nothing may be guessed. So the vendor is created unclaimed, and
+ * `islandhub.sellers.application_id` records which application it came from. That
+ * reference is what lets the eventual sign-in step claim the record instead of
+ * creating a duplicate seller, which is the failure this is designed to prevent.
+ *
+ * Idempotent on `application_id`, so re-approving after a manual correction
+ * cannot produce a second seller.
+ *
+ * Returns a short note for the operator, or null. Failures are thrown so the
+ * caller's transaction rolls back rather than half-approving.
+ */
+async function provisionSeller(
+    client: { query: (text: string, values?: unknown[]) => Promise<{ rows: Record<string, unknown>[] }> },
+    application: Record<string, unknown>,
+): Promise<string | null> {
+    const applicationId = application.id as string;
+
+    const existing = await client.query(
+        `select id from ${SELLERS} where application_id = $1`,
+        [applicationId],
+    );
+    if (existing.rows.length > 0) {
+        return 'A seller already exists for this application; nothing was duplicated.';
+    }
+
+    const island = String(application.island ?? '');
+    const name = String(application.name ?? '');
+
+    // The vendor row the rest of the platform reads.
+    const vendor = await client.query(
+        `insert into public.vendors (business_name, status)
+         values ($1, 'active')
+         returning id`,
+        [name],
+    );
+    const vendorId = vendor.rows[0]?.id ?? null;
+
+    // The seller row this marketplace's listings and orders point at.
+    const seller = await client.query(
+        `insert into ${SELLERS} (island_id, display_name, village, application_id)
+         values ($1, $2, $3, $4)
+         returning id`,
+        [island, name, null, applicationId],
+    );
+
+    const notes: string[] = [];
+    if (vendorId !== null) notes.push(`vendor #${vendorId} created`);
+    else notes.push('vendor created');
+
+    if (application.phone) {
+        // Deliberately surfaced rather than acted on. There is no email on an
+        // application, so the account cannot be created here, and the operator is
+        // the only one who can tell the seller what happens next.
+        notes.push('no account yet - the seller must sign up with an email to claim this listing');
+    }
+
+    return `${notes.join('; ')}.`;
+}
